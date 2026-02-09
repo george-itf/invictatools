@@ -1,0 +1,135 @@
+{% comment %}
+  ============================================
+  BRAND FEATURED PRODUCTS v1.0
+  ============================================
+  Product grid using existing invicta-product-card snippet
+  CRITICAL: Reuses existing product card for consistency
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+{{ 'brand-page.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign collection = section.settings.collection
+  assign products_to_show = section.settings.products_to_show | default: 4
+-%}
+
+<section class="brand-products" id="products-{{ section.id }}">
+  <div class="page-width">
+
+    {%- comment -%} Header Row {%- endcomment -%}
+    <div class="brand-products__header">
+      <div class="brand-products__header-left">
+        {%- if section.settings.title != blank -%}
+          <h2 class="brand-products__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.cta_text != blank and section.settings.cta_url != blank -%}
+        <a href="{{ section.settings.cta_url }}" class="brand-products__view-all">
+          {{ section.settings.cta_text }}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Product Grid {%- endcomment -%}
+    {%- if collection != blank and collection.products.size > 0 -%}
+      <ul class="brand-products__grid" role="list">
+        {%- for product in collection.products limit: products_to_show -%}
+          <li class="brand-products__item">
+            {%- comment -%}
+              CRITICAL: Using existing invicta-product-card snippet
+              This ensures VAT toggle, wishlist, stock badges all work correctly
+            {%- endcomment -%}
+            {% render 'invicta-product-card', product: product %}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- else -%}
+      {%- comment -%} Placeholder Grid {%- endcomment -%}
+      <ul class="brand-products__grid" role="list">
+        {%- for i in (1..products_to_show) -%}
+          <li class="brand-products__item">
+            <div class="brand-products__placeholder">
+              <div class="brand-products__placeholder-img">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <polyline points="21 15 16 10 5 21"/>
+                </svg>
+              </div>
+              <div class="brand-products__placeholder-body">
+                <div class="brand-products__placeholder-brand"></div>
+                <div class="brand-products__placeholder-title"></div>
+                <div class="brand-products__placeholder-price"></div>
+              </div>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <p class="brand-products__empty-message">Select a collection in the theme editor to display products.</p>
+    {%- endif -%}
+
+    {%- comment -%} Mobile CTA {%- endcomment -%}
+    {%- if section.settings.cta_text != blank and section.settings.cta_url != blank -%}
+      <div class="brand-products__mobile-cta">
+        <a href="{{ section.settings.cta_url }}" class="brand-products__mobile-btn">
+          {{ section.settings.cta_text }}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand Featured Products",
+  "tag": "section",
+  "class": "section-brand-products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Featured Lamello Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to Show",
+      "min": 4,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button Text",
+      "default": "View All Lamello"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Featured Products"
+    }
+  ]
+}
+{% endschema %}

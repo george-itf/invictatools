@@ -1,0 +1,171 @@
+{% assign id = 'mmenu' %}
+{% assign ms = section.settings %}
+
+<style>
+  /* Wrapper must be full-width */
+  #mega-menu-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* TOP LEVEL BAR */
+  .mmenu-bar-{{ id }} {
+    width: 100%;
+    background: {{ ms.mega_bg }};
+    border-bottom: 1px solid {{ ms.mega_border }};
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    z-index: 3000;
+  }
+
+  .mmenu-link-{{ id }} {
+    padding: 16px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    color: {{ ms.mega_text }};
+    text-decoration: none;
+    background: transparent;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .mmenu-link-{{ id }}:hover {
+    background: {{ ms.mega_hover_bg }};
+    color: {{ ms.mega_hover_text }};
+  }
+
+  /* DROPDOWN PANEL */
+  .mmenu-drop-{{ id }} {
+    position: fixed !important;
+    top: var(--mega-menu-top, 130px);
+    left: 0;
+    width: 100vw;
+    padding: 28px 0;
+    background: {{ ms.mega_dropdown_bg }};
+    border-top: 2px solid {{ ms.mega_border }};
+    box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: all .25s ease;
+    z-index: 2500;
+  }
+
+  .mmenu-item-{{ id }}:hover .mmenu-drop-{{ id }} {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* INNER GRID */
+  .mmenu-inner-{{ id }} {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 40px;
+    column-width: 240px;
+    column-gap: 56px;
+  }
+
+  .mmenu-col-{{ id }} {
+    display: inline-block;
+    break-inside: avoid-column;
+    margin-bottom: 24px;
+  }
+
+  .mmenu-col-title-{{ id }} {
+    font-size: 15px;
+    font-weight: 700;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid {{ ms.mega_accent }};
+    color: {{ ms.mega_text }};
+  }
+
+  .mmenu-sublink-{{ id }} {
+    display: block;
+    padding: 6px 0;
+    font-size: 14px;
+    text-decoration: none;
+    color: {{ ms.mega_link }};
+  }
+
+  .mmenu-sublink-{{ id }}:hover {
+    color: {{ ms.mega_link_hover }};
+    transform: translateX(4px);
+  }
+
+  :root {
+    --mega-menu-top: 140px;
+  }
+
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const header = document.querySelector('header.trade-header');
+  const announce = document.querySelector('.announcement-bar-section');
+  const offset = (header?.offsetHeight || 0) + (announce?.offsetHeight || 0);
+  document.documentElement.style.setProperty('--mega-menu-top', offset + 'px');
+});
+</script>
+
+  
+
+<div id="mega-menu-wrapper">
+  <nav class="mmenu-bar-{{ id }}">
+    {% for link in ms.menu.links %}
+      <div class="mmenu-item-{{ id }}">
+
+        {% if link.links.size > 0 %}
+          <button class="mmenu-link-{{ id }}">
+            {{ link.title }}
+            <svg width="14" height="14" viewBox="0 0 24 24">
+              <polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </button>
+
+          <div class="mmenu-drop-{{ id }}">
+            <div class="mmenu-inner-{{ id }}">
+              {% for child in link.links %}
+                <div class="mmenu-col-{{ id }}">
+
+                  {% if child.links.size > 0 %}
+                    <div class="mmenu-col-title-{{ id }}">
+                      <a href="{{ child.url }}" class="mmenu-sublink-{{ id }}">{{ child.title }}</a>
+                    </div>
+
+                    {% for gc in child.links %}
+                      <a href="{{ gc.url }}" class="mmenu-sublink-{{ id }}">{{ gc.title }}</a>
+                    {% endfor %}
+                  {% else %}
+                    <a href="{{ child.url }}" class="mmenu-sublink-{{ id }}">{{ child.title }}</a>
+                  {% endif %}
+
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+
+        {% else %}
+          <a class="mmenu-link-{{ id }}" href="{{ link.url }}">{{ link.title }}</a>
+        {% endif %}
+
+      </div>
+    {% endfor %}
+  </nav>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const header = document.querySelector('header.trade-header');
+  const announce = document.querySelector('.announcement-bar-section');
+  const offset = (header?.offsetHeight || 0) + (announce?.offsetHeight || 0);
+  document.documentElement.style.setProperty('--mega-menu-top', offset + 'px');
+});
+</script>

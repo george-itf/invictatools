@@ -1,0 +1,301 @@
+{% comment %}
+  ============================================
+  BRAND NEW PRODUCTS v1.0
+  ============================================
+  Two-column feature cards for new product launches
+  White background with accent NEW badges
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+{{ 'brand-page.css' | asset_url | stylesheet_tag }}
+
+<section class="brand-new-products" id="new-products-{{ section.id }}">
+  <div class="page-width">
+
+    {%- comment -%} Section Header {%- endcomment -%}
+    <div class="brand-new-products__header">
+      {%- if section.settings.section_label != blank -%}
+        <span class="brand-new-products__label">
+          <span class="brand-new-products__label-dash"></span>
+          {{ section.settings.section_label }}
+        </span>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="brand-new-products__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="brand-new-products__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Product Cards Grid {%- endcomment -%}
+    <div class="brand-new-products__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'product_feature' -%}
+          <div class="brand-new-products__card" {{ block.shopify_attributes }}>
+
+            {%- comment -%} Image Column {%- endcomment -%}
+            <div class="brand-new-products__card-image">
+              {%- if block.settings.image != blank -%}
+                <img
+  src="{{ block.settings.image | image_url: width: 500 }}"
+  srcset="{{ block.settings.image | image_url: width: 300 }} 300w,
+          {{ block.settings.image | image_url: width: 400 }} 400w,
+          {{ block.settings.image | image_url: width: 500 }} 500w"
+  sizes="(max-width: 768px) 100vw, 33vw"
+  alt="{{ block.settings.image.alt | default: block.settings.title }}"
+  loading="lazy"
+  width="500"
+  height="375"
+  class="brand-categories__img"
+>
+              {%- else -%}
+                <div class="brand-new-products__placeholder">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                </div>
+              {%- endif -%}
+
+              {%- comment -%} NEW Badge {%- endcomment -%}
+              {%- if block.settings.show_badge -%}
+                <span class="brand-new-products__badge">
+                  {{ block.settings.badge_text | default: 'NEW' }}
+                </span>
+              {%- endif -%}
+            </div>
+
+            {%- comment -%} Content Column {%- endcomment -%}
+            <div class="brand-new-products__card-content">
+
+              {%- comment -%} Launch Date {%- endcomment -%}
+              {%- if block.settings.launch_date != blank -%}
+                <span class="brand-new-products__launch-date">{{ block.settings.launch_date }}</span>
+              {%- endif -%}
+
+              {%- comment -%} Title {%- endcomment -%}
+              {%- if block.settings.title != blank -%}
+                <h3 class="brand-new-products__card-title">{{ block.settings.title }}</h3>
+              {%- endif -%}
+
+              {%- comment -%} Description {%- endcomment -%}
+              {%- if block.settings.description != blank -%}
+                <p class="brand-new-products__card-desc">{{ block.settings.description }}</p>
+              {%- endif -%}
+
+              {%- comment -%} Feature List {%- endcomment -%}
+              <ul class="brand-new-products__features">
+                {%- if block.settings.feature_1 != blank -%}
+                  <li class="brand-new-products__feature">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>{{ block.settings.feature_1 }}</span>
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.feature_2 != blank -%}
+                  <li class="brand-new-products__feature">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>{{ block.settings.feature_2 }}</span>
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.feature_3 != blank -%}
+                  <li class="brand-new-products__feature">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>{{ block.settings.feature_3 }}</span>
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.feature_4 != blank -%}
+                  <li class="brand-new-products__feature">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>{{ block.settings.feature_4 }}</span>
+                  </li>
+                {%- endif -%}
+              </ul>
+
+              {%- comment -%} CTA Button {%- endcomment -%}
+              {%- if block.settings.cta_text != blank and block.settings.cta_url != blank -%}
+                <a href="{{ block.settings.cta_url }}" class="brand-new-products__btn">
+                  {{ block.settings.cta_text }}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </a>
+              {%- endif -%}
+
+            </div>
+
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand New Products",
+  "tag": "section",
+  "class": "section-brand-new-products",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_label",
+      "label": "Section Label",
+      "default": "Latest Innovations"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "New from Lamello"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "The latest joining solutions from Swiss engineering"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_feature",
+      "name": "Product Feature",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Product Image"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_badge",
+          "label": "Show Badge",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge Text",
+          "default": "NEW"
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "launch_date",
+          "label": "Launch Date",
+          "default": "Available May 2024"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Product Title",
+          "default": "Cabineo X"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "The revolutionary cabinet connector that doubles as a shelf support. No edge drilling required — simply drill into the panel face and insert."
+        },
+        {
+          "type": "header",
+          "content": "Features"
+        },
+        {
+          "type": "text",
+          "id": "feature_1",
+          "label": "Feature 1",
+          "default": "No edge drilling required"
+        },
+        {
+          "type": "text",
+          "id": "feature_2",
+          "label": "Feature 2",
+          "default": "Connector and shelf support in one"
+        },
+        {
+          "type": "text",
+          "id": "feature_3",
+          "label": "Feature 3",
+          "default": "Works with all panel materials"
+        },
+        {
+          "type": "text",
+          "id": "feature_4",
+          "label": "Feature 4",
+          "default": "Adjustable shelf positioning"
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "Button Text",
+          "default": "Shop Cabineo X"
+        },
+        {
+          "type": "url",
+          "id": "cta_url",
+          "label": "Button URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand New Products",
+      "blocks": [
+        {
+          "type": "product_feature",
+          "settings": {
+            "badge_text": "NEW",
+            "launch_date": "Available Now",
+            "title": "Cabineo X",
+            "description": "The revolutionary cabinet connector that doubles as a shelf support. No edge drilling required — simply drill into the panel face and insert.",
+            "feature_1": "No edge drilling required",
+            "feature_2": "Connector and shelf support in one",
+            "feature_3": "Works with all panel materials",
+            "feature_4": "Adjustable shelf positioning",
+            "cta_text": "Shop Cabineo X"
+          }
+        },
+        {
+          "type": "product_feature",
+          "settings": {
+            "badge_text": "2025",
+            "launch_date": "Available May 2025",
+            "title": "LC P-16",
+            "description": "Purpose-built for lightweight panels. Join honeycomb, foam-core, and composite panels without concealed timber edges — the P-System anchors directly into the surface layers.",
+            "feature_1": "Designed for lightweight panels",
+            "feature_2": "No timber edge banding needed",
+            "feature_3": "Three sizes: ×11, ×17, ×22",
+            "feature_4": "Strong P-System anchorage",
+            "cta_text": "Learn More"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

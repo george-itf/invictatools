@@ -1,0 +1,378 @@
+{% comment %}
+  ============================================
+  INVICTA COLLECTION HERO v4.0
+  ============================================
+  Fixes:
+  - View toggle JS now properly binds and dispatches events
+  - Filled SVG icons for visibility
+  
+  Features:
+  - Breadcrumb (/ separator)
+  - Title + count
+  - Trust badges
+  - Grid/List toggle
+  
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+{%- liquid
+  assign product_count = collection.products_count
+  assign show_breadcrumb = section.settings.show_breadcrumb
+  assign show_trust_badges = section.settings.show_trust_badges
+  assign show_view_toggle = section.settings.show_view_toggle
+-%}
+
+<div class="inv-col-hero" data-section-id="{{ section.id }}" id="invicta-collection-hero">
+  <div class="page-width">
+    <div class="inv-col-hero__inner">
+      
+      {%- comment -%} Left: Breadcrumb + Title {%- endcomment -%}
+      <div class="inv-col-hero__left">
+        
+        {%- if show_breadcrumb -%}
+          <nav class="inv-col-hero__breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ routes.root_url }}">Home</a>
+            <span class="inv-col-hero__sep">/</span>
+            {%- if collection.metafields.custom.parent_collection != blank -%}
+              {%- assign parent = collection.metafields.custom.parent_collection.value -%}
+              <a href="{{ parent.url }}">{{ parent.title }}</a>
+              <span class="inv-col-hero__sep">/</span>
+            {%- endif -%}
+            <span aria-current="page">{{ collection.title }}</span>
+          </nav>
+        {%- endif -%}
+        
+        <div class="inv-col-hero__title-row">
+          <h1 class="inv-col-hero__title">{{ collection.title }}</h1>
+          <span class="inv-col-hero__count" id="hero-product-count">
+            {{ product_count }} {{ product_count | pluralize: 'Product', 'Products' }}
+          </span>
+        </div>
+        
+      </div>
+      
+      {%- comment -%} Right: Trust + View toggle {%- endcomment -%}
+      <div class="inv-col-hero__right">
+        
+        {%- if show_trust_badges -%}
+          <div class="inv-col-hero__badges">
+            <span class="inv-col-hero__badge inv-col-hero__badge--delivery">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              Next Day Delivery
+            </span>
+            <span class="inv-col-hero__badge inv-col-hero__badge--vat">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              VAT Invoice
+            </span>
+          </div>
+        {%- endif -%}
+        
+        {%- if show_view_toggle -%}
+          <div class="inv-col-hero__view" id="view-toggle-container" role="group" aria-label="View options">
+            <button 
+              type="button" 
+              class="inv-col-hero__view-btn inv-col-hero__view-btn--active" 
+              data-view="grid" 
+              aria-label="Grid view"
+              aria-pressed="true"
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                <rect x="1" y="1" width="6" height="6" rx="1" fill="currentColor"/>
+                <rect x="9" y="1" width="6" height="6" rx="1" fill="currentColor"/>
+                <rect x="1" y="9" width="6" height="6" rx="1" fill="currentColor"/>
+                <rect x="9" y="9" width="6" height="6" rx="1" fill="currentColor"/>
+              </svg>
+            </button>
+            <button 
+              type="button" 
+              class="inv-col-hero__view-btn" 
+              data-view="list" 
+              aria-label="List view"
+              aria-pressed="false"
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                <rect x="1" y="1.5" width="3" height="3" rx="0.5" fill="currentColor"/>
+                <rect x="6" y="1.5" width="9" height="3" rx="0.5" fill="currentColor"/>
+                <rect x="1" y="6.5" width="3" height="3" rx="0.5" fill="currentColor"/>
+                <rect x="6" y="6.5" width="9" height="3" rx="0.5" fill="currentColor"/>
+                <rect x="1" y="11.5" width="3" height="3" rx="0.5" fill="currentColor"/>
+                <rect x="6" y="11.5" width="9" height="3" rx="0.5" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+        {%- endif -%}
+        
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<style>
+  .inv-col-hero {
+    background: var(--inv-dark, #2d2d2d);
+    padding: 14px 0;
+  }
+  
+  .inv-col-hero__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  
+  .inv-col-hero__left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .inv-col-hero__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+  }
+  
+  .inv-col-hero__breadcrumb a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+  }
+  
+  .inv-col-hero__breadcrumb a:hover {
+    color: #fff;
+  }
+  
+  .inv-col-hero__sep {
+    color: rgba(255, 255, 255, 0.3);
+  }
+  
+  .inv-col-hero__breadcrumb span[aria-current] {
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  .inv-col-hero__title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .inv-col-hero__title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+  }
+  
+  .inv-col-hero__count {
+    padding: 4px 12px;
+    background: var(--inv-primary, #dc2626);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 12px;
+  }
+  
+  .inv-col-hero__right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .inv-col-hero__badges {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .inv-col-hero__badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  
+  .inv-col-hero__badge--delivery {
+    background: rgba(22, 163, 74, 0.2);
+    border: 1px solid rgba(22, 163, 74, 0.4);
+    color: #86efac;
+  }
+  
+  .inv-col-hero__badge--vat {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  /* View toggle */
+  .inv-col-hero__view {
+    display: flex;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  
+  .inv-col-hero__view-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 34px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    padding: 0;
+  }
+  
+  .inv-col-hero__view-btn:hover {
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .inv-col-hero__view-btn--active {
+    background: var(--inv-primary, #dc2626);
+    color: #fff;
+  }
+  
+  .inv-col-hero__view-btn--active:hover {
+    background: var(--inv-primary, #dc2626);
+    color: #fff;
+  }
+  
+  @media (max-width: 768px) {
+    .inv-col-hero { padding: 12px 0; }
+    .inv-col-hero__breadcrumb { display: none; }
+    .inv-col-hero__title { font-size: 18px; }
+    .inv-col-hero__badges { display: none; }
+    .inv-col-hero__view-btn { width: 34px; height: 30px; }
+  }
+</style>
+
+<script>
+  /**
+   * Invicta Collection Hero v4.0
+   * View toggle with localStorage + CustomEvent
+   */
+  (function() {
+    const STORAGE_KEY = 'invicta-collection-view';
+    
+    function init() {
+      const container = document.getElementById('view-toggle-container');
+      if (!container) {
+        console.log('[Hero] No view toggle container found');
+        return;
+      }
+      
+      const buttons = container.querySelectorAll('.inv-col-hero__view-btn');
+      if (!buttons.length) {
+        console.log('[Hero] No view buttons found');
+        return;
+      }
+      
+      // Get saved view
+      const saved = localStorage.getItem(STORAGE_KEY) || 'grid';
+      console.log('[Hero] Init with saved view:', saved);
+      
+      // Apply saved state
+      setActive(saved, buttons);
+      
+      // Dispatch initial event
+      dispatchViewChange(saved);
+      
+      // Bind clicks
+      buttons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const view = this.dataset.view;
+          console.log('[Hero] Button clicked:', view);
+          
+          setActive(view, buttons);
+          localStorage.setItem(STORAGE_KEY, view);
+          dispatchViewChange(view);
+        });
+      });
+    }
+    
+    function setActive(view, buttons) {
+      buttons.forEach(btn => {
+        const isActive = btn.dataset.view === view;
+        btn.classList.toggle('inv-col-hero__view-btn--active', isActive);
+        btn.setAttribute('aria-pressed', isActive.toString());
+      });
+    }
+    
+    function dispatchViewChange(view) {
+      console.log('[Hero] Dispatching view change:', view);
+      
+      // Also directly toggle class on grid (backup method)
+      const grid = document.querySelector('[data-product-grid], [id^="product-grid"]');
+      if (grid) {
+        if (view === 'list') {
+          grid.classList.add('inv-col-grid__products--list');
+        } else {
+          grid.classList.remove('inv-col-grid__products--list');
+        }
+        console.log('[Hero] Grid class updated directly');
+      }
+      
+      // Dispatch custom event
+      document.dispatchEvent(new CustomEvent('invicta:view-change', {
+        detail: { view: view }
+      }));
+    }
+    
+    // Init when DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+    
+    // Re-init after AJAX filter updates
+    document.addEventListener('invicta:filters-updated', function() {
+      const saved = localStorage.getItem(STORAGE_KEY) || 'grid';
+      const grid = document.querySelector('[data-product-grid], [id^="product-grid"]');
+      if (grid && saved === 'list') {
+        grid.classList.add('inv-col-grid__products--list');
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Collection Hero",
+  "tag": "section",
+  "class": "section-invicta-collection-hero",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumb",
+      "label": "Show breadcrumb",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_badges",
+      "label": "Show trust badges",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_toggle",
+      "label": "Show grid/list toggle",
+      "default": true
+    }
+  ],
+  "presets": [{ "name": "Collection Hero" }]
+}
+{% endschema %}

@@ -1,0 +1,174 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb-simple",
+      "settings": {
+        "current_page": "Power Tools Whitstable",
+        "parent_url": "/pages/kent-tools",
+        "parent_title": "Kent Areas We Serve"
+      }
+    },
+    "hero": {
+      "type": "local-hero",
+      "settings": {
+        "badge_text": "Serving Kent Since 1996",
+        "headline_line_1": "Power Tools & Trade Supplies",
+        "headline_line_2": "in Whitstable",
+        "subtitle": "Whitstable's building trade is booming \u2014 from seafront property renovations along Tankerton slopes to conversions in the harbour area and new residential projects off Borstal Hill. Invicta Tools at ou...",
+        "stat_1_value": "28+",
+        "stat_1_label": "Years Trading",
+        "stat_2_value": "2",
+        "stat_2_label": "Kent Branches",
+        "stat_3_value": "\u00a330+",
+        "stat_3_label": "Free Delivery",
+        "branch_name": "Canterbury",
+        "distance_text": "Just 15 minutes from Whitstable town centre",
+        "branch_address": "Unit 9 Cotton Road, Wincheap Industrial Estate, Canterbury, CT1 3TB",
+        "phone": "01843 210 459",
+        "opening_hours": "Mon\u2013Fri 7:30\u201317:00 \u00b7 Sat 8:00\u201312:00",
+        "maps_url": "https://maps.google.com/?q=Unit+9+Cotton+Road+Wincheap+Industrial+Estate+Canterbury+CT1+3TB",
+        "schema_town": "Whitstable",
+        "schema_street": "Unit 9 Cotton Road",
+        "schema_locality": "Canterbury",
+        "schema_postcode": "CT1 3TB",
+        "schema_lat": "51.2697",
+        "schema_lng": "1.0760"
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Delivery to Whitstable",
+            "subtitle": "On orders over \u00a330"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Authorised Dealer",
+            "subtitle": "Makita & DeWalt"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "~15 min Away",
+            "subtitle": "Canterbury Branch"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 210 459"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#dc2626",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "content": {
+      "type": "local-content",
+      "blocks": {
+        "svc_0": {
+          "type": "service",
+          "settings": {
+            "title": "Free Delivery to Whitstable",
+            "description": "On all orders over \u00a330 to Whitstable postcodes"
+          }
+        },
+        "svc_1": {
+          "type": "service",
+          "settings": {
+            "title": "Click & Collect",
+            "description": "Order online, collect from Canterbury branch"
+          }
+        },
+        "svc_2": {
+          "type": "service",
+          "settings": {
+            "title": "Trade Accounts",
+            "description": "Monthly invoicing with competitive trade pricing"
+          }
+        },
+        "svc_3": {
+          "type": "service",
+          "settings": {
+            "title": "Expert Advice",
+            "description": "Knowledgeable team with 28+ years experience"
+          }
+        },
+        "svc_4": {
+          "type": "service",
+          "settings": {
+            "title": "Full Warranty",
+            "description": "Authorised dealer \u2014 full manufacturer warranty"
+          }
+        },
+        "svc_5": {
+          "type": "service",
+          "settings": {
+            "title": "Tool Servicing",
+            "description": "Makita & DeWalt repairs and servicing"
+          }
+        }
+      },
+      "block_order": [
+        "svc_0",
+        "svc_1",
+        "svc_2",
+        "svc_3",
+        "svc_4",
+        "svc_5"
+      ],
+      "settings": {
+        "section_label": "Whitstable Power Tools",
+        "title": "Professional Power Tools for Whitstable Tradespeople",
+        "paragraph_1": "Whitstable's building trade is booming \u2014 from seafront property renovations along Tankerton slopes to conversions in the harbour area and new residential projects off Borstal Hill. Invicta Tools at our Canterbury branch is just a quick 15-minute drive down the A290, keeping you supplied with professional-grade power tools without the trek into London or the markup of high-street chains.",
+        "paragraph_2": "Working on Whitstable's characterful weatherboard cottages and period properties means you need precision tools you can trust. Our Makita and DeWalt ranges cover everything from cordless multitools for tight spaces to track saws for kitchen worktops. We also stock a comprehensive range of fixings, adhesives and consumables \u2014 the bits you always run out of mid-job.",
+        "paragraph_3": "Order online before 2pm for next-day delivery to any CT5 postcode, or click and collect from Canterbury for same-day pickup. Many Whitstable traders stop in on their way through Wincheap \u2014 we're right off the A28, so it's barely a detour.",
+        "services_title": "Services for Whitstable"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Tools in Whitstable?",
+        "subtitle": "Call our Canterbury branch for expert advice, or shop online with free delivery over \u00a330.",
+        "primary_text": "01843 210 459",
+        "primary_url": "tel:01843210459",
+        "primary_icon": "phone",
+        "secondary_text": "Shop Online",
+        "secondary_url": "/collections/all",
+        "secondary_icon": "none"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "hero",
+    "usp_strip",
+    "content",
+    "cta"
+  ]
+}

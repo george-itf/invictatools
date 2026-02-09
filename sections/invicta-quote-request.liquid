@@ -1,0 +1,518 @@
+{% comment %}
+  Bulk Quote Request Section
+  ==========================
+  Displays a "Request Quote" button on products when:
+  - Price exceeds threshold, OR
+  - Customer adds high quantity
+  
+  Opens a modal form for quote requests.
+  
+  Version: 1.0.0
+  Author: Invicta Tools Theme
+{% endcomment %}
+
+{%- liquid
+  # Quote request threshold (in pence) - default £500
+  assign quote_threshold = section.settings.quote_threshold | default: 50000
+  assign show_quote_btn = false
+  
+  # Check if product price exceeds threshold
+  if product.price >= quote_threshold
+    assign show_quote_btn = true
+  endif
+  
+  # Can also be triggered by JS when quantity is high
+-%}
+
+<div 
+  class="invicta-quote-request" 
+  data-quote-request
+  data-threshold="{{ quote_threshold }}"
+  {% unless show_quote_btn %}style="display: none;"{% endunless %}
+>
+  <button 
+    type="button" 
+    class="invicta-quote-request__btn"
+    data-quote-trigger
+    aria-haspopup="dialog"
+  >
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+      <polyline points="14 2 14 8 20 8"></polyline>
+      <line x1="16" y1="13" x2="8" y2="13"></line>
+      <line x1="16" y1="17" x2="8" y2="17"></line>
+      <polyline points="10 9 9 9 8 9"></polyline>
+    </svg>
+    <span>{{ section.settings.button_text | default: 'Request a Quote' }}</span>
+  </button>
+  
+  <p class="invicta-quote-request__hint">
+    {{ section.settings.hint_text | default: 'Need a bulk order or bespoke pricing? Get a personalised quote.' }}
+  </p>
+</div>
+
+<!-- Quote Request Modal -->
+<div 
+  class="invicta-quote-modal" 
+  data-quote-modal 
+  role="dialog" 
+  aria-label="Request a quote" aria-modal="true" 
+  aria-labelledby="QuoteModalTitle"
+  hidden
+>
+  <div class="invicta-quote-modal__backdrop" data-quote-close></div>
+  
+  <div class="invicta-quote-modal__content">
+    <div class="invicta-quote-modal__header">
+      <h2 id="QuoteModalTitle" class="invicta-quote-modal__title">Request a Quote</h2>
+      <button 
+        type="button" 
+        class="invicta-quote-modal__close" 
+        data-quote-close
+        aria-label="Close quote request"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="invicta-quote-modal__body">
+      <form 
+        action="{{ section.settings.form_action | default: '/contact#contact_form' }}"
+        method="post"
+        class="invicta-quote-form"
+        data-quote-form
+      >
+        <input type="hidden" name="form_type" value="contact">
+        <input type="hidden" name="utf8" value="✓">
+        
+        <!-- Product Info (auto-filled) -->
+        <input type="hidden" name="contact[product_title]" value="{{ product.title }}" data-quote-product-title>
+        <input type="hidden" name="contact[product_sku]" value="{{ product.selected_or_first_available_variant.sku }}" data-quote-product-sku>
+        <input type="hidden" name="contact[product_url]" value="{{ shop.url }}{{ product.url }}" data-quote-product-url>
+        <input type="hidden" name="contact[subject]" value="Quote Request: {{ product.title }}">
+        
+        <div class="invicta-quote-form__product-info">
+          <strong>{{ product.title }}</strong>
+          <span class="invicta-quote-form__sku">SKU: {{ product.selected_or_first_available_variant.sku }}</span>
+        </div>
+        
+        <div class="invicta-quote-form__row">
+          <div class="invicta-quote-form__field">
+            <label for="QuoteName">Your Name <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="QuoteName" 
+              name="contact[name]" 
+              required
+              autocomplete="name"
+              placeholder="John Smith"
+            >
+          </div>
+          
+          <div class="invicta-quote-form__field">
+            <label for="QuoteCompany">Company Name</label>
+            <input 
+              type="text" 
+              id="QuoteCompany" 
+              name="contact[company]"
+              autocomplete="organization"
+              placeholder="Acme Ltd"
+            >
+          </div>
+        </div>
+        
+        <div class="invicta-quote-form__row">
+          <div class="invicta-quote-form__field">
+            <label for="QuoteEmail">Email <span class="required">*</span></label>
+            <input 
+              type="email" 
+              id="QuoteEmail" 
+              name="contact[email]" 
+              required
+              autocomplete="email"
+              placeholder="john@company.com"
+            >
+          </div>
+          
+          <div class="invicta-quote-form__field">
+            <label for="QuotePhone">Phone</label>
+            <input 
+              type="tel" 
+              id="QuotePhone" 
+              name="contact[phone]"
+              autocomplete="tel"
+              placeholder="01234 567890"
+            >
+          </div>
+        </div>
+        
+        <div class="invicta-quote-form__field">
+          <label for="QuoteQty">Quantity Required <span class="required">*</span></label>
+          <input 
+            type="number" 
+            id="QuoteQty" 
+            name="contact[quantity]" 
+            required
+            min="1"
+            value="1"
+            data-quote-qty
+          >
+        </div>
+        
+        <div class="invicta-quote-form__field">
+          <label for="QuoteMessage">Additional Details</label>
+          <textarea 
+            id="QuoteMessage" 
+            name="contact[body]"
+            rows="4"
+            placeholder="Delivery requirements, timeline, or any other details..."
+          ></textarea>
+        </div>
+        
+        <div class="invicta-quote-form__actions">
+          <button type="button" class="invicta-quote-form__cancel" data-quote-close>
+            Cancel
+          </button>
+          <button type="submit" class="invicta-quote-form__submit">
+            <span>Submit Quote Request</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Quote Request Button */
+  .invicta-quote-request {
+    margin: 16px 0;
+    padding: 16px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 1px solid #fbbf24;
+    border-radius: 10px;
+  }
+  
+  .invicta-quote-request__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: #1f2937;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .invicta-quote-request__btn:hover {
+    background: #111827;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  
+  .invicta-quote-request__hint {
+    margin: 10px 0 0;
+    font-size: 0.9rem;
+    color: #92400e;
+  }
+  
+  /* Quote Modal */
+  .invicta-quote-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .invicta-quote-modal[hidden] {
+    display: none;
+  }
+  
+  .invicta-quote-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+  }
+  
+  .invicta-quote-modal__content {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    animation: quoteModalIn 0.2s ease;
+  }
+  
+  @keyframes quoteModalIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+  
+  .invicta-quote-modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .invicta-quote-modal__title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1f2937;
+  }
+  
+  .invicta-quote-modal__close {
+    padding: 8px;
+    background: none;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+  }
+  
+  .invicta-quote-modal__close:hover {
+    background: #f3f4f6;
+    color: #1f2937;
+  }
+  
+  .invicta-quote-modal__body {
+    padding: 24px;
+  }
+  
+  /* Quote Form */
+  .invicta-quote-form__product-info {
+    padding: 12px 16px;
+    background: #f9fafb;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .invicta-quote-form__product-info strong {
+    display: block;
+    font-size: 1rem;
+    color: #1f2937;
+  }
+  
+  .invicta-quote-form__sku {
+    font-size: 0.85rem;
+    color: #6b7280;
+  }
+  
+  .invicta-quote-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  @media screen and (max-width: 500px) {
+    .invicta-quote-form__row {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .invicta-quote-form__field {
+    margin-bottom: 16px;
+  }
+  
+  .invicta-quote-form__field label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #374151;
+  }
+  
+  .invicta-quote-form__field .required {
+    color: #dc2626;
+  }
+  
+  .invicta-quote-form__field input,
+  .invicta-quote-form__field textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  
+  .invicta-quote-form__field input:focus,
+  .invicta-quote-form__field textarea:focus {
+    outline: none;
+    border-color: #dc2626;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+  }
+  
+  .invicta-quote-form__actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #e5e7eb;
+  }
+  
+  .invicta-quote-form__cancel {
+    padding: 12px 20px;
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  
+  .invicta-quote-form__cancel:hover {
+    background: #e5e7eb;
+  }
+  
+  .invicta-quote-form__submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: #dc2626;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  
+  .invicta-quote-form__submit:hover {
+    background: #b91c1c;
+  }
+</style>
+
+<script>
+  (function() {
+    'use strict';
+    
+    const quoteRequest = document.querySelector('[data-quote-request]');
+    const quoteModal = document.querySelector('[data-quote-modal]');
+    
+    if (!quoteRequest || !quoteModal) return;
+    
+    // Open modal
+    document.querySelectorAll('[data-quote-trigger]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        quoteModal.hidden = false;
+        document.body.style.overflow = 'hidden';
+        
+        // Pre-fill quantity from product page
+        const productQty = document.querySelector('input[name="quantity"]');
+        const quoteQty = quoteModal.querySelector('[data-quote-qty]');
+        if (productQty && quoteQty) {
+          quoteQty.value = productQty.value;
+        }
+        
+        // Focus first input
+        setTimeout(() => {
+          quoteModal.querySelector('input[name="contact[name]"]')?.focus();
+        }, 100);
+      });
+    });
+    
+    // Close modal
+    document.querySelectorAll('[data-quote-close]').forEach(el => {
+      el.addEventListener('click', () => {
+        quoteModal.hidden = true;
+        document.body.style.overflow = '';
+      });
+    });
+    
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !quoteModal.hidden) {
+        quoteModal.hidden = true;
+        document.body.style.overflow = '';
+      }
+    });
+    
+    // Show quote button when quantity is high (10+)
+    const qtyInput = document.querySelector('input[name="quantity"]');
+    if (qtyInput) {
+      const checkQty = () => {
+        const qty = parseInt(qtyInput.value) || 1;
+        if (qty >= 10) {
+          quoteRequest.style.display = 'block';
+        }
+      };
+      
+      qtyInput.addEventListener('change', checkQty);
+      qtyInput.addEventListener('input', checkQty);
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Quote Request",
+  "settings": [
+    {
+      "type": "range",
+      "id": "quote_threshold",
+      "label": "Show for products over (£)",
+      "min": 100,
+      "max": 2000,
+      "step": 50,
+      "default": 500,
+      "info": "Products priced above this will show the quote button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Request a Quote"
+    },
+    {
+      "type": "text",
+      "id": "hint_text",
+      "label": "Hint Text",
+      "default": "Need a bulk order or bespoke pricing? Get a personalised quote."
+    },
+    {
+      "type": "url",
+      "id": "form_action",
+      "label": "Form Action URL",
+      "info": "Leave blank to use default contact form"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quote Request"
+    }
+  ]
+}
+{% endschema %}

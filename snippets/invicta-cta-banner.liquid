@@ -1,0 +1,147 @@
+{% comment %}
+  ============================================
+  INVICTA CTA BANNER v1.0
+  ============================================
+  Reusable promotional banner with configurable theme.
+  
+  Params:
+    heading:     (string) Banner heading text
+    subtext:     (string) Supporting text below heading
+    button_text: (string) CTA button label
+    button_url:  (string) CTA button destination URL
+    theme:       (string) 'brand' (red bg) | 'subtle' (grey bg) | 'dark' (dark bg)
+  
+  Usage:
+    {% render 'invicta-cta-banner', heading: 'Trade Accounts Available', subtext: 'Get exclusive pricing', button_text: 'Apply Now', button_url: '/pages/trade-account', theme: 'brand' %}
+  
+  Version: 1.0.0
+  ============================================
+{% endcomment %}
+
+{%- liquid
+  unless theme
+    assign theme = 'brand'
+  endunless
+  unless button_text
+    assign button_text = 'Learn More'
+  endunless
+-%}
+
+{%- if heading != blank -%}
+<div class="inv-cta-banner inv-cta-banner--{{ theme }}">
+  <div class="inv-cta-banner__inner page-width">
+    <div class="inv-cta-banner__content">
+      <h2 class="inv-cta-banner__heading">{{ heading }}</h2>
+      {%- if subtext != blank -%}
+        <p class="inv-cta-banner__subtext">{{ subtext }}</p>
+      {%- endif -%}
+    </div>
+    {%- if button_url != blank -%}
+      <a href="{{ button_url }}" class="inv-cta-banner__btn">{{ button_text }}</a>
+    {%- endif -%}
+  </div>
+</div>
+{%- endif -%}
+
+<style>
+  .inv-cta-banner {
+    width: 100%;
+    padding: var(--inv-space-xl, 2rem) var(--inv-page-gutter, 1.5rem);
+  }
+  .inv-cta-banner__inner {
+    max-width: var(--inv-page-width, 1320px);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--inv-space-lg, 1.5rem);
+    text-align: center;
+    flex-wrap: wrap;
+  }
+  .inv-cta-banner__content {
+    flex: 1 1 auto;
+    min-width: 200px;
+  }
+  .inv-cta-banner__heading {
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 700;
+    margin: 0 0 var(--inv-space-xs, 0.25rem);
+    line-height: 1.3;
+  }
+  .inv-cta-banner__subtext {
+    font-size: 15px;
+    margin: 0;
+    opacity: 0.85;
+    line-height: 1.5;
+  }
+  .inv-cta-banner__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--inv-radius-button, 999px);
+    transition: all var(--inv-duration-normal, 150ms) var(--inv-ease-default, ease);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Theme: Brand (red) */
+  .inv-cta-banner--brand {
+    background: var(--inv-accent, #e11d26);
+    color: #ffffff;
+  }
+  .inv-cta-banner--brand .inv-cta-banner__btn {
+    background: #ffffff;
+    color: var(--inv-accent, #e11d26);
+  }
+  .inv-cta-banner--brand .inv-cta-banner__btn:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
+  }
+
+  /* Theme: Subtle (grey) */
+  .inv-cta-banner--subtle {
+    background: var(--inv-bg-soft, #f3f4f6);
+    color: var(--inv-fg, #0f172a);
+    border-top: 1px solid var(--inv-border, #e5e7eb);
+    border-bottom: 1px solid var(--inv-border, #e5e7eb);
+  }
+  .inv-cta-banner--subtle .inv-cta-banner__btn {
+    background: var(--inv-accent, #e11d26);
+    color: #ffffff;
+  }
+  .inv-cta-banner--subtle .inv-cta-banner__btn:hover {
+    background: var(--inv-accent-hover, #c4191f);
+    transform: translateY(-1px);
+  }
+
+  /* Theme: Dark */
+  .inv-cta-banner--dark {
+    background: var(--inv-fg, #0f172a);
+    color: #ffffff;
+  }
+  .inv-cta-banner--dark .inv-cta-banner__btn {
+    background: var(--inv-accent, #e11d26);
+    color: #ffffff;
+  }
+  .inv-cta-banner--dark .inv-cta-banner__btn:hover {
+    background: var(--inv-accent-hover, #c4191f);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 749px) {
+    .inv-cta-banner {
+      padding: var(--inv-space-lg, 1.5rem) var(--inv-page-gutter, 1.5rem);
+    }
+    .inv-cta-banner__inner {
+      flex-direction: column;
+      gap: var(--inv-space-md, 1rem);
+    }
+    .inv-cta-banner__subtext {
+      font-size: 14px;
+    }
+  }
+</style>

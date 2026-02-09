@@ -1,0 +1,544 @@
+{% comment %}
+  =========================================================
+  Invicta Simple Navigation v1.1
+  ---------------------------------------------------------
+  Desktop & tablet only horizontal navigation bar.
+  Pulls from a Shopify menu. Last item can be highlighted.
+  Hidden on mobile (<750px) — too cramped.
+  =========================================================
+{% endcomment %}
+
+{%- assign ss = section.settings -%}
+{%- assign menu = linklists[ss.menu] -%}
+{%- assign link_count = menu.links.size -%}
+
+{%- comment -%} Only render if menu exists and has links {%- endcomment -%}
+{%- if menu != blank and link_count > 0 -%}
+
+<style>
+/* =======================================================
+   INVICTA SIMPLE NAV — Desktop/Tablet Only
+   ======================================================= */
+
+/* Hide completely on mobile */
+@media (max-width: 749px) {
+  .inv-simple-nav {
+    display: none !important;
+  }
+}
+
+.inv-simple-nav {
+  width: 100%;
+  background: {{ ss.bar_bg_color }};
+  border-top: {{ ss.border_top_width }}px solid {{ ss.border_color }};
+  border-bottom: {{ ss.border_bottom_width }}px solid {{ ss.border_color }};
+  position: relative;
+  z-index: 50;
+}
+
+.inv-simple-nav__list {
+  display: flex;
+  justify-content: {{ ss.alignment }};
+  align-items: stretch;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  gap: 0;
+}
+
+/* =======================================================
+   NAVIGATION ITEM — Square Column Style
+   ======================================================= */
+.inv-simple-nav__item {
+  flex: {{ ss.item_flex }};
+  display: flex;
+  position: relative;
+}
+
+/* Divider between items */
+.inv-simple-nav__item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: {{ ss.divider_width }}px;
+  height: {{ ss.divider_height }}%;
+  background: {{ ss.divider_color }};
+}
+
+/* =======================================================
+   LINK STYLING
+   ======================================================= */
+.inv-simple-nav__link {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: {{ ss.padding_vertical }}px {{ ss.padding_horizontal }}px;
+  color: {{ ss.text_color }};
+  text-decoration: none;
+  font-size: {{ ss.font_size }}px;
+  font-weight: {{ ss.font_weight }};
+  text-transform: {{ ss.text_transform }};
+  letter-spacing: {{ ss.letter_spacing }}em;
+  line-height: 1.2;
+  text-align: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* Hover state */
+.inv-simple-nav__link:hover {
+  background: {{ ss.hover_bg_color }};
+  color: {{ ss.hover_text_color }};
+}
+
+/* Active/current page indicator */
+.inv-simple-nav__link[aria-current="page"],
+.inv-simple-nav__link.is-active {
+  background: {{ ss.active_bg_color }};
+  color: {{ ss.active_text_color }};
+}
+
+/* Underline on hover (optional) */
+{%- if ss.show_underline -%}
+.inv-simple-nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 80%;
+  height: {{ ss.underline_height }}px;
+  background: {{ ss.underline_color }};
+  transition: transform 0.2s ease;
+}
+
+.inv-simple-nav__link:hover::after,
+.inv-simple-nav__link[aria-current="page"]::after {
+  transform: translateX(-50%) scaleX(1);
+}
+{%- endif -%}
+
+/* =======================================================
+   HIGHLIGHT ITEM — Make last item stand out
+   ======================================================= */
+{%- if ss.highlight_last_item -%}
+.inv-simple-nav__item--highlight .inv-simple-nav__link {
+  background: {{ ss.highlight_bg_color }};
+  color: {{ ss.highlight_text_color }};
+  font-weight: {{ ss.highlight_font_weight }};
+  border-radius: {{ ss.highlight_border_radius }}px;
+  margin: 4px;
+  padding: {{ ss.padding_vertical | minus: 4 }}px {{ ss.padding_horizontal }}px;
+}
+
+.inv-simple-nav__item--highlight .inv-simple-nav__link:hover {
+  background: {{ ss.highlight_hover_bg_color }};
+  color: {{ ss.highlight_hover_text_color }};
+}
+
+/* Remove divider before highlight item */
+.inv-simple-nav__item:nth-last-child(2)::after {
+  display: none;
+}
+{%- endif -%}
+
+/* =======================================================
+   DROPDOWN INDICATOR (if menu has children)
+   ======================================================= */
+.inv-simple-nav__icon {
+  width: {{ ss.icon_size }}px;
+  height: {{ ss.icon_size }}px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.inv-simple-nav__link:hover .inv-simple-nav__icon {
+  transform: rotate(180deg);
+}
+
+/* =======================================================
+   TABLET ADJUSTMENTS
+   ======================================================= */
+@media (min-width: 750px) and (max-width: 989px) {
+  .inv-simple-nav__link {
+    padding: {{ ss.padding_vertical | times: 0.8 | round }}px {{ ss.padding_horizontal | times: 0.6 | round }}px;
+    font-size: {{ ss.font_size | times: 0.9 | round }}px;
+  }
+}
+</style>
+
+<nav class="inv-simple-nav" aria-label="Main categories">
+  <ul class="inv-simple-nav__list">
+    {%- for link in menu.links -%}
+      {%- comment -%} Skip items that belong elsewhere (e.g. Silicone → under Adhesives) {%- endcomment -%}
+      {%- if link.title != 'Silicone' -%}
+
+      {%- comment -%} Check if this is the last item and highlighting is enabled {%- endcomment -%}
+      {%- assign is_highlight = false -%}
+      {%- if ss.highlight_last_item and forloop.last -%}
+        {%- assign is_highlight = true -%}
+      {%- endif -%}
+      
+      {%- comment -%} Check if current page matches this link {%- endcomment -%}
+      {%- assign is_current = false -%}
+      {%- if link.active or link.child_active -%}
+        {%- assign is_current = true -%}
+      {%- endif -%}
+
+      <li class="inv-simple-nav__item{% if is_highlight %} inv-simple-nav__item--highlight{% endif %}">
+        <a 
+          href="{{ link.url }}"
+          class="inv-simple-nav__link{% if is_current %} is-active{% endif %}"
+          {% if is_current %}aria-current="page"{% endif %}
+        >
+          {{- link.title -}}
+          
+          {%- comment -%} Show dropdown icon if link has children and setting enabled {%- endcomment -%}
+          {%- if link.links.size > 0 and ss.show_dropdown_icon -%}
+            <svg class="inv-simple-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          {%- endif -%}
+        </a>
+      </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</nav>
+
+{%- else -%}
+  {%- comment -%} Theme editor placeholder when no menu selected {%- endcomment -%}
+  {%- if request.design_mode -%}
+    <div class="inv-simple-nav" style="padding: 16px; text-align: center; background: #f4f4f4; color: #666;">
+      <p style="margin: 0;">Select a menu in section settings to populate this navigation.</p>
+    </div>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Invicta Simple Nav",
+  "tag": "section",
+  "class": "section-invicta-simple-nav",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Menu source"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Select menu",
+      "default": "main-menu",
+      "info": "Choose a flat menu. Edit menu items in Online Store → Navigation."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Centre" },
+        { "value": "space-evenly", "label": "Space evenly" },
+        { "value": "space-between", "label": "Space between" }
+      ],
+      "default": "space-evenly"
+    },
+    {
+      "type": "select",
+      "id": "item_flex",
+      "label": "Item sizing",
+      "options": [
+        { "value": "0 0 auto", "label": "Auto (fit content)" },
+        { "value": "1", "label": "Equal width" }
+      ],
+      "default": "1",
+      "info": "Equal width creates the square column look."
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colours"
+    },
+    {
+      "type": "color",
+      "id": "bar_bg_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text colour",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "hover_bg_color",
+      "label": "Hover background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "hover_text_color",
+      "label": "Hover text colour",
+      "default": "#e11d26"
+    },
+    {
+      "type": "color",
+      "id": "active_bg_color",
+      "label": "Active background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "active_text_color",
+      "label": "Active text colour",
+      "default": "#e11d26"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 13
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text case",
+      "options": [
+        { "value": "none", "label": "Normal" },
+        { "value": "uppercase", "label": "UPPERCASE" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "min": 0,
+      "max": 0.2,
+      "step": 0.1,
+      "label": "Letter spacing",
+      "default": 0.1
+    },
+    {
+      "type": "header",
+      "content": "Borders & dividers"
+    },
+    {
+      "type": "range",
+      "id": "border_top_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Top border",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "border_bottom_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Bottom border",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border colour",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "range",
+      "id": "divider_width",
+      "min": 0,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "label": "Divider width",
+      "default": 1,
+      "info": "Vertical line between items"
+    },
+    {
+      "type": "range",
+      "id": "divider_height",
+      "min": 30,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "Divider height",
+      "default": 60
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider colour",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "header",
+      "content": "Underline effect"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_underline",
+      "label": "Show underline on hover",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "underline_height",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Underline thickness",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "underline_color",
+      "label": "Underline colour",
+      "default": "#e11d26"
+    },
+    {
+      "type": "header",
+      "content": "Dropdown icon"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dropdown_icon",
+      "label": "Show dropdown arrow",
+      "default": false,
+      "info": "Shows if menu item has children"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Highlight last item"
+    },
+    {
+      "type": "checkbox",
+      "id": "highlight_last_item",
+      "label": "Highlight last item",
+      "default": true,
+      "info": "Makes 'Shop by Brand' or final item stand out"
+    },
+    {
+      "type": "color",
+      "id": "highlight_bg_color",
+      "label": "Highlight background",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "highlight_text_color",
+      "label": "Highlight text colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "highlight_hover_bg_color",
+      "label": "Highlight hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "highlight_hover_text_color",
+      "label": "Highlight hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "highlight_font_weight",
+      "label": "Highlight font weight",
+      "options": [
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" },
+        { "value": "800", "label": "Extra bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "highlight_border_radius",
+      "min": 0,
+      "max": 12,
+      "step": 2,
+      "unit": "px",
+      "label": "Highlight corner radius",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Invicta Simple Nav"
+    }
+  ]
+}
+{% endschema %}
+

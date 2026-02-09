@@ -1,0 +1,870 @@
+{%- comment -%}
+  ============================================================================
+  INVICTA COLLECTION v9.0
+  ============================================================================
+  
+  Complete rebuild with app-style mobile experience
+  
+  Features:
+  - Compact centered hero
+  - Sticky toolbar
+  - 2-column mobile grid
+  - Bottom sheet filter drawer
+  - Floating filter button
+  - Back to top pill
+  
+  ============================================================================
+{%- endcomment -%}
+
+{%- liquid
+  assign products_per_page = section.settings.products_per_page | default: 24
+  assign show_sort = section.settings.show_sort
+  assign show_brand_filters = section.settings.show_brand_filters
+
+  assign has_active_filters = false
+  assign active_filter_count = 0
+  for filter in collection.filters
+    if filter.active_values.size > 0
+      assign has_active_filters = true
+      assign active_filter_count = active_filter_count | plus: filter.active_values.size
+    endif
+    if filter.type == 'price_range'
+      if filter.min_value.value != blank or filter.max_value.value != blank
+        assign has_active_filters = true
+        assign active_filter_count = active_filter_count | plus: 1
+      endif
+    endif
+  endfor
+
+  assign current_sort = collection.sort_by | default: collection.default_sort_by
+  
+  # ----------------------------------------
+  # FULL CATALOGUE LINK
+  # ----------------------------------------
+  assign full_catalogue_collection = section.settings.full_catalogue_collection
+  assign full_catalogue_count = section.settings.full_catalogue_count | default: 0
+  assign show_full_catalogue_link = false
+  
+  if full_catalogue_collection != blank and full_catalogue_count > 0
+    assign show_full_catalogue_link = true
+  endif
+-%}
+
+{%- comment -%} ===== STYLES ===== {%- endcomment -%}
+
+
+
+<div class="inv-collection" data-section-id="{{ section.id }}">
+
+  {%- comment -%} ================================================================
+     1. HERO SECTION
+  ================================================================ {%- endcomment -%}
+  <section class="inv-hero">
+    <div class="page-width">
+      <div class="inv-hero__inner">
+        
+        {%- comment -%} Accent bar {%- endcomment -%}
+        <div class="inv-hero__accent"></div>
+        
+        {%- comment -%} Title + Count {%- endcomment -%}
+        <div class="inv-hero__row">
+          <h1 class="inv-hero__title">{{ collection.title | escape }}</h1>
+          <span class="inv-hero__count">{{ collection.products_count }} Products</span>
+        </div>
+        
+        {%- comment -%} Subheading {%- endcomment -%}
+        {%- if section.settings.hero_subheading != blank -%}
+          <p class="inv-hero__subheading">{{ section.settings.hero_subheading }}</p>
+        {%- elsif collection.description != blank -%}
+          <p class="inv-hero__subheading">{{ collection.description | strip_html | truncate: 120 }}</p>
+        {%- endif -%}
+        
+        {%- comment -%} USP Pills {%- endcomment -%}
+        <div class="inv-hero__usps">
+          {%- if section.settings.badge_1 != blank -%}
+            <a href="{{ section.settings.badge_1_link | default: '#' }}" class="inv-usp-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+              <span>{{ section.settings.badge_1 }}</span>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.badge_2 != blank -%}
+            <a href="{{ section.settings.badge_2_link | default: '#' }}" class="inv-usp-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="1" y="3" width="15" height="13" rx="2"/>
+                <path d="m16 8 4 2v7l-4 2V8z"/>
+                <path d="M5 12h4"/>
+              </svg>
+              <span>{{ section.settings.badge_2 }}</span>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.badge_3 != blank -%}
+            <a href="{{ section.settings.badge_3_link | default: '#' }}" class="inv-usp-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>{{ section.settings.badge_3 }}</span>
+            </a>
+          {%- endif -%}
+        </div>
+        
+        {%- comment -%} Brand Quick Filters {%- endcomment -%}
+        {%- if show_brand_filters -%}
+          {%- for filter in collection.filters -%}
+            {%- if filter.param_name == 'filter.p.vendor' or filter.label == 'Brand' -%}
+              <div class="inv-hero__brands">
+                {%- for value in filter.values limit: 8 -%}
+                  {%- assign brand_handle = value.label | handleize -%}
+                  <a 
+                    href="{{ value.url }}" 
+                    class="inv-brand-pill inv-brand-pill--{{ brand_handle }}{% if value.active %} is-active{% endif %}"
+                  >
+                    {{ value.label }}
+                  </a>
+                {%- endfor -%}
+              </div>
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+        
+      </div>
+    </div>
+  </section>
+
+
+  {%- comment -%} ================================================================
+     2. BREADCRUMB
+  ================================================================ {%- endcomment -%}
+  <nav class="inv-breadcrumb" aria-label="Breadcrumb">
+    <div class="page-width">
+      <ol class="inv-breadcrumb__list">
+        <li><a href="{{ routes.root_url }}" class="inv-breadcrumb__link">Home</a></li>
+        <li><span class="inv-breadcrumb__sep">›</span></li>
+        <li><span class="inv-breadcrumb__current" aria-current="page">{{ collection.title }}</span></li>
+      </ol>
+    </div>
+  </nav>
+  
+  
+  {%- comment -%} ================================================================
+     2B. FULL CATALOGUE LINK
+     Shows link to browse all products (including non-stocked items)
+  ================================================================ {%- endcomment -%}
+  {%- if show_full_catalogue_link -%}
+    <div class="inv-full-catalogue-banner">
+      <div class="page-width">
+        <div class="inv-full-catalogue-banner__inner">
+          <div class="inv-full-catalogue-banner__text">
+            <span class="inv-full-catalogue-banner__label">Showing curated selection</span>
+            <span class="inv-full-catalogue-banner__count">{{ collection.products_count }} of {{ full_catalogue_count }} products</span>
+          </div>
+          <a href="{{ full_catalogue_collection }}" class="inv-full-catalogue-banner__link">
+            <span>See all {{ full_catalogue_count }} products</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"/>
+              <path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+
+  {%- comment -%} ================================================================
+     3. TOOLBAR
+  ================================================================ {%- endcomment -%}
+  <div class="inv-toolbar" id="InvToolbar">
+    <div class="page-width">
+      <div class="inv-toolbar__inner">
+        
+        {%- comment -%} Left: Count + Filter button {%- endcomment -%}
+        <div class="inv-toolbar__left">
+          <span class="inv-toolbar__count">
+            <strong>{{ collection.products_count }}</strong> products
+          </span>
+          <button type="button" class="inv-filter-toggle" id="InvFilterToggle" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="4" x2="4" y1="21" y2="14"/>
+              <line x1="4" x2="4" y1="10" y2="3"/>
+              <line x1="12" x2="12" y1="21" y2="12"/>
+              <line x1="12" x2="12" y1="8" y2="3"/>
+              <line x1="20" x2="20" y1="21" y2="16"/>
+              <line x1="20" x2="20" y1="12" y2="3"/>
+              <line x1="1" x2="7" y1="14" y2="14"/>
+              <line x1="9" x2="15" y1="8" y2="8"/>
+              <line x1="17" x2="23" y1="16" y2="16"/>
+            </svg>
+            <span>Filters</span>
+            {%- if has_active_filters -%}
+              <span class="inv-filter-toggle__badge">{{ active_filter_count }}</span>
+            {%- endif -%}
+          </button>
+        </div>
+        
+        {%- comment -%} Right: Sort {%- endcomment -%}
+        <div class="inv-toolbar__right">
+          {%- if show_sort -%}
+            <div class="inv-sort">
+              <label for="InvSortSelect" class="inv-sort__label">Sort:</label>
+              <select id="InvSortSelect" class="inv-sort__select" aria-label="Sort products">
+                <option value="manual" {% if current_sort == 'manual' %}selected{% endif %}>Featured</option>
+                <option value="best-selling" {% if current_sort == 'best-selling' %}selected{% endif %}>Best Selling</option>
+                <option value="title-ascending" {% if current_sort == 'title-ascending' %}selected{% endif %}>A–Z</option>
+                <option value="title-descending" {% if current_sort == 'title-descending' %}selected{% endif %}>Z–A</option>
+                <option value="price-ascending" {% if current_sort == 'price-ascending' %}selected{% endif %}>Price: Low–High</option>
+                <option value="price-descending" {% if current_sort == 'price-descending' %}selected{% endif %}>Price: High–Low</option>
+                <option value="created-ascending" {% if current_sort == 'created-ascending' %}selected{% endif %}>Oldest</option>
+                <option value="created-descending" {% if current_sort == 'created-descending' %}selected{% endif %}>Newest</option>
+              </select>
+            </div>
+          {%- endif -%}
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+  {%- comment -%} ================================================================
+     4. ACTIVE FILTER CHIPS
+  ================================================================ {%- endcomment -%}
+  {%- if has_active_filters -%}
+    <div class="inv-active-filters">
+      <div class="page-width">
+        <div class="inv-active-filters__inner">
+          {%- for filter in collection.filters -%}
+            {%- for value in filter.active_values -%}
+              <a href="{{ value.url_to_remove }}" class="inv-filter-chip">
+                <span>{{ value.label }}</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+              </a>
+            {%- endfor -%}
+            {%- if filter.type == 'price_range' -%}
+              {%- if filter.min_value.value != blank or filter.max_value.value != blank -%}
+                <a href="{{ filter.url_to_remove }}" class="inv-filter-chip">
+                  <span>
+                    {%- if filter.min_value.value != blank -%}{{ filter.min_value.value | money_without_trailing_zeros }}{%- else -%}£0{%- endif -%}
+                    –
+                    {%- if filter.max_value.value != blank -%}{{ filter.max_value.value | money_without_trailing_zeros }}{%- else -%}{{ filter.range_max | money_without_trailing_zeros }}{%- endif -%}
+                  </span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                  </svg>
+                </a>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+          <a href="{{ collection.url }}" class="inv-clear-all">{{ 'products.facets.clear_all' | t }}</a>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+
+  {%- comment -%} ================================================================
+     5. MAIN LAYOUT
+  ================================================================ {%- endcomment -%}
+  <div class="inv-layout">
+    <div class="page-width">
+      <div class="inv-layout__inner">
+        
+        {%- comment -%} ===== SIDEBAR (Desktop only) ===== {%- endcomment -%}
+        <aside class="inv-sidebar" id="InvSidebar">
+          <form id="InvFilterForm" class="inv-filter-form">
+            <div class="inv-sidebar__header">
+              <span class="inv-sidebar__title">Filters</span>
+              {%- if has_active_filters -%}
+                <a href="{{ collection.url }}" class="inv-sidebar__clear">{{ 'products.facets.clear_all' | t }}</a>
+              {%- endif -%}
+            </div>
+            
+            {%- for filter in collection.filters -%}
+              <details class="inv-facet" open>
+                <summary class="inv-facet__header">
+                  <span class="inv-facet__name">{{ filter.label }}</span>
+                  <svg class="inv-facet__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m6 9 6 6 6-6"/>
+                  </svg>
+                </summary>
+                <div class="inv-facet__body">
+                  
+                  {%- case filter.type -%}
+                    {%- when 'list' or 'boolean' -%}
+                      <ul class="inv-facet__list">
+                        {%- for value in filter.values -%}
+                          <li class="inv-facet__item">
+                            <label class="inv-facet__label-wrap">
+                              <input 
+                                type="checkbox" 
+                                name="{{ value.param_name }}" 
+                                value="{{ value.value }}"
+                                class="inv-facet__checkbox"
+                                {% if value.active %}checked{% endif %}
+                                {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                              >
+                              <span class="inv-facet__label">{{ value.label }}</span>
+                              <span class="inv-facet__count">({{ value.count }})</span>
+                            </label>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                      
+                    {%- when 'price_range' -%}
+                      <div class="inv-facet__price-row">
+                        <div class="inv-facet__price-field">
+                          <span class="inv-facet__price-symbol">£</span>
+                          <input 
+                            type="number" 
+                            name="{{ filter.min_value.param_name }}" 
+                            class="inv-facet__price-input"
+                            placeholder="Min"
+                            min="0"
+                            max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                            {% if filter.min_value.value %}value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
+                          >
+                        </div>
+                        <span class="inv-facet__price-sep">–</span>
+                        <div class="inv-facet__price-field">
+                          <span class="inv-facet__price-symbol">£</span>
+                          <input 
+                            type="number" 
+                            name="{{ filter.max_value.param_name }}" 
+                            class="inv-facet__price-input"
+                            placeholder="Max"
+                            min="0"
+                            max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                            {% if filter.max_value.value %}value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
+                          >
+                        </div>
+                      </div>
+                  {%- endcase -%}
+                  
+                </div>
+              </details>
+            {%- endfor -%}
+            
+            <button type="submit" class="inv-sidebar__apply">
+              {{ section.settings.apply_text | default: 'Apply Filters' }}
+            </button>
+          </form>
+        </aside>
+        
+        
+        {%- comment -%} ===== MAIN CONTENT ===== {%- endcomment -%}
+        <main class="inv-main" id="InvMain">
+          
+          {%- paginate collection.products by products_per_page -%}
+            
+            {%- if collection.products.size > 0 -%}
+              
+              {%- comment -%} Product Grid {%- endcomment -%}
+              <div class="inv-product-grid" id="InvProductGrid">
+                {%- for product in collection.products -%}
+                  <div class="inv-product-card">
+                    {%- render 'card-product',
+                      card_product: product,
+                      media_aspect_ratio: 'square',
+                      show_secondary_image: false,
+                      show_vendor: false,
+                      show_rating: false,
+                      show_quick_add: true,
+                      section_id: section.id
+                    -%}
+                  </div>
+                {%- endfor -%}
+              </div>
+              
+              {%- comment -%} Pagination {%- endcomment -%}
+              {%- if paginate.pages > 1 -%}
+                <nav class="inv-pagination" aria-label="Pagination">
+                  {%- if paginate.previous -%}
+                    <a href="{{ paginate.previous.url }}" class="inv-pagination__item inv-pagination__item--arrow" aria-label="Previous page">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m15 18-6-6 6-6"/>
+                      </svg>
+                    </a>
+                  {%- endif -%}
+                  
+                  {%- for part in paginate.parts -%}
+                    {%- if part.is_link -%}
+                      <a href="{{ part.url }}" class="inv-pagination__item">{{ part.title }}</a>
+                    {%- elsif part.title == paginate.current_page -%}
+                      <span class="inv-pagination__item inv-pagination__item--current" aria-current="page">{{ part.title }}</span>
+                    {%- else -%}
+                      <span class="inv-pagination__item inv-pagination__item--ellipsis">{{ part.title }}</span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                  
+                  {%- if paginate.next -%}
+                    <a href="{{ paginate.next.url }}" class="inv-pagination__item inv-pagination__item--arrow" aria-label="Next page">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m9 18 6-6-6-6"/>
+                      </svg>
+                    </a>
+                  {%- endif -%}
+                </nav>
+              {%- endif -%}
+              
+            {%- else -%}
+              
+              {%- comment -%} Empty State {%- endcomment -%}
+              <div class="inv-empty">
+                <svg class="inv-empty__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.35-4.35"/>
+                </svg>
+                <h2 class="inv-empty__title">No products found</h2>
+                <p class="inv-empty__text">Try adjusting your filters or browse all products.</p>
+                <a href="{{ collection.url }}" class="inv-empty__btn">Clear Filters</a>
+              </div>
+              
+            {%- endif -%}
+            
+          {%- endpaginate -%}
+          
+        </main>
+        
+      </div>
+    </div>
+  </div>
+
+
+  {%- comment -%} ================================================================
+     6. MOBILE FILTER DRAWER
+  ================================================================ {%- endcomment -%}
+  <div class="inv-drawer-overlay" id="InvDrawerOverlay"></div>
+  
+  <div class="inv-drawer" id="InvDrawer" aria-hidden="true">
+    <div class="inv-drawer__header">
+      <span class="inv-drawer__title">Filters</span>
+      <button type="button" class="inv-drawer__close" id="InvDrawerClose" aria-label="Close filters">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="inv-drawer__body" id="InvDrawerBody">
+      {%- comment -%} Filters rendered inline {%- endcomment -%}
+      <form id="InvDrawerForm" class="inv-drawer-form">
+        {%- for filter in collection.filters -%}
+          <details class="inv-facet" open>
+            <summary class="inv-facet__header">
+              <span class="inv-facet__name">{{ filter.label }}</span>
+              <svg class="inv-facet__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </summary>
+            <div class="inv-facet__body">
+              
+              {%- case filter.type -%}
+                {%- when 'list' or 'boolean' -%}
+                  <ul class="inv-facet__list">
+                    {%- for value in filter.values -%}
+                      <li class="inv-facet__item">
+                        <label class="inv-facet__label-wrap">
+                          <input 
+                            type="checkbox" 
+                            name="{{ value.param_name }}" 
+                            value="{{ value.value }}"
+                            class="inv-facet__checkbox"
+                            {% if value.active %}checked{% endif %}
+                            {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                          >
+                          <span class="inv-facet__label">{{ value.label }}</span>
+                          <span class="inv-facet__count">({{ value.count }})</span>
+                        </label>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                  
+                {%- when 'price_range' -%}
+                  <div class="inv-facet__price-row">
+                    <div class="inv-facet__price-field">
+                      <span class="inv-facet__price-symbol">£</span>
+                      <input 
+                        type="number" 
+                        name="{{ filter.min_value.param_name }}" 
+                        class="inv-facet__price-input"
+                        placeholder="Min"
+                        min="0"
+                        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                        {% if filter.min_value.value %}value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
+                      >
+                    </div>
+                    <span class="inv-facet__price-sep">–</span>
+                    <div class="inv-facet__price-field">
+                      <span class="inv-facet__price-symbol">£</span>
+                      <input 
+                        type="number" 
+                        name="{{ filter.max_value.param_name }}" 
+                        class="inv-facet__price-input"
+                        placeholder="Max"
+                        min="0"
+                        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                        {% if filter.max_value.value %}value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
+                      >
+                    </div>
+                  </div>
+              {%- endcase -%}
+              
+            </div>
+          </details>
+        {%- endfor -%}
+      </form>
+    </div>
+    
+    <div class="inv-drawer__footer">
+      <a href="{{ collection.url }}" class="inv-drawer__reset">{{ 'products.facets.clear_all' | t }}</a>
+      <button type="button" class="inv-drawer__apply" id="InvDrawerApply">Apply Filters</button>
+    </div>
+  </div>
+
+
+  {%- comment -%} ================================================================
+     7. FLOATING FILTER BUTTON (Mobile)
+  ================================================================ {%- endcomment -%}
+  <button type="button" class="inv-floating-filter" id="InvFloatingFilter" aria-label="Open filters">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="4" x2="4" y1="21" y2="14"/>
+      <line x1="4" x2="4" y1="10" y2="3"/>
+      <line x1="12" x2="12" y1="21" y2="12"/>
+      <line x1="12" x2="12" y1="8" y2="3"/>
+      <line x1="20" x2="20" y1="21" y2="16"/>
+      <line x1="20" x2="20" y1="12" y2="3"/>
+      <line x1="1" x2="7" y1="14" y2="14"/>
+      <line x1="9" x2="15" y1="8" y2="8"/>
+      <line x1="17" x2="23" y1="16" y2="16"/>
+    </svg>
+    <span>Filters</span>
+    {%- if has_active_filters -%}
+      <span class="inv-floating-filter__badge">{{ active_filter_count }}</span>
+    {%- endif -%}
+  </button>
+
+
+  {%- comment -%} ================================================================
+     8. SCROLL TO TOP
+  ================================================================ {%- endcomment -%}
+  <button type="button" class="inv-scroll-top" id="InvScrollTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="m18 15-6-6-6 6"/>
+    </svg>
+    <span>Top</span>
+  </button>
+
+</div>
+
+
+{%- comment -%} ================================================================
+   JAVASCRIPT
+================================================================ {%- endcomment -%}
+<script>
+(function() {
+  'use strict';
+
+  /* ==========================================================================
+     DOM ELEMENTS
+     ========================================================================== */
+  
+  var drawer = document.getElementById('InvDrawer');
+  var overlay = document.getElementById('InvDrawerOverlay');
+  var drawerClose = document.getElementById('InvDrawerClose');
+  var drawerApply = document.getElementById('InvDrawerApply');
+  var drawerForm = document.getElementById('InvDrawerForm');
+  var filterToggle = document.getElementById('InvFilterToggle');
+  var floatingFilter = document.getElementById('InvFloatingFilter');
+  var scrollTopBtn = document.getElementById('InvScrollTop');
+  var sortSelect = document.getElementById('InvSortSelect');
+  var toolbar = document.getElementById('InvToolbar');
+  var hero = document.querySelector('.inv-hero');
+  
+  /* ==========================================================================
+     DRAWER FUNCTIONS
+     ========================================================================== */
+  
+  function openDrawer() {
+    if (!drawer || !overlay) return;
+    drawer.classList.add('is-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    overlay.classList.add('is-visible');
+    document.body.style.overflow = 'hidden';
+    if (filterToggle) filterToggle.setAttribute('aria-expanded', 'true');
+  }
+  
+  function closeDrawer() {
+    if (!drawer || !overlay) return;
+    drawer.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden', 'true');
+    overlay.classList.remove('is-visible');
+    document.body.style.overflow = '';
+    if (filterToggle) filterToggle.setAttribute('aria-expanded', 'false');
+  }
+  
+  // Open drawer — toolbar button
+  if (filterToggle) {
+    filterToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      openDrawer();
+    });
+  }
+  
+  // Open drawer — floating button
+  if (floatingFilter) {
+    floatingFilter.addEventListener('click', function(e) {
+      e.preventDefault();
+      openDrawer();
+    });
+  }
+  
+  // Close drawer — close button
+  if (drawerClose) {
+    drawerClose.addEventListener('click', function(e) {
+      e.preventDefault();
+      closeDrawer();
+    });
+  }
+  
+  // Close drawer — overlay click
+  if (overlay) {
+    overlay.addEventListener('click', closeDrawer);
+  }
+  
+  // Close drawer — Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && drawer && drawer.classList.contains('is-open')) {
+      closeDrawer();
+    }
+  });
+  
+  // Apply filters
+  if (drawerApply && drawerForm) {
+    drawerApply.addEventListener('click', function() {
+      var params = new URLSearchParams();
+      var inputs = drawerForm.querySelectorAll('input:checked, input[type="number"]');
+      
+      inputs.forEach(function(input) {
+        if (input.type === 'checkbox' && input.checked) {
+          params.append(input.name, input.value);
+        } else if (input.type === 'number' && input.value) {
+          params.append(input.name, input.value);
+        }
+      });
+      
+      // Preserve sort
+      if (sortSelect && sortSelect.value) {
+        params.set('sort_by', sortSelect.value);
+      }
+      
+      var url = window.location.pathname;
+      var queryString = params.toString();
+      if (queryString) {
+        url += '?' + queryString;
+      }
+      
+      closeDrawer();
+      window.location.href = url;
+    });
+  }
+  
+  /* ==========================================================================
+     SORT
+     ========================================================================== */
+  
+  if (sortSelect) {
+    sortSelect.addEventListener('change', function() {
+      var params = new URLSearchParams(window.location.search);
+      params.set('sort_by', this.value);
+      window.location.search = params.toString();
+    });
+  }
+  
+  /* ==========================================================================
+     SCROLL EFFECTS
+     ========================================================================== */
+  
+  var ticking = false;
+  var heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 300;
+  
+  function handleScroll() {
+    var scrollY = window.scrollY || window.pageYOffset;
+    
+    // Toolbar shadow
+    if (toolbar) {
+      toolbar.classList.toggle('is-stuck', scrollY > 10);
+    }
+    
+    // Floating filter — show after hero
+    if (floatingFilter) {
+      floatingFilter.classList.toggle('is-visible', scrollY > heroBottom);
+    }
+    
+    // Back to top — show after 400px
+    if (scrollTopBtn) {
+      scrollTopBtn.classList.toggle('is-visible', scrollY > 400);
+    }
+    
+    ticking = false;
+  }
+  
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      window.requestAnimationFrame(handleScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+  
+  // Recalculate hero height on resize
+  window.addEventListener('resize', function() {
+    if (hero) {
+      heroBottom = hero.offsetTop + hero.offsetHeight;
+    }
+  }, { passive: true });
+  
+  // Initial check
+  handleScroll();
+  
+  /* ==========================================================================
+     SCROLL TO TOP
+     ========================================================================== */
+  
+  if (scrollTopBtn) {
+    scrollTopBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+  
+  /* ==========================================================================
+     ENSURE DRAWER CLOSED ON LOAD
+     ========================================================================== */
+  
+  if (drawer) drawer.classList.remove('is-open');
+  if (overlay) overlay.classList.remove('is-visible');
+  document.body.style.overflow = '';
+
+})();
+</script>
+
+
+{% schema %}
+{
+  "name": "Invicta Collection v9.1",
+  "tag": "section",
+  "class": "section-invicta-collection",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero Section"
+    },
+    {
+      "type": "text",
+      "id": "hero_subheading",
+      "label": "Subheading",
+      "default": "Power tools, fixings and accessories, curated for trade customers."
+    },
+    {
+      "type": "header",
+      "content": "Full Catalogue Link"
+    },
+    {
+      "type": "paragraph",
+      "content": "Link to the full catalogue collection containing all available products (including non-stocked items)."
+    },
+    {
+      "type": "collection",
+      "id": "full_catalogue_collection",
+      "label": "Full catalogue collection"
+    },
+    {
+      "type": "number",
+      "id": "full_catalogue_count",
+      "label": "Total products in full catalogue",
+      "info": "Enter the product count from the full catalogue collection.",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "USP Pills"
+    },
+    {
+      "type": "text",
+      "id": "badge_1",
+      "label": "USP 1 — Text",
+      "default": "Trade-Trusted Brands"
+    },
+    {
+      "type": "url",
+      "id": "badge_1_link",
+      "label": "USP 1 — Link"
+    },
+    {
+      "type": "text",
+      "id": "badge_2",
+      "label": "USP 2 — Text",
+      "default": "Next-Day Delivery"
+    },
+    {
+      "type": "url",
+      "id": "badge_2_link",
+      "label": "USP 2 — Link"
+    },
+    {
+      "type": "text",
+      "id": "badge_3",
+      "label": "USP 3 — Text",
+      "default": "Find in Store"
+    },
+    {
+      "type": "url",
+      "id": "badge_3_link",
+      "label": "USP 3 — Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_brand_filters",
+      "label": "Show brand quick filters",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Product Grid"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 12,
+      "max": 72,
+      "step": 12,
+      "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sort",
+      "label": "Show sort dropdown",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "text",
+      "id": "apply_text",
+      "label": "Apply button text",
+      "default": "Apply Filters"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Invicta Collection v9.1"
+    }
+  ]
+}
+{% endschema %}

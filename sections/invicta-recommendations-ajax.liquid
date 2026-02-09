@@ -1,0 +1,27 @@
+{% comment %}
+  ============================================================================
+  INVICTA RECOMMENDATIONS AJAX SECTION
+  ============================================================================
+  
+  This section is fetched via AJAX by invicta-product.liquid.
+  It renders product cards with proper brand-pill styling.
+  
+  DO NOT add this to templates — it's only used for AJAX fetching.
+  
+  ============================================================================
+{% endcomment %}
+
+{%- if recommendations.performed and recommendations.products_count > 0 -%}
+  {%- for product in recommendations.products -%}
+    <div class="inv-recs__item">
+      {% render 'card-product', card_product: product %}
+    </div>
+  {%- endfor -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Invicta Rec AJAX",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,486 @@
+{% comment %}
+  ============================================
+  LOCAL HERO v1.0
+  ============================================
+  Hero section for local SEO town landing pages
+  Shows town name, nearest branch, distance,
+  address, phone, hours, and Google Maps link
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+{{ 'brand-page.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .local-hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #fff;
+    padding: 48px 0 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .local-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(220,38,38,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .local-hero__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  @media (max-width: 749px) {
+    .local-hero__grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .local-hero {
+      padding: 32px 0 28px;
+    }
+  }
+  .local-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(220,38,38,0.15);
+    border: 1px solid rgba(220,38,38,0.3);
+    color: #f87171;
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .local-hero__headline {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 12px;
+    letter-spacing: -0.5px;
+  }
+  .local-hero__headline-accent {
+    color: #dc2626;
+  }
+  .local-hero__subtitle {
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.7);
+    margin: 0 0 24px;
+    max-width: 480px;
+  }
+  .local-hero__stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .local-hero__stat-value {
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+    display: block;
+  }
+  .local-hero__stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .local-hero__branch-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 28px;
+  }
+  .local-hero__branch-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #f87171;
+    font-weight: 600;
+    margin: 0 0 8px;
+  }
+  .local-hero__branch-name {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 16px;
+  }
+  .local-hero__branch-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.5;
+  }
+  .local-hero__branch-detail svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: rgba(255,255,255,0.4);
+  }
+  .local-hero__branch-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .local-hero__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .local-hero__btn--primary {
+    background: #dc2626;
+    color: #fff;
+  }
+  .local-hero__btn--primary:hover {
+    background: #b91c1c;
+    color: #fff;
+  }
+  .local-hero__btn--secondary {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .local-hero__btn--secondary:hover {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+
+  .local-hero__schema { display: none; }
+</style>
+
+<section class="local-hero" id="local-hero-{{ section.id }}">
+  <div class="page-width">
+    <div class="local-hero__grid">
+
+      {%- comment -%} Left Column - Content {%- endcomment -%}
+      <div class="local-hero__content">
+        {%- if section.settings.badge_text != blank -%}
+          <span class="local-hero__badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            {{ section.settings.badge_text }}
+          </span>
+        {%- endif -%}
+
+        <h1 class="local-hero__headline">
+          {{ section.settings.headline_line_1 }}
+          {%- if section.settings.headline_line_2 != blank -%}
+            <br><span class="local-hero__headline-accent">{{ section.settings.headline_line_2 }}</span>
+          {%- endif -%}
+        </h1>
+
+        {%- if section.settings.subtitle != blank -%}
+          <p class="local-hero__subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+
+        <div class="local-hero__stats">
+          {%- if section.settings.stat_1_value != blank -%}
+            <div class="local-hero__stat">
+              <span class="local-hero__stat-value">{{ section.settings.stat_1_value }}</span>
+              <span class="local-hero__stat-label">{{ section.settings.stat_1_label }}</span>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.stat_2_value != blank -%}
+            <div class="local-hero__stat">
+              <span class="local-hero__stat-value">{{ section.settings.stat_2_value }}</span>
+              <span class="local-hero__stat-label">{{ section.settings.stat_2_label }}</span>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.stat_3_value != blank -%}
+            <div class="local-hero__stat">
+              <span class="local-hero__stat-value">{{ section.settings.stat_3_value }}</span>
+              <span class="local-hero__stat-label">{{ section.settings.stat_3_label }}</span>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- comment -%} Right Column - Branch Card {%- endcomment -%}
+      <div class="local-hero__branch">
+        <div class="local-hero__branch-card">
+          <p class="local-hero__branch-label">Your Nearest Branch</p>
+          <h2 class="local-hero__branch-name">{{ section.settings.branch_name }} Branch</h2>
+
+          {%- if section.settings.distance_text != blank -%}
+            <div class="local-hero__branch-detail">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span>{{ section.settings.distance_text }}</span>
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.branch_address != blank -%}
+            <div class="local-hero__branch-detail">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>{{ section.settings.branch_address }}</span>
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.phone != blank -%}
+            <div class="local-hero__branch-detail">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              <a href="tel:{{ section.settings.phone | remove: ' ' }}" style="color: inherit; text-decoration: none;">{{ section.settings.phone }}</a>
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.opening_hours != blank -%}
+            <div class="local-hero__branch-detail">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              <span>{{ section.settings.opening_hours }}</span>
+            </div>
+          {%- endif -%}
+
+          <div class="local-hero__branch-buttons">
+            {%- if section.settings.maps_url != blank -%}
+              <a href="{{ section.settings.maps_url }}" target="_blank" rel="noopener" class="local-hero__btn local-hero__btn--primary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+                </svg>
+                Get Directions
+              </a>
+            {%- endif -%}
+            <a href="/collections/all" class="local-hero__btn local-hero__btn--secondary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+              </svg>
+              Shop Online
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {%- comment -%} Schema.org LocalBusiness Markup {%- endcomment -%}
+  {%- if section.settings.schema_town != blank -%}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "HardwareStore",
+        "name": "Invicta Tools – {{ section.settings.schema_town }}",
+        "description": "Professional power tools and trade supplies for {{ section.settings.schema_town }}, Kent. Authorised Makita and DeWalt dealer.",
+        "url": "{{ shop.url }}{{ page.url }}",
+        "telephone": "{{ section.settings.phone | default: '01843 210 459' }}",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "{{ section.settings.schema_street }}",
+          "addressLocality": "{{ section.settings.schema_locality | default: section.settings.branch_name }}",
+          "addressRegion": "Kent",
+          "postalCode": "{{ section.settings.schema_postcode }}",
+          "addressCountry": "GB"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "{{ section.settings.schema_lat }}",
+          "longitude": "{{ section.settings.schema_lng }}"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+            "opens": "07:30",
+            "closes": "17:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "08:00",
+            "closes": "12:00"
+          }
+        ],
+        "brand": [
+          {"@type": "Brand", "name": "Makita"},
+          {"@type": "Brand", "name": "DeWalt"}
+        ],
+        "areaServed": {
+          "@type": "City",
+          "name": "{{ section.settings.schema_town }}"
+        },
+        "priceRange": "££"
+      }
+    </script>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Local Hero",
+  "tag": "section",
+  "class": "section-local-hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Badge & Headlines"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Serving Kent Since 1996"
+    },
+    {
+      "type": "text",
+      "id": "headline_line_1",
+      "label": "Headline Line 1",
+      "default": "Power Tools & Trade Supplies"
+    },
+    {
+      "type": "text",
+      "id": "headline_line_2",
+      "label": "Headline Line 2 (accent)",
+      "default": "in Canterbury"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "header",
+      "content": "Stats"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_value",
+      "label": "Stat 1 Value",
+      "default": "28+"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_label",
+      "label": "Stat 1 Label",
+      "default": "Years Trading"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_value",
+      "label": "Stat 2 Value",
+      "default": "2"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_label",
+      "label": "Stat 2 Label",
+      "default": "Kent Branches"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_value",
+      "label": "Stat 3 Value",
+      "default": "£30+"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_label",
+      "label": "Stat 3 Label",
+      "default": "Free Delivery"
+    },
+    {
+      "type": "header",
+      "content": "Branch Details"
+    },
+    {
+      "type": "text",
+      "id": "branch_name",
+      "label": "Branch Name",
+      "default": "Canterbury"
+    },
+    {
+      "type": "text",
+      "id": "distance_text",
+      "label": "Distance Text",
+      "default": "Just 15 minutes from town centre"
+    },
+    {
+      "type": "text",
+      "id": "branch_address",
+      "label": "Branch Address",
+      "default": "Unit 9 Cotton Road, Wincheap Industrial Estate, Canterbury, CT1 3TB"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone Number",
+      "default": "01843 210 459"
+    },
+    {
+      "type": "text",
+      "id": "opening_hours",
+      "label": "Opening Hours",
+      "default": "Mon–Fri 7:30–17:00 · Sat 8:00–12:00"
+    },
+    {
+      "type": "url",
+      "id": "maps_url",
+      "label": "Google Maps URL"
+    },
+    {
+      "type": "header",
+      "content": "Schema.org (SEO)"
+    },
+    {
+      "type": "text",
+      "id": "schema_town",
+      "label": "Town Name (Schema)"
+    },
+    {
+      "type": "text",
+      "id": "schema_street",
+      "label": "Street Address (Schema)"
+    },
+    {
+      "type": "text",
+      "id": "schema_locality",
+      "label": "Locality (Schema)"
+    },
+    {
+      "type": "text",
+      "id": "schema_postcode",
+      "label": "Postcode (Schema)"
+    },
+    {
+      "type": "text",
+      "id": "schema_lat",
+      "label": "Latitude"
+    },
+    {
+      "type": "text",
+      "id": "schema_lng",
+      "label": "Longitude"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Local Hero"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,2281 @@
+{% comment %}
+  ============================================================================
+  INVICTA SEARCH PAGE v1.3
+  ============================================================================
+  Unified search experience matching collection pages.
+  
+  Features:
+  ✓ Same filter UI as collections (horizontal pills)
+  ✓ Same product grid layout
+  ✓ AJAX filtering, sorting, pagination
+  ✓ Search input with predictive search
+  ✓ Products only (no articles/pages)
+  ✓ Scroll arrows for filter rows
+  ✓ Visible thin scrollbar
+  
+  Fixes in v1.3:
+  - Fixed grid uniformity (minmax constraint)
+  - Removed phantom search bar shadows
+  - Fixed list item spacing interference
+  
+  Trade 15.4.0 Compatible
+  ============================================================================
+{% endcomment %}
+
+{%- liquid
+  # ----------------------------------------
+  # SETTINGS
+  # ----------------------------------------
+  assign products_per_page = section.settings.products_per_page
+  assign show_sort = section.settings.show_sort
+  assign empty_message = section.settings.empty_message
+  
+  # Grid columns
+  assign cols_desktop = section.settings.columns_desktop
+  assign cols_tablet = section.settings.columns_tablet
+  assign cols_mobile = section.settings.columns_mobile
+  assign grid_gap = section.settings.grid_gap
+  
+  # Spacing
+  assign padding_top = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+  
+  # Card settings
+  assign card_radius = section.settings.card_radius
+  assign card_padding = section.settings.card_padding
+  assign image_ratio = section.settings.image_ratio
+  
+  # Colours
+  assign section_bg = section.settings.section_bg
+  assign card_bg = section.settings.card_bg
+  assign card_border = section.settings.card_border
+  assign image_bg = section.settings.image_bg
+  assign badge_bg = section.settings.badge_bg
+  assign badge_text = section.settings.badge_text
+  assign title_color = section.settings.title_color
+  assign price_color = section.settings.price_color
+  assign btn_primary_bg = section.settings.btn_primary_bg
+  assign btn_primary_text = section.settings.btn_primary_text
+  assign btn_secondary_bg = section.settings.btn_secondary_bg
+  assign btn_secondary_text = section.settings.btn_secondary_text
+  assign btn_secondary_border = section.settings.btn_secondary_border
+  
+  # ----------------------------------------
+  # BUILD SEARCH URL BASE
+  # ----------------------------------------
+  assign sort_by = search.sort_by | default: search.default_sort_by
+  assign search_terms = search.terms | escape
+  
+  # ----------------------------------------
+  # DETECT ACTIVE FILTERS
+  # ----------------------------------------
+  assign has_active_filters = false
+  assign active_brands_param = ''
+  assign active_types_param = ''
+  
+  for filter in search.filters
+    if filter.active_values.size > 0
+      assign has_active_filters = true
+    endif
+    
+    if filter.param_name == 'filter.p.vendor'
+      for value in filter.active_values
+        if active_brands_param == ''
+          assign active_brands_param = value.label
+        else
+          assign active_brands_param = active_brands_param | append: '|||' | append: value.label
+        endif
+      endfor
+    endif
+    
+    if filter.param_name == 'filter.p.product_type'
+      for value in filter.active_values
+        if active_types_param == ''
+          assign active_types_param = value.label
+        else
+          assign active_types_param = active_types_param | append: '|||' | append: value.label
+        endif
+      endfor
+    endif
+  endfor
+  
+  assign active_brands = active_brands_param | split: '|||'
+  assign active_types = active_types_param | split: '|||'
+  assign active_brand_count = active_brands | size
+  assign active_type_count = active_types | size
+  assign total_active = active_brand_count | plus: active_type_count
+  
+  # ----------------------------------------
+  # BUILD SORTED FILTER DATA
+  # ----------------------------------------
+  assign brand_entries_active = ''
+  assign brand_entries_inactive = ''
+  assign type_entries_active = ''
+  assign type_entries_inactive = ''
+  
+  assign has_brands = false
+  assign has_types = false
+  
+  for filter in search.filters
+    
+    # Brand filter
+    if filter.param_name == 'filter.p.vendor'
+      for value in filter.values
+        if value.count > 0
+          assign has_brands = true
+          assign sort_key = 99999 | minus: value.count
+          assign sort_key_padded = sort_key | prepend: '00000' | slice: -5, 5
+          assign entry = sort_key_padded | append: '|' | append: value.label | append: '|' | append: value.count
+          
+          if value.active
+            if brand_entries_active == ''
+              assign brand_entries_active = entry
+            else
+              assign brand_entries_active = brand_entries_active | append: '|||' | append: entry
+            endif
+          else
+            if brand_entries_inactive == ''
+              assign brand_entries_inactive = entry
+            else
+              assign brand_entries_inactive = brand_entries_inactive | append: '|||' | append: entry
+            endif
+          endif
+        endif
+      endfor
+    endif
+    
+    # Product type filter
+    if filter.param_name == 'filter.p.product_type'
+      for value in filter.values
+        if value.count > 0
+          assign has_types = true
+          assign sort_key = 99999 | minus: value.count
+          assign sort_key_padded = sort_key | prepend: '00000' | slice: -5, 5
+          assign entry = sort_key_padded | append: '|' | append: value.label | append: '|' | append: value.count
+          
+          if value.active
+            if type_entries_active == ''
+              assign type_entries_active = entry
+            else
+              assign type_entries_active = type_entries_active | append: '|||' | append: entry
+            endif
+          else
+            if type_entries_inactive == ''
+              assign type_entries_inactive = entry
+            else
+              assign type_entries_inactive = type_entries_inactive | append: '|||' | append: entry
+            endif
+          endif
+        endif
+      endfor
+    endif
+    
+  endfor
+  
+  # Sort arrays
+  assign brand_active_sorted = brand_entries_active | split: '|||' | sort
+  assign brand_inactive_sorted = brand_entries_inactive | split: '|||' | sort
+  assign type_active_sorted = type_entries_active | split: '|||' | sort
+  assign type_inactive_sorted = type_entries_inactive | split: '|||' | sort
+-%}
+
+<div 
+  id="invicta-search"
+  class="inv-search"
+  data-section-id="{{ section.id }}"
+  data-search-terms="{{ search_terms }}"
+  data-active-brands="{{ active_brands_param | escape }}"
+  data-active-types="{{ active_types_param | escape }}"
+  style="
+    --inv-grid-columns: {{ cols_desktop }};
+    --inv-grid-columns-tablet: {{ cols_tablet }};
+    --inv-grid-columns-mobile: {{ cols_mobile }};
+    --inv-grid-gap: {{ grid_gap }}px;
+    --inv-padding-top: {{ padding_top }}px;
+    --inv-padding-bottom: {{ padding_bottom }}px;
+    --inv-section-bg: {{ section_bg }};
+    --inv-card-bg: {{ card_bg }};
+    --inv-card-border: {{ card_border }};
+    --inv-card-radius: {{ card_radius }}px;
+    --inv-card-padding: {{ card_padding }}px;
+    --inv-image-bg: {{ image_bg }};
+    --inv-image-ratio: {{ image_ratio }}%;
+    --inv-badge-bg: {{ badge_bg }};
+    --inv-badge-text: {{ badge_text }};
+    --inv-title-color: {{ title_color }};
+    --inv-price-color: {{ price_color }};
+    --inv-btn-primary-bg: {{ btn_primary_bg }};
+    --inv-btn-primary-text: {{ btn_primary_text }};
+    --inv-btn-secondary-bg: {{ btn_secondary_bg }};
+    --inv-btn-secondary-text: {{ btn_secondary_text }};
+    --inv-btn-secondary-border: {{ btn_secondary_border }};
+  "
+>
+  
+  {%- comment -%} ========== SEARCH HEADER ========== {%- endcomment -%}
+  <div class="inv-search__header">
+    <div class="inv-search__container page-width">
+      
+      <h1 class="inv-search__title">
+        {%- if search.performed -%}
+          {%- if search_terms != blank -%}
+            Search results for "{{ search.terms }}"
+          {%- else -%}
+            All Products
+          {%- endif -%}
+        {%- else -%}
+          Search
+        {%- endif -%}
+      </h1>
+      
+      {%- comment -%} Search Input {%- endcomment -%}
+      <div class="inv-search__input-wrapper">
+        {%- if settings.predictive_search_enabled -%}
+          <predictive-search data-loading-text="{{ 'accessibility.loading' | t }}">
+        {%- endif -%}
+        
+        <form action="{{ routes.search_url }}" method="get" role="search" class="inv-search__form">
+          <input type="hidden" name="type" value="product">
+          <input type="hidden" name="options[prefix]" value="last">
+          
+          <div class="inv-search__field">
+            <input
+              type="search"
+              name="q"
+              id="inv-search-input"
+              class="inv-search__input"
+              value="{{ search.terms | escape }}"
+              placeholder="Search products..."
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+              {%- if settings.predictive_search_enabled -%}
+                role="combobox"
+                aria-expanded="false"
+                aria-owns="predictive-search-results"
+                aria-controls="predictive-search-results"
+                aria-haspopup="listbox"
+                aria-autocomplete="list"
+              {%- endif -%}
+            >
+            
+            <button type="submit" class="inv-search__submit" aria-label="Search">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+            </button>
+            
+            {%- if search.terms != blank -%}
+              <a href="{{ routes.search_url }}?type=product" class="inv-search__clear" aria-label="Clear search">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </a>
+            {%- endif -%}
+          </div>
+          
+          {%- if settings.predictive_search_enabled -%}
+            <div class="predictive-search predictive-search--search-template" tabindex="-1" data-predictive-search></div>
+          {%- endif -%}
+        </form>
+        
+        {%- if settings.predictive_search_enabled -%}
+          </predictive-search>
+        {%- endif -%}
+      </div>
+      
+    </div>
+  </div>
+  
+  {%- if search.performed -%}
+    
+    {%- comment -%} ========== FILTERS ========== {%- endcomment -%}
+    {%- if search.filters != empty and section.settings.show_filters -%}
+      <div class="inv-search__filters" id="inv-search-filters">
+        
+        {%- comment -%} Brand Filter Row {%- endcomment -%}
+        {%- if has_brands -%}
+          <div class="inv-filters__row">
+            <div class="inv-filters__container page-width">
+              <div class="inv-filters__header">
+                <span class="inv-filters__label">Brand</span>
+                {%- if active_brand_count > 0 -%}
+                  <span class="inv-filters__count">({{ active_brand_count }} selected)</span>
+                {%- endif -%}
+              </div>
+              
+              <div class="inv-filters__scroll-container">
+                {%- comment -%} Left arrow {%- endcomment -%}
+                <button type="button" class="inv-filters__scroll-btn inv-filters__scroll-btn--left inv-filters__scroll-btn--hidden" aria-label="Scroll left" data-scroll-dir="left">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+                
+                <div class="inv-filters__scroll-wrapper" data-filter-scroll>
+                  <div class="inv-filters__buttons" data-filter-group="brand">
+                    
+                    {%- for entry in brand_active_sorted -%}
+                      {%- if entry != blank -%}
+                        {%- assign parts = entry | split: '|' -%}
+                        {%- assign label = parts[1] -%}
+                        {%- assign count = parts[2] -%}
+                        <button
+                          type="button"
+                          class="inv-filters__btn inv-filters__btn--active"
+                          data-filter-value="{{ label | escape }}"
+                          data-filter-type="brand"
+                          data-filter-param="filter.p.vendor"
+                          aria-pressed="true"
+                        >
+                          <span class="inv-filters__btn-text">{{ label }}</span>
+                          <span class="inv-filters__btn-count">({{ count }})</span>
+                        </button>
+                      {%- endif -%}
+                    {%- endfor -%}
+                    
+                    {%- for entry in brand_inactive_sorted -%}
+                      {%- if entry != blank -%}
+                        {%- assign parts = entry | split: '|' -%}
+                        {%- assign label = parts[1] -%}
+                        {%- assign count = parts[2] -%}
+                        <button
+                          type="button"
+                          class="inv-filters__btn"
+                          data-filter-value="{{ label | escape }}"
+                          data-filter-type="brand"
+                          data-filter-param="filter.p.vendor"
+                          aria-pressed="false"
+                        >
+                          <span class="inv-filters__btn-text">{{ label }}</span>
+                          <span class="inv-filters__btn-count">({{ count }})</span>
+                        </button>
+                      {%- endif -%}
+                    {%- endfor -%}
+                    
+                  </div>
+                </div>
+                
+                {%- comment -%} Right arrow {%- endcomment -%}
+                <button type="button" class="inv-filters__scroll-btn inv-filters__scroll-btn--right" aria-label="Scroll right" data-scroll-dir="right">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+              </div>
+              
+            </div>
+          </div>
+        {%- endif -%}
+        
+        {%- comment -%} Type Filter Row {%- endcomment -%}
+        {%- if has_types -%}
+          <div class="inv-filters__row inv-filters__row--types">
+            <div class="inv-filters__container page-width">
+              <div class="inv-filters__header">
+                <span class="inv-filters__label">Product Type</span>
+                {%- if active_type_count > 0 -%}
+                  <span class="inv-filters__count">({{ active_type_count }} selected)</span>
+                {%- endif -%}
+              </div>
+              
+              <div class="inv-filters__scroll-container">
+                {%- comment -%} Left arrow {%- endcomment -%}
+                <button type="button" class="inv-filters__scroll-btn inv-filters__scroll-btn--left inv-filters__scroll-btn--hidden" aria-label="Scroll left" data-scroll-dir="left">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+                
+                <div class="inv-filters__scroll-wrapper" data-filter-scroll>
+                  <div class="inv-filters__buttons" data-filter-group="type">
+                    
+                    {%- for entry in type_active_sorted -%}
+                      {%- if entry != blank -%}
+                        {%- assign parts = entry | split: '|' -%}
+                        {%- assign label = parts[1] -%}
+                        {%- assign count = parts[2] -%}
+                        <button
+                          type="button"
+                          class="inv-filters__btn inv-filters__btn--active"
+                          data-filter-value="{{ label | escape }}"
+                          data-filter-type="type"
+                          data-filter-param="filter.p.product_type"
+                          aria-pressed="true"
+                        >
+                          <span class="inv-filters__btn-text">{{ label }}</span>
+                          <span class="inv-filters__btn-count">({{ count }})</span>
+                        </button>
+                      {%- endif -%}
+                    {%- endfor -%}
+                    
+                    {%- for entry in type_inactive_sorted -%}
+                      {%- if entry != blank -%}
+                        {%- assign parts = entry | split: '|' -%}
+                        {%- assign label = parts[1] -%}
+                        {%- assign count = parts[2] -%}
+                        <button
+                          type="button"
+                          class="inv-filters__btn"
+                          data-filter-value="{{ label | escape }}"
+                          data-filter-type="type"
+                          data-filter-param="filter.p.product_type"
+                          aria-pressed="false"
+                        >
+                          <span class="inv-filters__btn-text">{{ label }}</span>
+                          <span class="inv-filters__btn-count">({{ count }})</span>
+                        </button>
+                      {%- endif -%}
+                    {%- endfor -%}
+                    
+                  </div>
+                </div>
+                
+                {%- comment -%} Right arrow {%- endcomment -%}
+                <button type="button" class="inv-filters__scroll-btn inv-filters__scroll-btn--right" aria-label="Scroll right" data-scroll-dir="right">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+              </div>
+              
+            </div>
+          </div>
+        {%- endif -%}
+        
+        {%- comment -%} Active Filters Bar {%- endcomment -%}
+        {%- if total_active > 0 -%}
+          <div class="inv-filters__active-bar" id="inv-active-filters">
+            <div class="inv-filters__container page-width">
+              <div class="inv-filters__active-content">
+                <div class="inv-filters__active-left">
+                  <span class="inv-filters__active-label">Active:</span>
+                  <div class="inv-filters__active-tags">
+                    {%- for brand in active_brands -%}
+                      {%- if brand != blank -%}
+                        <span class="inv-filters__tag inv-filters__tag--brand" data-filter-value="{{ brand | escape }}" data-filter-type="brand">
+                          <span class="inv-filters__tag-text">{{ brand }}</span>
+                          <button type="button" class="inv-filters__tag-remove" aria-label="Remove {{ brand }}">
+                            <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                          </button>
+                        </span>
+                      {%- endif -%}
+                    {%- endfor -%}
+                    
+                    {%- for type_val in active_types -%}
+                      {%- if type_val != blank -%}
+                        <span class="inv-filters__tag inv-filters__tag--type" data-filter-value="{{ type_val | escape }}" data-filter-type="type">
+                          <span class="inv-filters__tag-text">{{ type_val }}</span>
+                          <button type="button" class="inv-filters__tag-remove" aria-label="Remove {{ type_val }}">
+                            <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                          </button>
+                        </span>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                </div>
+                <button type="button" class="inv-filters__clear-all" id="inv-clear-all">{{ 'products.facets.clear_all' | t }}</button>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+        
+      </div>
+    {%- endif -%}
+    
+    {%- comment -%} ========== PRODUCT GRID ========== {%- endcomment -%}
+    <div class="inv-search__grid">
+      <div class="inv-search__container page-width">
+        
+        {%- paginate search.results by products_per_page -%}
+          
+          {%- comment -%} Toolbar {%- endcomment -%}
+          <div class="inv-grid__toolbar">
+            <div class="inv-grid__toolbar-left">
+              <p class="inv-grid__count" id="inv-product-count" aria-live="polite">
+                {%- if search.results_count == 0 -%}
+                  <strong>0</strong> products
+                {%- elsif paginate.pages > 1 -%}
+                  <strong>{{ search.results_count }}</strong> 
+                  {{ search.results_count | pluralize: 'product', 'products' }}
+                  <span class="inv-grid__count-range">({{ paginate.current_offset | plus: 1 }}–{{ paginate.current_offset | plus: paginate.items.size }})</span>
+                {%- else -%}
+                  <strong>{{ search.results_count }}</strong> 
+                  {{ search.results_count | pluralize: 'product', 'products' }}
+                {%- endif -%}
+              </p>
+            </div>
+            
+            {%- if show_sort and search.results_count > 0 -%}
+              <div class="inv-grid__toolbar-right">
+                <div class="inv-grid__sort">
+                  <label for="inv-sort-select" class="inv-grid__sort-label">Sort:</label>
+                  <select id="inv-sort-select" class="inv-grid__sort-select" data-inv-sort-select>
+                    {%- for option in search.sort_options -%}
+                      <option value="{{ option.value }}" {% if sort_by == option.value %}selected{% endif %}>
+                        {{ option.name }}
+                      </option>
+                    {%- endfor -%}
+                  </select>
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+          
+          {%- comment -%} Products {%- endcomment -%}
+          <ul class="inv-grid__products" id="inv-product-list" role="list">
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}
+                <li class="inv-grid__item">
+                  {%- render 'invicta-product-card', 
+                      product: item, 
+                      section_settings: section.settings,
+                      card_index: forloop.index
+                  -%}
+                </li>
+              {%- endif -%}
+            {%- else -%}
+              <li class="inv-grid__empty">
+                <div class="inv-grid__empty-inner">
+                  <svg class="inv-grid__empty-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                  </svg>
+                  <p class="inv-grid__empty-message">{{ empty_message }}</p>
+                  {%- if has_active_filters -%}
+                    <button type="button" class="inv-grid__empty-link" id="inv-clear-filters-empty">
+                      Clear all filters
+                    </button>
+                  {%- endif -%}
+                </div>
+              </li>
+            {%- endfor -%}
+          </ul>
+          
+          {%- comment -%} Pagination {%- endcomment -%}
+          {%- if paginate.pages > 1 -%}
+            <nav class="inv-grid__pagination" aria-label="Search results pagination">
+              <div class="inv-pagination">
+                
+                {%- if paginate.previous -%}
+                  <a href="{{ paginate.previous.url }}" class="inv-pagination__btn inv-pagination__btn--prev" data-inv-page-link aria-label="Previous page">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+                    <span>Prev</span>
+                  </a>
+                {%- else -%}
+                  <span class="inv-pagination__btn inv-pagination__btn--prev inv-pagination__btn--disabled" aria-disabled="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+                    <span>Prev</span>
+                  </span>
+                {%- endif -%}
+                
+                <div class="inv-pagination__pages">
+                  {%- for part in paginate.parts -%}
+                    {%- if part.is_link -%}
+                      <a href="{{ part.url }}" class="inv-pagination__page" data-inv-page-link aria-label="Page {{ part.title }}">{{ part.title }}</a>
+                    {%- else -%}
+                      {%- if part.title == paginate.current_page -%}
+                        <span class="inv-pagination__page inv-pagination__page--current" aria-current="page">{{ part.title }}</span>
+                      {%- else -%}
+                        <span class="inv-pagination__page inv-pagination__page--gap" aria-hidden="true">{{ part.title }}</span>
+                      {%- endif -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+                
+                {%- if paginate.next -%}
+                  <a href="{{ paginate.next.url }}" class="inv-pagination__btn inv-pagination__btn--next" data-inv-page-link aria-label="Next page">
+                    <span>Next</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                  </a>
+                {%- else -%}
+                  <span class="inv-pagination__btn inv-pagination__btn--next inv-pagination__btn--disabled" aria-disabled="true">
+                    <span>Next</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                  </span>
+                {%- endif -%}
+                
+              </div>
+            </nav>
+          {%- endif -%}
+          
+        {%- endpaginate -%}
+        
+      </div>
+    </div>
+    
+  {%- else -%}
+    
+    {%- comment -%} No search performed yet {%- endcomment -%}
+    <div class="inv-search__placeholder">
+      <div class="inv-search__container page-width">
+        <div class="inv-search__placeholder-inner">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+          <p>Enter a search term to find products</p>
+        </div>
+      </div>
+    </div>
+    
+  {%- endif -%}
+  
+  <div class="visually-hidden" aria-live="assertive" id="inv-search-announce"></div>
+  
+</div>
+
+<style>
+  /* ============================================
+     INVICTA SEARCH PAGE v1.3 — STYLES
+     ============================================
+     Trade 15.4.0 Compatible
+     Fixed grid uniformity + search input shadows
+     ============================================ */
+  
+  .inv-search {
+    background: var(--inv-section-bg);
+    min-height: 60vh;
+  }
+  
+  .inv-search__container {
+    max-width: var(--page-width, 1200px);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  
+  /* ----------------------------------------
+     HEADER
+     ---------------------------------------- */
+  
+  .inv-search__header {
+    padding: 32px 0 24px;
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  
+  .inv-search__title {
+    margin: 0 0 20px;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    color: var(--inv-title-color);
+    text-align: center;
+  }
+  
+  /* ----------------------------------------
+     SEARCH INPUT — Clean reset (no shadows)
+     ---------------------------------------- */
+  
+  .inv-search__input-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  /* Nuke all Trade shadows and pseudo-elements */
+  .inv-search__input-wrapper,
+  .inv-search__input-wrapper *,
+  .inv-search__input-wrapper *::before,
+  .inv-search__input-wrapper *::after {
+    box-shadow: none !important;
+  }
+  
+  .inv-search__form,
+  .inv-search__field,
+  .inv-search__input,
+  .inv-search__input-wrapper predictive-search,
+  .inv-search__input-wrapper .predictive-search,
+  .inv-search__input-wrapper .predictive-search--search-template {
+    box-shadow: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+  }
+  
+  /* Kill any pseudo-element nonsense */
+  .inv-search__input-wrapper predictive-search::before,
+  .inv-search__input-wrapper predictive-search::after,
+  .inv-search__input-wrapper .predictive-search::before,
+  .inv-search__input-wrapper .predictive-search::after {
+    display: none !important;
+    content: none !important;
+  }
+  
+  .inv-search__form {
+    position: relative;
+  }
+  
+  .inv-search__field {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Restore only the border we actually want */
+  .inv-search__input.inv-search__input {
+    width: 100%;
+    height: 56px;
+    padding: 0 100px 0 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--inv-title-color);
+    background: #fff;
+    border: 2px solid #e5e5e5;
+    border-radius: 12px;
+    box-shadow: none;
+    transition: border-color 0.15s ease;
+  }
+  
+  .inv-search__input.inv-search__input:focus {
+    outline: none;
+    border-color: var(--inv-btn-primary-bg);
+    box-shadow: none;
+  }
+  
+  .inv-search__input::placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+  }
+  
+  /* Search submit button */
+  .inv-search__submit.inv-search__submit {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    bottom: 4px;
+    width: 48px;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--inv-btn-primary-bg);
+    border: none;
+    border-radius: 10px;
+    color: var(--inv-btn-primary-text);
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+  
+  .inv-search__submit:hover {
+    opacity: 0.9;
+  }
+  
+  .inv-search__clear {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: #6b7280;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  
+  .inv-search__clear:hover {
+    background: #f3f4f6;
+    color: #111;
+  }
+  
+  /* ----------------------------------------
+     FILTER ROWS
+     ---------------------------------------- */
+  
+  .inv-filters__row {
+    padding: 16px 0;
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  
+  .inv-filters__row--types {
+    background: #fff;
+  }
+  
+  .inv-filters__container {
+    max-width: var(--page-width, 1200px);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  
+  .inv-filters__header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .inv-filters__label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--inv-title-color);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  
+  .inv-filters__count {
+    font-size: 11px;
+    color: #888;
+  }
+  
+  /* ----------------------------------------
+     SCROLL CONTAINER — With arrows
+     ---------------------------------------- */
+  
+  .inv-filters__scroll-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+  
+  /* Scroll wrapper */
+  .inv-filters__scroll-wrapper {
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+  }
+  
+  .inv-filters__scroll-wrapper::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  .inv-filters__scroll-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .inv-filters__scroll-wrapper::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+  }
+  
+  .inv-filters__scroll-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+  }
+  
+  /* Buttons container */
+  .inv-filters__buttons {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    width: max-content;
+    padding: 4px 0 10px;
+  }
+  
+  /* ----------------------------------------
+     SCROLL ARROWS
+     ---------------------------------------- */
+  
+  .inv-filters__scroll-btn.inv-filters__scroll-btn {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 50%;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+  }
+  
+  .inv-filters__scroll-btn:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+    color: #111;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+  }
+  
+  .inv-filters__scroll-btn:active {
+    transform: scale(0.95);
+  }
+  
+  .inv-filters__scroll-btn:focus-visible {
+    outline: 2px solid var(--inv-btn-primary-bg);
+    outline-offset: 2px;
+  }
+  
+  /* Hide when not needed */
+  .inv-filters__scroll-btn--hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  /* Left arrow spacing */
+  .inv-filters__scroll-btn--left {
+    margin-right: 12px;
+  }
+  
+  /* Right arrow spacing */
+  .inv-filters__scroll-btn--right {
+    margin-left: 12px;
+  }
+  
+  /* ----------------------------------------
+     FILTER BUTTONS — Trade override fix
+     ---------------------------------------- */
+  
+  .inv-filters__btn.inv-filters__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 16px;
+    min-width: 0;
+    min-height: 0;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    flex: 0 0 auto;
+    color: var(--inv-title-color);
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  
+  .inv-filters__btn.inv-filters__btn:hover {
+    background: #f5f5f5;
+    border-color: #bbb;
+  }
+  
+  .inv-filters__btn.inv-filters__btn:focus-visible {
+    outline: 2px solid var(--inv-btn-primary-bg);
+    outline-offset: 2px;
+  }
+  
+  .inv-filters__btn--active.inv-filters__btn--active {
+    padding: 10px 16px;
+    min-width: 0;
+    min-height: 0;
+    color: #fff;
+    background: var(--inv-btn-primary-bg);
+    border-color: var(--inv-btn-primary-bg);
+  }
+  
+  .inv-filters__btn--active.inv-filters__btn--active:hover {
+    opacity: 0.9;
+    background: var(--inv-btn-primary-bg);
+    border-color: var(--inv-btn-primary-bg);
+  }
+  
+  .inv-filters__btn-count {
+    font-size: 10px;
+    opacity: 0.7;
+  }
+  
+  /* ----------------------------------------
+     ACTIVE FILTERS BAR
+     ---------------------------------------- */
+  
+  .inv-filters__active-bar {
+    padding: 12px 0;
+    background: #fef2f2;
+    border-bottom: 1px solid #fecaca;
+  }
+  
+  .inv-filters__active-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  
+  .inv-filters__active-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .inv-filters__active-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--inv-title-color);
+  }
+  
+  .inv-filters__active-tags {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  
+  /* Active tag pills */
+  .inv-filters__tag.inv-filters__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    min-width: 0;
+    min-height: 0;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    border-radius: 4px;
+  }
+  
+  .inv-filters__tag--brand {
+    background: #dc2626;
+  }
+  
+  .inv-filters__tag--type {
+    background: #2d2d2d;
+  }
+  
+  .inv-filters__tag-text {
+    line-height: 1;
+  }
+  
+  /* Tag remove button */
+  .inv-filters__tag-remove.inv-filters__tag-remove {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    min-width: 0;
+    min-height: 0;
+    width: 14px;
+    height: 14px;
+    background: none;
+    border: none;
+    color: inherit;
+    opacity: 0.8;
+    cursor: pointer;
+    transition: opacity 0.1s ease;
+  }
+  
+  .inv-filters__tag-remove:hover {
+    opacity: 1;
+  }
+  
+  /* Clear all button */
+  .inv-filters__clear-all.inv-filters__clear-all {
+    padding: 8px 16px;
+    min-width: 0;
+    min-height: 0;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--inv-btn-primary-bg);
+    background: #fff;
+    border: 1px solid var(--inv-btn-primary-bg);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  
+  .inv-filters__clear-all.inv-filters__clear-all:hover {
+    color: #fff;
+    background: var(--inv-btn-primary-bg);
+  }
+  
+  .inv-filters__clear-all:focus-visible {
+    outline: 2px solid var(--inv-btn-primary-bg);
+    outline-offset: 2px;
+  }
+  
+  /* ----------------------------------------
+     PRODUCT GRID — Fixed uniform spacing
+     ---------------------------------------- */
+  
+  .inv-search__grid {
+    padding: var(--inv-padding-top) 0 var(--inv-padding-bottom);
+  }
+  
+  .inv-grid__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px 24px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--inv-card-border);
+  }
+  
+  .inv-grid__toolbar-left,
+  .inv-grid__toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .inv-grid__count {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--inv-title-color);
+  }
+  
+  .inv-grid__count strong {
+    font-weight: 700;
+  }
+  
+  .inv-grid__count-range {
+    color: #666;
+    font-size: 0.8125rem;
+  }
+  
+  /* Sort dropdown */
+  .inv-grid__sort {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .inv-grid__sort-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--inv-title-color);
+  }
+  
+  .inv-grid__sort-select {
+    padding: 8px 36px 8px 12px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--inv-title-color);
+    background-color: #fff;
+    border: 1px solid var(--inv-card-border);
+    border-radius: 6px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    transition: border-color 0.15s ease;
+  }
+  
+  .inv-grid__sort-select:hover {
+    border-color: #999;
+  }
+  
+  .inv-grid__sort-select:focus {
+    outline: none;
+    border-color: var(--inv-btn-primary-bg);
+    box-shadow: 0 0 0 3px rgba(45, 45, 45, 0.1);
+  }
+  
+  /* Product grid — minmax fix for uniform columns */
+  .inv-grid__products {
+    display: grid;
+    grid-template-columns: repeat(var(--inv-grid-columns), minmax(0, 1fr));
+    gap: var(--inv-grid-gap);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Grid items — reset and constrain */
+  .inv-grid__item {
+    display: flex;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+  }
+  
+  /* Force card to fill grid cell */
+  .inv-grid__item > .inv-card {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+  
+  /* Kill any Trade list item interference */
+  .inv-grid__products .inv-grid__item,
+  .inv-grid__products > li {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: none !important;
+  }
+  
+  /* ----------------------------------------
+     EMPTY STATE
+     ---------------------------------------- */
+  
+  .inv-grid__empty {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px;
+  }
+  
+  .inv-grid__empty-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 320px;
+  }
+  
+  .inv-grid__empty-icon {
+    color: #999;
+    margin-bottom: 16px;
+  }
+  
+  .inv-grid__empty-message {
+    margin: 0 0 16px;
+    font-size: 0.9375rem;
+    color: #666;
+    line-height: 1.5;
+  }
+  
+  /* Empty state button */
+  .inv-grid__empty-link.inv-grid__empty-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    min-width: 0;
+    min-height: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--inv-btn-primary-text);
+    background: var(--inv-btn-primary-bg);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+  
+  .inv-grid__empty-link:hover {
+    opacity: 0.9;
+  }
+  
+  .inv-grid__empty-link:focus-visible {
+    outline: 2px solid var(--inv-btn-primary-bg);
+    outline-offset: 2px;
+  }
+  
+  /* ----------------------------------------
+     PAGINATION
+     ---------------------------------------- */
+  
+  .inv-grid__pagination {
+    margin-top: 48px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .inv-pagination {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  /* Prev/Next buttons */
+  .inv-pagination__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--inv-btn-secondary-text);
+    background: var(--inv-btn-secondary-bg);
+    border: 1px solid var(--inv-btn-secondary-border);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+  
+  .inv-pagination__btn:hover:not(.inv-pagination__btn--disabled) {
+    border-color: var(--inv-btn-primary-bg);
+    background-color: #f8f8f8;
+  }
+  
+  .inv-pagination__btn:focus-visible {
+    outline: 2px solid var(--inv-btn-primary-bg);
+    outline-offset: 2px;
+  }
+  
+  .inv-pagination__btn--disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  
+  /* Page numbers container */
+  .inv-pagination__pages {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0 8px;
+  }
+  
+  /* Individual page links */
+  .inv-pagination__page {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--inv-btn-secondary-text);
+    background: #fff;
+    border: 1px solid var(--inv-btn-secondary-border);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+  
+  .inv-pagination__page:hover:not(.inv-pagination__page--current):not(.inv-pagination__page--gap) {
+    border-color: var(--inv-btn-primary-bg);
+    background-color: #f8f8f8;
+  }
+  
+  .inv-pagination__page:focus-visible {
+    outline: 2px solid var(--inv-btn-primary-bg);
+    outline-offset: 2px;
+  }
+  
+  .inv-pagination__page--current {
+    background: var(--inv-btn-primary-bg);
+    border-color: var(--inv-btn-primary-bg);
+    color: var(--inv-btn-primary-text);
+    font-weight: 700;
+  }
+  
+  .inv-pagination__page--gap {
+    border: none;
+    background: none;
+    min-width: auto;
+    padding: 0 4px;
+    cursor: default;
+  }
+  
+  /* ----------------------------------------
+     PLACEHOLDER (no search performed)
+     ---------------------------------------- */
+  
+  .inv-search__placeholder {
+    padding: 80px 0;
+  }
+  
+  .inv-search__placeholder-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #999;
+  }
+  
+  .inv-search__placeholder-inner p {
+    margin: 16px 0 0;
+    font-size: 1rem;
+  }
+  
+  /* ----------------------------------------
+     LOADING STATE
+     ---------------------------------------- */
+  
+  .inv-search--loading {
+    pointer-events: none;
+  }
+  
+  .inv-search--loading .inv-filters__btn,
+  .inv-search--loading .inv-filters__tag,
+  .inv-search--loading .inv-filters__clear-all,
+  .inv-search--loading .inv-filters__scroll-btn {
+    opacity: 0.5;
+  }
+  
+  .inv-search--loading .inv-grid__products {
+    opacity: 0.5;
+  }
+  
+  .inv-search--loading .inv-grid__toolbar {
+    opacity: 0.5;
+  }
+  
+  /* ----------------------------------------
+     RESPONSIVE — TABLET (990px and below)
+     ---------------------------------------- */
+  
+  @media screen and (max-width: 989px) {
+    .inv-filters__container,
+    .inv-search__container {
+      padding: 0 1rem;
+    }
+    
+    .inv-filters__btn.inv-filters__btn {
+      padding: 8px 12px;
+      font-size: 11px;
+    }
+    
+    .inv-filters__btn--active.inv-filters__btn--active {
+      padding: 8px 12px;
+    }
+    
+    .inv-filters__scroll-btn.inv-filters__scroll-btn {
+      width: 32px;
+      height: 32px;
+    }
+    
+    .inv-filters__scroll-btn--left {
+      margin-right: 8px;
+    }
+    
+    .inv-filters__scroll-btn--right {
+      margin-left: 8px;
+    }
+    
+    .inv-grid__products {
+      grid-template-columns: repeat(var(--inv-grid-columns-tablet), minmax(0, 1fr));
+      gap: calc(var(--inv-grid-gap) * 0.8);
+    }
+    
+    .inv-pagination__pages {
+      display: none;
+    }
+  }
+  
+  /* ----------------------------------------
+     RESPONSIVE — MOBILE (750px and below)
+     ---------------------------------------- */
+  
+  @media screen and (max-width: 749px) {
+    .inv-search__header {
+      padding: 24px 0 20px;
+    }
+    
+    .inv-search__input.inv-search__input {
+      height: 50px;
+      font-size: 0.9375rem;
+    }
+    
+    .inv-filters__row {
+      padding: 12px 0;
+    }
+    
+    .inv-filters__header {
+      margin-bottom: 10px;
+    }
+    
+    .inv-filters__btn.inv-filters__btn {
+      padding: 7px 10px;
+      font-size: 10px;
+    }
+    
+    .inv-filters__btn--active.inv-filters__btn--active {
+      padding: 7px 10px;
+    }
+    
+    /* Hide scroll arrows on mobile — native touch scroll */
+    .inv-filters__scroll-btn {
+      display: none;
+    }
+    
+    .inv-filters__scroll-wrapper {
+      margin: 0 -1rem;
+      padding: 0 1rem;
+    }
+    
+    .inv-filters__active-content {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    
+    .inv-filters__clear-all.inv-filters__clear-all {
+      align-self: flex-end;
+    }
+    
+    .inv-filters__tag.inv-filters__tag {
+      padding: 4px 8px;
+      font-size: 9px;
+    }
+    
+    .inv-grid__toolbar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+    
+    .inv-grid__toolbar-left,
+    .inv-grid__toolbar-right {
+      justify-content: space-between;
+    }
+    
+    .inv-grid__sort {
+      flex: 1;
+    }
+    
+    .inv-grid__sort-select {
+      flex: 1;
+    }
+    
+    .inv-grid__products {
+      grid-template-columns: repeat(var(--inv-grid-columns-mobile), minmax(0, 1fr));
+      gap: calc(var(--inv-grid-gap) * 0.6);
+    }
+    
+    .inv-grid__pagination {
+      margin-top: 32px;
+    }
+    
+    .inv-pagination__btn {
+      padding: 10px 14px;
+      font-size: 0.75rem;
+    }
+  }
+  
+  /* ----------------------------------------
+     REDUCED MOTION
+     ---------------------------------------- */
+  
+  @media (prefers-reduced-motion: reduce) {
+    .inv-search__input,
+    .inv-search__submit,
+    .inv-search__clear,
+    .inv-filters__btn,
+    .inv-filters__tag,
+    .inv-filters__tag-remove,
+    .inv-filters__clear-all,
+    .inv-filters__scroll-btn,
+    .inv-filters__scroll-wrapper,
+    .inv-grid__sort-select,
+    .inv-pagination__btn,
+    .inv-pagination__page,
+    .inv-grid__empty-link {
+      transition: none;
+    }
+    
+    .inv-filters__scroll-wrapper {
+      scroll-behavior: auto;
+    }
+  }
+  
+  /* ----------------------------------------
+     VISUALLY HIDDEN (accessibility)
+     ---------------------------------------- */
+  
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+</style>
+
+<script>
+(function() {
+  'use strict';
+  
+  /**
+   * Invicta Search v1.3
+   * AJAX filtering, sorting, pagination for search results
+   * 
+   * @class InvictaSearch
+   */
+  class InvictaSearch {
+    
+    /**
+     * @param {HTMLElement} container - The search container
+     */
+    constructor(container) {
+      /** @type {HTMLElement} */
+      this.container = container;
+      
+      /** @type {string} */
+      this.sectionId = container.dataset.sectionId;
+      
+      /** @type {string} */
+      this.searchTerms = container.dataset.searchTerms || '';
+      
+      /** @type {AbortController|null} */
+      this.abortController = null;
+      
+      /** @type {number|null} */
+      this.debounceTimer = null;
+      
+      /** @type {number} */
+      this.debounceDelay = 150;
+      
+      /** @type {Set<string>} */
+      this.activeBrands = new Set(
+        (container.dataset.activeBrands || '').split('|||').filter(Boolean)
+      );
+      
+      /** @type {Set<string>} */
+      this.activeTypes = new Set(
+        (container.dataset.activeTypes || '').split('|||').filter(Boolean)
+      );
+      
+      this.init();
+    }
+    
+    /**
+     * Initialise event listeners
+     * @returns {void}
+     */
+    init() {
+      this.container.addEventListener('click', this.handleClick.bind(this));
+      this.container.addEventListener('change', this.handleChange.bind(this));
+      window.addEventListener('popstate', this.handlePopState.bind(this));
+      
+      // Init scroll buttons
+      this.initScrollButtons();
+    }
+    
+    /**
+     * Initialise scroll button functionality
+     * @returns {void}
+     */
+    initScrollButtons() {
+      const scrollContainers = this.container.querySelectorAll('.inv-filters__scroll-container');
+      
+      scrollContainers.forEach(container => {
+        const wrapper = container.querySelector('[data-filter-scroll]');
+        const leftBtn = container.querySelector('[data-scroll-dir="left"]');
+        const rightBtn = container.querySelector('[data-scroll-dir="right"]');
+        
+        if (!wrapper || !leftBtn || !rightBtn) return;
+        
+        /**
+         * Update arrow visibility based on scroll position
+         */
+        const updateArrows = () => {
+          const { scrollLeft, scrollWidth, clientWidth } = wrapper;
+          const maxScroll = scrollWidth - clientWidth;
+          
+          // Hide left arrow at start
+          leftBtn.classList.toggle('inv-filters__scroll-btn--hidden', scrollLeft <= 5);
+          
+          // Hide right arrow at end
+          rightBtn.classList.toggle('inv-filters__scroll-btn--hidden', scrollLeft >= maxScroll - 5);
+          
+          // If no scroll needed, hide both
+          if (scrollWidth <= clientWidth + 10) {
+            leftBtn.classList.add('inv-filters__scroll-btn--hidden');
+            rightBtn.classList.add('inv-filters__scroll-btn--hidden');
+          }
+        };
+        
+        /**
+         * Scroll by amount
+         * @param {number} amount - Pixels to scroll
+         */
+        const scrollBy = (amount) => {
+          wrapper.scrollBy({ left: amount, behavior: 'smooth' });
+        };
+        
+        // Arrow click handlers
+        leftBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          scrollBy(-200);
+        });
+        
+        rightBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          scrollBy(200);
+        });
+        
+        // Update on scroll
+        wrapper.addEventListener('scroll', updateArrows, { passive: true });
+        
+        // Initial state (with small delay for rendering)
+        requestAnimationFrame(() => {
+          updateArrows();
+        });
+        
+        // Update on resize
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(updateArrows, 100);
+        }, { passive: true });
+      });
+    }
+    
+    /**
+     * Handle all click events via delegation
+     * @param {MouseEvent} e
+     * @returns {void}
+     */
+    handleClick(e) {
+      // Filter button
+      const btn = e.target.closest('.inv-filters__btn');
+      if (btn) {
+        e.preventDefault();
+        this.toggleFilter(btn);
+        return;
+      }
+      
+      // Tag remove button
+      const tagRemove = e.target.closest('.inv-filters__tag-remove');
+      if (tagRemove) {
+        e.preventDefault();
+        const tag = tagRemove.closest('.inv-filters__tag');
+        this.removeFilter(tag);
+        return;
+      }
+      
+      // Clear all button
+      const clearAll = e.target.closest('.inv-filters__clear-all, #inv-clear-filters-empty');
+      if (clearAll) {
+        e.preventDefault();
+        this.clearAllFilters();
+        return;
+      }
+      
+      // Pagination link
+      const pageLink = e.target.closest('[data-inv-page-link]');
+      if (pageLink) {
+        e.preventDefault();
+        this.navigateToPage(pageLink.href);
+        return;
+      }
+    }
+    
+    /**
+     * Handle change events (sort dropdown)
+     * @param {Event} e
+     * @returns {void}
+     */
+    handleChange(e) {
+      const sortSelect = e.target.closest('[data-inv-sort-select]');
+      if (sortSelect) {
+        this.changeSort(sortSelect.value);
+      }
+    }
+    
+    /**
+     * Toggle a filter on/off
+     * @param {HTMLElement} btn
+     * @returns {void}
+     */
+    toggleFilter(btn) {
+      const type = btn.dataset.filterType;
+      const value = btn.dataset.filterValue;
+      const isActive = btn.classList.contains('inv-filters__btn--active');
+      
+      if (type === 'brand') {
+        isActive ? this.activeBrands.delete(value) : this.activeBrands.add(value);
+      } else if (type === 'type') {
+        isActive ? this.activeTypes.delete(value) : this.activeTypes.add(value);
+      }
+      
+      // Immediate visual feedback
+      btn.classList.toggle('inv-filters__btn--active');
+      btn.setAttribute('aria-pressed', (!isActive).toString());
+      
+      this.debouncedFetch();
+    }
+    
+    /**
+     * Remove a filter via tag
+     * @param {HTMLElement} tag
+     * @returns {void}
+     */
+    removeFilter(tag) {
+      const type = tag.dataset.filterType;
+      const value = tag.dataset.filterValue;
+      
+      if (type === 'brand') {
+        this.activeBrands.delete(value);
+      } else if (type === 'type') {
+        this.activeTypes.delete(value);
+      }
+      
+      // Update corresponding button
+      const btn = this.container.querySelector(
+        `.inv-filters__btn[data-filter-value="${CSS.escape(value)}"][data-filter-type="${type}"]`
+      );
+      if (btn) {
+        btn.classList.remove('inv-filters__btn--active');
+        btn.setAttribute('aria-pressed', 'false');
+      }
+      
+      this.debouncedFetch();
+    }
+    
+    /**
+     * Clear all active filters
+     * @returns {void}
+     */
+    clearAllFilters() {
+      this.activeBrands.clear();
+      this.activeTypes.clear();
+      
+      this.container.querySelectorAll('.inv-filters__btn--active').forEach(btn => {
+        btn.classList.remove('inv-filters__btn--active');
+        btn.setAttribute('aria-pressed', 'false');
+      });
+      
+      this.debouncedFetch();
+    }
+    
+    /**
+     * Change sort order
+     * @param {string} sortValue
+     * @returns {void}
+     */
+    changeSort(sortValue) {
+      const url = this.buildUrl();
+      url.searchParams.set('sort_by', sortValue);
+      url.searchParams.delete('page');
+      this.fetchAndUpdate(url.toString());
+    }
+    
+    /**
+     * Navigate to a pagination page
+     * @param {string} href
+     * @returns {void}
+     */
+    navigateToPage(href) {
+      this.fetchAndUpdate(href);
+      this.scrollToTop();
+    }
+    
+    /**
+     * Build URL from current filter state
+     * @returns {URL}
+     */
+    buildUrl() {
+      const url = new URL(window.location.origin + '/search');
+      
+      if (this.searchTerms) {
+        url.searchParams.set('q', this.searchTerms);
+      }
+      url.searchParams.set('type', 'product');
+      url.searchParams.set('options[prefix]', 'last');
+      
+      this.activeBrands.forEach(brand => {
+        url.searchParams.append('filter.p.vendor', brand);
+      });
+      
+      this.activeTypes.forEach(type => {
+        url.searchParams.append('filter.p.product_type', type);
+      });
+      
+      return url;
+    }
+    
+    /**
+     * Debounced fetch — prevents rapid requests
+     * @returns {void}
+     */
+    debouncedFetch() {
+      clearTimeout(this.debounceTimer);
+      this.debounceTimer = setTimeout(() => {
+        this.fetchAndUpdate(this.buildUrl().toString());
+      }, this.debounceDelay);
+    }
+    
+    /**
+     * Fetch filtered content via AJAX
+     * @param {string} url
+     * @returns {Promise<void>}
+     */
+    async fetchAndUpdate(url) {
+      // Cancel any in-flight request
+      if (this.abortController) {
+        this.abortController.abort();
+      }
+      this.abortController = new AbortController();
+      
+      // Show loading state
+      this.setLoading(true);
+      
+      try {
+        const fetchUrl = `${url}${url.includes('?') ? '&' : '?'}sections=${this.sectionId}`;
+        
+        const response = await fetch(fetchUrl, {
+          signal: this.abortController.signal
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Update URL without reload
+        history.pushState({}, '', url);
+        
+        // Update section
+        if (data[this.sectionId]) {
+          this.updateSection(data[this.sectionId]);
+        }
+        
+        // Announce to screen readers
+        this.announceUpdate();
+        
+      } catch (err) {
+        if (err.name === 'AbortError') {
+          return; // Request was cancelled
+        }
+        
+        console.error('[Invicta Search] Fetch error:', err);
+        
+        // Fallback to full page reload
+        window.location.href = url;
+        
+      } finally {
+        this.setLoading(false);
+        this.abortController = null;
+      }
+    }
+    
+    /**
+     * Update section with new HTML
+     * @param {string} html
+     * @returns {void}
+     */
+    updateSection(html) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const newContent = doc.body.firstElementChild;
+      
+      if (newContent) {
+        this.container.replaceWith(newContent);
+        
+        // Re-init on new container
+        const newContainer = document.getElementById('invicta-search');
+        if (newContainer) {
+          new InvictaSearch(newContainer);
+        }
+      }
+    }
+    
+    /**
+     * Set loading state
+     * @param {boolean} loading
+     * @returns {void}
+     */
+    setLoading(loading) {
+      this.container.classList.toggle('inv-search--loading', loading);
+    }
+    
+    /**
+     * Scroll to top of search results
+     * @returns {void}
+     */
+    scrollToTop() {
+      const offset = 100;
+      const top = this.container.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+    
+    /**
+     * Announce update to screen readers
+     * @returns {void}
+     */
+    announceUpdate() {
+      const announce = document.getElementById('inv-search-announce');
+      if (!announce) return;
+      
+      const countEl = this.container.querySelector('.inv-grid__count strong');
+      const count = countEl ? countEl.textContent : '0';
+      
+      announce.textContent = `Search results updated. ${count} products found.`;
+      
+      setTimeout(() => {
+        announce.textContent = '';
+      }, 1000);
+    }
+    
+    /**
+     * Handle browser back/forward
+     * @returns {void}
+     */
+    handlePopState() {
+      window.location.reload();
+    }
+  }
+  
+  /**
+   * Initialise when DOM is ready
+   */
+  function init() {
+    const container = document.getElementById('invicta-search');
+    if (container) {
+      new InvictaSearch(container);
+    }
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Invicta Search",
+  "tag": "section",
+  "class": "inv-search-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Grid Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns (desktop)",
+      "info": "Products per row on large screens",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "label": "Columns (tablet)",
+      "info": "Products per row on medium screens",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "label": "Columns (mobile)",
+      "info": "Products per row on small screens",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Gap between cards",
+      "min": 12,
+      "max": 32,
+      "step": 4,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "info": "How many products before pagination",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filters",
+      "label": "Show filters",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sort",
+      "label": "Show sort dropdown",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "empty_message",
+      "label": "No results message",
+      "default": "No products found. Try a different search or adjust your filters."
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Card Settings"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card corner radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card body padding",
+      "min": 12,
+      "max": 24,
+      "step": 2,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "image_ratio",
+      "label": "Image aspect ratio",
+      "info": "100% = square, 80% = landscape, 120% = portrait",
+      "min": 80,
+      "max": 120,
+      "step": 5,
+      "default": 100,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Colours — Section"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "header",
+      "content": "Colours — Cards"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Card border",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "image_bg",
+      "label": "Image placeholder",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "header",
+      "content": "Colours — Badge"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg",
+      "label": "Brand badge background",
+      "default": "#2d2d2d"
+    },
+    {
+      "type": "color",
+      "id": "badge_text",
+      "label": "Brand badge text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Colours — Text"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title colour",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price colour",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Colours — Buttons"
+    },
+    {
+      "type": "color",
+      "id": "btn_primary_bg",
+      "label": "Primary button background",
+      "default": "#2d2d2d"
+    },
+    {
+      "type": "color",
+      "id": "btn_primary_text",
+      "label": "Primary button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_secondary_bg",
+      "label": "Secondary button background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_secondary_text",
+      "label": "Secondary button text",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "btn_secondary_border",
+      "label": "Secondary button border",
+      "default": "#e5e5e5"
+    }
+  ]
+}
+{% endschema %}

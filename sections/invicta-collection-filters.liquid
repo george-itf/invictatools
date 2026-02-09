@@ -1,0 +1,1803 @@
+{% comment %}
+  ============================================================================
+  INVICTA COLLECTION FILTERS v4.0
+  ============================================================================
+  Production-grade multi-select filters for collection pages.
+  
+  Features:
+  ✓ AJAX filtering (Section Rendering API) — no page reload
+  ✓ pushState URL updates — back button works
+  ✓ Skeleton loading state on product grid
+  ✓ Debounced requests with AbortController
+  ✓ Active filters appear first in each row
+  ✓ Smooth CSS animations
+  ✓ Full accessibility (aria-live, focus management)
+  ✓ Mobile responsive
+  
+  Filter Logic:
+  - Multiple brands = OR (Bosch OR DeWalt)
+  - Multiple types = OR (Combi Drills OR Impact Drivers)
+  - Brands + Types = AND between categories
+  
+  Requirements:
+  - Product metafield: custom.range (list, single-line text)
+  - Enabled in Settings → Search & Discovery → Filters
+  - Storefront API access enabled on metafield
+  
+  Trade 15.4.0 Compatible
+  ============================================================================
+{% endcomment %}
+
+{%- liquid
+  # ========================================
+  # GET ACTIVE FILTERS FROM SHOPIFY
+  # ========================================
+  # Use Shopify's built-in filter.active_values — reliable for multi-select
+  
+  assign active_brands_param = ''
+  assign active_ranges_param = ''
+  assign active_stocked_value = ''
+  
+  # Build arrays for data attributes (used by JS)
+  for filter in collection.filters
+    if filter.param_name == 'filter.p.vendor'
+      for value in filter.active_values
+        if active_brands_param == ''
+          assign active_brands_param = value.label
+        else
+          assign active_brands_param = active_brands_param | append: '|||' | append: value.label
+        endif
+      endfor
+    endif
+    
+    if filter.param_name == 'filter.p.m.custom.range'
+      for value in filter.active_values
+        if active_ranges_param == ''
+          assign active_ranges_param = value.label
+        else
+          assign active_ranges_param = active_ranges_param | append: '|||' | append: value.label
+        endif
+      endfor
+    endif
+    
+    # Stocked filter (boolean metafield)
+    if filter.param_name == 'filter.p.m.custom.stocked'
+      # If there are any active values, stocked filter is on
+      if filter.active_values.size > 0
+        assign active_stocked_value = 'true'
+      endif
+    endif
+  endfor
+  
+  assign active_brands = active_brands_param | split: '|||'
+  assign active_ranges = active_ranges_param | split: '|||'
+  
+  # Determine stocked filter state
+  # stocked_filter_active = true means "Invicta Stock" is selected
+  # When false, "Full Catalogue" (show all) is selected
+  assign stocked_filter_active = false
+  
+  # Check Shopify's active_values
+  if active_stocked_value == true or active_stocked_value == 'true' or active_stocked_value == 'True'
+    assign stocked_filter_active = true
+  endif
+  
+  # ========================================
+  # BUILD SORTED FILTER DATA
+  # ========================================
+  # Active filters first, then sorted by count (descending)
+  
+  assign brand_data_active = ''
+  assign brand_data_inactive = ''
+  assign range_data_active = ''
+  assign range_data_inactive = ''
+  
+  for filter in collection.filters
+    
+    # ----- BRAND FILTER (vendor) -----
+    if filter.param_name == 'filter.p.vendor'
+      for value in filter.values
+        if value.count > 0
+          assign sort_key = 99999 | minus: value.count
+          assign sort_key_padded = sort_key | prepend: '00000' | slice: -5, 5
+          assign brand_entry = sort_key_padded | append: '|' | append: value.label | append: '|' | append: value.count | append: '|' | append: value.param_name
+          
+          if value.active
+            if brand_data_active == ''
+              assign brand_data_active = brand_entry
+            else
+              assign brand_data_active = brand_data_active | append: '|||' | append: brand_entry
+            endif
+          else
+            if brand_data_inactive == ''
+              assign brand_data_inactive = brand_entry
+            else
+              assign brand_data_inactive = brand_data_inactive | append: '|||' | append: brand_entry
+            endif
+          endif
+        endif
+      endfor
+    endif
+    
+    # ----- RANGE FILTER (metafield) -----
+    if filter.param_name == 'filter.p.m.custom.range'
+      # Get excluded ranges from settings (comma-separated)
+      assign excluded_ranges_raw = section.settings.excluded_ranges | default: ''
+      assign excluded_ranges_list = excluded_ranges_raw | downcase | split: ','
+      
+      for value in filter.values
+        # Check if this range should be excluded
+        assign skip_range = false
+        assign range_label_lower = value.label | downcase | strip
+        
+        for excluded in excluded_ranges_list
+          assign excluded_clean = excluded | strip
+          if range_label_lower == excluded_clean
+            assign skip_range = true
+            break
+          endif
+        endfor
+        
+        if value.count > 0 and skip_range == false
+          assign sort_key = 99999 | minus: value.count
+          assign sort_key_padded = sort_key | prepend: '00000' | slice: -5, 5
+          assign range_entry = sort_key_padded | append: '|' | append: value.label | append: '|' | append: value.count | append: '|' | append: value.param_name
+          
+          if value.active
+            if range_data_active == ''
+              assign range_data_active = range_entry
+            else
+              assign range_data_active = range_data_active | append: '|||' | append: range_entry
+            endif
+          else
+            if range_data_inactive == ''
+              assign range_data_inactive = range_entry
+            else
+              assign range_data_inactive = range_data_inactive | append: '|||' | append: range_entry
+            endif
+          endif
+        endif
+      endfor
+    endif
+    
+  endfor
+  
+  # Sort each group by count
+  assign brand_entries_active = brand_data_active | split: '|||' | sort
+  assign brand_entries_inactive = brand_data_inactive | split: '|||' | sort
+  assign range_entries_active = range_data_active | split: '|||' | sort
+  assign range_entries_inactive = range_data_inactive | split: '|||' | sort
+  
+  # Check if we have filters to show
+  assign has_brands = false
+  assign has_ranges = false
+  
+  if brand_entries_active.size > 0 or brand_entries_inactive.size > 0
+    assign has_brands = true
+  endif
+  
+  if range_entries_active.size > 0 or range_entries_inactive.size > 0
+    assign has_ranges = true
+  endif
+  
+  # Calculate active filter counts
+  assign active_brand_count = active_brands | size
+  assign active_range_count = active_ranges | size
+  assign total_active = active_brand_count | plus: active_range_count
+-%}
+
+{%- if has_brands or has_ranges -%}
+<div 
+  id="invicta-collection-filters"
+  class="inv-filters"
+  data-section-id="{{ section.id }}"
+  data-collection-url="{{ collection.url }}"
+  data-active-brands="{{ active_brands_param | escape }}"
+  data-active-ranges="{{ active_ranges_param | escape }}"
+  data-active-stocked="{{ active_stocked_value | escape }}"
+  data-product-grid-id="invicta-product-grid"
+  role="search"
+  aria-label="Product filters"
+>
+  
+  {%- comment -%} ========== AVAILABILITY FILTER ROW ========== {%- endcomment -%}
+  {%- if section.settings.show_availability_filters -%}
+  <div class="inv-filters__row inv-filters__row--availability">
+    <div class="inv-filters__container page-width">
+      
+      <div class="inv-filters__header">
+        <span class="inv-filters__label" id="availability-filter-label">
+          {{ section.settings.availability_label | default: 'Availability' }}
+        </span>
+      </div>
+      
+      <div class="inv-filters__scroll-wrapper">
+        <div 
+          class="inv-filters__buttons inv-filters__buttons--availability" 
+          data-filter-group="availability"
+          role="group"
+          aria-labelledby="availability-filter-label"
+        >
+          
+          {%- comment -%} Invicta Stock button {%- endcomment -%}
+          <button
+            type="button"
+            class="inv-filters__btn inv-filters__btn--availability{% if stocked_filter_active %} inv-filters__btn--active{% endif %}"
+            data-filter-value="true"
+            data-filter-type="stocked"
+            data-filter-param="filter.p.m.custom.stocked"
+            aria-pressed="{{ stocked_filter_active }}"
+          >
+            <svg class="inv-filters__btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            <span class="inv-filters__btn-text">{{ section.settings.stocked_label | default: 'Invicta Stock' }}</span>
+          </button>
+          
+          {%- comment -%} Full Catalogue button — clears filter to show all {%- endcomment -%}
+          <button
+            type="button"
+            class="inv-filters__btn inv-filters__btn--availability{% unless stocked_filter_active %} inv-filters__btn--active{% endunless %}"
+            data-filter-value=""
+            data-filter-type="stocked"
+            data-filter-param="filter.p.m.custom.stocked"
+            aria-pressed="{% unless stocked_filter_active %}true{% else %}false{% endunless %}"
+          >
+            <svg class="inv-filters__btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/>
+            </svg>
+            <span class="inv-filters__btn-text">{{ section.settings.available_label | default: 'Full Catalogue' }}</span>
+          </button>
+          
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  {%- endif -%}
+  
+  {%- comment -%} ========== BRAND FILTER ROW ========== {%- endcomment -%}
+  {%- if has_brands and section.settings.show_brand_filters -%}
+  <div class="inv-filters__row inv-filters__row--brands">
+    <div class="inv-filters__container page-width">
+      
+      <div class="inv-filters__header">
+        <span class="inv-filters__label" id="brand-filter-label">
+          {{ section.settings.brand_label | default: 'Filter by Brand' }}
+        </span>
+        {%- if active_brand_count > 0 -%}
+        <span class="inv-filters__count">({{ active_brand_count }} selected)</span>
+        {%- endif -%}
+      </div>
+      
+      <div class="inv-filters__scroll-container">
+        <button type="button" class="inv-filters__scroll-btn inv-filters__scroll-btn--left" aria-label="Scroll left" hidden>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        
+        <div class="inv-filters__scroll-wrapper">
+          <div 
+            class="inv-filters__buttons" 
+            data-filter-group="brand"
+            role="group"
+            aria-labelledby="brand-filter-label"
+          >
+            
+            {%- comment -%} Active brands first {%- endcomment -%}
+            {%- for entry in brand_entries_active -%}
+              {%- if entry != blank -%}
+                {%- assign entry_parts = entry | split: '|' -%}
+                {%- assign brand_label = entry_parts[1] -%}
+                {%- assign brand_count = entry_parts[2] -%}
+                
+                <button
+                  type="button"
+                  class="inv-filters__btn inv-filters__btn--active"
+                  data-filter-value="{{ brand_label | escape }}"
+                  data-filter-type="brand"
+                  data-filter-param="filter.p.vendor"
+                  aria-pressed="true"
+                >
+                  <span class="inv-filters__btn-text">{{ brand_label }}</span>
+                  {%- if section.settings.show_counts -%}
+                  <span class="inv-filters__btn-count">({{ brand_count }})</span>
+                  {%- endif -%}
+                </button>
+              {%- endif -%}
+            {%- endfor -%}
+            
+            {%- comment -%} Inactive brands {%- endcomment -%}
+            {%- for entry in brand_entries_inactive -%}
+              {%- if entry != blank -%}
+                {%- assign entry_parts = entry | split: '|' -%}
+                {%- assign brand_label = entry_parts[1] -%}
+                {%- assign brand_count = entry_parts[2] -%}
+                
+                <button
+                  type="button"
+                  class="inv-filters__btn"
+                  data-filter-value="{{ brand_label | escape }}"
+                  data-filter-type="brand"
+                  data-filter-param="filter.p.vendor"
+                  aria-pressed="false"
+                >
+                  <span class="inv-filters__btn-text">{{ brand_label }}</span>
+                  {%- if section.settings.show_counts -%}
+                  <span class="inv-filters__btn-count">({{ brand_count }})</span>
+                  {%- endif -%}
+                </button>
+              {%- endif -%}
+            {%- endfor -%}
+            
+          </div>
+        </div>
+        
+        <button type="button" class="inv-filters__scroll-btn inv-filters__scroll-btn--right" aria-label="Scroll right" hidden>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+      </div>
+      
+    </div>
+  </div>
+  {%- endif -%}
+  
+  {%- comment -%} ========== RANGE FILTER ROW ========== {%- endcomment -%}
+  {%- if has_ranges and section.settings.show_type_filters -%}
+  <div class="inv-filters__row inv-filters__row--types">
+    <div class="inv-filters__container page-width">
+      
+      <div class="inv-filters__header">
+        <span class="inv-filters__label" id="type-filter-label">
+          {{ section.settings.type_label | default: 'Filter by Type' }}
+        </span>
+        {%- if active_range_count > 0 -%}
+        <span class="inv-filters__count">({{ active_range_count }} selected)</span>
+        {%- endif -%}
+      </div>
+      
+      <div class="inv-filters__scroll-container">
+        <button type="button" class="inv-filters__scroll-btn inv-filters__scroll-btn--left" aria-label="Scroll left" hidden>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        
+        <div class="inv-filters__scroll-wrapper">
+          <div 
+            class="inv-filters__buttons" 
+            data-filter-group="range"
+            role="group"
+            aria-labelledby="type-filter-label"
+          >
+            
+            {%- comment -%} Active ranges first {%- endcomment -%}
+            {%- for entry in range_entries_active -%}
+              {%- if entry != blank -%}
+                {%- assign entry_parts = entry | split: '|' -%}
+                {%- assign range_label = entry_parts[1] -%}
+                {%- assign range_count = entry_parts[2] -%}
+                
+                <button
+                  type="button"
+                  class="inv-filters__btn inv-filters__btn--type inv-filters__btn--active"
+                  data-filter-value="{{ range_label | escape }}"
+                  data-filter-type="range"
+                  data-filter-param="filter.p.m.custom.range"
+                  aria-pressed="true"
+                >
+                  <span class="inv-filters__btn-text">{{ range_label }}</span>
+                  {%- if section.settings.show_counts -%}
+                  <span class="inv-filters__btn-count">({{ range_count }})</span>
+                  {%- endif -%}
+                </button>
+              {%- endif -%}
+            {%- endfor -%}
+            
+            {%- comment -%} Inactive ranges {%- endcomment -%}
+            {%- for entry in range_entries_inactive -%}
+              {%- if entry != blank -%}
+                {%- assign entry_parts = entry | split: '|' -%}
+                {%- assign range_label = entry_parts[1] -%}
+                {%- assign range_count = entry_parts[2] -%}
+                
+                <button
+                  type="button"
+                  class="inv-filters__btn inv-filters__btn--type"
+                  data-filter-value="{{ range_label | escape }}"
+                  data-filter-type="range"
+                  data-filter-param="filter.p.m.custom.range"
+                  aria-pressed="false"
+                >
+                  <span class="inv-filters__btn-text">{{ range_label }}</span>
+                  {%- if section.settings.show_counts -%}
+                  <span class="inv-filters__btn-count">({{ range_count }})</span>
+                  {%- endif -%}
+                </button>
+              {%- endif -%}
+            {%- endfor -%}
+            
+          </div>
+        </div>
+        
+        <button type="button" class="inv-filters__scroll-btn inv-filters__scroll-btn--right" aria-label="Scroll right" hidden>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+      </div>
+      
+    </div>
+  </div>
+  {%- endif -%}
+  
+  {%- comment -%} ========== ACTIVE FILTERS BAR ========== {%- endcomment -%}
+  <div 
+    class="inv-filters__active-bar{% if total_active == 0 %} inv-filters__active-bar--hidden{% endif %}"
+    id="inv-active-filters"
+    aria-live="polite"
+    aria-atomic="true"
+  >
+    <div class="inv-filters__container page-width">
+      <div class="inv-filters__active-content">
+        
+        <div class="inv-filters__active-left">
+          <span class="inv-filters__active-label">Active filters:</span>
+          
+          <div class="inv-filters__active-tags" id="inv-active-tags">
+            {%- for brand in active_brands -%}
+              {%- if brand != blank -%}
+              <span class="inv-filters__tag inv-filters__tag--brand" data-filter-value="{{ brand | escape }}" data-filter-type="brand">
+                <span class="inv-filters__tag-text">{{ brand }}</span>
+                <button type="button" class="inv-filters__tag-remove" aria-label="Remove {{ brand }} filter">
+                  <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+                    <path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </button>
+              </span>
+              {%- endif -%}
+            {%- endfor -%}
+            
+            {%- if active_brand_count > 0 and active_range_count > 0 -%}
+            <span class="inv-filters__tag-separator" aria-hidden="true">+</span>
+            {%- endif -%}
+            
+            {%- for range_value in active_ranges -%}
+              {%- if range_value != blank -%}
+              <span class="inv-filters__tag inv-filters__tag--type" data-filter-value="{{ range_value | escape }}" data-filter-type="range">
+                <span class="inv-filters__tag-text">{{ range_value }}</span>
+                <button type="button" class="inv-filters__tag-remove" aria-label="Remove {{ range_value }} filter">
+                  <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+                    <path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </button>
+              </span>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+        
+        <button type="button" class="inv-filters__clear-all" id="inv-clear-all" aria-label="Clear all filters">
+          Clear All
+        </button>
+        
+      </div>
+    </div>
+  </div>
+  
+  {%- comment -%} Screen reader announcements {%- endcomment -%}
+  <div class="inv-filters__sr-announce visually-hidden" aria-live="assertive" aria-atomic="true" id="inv-filters-announce"></div>
+  
+</div>
+{%- endif -%}
+
+{%- comment -%} ========== STYLES ========== {%- endcomment -%}
+<style>
+  /* ============================================
+     INVICTA COLLECTION FILTERS v4.0
+     ============================================ */
+  
+  .inv-filters {
+    --inv-filter-bg: {{ section.settings.background_color }};
+    --inv-filter-text: {{ section.settings.text_color }};
+    --inv-filter-btn-bg: {{ section.settings.button_bg }};
+    --inv-filter-btn-text: {{ section.settings.button_text }};
+    --inv-filter-btn-border: {{ section.settings.button_border }};
+    --inv-filter-btn-active-bg: {{ section.settings.button_active_bg }};
+    --inv-filter-btn-active-text: {{ section.settings.button_active_text }};
+    --inv-filter-btn-hover-bg: {{ section.settings.button_hover_bg }};
+    --inv-filter-tag-brand-bg: {{ section.settings.tag_brand_bg }};
+    --inv-filter-tag-type-bg: {{ section.settings.tag_type_bg }};
+    --inv-filter-active-bar-bg: {{ section.settings.active_bar_bg }};
+    --inv-filter-active-bar-border: {{ section.settings.active_bar_border }};
+    width: 100%;
+  }
+  
+  .inv-filters__container {
+    max-width: var(--page-width, 1200px);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  
+  /* ----------------------------------------
+     FILTER ROWS
+     ---------------------------------------- */
+  
+  .inv-filters__row {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--inv-filter-btn-border);
+  }
+  
+  .inv-filters__row--brands {
+    background: {{ section.settings.brand_row_bg }};
+  }
+  
+  .inv-filters__row--types {
+    background: {{ section.settings.type_row_bg }};
+  }
+  
+  .inv-filters__row--availability {
+    background: {{ section.settings.availability_row_bg | default: '#f9fafb' }};
+    border-bottom: 2px solid {{ section.settings.availability_row_border | default: '#e5e5e5' }};
+  }
+  
+  /* Availability buttons - slightly different styling */
+  .inv-filters__buttons--availability {
+    gap: 12px;
+  }
+  
+  .inv-filters__btn--availability {
+    padding: 10px 20px;
+    font-weight: 600;
+    border-width: 2px;
+  }
+  
+  .inv-filters__btn--availability .inv-filters__btn-icon {
+    flex-shrink: 0;
+    margin-right: 6px;
+    width: 16px;
+    height: 16px;
+  }
+  
+  .inv-filters__btn--availability.inv-filters__btn--active {
+    background: {{ section.settings.availability_active_bg | default: '#dc2626' }};
+    border-color: {{ section.settings.availability_active_bg | default: '#dc2626' }};
+    color: #fff;
+  }
+  
+  .inv-filters__btn--availability.inv-filters__btn--active:hover {
+    background: {{ section.settings.availability_active_bg | default: '#dc2626' }};
+    border-color: {{ section.settings.availability_active_bg | default: '#dc2626' }};
+    opacity: 0.9;
+  }
+  
+  .inv-filters__header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .inv-filters__label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--inv-filter-text);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  
+  .inv-filters__count {
+    font-size: 11px;
+    color: #888;
+  }
+  
+  /* ----------------------------------------
+     SCROLL CONTAINER WITH ARROWS
+     ---------------------------------------- */
+  
+  .inv-filters__scroll-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .inv-filters__scroll-btn {
+    /* Reset Trade theme defaults */
+    all: unset;
+    box-sizing: border-box;
+    
+    /* Our styles */
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: #fff;
+    border: 1px solid var(--inv-filter-btn-border);
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    
+    /* Prevent oval/pill shape */
+    min-width: 32px;
+    min-height: 32px;
+    aspect-ratio: 1;
+  }
+  
+  .inv-filters__scroll-btn:hover {
+    background: var(--inv-filter-btn-hover-bg);
+    border-color: #bbb;
+  }
+  
+  .inv-filters__scroll-btn:focus-visible {
+    outline: 2px solid var(--inv-filter-btn-active-bg);
+    outline-offset: 2px;
+  }
+  
+  .inv-filters__scroll-btn[hidden] {
+    display: none !important;
+  }
+  
+  .inv-filters__scroll-btn--left {
+    left: -16px;
+  }
+  
+  .inv-filters__scroll-btn--right {
+    right: -16px;
+  }
+  
+  .inv-filters__scroll-btn svg {
+    color: var(--inv-filter-text);
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+  
+  /* ----------------------------------------
+     SCROLL WRAPPER
+     ---------------------------------------- */
+  
+  .inv-filters__scroll-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    flex: 1;
+  }
+  
+  .inv-filters__scroll-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* ----------------------------------------
+     FILTER BUTTONS — Theme-safe overrides
+     ---------------------------------------- */
+  
+  .inv-filters__buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+  
+  .inv-filters__btn {
+    /* Reset Trade theme defaults */
+    all: unset;
+    box-sizing: border-box;
+    
+    /* Our styles */
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 16px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    flex-shrink: 0;
+    color: var(--inv-filter-btn-text);
+    background: var(--inv-filter-btn-bg);
+    border: 1px solid var(--inv-filter-btn-border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    
+    /* Prevent oval/pill shape */
+    min-width: auto;
+    min-height: auto;
+    width: auto;
+    height: auto;
+    aspect-ratio: unset;
+  }
+  
+  .inv-filters__btn:hover {
+    background: var(--inv-filter-btn-hover-bg);
+    border-color: #bbb;
+  }
+  
+  .inv-filters__btn:focus-visible {
+    outline: 2px solid var(--inv-filter-btn-active-bg);
+    outline-offset: 2px;
+  }
+  
+  .inv-filters__btn--active {
+    color: var(--inv-filter-btn-active-text);
+    background: var(--inv-filter-btn-active-bg);
+    border-color: var(--inv-filter-btn-active-bg);
+    animation: inv-filter-pop 0.2s ease;
+  }
+  
+  .inv-filters__btn--active:hover {
+    background: var(--inv-filter-btn-active-bg);
+    border-color: var(--inv-filter-btn-active-bg);
+    opacity: 0.9;
+  }
+  
+  .inv-filters__btn-text {
+    line-height: 1;
+  }
+  
+  .inv-filters__btn-count {
+    font-size: 10px;
+    opacity: 0.7;
+    line-height: 1;
+  }
+  
+  .inv-filters__btn-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+  }
+  
+  @keyframes inv-filter-pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  /* ----------------------------------------
+     ACTIVE FILTERS BAR
+     ---------------------------------------- */
+  
+  .inv-filters__active-bar {
+    padding: 12px 0;
+    background: var(--inv-filter-active-bar-bg);
+    border-bottom: 1px solid var(--inv-filter-active-bar-border);
+    transition: opacity 0.2s ease, max-height 0.3s ease;
+  }
+  
+  .inv-filters__active-bar--hidden {
+    display: none;
+  }
+  
+  .inv-filters__active-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  
+  .inv-filters__active-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .inv-filters__active-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--inv-filter-text);
+  }
+  
+  .inv-filters__active-tags {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  
+  .inv-filters__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    border-radius: 4px;
+    animation: inv-tag-in 0.2s ease;
+  }
+  
+  .inv-filters__tag--brand {
+    background: var(--inv-filter-tag-brand-bg);
+  }
+  
+  .inv-filters__tag--type {
+    background: var(--inv-filter-tag-type-bg);
+  }
+  
+  .inv-filters__tag-text {
+    line-height: 1;
+  }
+  
+  .inv-filters__tag-remove {
+    /* Reset Trade theme defaults */
+    all: unset;
+    box-sizing: border-box;
+    
+    /* Our styles */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: 14px;
+    height: 14px;
+    min-width: 14px;
+    min-height: 14px;
+    background: none;
+    border: none;
+    color: inherit;
+    opacity: 0.8;
+    cursor: pointer;
+    transition: opacity 0.1s ease;
+  }
+  
+  .inv-filters__tag-remove:hover {
+    opacity: 1;
+  }
+  
+  .inv-filters__tag-remove svg {
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+  }
+  
+  .inv-filters__tag-separator {
+    font-size: 11px;
+    font-weight: 700;
+    color: #999;
+  }
+  
+  @keyframes inv-tag-in {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  
+  .inv-filters__clear-all {
+    /* Reset Trade theme defaults */
+    all: unset;
+    box-sizing: border-box;
+    
+    /* Our styles */
+    padding: 8px 14px;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--inv-filter-btn-active-bg);
+    background: #fff;
+    border: 1px solid var(--inv-filter-btn-active-bg);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+  
+  .inv-filters__clear-all:hover {
+    color: #fff;
+    background: var(--inv-filter-btn-active-bg);
+  }
+  
+  .inv-filters__clear-all:focus-visible {
+    outline: 2px solid var(--inv-filter-btn-active-bg);
+    outline-offset: 2px;
+  }
+  
+  /* ----------------------------------------
+     LOADING STATE
+     ---------------------------------------- */
+  
+  .inv-filters--loading {
+    pointer-events: none;
+  }
+  
+  .inv-filters--loading .inv-filters__btn,
+  .inv-filters--loading .inv-filters__tag,
+  .inv-filters--loading .inv-filters__clear-all {
+    opacity: 0.6;
+  }
+  
+  /* ----------------------------------------
+     SKELETON LOADING (applied to product grid)
+     ---------------------------------------- */
+  
+  .inv-grid--loading .inv-card {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .inv-grid--loading .inv-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: inv-shimmer 1.2s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 10;
+  }
+  
+  .inv-grid--loading .inv-card > * {
+    opacity: 0.4;
+  }
+  
+  @keyframes inv-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  
+  /* ----------------------------------------
+     RESPONSIVE
+     ---------------------------------------- */
+  
+  @media (max-width: 989px) {
+    .inv-filters__container {
+      padding: 0 1rem;
+    }
+    
+    .inv-filters__btn {
+      padding: 8px 12px;
+      font-size: 11px;
+    }
+    
+    .inv-filters__scroll-btn {
+      width: 28px;
+      height: 28px;
+    }
+    
+    .inv-filters__scroll-btn--left {
+      left: -12px;
+    }
+    
+    .inv-filters__scroll-btn--right {
+      right: -12px;
+    }
+  }
+  
+  @media (max-width: 749px) {
+    .inv-filters__row {
+      padding: 12px 0;
+    }
+    
+    .inv-filters__header {
+      margin-bottom: 10px;
+    }
+    
+    .inv-filters__btn {
+      padding: 7px 10px;
+      font-size: 10px;
+    }
+    
+    .inv-filters__scroll-btn {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .inv-filters__scroll-btn--left {
+      left: -8px;
+    }
+    
+    .inv-filters__scroll-btn--right {
+      right: -8px;
+    }
+    
+    .inv-filters__scroll-btn svg {
+      width: 12px;
+      height: 12px;
+    }
+    
+    .inv-filters__active-content {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    
+    .inv-filters__clear-all {
+      align-self: flex-end;
+    }
+    
+    .inv-filters__tag {
+      padding: 4px 6px;
+      font-size: 9px;
+    }
+  }
+  
+  /* ----------------------------------------
+     REDUCED MOTION
+     ---------------------------------------- */
+  
+  @media (prefers-reduced-motion: reduce) {
+    .inv-filters__btn,
+    .inv-filters__tag,
+    .inv-filters__clear-all,
+    .inv-filters__active-bar {
+      transition: none;
+      animation: none;
+    }
+    
+    .inv-grid--loading .inv-card::after {
+      animation: none;
+      opacity: 0.3;
+    }
+  }
+  
+  /* ----------------------------------------
+     VISUALLY HIDDEN (accessibility)
+     ---------------------------------------- */
+  
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+</style>
+
+{%- comment -%} ========== JAVASCRIPT ========== {%- endcomment -%}
+<script>
+(function() {
+  'use strict';
+  
+  /**
+   * Invicta Collection Filters v4.0
+   * 
+   * AJAX-powered multi-select filters with:
+   * - Section Rendering API for partial updates
+   * - pushState for clean URL updates
+   * - Debounced requests with AbortController
+   * - Skeleton loading on product grid
+   * - Full accessibility support
+   * 
+   * @class InvictaFilters
+   */
+  class InvictaFilters {
+    
+    /**
+     * @param {HTMLElement} container - The filter container
+     */
+    constructor(container) {
+      /** @type {HTMLElement} */
+      this.container = container;
+      
+      /** @type {string} */
+      this.collectionUrl = container.dataset.collectionUrl || window.location.pathname;
+      
+      /** @type {string} */
+      this.sectionId = container.dataset.sectionId;
+      
+      /** @type {string} */
+      this.productGridId = container.dataset.productGridId || 'inv-product-grid';
+      
+      /** @type {AbortController|null} */
+      this.abortController = null;
+      
+      /** @type {number|null} */
+      this.debounceTimer = null;
+      
+      /** @type {number} Debounce delay in ms */
+      this.debounceDelay = 150;
+      
+      /** @type {Set<string>} */
+      this.activeBrands = new Set(
+        (container.dataset.activeBrands || '').split('|||').filter(Boolean)
+      );
+      
+      /** @type {Set<string>} */
+      this.activeRanges = new Set(
+        (container.dataset.activeRanges || '').split('|||').filter(Boolean)
+      );
+      
+      /** @type {string} 'true', 'false', or '' for no filter */
+      this.activeStocked = container.dataset.activeStocked || '';
+      
+      this.init();
+    }
+    
+    /**
+     * Initialise event listeners
+     * @returns {void}
+     */
+    init() {
+      // Filter button clicks
+      this.container.addEventListener('click', this.handleClick.bind(this));
+      
+      // Browser back/forward
+      window.addEventListener('popstate', this.handlePopState.bind(this));
+      
+      // Scroll arrows
+      this.initScrollArrows();
+    }
+    
+    /**
+     * Initialise scroll arrow buttons
+     * @returns {void}
+     */
+    initScrollArrows() {
+      const scrollContainers = this.container.querySelectorAll('.inv-filters__scroll-container');
+      
+      scrollContainers.forEach(container => {
+        const wrapper = container.querySelector('.inv-filters__scroll-wrapper');
+        const leftBtn = container.querySelector('.inv-filters__scroll-btn--left');
+        const rightBtn = container.querySelector('.inv-filters__scroll-btn--right');
+        
+        if (!wrapper || !leftBtn || !rightBtn) return;
+        
+        /** @type {number} Scroll amount per click */
+        const scrollAmount = 200;
+        
+        /**
+         * Update arrow visibility based on scroll position
+         */
+        const updateArrows = () => {
+          const { scrollLeft, scrollWidth, clientWidth } = wrapper;
+          const maxScroll = scrollWidth - clientWidth;
+          
+          // Show/hide left arrow
+          if (scrollLeft <= 0) {
+            leftBtn.hidden = true;
+          } else {
+            leftBtn.hidden = false;
+          }
+          
+          // Show/hide right arrow
+          if (scrollLeft >= maxScroll - 1) {
+            rightBtn.hidden = true;
+          } else {
+            rightBtn.hidden = false;
+          }
+        };
+        
+        // Left arrow click
+        leftBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          wrapper.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+        
+        // Right arrow click
+        rightBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          wrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+        
+        // Update on scroll
+        wrapper.addEventListener('scroll', updateArrows, { passive: true });
+        
+        // Update on resize
+        window.addEventListener('resize', updateArrows, { passive: true });
+        
+        // Initial update
+        updateArrows();
+      });
+    }
+    
+    /**
+     * Handle all clicks via delegation
+     * @param {MouseEvent} e
+     * @returns {void}
+     */
+    handleClick(e) {
+      // Filter button
+      const btn = e.target.closest('.inv-filters__btn');
+      if (btn) {
+        e.preventDefault();
+        this.handleFilterClick(btn);
+        return;
+      }
+      
+      // Tag remove button
+      const tagRemove = e.target.closest('.inv-filters__tag-remove');
+      if (tagRemove) {
+        e.preventDefault();
+        const tag = tagRemove.closest('.inv-filters__tag');
+        this.handleTagRemove(tag);
+        return;
+      }
+      
+      // Clear all button
+      const clearAll = e.target.closest('.inv-filters__clear-all');
+      if (clearAll) {
+        e.preventDefault();
+        this.clearAllFilters();
+        return;
+      }
+    }
+    
+    /**
+     * Handle filter button click
+     * @param {HTMLElement} btn
+     * @returns {void}
+     */
+    handleFilterClick(btn) {
+      const filterType = btn.dataset.filterType;
+      const filterValue = btn.dataset.filterValue;
+      const isActive = btn.classList.contains('inv-filters__btn--active');
+      
+      // Toggle filter state
+      if (filterType === 'brand') {
+        if (isActive) {
+          this.activeBrands.delete(filterValue);
+        } else {
+          this.activeBrands.add(filterValue);
+        }
+        // Immediate visual feedback
+        btn.classList.toggle('inv-filters__btn--active');
+        btn.setAttribute('aria-pressed', (!isActive).toString());
+        
+      } else if (filterType === 'range') {
+        if (isActive) {
+          this.activeRanges.delete(filterValue);
+        } else {
+          this.activeRanges.add(filterValue);
+        }
+        // Immediate visual feedback
+        btn.classList.toggle('inv-filters__btn--active');
+        btn.setAttribute('aria-pressed', (!isActive).toString());
+        
+      } else if (filterType === 'stocked') {
+        // Stocked filter: 'true' = stocked only, '' = show all
+        if (filterValue === '') {
+          // "Available to Order" clicked — clear filter
+          this.activeStocked = '';
+        } else if (isActive) {
+          // Clicking active "Invicta Stock" — clear filter (show all)
+          this.activeStocked = '';
+        } else {
+          // Clicking inactive "Invicta Stock" — set filter
+          this.activeStocked = filterValue;
+        }
+        
+        // Update button states — one is always active
+        this.container.querySelectorAll('[data-filter-type="stocked"]').forEach(b => {
+          const btnValue = b.dataset.filterValue;
+          if (this.activeStocked === '' && btnValue === '') {
+            // "Available to Order" active when no filter
+            b.classList.add('inv-filters__btn--active');
+            b.setAttribute('aria-pressed', 'true');
+          } else if (this.activeStocked === btnValue && btnValue !== '') {
+            // "Invicta Stock" active when filter matches
+            b.classList.add('inv-filters__btn--active');
+            b.setAttribute('aria-pressed', 'true');
+          } else {
+            b.classList.remove('inv-filters__btn--active');
+            b.setAttribute('aria-pressed', 'false');
+          }
+        });
+        // No generic toggle for stocked — handled above
+      }
+      
+      // Debounced fetch
+      this.debouncedFetch();
+    }
+    
+    /**
+     * Handle tag remove
+     * @param {HTMLElement} tag
+     * @returns {void}
+     */
+    handleTagRemove(tag) {
+      const filterType = tag.dataset.filterType;
+      const filterValue = tag.dataset.filterValue;
+      
+      if (filterType === 'brand') {
+        this.activeBrands.delete(filterValue);
+      } else if (filterType === 'range') {
+        this.activeRanges.delete(filterValue);
+      }
+      
+      // Animate out
+      tag.style.opacity = '0';
+      tag.style.transform = 'scale(0.8)';
+      
+      // Also update the filter button
+      const btn = this.container.querySelector(
+        `.inv-filters__btn[data-filter-value="${CSS.escape(filterValue)}"][data-filter-type="${filterType}"]`
+      );
+      if (btn) {
+        btn.classList.remove('inv-filters__btn--active');
+        btn.setAttribute('aria-pressed', 'false');
+      }
+      
+      this.debouncedFetch();
+    }
+    
+    /**
+     * Clear all filters
+     * @returns {void}
+     */
+    clearAllFilters() {
+      this.activeBrands.clear();
+      this.activeRanges.clear();
+      this.activeStocked = '';
+      
+      // Update all buttons
+      this.container.querySelectorAll('.inv-filters__btn--active').forEach(btn => {
+        btn.classList.remove('inv-filters__btn--active');
+        btn.setAttribute('aria-pressed', 'false');
+      });
+      
+      this.debouncedFetch();
+    }
+    
+    /**
+     * Debounced fetch — prevents rapid requests
+     * @returns {void}
+     */
+    debouncedFetch() {
+      clearTimeout(this.debounceTimer);
+      
+      this.debounceTimer = setTimeout(() => {
+        this.fetchFiltered();
+      }, this.debounceDelay);
+    }
+    
+    /**
+     * Build URL from current filter state
+     * @returns {URL}
+     */
+    buildUrl() {
+      const url = new URL(window.location.origin + this.collectionUrl);
+      
+      this.activeBrands.forEach(brand => {
+        url.searchParams.append('filter.p.vendor', brand);
+      });
+      
+      this.activeRanges.forEach(range => {
+        url.searchParams.append('filter.p.m.custom.range', range);
+      });
+      
+      // Stocked filter (single value, not array)
+      if (this.activeStocked) {
+        url.searchParams.append('filter.p.m.custom.stocked', this.activeStocked);
+      }
+      
+      return url;
+    }
+    
+    /**
+     * Fetch filtered content via AJAX
+     * @returns {Promise<void>}
+     */
+    async fetchFiltered() {
+      // Cancel any in-flight request
+      if (this.abortController) {
+        this.abortController.abort();
+      }
+      
+      this.abortController = new AbortController();
+      
+      const url = this.buildUrl();
+      
+      // Show loading state
+      this.setLoadingState(true);
+      
+      try {
+        // Fetch sections
+        const sectionsParam = `${this.sectionId},invicta-product-grid`;
+        const fetchUrl = `${url.toString()}${url.search ? '&' : '?'}sections=${sectionsParam}`;
+        
+        const response = await fetch(fetchUrl, {
+          signal: this.abortController.signal
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Update URL without reload
+        history.pushState({}, '', url.toString());
+        
+        // Update filter section
+        if (data[this.sectionId]) {
+          this.updateSection(this.container, data[this.sectionId]);
+        }
+        
+        // Update product grid
+        if (data['invicta-product-grid']) {
+          const gridContainer = document.getElementById(this.productGridId);
+          if (gridContainer) {
+            const gridSection = gridContainer.closest('.inv-product-grid-section') || gridContainer.closest('[data-section-type="invicta-product-grid"]');
+            if (gridSection) {
+              this.updateSection(gridSection, data['invicta-product-grid']);
+            }
+          }
+        }
+        
+        // Announce to screen readers
+        this.announceResults();
+        
+        // Sync stocked button state with URL after AJAX update
+        this.syncStockedButtons();
+        
+      } catch (err) {
+        if (err.name === 'AbortError') {
+          // Request was cancelled — ignore
+          return;
+        }
+        
+        console.error('[Invicta Filters] Fetch error:', err);
+        
+        // Fallback to full page reload
+        window.location.href = url.toString();
+        
+      } finally {
+        this.setLoadingState(false);
+        this.abortController = null;
+      }
+    }
+    
+    /**
+     * Update a section with new HTML
+     * @param {HTMLElement} container
+     * @param {string} html
+     * @returns {void}
+     */
+    updateSection(container, html) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const newContent = doc.body.firstElementChild;
+      
+      if (newContent) {
+        container.replaceWith(newContent);
+        
+        // Re-init if this is the filter container
+        if (container === this.container) {
+          const newContainer = document.getElementById('invicta-collection-filters');
+          if (newContainer) {
+            this.container = newContainer;
+            this.init();
+          }
+        }
+      }
+    }
+    
+    /**
+     * Set loading state on filters and grid
+     * @param {boolean} loading
+     * @returns {void}
+     */
+    setLoadingState(loading) {
+      // Filter container
+      this.container.classList.toggle('inv-filters--loading', loading);
+      
+      // Product grid
+      const grid = document.querySelector('.inv-grid');
+      if (grid) {
+        grid.classList.toggle('inv-grid--loading', loading);
+      }
+    }
+    
+    /**
+     * Announce filter results to screen readers
+     * @returns {void}
+     */
+    announceResults() {
+      const announce = document.getElementById('inv-filters-announce');
+      if (!announce) return;
+      
+      // Get product count from the grid
+      const countEl = document.querySelector('.inv-grid__count strong');
+      const count = countEl ? countEl.textContent : '0';
+      
+      const totalFilters = this.activeBrands.size + this.activeRanges.size;
+      
+      if (totalFilters === 0) {
+        announce.textContent = `Showing all products. ${count} products found.`;
+      } else {
+        announce.textContent = `Filters applied. ${count} products found.`;
+      }
+      
+      // Clear after announcement
+      setTimeout(() => {
+        announce.textContent = '';
+      }, 1000);
+    }
+    
+    /**
+     * Sync stocked button states with current URL
+     * Ensures buttons match URL after AJAX replaces HTML
+     * @returns {void}
+     */
+    syncStockedButtons() {
+      const urlHasStocked = window.location.href.includes('stocked=true');
+      const stockedBtns = this.container.querySelectorAll('[data-filter-type="stocked"]');
+      
+      stockedBtns.forEach(btn => {
+        const isStockedBtn = btn.dataset.filterValue === 'true';
+        const shouldBeActive = urlHasStocked ? isStockedBtn : !isStockedBtn;
+        
+        btn.classList.toggle('inv-filters__btn--active', shouldBeActive);
+        btn.setAttribute('aria-pressed', shouldBeActive.toString());
+      });
+      
+      // Sync internal state
+      this.activeStocked = urlHasStocked ? 'true' : '';
+    }
+    
+    /**
+     * Handle browser back/forward
+     * @returns {void}
+     */
+    handlePopState() {
+      // Re-fetch based on URL
+      const url = new URL(window.location.href);
+      
+      // Parse active filters from URL
+      this.activeBrands = new Set(url.searchParams.getAll('filter.p.vendor'));
+      this.activeRanges = new Set(url.searchParams.getAll('filter.p.m.custom.range'));
+      this.activeStocked = url.searchParams.get('filter.p.m.custom.stocked') || '';
+      
+      // Fetch without pushing state
+      this.fetchFiltered();
+    }
+  }
+  
+  /**
+   * Initialise when DOM is ready
+   */
+  function init() {
+    const container = document.getElementById('invicta-collection-filters');
+    if (container) {
+      const filters = new InvictaFilters(container);
+      
+      // Sync button state with URL on page load
+      filters.syncStockedButtons();
+    }
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Invicta Filters",
+  "tag": "section",
+  "class": "inv-collection-filters-section",
+  "limit": 1,
+  "enabled_on": {
+    "templates": ["collection"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Filter Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_availability_filters",
+      "label": "Show availability filters",
+      "default": true,
+      "info": "Invicta Stock / Available to Order toggle"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_brand_filters",
+      "label": "Show brand filters",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_type_filters",
+      "label": "Show product range filters",
+      "default": true,
+      "info": "Uses custom.range metafield"
+    },
+    {
+      "type": "textarea",
+      "id": "excluded_ranges",
+      "label": "Excluded range values",
+      "info": "Comma-separated list of range values to hide from filter (e.g. Cutting & Sawing, Site Tools & Equipment)",
+      "default": "Cutting & Sawing, Site Tools & Equipment"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_counts",
+      "label": "Show product counts",
+      "default": true,
+      "info": "Shows (42) next to each filter"
+    },
+    {
+      "type": "header",
+      "content": "Labels"
+    },
+    {
+      "type": "text",
+      "id": "availability_label",
+      "label": "Availability filter label",
+      "default": "Availability"
+    },
+    {
+      "type": "text",
+      "id": "stocked_label",
+      "label": "Stocked button label",
+      "default": "Invicta Stock"
+    },
+    {
+      "type": "text",
+      "id": "available_label",
+      "label": "Full catalogue label",
+      "default": "Full Catalogue"
+    },
+    {
+      "type": "text",
+      "id": "brand_label",
+      "label": "Brand filter label",
+      "default": "Filter by Brand"
+    },
+    {
+      "type": "text",
+      "id": "type_label",
+      "label": "Product range label",
+      "default": "Product Type"
+    },
+    {
+      "type": "header",
+      "content": "Colours — Rows"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Default background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "availability_row_bg",
+      "label": "Availability row background",
+      "default": "#f9fafb"
+    },
+    {
+      "type": "color",
+      "id": "availability_row_border",
+      "label": "Availability row border",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "availability_active_bg",
+      "label": "Availability active button",
+      "default": "#dc2626"
+    },
+    {
+      "type": "color",
+      "id": "brand_row_bg",
+      "label": "Brand row background",
+      "default": "#f9fafb"
+    },
+    {
+      "type": "color",
+      "id": "type_row_bg",
+      "label": "Type row background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text colour",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Colours — Buttons"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "button_border",
+      "label": "Button border",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg",
+      "label": "Button hover",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "button_active_bg",
+      "label": "Active button background",
+      "default": "#dc2626"
+    },
+    {
+      "type": "color",
+      "id": "button_active_text",
+      "label": "Active button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Colours — Active Bar"
+    },
+    {
+      "type": "color",
+      "id": "active_bar_bg",
+      "label": "Bar background",
+      "default": "#fef2f2"
+    },
+    {
+      "type": "color",
+      "id": "active_bar_border",
+      "label": "Bar border",
+      "default": "#fecaca"
+    },
+    {
+      "type": "color",
+      "id": "tag_brand_bg",
+      "label": "Brand tag",
+      "default": "#dc2626"
+    },
+    {
+      "type": "color",
+      "id": "tag_type_bg",
+      "label": "Type tag",
+      "default": "#2d2d2d"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Invicta Filters",
+      "settings": {
+        "show_brand_filters": true,
+        "show_type_filters": true,
+        "show_counts": true
+      }
+    }
+  ]
+}
+{% endschema %}

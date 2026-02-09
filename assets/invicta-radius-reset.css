@@ -1,0 +1,223 @@
+/* =======================================================
+   INVICTA BORDER-RADIUS SYSTEM — GLOBAL OVERRIDE
+   -------------------------------------------------------
+   Version: 1.0
+   Purpose: Enforce consistent border-radius site-wide
+   Usage:   All components must use these custom properties
+   ======================================================= */
+
+:root {
+  /* Core radius scale */
+  --inv-radius-none: 0;
+  --inv-radius-sm: 4px;
+  --inv-radius-md: 8px;
+  --inv-radius-lg: 12px;
+  
+  /* Semantic aliases (optional, for clarity) */
+  --inv-radius-button: var(--inv-radius-md);
+  --inv-radius-card: var(--inv-radius-md);
+  --inv-radius-input: var(--inv-radius-md);
+  --inv-radius-modal: var(--inv-radius-lg);
+  --inv-radius-toggle-outer: var(--inv-radius-md);
+  --inv-radius-toggle-inner: var(--inv-radius-sm);
+}
+
+/* =======================================================
+   GLOBAL RESET — Override all default/theme radii
+   ======================================================= */
+
+/* Buttons — all types */
+button,
+.button,
+.btn,
+.shopify-button,
+[class*="button"],
+[class*="btn"],
+input[type="submit"],
+input[type="button"],
+.shopify-payment-button button,
+.shopify-payment-button__button {
+  border-radius: var(--inv-radius-button) !important;
+}
+
+/* Cards & containers */
+.card,
+.card__inner,
+.product-card,
+.product-card-wrapper,
+.collection-card,
+[class*="card"],
+.article-card,
+.blog-card {
+  border-radius: var(--inv-radius-card) !important;
+}
+
+/* Product images & thumbnails */
+.product__media,
+.product__media-item,
+.thumbnail,
+.thumbnail-list__item,
+[class*="thumbnail"],
+.media,
+.media--transparent,
+.product-card__image,
+.card__media {
+  border-radius: var(--inv-radius-card) !important;
+}
+
+/* Inputs & form elements */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="number"],
+input[type="url"],
+textarea,
+select,
+.field__input,
+.form__input,
+.search__input,
+[class*="input"],
+.select__select {
+  border-radius: var(--inv-radius-input) !important;
+}
+
+/* Dropdowns & selects */
+.dropdown,
+.dropdown__menu,
+.select,
+.disclosure__list,
+[class*="dropdown"],
+[class*="select"] {
+  border-radius: var(--inv-radius-input) !important;
+}
+
+/* Modals, drawers & overlays */
+.modal,
+.modal__inner,
+.drawer,
+.drawer__inner,
+.popup,
+.cart-drawer,
+.menu-drawer,
+[class*="modal"],
+[class*="drawer"],
+[class*="popup"] {
+  border-radius: var(--inv-radius-modal) !important;
+}
+
+/* Badges & tags */
+.badge,
+.tag,
+.label,
+[class*="badge"],
+[class*="tag"] {
+  border-radius: var(--inv-radius-md) !important;
+}
+
+/* Toggles (VAT, filters, etc.) */
+[class*="toggle"],
+[class*="switch"] {
+  border-radius: var(--inv-radius-toggle-outer) !important;
+}
+
+[class*="toggle"] button,
+[class*="toggle"] [class*="btn"],
+[class*="switch"] button {
+  border-radius: var(--inv-radius-toggle-inner) !important;
+}
+
+/* Quick add, quantity selectors */
+.quantity,
+.quantity__input,
+.quantity__button,
+.quick-add__submit,
+[class*="quantity"] {
+  border-radius: var(--inv-radius-md) !important;
+}
+
+/* Search components */
+.search-modal,
+.search-modal__content,
+.predictive-search,
+.predictive-search__results,
+[class*="search-modal"],
+[class*="predictive-search"] {
+  border-radius: var(--inv-radius-md) !important;
+}
+
+/* Mega menu & navigation dropdowns */
+.mega-menu,
+.mega-menu__content,
+.header__menu-item,
+.nav-dropdown,
+[class*="mega-menu"],
+[class*="nav-dropdown"] {
+  border-radius: var(--inv-radius-md) !important;
+}
+
+/* Image overlays & zoom */
+.media-gallery,
+.product-media-modal,
+[class*="gallery"],
+[class*="lightbox"] {
+  border-radius: var(--inv-radius-lg) !important;
+}
+
+/* =======================================================
+   INVICTA NAMESPACE — Explicit overrides for inv- classes
+   ======================================================= */
+
+[class^="inv-"] button,
+[class^="inv-"] .btn,
+[class*=" inv-"] button,
+[class*=" inv-"] .btn {
+  border-radius: var(--inv-radius-button) !important;
+}
+
+[class^="inv-"][class*="card"],
+[class*=" inv-"][class*="card"] {
+  border-radius: var(--inv-radius-card) !important;
+}
+
+[class^="inv-"][class*="toggle"],
+[class*=" inv-"][class*="toggle"] {
+  border-radius: var(--inv-radius-toggle-outer) !important;
+}
+
+/* =======================================================
+   KILL PILL SHAPES — Nuclear option for 9999px offenders
+   ======================================================= */
+
+*[style*="border-radius: 9999"],
+*[style*="border-radius:9999"],
+*[style*="border-radius: 50%"],
+*[style*="border-radius:50%"] {
+  border-radius: var(--inv-radius-md) !important;
+}
+
+/* =======================================================
+   EXCEPTIONS — Elements that should stay circular
+   ======================================================= */
+
+/* Icon buttons (account, cart) — keep circular */
+.invicta-header__icon,
+[class*="icon-button"],
+.icon-button {
+  border-radius: 50% !important;
+}
+
+/* Cart count badge — keep circular */
+.invicta-header__badge,
+.cart-count-bubble,
+[class*="cart-count"],
+[class*="count-bubble"] {
+  border-radius: 50% !important;
+}
+
+/* Avatar/profile images — keep circular */
+[class*="avatar"],
+.avatar {
+  border-radius: 50% !important;
+}

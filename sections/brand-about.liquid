@@ -1,0 +1,317 @@
+{% comment %}
+  ============================================
+  BRAND ABOUT v1.1
+  ============================================
+  Two-column brand story section
+  Now includes stats row for key selling points
+  Light grey background with image and content
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+{{ 'brand-page.css' | asset_url | stylesheet_tag }}
+
+<section class="brand-about" id="about-{{ section.id }}">
+  <div class="page-width">
+    <div class="brand-about__grid">
+
+      {%- comment -%} Left Column - Image {%- endcomment -%}
+      <div class="brand-about__image-col">
+        <div class="brand-about__image-wrap">
+          {%- if section.settings.image != blank -%}
+            <img
+              src="{{ section.settings.image | image_url: width: 700 }}"
+              srcset="{{ section.settings.image | image_url: width: 400 }} 400w,
+                      {{ section.settings.image | image_url: width: 600 }} 600w,
+                      {{ section.settings.image | image_url: width: 700 }} 700w"
+              sizes="(max-width: 768px) 100vw, 45vw"
+              alt="{{ section.settings.image.alt | default: 'About the brand' }}"
+              loading="lazy"
+              width="700"
+              height="525"
+              class="brand-about__image"
+            >
+          {%- else -%}
+            <div class="brand-about__image-placeholder">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+            </div>
+          {%- endif -%}
+
+          {%- comment -%} Overlay Badge {%- endcomment -%}
+          {%- if section.settings.badge_label != blank and section.settings.badge_value != blank -%}
+            <div class="brand-about__badge">
+              <span class="brand-about__badge-label">{{ section.settings.badge_label }}</span>
+              <span class="brand-about__badge-value">{{ section.settings.badge_value }}</span>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- comment -%} Right Column - Content {%- endcomment -%}
+      <div class="brand-about__content">
+
+        {%- comment -%} Section Label {%- endcomment -%}
+        {%- if section.settings.section_label != blank -%}
+          <span class="brand-about__label">
+            <span class="brand-about__label-dash"></span>
+            {{ section.settings.section_label }}
+          </span>
+        {%- endif -%}
+
+        {%- comment -%} Title {%- endcomment -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="brand-about__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+
+        {%- comment -%} Paragraphs {%- endcomment -%}
+        {%- if section.settings.paragraph_1 != blank -%}
+          <p class="brand-about__text">{{ section.settings.paragraph_1 }}</p>
+        {%- endif -%}
+        {%- if section.settings.paragraph_2 != blank -%}
+          <p class="brand-about__text">{{ section.settings.paragraph_2 }}</p>
+        {%- endif -%}
+
+        {%- comment -%} Stats Row {%- endcomment -%}
+        {%- liquid
+          assign has_stats = false
+          if section.settings.stat_1_value != blank or section.settings.stat_2_value != blank or section.settings.stat_3_value != blank
+            assign has_stats = true
+          endif
+        -%}
+        {%- if has_stats -%}
+          <div class="brand-about__stats">
+            {%- if section.settings.stat_1_value != blank -%}
+              <div class="brand-about__stat">
+                <span class="brand-about__stat-value">{{ section.settings.stat_1_value }}</span>
+                <span class="brand-about__stat-label">{{ section.settings.stat_1_label }}</span>
+              </div>
+            {%- endif -%}
+            {%- if section.settings.stat_2_value != blank -%}
+              <div class="brand-about__stat">
+                <span class="brand-about__stat-value">{{ section.settings.stat_2_value }}</span>
+                <span class="brand-about__stat-label">{{ section.settings.stat_2_label }}</span>
+              </div>
+            {%- endif -%}
+            {%- if section.settings.stat_3_value != blank -%}
+              <div class="brand-about__stat">
+                <span class="brand-about__stat-value">{{ section.settings.stat_3_value }}</span>
+                <span class="brand-about__stat-label">{{ section.settings.stat_3_label }}</span>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} Feature Bullets {%- endcomment -%}
+        <div class="brand-about__features">
+          {%- if section.settings.feature_1 != blank -%}
+            <div class="brand-about__feature">
+              <span class="brand-about__feature-icon">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span class="brand-about__feature-text">{{ section.settings.feature_1 }}</span>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.feature_2 != blank -%}
+            <div class="brand-about__feature">
+              <span class="brand-about__feature-icon">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span class="brand-about__feature-text">{{ section.settings.feature_2 }}</span>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.feature_3 != blank -%}
+            <div class="brand-about__feature">
+              <span class="brand-about__feature-icon">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span class="brand-about__feature-text">{{ section.settings.feature_3 }}</span>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.feature_4 != blank -%}
+            <div class="brand-about__feature">
+              <span class="brand-about__feature-icon">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span class="brand-about__feature-text">{{ section.settings.feature_4 }}</span>
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} CTA Button {%- endcomment -%}
+        {%- if section.settings.cta_text != blank and section.settings.cta_url != blank -%}
+          <a href="{{ section.settings.cta_url }}" class="brand-about__btn">
+            {{ section.settings.cta_text }}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        {%- endif -%}
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand About",
+  "tag": "section",
+  "class": "section-brand-about",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "badge_label",
+      "label": "Badge Label",
+      "default": "Manufactured in"
+    },
+    {
+      "type": "text",
+      "id": "badge_value",
+      "label": "Badge Value",
+      "default": "Switzerland"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "section_label",
+      "label": "Section Label",
+      "default": "About Lamello"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "80 Years of Swiss Engineering"
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph_1",
+      "label": "Paragraph 1",
+      "default": "Hermann Steiner invented the biscuit joining system in 1944, and Lamello has led the industry ever since. Every tool is designed and built at their headquarters in Bubendorf, Switzerland."
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph_2",
+      "label": "Paragraph 2",
+      "default": "From the original biscuit joiners to the latest Clamex and Invis connector systems, Lamello tools are built to last and engineered for precision."
+    },
+    {
+      "type": "header",
+      "content": "Stats Row"
+    },
+    {
+      "type": "paragraph",
+      "content": "Highlight key selling points with impactful numbers."
+    },
+    {
+      "type": "text",
+      "id": "stat_1_value",
+      "label": "Stat 1 Value",
+      "default": "25%"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_label",
+      "label": "Stat 1 Label",
+      "default": "Faster Assembly"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_value",
+      "label": "Stat 2 Value",
+      "default": "30,000+"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_label",
+      "label": "Stat 2 Label",
+      "default": "Connectors Per Project"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_value",
+      "label": "Stat 3 Value",
+      "default": "100%"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_label",
+      "label": "Stat 3 Label",
+      "default": "Swiss Made"
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "text",
+      "id": "feature_1",
+      "label": "Feature 1",
+      "default": "Inventor of biscuit joinery"
+    },
+    {
+      "type": "text",
+      "id": "feature_2",
+      "label": "Feature 2",
+      "default": "Detachable connections"
+    },
+    {
+      "type": "text",
+      "id": "feature_3",
+      "label": "Feature 3",
+      "default": "Professional grade tools"
+    },
+    {
+      "type": "text",
+      "id": "feature_4",
+      "label": "Feature 4",
+      "default": "Genuine spare parts"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand About"
+    }
+  ]
+}
+{% endschema %}

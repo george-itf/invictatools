@@ -1,0 +1,628 @@
+{% comment %}
+  ============================================
+  INVICTA NEWSLETTER v2.7 — Hybrid (Refined)
+  ============================================
+  Bold discount badge + Clean headline + Social proof
+  Shorter height, separated form elements, sharper badge
+  
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+{%- liquid
+  assign form_id = 'NewsletterForm-' | append: section.id
+-%}
+
+<section class="inv-newsletter-v2" id="newsletter-{{ section.id }}">
+  <div class="inv-newsletter-v2__inner">
+    
+    {%- comment -%} LEFT: Discount Badge {%- endcomment -%}
+    {% if section.settings.badge_text != blank %}
+      <div class="inv-newsletter-v2__badge">
+        <span class="inv-newsletter-v2__badge-percent">{{ section.settings.badge_percent }}</span>
+        <span class="inv-newsletter-v2__badge-label">{{ section.settings.badge_text }}</span>
+      </div>
+    {% endif %}
+
+    {%- comment -%} RIGHT: Content {%- endcomment -%}
+    <div class="inv-newsletter-v2__content">
+      
+      {%- comment -%} Top: Headline + Social Proof {%- endcomment -%}
+      <div class="inv-newsletter-v2__top">
+        {% if section.settings.heading != blank %}
+          <h2 class="inv-newsletter-v2__headline">{{ section.settings.heading }}</h2>
+        {% endif %}
+
+        {% if section.settings.show_social_proof %}
+          <div class="inv-newsletter-v2__proof">
+            <div class="inv-newsletter-v2__avatars">
+              {% for i in (1..3) %}
+                {% assign avatar_key = 'avatar_' | append: i %}
+                {% assign avatar = section.settings[avatar_key] %}
+                <div class="inv-newsletter-v2__avatar">
+                  {% if avatar != blank %}
+                    <img src="{{ avatar | image_url: width: 64 }}" alt="" width="32" height="32" loading="lazy">
+                  {% else %}
+                    {{ 'JT,MK,SP' | split: ',' | slice: i | first | default: 'JT' }}
+                  {% endif %}
+                </div>
+              {% endfor %}
+            </div>
+            <span class="inv-newsletter-v2__count">
+              <strong>{{ section.settings.subscriber_count }}</strong> {{ section.settings.subscriber_label }}
+            </span>
+          </div>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Form {%- endcomment -%}
+      {% form 'customer', id: form_id, class: 'inv-newsletter-v2__form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        
+        <div class="inv-newsletter-v2__form-row">
+          <label for="{{ form_id }}-email" class="visually-hidden">
+            {{ 'newsletter.label' | t }}
+          </label>
+          <input
+            id="{{ form_id }}-email"
+            type="email"
+            name="contact[email]"
+            class="inv-newsletter-v2__input"
+            placeholder="{{ section.settings.placeholder }}"
+            autocomplete="email"
+            autocorrect="off"
+            autocapitalize="off"
+            required
+            {% if form.errors %}
+              autofocus
+              aria-invalid="true"
+              aria-describedby="{{ form_id }}-error"
+            {% elsif form.posted_successfully? %}
+              aria-describedby="{{ form_id }}-success"
+            {% endif %}
+          >
+          <button type="submit" class="inv-newsletter-v2__btn" name="commit">
+            {{ section.settings.button_text }}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+
+        {%- if form.errors -%}
+          <p id="{{ form_id }}-error" class="inv-newsletter-v2__message inv-newsletter-v2__message--error">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+          </p>
+        {%- endif -%}
+
+        {%- if form.posted_successfully? -%}
+          <p id="{{ form_id }}-success" class="inv-newsletter-v2__message inv-newsletter-v2__message--success">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            {{ section.settings.success_message }}
+          </p>
+        {%- endif -%}
+
+      {% endform %}
+
+      {%- comment -%} Trust Badges {%- endcomment -%}
+      {% if section.settings.show_trust_badges %}
+        <div class="inv-newsletter-v2__trust">
+          {% for block in section.blocks %}
+            {% if block.type == 'trust_badge' and block.settings.text != blank %}
+              <span class="inv-newsletter-v2__trust-item" {{ block.shopify_attributes }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                {{ block.settings.text }}
+              </span>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ============================================
+     INVICTA NEWSLETTER v2.7 — Refined
+     ============================================ */
+
+  #newsletter-{{ section.id }} {
+    --inv-nl-accent: {{ section.settings.accent_color }};
+    --inv-nl-accent-hover: {{ section.settings.accent_color | color_darken: 10 }};
+    --inv-nl-bg: {{ section.settings.background_color }};
+  }
+
+  .inv-newsletter-v2 {
+    background: linear-gradient(135deg, #1a1a1a 0%, var(--inv-nl-bg) 100%);
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .inv-newsletter-v2__inner {
+    display: flex;
+    align-items: stretch;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* ==================
+     LEFT: Discount Badge
+     Sharp edges, bold styling
+     ================== */
+  .inv-newsletter-v2__badge {
+    background: var(--inv-nl-accent);
+    color: #fff;
+    padding: 28px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 180px;
+    flex-shrink: 0;
+    /* Sharp edges - no border radius */
+  }
+
+  .inv-newsletter-v2__badge-percent {
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -4px;
+  }
+
+  .inv-newsletter-v2__badge-label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 4px;
+    text-align: center;
+  }
+
+  /* ==================
+     RIGHT: Content
+     Reduced vertical padding
+     ================== */
+  .inv-newsletter-v2__content {
+    flex: 1;
+    padding: 28px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Top row */
+  .inv-newsletter-v2__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    margin-bottom: 16px;
+  }
+
+  .inv-newsletter-v2__headline {
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  /* Social proof */
+  .inv-newsletter-v2__proof {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .inv-newsletter-v2__avatars {
+    display: flex;
+  }
+
+  .inv-newsletter-v2__avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--inv-nl-bg);
+    margin-left: -10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--inv-nl-bg);
+    overflow: hidden;
+  }
+
+  .inv-newsletter-v2__avatar:first-child {
+    margin-left: 0;
+  }
+
+  .inv-newsletter-v2__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .inv-newsletter-v2__count {
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.7);
+    white-space: nowrap;
+  }
+
+  .inv-newsletter-v2__count strong {
+    color: #fff;
+  }
+
+  /* Form - with gap between input and button */
+  .inv-newsletter-v2__form {
+    width: 100%;
+  }
+
+  .inv-newsletter-v2__form-row {
+    display: flex;
+    gap: 12px;
+  }
+
+  .inv-newsletter-v2__input {
+    flex: 1;
+    padding: 14px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    border-radius: 4px;
+  }
+
+  .inv-newsletter-v2__input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .inv-newsletter-v2__input:focus {
+    border-color: var(--inv-nl-accent);
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .inv-newsletter-v2__btn {
+    padding: 14px 28px;
+    background: var(--inv-nl-accent);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .inv-newsletter-v2__btn:hover {
+    background: var(--inv-nl-accent-hover);
+  }
+
+  .inv-newsletter-v2__btn:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+
+  .inv-newsletter-v2__btn svg {
+    transition: transform 0.2s;
+  }
+
+  .inv-newsletter-v2__btn:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* Messages */
+  .inv-newsletter-v2__message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0 0;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .inv-newsletter-v2__message--error {
+    color: #fca5a5;
+  }
+
+  .inv-newsletter-v2__message--success {
+    color: #86efac;
+  }
+
+  .inv-newsletter-v2__message svg {
+    flex-shrink: 0;
+  }
+
+  /* Trust badges */
+  .inv-newsletter-v2__trust {
+    display: flex;
+    gap: 24px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+
+  .inv-newsletter-v2__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .inv-newsletter-v2__trust-item svg {
+    color: #4ade80;
+    flex-shrink: 0;
+  }
+
+  /* Visually hidden */
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  /* ==================
+     RESPONSIVE
+     ================== */
+  @media (max-width: 900px) {
+    .inv-newsletter-v2__inner {
+      flex-direction: column;
+    }
+
+    .inv-newsletter-v2__badge {
+      flex-direction: row;
+      gap: 14px;
+      padding: 16px 28px;
+      justify-content: center;
+      min-width: 100%;
+    }
+
+    .inv-newsletter-v2__badge-percent {
+      font-size: 48px;
+    }
+
+    .inv-newsletter-v2__badge-label {
+      margin-top: 0;
+    }
+
+    .inv-newsletter-v2__content {
+      padding: 24px;
+    }
+
+    .inv-newsletter-v2__top {
+      flex-direction: column;
+      text-align: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .inv-newsletter-v2__headline {
+      font-size: 20px;
+    }
+
+    .inv-newsletter-v2__trust {
+      justify-content: center;
+      gap: 12px 20px;
+    }
+  }
+
+  @media (max-width: 550px) {
+    .inv-newsletter-v2__form-row {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .inv-newsletter-v2__btn {
+      justify-content: center;
+    }
+
+    .inv-newsletter-v2__proof {
+      justify-content: center;
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .inv-newsletter-v2__input,
+    .inv-newsletter-v2__btn,
+    .inv-newsletter-v2__btn svg {
+      transition: none;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Newsletter Hybrid",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Discount Badge"
+    },
+    {
+      "type": "text",
+      "id": "badge_percent",
+      "label": "Discount percentage",
+      "default": "5 %"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Off First Order"
+    },
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Get Trade Deals Before Anyone Else"
+    },
+    {
+      "type": "header",
+      "content": "Social Proof"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_proof",
+      "label": "Show social proof",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "subscriber_count",
+      "label": "Subscriber count",
+      "default": "800+"
+    },
+    {
+      "type": "text",
+      "id": "subscriber_label",
+      "label": "Subscriber label",
+      "default": "signed up"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_1",
+      "label": "Avatar 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_2",
+      "label": "Avatar 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_3",
+      "label": "Avatar 3"
+    },
+    {
+      "type": "header",
+      "content": "Form"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Input placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Get My 5% Off"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "You're in! Check your inbox for your 5% discount code."
+    },
+    {
+      "type": "header",
+      "content": "Trust Badges"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_badges",
+      "label": "Show trust badges",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colours"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colour",
+      "default": "#2d2d2d"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent colour",
+      "default": "#dc2626"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_badge",
+      "name": "Trust badge",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "No spam, ever"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter Hybrid",
+      "blocks": [
+        {
+          "type": "trust_badge",
+          "settings": {
+            "text": "No spam, ever"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Unsubscribe anytime"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Exclusive offers"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

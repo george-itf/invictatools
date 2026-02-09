@@ -1,0 +1,372 @@
+{% comment %}
+  ============================================
+  INVICTA HERO PROMO CARDS v1.0
+  ============================================
+  Bold sidebar promo cards for hero section
+  Solid fills, strong presence - not floaty
+  
+  Use as blocks within a hero section, or standalone
+  
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+<aside class="inv-promos" id="promos-{{ section.id }}">
+  {%- for block in section.blocks -%}
+    {%- liquid
+      assign card_style = block.settings.style
+      if card_style == 'sale'
+        assign card_bg = '#dc2626'
+        assign card_text = '#ffffff'
+        assign card_icon_bg = 'rgba(255,255,255,0.2)'
+      elsif card_style == 'info'
+        assign card_bg = '#1a1a1a'
+        assign card_text = '#ffffff'
+        assign card_icon_bg = 'rgba(255,255,255,0.1)'
+      elsif card_style == 'light'
+        assign card_bg = '#f5f5f5'
+        assign card_text = '#1a1a1a'
+        assign card_icon_bg = '#dc2626'
+      else
+        assign card_bg = block.settings.custom_bg
+        assign card_text = block.settings.custom_text
+        assign card_icon_bg = 'rgba(255,255,255,0.15)'
+      endif
+    -%}
+    
+    <a 
+      href="{{ block.settings.link }}" 
+      class="inv-promos__card inv-promos__card--{{ card_style }}"
+      style="--card-bg: {{ card_bg }}; --card-text: {{ card_text }}; --card-icon-bg: {{ card_icon_bg }};"
+      {{ block.shopify_attributes }}
+    >
+      <div class="inv-promos__icon">
+        {%- case block.settings.icon -%}
+          {%- when 'tag' -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+              <line x1="7" y1="7" x2="7.01" y2="7"/>
+            </svg>
+          {%- when 'store' -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          {%- when 'truck' -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <rect x="1" y="3" width="15" height="13"/>
+              <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+              <circle cx="5.5" cy="18.5" r="2.5"/>
+              <circle cx="18.5" cy="18.5" r="2.5"/>
+            </svg>
+          {%- when 'percent' -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <line x1="19" y1="5" x2="5" y2="19"/>
+              <circle cx="6.5" cy="6.5" r="2.5"/>
+              <circle cx="17.5" cy="17.5" r="2.5"/>
+            </svg>
+          {%- when 'clock' -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          {%- when 'gift' -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <polyline points="20 12 20 22 4 22 4 12"/>
+              <rect x="2" y="7" width="20" height="5"/>
+              <line x1="12" y1="22" x2="12" y2="7"/>
+              <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/>
+              <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+            </svg>
+          {%- when 'star' -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          {%- when 'zap' -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+        {%- endcase -%}
+      </div>
+      
+      <div class="inv-promos__content">
+        {%- if block.settings.title != blank -%}
+          <strong class="inv-promos__title">{{ block.settings.title }}</strong>
+        {%- endif -%}
+        {%- if block.settings.subtitle != blank -%}
+          <span class="inv-promos__subtitle">{{ block.settings.subtitle }}</span>
+        {%- endif -%}
+      </div>
+      
+      <svg class="inv-promos__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </a>
+  {%- endfor -%}
+</aside>
+
+<style>
+  /* ============================================
+     INVICTA HERO PROMO CARDS v1.0
+     Bold, clickable, high-contrast
+     ============================================ */
+
+  .inv-promos {
+    display: flex;
+    flex-direction: column;
+    gap: {{ section.settings.card_gap }}px;
+  }
+
+  .inv-promos__card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 20px 20px 24px;
+    background: var(--card-bg);
+    color: var(--card-text);
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .inv-promos__card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .inv-promos__card:focus-visible {
+    outline: 2px solid #dc2626;
+    outline-offset: 2px;
+  }
+
+  /* Sale style - diagonal stripes bg */
+  .inv-promos__card--sale::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 10px,
+      rgba(0,0,0,0.05) 10px,
+      rgba(0,0,0,0.05) 20px
+    );
+    pointer-events: none;
+  }
+
+  /* Icon */
+  .inv-promos__icon {
+    width: 44px;
+    height: 44px;
+    background: var(--card-icon-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .inv-promos__card--light .inv-promos__icon {
+    background: #dc2626;
+  }
+
+  .inv-promos__card--light .inv-promos__icon svg {
+    color: #fff;
+  }
+
+  .inv-promos__icon svg {
+    width: 22px;
+    height: 22px;
+    color: var(--card-text);
+  }
+
+  /* Content */
+  .inv-promos__content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .inv-promos__title {
+    display: block;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+
+  .inv-promos__subtitle {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0.85;
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+
+  /* Arrow */
+  .inv-promos__arrow {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    opacity: 0.6;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+
+  .inv-promos__card:hover .inv-promos__arrow {
+    transform: translateX(3px);
+    opacity: 1;
+  }
+
+  /* ----------------------------------------
+     RESPONSIVE
+     ---------------------------------------- */
+  @media (max-width: 768px) {
+    .inv-promos__card {
+      padding: 16px 16px 16px 20px;
+      gap: 14px;
+    }
+
+    .inv-promos__icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .inv-promos__icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .inv-promos__title {
+      font-size: 14px;
+    }
+
+    .inv-promos__subtitle {
+      font-size: 12px;
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .inv-promos__card,
+    .inv-promos__arrow {
+      transition: none;
+    }
+    
+    .inv-promos__card:hover {
+      transform: none;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero Promo Cards",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "card_gap",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between cards",
+      "default": 12
+    }
+  ],
+  "blocks": [
+    {
+      "type": "promo",
+      "name": "Promo Card",
+      "settings": [
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "default": "sale",
+          "options": [
+            { "value": "sale", "label": "Sale (Red)" },
+            { "value": "info", "label": "Info (Dark)" },
+            { "value": "light", "label": "Light (Grey)" },
+            { "value": "custom", "label": "Custom colours" }
+          ]
+        },
+        {
+          "type": "color",
+          "id": "custom_bg",
+          "label": "Custom background",
+          "default": "#1a1a1a",
+          "info": "Only used with Custom style"
+        },
+        {
+          "type": "color",
+          "id": "custom_text",
+          "label": "Custom text colour",
+          "default": "#ffffff",
+          "info": "Only used with Custom style"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "tag",
+          "options": [
+            { "value": "tag", "label": "Price tag" },
+            { "value": "store", "label": "Store / Click & Collect" },
+            { "value": "truck", "label": "Delivery truck" },
+            { "value": "percent", "label": "Percent" },
+            { "value": "clock", "label": "Clock / Limited time" },
+            { "value": "gift", "label": "Gift" },
+            { "value": "star", "label": "Star" },
+            { "value": "zap", "label": "Lightning bolt" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "January Sales"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Up to 30% off selected tools"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Promo Cards",
+      "blocks": [
+        {
+          "type": "promo",
+          "settings": {
+            "style": "sale",
+            "icon": "tag",
+            "title": "January Sales",
+            "subtitle": "Up to 30% off selected tools"
+          }
+        },
+        {
+          "type": "promo",
+          "settings": {
+            "style": "info",
+            "icon": "store",
+            "title": "Click & Collect",
+            "subtitle": "Ready in 1 hour at our branches"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

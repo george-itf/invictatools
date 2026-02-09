@@ -1,0 +1,317 @@
+/* ==========================================================================
+   INVICTA BRAND PILL ENGINE — v4.0 UNIVERSAL
+   --------------------------------------------------------------------------
+   • Supports both logo pills and text-only pills
+   • Text pills use brand colours with clean typography
+   • SVG logo pills with mobile-safe background-image method
+   • Subtle lift shadow — sits slightly above the page
+   ========================================================================== */
+
+/* WRAPPER
+   ====================================================================== */
+
+.invicta-brand-pill-wrapper {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+}
+
+.invicta-brand-pill-wrapper--card {
+  margin-bottom: 0.4rem;
+}
+
+.invicta-brand-pill-wrapper--hero {
+  margin-bottom: 0.7rem;
+}
+
+/* CORE PILL — LOGO MODE (font-size: 0 hides any text)
+   ====================================================================== */
+
+.invicta-brand-pill {
+  --pill-bg: #2d2d2d;
+  --pill-border: #2d2d2d;
+  --pill-text: #ffffff;
+
+  --pill-height: 30px;
+  --pill-logo-height: 22px;
+  --pill-gap: 8px;
+
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pill-gap);
+
+  height: var(--pill-height);
+  padding: 4px 14px;
+
+  border-radius: 999px;
+  background: var(--pill-bg);
+  border: 1px solid var(--pill-border);
+  color: var(--pill-text);
+
+  /* Hide text for logo pills */
+  font-size: 0;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+
+  /* Subtle lift */
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.10);
+
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
+
+  position: relative;
+}
+
+/* HOVER */
+.invicta-brand-pill:hover,
+.invicta-brand-pill:focus-visible {
+  transform: translateY(-2px);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.08),
+    0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.invicta-brand-pill:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+/* ACTIVE */
+.invicta-brand-pill:active {
+  transform: translateY(0);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.06),
+    0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* INNER LAYOUT
+   ====================================================================== */
+
+.invicta-brand-pill__inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pill-gap);
+  white-space: nowrap;
+}
+
+/* LOGO (Background Image Method — Primary)
+   ====================================================================== */
+
+.invicta-brand-pill__logo-bg {
+  display: block;
+  width: 60px;
+  height: var(--pill-logo-height);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* LOGO (IMG — Hidden, for SEO)
+   ====================================================================== */
+
+.invicta-brand-pill__logo {
+  display: block;
+  height: var(--pill-logo-height);
+  width: auto;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ==========================================================================
+   TEXT MODE — Clean branded text pills
+   ==========================================================================
+   CRITICAL: These rules override the base font-size: 0 for text-only pills
+   ========================================================================== */
+
+.invicta-brand-pill--text {
+  /* Override base font-size: 0 — !important required */
+  font-size: 0.72rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  
+  /* Slightly more horizontal padding for text */
+  padding: 4px 16px;
+}
+
+.invicta-brand-pill--text .invicta-brand-pill__inner {
+  font-size: inherit;
+}
+
+.invicta-brand-pill--text .invicta-brand-pill__label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--pill-text);
+  line-height: 1;
+  display: inline-block;
+}
+
+/* Text pill in strip context — slightly larger */
+.invicta-brand-strip__item .invicta-brand-pill--text {
+  font-size: 0.82rem !important;
+  padding: 4px 22px;
+}
+
+.invicta-brand-strip__item .invicta-brand-pill--text .invicta-brand-pill__label {
+  font-size: 0.82rem;
+}
+
+/* Text pill on cards — keep compact */
+.invicta-brand-pill-wrapper--card .invicta-brand-pill--text {
+  font-size: 0.68rem !important;
+  padding: 4px 12px;
+}
+
+.invicta-brand-pill-wrapper--card .invicta-brand-pill--text .invicta-brand-pill__label {
+  font-size: 0.68rem;
+}
+
+/* SIZE VARIANTS
+   ====================================================================== */
+
+.invicta-brand-pill--md {
+  /* base variables already compact */
+}
+
+.invicta-brand-pill--lg {
+  --pill-height: 34px;
+  --pill-logo-height: 24px;
+  padding-inline: 18px;
+}
+
+.invicta-brand-pill--lg.invicta-brand-pill--text {
+  font-size: 0.78rem !important;
+  padding: 4px 20px;
+}
+
+.invicta-brand-pill--lg.invicta-brand-pill--text .invicta-brand-pill__label {
+  font-size: 0.78rem;
+}
+
+.invicta-brand-pill--compact {
+  --pill-height: 26px;
+  --pill-logo-height: 20px;
+  padding-inline: 12px;
+}
+
+.invicta-brand-pill--compact.invicta-brand-pill--text {
+  font-size: 0.65rem !important;
+  padding: 4px 10px;
+}
+
+.invicta-brand-pill--compact.invicta-brand-pill--text .invicta-brand-pill__label {
+  font-size: 0.65rem;
+}
+
+/* RESPONSIVE
+   ====================================================================== */
+
+@media (max-width: 820px) {
+  .invicta-brand-pill {
+    --pill-height: 28px;
+    --pill-logo-height: 20px;
+    padding: 4px 12px;
+    gap: 6px;
+  }
+  
+  .invicta-brand-pill--text {
+    font-size: 0.68rem !important;
+    padding: 4px 14px;
+  }
+  
+  .invicta-brand-pill--text .invicta-brand-pill__label {
+    font-size: 0.68rem;
+  }
+
+  .invicta-brand-pill-wrapper--card {
+    margin-bottom: 0.35rem;
+  }
+}
+
+@media (min-width: 821px) {
+  .invicta-brand-pill-wrapper--hero .invicta-brand-pill {
+    --pill-height: 34px;
+    --pill-logo-height: 24px;
+    padding-inline: 20px;
+  }
+  
+  .invicta-brand-pill-wrapper--hero .invicta-brand-pill--text {
+    font-size: 0.82rem !important;
+    padding: 4px 22px;
+  }
+  
+  .invicta-brand-pill-wrapper--hero .invicta-brand-pill--text .invicta-brand-pill__label {
+    font-size: 0.82rem;
+  }
+}
+
+/* SCORE BAR — PERMANENTLY OFF (legacy)
+   ====================================================================== */
+
+.invicta-brand-pill__score-bar,
+.invicta-brand-pill__score-fill {
+  display: none !important;
+}
+
+/* TOOLTIP — Right-side bubble (legacy)
+   ====================================================================== */
+
+.invicta-brand-pill-tooltip {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 10px);
+  transform: translateY(-50%);
+  
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  background: #111827;
+  color: #fff;
+
+  padding: 8px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity .15s ease, transform .15s ease;
+  z-index: 500;
+}
+
+/* Show on hover */
+.invicta-brand-pill:hover + .invicta-brand-pill-tooltip,
+.invicta-brand-pill:focus-visible + .invicta-brand-pill-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Icon */
+.invicta-brand-pill-tooltip svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  flex-shrink: 0;
+  fill: #fff;
+}

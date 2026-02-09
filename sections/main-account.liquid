@@ -1,0 +1,548 @@
+{% comment %}
+  ============================================================================
+  INVICTA ACCOUNT DASHBOARD v2.0
+  ============================================================================
+  
+  Features:
+  ✅ Avatar initials circle
+  ✅ Customer name in welcome header
+  ✅ Quick stats row (orders, member since)
+  ✅ Better empty state with "Start Shopping" button
+  ✅ Recently viewed products section (localStorage)
+  ✅ Bigger text, modern card layout
+  
+  ============================================================================
+{% endcomment %}
+
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% liquid
+  assign customer_initials = customer.first_name | slice: 0 | upcase
+  assign last_initial = customer.last_name | slice: 0 | upcase
+  assign customer_initials = customer_initials | append: last_initial
+  
+  if customer_initials == blank
+    assign customer_initials = customer.email | slice: 0, 2 | upcase
+  endif
+  
+  assign member_since = customer.created_at | date: "%B %Y"
+  assign orders_count = customer.orders_count | default: 0
+%}
+
+<div class="inv-account section-{{ section.id }}-padding">
+  
+  <!-- =====================================================================
+       HEADER — Avatar, Welcome, Stats, Logout
+       ===================================================================== -->
+  <header class="inv-account__header">
+    <div class="inv-account__header-left">
+      <!-- Avatar -->
+      <div class="inv-account__avatar">
+        {{ customer_initials }}
+      </div>
+      
+      <!-- Welcome & Name -->
+      <div class="inv-account__welcome">
+        <span class="inv-account__greeting">Welcome back</span>
+        <h1 class="inv-account__name">
+          {% if customer.first_name != blank %}
+            {{ customer.first_name }} {{ customer.last_name }}
+          {% else %}
+            {{ customer.email }}
+          {% endif %}
+        </h1>
+      </div>
+    </div>
+    
+    <div class="inv-account__header-right">
+      <!-- Quick Stats -->
+      <div class="inv-account__stats">
+        <div class="inv-account__stat">
+          <span class="inv-account__stat-value">{{ orders_count }}</span>
+          <span class="inv-account__stat-label">{{ orders_count | pluralize: 'Order', 'Orders' }}</span>
+        </div>
+        <div class="inv-account__stat-divider"></div>
+        <div class="inv-account__stat">
+          <span class="inv-account__stat-value">{{ member_since }}</span>
+          <span class="inv-account__stat-label">Member since</span>
+        </div>
+      </div>
+      
+      <!-- Logout -->
+      <a href="{{ routes.account_logout_url }}" class="inv-account__logout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Log out
+      </a>
+    </div>
+  </header>
+
+
+  <!-- =====================================================================
+       MAIN GRID — Orders + Account Details
+       ===================================================================== -->
+  <div class="inv-account__grid">
+    
+    <!-- ORDER HISTORY -->
+    <section class="inv-account__card inv-account__orders">
+      <div class="inv-account__card-header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <h2>Order History</h2>
+      </div>
+      
+      <div class="inv-account__card-body">
+        {% paginate customer.orders by 20 %}
+          {%- if customer.orders.size > 0 -%}
+            <table class="inv-orders-table" role="table">
+              <thead>
+                <tr>
+                  <th>Order</th>
+                  <th>Date</th>
+                  <th>Payment</th>
+                  <th>Status</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {%- for order in customer.orders -%}
+                  {% liquid
+                    assign status_class = 'inv-status--default'
+                    assign fulfillment_lower = order.fulfillment_status | downcase
+                    
+                    if fulfillment_lower == 'fulfilled' or fulfillment_lower == 'delivered'
+                      assign status_class = 'inv-status--success'
+                    elsif fulfillment_lower == 'partial' or fulfillment_lower == 'in transit'
+                      assign status_class = 'inv-status--warning'
+                    elsif fulfillment_lower == 'unfulfilled' or fulfillment_lower == blank
+                      assign status_class = 'inv-status--pending'
+                    endif
+                  %}
+                  <tr>
+                    <td data-label="Order">
+                      <a href="{{ order.customer_url }}" class="inv-order-link">
+                        {{ order.name }}
+                      </a>
+                    </td>
+                    <td data-label="Date">
+                      {{ order.created_at | date: "%d %b %Y" }}
+                    </td>
+                    <td data-label="Payment">
+                      <span class="inv-status inv-status--{{ order.financial_status }}">
+                        {{ order.financial_status_label }}
+                      </span>
+                    </td>
+                    <td data-label="Status">
+                      <span class="inv-status {{ status_class }}">
+                        {{ order.fulfillment_status_label | default: 'Unfulfilled' }}
+                      </span>
+                    </td>
+                    <td data-label="Total">
+                      <strong>{{ order.total_net_amount | money }}</strong>
+                    </td>
+                  </tr>
+                {%- endfor -%}
+              </tbody>
+            </table>
+            
+            {%- if paginate.pages > 1 -%}
+              <nav class="inv-pagination" aria-label="Pagination">
+                {%- if paginate.previous -%}
+                  <a href="{{ paginate.previous.url }}" class="inv-pagination__btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="m15 18-6-6 6-6"/>
+                    </svg>
+                  </a>
+                {%- endif -%}
+                
+                <span class="inv-pagination__info">
+                  Page {{ paginate.current_page }} of {{ paginate.pages }}
+                </span>
+                
+                {%- if paginate.next -%}
+                  <a href="{{ paginate.next.url }}" class="inv-pagination__btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="m9 18 6-6-6-6"/>
+                    </svg>
+                  </a>
+                {%- endif -%}
+              </nav>
+            {%- endif -%}
+            
+          {%- else -%}
+            <!-- Empty State -->
+            <div class="inv-empty-state">
+              <div class="inv-empty-state__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                  <line x1="3" y1="6" x2="21" y2="6"/>
+                  <path d="M16 10a4 4 0 01-8 0"/>
+                </svg>
+              </div>
+              <h3 class="inv-empty-state__title">No orders yet</h3>
+              <p class="inv-empty-state__text">When you place your first order, it will appear here.</p>
+              <a href="{{ routes.all_products_collection_url }}" class="inv-empty-state__btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="9" cy="21" r="1"/>
+                  <circle cx="20" cy="21" r="1"/>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
+                </svg>
+                Start Shopping
+              </a>
+            </div>
+          {%- endif -%}
+        {% endpaginate %}
+      </div>
+    </section>
+    
+    
+    <!-- ACCOUNT DETAILS -->
+    <aside class="inv-account__card inv-account__details">
+      <div class="inv-account__card-header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <h2>Account Details</h2>
+      </div>
+      
+      <div class="inv-account__card-body">
+        <!-- Customer Info -->
+        <div class="inv-detail-group">
+          <span class="inv-detail-label">Name</span>
+          <span class="inv-detail-value">
+            {% if customer.first_name != blank %}
+              {{ customer.first_name }} {{ customer.last_name }}
+            {% else %}
+              Not set
+            {% endif %}
+          </span>
+        </div>
+        
+        <div class="inv-detail-group">
+          <span class="inv-detail-label">Email</span>
+          <span class="inv-detail-value">{{ customer.email }}</span>
+        </div>
+        
+        {% if customer.phone != blank %}
+          <div class="inv-detail-group">
+            <span class="inv-detail-label">Phone</span>
+            <span class="inv-detail-value">{{ customer.phone }}</span>
+          </div>
+        {% endif %}
+        
+        <!-- Default Address -->
+        {% if customer.default_address %}
+          <div class="inv-detail-group inv-detail-group--address">
+            <span class="inv-detail-label">Default Address</span>
+            <address class="inv-detail-address">
+              {% if customer.default_address.company != blank %}
+                <strong>{{ customer.default_address.company }}</strong><br>
+              {% endif %}
+              {{ customer.default_address.address1 }}<br>
+              {% if customer.default_address.address2 != blank %}
+                {{ customer.default_address.address2 }}<br>
+              {% endif %}
+              {{ customer.default_address.city }}, {{ customer.default_address.province_code }} {{ customer.default_address.zip }}<br>
+              {{ customer.default_address.country }}
+            </address>
+          </div>
+        {% endif %}
+        
+        <!-- Actions -->
+        <div class="inv-detail-actions">
+          <a href="{{ routes.account_addresses_url }}" class="inv-btn inv-btn--outline">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            Manage Addresses ({{ customer.addresses_count }})
+          </a>
+        </div>
+      </div>
+    </aside>
+    
+    
+    <!-- COMPANY & INVOICE SETTINGS (v2.7) -->
+    <aside class="inv-account__card inv-account__company">
+      <div class="inv-account__card-header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        <h2>Company & Invoice</h2>
+      </div>
+      
+      <div class="inv-account__card-body">
+        <form class="inv-company-form" id="InvCompanyForm" data-company-form>
+          
+          <!-- Company Name -->
+          <div class="inv-detail-group inv-detail-group--editable">
+            <label class="inv-detail-label" for="CompanyName">Company Name</label>
+            <input 
+              type="text" 
+              id="CompanyName" 
+              name="company_name"
+              class="inv-detail-input"
+              value="{{ customer.metafields.custom.company_name.value | default: customer.default_address.company }}"
+              placeholder="Your Company Ltd"
+            >
+          </div>
+          
+          <!-- VAT Number -->
+          <div class="inv-detail-group inv-detail-group--editable">
+            <label class="inv-detail-label" for="VatNumber">
+              VAT Number
+              <small>(optional)</small>
+            </label>
+            <input 
+              type="text" 
+              id="VatNumber" 
+              name="vat_number"
+              class="inv-detail-input"
+              value="{{ customer.metafields.custom.vat_number.value }}"
+              placeholder="GB123456789"
+              pattern="^(GB)?[0-9]{9}$"
+            >
+          </div>
+          
+          <!-- Invoice Email -->
+          <div class="inv-detail-group inv-detail-group--editable">
+            <label class="inv-detail-label" for="InvoiceEmail">
+              Invoice Email
+              <small>(if different from account)</small>
+            </label>
+            <input 
+              type="email" 
+              id="InvoiceEmail" 
+              name="invoice_email"
+              class="inv-detail-input"
+              value="{{ customer.metafields.custom.invoice_email.value }}"
+              placeholder="accounts@company.com"
+            >
+          </div>
+          
+          <!-- Purchase Order Reference -->
+          <div class="inv-detail-group inv-detail-group--editable">
+            <label class="inv-detail-label" for="PoReference">
+              Default PO Reference
+              <small>(optional)</small>
+            </label>
+            <input 
+              type="text" 
+              id="PoReference" 
+              name="po_reference"
+              class="inv-detail-input"
+              value="{{ customer.metafields.custom.po_reference.value }}"
+              placeholder="PO-12345"
+            >
+          </div>
+          
+          <div class="inv-detail-actions">
+            <button type="submit" class="inv-btn inv-btn--primary" data-company-save>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+                <polyline points="17 21 17 13 7 13 7 21"/>
+                <polyline points="7 3 7 8 15 8"/>
+              </svg>
+              Save Settings
+            </button>
+          </div>
+          
+          <p class="inv-company-form__note">
+            These details will appear on your invoices and can be used for quote requests.
+          </p>
+        </form>
+      </div>
+    </aside>
+    
+    
+    <!-- INVOICE DOWNLOADS (v2.7) -->
+    {%- if customer.orders.size > 0 -%}
+    <aside class="inv-account__card inv-account__invoices">
+      <div class="inv-account__card-header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <h2>VAT Invoices</h2>
+      </div>
+      
+      <div class="inv-account__card-body">
+        <p class="inv-invoices__intro">
+          Download VAT invoices for your recent orders. Need an older invoice? 
+          <a href="{{ routes.account_url }}#contact">Contact us</a>.
+        </p>
+        
+        <ul class="inv-invoices__list">
+          {%- for order in customer.orders limit: 5 -%}
+            <li class="inv-invoice-row">
+              <div class="inv-invoice-row__info">
+                <span class="inv-invoice-row__order">{{ order.name }}</span>
+                <span class="inv-invoice-row__date">{{ order.created_at | date: "%d %b %Y" }}</span>
+              </div>
+              <div class="inv-invoice-row__total">
+                {{ order.total_price | money }}
+              </div>
+              <div class="inv-invoice-row__actions">
+                <a 
+                  href="{{ order.customer_url }}"
+                  class="inv-btn inv-btn--sm inv-btn--outline"
+                  target="_blank"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                  </svg>
+                  View
+                </a>
+                <!-- Note: Actual PDF download requires Order Printer Pro app -->
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+        
+        <p class="inv-invoices__note">
+          💡 For bulk invoice downloads, please contact our trade team.
+        </p>
+      </div>
+    </aside>
+    {%- endif -%}
+    
+  </div>
+
+
+  <!-- =====================================================================
+       RECENTLY VIEWED PRODUCTS
+       ===================================================================== -->
+  <section class="inv-account__card inv-recently-viewed" id="InvRecentlyViewed" style="display: none;">
+    <div class="inv-account__card-header">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+      <h2>Recently Viewed</h2>
+    </div>
+    
+    <div class="inv-account__card-body">
+      <div class="inv-recently-viewed__grid" id="InvRecentlyViewedGrid">
+        <!-- Products injected by JS -->
+      </div>
+    </div>
+  </section>
+
+</div>
+
+
+{% schema %}
+{
+  "name": "Invicta Account v2",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}
+
+
+<script>
+/**
+ * Invicta Recently Viewed — Account Page Display
+ * ------------------------------------------------
+ * Reads from localStorage and displays products
+ */
+(function() {
+  const STORAGE_KEY = 'invicta_recently_viewed';
+  const MAX_DISPLAY = 8;
+  
+  function getRecentlyViewed() {
+    try {
+      const data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+  
+  function renderProducts(products) {
+    const container = document.getElementById('InvRecentlyViewed');
+    const grid = document.getElementById('InvRecentlyViewedGrid');
+    
+    if (!container || !grid || products.length === 0) return;
+    
+    // Show the section
+    container.style.display = 'block';
+    
+    // Build HTML
+    let html = '';
+    products.slice(0, MAX_DISPLAY).forEach(function(product) {
+      html += `
+        <a href="${product.url}" class="inv-rv-card">
+          <div class="inv-rv-card__image">
+            <img src="${product.image}" alt="${product.title}" loading="lazy" width="200" height="200">
+          </div>
+          <div class="inv-rv-card__info">
+            <span class="inv-rv-card__vendor">${product.vendor || ''}</span>
+            <h3 class="inv-rv-card__title">${product.title}</h3>
+            <span class="inv-rv-card__price">${product.price}</span>
+          </div>
+        </a>
+      `;
+    });
+    
+    grid.innerHTML = html;
+  }
+  
+  // Init
+  document.addEventListener('DOMContentLoaded', function() {
+    const products = getRecentlyViewed();
+    renderProducts(products);
+  });
+})();
+</script>

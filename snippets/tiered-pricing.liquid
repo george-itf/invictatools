@@ -1,0 +1,287 @@
+{% comment %}
+  Tiered Quantity Discounts Display
+  ==================================
+  Displays volume pricing/quantity discounts on product pages.
+  
+  Reads from Shopify's native volume pricing OR custom metafield.
+  
+  Usage: {% render 'tiered-pricing', product: product %}
+  
+  Version: 1.0.0
+  Author: Invicta Tools Theme
+{% endcomment %}
+
+{%- liquid
+  # Check for volume pricing (native Shopify)
+  assign has_volume_pricing = false
+  assign current_variant = product.selected_or_first_available_variant
+  
+  # Check if variant has quantity price breaks
+  if current_variant.quantity_price_breaks.size > 0
+    assign has_volume_pricing = true
+    assign price_breaks = current_variant.quantity_price_breaks
+  endif
+  
+  # Fallback: check for custom metafield
+  # Expected format: "5:10,10:15,25:20" (qty:discount_percent)
+  assign custom_tiers = product.metafields.custom.bulk_pricing.value
+-%}
+
+{%- if has_volume_pricing -%}
+  <!-- Native Shopify Volume Pricing -->
+  <div class="invicta-tiered-pricing" data-tiered-pricing>
+    <h4 class="invicta-tiered-pricing__title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+        <line x1="7" y1="7" x2="7.01" y2="7"></line>
+      </svg>
+      Bulk Discounts
+    </h4>
+    
+    <div class="invicta-tiered-pricing__table" role="table" aria-label="Volume pricing">
+      <div class="invicta-tiered-pricing__header" role="row">
+        <span role="columnheader">Quantity</span>
+        <span role="columnheader">Price Each</span>
+        <span role="columnheader">You Save</span>
+      </div>
+      
+      {%- for break in price_breaks -%}
+        {%- liquid
+          assign unit_price = break.price | divided_by: 100.0
+          assign original_price = current_variant.price | divided_by: 100.0
+          assign saving_per_unit = original_price | minus: unit_price
+          assign saving_percent = saving_per_unit | divided_by: original_price | times: 100 | round
+        -%}
+        <div class="invicta-tiered-pricing__row" role="row" data-tier-qty="{{ break.minimum_quantity }}">
+          <span role="cell" class="invicta-tiered-pricing__qty">
+            {{ break.minimum_quantity }}+
+          </span>
+          <span role="cell" class="invicta-tiered-pricing__price">
+            {{ break.price | money }}
+          </span>
+          <span role="cell" class="invicta-tiered-pricing__saving">
+            <span class="invicta-tiered-pricing__badge">{{ saving_percent }}% off</span>
+          </span>
+        </div>
+      {%- endfor -%}
+    </div>
+    
+    <p class="invicta-tiered-pricing__note">
+      Discount applies automatically at checkout
+    </p>
+  </div>
+
+{%- elsif custom_tiers != blank -%}
+  <!-- Custom Metafield Tiers -->
+  {%- liquid
+    assign tiers = custom_tiers | split: ','
+    assign base_price = current_variant.price
+  -%}
+  
+  <div class="invicta-tiered-pricing" data-tiered-pricing>
+    <h4 class="invicta-tiered-pricing__title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+        <line x1="7" y1="7" x2="7.01" y2="7"></line>
+      </svg>
+      Bulk Discounts
+    </h4>
+    
+    <div class="invicta-tiered-pricing__table" role="table" aria-label="Volume pricing">
+      <div class="invicta-tiered-pricing__header" role="row">
+        <span role="columnheader">Quantity</span>
+        <span role="columnheader">Discount</span>
+        <span role="columnheader">Price Each</span>
+      </div>
+      
+      {%- for tier in tiers -%}
+        {%- liquid
+          assign tier_parts = tier | split: ':'
+          assign tier_qty = tier_parts[0] | plus: 0
+          assign tier_discount = tier_parts[1] | plus: 0
+          assign discount_multiplier = 100 | minus: tier_discount | divided_by: 100.0
+          assign tier_price = base_price | times: discount_multiplier
+        -%}
+        <div class="invicta-tiered-pricing__row" role="row" data-tier-qty="{{ tier_qty }}">
+          <span role="cell" class="invicta-tiered-pricing__qty">
+            {{ tier_qty }}+
+          </span>
+          <span role="cell" class="invicta-tiered-pricing__discount">
+            <span class="invicta-tiered-pricing__badge">{{ tier_discount }}% off</span>
+          </span>
+          <span role="cell" class="invicta-tiered-pricing__price">
+            {{ tier_price | money }}
+          </span>
+        </div>
+      {%- endfor -%}
+    </div>
+    
+    <p class="invicta-tiered-pricing__note">
+      Add quantity to cart for automatic discount
+    </p>
+  </div>
+{%- endif -%}
+
+<style>
+  .invicta-tiered-pricing {
+    margin: 20px 0;
+    padding: 16px;
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    border-radius: 10px;
+  }
+  
+  .invicta-tiered-pricing__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #166534;
+  }
+  
+  .invicta-tiered-pricing__title svg {
+    color: #22c55e;
+  }
+  
+  .invicta-tiered-pricing__table {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .invicta-tiered-pricing__header {
+    display: table-row;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6b7280;
+  }
+  
+  .invicta-tiered-pricing__header span {
+    display: table-cell;
+    padding: 8px 6px;
+    border-bottom: 1px solid #bbf7d0;
+  }
+  
+  .invicta-tiered-pricing__row {
+    display: table-row;
+    transition: background 0.15s ease;
+  }
+  
+  .invicta-tiered-pricing__row:hover {
+    background: rgba(34, 197, 94, 0.1);
+  }
+  
+  .invicta-tiered-pricing__row.active {
+    background: rgba(34, 197, 94, 0.2);
+  }
+  
+  .invicta-tiered-pricing__row span {
+    display: table-cell;
+    padding: 10px 6px;
+    vertical-align: middle;
+    border-bottom: 1px solid #dcfce7;
+  }
+  
+  .invicta-tiered-pricing__qty {
+    font-weight: 600;
+    color: #1f2937;
+  }
+  
+  .invicta-tiered-pricing__price {
+    font-weight: 700;
+    color: #166534;
+  }
+  
+  .invicta-tiered-pricing__badge {
+    display: inline-block;
+    padding: 3px 8px;
+    background: #22c55e;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 4px;
+  }
+  
+  .invicta-tiered-pricing__note {
+    margin: 12px 0 0;
+    font-size: 0.85rem;
+    color: #4b5563;
+    text-align: center;
+  }
+  
+  /* Highlight active tier based on quantity */
+  .invicta-tiered-pricing__row.invicta-tier--active {
+    background: rgba(34, 197, 94, 0.15);
+  }
+  
+  .invicta-tiered-pricing__row.invicta-tier--active .invicta-tiered-pricing__badge {
+    background: #15803d;
+  }
+  
+  /* Mobile adjustments */
+  @media screen and (max-width: 749px) {
+    .invicta-tiered-pricing {
+      padding: 14px;
+    }
+    
+    .invicta-tiered-pricing__header span,
+    .invicta-tiered-pricing__row span {
+      padding: 8px 4px;
+      font-size: 0.9rem;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    'use strict';
+    
+    const tieredPricing = document.querySelector('[data-tiered-pricing]');
+    if (!tieredPricing) return;
+    
+    const rows = tieredPricing.querySelectorAll('[data-tier-qty]');
+    const qtyInput = document.querySelector('input[name="quantity"]');
+    
+    if (!qtyInput || rows.length === 0) return;
+    
+    /**
+     * Update active tier based on quantity
+     */
+    function updateActiveTier() {
+      const qty = parseInt(qtyInput.value) || 1;
+      let activeTier = null;
+      
+      // Find the highest tier that applies
+      rows.forEach(row => {
+        const tierQty = parseInt(row.getAttribute('data-tier-qty'));
+        row.classList.remove('invicta-tier--active');
+        
+        if (qty >= tierQty) {
+          activeTier = row;
+        }
+      });
+      
+      if (activeTier) {
+        activeTier.classList.add('invicta-tier--active');
+      }
+    }
+    
+    // Listen for quantity changes
+    qtyInput.addEventListener('change', updateActiveTier);
+    qtyInput.addEventListener('input', updateActiveTier);
+    
+    // Also listen for +/- button clicks
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.quantity__button')) {
+        setTimeout(updateActiveTier, 50);
+      }
+    });
+    
+    // Initial check
+    updateActiveTier();
+  })();
+</script>

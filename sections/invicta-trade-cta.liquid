@@ -1,0 +1,433 @@
+{% comment %}
+  ============================================================================
+  INVICTA TRADE ACCOUNT CTA v1.0
+  Two-column CTA for trade account signups
+  ============================================================================
+{% endcomment %}
+
+<style>
+  .inv-trade-cta {
+    background: linear-gradient(135deg, var(--inv-primary, #dc2626) 0%, #b91c1c 100%);
+    padding: clamp(48px, 8vw, 80px) 0;
+  }
+
+  .inv-trade-cta__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  /* =====================================================
+     LEFT COLUMN — Content
+     ===================================================== */
+
+  .inv-trade-cta__content {
+    color: #fff;
+  }
+
+  .inv-trade-cta__badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 6px 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+
+  .inv-trade-cta__heading {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 16px 0;
+    color: #fff;
+  }
+
+  .inv-trade-cta__subheading {
+    font-size: clamp(16px, 1.8vw, 18px);
+    line-height: 1.5;
+    margin: 0 0 24px 0;
+    opacity: 0.9;
+  }
+
+  .inv-trade-cta__features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 12px;
+  }
+
+  .inv-trade-cta__feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .inv-trade-cta__feature-icon {
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .inv-trade-cta__feature-icon svg {
+    width: 14px;
+    height: 14px;
+    stroke: #fff;
+    stroke-width: 3;
+  }
+
+  /* =====================================================
+     RIGHT COLUMN — Form Card
+     ===================================================== */
+
+  .inv-trade-cta__form-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: clamp(24px, 4vw, 40px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  .inv-trade-cta__form-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--inv-dark, #2d2d2d);
+    margin: 0 0 8px 0;
+  }
+
+  .inv-trade-cta__form-subtitle {
+    font-size: 14px;
+    color: var(--inv-text-muted, #666);
+    margin: 0 0 24px 0;
+  }
+
+  .inv-trade-cta__form {
+    display: grid;
+    gap: 16px;
+  }
+
+  .inv-trade-cta__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .inv-trade-cta__label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--inv-text, #1a1a1a);
+  }
+
+  .inv-trade-cta__input {
+    padding: 12px 14px;
+    font-size: 15px;
+    border: 1px solid var(--inv-border, #e5e5e5);
+    border-radius: 6px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .inv-trade-cta__input:focus {
+    outline: none;
+    border-color: var(--inv-primary, #dc2626);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+  }
+
+  .inv-trade-cta__submit {
+    background: var(--inv-primary, #dc2626);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+    margin-top: 8px;
+  }
+
+  .inv-trade-cta__submit:hover {
+    background: var(--inv-primary-hover, #b91c1c);
+    transform: translateY(-1px);
+  }
+
+  .inv-trade-cta__submit:active {
+    transform: translateY(0);
+  }
+
+  .inv-trade-cta__disclaimer {
+    font-size: 12px;
+    color: var(--inv-text-muted, #666);
+    margin-top: 12px;
+    line-height: 1.4;
+  }
+
+  /* =====================================================
+     RESPONSIVE
+     ===================================================== */
+
+  @media (max-width: 900px) {
+    .inv-trade-cta__container {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      text-align: center;
+    }
+
+    .inv-trade-cta__features {
+      justify-items: center;
+    }
+
+    .inv-trade-cta__form-card {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .inv-trade-cta__form-card {
+      padding: 24px 20px;
+    }
+  }
+</style>
+
+<section class="inv-trade-cta" data-section-id="{{ section.id }}">
+  <div class="inv-trade-cta__container">
+
+    {%- comment -%} LEFT — Content {%- endcomment -%}
+    <div class="inv-trade-cta__content">
+      {% if section.settings.badge_text != blank %}
+        <span class="inv-trade-cta__badge">{{ section.settings.badge_text }}</span>
+      {% endif %}
+
+      <h2 class="inv-trade-cta__heading">{{ section.settings.heading }}</h2>
+
+      {% if section.settings.subheading != blank %}
+        <p class="inv-trade-cta__subheading">{{ section.settings.subheading }}</p>
+      {% endif %}
+
+      <ul class="inv-trade-cta__features">
+        {% for block in section.blocks %}
+          {% if block.type == 'feature' and block.settings.text != blank %}
+            <li class="inv-trade-cta__feature" {{ block.shopify_attributes }}>
+              <span class="inv-trade-cta__feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </span>
+              <span>{{ block.settings.text }}</span>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+
+    {%- comment -%} RIGHT — Form Card {%- endcomment -%}
+    <div class="inv-trade-cta__form-card">
+      <h3 class="inv-trade-cta__form-title">{{ section.settings.form_title }}</h3>
+      <p class="inv-trade-cta__form-subtitle">{{ section.settings.form_subtitle }}</p>
+
+      <form
+        class="inv-trade-cta__form"
+        action="{{ section.settings.form_action | default: '/pages/trade-account' }}"
+        method="POST"
+        data-trade-form
+      >
+        <input type="hidden" name="form_type" value="trade_account">
+        <input type="hidden" name="utf8" value="✓">
+
+        <div class="inv-trade-cta__field">
+          <label class="inv-trade-cta__label" for="trade-company-{{ section.id }}">
+            {{ section.settings.label_company }}
+          </label>
+          <input
+            type="text"
+            id="trade-company-{{ section.id }}"
+            name="contact[company]"
+            class="inv-trade-cta__input"
+            placeholder="{{ section.settings.placeholder_company }}"
+            required
+          >
+        </div>
+
+        <div class="inv-trade-cta__field">
+          <label class="inv-trade-cta__label" for="trade-email-{{ section.id }}">
+            {{ section.settings.label_email }}
+          </label>
+          <input
+            type="email"
+            id="trade-email-{{ section.id }}"
+            name="contact[email]"
+            class="inv-trade-cta__input"
+            placeholder="{{ section.settings.placeholder_email }}"
+            required
+          >
+        </div>
+
+        <div class="inv-trade-cta__field">
+          <label class="inv-trade-cta__label" for="trade-phone-{{ section.id }}">
+            {{ section.settings.label_phone }}
+          </label>
+          <input
+            type="tel"
+            id="trade-phone-{{ section.id }}"
+            name="contact[phone]"
+            class="inv-trade-cta__input"
+            placeholder="{{ section.settings.placeholder_phone }}"
+          >
+        </div>
+
+        <button type="submit" class="inv-trade-cta__submit">
+          {{ section.settings.button_text }}
+        </button>
+
+        {% if section.settings.disclaimer != blank %}
+          <p class="inv-trade-cta__disclaimer">{{ section.settings.disclaimer }}</p>
+        {% endif %}
+      </form>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trade Account CTA",
+  "tag": "section",
+  "class": "section-trade-cta",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Trade Accounts"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Open a Trade Account Today"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Join hundreds of Kent tradespeople who trust Invicta Tools for their professional tool needs."
+    },
+    {
+      "type": "header",
+      "content": "Form Settings"
+    },
+    {
+      "type": "text",
+      "id": "form_title",
+      "label": "Form Title",
+      "default": "Request Trade Pricing"
+    },
+    {
+      "type": "text",
+      "id": "form_subtitle",
+      "label": "Form Subtitle",
+      "default": "We'll get back to you within 24 hours"
+    },
+    {
+      "type": "url",
+      "id": "form_action",
+      "label": "Form Action URL",
+      "info": "Leave blank to submit to /pages/trade-account"
+    },
+    {
+      "type": "text",
+      "id": "label_company",
+      "label": "Company Label",
+      "default": "Company Name"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_company",
+      "label": "Company Placeholder",
+      "default": "Your company name"
+    },
+    {
+      "type": "text",
+      "id": "label_email",
+      "label": "Email Label",
+      "default": "Email Address"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_email",
+      "label": "Email Placeholder",
+      "default": "you@company.com"
+    },
+    {
+      "type": "text",
+      "id": "label_phone",
+      "label": "Phone Label",
+      "default": "Phone Number"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_phone",
+      "label": "Phone Placeholder",
+      "default": "01234 567890"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Request Trade Account"
+    },
+    {
+      "type": "textarea",
+      "id": "disclaimer",
+      "label": "Disclaimer Text",
+      "default": "By submitting, you agree to our terms. We'll never share your details."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Feature Text",
+          "default": "Exclusive trade pricing"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trade Account CTA",
+      "blocks": [
+        { "type": "feature", "settings": { "text": "Exclusive trade pricing" } },
+        { "type": "feature", "settings": { "text": "30-day payment terms" } },
+        { "type": "feature", "settings": { "text": "Dedicated account manager" } },
+        { "type": "feature", "settings": { "text": "Priority next-day delivery" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,66 @@
+{% comment %}
+  ============================================
+  BREADCRUMB SIMPLE v1.0
+  ============================================
+  Simple breadcrumb navigation for brand pages
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+{{ 'brand-page.css' | asset_url | stylesheet_tag }}
+
+<nav class="brand-breadcrumb" aria-label="Breadcrumb">
+  <div class="page-width">
+    <ol class="brand-breadcrumb__list">
+      <li class="brand-breadcrumb__item">
+        <a href="/" class="brand-breadcrumb__link">Home</a>
+        <svg class="brand-breadcrumb__separator" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </li>
+      {%- if section.settings.parent_url != blank and section.settings.parent_title != blank -%}
+        <li class="brand-breadcrumb__item">
+          <a href="{{ section.settings.parent_url }}" class="brand-breadcrumb__link">{{ section.settings.parent_title }}</a>
+          <svg class="brand-breadcrumb__separator" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </li>
+      {%- endif -%}
+      <li class="brand-breadcrumb__item brand-breadcrumb__item--current">
+        <span aria-current="page">{{ section.settings.current_page }}</span>
+      </li>
+    </ol>
+  </div>
+</nav>
+
+{% schema %}
+{
+  "name": "Breadcrumb",
+  "tag": "section",
+  "class": "section-breadcrumb",
+  "settings": [
+    {
+      "type": "text",
+      "id": "current_page",
+      "label": "Current Page Name",
+      "default": "Lamello"
+    },
+    {
+      "type": "url",
+      "id": "parent_url",
+      "label": "Parent Page URL"
+    },
+    {
+      "type": "text",
+      "id": "parent_title",
+      "label": "Parent Page Title",
+      "default": "Brands"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Breadcrumb"
+    }
+  ]
+}
+{% endschema %}

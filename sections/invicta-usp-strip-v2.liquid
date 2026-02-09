@@ -1,0 +1,367 @@
+{% comment %}
+  ============================================
+  INVICTA USP STRIP v2.0
+  ============================================
+  Bold, industrial USP bar for trade suppliers
+  No floaty white cards - solid dark strip
+  
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+<section class="inv-usp2" id="usp-{{ section.id }}">
+  <div class="page-width">
+    <ul class="inv-usp2__list">
+      {%- for block in section.blocks -%}
+        <li class="inv-usp2__item" {{ block.shopify_attributes }}>
+          
+          {%- if block.settings.icon != 'none' -%}
+            <div class="inv-usp2__icon">
+              {%- case block.settings.icon -%}
+                {%- when 'truck' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <rect x="1" y="3" width="15" height="13"/>
+                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+                    <circle cx="5.5" cy="18.5" r="2.5"/>
+                    <circle cx="18.5" cy="18.5" r="2.5"/>
+                  </svg>
+                {%- when 'shield' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <polyline points="9 12 11 14 15 10"/>
+                  </svg>
+                {%- when 'location' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                {%- when 'phone' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  </svg>
+                {%- when 'clock' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                {%- when 'tag' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+                    <line x1="7" y1="7" x2="7.01" y2="7"/>
+                  </svg>
+                {%- when 'check' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                  </svg>
+                {%- when 'award' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <circle cx="12" cy="8" r="7"/>
+                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+                  </svg>
+                {%- when 'store' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                  </svg>
+              {%- endcase -%}
+            </div>
+          {%- endif -%}
+          
+          <div class="inv-usp2__text">
+            {%- if block.settings.title != blank -%}
+              <strong class="inv-usp2__title">{{ block.settings.title }}</strong>
+            {%- endif -%}
+            {%- if block.settings.subtitle != blank -%}
+              <span class="inv-usp2__subtitle">{{ block.settings.subtitle }}</span>
+            {%- endif -%}
+          </div>
+          
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+<style>
+  /* ============================================
+     INVICTA USP STRIP v2.0
+     Bold, industrial - dark background
+     ============================================ */
+
+  #usp-{{ section.id }} {
+    --inv-usp2-bg: {{ section.settings.background_color }};
+    --inv-usp2-accent: {{ section.settings.accent_color }};
+    --inv-usp2-text: {{ section.settings.text_color }};
+    --inv-usp2-sub: {{ section.settings.subtitle_color }};
+    --inv-usp2-divider: {{ section.settings.divider_color }};
+  }
+
+  .inv-usp2 {
+    background: var(--inv-usp2-bg);
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  .inv-usp2__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat({{ section.blocks.size }}, 1fr);
+  }
+
+  .inv-usp2__item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    position: relative;
+  }
+
+  /* Vertical dividers */
+  .inv-usp2__item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 40px;
+    background: var(--inv-usp2-divider);
+  }
+
+  /* Icon - square, no rounding */
+  .inv-usp2__icon {
+    width: 48px;
+    height: 48px;
+    background: var(--inv-usp2-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .inv-usp2__icon svg {
+    width: 24px;
+    height: 24px;
+    color: #fff;
+  }
+
+  /* Text */
+  .inv-usp2__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .inv-usp2__title {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--inv-usp2-text);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .inv-usp2__subtitle {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--inv-usp2-sub);
+    line-height: 1.3;
+  }
+
+  /* ----------------------------------------
+     RESPONSIVE
+     ---------------------------------------- */
+  @media (max-width: 1024px) {
+    .inv-usp2__list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .inv-usp2__item {
+      padding: 16px 20px;
+    }
+
+    .inv-usp2__item:nth-child(2)::after {
+      display: none;
+    }
+
+    .inv-usp2__item:nth-child(3),
+    .inv-usp2__item:nth-child(4) {
+      border-top: 1px solid var(--inv-usp2-divider);
+    }
+
+    .inv-usp2__item:nth-child(4)::after {
+      display: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .inv-usp2__item {
+      padding: 14px 12px;
+      gap: 12px;
+    }
+
+    .inv-usp2__icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .inv-usp2__icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .inv-usp2__title {
+      font-size: 13px;
+    }
+
+    .inv-usp2__subtitle {
+      font-size: 11px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "USP Strip v2",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colours"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Icon background",
+      "default": "#dc2626"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Title colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle colour",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider colour",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "usp",
+      "name": "USP",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "truck",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "truck", "label": "Delivery truck" },
+            { "value": "shield", "label": "Shield / Warranty" },
+            { "value": "location", "label": "Location pin" },
+            { "value": "phone", "label": "Phone" },
+            { "value": "clock", "label": "Clock" },
+            { "value": "tag", "label": "Price tag" },
+            { "value": "check", "label": "Checkmark" },
+            { "value": "award", "label": "Award" },
+            { "value": "store", "label": "Store" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Free Next-Day Delivery"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "On orders over £30"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "USP Strip v2",
+      "blocks": [
+        {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £30"
+          }
+        },
+        {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Authorised Dealer",
+            "subtitle": "Full manufacturer warranty"
+          }
+        },
+        {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 210 459"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

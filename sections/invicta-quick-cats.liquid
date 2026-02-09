@@ -1,0 +1,337 @@
+{% comment %}
+  ============================================================================
+  INVICTA QUICK CATEGORIES v1.4 — BULLETPROOF
+  Uses collections[] lookup to resolve string handles to real collection objects
+  ============================================================================
+{% endcomment %}
+
+{%- liquid
+  assign bg_color = section.settings.background_color | default: '#f5f5f5'
+  assign pad_top = section.settings.padding_top | default: 0
+  assign pad_bottom = section.settings.padding_bottom | default: 20
+-%}
+
+<style>
+  /* ============================================================================
+     QUICK CATEGORIES — SECTION SCOPED STYLES
+     ============================================================================ */
+  
+  #shopify-section-{{ section.id }} {
+    display: block !important;
+    visibility: visible !important;
+  }
+  
+  #shopify-section-{{ section.id }} .inv-quick-cats {
+    display: block !important;
+    visibility: visible !important;
+    background: {{ bg_color }};
+    padding-top: {{ pad_top }}px;
+    padding-bottom: {{ pad_bottom }}px;
+  }
+  
+  #shopify-section-{{ section.id }} .inv-quick-cats__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  #shopify-section-{{ section.id }} .inv-quick-cats__grid {
+    display: grid !important;
+    visibility: visible !important;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+  }
+  
+  #shopify-section-{{ section.id }} .inv-quick-cats__card {
+    display: block !important;
+    visibility: visible !important;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    padding: 24px 12px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  #shopify-section-{{ section.id }} .inv-quick-cats__card:hover {
+    border-color: #d32f2f;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+  }
+
+  #shopify-section-{{ section.id }} .inv-quick-cats__icon {
+    display: flex !important;
+    visibility: visible !important;
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 16px;
+    background: #2d2d2d;
+    border-radius: 12px;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease;
+  }
+
+  #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__icon {
+    background: #d32f2f;
+  }
+  
+  #shopify-section-{{ section.id }} .inv-quick-cats__icon svg {
+    width: 28px;
+    height: 28px;
+    color: #ffffff;
+    display: block !important;
+  }
+  
+  #shopify-section-{{ section.id }} .inv-quick-cats__icon img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    display: block !important;
+  }
+  
+  #shopify-section-{{ section.id }} .inv-quick-cats__title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  
+  #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__title {
+    color: #dc2626;
+  }
+  
+  /* TABLET */
+  @media screen and (max-width: 1200px) {
+    #shopify-section-{{ section.id }} .inv-quick-cats__grid {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+  }
+  
+  /* MOBILE */
+  @media screen and (max-width: 480px) {
+    #shopify-section-{{ section.id }} .inv-quick-cats__grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 10px;
+    }
+    
+    #shopify-section-{{ section.id }} .inv-quick-cats__card {
+      padding: 16px 10px;
+      border-radius: 8px;
+    }
+    
+    #shopify-section-{{ section.id }} .inv-quick-cats__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+    
+    #shopify-section-{{ section.id }} .inv-quick-cats__icon svg,
+    #shopify-section-{{ section.id }} .inv-quick-cats__icon img {
+      width: 24px;
+      height: 24px;
+    }
+    
+    #shopify-section-{{ section.id }} .inv-quick-cats__title {
+      font-size: 11px;
+    }
+  }
+</style>
+
+<section class="inv-quick-cats">
+  <div class="inv-quick-cats__container">
+    
+    {%- if section.blocks.size > 0 -%}
+      <div class="inv-quick-cats__grid">
+        {%- for block in section.blocks -%}
+          
+          {%- liquid
+            # ================================================================
+            # BULLETPROOF URL RESOLUTION
+            # Try multiple methods to get a valid URL
+            # ================================================================
+            assign cat_url = '#'
+            assign cat_collection_setting = block.settings.collection
+            assign cat_custom_link = block.settings.custom_link
+            
+            # Method 1: Check if it's already a collection object with .url
+            if cat_collection_setting.url != blank
+              assign cat_url = cat_collection_setting.url
+            
+            # Method 2: Check if it has .handle (collection object)
+            elsif cat_collection_setting.handle != blank
+              assign cat_url = cat_collection_setting.url | default: '/collections/' | append: cat_collection_setting.handle
+            
+            # Method 3: It's a string handle — use collections[] global lookup
+            elsif cat_collection_setting != blank and cat_collection_setting != ''
+              assign lookup_collection = collections[cat_collection_setting]
+              if lookup_collection.url != blank
+                assign cat_url = lookup_collection.url
+              else
+                # Fallback: manually build URL from string
+                assign cat_url = '/collections/' | append: cat_collection_setting
+              endif
+            
+            # Method 4: Custom link fallback
+            elsif cat_custom_link != blank
+              assign cat_url = cat_custom_link
+            endif
+            
+            # Title with fallback
+            assign cat_title = block.settings.title | default: 'Category'
+            
+            # Icon settings
+            assign cat_icon = block.settings.icon | default: 'drill'
+            assign cat_custom_icon = block.settings.custom_icon
+          -%}
+          
+          <a 
+            href="{{ cat_url }}" 
+            class="inv-quick-cats__card"
+            {{ block.shopify_attributes }}
+          >
+            <div class="inv-quick-cats__icon">
+              {%- if cat_custom_icon != blank -%}
+                <img 
+                  src="{{ cat_custom_icon | image_url: width: 56 }}" 
+                  alt="{{ cat_title | escape }}"
+                  width="28"
+                  height="28"
+                  loading="lazy"
+                >
+              {%- else -%}
+                {%- case cat_icon -%}
+                  {%- when 'drill' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4l6 6-8 8-6-6 8-8z"/><path d="M14 4l-4-2"/><path d="M20 10l2-4"/><path d="M6 12L2 8"/><path d="M12 18l-4 4"/></svg>
+                  {%- when 'impact' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 4v1"/><path d="M12 19v1"/><path d="M4 12h1"/><path d="M19 12h1"/></svg>
+                  {%- when 'grinder' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h6l2-2h6l2 2h4"/><path d="M8 12v6"/><path d="M6 18h4"/><path d="M18 8V6a2 2 0 0 0-2-2H8"/><path d="M14 8l4-4"/></svg>
+                  {%- when 'battery' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="18" height="12" rx="2"/><path d="M22 11v4"/><path d="M6 11v4"/><path d="M10 11v4"/><path d="M14 11v4"/></svg>
+                  {%- when 'saw' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>
+                  {%- when 'storage' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v3"/><path d="M2 12h20"/><path d="M12 12v3"/></svg>
+                  {%- when 'safety' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  {%- when 'outdoor' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                  {%- else -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>
+                {%- endcase -%}
+              {%- endif -%}
+            </div>
+            <h3 class="inv-quick-cats__title">{{ cat_title }}</h3>
+          </a>
+          
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <p style="text-align:center;padding:40px 20px;color:#6b7280;">Add category blocks using the section settings below.</p>
+    {%- endif -%}
+    
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Quick Categories",
+  "tag": "section",
+  "class": "section-quick-cats",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Colour",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 20,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Cordless Drills"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "url",
+          "id": "custom_link",
+          "label": "Custom Link",
+          "info": "Used if no collection selected"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "drill",
+          "options": [
+            { "value": "drill", "label": "Drill" },
+            { "value": "impact", "label": "Impact Driver" },
+            { "value": "grinder", "label": "Grinder" },
+            { "value": "battery", "label": "Battery" },
+            { "value": "saw", "label": "Saw" },
+            { "value": "storage", "label": "Storage" },
+            { "value": "safety", "label": "Safety" },
+            { "value": "outdoor", "label": "Outdoor" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom Icon Image",
+          "info": "Overrides built-in icon. Use a white or light-coloured icon."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quick Categories",
+      "blocks": [
+        { "type": "category", "settings": { "title": "Cordless Drills", "icon": "drill" } },
+        { "type": "category", "settings": { "title": "Impact Drivers", "icon": "impact" } },
+        { "type": "category", "settings": { "title": "Grinders", "icon": "grinder" } },
+        { "type": "category", "settings": { "title": "Batteries", "icon": "battery" } },
+        { "type": "category", "settings": { "title": "Saws", "icon": "saw" } },
+        { "type": "category", "settings": { "title": "Tool Storage", "icon": "storage" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

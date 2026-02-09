@@ -1,0 +1,230 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb-simple",
+      "settings": {
+        "current_page": "Kent Areas We Serve",
+        "parent_url": "",
+        "parent_title": ""
+      }
+    },
+    "hero": {
+      "type": "local-hero",
+      "settings": {
+        "badge_text": "Serving Kent's Tradespeople Since 1996",
+        "headline_line_1": "Power Tools Across Kent",
+        "headline_line_2": "Two Branches, One Mission",
+        "subtitle": "From Canterbury to Thanet, Ashford to Dover \u2014 Invicta Tools supplies Kent's tradespeople with professional Makita and DeWalt power tools, expert advice, and genuine trade pricing. Two branches. 28+ years. Your local tool specialists.",
+        "stat_1_value": "28+",
+        "stat_1_label": "Years Trading",
+        "stat_2_value": "2",
+        "stat_2_label": "Kent Branches",
+        "stat_3_value": "12+",
+        "stat_3_label": "Towns Served",
+        "branch_name": "Canterbury & Ramsgate",
+        "distance_text": "Two branches serving all of Kent",
+        "branch_address": "Canterbury: CT1 3TB \u00b7 Ramsgate: CT12 5FS",
+        "phone": "01843 210 459",
+        "opening_hours": "Mon\u2013Fri 7:30\u201317:00 \u00b7 Sat 8:00\u201312:00",
+        "maps_url": "https://maps.google.com/?q=Unit+9+Cotton+Road+Wincheap+Industrial+Estate+Canterbury+CT1+3TB",
+        "schema_town": "Kent",
+        "schema_street": "Unit 9 Cotton Road",
+        "schema_locality": "Canterbury",
+        "schema_postcode": "CT1 3TB",
+        "schema_lat": "51.2697",
+        "schema_lng": "1.0760"
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Kent Delivery",
+            "subtitle": "On orders over \u00a330"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Authorised Dealer",
+            "subtitle": "Makita & DeWalt"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Branches",
+            "subtitle": "Canterbury & Ramsgate"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 210 459"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#dc2626",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "hub": {
+      "type": "local-hub",
+      "blocks": {
+        "t1": {
+          "type": "town",
+          "settings": {
+            "name": "Canterbury",
+            "distance": "Canterbury Branch \u00b7 Home base",
+            "url": "/pages/power-tools-canterbury"
+          }
+        },
+        "t2": {
+          "type": "town",
+          "settings": {
+            "name": "Ramsgate",
+            "distance": "Ramsgate Branch \u00b7 Home base",
+            "url": "/pages/power-tools-ramsgate"
+          }
+        },
+        "t3": {
+          "type": "town",
+          "settings": {
+            "name": "Whitstable",
+            "distance": "Canterbury Branch \u00b7 ~15 min",
+            "url": "/pages/power-tools-whitstable"
+          }
+        },
+        "t4": {
+          "type": "town",
+          "settings": {
+            "name": "Herne Bay",
+            "distance": "Canterbury Branch \u00b7 ~20 min",
+            "url": "/pages/power-tools-herne-bay"
+          }
+        },
+        "t5": {
+          "type": "town",
+          "settings": {
+            "name": "Margate",
+            "distance": "Ramsgate Branch \u00b7 ~10 min",
+            "url": "/pages/power-tools-margate"
+          }
+        },
+        "t6": {
+          "type": "town",
+          "settings": {
+            "name": "Broadstairs",
+            "distance": "Ramsgate Branch \u00b7 ~10 min",
+            "url": "/pages/power-tools-broadstairs"
+          }
+        },
+        "t7": {
+          "type": "town",
+          "settings": {
+            "name": "Ashford",
+            "distance": "Canterbury Branch \u00b7 ~25 min",
+            "url": "/pages/power-tools-ashford"
+          }
+        },
+        "t8": {
+          "type": "town",
+          "settings": {
+            "name": "Dover",
+            "distance": "Canterbury Branch \u00b7 ~20 min",
+            "url": "/pages/power-tools-dover"
+          }
+        },
+        "t9": {
+          "type": "town",
+          "settings": {
+            "name": "Deal",
+            "distance": "Ramsgate Branch \u00b7 ~20 min",
+            "url": "/pages/power-tools-deal"
+          }
+        },
+        "t10": {
+          "type": "town",
+          "settings": {
+            "name": "Faversham",
+            "distance": "Canterbury Branch \u00b7 ~15 min",
+            "url": "/pages/power-tools-faversham"
+          }
+        },
+        "t11": {
+          "type": "town",
+          "settings": {
+            "name": "Folkestone",
+            "distance": "Canterbury Branch \u00b7 ~25 min",
+            "url": "/pages/power-tools-folkestone"
+          }
+        },
+        "t12": {
+          "type": "town",
+          "settings": {
+            "name": "Thanet",
+            "distance": "Ramsgate Branch \u00b7 0\u201310 min",
+            "url": "/pages/power-tools-thanet"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6",
+        "t7",
+        "t8",
+        "t9",
+        "t10",
+        "t11",
+        "t12"
+      ],
+      "settings": {
+        "title": "Find Your Nearest Branch",
+        "subtitle": "Click your town for local information, directions and delivery details"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Ready to Get Started?",
+        "subtitle": "Call our trade team for expert advice, visit either branch, or shop online with free Kent delivery over \u00a330.",
+        "primary_text": "01843 210 459",
+        "primary_url": "tel:01843210459",
+        "primary_icon": "phone",
+        "secondary_text": "Shop All Tools",
+        "secondary_url": "/collections/all",
+        "secondary_icon": "none"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "hero",
+    "usp_strip",
+    "hub",
+    "cta"
+  ]
+}

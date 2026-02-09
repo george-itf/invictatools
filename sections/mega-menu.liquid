@@ -1,0 +1,311 @@
+{% assign s = section.settings %}
+{% assign menu = linklists[s.menu] %}
+
+<style>
+
+/* Hide mega menu on mobile — use drawer instead */
+@media (max-width: 989px) {
+  .mega-menu-bar-{{ section.id }},
+  .mega-dropdown-{{ section.id }} {
+    display: none !important;
+  }
+}
+
+/* ========= TOP BAR (HEADINGS) ========= */
+
+.mega-menu-bar-{{ section.id }} {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: {{ s.bar_height }}px;
+  background: {{ s.bar_bg }};
+  border-bottom: 1px solid {{ s.bar_border }};
+  position: relative;
+  z-index: {{ s.z_index }};
+}
+
+/* Top-level link */
+.mega-item-{{ section.id }} {
+  position: relative;
+  padding: 0 18px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 600;
+  color: {{ s.item_color }};
+}
+
+.mega-item-{{ section.id }}:hover,
+.mega-item-{{ section.id }}.active {
+  background: rgba(0,0,0,0.08);
+  border-bottom: 3px solid {{ s.accent_color }};
+  color: {{ s.item_hover_color }};
+}
+
+/* caret arrow */
+.mega-item-{{ section.id }} svg {
+  margin-left: 6px;
+  width: 14px;
+  height: 14px;
+  transition: transform .2s ease;
+}
+
+.mega-item-{{ section.id }}:hover svg,
+.mega-item-{{ section.id }}.active svg {
+  transform: rotate(180deg);
+}
+
+/* ========= DROPDOWN PANEL ========= */
+
+.mega-dropdown-{{ section.id }} {
+  width: 100vw;
+  max-width: 100%;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: {{ s.panel_bg }};
+  border-bottom: 1px solid {{ s.panel_border }};
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+  padding: 32px 48px;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .18s ease;
+  z-index: {{ s.z_index }};
+}
+
+/* Visible */
+.mega-dropdown-{{ section.id }}.open {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Balanced grid layout */
+.mega-grid-{{ section.id }} {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax({{ s.column_min_width }}px, 1fr));
+  gap: 40px 60px;
+  width: 100%;}
+
+/* ========= CATEGORY TITLE — NOW CLICKABLE ========= */
+.mega-cat-title-{{ section.id }} {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid {{ s.accent_color }};
+  color: {{ s.cat_title_color }};
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.mega-cat-title-{{ section.id }}:hover {
+  color: {{ s.sub_hover_color }};
+}
+
+/* Sub links */
+.mega-sub-item-{{ section.id }} {
+  display: block;
+  margin: 6px 0;
+  font-size: 14px;
+  color: {{ s.sub_color }};
+  text-decoration: none;
+}
+
+.mega-sub-item-{{ section.id }}:hover {
+  color: {{ s.sub_hover_color }};
+  transform: translateX(4px);
+}
+
+</style>
+
+<nav class="mega-menu-bar-{{ section.id }}">
+  {% for l in menu.links %}
+    <div class="mega-item-{{ section.id }}"
+         data-dropdown="dropdown-{{ section.id }}-{{ forloop.index }}">
+      {{ l.title }}
+      {% if l.links.size > 0 %}
+      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+      {% endif %}
+    </div>
+  {% endfor %}
+</nav>
+
+{% for l in menu.links %}
+  {% if l.links.size > 0 %}
+  <div id="dropdown-{{ section.id }}-{{ forloop.index }}"
+       class="mega-dropdown-{{ section.id }}">
+
+    <div class="mega-grid-{{ section.id }}">
+      {% for child in l.links %}
+        <div>
+          {%- comment -%}
+            CATEGORY TITLE — Now a clickable link
+            Links to the collection/page URL assigned in the menu
+          {%- endcomment -%}
+          <a href="{{ child.url }}" class="mega-cat-title-{{ section.id }}">
+            {{ child.title }}
+          </a>
+
+          {% for sub in child.links %}
+            <a href="{{ sub.url }}" class="mega-sub-item-{{ section.id }}">
+              {{ sub.title }}
+            </a>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+  {% endif %}
+{% endfor %}
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const items = document.querySelectorAll('.mega-item-{{ section.id }}');
+  const dropdowns = document.querySelectorAll('.mega-dropdown-{{ section.id }}');
+
+  items.forEach(item => {
+    const id = item.dataset.dropdown;
+    const panel = document.getElementById(id);
+
+    if (!panel) return;
+
+    item.addEventListener('mouseenter', () => {
+      closeAll();
+      item.classList.add('active');
+      panel.classList.add('open');
+    });
+
+    item.addEventListener('mouseleave', () => {
+      setTimeout(() => {
+        if (!panel.matches(':hover') && !item.matches(':hover')) {
+          item.classList.remove('active');
+          panel.classList.remove('open');
+        }
+      }, 80);
+    });
+
+    panel.addEventListener('mouseleave', () => {
+      item.classList.remove('active');
+      panel.classList.remove('open');
+    });
+  });
+
+  function closeAll() {
+    items.forEach(x => x.classList.remove('active'));
+    dropdowns.forEach(x => x.classList.remove('open'));
+  }
+
+});
+</script>
+
+
+{% schema %}
+{
+  "name": "Mega menu 2",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu source"
+    },
+    {
+      "type": "color",
+      "id": "bar_bg",
+      "label": "Bar background",
+      "default": "#e42d27"
+    },
+    {
+      "type": "color",
+      "id": "bar_border",
+      "label": "Bar border",
+      "default": "#d5d5d5"
+    },
+    {
+      "type": "color",
+      "id": "item_color",
+      "label": "Top link color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "item_hover_color",
+      "label": "Top link hover color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent line",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "bar_height",
+      "label": "Top bar height",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "default": 60
+    },
+    {
+      "type": "color",
+      "id": "panel_bg",
+      "label": "Dropdown background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "panel_border",
+      "label": "Dropdown border",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "cat_title_color",
+      "label": "Category title",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "sub_color",
+      "label": "Sub link color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "sub_hover_color",
+      "label": "Sub link hover",
+      "default": "#e42d27"
+    },
+    {
+      "type": "range",
+      "id": "column_min_width",
+      "label": "Minimum column width",
+      "min": 160,
+      "max": 300,
+      "step": 10,
+      "default": 220
+    },
+    {
+      "type": "range",
+      "id": "z_index",
+      "label": "Z-index (layer order)",
+      "min": 100,
+      "max": 2000,
+      "step": 100,
+      "default": 1500
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mega menu 2"
+    }
+  ]
+}
+{% endschema %}

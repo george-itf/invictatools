@@ -1,0 +1,148 @@
+{% comment %}
+  ============================================
+  CTA BAR v1.0
+  ============================================
+  Full-width CTA banner with red background
+  Two buttons with optional icons
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+{{ 'brand-page.css' | asset_url | stylesheet_tag }}
+
+<section class="brand-cta" id="cta-{{ section.id }}">
+  <div class="page-width">
+    <div class="brand-cta__inner">
+
+      {%- comment -%} Content {%- endcomment -%}
+      <div class="brand-cta__content">
+        {%- if section.settings.title != blank -%}
+          <h2 class="brand-cta__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.subtitle != blank -%}
+          <p class="brand-cta__subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Buttons {%- endcomment -%}
+      <div class="brand-cta__buttons">
+        {%- if section.settings.primary_text != blank -%}
+          <a href="{{ section.settings.primary_url | default: '#' }}" class="brand-cta__btn brand-cta__btn--primary">
+            {%- case section.settings.primary_icon -%}
+              {%- when 'phone' -%}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              {%- when 'email' -%}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+            {%- endcase -%}
+            {{ section.settings.primary_text }}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.secondary_text != blank -%}
+          <a href="{{ section.settings.secondary_url | default: '#' }}" class="brand-cta__btn brand-cta__btn--secondary">
+            {%- case section.settings.secondary_icon -%}
+              {%- when 'phone' -%}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              {%- when 'email' -%}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+            {%- endcase -%}
+            {{ section.settings.secondary_text }}
+          </a>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CTA Bar",
+  "tag": "section",
+  "class": "section-cta-bar",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Need Help Choosing?"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Our team knows Lamello inside out. Call for expert advice."
+    },
+    {
+      "type": "header",
+      "content": "Primary Button"
+    },
+    {
+      "type": "text",
+      "id": "primary_text",
+      "label": "Primary Button Text",
+      "default": "01843 210 459"
+    },
+    {
+      "type": "url",
+      "id": "primary_url",
+      "label": "Primary Button URL"
+    },
+    {
+      "type": "select",
+      "id": "primary_icon",
+      "label": "Primary Button Icon",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "phone", "label": "Phone" },
+        { "value": "email", "label": "Email" }
+      ],
+      "default": "phone"
+    },
+    {
+      "type": "header",
+      "content": "Secondary Button"
+    },
+    {
+      "type": "text",
+      "id": "secondary_text",
+      "label": "Secondary Button Text",
+      "default": "Send Enquiry"
+    },
+    {
+      "type": "url",
+      "id": "secondary_url",
+      "label": "Secondary Button URL"
+    },
+    {
+      "type": "select",
+      "id": "secondary_icon",
+      "label": "Secondary Button Icon",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "phone", "label": "Phone" },
+        { "value": "email", "label": "Email" }
+      ],
+      "default": "email"
+    }
+  ],
+  "presets": [
+    {
+      "name": "CTA Bar"
+    }
+  ]
+}
+{% endschema %}

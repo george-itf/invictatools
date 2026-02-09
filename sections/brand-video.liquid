@@ -1,0 +1,250 @@
+{% comment %}
+  ============================================
+  BRAND VIDEO v1.0
+  ============================================
+  Two-column video section with thumbnail
+  Light grey background
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+{{ 'brand-page.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign video_id = ''
+  assign video_type = ''
+
+  if section.settings.video_url != blank
+    if section.settings.video_url.type == 'youtube'
+      assign video_type = 'youtube'
+      assign video_id = section.settings.video_url.id
+    elsif section.settings.video_url.type == 'vimeo'
+      assign video_type = 'vimeo'
+      assign video_id = section.settings.video_url.id
+    endif
+  endif
+-%}
+
+<section class="brand-video" id="video-{{ section.id }}">
+  <div class="page-width">
+    <div class="brand-video__grid">
+
+      {%- comment -%} Left Column - Video Thumbnail {%- endcomment -%}
+      <div class="brand-video__media">
+        <div class="brand-video__thumbnail-wrap" data-video-type="{{ video_type }}" data-video-id="{{ video_id }}">
+          {%- if section.settings.thumbnail != blank -%}
+            <img
+              src="{{ section.settings.thumbnail | image_url: width: 800 }}"
+              srcset="{{ section.settings.thumbnail | image_url: width: 400 }} 400w,
+                      {{ section.settings.thumbnail | image_url: width: 600 }} 600w,
+                      {{ section.settings.thumbnail | image_url: width: 800 }} 800w"
+              sizes="(max-width: 768px) 100vw, 55vw"
+              alt="{{ section.settings.thumbnail.alt | default: 'Video thumbnail' }}"
+              loading="lazy"
+              class="brand-video__thumbnail"
+            >
+          {%- else -%}
+            <div class="brand-video__thumbnail-placeholder">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="2.18"/>
+                <polygon points="10 8 16 12 10 16 10 8"/>
+              </svg>
+            </div>
+          {%- endif -%}
+
+          {%- comment -%} Play Button Overlay {%- endcomment -%}
+          {%- if video_id != blank -%}
+            <button type="button" class="brand-video__play-btn" aria-label="Play video">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+            </button>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- comment -%} Right Column - Content {%- endcomment -%}
+      <div class="brand-video__content">
+
+        {%- comment -%} Section Label {%- endcomment -%}
+        {%- if section.settings.section_label != blank -%}
+          <span class="brand-video__label">
+            <span class="brand-video__label-dash"></span>
+            {{ section.settings.section_label }}
+          </span>
+        {%- endif -%}
+
+        {%- comment -%} Title {%- endcomment -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="brand-video__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+
+        {%- comment -%} Description {%- endcomment -%}
+        {%- if section.settings.description != blank -%}
+          <p class="brand-video__desc">{{ section.settings.description }}</p>
+        {%- endif -%}
+
+        {%- comment -%} Feature Bullets {%- endcomment -%}
+        <ul class="brand-video__features">
+          {%- if section.settings.feature_1 != blank -%}
+            <li class="brand-video__feature">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              <span>{{ section.settings.feature_1 }}</span>
+            </li>
+          {%- endif -%}
+          {%- if section.settings.feature_2 != blank -%}
+            <li class="brand-video__feature">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              <span>{{ section.settings.feature_2 }}</span>
+            </li>
+          {%- endif -%}
+          {%- if section.settings.feature_3 != blank -%}
+            <li class="brand-video__feature">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              <span>{{ section.settings.feature_3 }}</span>
+            </li>
+          {%- endif -%}
+          {%- if section.settings.feature_4 != blank -%}
+            <li class="brand-video__feature">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              <span>{{ section.settings.feature_4 }}</span>
+            </li>
+          {%- endif -%}
+        </ul>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    const section = document.getElementById('video-{{ section.id }}');
+    if (!section) return;
+
+    const playBtn = section.querySelector('.brand-video__play-btn');
+    const thumbWrap = section.querySelector('.brand-video__thumbnail-wrap');
+
+    if (!playBtn || !thumbWrap) return;
+
+    playBtn.addEventListener('click', function() {
+      const videoType = thumbWrap.dataset.videoType;
+      const videoId = thumbWrap.dataset.videoId;
+
+      if (!videoType || !videoId) return;
+
+      let iframe;
+      if (videoType === 'youtube') {
+        iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+      } else if (videoType === 'vimeo') {
+        iframe = document.createElement('iframe');
+        iframe.src = 'https://player.vimeo.com/video/' + videoId + '?autoplay=1';
+        iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+        iframe.allowFullscreen = true;
+      }
+
+      if (iframe) {
+        iframe.className = 'brand-video__iframe';
+        thumbWrap.innerHTML = '';
+        thumbWrap.appendChild(iframe);
+        thumbWrap.classList.add('brand-video__thumbnail-wrap--playing');
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Brand Video",
+  "tag": "section",
+  "class": "section-brand-video",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "image_picker",
+      "id": "thumbnail",
+      "label": "Video Thumbnail"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "Video URL",
+      "accept": ["youtube", "vimeo"]
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "section_label",
+      "label": "Section Label",
+      "default": "See It In Action"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "The Zeta P2 in Action"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "See how the Zeta P2's pivoting faceplate, adjustable depth settings, and integrated dust extraction make it the professional's choice for biscuit joinery."
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "text",
+      "id": "feature_1",
+      "label": "Feature 1",
+      "default": "Pivoting faceplate for flush work"
+    },
+    {
+      "type": "text",
+      "id": "feature_2",
+      "label": "Feature 2",
+      "default": "Accepts all Lamello connector systems"
+    },
+    {
+      "type": "text",
+      "id": "feature_3",
+      "label": "Feature 3",
+      "default": "Integrated dust extraction"
+    },
+    {
+      "type": "text",
+      "id": "feature_4",
+      "label": "Feature 4",
+      "default": "Swiss-made carbide blade included"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Video"
+    }
+  ]
+}
+{% endschema %}

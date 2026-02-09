@@ -1,0 +1,48 @@
+{
+  "sections": {
+    "main": {
+      "type": "invicta-category-grid",
+      "blocks": {
+        "block_1": {
+          "type": "category",
+          "settings": {
+            "collection": "drilling"
+          }
+        },
+        "block_2": {
+          "type": "category",
+          "settings": {
+            "collection": "sawing"
+          }
+        },
+        "block_3": {
+          "type": "category",
+          "settings": {
+            "collection": "cutting-and-sawing"
+          }
+        },
+        "block_4": {
+          "type": "category",
+          "settings": {
+            "collection": "wet-and-dry-cores"
+          }
+        },
+        "block_5": {
+          "type": "category",
+          "settings": {
+            "collection": "premier-diamond-accessories"
+          }
+        }
+      },
+      "block_order": ["block_1", "block_2", "block_3", "block_4", "block_5"],
+      "settings": {
+        "heading": "Accessories & Consumables",
+        "description": "Drill bits, blades, and consumables for your power tools.",
+        "columns_desktop": 5,
+        "columns_tablet": 3,
+        "columns_mobile": 2
+      }
+    }
+  },
+  "order": ["main"]
+}

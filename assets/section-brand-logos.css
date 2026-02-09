@@ -1,0 +1,231 @@
+/* ==========================================================================
+   Brand Logos Section Styles
+   Trade 15.4.0 Compatible
+   ========================================================================== */
+
+.brand-logos {
+  padding-top: var(--brand-padding-top, 52px);
+  padding-bottom: var(--brand-padding-bottom, 52px);
+  background-color: var(--brand-bg-color, #ffffff);
+  overflow: hidden;
+}
+
+.brand-logos__full-width {
+  width: 100%;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.brand-logos__header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.brand-logos__title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2d2d2d;
+  letter-spacing: -0.02em;
+}
+
+.brand-logos__subtitle {
+  margin: 0;
+  font-size: 1rem;
+  color: #6b7280;
+  font-weight: 400;
+}
+
+@media screen and (max-width: 749px) {
+  .brand-logos__header {
+    margin-bottom: 1.75rem;
+  }
+
+  .brand-logos__title {
+    font-size: 1.375rem;
+  }
+
+  .brand-logos__subtitle {
+    font-size: 0.9375rem;
+  }
+}
+
+.brand-logos__grid {
+  display: grid;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.brand-logos__grid--cols-4 { grid-template-columns: repeat(4, 1fr); }
+.brand-logos__grid--cols-5 { grid-template-columns: repeat(5, 1fr); }
+.brand-logos__grid--cols-6 { grid-template-columns: repeat(6, 1fr); }
+.brand-logos__grid--cols-7 { grid-template-columns: repeat(7, 1fr); }
+.brand-logos__grid--cols-8 { grid-template-columns: repeat(8, 1fr); }
+
+@media screen and (max-width: 989px) {
+  .brand-logos__grid[class*="--cols-"] {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .brand-logos__grid[class*="--cols-"] {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.625rem;
+  }
+}
+
+.brand-logos__card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 1rem;
+  background-color: var(--card-bg-override, var(--brand-card-bg, #f9fafb));
+  border-radius: 12px;
+  min-height: 80px;
+  text-decoration: none;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.brand-logos__card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.08),
+    0 12px 24px rgba(0, 0, 0, 0.06);
+}
+
+.brand-logos__card:focus {
+  outline: none;
+  box-shadow:
+    0 0 0 3px #dc2626,
+    0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+.brand-logos__card--static {
+  cursor: default;
+}
+
+.brand-logos__card--static:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+@media screen and (max-width: 575px) {
+  .brand-logos__card {
+    padding: 0.875rem 0.625rem;
+    min-height: 64px;
+    border-radius: 10px;
+  }
+}
+
+.brand-logos__logo {
+  max-width: 100%;
+  max-height: 44px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition:
+    filter 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.brand-logos--grayscale .brand-logos__logo {
+  filter: grayscale(100%);
+  opacity: 0.7;
+}
+
+.brand-logos--grayscale .brand-logos__card:hover .brand-logos__logo {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+@media screen and (max-width: 575px) {
+  .brand-logos__logo {
+    max-height: 32px;
+  }
+}
+
+.brand-logos__placeholder {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.brand-logos__marquee {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.brand-logos__marquee::before,
+.brand-logos__marquee::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.brand-logos__marquee::before {
+  left: 0;
+  background: linear-gradient(to right, var(--brand-bg-color, #ffffff), transparent);
+}
+
+.brand-logos__marquee::after {
+  right: 0;
+  background: linear-gradient(to left, var(--brand-bg-color, #ffffff), transparent);
+}
+
+.brand-logos__marquee-track {
+  display: flex;
+  gap: 1.5rem;
+  animation: marquee-scroll 30s linear infinite;
+  width: max-content;
+}
+
+.brand-logos__marquee:hover .brand-logos__marquee-track {
+  animation-play-state: paused;
+}
+
+.brand-logos__marquee-track .brand-logos__card {
+  flex-shrink: 0;
+  min-width: 140px;
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-logos__marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .brand-logos__marquee::before,
+  .brand-logos__marquee::after {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .brand-logos__marquee-track {
+    gap: 1rem;
+  }
+
+  .brand-logos__marquee-track .brand-logos__card {
+    min-width: 110px;
+  }
+}

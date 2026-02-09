@@ -1,0 +1,359 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb-simple",
+      "settings": {
+        "current_page": "Timco",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    },
+    "hero": {
+      "type": "brand-hero",
+      "settings": {
+        "brand_logo": "shopify://shop_images/timco.svg",
+        "dealer_badge": "Full Range Stockist",
+        "headline_line_1": "Every Fixing.",
+        "headline_line_2": "Every Time.",
+        "subtitle": "The UK's leading fixings and fasteners brand. Invicta Tools stocks the full Timco range — over 6,800 products covering screws, nails, bolts, anchors, adhesives, and PPE. If you need to fix it, fasten it, or secure it, Timco has it.",
+        "stat_1_value": "6,888",
+        "stat_1_label": "Products",
+        "stat_2_value": "54%",
+        "stat_2_label": "Of Our Range",
+        "stat_3_value": "UK",
+        "stat_3_label": "Warehouse",
+        "primary_cta_text": "Shop All Timco",
+        "primary_cta_url": "/collections/timco",
+        "secondary_cta_text": "Browse by Category",
+        "secondary_cta_url": "#categories",
+        "hero_image": "shopify://shop_images/timco-hero.webp"
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £30"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Full Range Stockist",
+            "subtitle": "6,888 Timco products"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 210 459"
+          }
+        }
+      },
+      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#dc2626",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "about": {
+      "type": "brand-about",
+      "settings": {
+        "image": "shopify://shop_images/timco-about.webp",
+        "badge_label": "Headquartered in",
+        "badge_value": "United Kingdom",
+        "section_label": "About Timco",
+        "title": "The UK's Fixings & Fasteners Specialist",
+        "paragraph_1": "Timco is one of the UK's largest importers and wholesalers of screws, fixings, fasteners, nails, and power tool accessories. With a massive UK warehouse operation, Timco delivers trade-quality fixings at competitive prices with colour-coded packaging for easy identification.",
+        "paragraph_2": "From the award-winning C2 multi-purpose screw to FirmaHold collated nails, Timco products are designed by tradespeople for tradespeople. Every product is tested to meet or exceed British and European standards, and their innovative packaging makes finding the right fixing fast and simple.",
+        "stat_1_value": "",
+        "stat_1_label": "",
+        "stat_2_value": "",
+        "stat_2_label": "",
+        "stat_3_value": "",
+        "stat_3_label": "",
+        "feature_1": "Colour-coded packaging for easy ID",
+        "feature_2": "Award-winning C2 screw technology",
+        "feature_3": "Trade packs for professionals",
+        "feature_4": "Meets BS & EN standards",
+        "cta_text": "Learn More",
+        "cta_url": "https://timco.co.uk/our-story"
+      }
+    },
+    "featured-products": {
+      "type": "brand-featured-products",
+      "settings": {
+        "title": "Featured Timco Products",
+        "collection": "timco",
+        "products_to_show": 4,
+        "cta_text": "View All Timco",
+        "cta_url": "/collections/timco"
+      }
+    },
+    "brand_applications": {
+      "type": "brand-applications",
+      "blocks": {
+        "app_1": {
+          "type": "application",
+          "settings": {
+            "image": "shopify://shop_images/timco-app-construction.webp",
+            "featured": true,
+            "title": "Structural Construction",
+            "description": "Heavy-duty coach screws, through bolts, anchor fixings, and structural timber connectors. Timco fixings hold buildings together — literally. Tested and certified to European standards.",
+            "connector_used": "Structural Fixings Range"
+          }
+        },
+        "app_2": {
+          "type": "application",
+          "settings": {
+            "image": "shopify://shop_images/timco-app-joinery.webp",
+            "featured": false,
+            "title": "Joinery & Carpentry",
+            "description": "C2 multi-purpose screws, C2 Deck-Fix, and C2 Tongue-Fix for every timber application. Twin-cut technology reduces splitting and delivers a perfect countersink every time.",
+            "connector_used": "C2 Screw Range"
+          }
+        },
+        "app_3": {
+          "type": "application",
+          "settings": {
+            "image": "shopify://shop_images/timco-app-firstfix.webp",
+            "featured": false,
+            "title": "First Fix & Framing",
+            "description": "FirmaHold collated nails for framing nailers, ring shank nails for extra hold, and galvanised nails for exterior use. Compatible with all major nailer brands.",
+            "connector_used": "FirmaHold Nails"
+          }
+        },
+        "app_4": {
+          "type": "application",
+          "settings": {
+            "image": "shopify://shop_images/timco-app-plumbing.webp",
+            "featured": false,
+            "title": "Plumbing & Mechanical",
+            "description": "Pipe clips, saddle bands, munsen rings, and threaded rod. Stainless steel and zinc-plated options for internal and external installations. Trade boxes for bulk usage.",
+            "connector_used": "Pipe & Mechanical Fixings"
+          }
+        },
+        "app_5": {
+          "type": "application",
+          "settings": {
+            "image": "shopify://shop_images/timco-app-drywall.webp",
+            "featured": false,
+            "title": "Drylining & Plastering",
+            "description": "Drywall screws, cavity fixings, spring toggles, and plasterboard plugs. Specialist fixings for hollow walls that grip securely and hold heavy loads without damage.",
+            "connector_used": "Cavity & Drywall Fixings"
+          }
+        }
+      },
+      "block_order": ["app_1", "app_2", "app_3", "app_4", "app_5"],
+      "settings": {
+        "section_label": "Real World Applications",
+        "title": "Who Uses Timco?",
+        "subtitle": "Every trade relies on the right fixings — Timco covers them all",
+        "cta_text": "View All Products",
+        "cta_url": "/collections/timco"
+      }
+    },
+    "brand_new_products": {
+      "type": "brand-new-products",
+      "blocks": {
+        "new_1": {
+          "type": "product_feature",
+          "settings": {
+            "image": "shopify://shop_images/timco-c2-screws.webp",
+            "show_badge": true,
+            "badge_text": "BEST SELLER",
+            "launch_date": "Award Winner",
+            "title": "C2 Multi-Purpose Screws",
+            "description": "The award-winning C2 is a high-performance multi-purpose screw engineered for every timber application. Twin-cut technology reduces splitting, the dual-angle partial thread pulls materials tight, and the ribs under the head deliver a clean countersink without pre-drilling.",
+            "feature_1": "Twin-cut tip reduces splitting",
+            "feature_2": "No pre-drilling required",
+            "feature_3": "Clean countersink every time",
+            "feature_4": "Available in 500+ size/pack combinations",
+            "cta_text": "Shop C2 Screws",
+            "cta_url": "/collections/timco"
+          }
+        },
+        "new_2": {
+          "type": "product_feature",
+          "settings": {
+            "image": "shopify://shop_images/timco-firmahold.webp",
+            "show_badge": true,
+            "badge_text": "TRADE",
+            "launch_date": "Professional Range",
+            "title": "FirmaHold Collated Nails",
+            "description": "Premium collated nails and gas fuel cells compatible with all major first fix nailer brands including Paslode, DeWalt, and Makita. Ring shank, smooth shank, and galvanised options in every common length. Trade boxes with fuel cells included.",
+            "feature_1": "Compatible with all major nailers",
+            "feature_2": "Ring shank for maximum hold",
+            "feature_3": "Gas fuel cells included",
+            "feature_4": "Galvanised options for exterior use",
+            "cta_text": "Shop FirmaHold",
+            "cta_url": "/collections/timco"
+          }
+        }
+      },
+      "block_order": ["new_1", "new_2"],
+      "settings": {
+        "section_label": "Product Highlights",
+        "title": "Timco Essentials",
+        "subtitle": "The fixings and fasteners that professionals reach for every day"
+      }
+    },
+    "brand_why_choose": {
+      "type": "brand-why-choose",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "6,888",
+            "title": "Products In Stock",
+            "description": "Invicta Tools carries the full Timco range — 6,888 products making up 54% of our entire catalogue. Whatever fixing you need, we almost certainly have it in stock and ready to ship."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "C2",
+            "title": "Award-Winning Screws",
+            "description": "The C2 multi-purpose screw won industry awards for its twin-cut technology. Reduces splitting, self-countersinks, and works across softwood, hardwood, MDF, chipboard, and composite decking."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "£",
+            "title": "Trade Pricing",
+            "description": "Timco products are competitively priced for the trade. Bulk trade packs keep your cost per fixing low, and free next-day delivery on orders over £30 means no wasted trips to the merchants."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "CE",
+            "title": "Fully Certified",
+            "description": "All structural fixings are CE marked and tested to British and European standards. Full technical data sheets and load tables available for specifiers and building control sign-off."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "UK",
+            "title": "Warehouse & Support",
+            "description": "Timco operates from a massive UK warehouse ensuring fast, reliable supply. No waiting for imports — stock is held in the UK and ready for next-day dispatch to your door or site."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "🎨",
+            "title": "Colour-Coded System",
+            "description": "Timco's innovative colour-coded packaging makes finding the right fixing instant. Each product category has a distinct colour — no more rummaging through mixed boxes on site."
+          }
+        }
+      },
+      "block_order": ["benefit_1", "benefit_2", "benefit_3", "benefit_4", "benefit_5", "benefit_6"],
+      "settings": {
+        "section_label": "The Timco Advantage",
+        "title": "Why Professionals Choose Timco",
+        "subtitle": "The UK's most comprehensive fixings range at trade-friendly prices"
+      }
+    },
+    "categories": {
+      "type": "brand-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/timco-cat-screws.webp",
+            "title": "Screws & Woodscrews",
+            "description": "C2 multi-purpose, deck screws, drywall screws, coach screws, self-tapping, and machine screws. Every type, every size, every finish.",
+            "url": "/collections/timco"
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/timco-cat-nails.webp",
+            "title": "Nails & FirmaHold",
+            "description": "Collated nails, round wire nails, oval nails, panel pins, and FirmaHold gas packs. For hand nailing and all major nailer brands.",
+            "url": "/collections/timco"
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/timco-cat-fixings.webp",
+            "title": "Bolts, Anchors & Fixings",
+            "description": "Through bolts, anchor fixings, cavity fixings, chemical anchors, and threaded rod. Heavy-duty solutions for structural and mechanical applications.",
+            "url": "/collections/timco"
+          }
+        }
+      },
+      "block_order": ["cat_1", "cat_2", "cat_3"],
+      "settings": {
+        "section_label": "Shop By Category",
+        "title": "Explore Timco Products",
+        "subtitle": "From precision screws to heavy-duty structural fixings"
+      }
+    },
+    "video": {
+      "type": "brand-video",
+      "settings": {
+        "thumbnail": "shopify://shop_images/timco-video-thumb.webp",
+        "video_url": "https://youtu.be/VgfWSEFgdmE",
+        "section_label": "See It In Action",
+        "title": "The Timco C2 Multi-Purpose Screw",
+        "description": "See why the C2 is the UK's favourite multi-purpose screw. Twin-cut technology, self-countersinking head, and no pre-drilling required — watch it perform across timber, MDF, and composite materials.",
+        "feature_1": "Twin-cut tip eliminates splitting",
+        "feature_2": "Works across all timber types",
+        "feature_3": "Self-countersinking design",
+        "feature_4": "Available in 500+ options"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Help Choosing?",
+        "subtitle": "Not sure which fixing you need? Our team can help you find the right product for any application.",
+        "primary_text": "01843 210 459",
+        "primary_url": "tel:01843210459",
+        "primary_icon": "phone",
+        "secondary_text": "Send Enquiry",
+        "secondary_url": "/pages/contact",
+        "secondary_icon": "email"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "hero",
+    "usp_strip",
+    "about",
+    "featured-products",
+    "brand_applications",
+    "brand_new_products",
+    "brand_why_choose",
+    "categories",
+    "video",
+    "cta"
+  ]
+}

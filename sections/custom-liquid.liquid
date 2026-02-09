@@ -1,0 +1,714 @@
+{% comment %}
+  INVICTA TOOLS — COMPLETE CUSTOM FOOTER (FINAL VERSION)
+  Clean hierarchy • Correct column order • Premium spacing
+  Version: 2025-11 final
+{% endcomment %}
+
+{% assign ss = section.settings %}
+
+<footer id="footer-{{ section.id }}" class="invicta-footer color-{{ ss.color_scheme }} gradient">
+
+  {% if ss.show_top_border %}
+    <div class="footer-top-border"></div>
+  {% endif %}
+
+  {% if ss.enable_newsletter %}
+  <div class="newsletter-bar">
+    <div class="page-width">
+
+      {% if ss.nl_title != blank %}
+        <p class="nl-title">{{ ss.nl_title }}</p>
+      {% endif %}
+
+      {% if ss.nl_form_html != blank %}
+        {{ ss.nl_form_html }}
+      {% else %}
+        <form class="nl-form" action="#" method="post">
+          <input type="email" placeholder="{{ ss.nl_placeholder }}">
+          <button type="submit">{{ ss.nl_button }}</button>
+        </form>
+      {% endif %}
+
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- =======================
+       MAIN FOOTER
+       ======================= -->
+  <div class="footer-main">
+    <div class="page-width">
+      <div class="footer-grid">
+
+        <!-- COLUMN 1 — MENU -->
+        {% if ss.col1_show %}
+        <div class="footer-col">
+          <h3 class="footer-heading">{{ ss.nav_title }}</h3>
+
+          <ul class="footer-menu">
+            <li><a href="/pages/about-us">About us</a></li>
+            <li><a href="/pages/contact-us">Contact us</a></li>
+            <li><a href="/account">Account</a></li>
+            <li><a href="/policies/shipping-policy">Delivery</a></li>
+            <li><a href="/policies/refund-policy">Returns & Refunds</a></li>
+            <li><a href="/policies/terms-of-service">Terms & Conditions</a></li>
+            <li><a href="/policies/privacy-policy">Privacy</a></li>
+          </ul>
+        </div>
+        {% endif %}
+
+
+        <!-- COLUMN 2 — ADDRESSES -->
+        {% if ss.col2_show %}
+        <div class="footer-col">
+
+          <h3 class="footer-heading">{{ ss.addr_heading }}</h3>
+
+          <h4 class="footer-subheading">RAMSGATE</h4>
+          <div class="footer-text">
+            Unit 74 The Oaks Business Park<br>
+            Invicta Way<br>
+            Ramsgate, CT12 5FS<br>
+            Tel: 01843 210459
+          </div>
+
+          <h4 class="footer-subheading mt">CANTERBURY</h4>
+          <div class="footer-text">
+            Unit 9 Cotton Road<br>
+            Wincheap Industrial Estate<br>
+            Canterbury, CT1 3TB<br>
+            Tel: 01227 458333
+          </div>
+
+        </div>
+        {% endif %}
+
+
+        <!-- COLUMN 3 — HOURS + CTAS -->
+        {% if ss.col3_show %}
+        <div class="footer-col">
+
+          <h3 class="footer-heading">{{ ss.hours_heading }}</h3>
+          <div class="footer-text">{{ ss.hours_text | newline_to_br }}</div>
+
+          <!-- Trustpilot -->
+          {% if ss.trustpilot_url != blank %}
+          <div class="trustpilot-footer-link">
+            <a href="{{ ss.trustpilot_url }}" target="_blank">
+              <span class="trustpilot-logo">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.8-6.3 3.8 1.7-7L2 9.5l7.1-.6L12 2z"/>
+                </svg>
+              </span>
+              See our Trustpilot Reviews!
+            </a>
+          </div>
+          {% endif %}
+
+          <!-- Facebook Group -->
+          {% if ss.fb_group_url != blank %}
+          <div class="facebook-footer-link">
+            <a href="{{ ss.fb_group_url }}" target="_blank" class="btn-fb-chip">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.5 9.95v-7.04H7.9V12h2.6V9.8c0-2.57 1.53-3.99 3.87-3.99 1.12 0 2.3.2 2.3.2v2.53h-1.3c-1.28 0-1.68.8-1.68 1.62V12h2.86l-.46 2.91h-2.4v7.04A10 10 0 0022 12"/></svg>
+              Join the Kent Tradies group
+            </a>
+          </div>
+          {% endif %}
+
+          <!-- Account Form -->
+          <h4 class="footer-subheading account-sub">APPLY FOR AN ACCOUNT</h4>
+          <div class="credit-cta">
+            <a href="{{ ss.credit_url }}" target="_blank" class="btn-red">
+              ITF ACCOUNT FORM (PDF)
+            </a>
+          </div>
+
+        </div>
+        {% endif %}
+
+
+
+        <!-- COLUMN 4 — CONTACT -->
+        {% if ss.col4_show %}
+        <div class="footer-col">
+
+          <h3 class="footer-heading">{{ ss.contact_heading }}</h3>
+
+          <!-- Phone FIRST (new position) -->
+          {% assign phone_display = ss.phone_display | default: '01843 210 459' %}
+          {% assign phone_href = ss.phone_href | default: phone_display | replace: ' ', '' | prepend: 'tel:' %}
+
+          <a class="phone-row" href="{{ phone_href }}">
+            <span class="phone-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24 11.36 11.36 0 003.56.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h2.5a1 1 0 011 1 11.36 11.36 0 00.57 3.56 1 1 0 01-.24 1.02l-2.2 2.2z"/>
+              </svg>
+            </span>
+            <span class="phone-text">{{ phone_display }}</span>
+          </a>
+
+          <!-- Social icons directly under phone -->
+          <div class="socials">
+            {% if ss.social_facebook %}
+              <a href="{{ ss.social_facebook }}" target="_blank" class="social-link">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.5 9.95v-7.04H7.9V12h2.6V9.8c0-2.57 1.53-3.99 3.87-3.99 1.12 0 2.3.2 2.3.2v2.53h-1.3c-1.28 0-1.68.8-1.68 1.62V12h2.86l-.46 2.91h-2.4v7.04A10 10 0 0022 12"/></svg>
+              </a>
+            {% endif %}
+
+            {% if ss.social_linkedin %}
+              <a href="{{ ss.social_linkedin }}" class="social-link" target="_blank">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.62c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96v5.72H9.31V9h3.41v1.56h.05c.47-.9 1.62-1.85 3.34-1.85 3.57 0 4.23 2.35 4.23 5.4v6.34zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+              </a>
+            {% endif %}
+
+            {% if ss.social_instagram %}
+              <a href="{{ ss.social_instagram }}" class="social-link" target="_blank">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm10 2H7a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3zm-5 3.8A4.2 4.2 0 1112 18.2 4.2 4.2 0 0112 7.8zm0 2a2.2 2.2 0 102.2 2.2A2.2 2.2 0 0012 9.8zm5.5-.8a1.2 1.2 0 11-1.2-1.2 1.2 1.2 0 011.2 1.2z"/></svg>
+              </a>
+            {% endif %}
+          </div>
+
+          <!-- Blurb comes last -->
+          <div class="footer-text">{{ ss.contact_blurb }}</div>
+
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+
+  {% if ss.show_bottom_bar %}
+  <div class="footer-bottom">
+    <div class="page-width footer-bottom-inner">
+      <div class="copy">
+        {{ ss.copyright_text | default: "&copy; " | append: shop.name }}
+      </div>
+
+      {% if ss.bottom_menu %}
+      <ul class="bottom-links">
+        {% for link in linklists[ss.bottom_menu].links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+</footer>
+
+
+
+{%- style -%}
+
+/* ======================================================
+   FINAL PRODUCTION CSS — ALL FIXES APPLIED
+====================================================== */
+
+/***********  GENERAL  ***********/
+#footer-{{ section.id }} {
+  background: #101010;
+  color: rgb(255 255 255 / 0.9);
+  overflow-x: hidden;
+}
+
+#footer-{{ section.id }} .page-width {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/***********  TOP BORDER  ***********/
+#footer-{{ section.id }} .footer-top-border {
+  height: {{ ss.top_border_height }}px;
+  background: {{ ss.top_border_color }};
+}
+
+/***********  MAIN SPACING  ***********/
+#footer-{{ section.id }} .footer-main {
+  padding-top: {{ ss.padding_top }}px !important;
+  padding-bottom: {{ ss.padding_bottom }}px !important;
+  border-top: 1px solid rgb(255 255 255 / 0.06);
+}
+
+/***********  GRID  ***********/
+#footer-{{ section.id }} .footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40px;
+  align-items: start;
+}
+
+@media (max-width:1100px){
+  #footer-{{ section.id }} .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+}
+@media (max-width:700px){
+  #footer-{{ section.id }} .footer-grid { grid-template-columns: 1fr; gap: 22px; }
+}
+
+/***********  COLUMN FLEX  ***********/
+#footer-{{ section.id }} .footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/***********  TYPOGRAPHY  ***********/
+#footer-{{ section.id }} .footer-heading,
+#footer-{{ section.id }} .footer-subheading {
+  margin: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-size: 16px;
+  color: #fff;
+}
+
+#footer-{{ section.id }} .footer-text,
+#footer-{{ section.id }} .footer-menu a {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: rgb(255 255 255 / 0.85);
+}
+
+#footer-{{ section.id }} a {
+  transition: .15s;
+}
+#footer-{{ section.id }} a:hover {
+  color: {{ ss.accent_red }};
+  transform: translateX(2px);
+}
+
+/***********  MENU LIST  ***********/
+#footer-{{ section.id }} .footer-menu {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+#footer-{{ section.id }} .footer-menu li:not(:last-child) {
+  margin-bottom: 2px;
+}
+
+/***********  PHONE  ***********/
+#footer-{{ section.id }} .phone-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+#footer-{{ section.id }} .phone-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.09);
+  display: flex; justify-content: center; align-items: center;
+}
+#footer-{{ section.id }} .phone-text {
+  font-size: 26px;
+  font-weight: 800;
+  color: {{ ss.accent_red }};
+}
+
+/***********  BUTTONS / CHIPS  ***********/
+#footer-{{ section.id }} .btn-red {
+  display: inline-flex;
+  padding: 10px 20px;
+  background: {{ ss.accent_red }};
+  border-radius: 999px;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 700;
+}
+#footer-{{ section.id }} .btn-red:hover {
+  background: color-mix(in srgb, {{ ss.accent_red }} 82%, #000 18%);
+}
+
+/* Trustpilot chip */
+#footer-{{ section.id }} .trustpilot-footer-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  height: 36px;
+  border-radius: 999px;
+  background: #00b67a;
+  color: #fff;
+  font-size: 12px;
+}
+#footer-{{ section.id }} .trustpilot-logo svg { transform: scale(.9); }
+
+/* Facebook chip */
+#footer-{{ section.id }} .btn-fb-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: #1877f2;
+  color: #fff;
+  height: 36px;
+  font-size: 12px;
+}
+
+/***********  SOCIAL ICONS  ***********/
+#footer-{{ section.id }} .socials {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+#footer-{{ section.id }} .social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 0.09);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#footer-{{ section.id }} .social-link:hover {
+  background: {{ ss.accent_red }};
+}
+
+/***********  NEWSLETTER  ***********/
+#footer-{{ section.id }} .newsletter-bar {
+  background: {{ ss.newsletter_bg }};
+  color: {{ ss.newsletter_text }};
+  border-bottom: 1px solid rgb(0 0 0 / 0.3);
+}
+#footer-{{ section.id }} .newsletter-bar .page-width {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 0;
+}
+@media (max-width:900px){
+  #footer-{{ section.id }} .newsletter-bar .page-width {
+    grid-auto-flow: row;
+    text-align: center;
+  }
+}
+#footer-{{ section.id }} .nl-form {
+  display: flex;
+  gap: 8px;
+}
+#footer-{{ section.id }} .nl-form input {
+  height: 44px;
+  min-width: 260px;
+  padding: 0 14px;
+  border-radius: 8px;
+}
+#footer-{{ section.id }} .nl-form button {
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 8px;
+  background: {{ ss.subscribe_bg }};
+  color: {{ ss.subscribe_text }};
+}
+
+/***********  BOTTOM BAR  ***********/
+#footer-{{ section.id }} .footer-bottom {
+  background: {{ ss.bottom_bg }};
+  border-top: 1px solid rgb(255 255 255 / 0.1);
+}
+#footer-{{ section.id }} .footer-bottom-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  color: rgb(255 255 255 / 0.7);
+}
+@media (max-width:700px){
+  #footer-{{ section.id }} .footer-bottom-inner {
+    flex-direction: column;
+    align-items: start;
+  }
+}
+
+{%- endstyle -%}
+
+
+
+{% schema %}
+{
+  "name": "Invicta Footer (Final)",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme"
+    },
+
+    {
+      "type": "header",
+      "content": "Top border"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_top_border",
+      "label": "Show top border",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "top_border_height",
+      "label": "Top border height",
+      "min": 1,
+      "max": 16,
+      "default": 6
+    },
+    {
+      "type": "color",
+      "id": "top_border_color",
+      "label": "Top border colour",
+      "default": "#D5453E"
+    },
+
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_newsletter",
+      "label": "Enable newsletter bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "nl_title",
+      "label": "Newsletter title",
+      "default": "Get updates & offers"
+    },
+    {
+      "type": "text",
+      "id": "nl_placeholder",
+      "label": "Newsletter placeholder text",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "nl_button",
+      "label": "Newsletter button text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "liquid",
+      "id": "nl_form_html",
+      "label": "Custom newsletter form (optional)"
+    },
+
+    {
+      "type": "color",
+      "id": "newsletter_bg",
+      "label": "Newsletter background colour",
+      "default": "#1f1f1f"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_text",
+      "label": "Newsletter text colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "subscribe_bg",
+      "label": "Subscribe button background",
+      "default": "#d5453e"
+    },
+    {
+      "type": "color",
+      "id": "subscribe_text",
+      "label": "Subscribe button text colour",
+      "default": "#ffffff"
+    },
+
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 36
+    },
+    
+
+    {
+      "type": "color",
+      "id": "accent_red",
+      "label": "Accent red colour",
+      "default": "#D5453E"
+    },
+
+    {
+      "type": "header",
+      "content": "Column 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "col1_show",
+      "label": "Show column 1",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "nav_title",
+      "label": "Column 1 title",
+      "default": "HELP & FAQS"
+    },
+
+    {
+      "type": "header",
+      "content": "Column 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "col2_show",
+      "label": "Show column 2",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "addr_heading",
+      "label": "Column 2 title",
+      "default": "Branches"
+    },
+
+    {
+      "type": "header",
+      "content": "Column 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "col3_show",
+      "label": "Show column 3",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "hours_heading",
+      "label": "Opening hours heading",
+      "default": "OPENING HOURS"
+    },
+    {
+      "type": "textarea",
+      "id": "hours_text",
+      "label": "Opening hours content",
+      "default": "Mon - Fri | 07:00 - 17:00\nSat - Sun | Closed"
+    },
+    {
+      "type": "url",
+      "id": "trustpilot_url",
+      "label": "Trustpilot link"
+    },
+    {
+      "type": "url",
+      "id": "fb_group_url",
+      "label": "Facebook group link"
+    },
+    {
+      "type": "url",
+      "id": "credit_url",
+      "label": "Account form (PDF) URL"
+    },
+
+    {
+      "type": "header",
+      "content": "Column 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "col4_show",
+      "label": "Show column 4",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "contact_heading",
+      "label": "Contact heading",
+      "default": "CONTACT"
+    },
+    {
+      "type": "text",
+      "id": "phone_display",
+      "label": "Phone number (display)",
+      "default": "01843 210 459"
+    },
+    {
+      "type": "text",
+      "id": "phone_href",
+      "label": "Phone number (tel link)"
+    },
+    {
+      "type": "richtext",
+      "id": "contact_blurb",
+      "label": "Contact blurb",
+      "default": "<p>Need help? Quick Contacts</p>"
+    },
+    {
+      "type": "url",
+      "id": "social_facebook",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "social_linkedin",
+      "label": "LinkedIn URL"
+    },
+    {
+      "type": "url",
+      "id": "social_instagram",
+      "label": "Instagram URL"
+    },
+
+    {
+      "type": "header",
+      "content": "Bottom bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_bar",
+      "label": "Show bottom bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright text"
+    },
+    {
+      "type": "link_list",
+      "id": "bottom_menu",
+      "label": "Bottom links menu"
+    },
+    {
+      "type": "color",
+      "id": "bottom_bg",
+      "label": "Bottom bar background",
+      "default": "#121212"
+    }
+  ],
+  "presets": [
+    { "name": "Invicta Footer (Final)" }
+  ]
+}
+{% endschema %}

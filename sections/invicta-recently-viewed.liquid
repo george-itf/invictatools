@@ -1,0 +1,1258 @@
+{% comment %}
+  ============================================================================
+  INVICTA RECENTLY VIEWED v3.0
+  ============================================================================
+  Rebuilt to fix:
+  - £NaN price display (was reading wrong JSON structure)
+  - Broken images (was storing incomplete URLs)
+  - Inconsistent card design (now matches invicta-product-card)
+  
+  Features:
+  ✓ Tracks products on PDP via meta tags (reliable fallback)
+  ✓ Fetches fresh product data via AJAX for accurate pricing
+  ✓ Card design matches invicta-product-card snippet
+  ✓ Works for logged in users only
+  ✓ Logged out CTA with benefits
+  
+  Trade 15.4.0 Compatible
+  ============================================================================
+{% endcomment %}
+
+{%- liquid
+  # Check if customer is logged in
+  assign is_logged_in = false
+  if customer
+    assign is_logged_in = true
+  endif
+-%}
+
+<div 
+  class="inv-recent"
+  data-section-id="{{ section.id }}"
+  data-logged-in="{{ is_logged_in }}"
+  style="
+    --inv-recent-bg: {{ section.settings.background_color }};
+    --inv-recent-text: {{ section.settings.text_color }};
+    --inv-recent-text-muted: {{ section.settings.text_muted_color }};
+    --inv-recent-accent: {{ section.settings.accent_color }};
+    --inv-recent-card-bg: {{ section.settings.card_bg_color }};
+    --inv-recent-card-border: {{ section.settings.card_border_color }};
+  "
+>
+  <div class="inv-recent__container page-width">
+    
+    {%- if is_logged_in -%}
+    {%- comment -%} ========== LOGGED IN STATE ========== {%- endcomment -%}
+    <div class="inv-recent__logged-in" id="inv-recent-logged-in">
+      
+      <div class="inv-recent__header">
+        <h2 class="inv-recent__title">{{ section.settings.title_logged_in }}</h2>
+        {%- if section.settings.show_view_all -%}
+        <a href="{{ section.settings.view_all_link }}" class="inv-recent__view-all">
+          View All
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        {%- endif -%}
+      </div>
+      
+      {%- comment -%} Product grid - populated by JavaScript {%- endcomment -%}
+      <div class="inv-recent__grid" id="inv-recent-products">
+        {%- comment -%} Loading skeleton {%- endcomment -%}
+        <div class="inv-recent__loading" id="inv-recent-loading">
+          {%- for i in (1..4) -%}
+          <div class="inv-recent__skeleton">
+            <div class="inv-recent__skeleton-image"></div>
+            <div class="inv-recent__skeleton-body">
+              <div class="inv-recent__skeleton-line inv-recent__skeleton-line--short"></div>
+              <div class="inv-recent__skeleton-line"></div>
+              <div class="inv-recent__skeleton-line inv-recent__skeleton-line--medium"></div>
+            </div>
+          </div>
+          {%- endfor -%}
+        </div>
+        
+        {%- comment -%} Empty state {%- endcomment -%}
+        <div class="inv-recent__empty hidden" id="inv-recent-empty">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <p>{{ section.settings.empty_message }}</p>
+        </div>
+      </div>
+      
+    </div>
+    
+    {%- else -%}
+    {%- comment -%} ========== LOGGED OUT STATE ========== {%- endcomment -%}
+    <div class="inv-recent__logged-out">
+      
+      <div class="inv-recent__cta">
+        {%- if section.settings.cta_icon != 'none' -%}
+        <div class="inv-recent__cta-icon">
+          {%- case section.settings.cta_icon -%}
+            {%- when 'user' -%}
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            {%- when 'history' -%}
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            {%- when 'star' -%}
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            {%- when 'heart' -%}
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          {%- endcase -%}
+        </div>
+        {%- endif -%}
+        
+        <h2 class="inv-recent__cta-title">{{ section.settings.title_logged_out }}</h2>
+        <p class="inv-recent__cta-text">{{ section.settings.description_logged_out }}</p>
+        
+        <div class="inv-recent__cta-buttons">
+          <a href="{{ routes.account_login_url }}" class="inv-recent__btn inv-recent__btn--primary">
+            {{ section.settings.login_button_text }}
+          </a>
+          <a href="{{ routes.account_register_url }}" class="inv-recent__btn inv-recent__btn--secondary">
+            {{ section.settings.register_button_text }}
+          </a>
+        </div>
+        
+        {%- if section.settings.show_benefits -%}
+        <div class="inv-recent__benefits">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'benefit' -%}
+            <div class="inv-recent__benefit" {{ block.shopify_attributes }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>{{ block.settings.text }}</span>
+            </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        {%- endif -%}
+        
+      </div>
+      
+    </div>
+    {%- endif -%}
+    
+  </div>
+</div>
+
+<style>
+  /* ============================================
+     INVICTA RECENTLY VIEWED v3.0 — STYLES
+     ============================================ */
+  
+  .inv-recent {
+    background-color: var(--inv-recent-bg);
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    border-top: 1px solid var(--inv-recent-card-border);
+  }
+  
+  .inv-recent__container {
+    max-width: var(--page-width, 1200px);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  
+  /* ============================================
+     LOGGED IN STATE
+     ============================================ */
+  
+  .inv-recent__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  
+  .inv-recent__title {
+    font-size: {{ section.settings.title_size }}px;
+    font-weight: 700;
+    color: var(--inv-recent-text);
+    margin: 0;
+  }
+  
+  .inv-recent__view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--inv-recent-accent);
+    text-decoration: none;
+    transition: gap 0.15s ease;
+  }
+  
+  .inv-recent__view-all:hover {
+    gap: 8px;
+  }
+  
+  /* ============================================
+     PRODUCT GRID — Horizontal scroll
+     ============================================ */
+  
+  .inv-recent__grid {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+    scroll-snap-type: x mandatory;
+  }
+  
+  .inv-recent__grid::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  .inv-recent__grid::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .inv-recent__grid::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 3px;
+  }
+  
+  /* ============================================
+     LOADING SKELETON
+     ============================================ */
+  
+  .inv-recent__loading {
+    display: contents;
+  }
+  
+  .inv-recent__loading.hidden {
+    display: none;
+  }
+  
+  .inv-recent__skeleton {
+    flex-shrink: 0;
+    width: {{ section.settings.card_width }}px;
+    background-color: var(--inv-recent-card-bg);
+    border: 1px solid var(--inv-recent-card-border);
+    border-radius: {{ section.settings.card_radius }}px;
+    overflow: hidden;
+  }
+  
+  .inv-recent__skeleton-image {
+    aspect-ratio: 1 / 1;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: inv-shimmer 1.5s infinite;
+  }
+  
+  .inv-recent__skeleton-body {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .inv-recent__skeleton-line {
+    height: 12px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: inv-shimmer 1.5s infinite;
+    border-radius: 4px;
+  }
+  
+  .inv-recent__skeleton-line--short {
+    width: 40%;
+  }
+  
+  .inv-recent__skeleton-line--medium {
+    width: 60%;
+  }
+  
+  @keyframes inv-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  
+  /* ============================================
+     PRODUCT CARD — Matches invicta-product-card
+     ============================================ */
+  
+  .inv-recent__card {
+    flex-shrink: 0;
+    width: {{ section.settings.card_width }}px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--inv-recent-card-bg);
+    border: 1px solid var(--inv-recent-card-border);
+    border-radius: {{ section.settings.card_radius }}px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    scroll-snap-align: start;
+  }
+  
+  .inv-recent__card:hover {
+    border-color: #ccc;
+  }
+  
+  .inv-recent__card:focus {
+    outline: 2px solid var(--inv-recent-accent);
+    outline-offset: 2px;
+  }
+  
+  /* Image */
+  .inv-recent__card-image {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background-color: #f9fafb;
+    overflow: hidden;
+  }
+  
+  .inv-recent__card-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 12px;
+    transition: transform 0.3s ease;
+  }
+  
+  .inv-recent__card:hover .inv-recent__card-image img {
+    transform: scale(1.03);
+  }
+  
+  /* Placeholder when no image */
+  .inv-recent__card-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d1d5db;
+  }
+  
+  /* Sale badge */
+  .inv-recent__card-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    line-height: 1.2;
+    border-radius: 4px;
+    background-color: #dc2626;
+    color: #fff;
+    z-index: 2;
+  }
+  
+  /* Body */
+  .inv-recent__card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 14px;
+    gap: 6px;
+  }
+  
+  /* Vendor pill */
+  .inv-recent__card-vendor {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background-color: #f3f4f6;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #374151;
+    width: fit-content;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  
+  .inv-recent__card-vendor img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+  }
+  
+  /* Title */
+  .inv-recent__card-title {
+    margin: 0;
+    min-height: 40px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--inv-recent-text);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Price */
+  .inv-recent__card-price {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 4px;
+  }
+  
+  .inv-recent__card-price-current {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--inv-recent-text);
+  }
+  
+  .inv-recent__card-price-current--sale {
+    color: #dc2626;
+  }
+  
+  .inv-recent__card-price-compare {
+    font-size: 12px;
+    font-weight: 400;
+    color: #888;
+    text-decoration: line-through;
+  }
+  
+  /* ============================================
+     EMPTY STATE
+     ============================================ */
+  
+  .inv-recent__empty {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--inv-recent-text-muted);
+  }
+  
+  .inv-recent__empty svg {
+    margin-bottom: 16px;
+    opacity: 0.5;
+  }
+  
+  .inv-recent__empty p {
+    font-size: 14px;
+    margin: 0;
+  }
+  
+  .inv-recent__empty.hidden {
+    display: none;
+  }
+  
+  /* ============================================
+     LOGGED OUT STATE
+     ============================================ */
+  
+  .inv-recent__logged-out {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .inv-recent__cta {
+    text-align: center;
+    max-width: 480px;
+    padding: 20px;
+  }
+  
+  .inv-recent__cta-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    background-color: {{ section.settings.cta_icon_bg }};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ section.settings.cta_icon_color }};
+  }
+  
+  .inv-recent__cta-title {
+    font-size: {{ section.settings.cta_title_size }}px;
+    font-weight: 700;
+    color: var(--inv-recent-text);
+    margin: 0 0 12px;
+  }
+  
+  .inv-recent__cta-text {
+    font-size: 15px;
+    color: var(--inv-recent-text-muted);
+    line-height: 1.6;
+    margin: 0 0 24px;
+  }
+  
+  .inv-recent__cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  
+  .inv-recent__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: {{ section.settings.button_radius }}px;
+    transition: all 0.15s ease;
+  }
+  
+  .inv-recent__btn--primary {
+    background-color: var(--inv-recent-accent);
+    color: #fff;
+  }
+  
+  .inv-recent__btn--primary:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+  
+  .inv-recent__btn--secondary {
+    background-color: transparent;
+    color: var(--inv-recent-text);
+    border: 2px solid var(--inv-recent-card-border);
+  }
+  
+  .inv-recent__btn--secondary:hover {
+    border-color: var(--inv-recent-text);
+  }
+  
+  /* Benefits list */
+  .inv-recent__benefits {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px 24px;
+  }
+  
+  .inv-recent__benefit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--inv-recent-text-muted);
+  }
+  
+  .inv-recent__benefit svg {
+    color: {{ section.settings.benefit_check_color }};
+    flex-shrink: 0;
+  }
+  
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+  
+  @media screen and (max-width: 749px) {
+    .inv-recent {
+      padding: {{ section.settings.padding_top | times: 0.7 | round }}px 0 {{ section.settings.padding_bottom | times: 0.7 | round }}px;
+    }
+    
+    .inv-recent__container {
+      padding: 0 1rem;
+    }
+    
+    .inv-recent__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    
+    .inv-recent__title {
+      font-size: {{ section.settings.title_size | times: 0.85 | round }}px;
+    }
+    
+    .inv-recent__card,
+    .inv-recent__skeleton {
+      width: {{ section.settings.card_width | times: 0.8 | round }}px;
+    }
+    
+    .inv-recent__card-title {
+      font-size: 12px;
+      min-height: 34px;
+    }
+    
+    .inv-recent__card-price-current {
+      font-size: 14px;
+    }
+    
+    .inv-recent__cta-buttons {
+      flex-direction: column;
+    }
+    
+    .inv-recent__btn {
+      width: 100%;
+    }
+    
+    .inv-recent__benefits {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  
+  /* ============================================
+     REDUCED MOTION
+     ============================================ */
+  
+  @media (prefers-reduced-motion: reduce) {
+    .inv-recent__card,
+    .inv-recent__card-image img,
+    .inv-recent__view-all {
+      transition: none;
+    }
+    
+    .inv-recent__card:hover .inv-recent__card-image img {
+      transform: none;
+    }
+    
+    .inv-recent__skeleton-image,
+    .inv-recent__skeleton-line {
+      animation: none;
+      background: #f0f0f0;
+    }
+  }
+</style>
+
+{%- if is_logged_in -%}
+<script>
+(function() {
+  'use strict';
+  
+  /**
+   * Invicta Recently Viewed Products v3.0
+   * 
+   * FIXES:
+   * - Now tracks products via meta tags (more reliable than looking for JSON)
+   * - Fetches fresh product data via AJAX for accurate pricing
+   * - Properly formats prices using Shopify's money format
+   * - Uses correct Shopify CDN image URLs
+   * 
+   * @class InvictaRecentlyViewed
+   */
+  class InvictaRecentlyViewed {
+    /**
+     * @constructor
+     */
+    constructor() {
+      /** @type {string} */
+      this.storageKey = 'invicta_recently_viewed_v3';
+      
+      /** @type {number} */
+      this.maxProducts = {{ section.settings.max_products }};
+      
+      /** @type {HTMLElement|null} */
+      this.container = document.getElementById('inv-recent-products');
+      
+      /** @type {HTMLElement|null} */
+      this.loadingEl = document.getElementById('inv-recent-loading');
+      
+      /** @type {HTMLElement|null} */
+      this.emptyEl = document.getElementById('inv-recent-empty');
+      
+      /** @type {string} */
+      this.moneyFormat = {{ shop.money_format | json }};
+      
+      if (this.container) {
+        this.init();
+      }
+    }
+    
+    /**
+     * Initialise the component
+     * @returns {Promise<void>}
+     */
+    async init() {
+      // Track current product first (if on PDP)
+      this.trackCurrentProduct();
+      
+      // Get stored product handles
+      const handles = this.getStoredHandles();
+      
+      if (handles.length === 0) {
+        this.showEmpty();
+        return;
+      }
+      
+      // Filter out current product
+      const currentHandle = this.getCurrentProductHandle();
+      const filteredHandles = handles.filter(h => h !== currentHandle);
+      
+      if (filteredHandles.length === 0) {
+        this.showEmpty();
+        return;
+      }
+      
+      // Fetch fresh product data and render
+      try {
+        const products = await this.fetchProducts(filteredHandles);
+        
+        if (products.length > 0) {
+          this.renderProducts(products);
+        } else {
+          this.showEmpty();
+        }
+      } catch (err) {
+        console.error('[Invicta RV] Error loading products:', err);
+        this.showEmpty();
+      }
+    }
+    
+    /**
+     * Get stored product handles from localStorage
+     * @returns {string[]}
+     */
+    getStoredHandles() {
+      try {
+        const stored = localStorage.getItem(this.storageKey);
+        return stored ? JSON.parse(stored) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+    
+    /**
+     * Save product handles to localStorage
+     * @param {string[]} handles
+     */
+    saveHandles(handles) {
+      try {
+        localStorage.setItem(this.storageKey, JSON.stringify(handles));
+      } catch (e) {
+        // Silent fail
+      }
+    }
+    
+    /**
+     * Track the current product if on a product page
+     * Uses meta tags which are reliable across all themes
+     */
+    trackCurrentProduct() {
+      // Check for product page via meta tag
+      const productMeta = document.querySelector('meta[property="og:type"][content="og:product"], meta[property="product:price:amount"]');
+      if (!productMeta) return;
+      
+      const handle = this.getCurrentProductHandle();
+      if (!handle) return;
+      
+      const handles = this.getStoredHandles();
+      
+      // Remove if already exists (to move to front)
+      const filtered = handles.filter(h => h !== handle);
+      
+      // Add to start
+      filtered.unshift(handle);
+      
+      // Limit to max
+      const limited = filtered.slice(0, this.maxProducts + 5); // Store a few extra
+      
+      this.saveHandles(limited);
+    }
+    
+    /**
+     * Get current product handle from URL
+     * @returns {string|null}
+     */
+    getCurrentProductHandle() {
+      const path = window.location.pathname;
+      const match = path.match(/\/products\/([^/?#]+)/);
+      return match ? match[1] : null;
+    }
+    
+    /**
+     * Fetch product data via AJAX
+     * Uses Shopify's product.json endpoint for fresh data
+     * @param {string[]} handles
+     * @returns {Promise<Object[]>}
+     */
+    async fetchProducts(handles) {
+      const products = [];
+      
+      // Fetch in parallel (limit to first N)
+      const fetchPromises = handles.slice(0, this.maxProducts).map(async (handle) => {
+        try {
+          const response = await fetch(`/products/${handle}.json`);
+          if (!response.ok) return null;
+          
+          const data = await response.json();
+          return data.product;
+        } catch (e) {
+          return null;
+        }
+      });
+      
+      const results = await Promise.all(fetchPromises);
+      
+      // Filter out nulls and map to our format
+      results.forEach((product) => {
+        if (product) {
+          products.push({
+            id: product.id,
+            handle: product.handle,
+            title: product.title,
+            vendor: product.vendor,
+            url: `/products/${product.handle}`,
+            price: product.variants[0]?.price,
+            comparePrice: product.variants[0]?.compare_at_price,
+            image: product.images[0]?.src || null,
+            available: product.variants.some(v => v.available)
+          });
+        }
+      });
+      
+      return products;
+    }
+    
+    /**
+     * Render product cards
+     * @param {Object[]} products
+     */
+    renderProducts(products) {
+      // Hide loading skeleton
+      if (this.loadingEl) {
+        this.loadingEl.classList.add('hidden');
+      }
+      
+      // Generate HTML
+      const html = products.map(product => this.createCard(product)).join('');
+      
+      // Insert cards
+      this.container.insertAdjacentHTML('afterbegin', html);
+    }
+    
+    /**
+     * Show empty state
+     */
+    showEmpty() {
+      if (this.loadingEl) {
+        this.loadingEl.classList.add('hidden');
+      }
+      if (this.emptyEl) {
+        this.emptyEl.classList.remove('hidden');
+      }
+    }
+    
+    /**
+     * Create a product card HTML
+     * Matches the invicta-product-card design
+     * @param {Object} product
+     * @returns {string}
+     */
+    createCard(product) {
+      const price = parseFloat(product.price) || 0;
+      const comparePrice = parseFloat(product.comparePrice) || 0;
+      const onSale = comparePrice > price;
+      
+      // Format prices
+      const priceFormatted = this.formatMoney(price * 100); // Convert to cents
+      const comparePriceFormatted = onSale ? this.formatMoney(comparePrice * 100) : '';
+      
+      // Image HTML
+      let imageHtml = '';
+      if (product.image) {
+        // Ensure proper Shopify CDN URL with size
+        const imageUrl = this.getOptimizedImageUrl(product.image, 400);
+        imageHtml = `<img src="${imageUrl}" alt="${this.escapeHtml(product.title)}" loading="lazy" width="400" height="400">`;
+      } else {
+        imageHtml = `
+          <div class="inv-recent__card-placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </div>
+        `;
+      }
+      
+      // Sale badge
+      const badgeHtml = onSale ? '<span class="inv-recent__card-badge">Sale</span>' : '';
+      
+      // Vendor pill (simplified - no logo lookup for performance)
+      const vendorHtml = product.vendor ? 
+        `<span class="inv-recent__card-vendor">${this.escapeHtml(product.vendor)}</span>` : '';
+      
+      // Price HTML
+      const priceClass = onSale ? 'inv-recent__card-price-current inv-recent__card-price-current--sale' : 'inv-recent__card-price-current';
+      const priceHtml = `
+        <div class="inv-recent__card-price">
+          <span class="${priceClass}">${priceFormatted}</span>
+          ${onSale ? `<span class="inv-recent__card-price-compare">${comparePriceFormatted}</span>` : ''}
+        </div>
+      `;
+      
+      return `
+        <a href="${product.url}" class="inv-recent__card" aria-label="${this.escapeHtml(product.title)}">
+          <div class="inv-recent__card-image">
+            ${badgeHtml}
+            ${imageHtml}
+          </div>
+          <div class="inv-recent__card-body">
+            ${vendorHtml}
+            <h3 class="inv-recent__card-title">${this.escapeHtml(product.title)}</h3>
+            ${priceHtml}
+          </div>
+        </a>
+      `;
+    }
+    
+    /**
+     * Get optimized Shopify CDN image URL
+     * @param {string} src - Original image URL
+     * @param {number} width - Desired width
+     * @returns {string}
+     */
+    getOptimizedImageUrl(src, width) {
+      if (!src) return '';
+      
+      // If it's already a Shopify CDN URL, modify size
+      if (src.includes('cdn.shopify.com')) {
+        // Remove existing size params and add new one
+        return src.replace(/(_\d+x\d*)?(\.[a-z]+)(\?.*)?$/i, `_${width}x$2`);
+      }
+      
+      return src;
+    }
+    
+    /**
+     * Format money using Shopify's format
+     * @param {number} cents - Price in cents
+     * @returns {string}
+     */
+    formatMoney(cents) {
+      if (typeof Shopify !== 'undefined' && Shopify.formatMoney) {
+        return Shopify.formatMoney(cents, this.moneyFormat);
+      }
+      
+      // Fallback formatting
+      const amount = (cents / 100).toFixed(2);
+      return this.moneyFormat
+        .replace('{{amount}}', amount)
+        .replace('{{amount_no_decimals}}', Math.round(cents / 100))
+        .replace('{{amount_with_comma_separator}}', amount.replace('.', ','));
+    }
+    
+    /**
+     * Escape HTML to prevent XSS
+     * @param {string} text
+     * @returns {string}
+     */
+    escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  }
+  
+  // Initialise when DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => new InvictaRecentlyViewed());
+  } else {
+    new InvictaRecentlyViewed();
+  }
+})();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Recently Viewed",
+  "tag": "section",
+  "class": "inv-recently-viewed-section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logged In State"
+    },
+    {
+      "type": "text",
+      "id": "title_logged_in",
+      "label": "Title",
+      "default": "Recently Viewed"
+    },
+    {
+      "type": "text",
+      "id": "empty_message",
+      "label": "Empty state message",
+      "default": "You haven't viewed any products yet. Start browsing to see your history here."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View All' link",
+      "default": false
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "'View All' link URL"
+    },
+    {
+      "type": "range",
+      "id": "max_products",
+      "label": "Maximum products to show",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Logged Out State"
+    },
+    {
+      "type": "text",
+      "id": "title_logged_out",
+      "label": "Title",
+      "default": "See Your Recommendations"
+    },
+    {
+      "type": "textarea",
+      "id": "description_logged_out",
+      "label": "Description",
+      "default": "Log in or create an account to see personalised product recommendations based on your browsing history."
+    },
+    {
+      "type": "select",
+      "id": "cta_icon",
+      "label": "Icon",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "user", "label": "User" },
+        { "value": "history", "label": "History" },
+        { "value": "star", "label": "Star" },
+        { "value": "heart", "label": "Heart" }
+      ],
+      "default": "user"
+    },
+    {
+      "type": "text",
+      "id": "login_button_text",
+      "label": "Login button text",
+      "default": "Log In"
+    },
+    {
+      "type": "text",
+      "id": "register_button_text",
+      "label": "Register button text",
+      "default": "Create Account"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_benefits",
+      "label": "Show account benefits",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Product Cards"
+    },
+    {
+      "type": "range",
+      "id": "card_width",
+      "label": "Card width",
+      "min": 140,
+      "max": 220,
+      "step": 10,
+      "default": 180,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_image_height",
+      "label": "Card image height",
+      "min": 100,
+      "max": 180,
+      "step": 10,
+      "default": 140,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 16,
+      "step": 2,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title font size",
+      "min": 16,
+      "max": 28,
+      "step": 2,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "cta_title_size",
+      "label": "CTA title font size",
+      "min": 18,
+      "max": 32,
+      "step": 2,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Colours"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "text_muted_color",
+      "label": "Muted text",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent / buttons",
+      "default": "#e11d26"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "header",
+      "content": "CTA Styling"
+    },
+    {
+      "type": "color",
+      "id": "cta_icon_bg",
+      "label": "Icon background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "cta_icon_color",
+      "label": "Icon colour",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 12,
+      "step": 2,
+      "default": 6,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "benefit_check_color",
+      "label": "Benefit checkmark colour",
+      "default": "#10b981"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Account Benefit",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Track your orders"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recently Viewed",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Track your orders"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Save favourite products"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Faster checkout"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Exclusive trade pricing"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

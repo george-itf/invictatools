@@ -1,0 +1,621 @@
+{% comment %}
+  ============================================
+  INVICTA TRUST BAR v1.0
+  ============================================
+  Bold, industrial trust section for trade suppliers
+  Stats + proof points, not fluffy marketing waffle
+  
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+<section class="inv-trust" id="trust-{{ section.id }}">
+  
+  {%- comment -%} Stats bar {%- endcomment -%}
+  <div class="inv-trust__stats">
+    <div class="page-width">
+      <div class="inv-trust__stats-grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'stat' -%}
+            <div class="inv-trust__stat" {{ block.shopify_attributes }}>
+              <span class="inv-trust__stat-number">{{ block.settings.number }}</span>
+              <span class="inv-trust__stat-label">{{ block.settings.label }}</span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+  
+  {%- comment -%} Main content {%- endcomment -%}
+  <div class="inv-trust__main">
+    <div class="page-width">
+      <div class="inv-trust__grid">
+        
+        {%- comment -%} Left: Image/brand block {%- endcomment -%}
+        <div class="inv-trust__media">
+          {%- if section.settings.image != blank -%}
+            <img 
+              src="{{ section.settings.image | image_url: width: 800 }}"
+              srcset="{{ section.settings.image | image_url: width: 400 }} 400w,
+                      {{ section.settings.image | image_url: width: 600 }} 600w,
+                      {{ section.settings.image | image_url: width: 800 }} 800w"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              alt="{{ section.settings.image.alt | default: 'Invicta Tools' }}"
+              loading="lazy"
+              width="{{ section.settings.image.width }}"
+              height="{{ section.settings.image.height }}"
+              class="inv-trust__image"
+            >
+          {%- else -%}
+            <div class="inv-trust__image-placeholder">
+              <div class="inv-trust__placeholder-content">
+                <span class="inv-trust__placeholder-brand">INVICTA</span>
+                <span class="inv-trust__placeholder-sub">TOOLS</span>
+              </div>
+            </div>
+          {%- endif -%}
+          
+          {%- if section.settings.badge_text != blank -%}
+            <div class="inv-trust__badge">
+              {{ section.settings.badge_text }}
+            </div>
+          {%- endif -%}
+        </div>
+        
+        {%- comment -%} Right: Content {%- endcomment -%}
+        <div class="inv-trust__content">
+          
+          {%- if section.settings.eyebrow != blank -%}
+            <span class="inv-trust__eyebrow">{{ section.settings.eyebrow }}</span>
+          {%- endif -%}
+          
+          {%- if section.settings.heading != blank -%}
+            <h2 class="inv-trust__heading">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          
+          {%- if section.settings.text != blank -%}
+            <div class="inv-trust__text">{{ section.settings.text }}</div>
+          {%- endif -%}
+          
+          {%- comment -%} Proof points {%- endcomment -%}
+          <ul class="inv-trust__points">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'point' and block.settings.text != blank -%}
+                <li class="inv-trust__point" {{ block.shopify_attributes }}>
+                  <svg class="inv-trust__point-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span>{{ block.settings.text }}</span>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+          
+          {%- comment -%} CTA {%- endcomment -%}
+          {%- if section.settings.cta_text != blank and section.settings.cta_link != blank -%}
+            <div class="inv-trust__cta-wrap">
+              <a href="{{ section.settings.cta_link }}" class="inv-trust__cta">
+                {{ section.settings.cta_text }}
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          {%- endif -%}
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+<style>
+  /* ============================================
+     INVICTA TRUST BAR v1.0
+     Industrial, bold, no-nonsense
+     ============================================ */
+
+  #trust-{{ section.id }} {
+    --inv-trust-accent: #dc2626;
+    --inv-trust-dark: #2d2d2d;
+    --inv-trust-grey: #2d2d2d;
+  }
+
+  .inv-trust {
+    background: #fff;
+  }
+
+  /* ----------------------------------------
+     STATS BAR
+     ---------------------------------------- */
+  .inv-trust__stats {
+    background: var(--inv-trust-dark);
+    padding: 0;
+  }
+
+  .inv-trust__stats-grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.blocks | where: 'type', 'stat' | size }}, 1fr);
+  }
+
+  .inv-trust__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 20px;
+    text-align: center;
+    position: relative;
+  }
+
+  .inv-trust__stat:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 50%;
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .inv-trust__stat-number {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .inv-trust__stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 6px;
+  }
+
+  /* ----------------------------------------
+     MAIN CONTENT
+     ---------------------------------------- */
+  .inv-trust__main {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.background_color }};
+  }
+
+  .inv-trust__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  /* Media side */
+  .inv-trust__media {
+    position: relative;
+  }
+
+  .inv-trust__image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .inv-trust__image-placeholder {
+    aspect-ratio: 4/3;
+    background: var(--inv-trust-grey);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .inv-trust__placeholder-content {
+    text-align: center;
+  }
+
+  .inv-trust__placeholder-brand {
+    display: block;
+    font-size: 48px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.1em;
+    line-height: 1;
+  }
+
+  .inv-trust__placeholder-sub {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--inv-trust-accent);
+    letter-spacing: 0.3em;
+    margin-top: 4px;
+  }
+
+  .inv-trust__badge {
+    position: absolute;
+    bottom: -16px;
+    left: 24px;
+    background: var(--inv-trust-accent);
+    color: #fff;
+    padding: 12px 20px;
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Content side */
+  .inv-trust__content {
+    padding: 20px 0;
+  }
+
+  .inv-trust__eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--inv-trust-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+
+  .inv-trust__heading {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 900;
+    color: var(--inv-trust-dark);
+    line-height: 1.1;
+    margin: 0 0 20px;
+  }
+
+  .inv-trust__text {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+
+  .inv-trust__text p {
+    margin: 0 0 12px;
+  }
+
+  .inv-trust__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Proof points */
+  .inv-trust__points {
+    list-style: none;
+    margin: 0 0 32px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .inv-trust__point {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--inv-trust-dark);
+    line-height: 1.4;
+  }
+
+  .inv-trust__point-icon {
+    flex-shrink: 0;
+    color: var(--inv-trust-accent);
+    margin-top: 2px;
+  }
+
+  /* CTA */
+  .inv-trust__cta-wrap {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .inv-trust__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    background: var(--inv-trust-dark);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    transition: background 0.2s, gap 0.2s;
+  }
+
+  .inv-trust__cta:hover {
+    background: var(--inv-trust-grey);
+    gap: 14px;
+  }
+
+  .inv-trust__cta:focus-visible {
+    outline: 2px solid var(--inv-trust-accent);
+    outline-offset: 2px;
+  }
+
+  .inv-trust__cta svg {
+    transition: transform 0.2s;
+  }
+
+  .inv-trust__cta:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* ----------------------------------------
+     RESPONSIVE
+     ---------------------------------------- */
+  @media (max-width: 900px) {
+    .inv-trust__grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .inv-trust__media {
+      order: -1;
+    }
+
+    .inv-trust__badge {
+      bottom: -12px;
+      left: 16px;
+      padding: 10px 16px;
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .inv-trust__stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .inv-trust__stat {
+      padding: 20px 16px;
+    }
+
+    .inv-trust__stat:nth-child(2)::after {
+      display: none;
+    }
+
+    .inv-trust__stat:nth-child(3),
+    .inv-trust__stat:nth-child(4) {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .inv-trust__stat-number {
+      font-size: 32px;
+    }
+
+    .inv-trust__stat-label {
+      font-size: 10px;
+    }
+
+    .inv-trust__main {
+      padding: {{ section.settings.padding_top | times: 0.7 | round: 0 }}px 0 {{ section.settings.padding_bottom | times: 0.7 | round: 0 }}px;
+    }
+
+    .inv-trust__heading {
+      font-size: 26px;
+    }
+
+    .inv-trust__text {
+      font-size: 15px;
+    }
+
+    .inv-trust__cta {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .inv-trust__cta,
+    .inv-trust__cta svg {
+      transition: none;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Trust Bar",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Since 1985"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Kent's Trade Tool Specialists"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Body text",
+      "default": "<p>Family-run from Ramsgate with a second branch in Canterbury. We stock what tradespeople actually need – not warehouse clearance or grey imports.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Shop front, team photo, or product display. 800x600px recommended."
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Image badge",
+      "default": "Authorised Dealer",
+      "info": "Overlays bottom-left of image"
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "Visit Our Stores"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Content background",
+      "default": "#f9fafb"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "40+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Years Trading"
+        }
+      ]
+    },
+    {
+      "type": "point",
+      "name": "Proof Point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Authorised Makita, DeWalt & HiKOKI dealer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Bar",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "number": "40+",
+            "label": "Years Trading"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "15,000+",
+            "label": "Products"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "2",
+            "label": "Kent Branches"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "4.9★",
+            "label": "Google Rating"
+          }
+        },
+        {
+          "type": "point",
+          "settings": {
+            "text": "Authorised Makita, DeWalt & HiKOKI dealer"
+          }
+        },
+        {
+          "type": "point",
+          "settings": {
+            "text": "Full manufacturer warranty on everything we sell"
+          }
+        },
+        {
+          "type": "point",
+          "settings": {
+            "text": "Free next-day delivery on orders over £30"
+          }
+        },
+        {
+          "type": "point",
+          "settings": {
+            "text": "Trade accounts with 30-day terms"
+          }
+        },
+        {
+          "type": "point",
+          "settings": {
+            "text": "Click & collect ready in 1 hour"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

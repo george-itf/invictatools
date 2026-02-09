@@ -1,0 +1,138 @@
+{% comment %}
+  Cart Breakdown Snippet
+  ======================
+  Displays a detailed breakdown of cart costs:
+  - Subtotal (ex VAT)
+  - VAT amount
+  - Discounts applied
+  - Shipping estimate
+  - Total
+  
+  Usage: {% render 'cart-breakdown', cart: cart %}
+  
+  Version: 1.0.0
+  Author: Invicta Tools Theme
+{% endcomment %}
+
+{%- liquid
+  # Calculate VAT (UK 20%)
+  assign vat_rate = 0.2
+  assign subtotal_inc_vat = cart.total_price
+  assign subtotal_ex_vat = subtotal_inc_vat | divided_by: 1.2
+  assign vat_amount = subtotal_inc_vat | minus: subtotal_ex_vat
+  
+  # Check for discounts
+  assign has_discounts = false
+  if cart.total_discount > 0
+    assign has_discounts = true
+  endif
+  
+  # Shipping threshold (free shipping over £30)
+  assign free_shipping_threshold = 3000
+  assign shipping_remaining = free_shipping_threshold | minus: cart.total_price
+-%}
+
+<div class="invicta-cart-breakdown" data-cart-breakdown>
+  
+  <!-- VAT Mode Indicator -->
+  <div class="invicta-vat-indicator" data-vat-indicator>
+    All prices include VAT
+  </div>
+  
+  <!-- Subtotal (Ex VAT) -->
+  <div class="invicta-cart-breakdown__row invicta-cart-breakdown__row--subtotal">
+    <span class="invicta-cart-breakdown__label">Subtotal (ex VAT)</span>
+    <span class="invicta-cart-breakdown__value" data-breakdown-subtotal-ex>
+      {{ subtotal_ex_vat | money }}
+    </span>
+  </div>
+  
+  <!-- VAT Amount -->
+  <div class="invicta-cart-breakdown__row invicta-cart-breakdown__row--vat">
+    <span class="invicta-cart-breakdown__label">VAT (20%)</span>
+    <span class="invicta-cart-breakdown__value" data-breakdown-vat>
+      {{ vat_amount | money }}
+    </span>
+  </div>
+  
+  {%- if has_discounts -%}
+    <!-- Discounts -->
+    <div class="invicta-cart-breakdown__row invicta-cart-breakdown__row--discount">
+      <span class="invicta-cart-breakdown__label">
+        Discount
+        {%- if cart.cart_level_discount_applications.size > 0 -%}
+          <small>({{ cart.cart_level_discount_applications.first.title }})</small>
+        {%- endif -%}
+      </span>
+      <span class="invicta-cart-breakdown__value invicta-cart-breakdown__value--negative" data-breakdown-discount>
+        -{{ cart.total_discount | money }}
+      </span>
+    </div>
+  {%- endif -%}
+  
+  <!-- Shipping -->
+  <div class="invicta-cart-breakdown__row invicta-cart-breakdown__row--shipping">
+    <span class="invicta-cart-breakdown__label">Shipping</span>
+    <span class="invicta-cart-breakdown__value" data-breakdown-shipping>
+      {%- if cart.total_price >= free_shipping_threshold -%}
+        <span style="color: #059669; font-weight: 500;">FREE</span>
+      {%- else -%}
+        Calculated at checkout
+      {%- endif -%}
+    </span>
+  </div>
+  
+  {%- if cart.total_price < free_shipping_threshold and cart.total_price > 0 -%}
+    <!-- Free Shipping Progress -->
+    <div class="invicta-cart-breakdown__shipping-progress">
+      <div class="invicta-cart-breakdown__shipping-text">
+        Spend <strong>{{ shipping_remaining | money }}</strong> more for FREE shipping
+      </div>
+      <div class="invicta-cart-breakdown__shipping-bar">
+        {%- assign progress_percent = cart.total_price | times: 100 | divided_by: free_shipping_threshold -%}
+        <div class="invicta-cart-breakdown__shipping-fill" style="width: {{ progress_percent }}%;"></div>
+      </div>
+    </div>
+  {%- endif -%}
+  
+  <!-- Total -->
+  <div class="invicta-cart-breakdown__row invicta-cart-breakdown__row--total">
+    <span class="invicta-cart-breakdown__label">Total (inc VAT)</span>
+    <span class="invicta-cart-breakdown__value" data-breakdown-total>
+      {{ cart.total_price | money }}
+    </span>
+  </div>
+  
+</div>
+
+<style>
+  /* Shipping Progress Bar */
+  .invicta-cart-breakdown__shipping-progress {
+    margin: 12px 0;
+    padding: 10px 12px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 6px;
+  }
+  
+  .invicta-cart-breakdown__shipping-text {
+    font-size: 0.85rem;
+    color: #166534;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  
+  .invicta-cart-breakdown__shipping-bar {
+    height: 6px;
+    background: #dcfce7;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  
+  .invicta-cart-breakdown__shipping-fill {
+    height: 100%;
+    background: #22c55e;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+  }
+</style>

@@ -1,0 +1,1125 @@
+{% comment %}
+  ============================================
+  INVICTA FEATURED COLLECTION v1.2
+  ============================================
+  Enhanced header styles with multiple variants
+  Uses invicta-product-card snippet
+  
+  Trade 15.4.0 Compatible
+  
+  Changelog:
+  - v1.2: Multiple header style variants, product count, improved typography
+  - v1.1: Fixed Liquid logic, CSS/JS sync, a11y, editor events
+  ============================================
+{% endcomment %}
+
+{%- liquid
+  assign products_to_display = section.settings.collection.all_products_count
+
+  if section.settings.collection.all_products_count > section.settings.products_to_show
+    assign products_to_display = section.settings.products_to_show
+  endif
+
+  assign columns_mobile_int = section.settings.columns_mobile | plus: 0
+  assign columns_desktop_int = section.settings.columns_desktop | plus: 0
+  
+  assign show_mobile_slider = false
+  if section.settings.swipe_on_mobile and products_to_display > columns_mobile_int
+    assign show_mobile_slider = true
+  endif
+
+  assign show_desktop_slider = false
+  if section.settings.enable_desktop_slider and products_to_display > columns_desktop_int
+    assign show_desktop_slider = true
+  endif
+
+  assign has_custom_description = false
+  if section.settings.description != blank
+    assign has_custom_description = true
+  endif
+
+  assign has_collection_description = false
+  if section.settings.show_description and section.settings.collection.description != blank
+    assign has_collection_description = true
+  endif
+
+  assign show_description = false
+  if has_custom_description or has_collection_description
+    assign show_description = true
+  endif
+
+  assign header_style = section.settings.header_style | default: 'bar'
+  assign collection_count = section.settings.collection.all_products_count | default: 0
+-%}
+
+<div 
+  class="inv-featured-collection inv-featured-collection--header-{{ header_style }}" 
+  id="collection-{{ section.id }}" 
+  data-section-id="{{ section.id }}"
+  data-section-type="invicta-featured-collection"
+>
+  
+  {%- comment -%} ================================
+      HEADER SECTION
+      ================================ {%- endcomment -%}
+  {%- if section.settings.title != blank or section.settings.show_view_all -%}
+    <div class="inv-fc-header inv-fc-header--{{ header_style }}">
+      <div class="page-width">
+        
+        {%- case header_style -%}
+        
+          {%- comment -%} === BAR STYLE (Enhanced Original) === {%- endcomment -%}
+          {%- when 'bar' -%}
+            <div class="inv-fc-header__bar">
+              <div class="inv-fc-header__bar-left">
+                {%- if section.settings.title != blank -%}
+                  <h2 class="inv-fc-header__title">{{ section.settings.title }}</h2>
+                {%- endif -%}
+                
+                {%- if section.settings.show_product_count and collection_count > 0 -%}
+                  <span class="inv-fc-header__count">{{ collection_count }} products</span>
+                {%- endif -%}
+                
+                {%- if show_description -%}
+                  <p class="inv-fc-header__desc">
+                    {%- if has_collection_description -%}
+                      {{ section.settings.collection.description | strip_html | truncate: 100 }}
+                    {%- elsif has_custom_description -%}
+                      {{ section.settings.description | strip_html | truncate: 100 }}
+                    {%- endif -%}
+                  </p>
+                {%- endif -%}
+              </div>
+              
+              {%- if section.settings.show_view_all and section.settings.collection != blank -%}
+                <a href="{{ section.settings.collection.url }}" class="inv-fc-header__cta inv-fc-header__cta--bar">
+                  <span>View All</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" focusable="false">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </a>
+              {%- endif -%}
+            </div>
+          
+          {%- comment -%} === MODERN STYLE === {%- endcomment -%}
+          {%- when 'modern' -%}
+            <div class="inv-fc-header__modern">
+              <div class="inv-fc-header__modern-left">
+                {%- if section.settings.title != blank -%}
+                  <div class="inv-fc-header__badge">
+                    <span class="inv-fc-header__badge-text">{{ section.settings.title }}</span>
+                    {%- if section.settings.show_product_count and collection_count > 0 -%}
+                      <span class="inv-fc-header__badge-count">{{ collection_count }}</span>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+                
+                {%- if show_description -%}
+                  <p class="inv-fc-header__modern-desc">
+                    {%- if has_collection_description -%}
+                      {{ section.settings.collection.description | strip_html | truncate: 100 }}
+                    {%- elsif has_custom_description -%}
+                      {{ section.settings.description | strip_html | truncate: 100 }}
+                    {%- endif -%}
+                  </p>
+                {%- endif -%}
+              </div>
+              
+              {%- if section.settings.show_view_all and section.settings.collection != blank -%}
+                <a href="{{ section.settings.collection.url }}" class="inv-fc-header__cta inv-fc-header__cta--modern">
+                  <span>View Collection</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </a>
+              {%- endif -%}
+            </div>
+          
+          {%- comment -%} === BOLD STYLE === {%- endcomment -%}
+          {%- when 'bold' -%}
+            <div class="inv-fc-header__bold">
+              <div class="inv-fc-header__bold-content">
+                <div class="inv-fc-header__bold-left">
+                  {%- if section.settings.title != blank -%}
+                    <h2 class="inv-fc-header__bold-title">{{ section.settings.title }}</h2>
+                  {%- endif -%}
+                  
+                  {%- if show_description -%}
+                    <p class="inv-fc-header__bold-desc">
+                      {%- if has_collection_description -%}
+                        {{ section.settings.collection.description | strip_html | truncate: 120 }}
+                      {%- elsif has_custom_description -%}
+                        {{ section.settings.description | strip_html | truncate: 120 }}
+                      {%- endif -%}
+                    </p>
+                  {%- elsif section.settings.show_product_count and collection_count > 0 -%}
+                    <p class="inv-fc-header__bold-desc">{{ collection_count }} products available</p>
+                  {%- endif -%}
+                </div>
+                
+                {%- if section.settings.show_view_all and section.settings.collection != blank -%}
+                  <a href="{{ section.settings.collection.url }}" class="inv-fc-header__cta inv-fc-header__cta--bold">
+                    <span>Shop Now</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" focusable="false">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+            
+        {%- endcase -%}
+        
+      </div>
+    </div>
+  {%- endif -%}
+  
+  {%- comment -%} ================================
+      PRODUCT GRID
+      ================================ {%- endcomment -%}
+  <div class="inv-featured-collection__grid-wrapper{% if show_mobile_slider or show_desktop_slider %} inv-featured-collection__grid-wrapper--slider{% endif %}">
+    <div class="{% unless show_mobile_slider %}page-width{% endunless %}">
+      
+      {%- if section.settings.collection.products.size > 0 -%}
+        
+        <ul 
+          class="inv-featured-collection__grid inv-featured-collection__grid--{{ columns_desktop_int }}-col{% if show_mobile_slider or show_desktop_slider %} inv-featured-collection__grid--slider{% endif %}"
+          id="Slider-{{ section.id }}"
+          role="list"
+          {% if show_mobile_slider or show_desktop_slider %}
+            aria-label="{{ section.settings.title | default: 'Featured products' | strip_html }} carousel"
+          {% endif %}
+        >
+          {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+            <li class="inv-featured-collection__item{% if show_mobile_slider or show_desktop_slider %} inv-featured-collection__slide{% endif %}">
+              {% render 'invicta-product-card', product: product %}
+            </li>
+          {%- endfor -%}
+        </ul>
+        
+        {%- comment -%} Slider Controls {%- endcomment -%}
+        {%- if show_mobile_slider or show_desktop_slider -%}
+          <div class="inv-featured-collection__slider-nav" aria-hidden="true">
+            <button 
+              type="button" 
+              class="inv-featured-collection__nav-btn inv-featured-collection__nav-btn--prev" 
+              aria-label="Previous products"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" focusable="false">
+                <path d="M15 18l-6-6 6-6"/>
+              </svg>
+            </button>
+            <button 
+              type="button" 
+              class="inv-featured-collection__nav-btn inv-featured-collection__nav-btn--next" 
+              aria-label="Next products"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" focusable="false">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </button>
+          </div>
+        {%- endif -%}
+        
+      {%- else -%}
+        
+        {%- comment -%} Placeholder products {%- endcomment -%}
+        <ul class="inv-featured-collection__grid inv-featured-collection__grid--{{ columns_desktop_int }}-col" role="list">
+          {%- for i in (1..section.settings.columns_desktop) -%}
+            <li class="inv-featured-collection__item">
+              <div class="inv-featured-collection__placeholder">
+                <div class="inv-featured-collection__placeholder-img">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true" focusable="false">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                </div>
+                <div class="inv-featured-collection__placeholder-body">
+                  <div class="inv-featured-collection__placeholder-title"></div>
+                  <div class="inv-featured-collection__placeholder-price"></div>
+                </div>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+        
+      {%- endif -%}
+      
+    </div>
+  </div>
+  
+  {%- comment -%} Mobile View All {%- endcomment -%}
+  {%- if section.settings.show_view_all and section.settings.collection != blank -%}
+    <div class="inv-featured-collection__mobile-cta">
+      <div class="page-width">
+        <a href="{{ section.settings.collection.url }}" class="inv-featured-collection__mobile-btn">
+          View All {{ section.settings.collection.title }}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" focusable="false">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  {%- endif -%}
+  
+</div>
+
+<style>
+  /* ============================================
+     INVICTA FEATURED COLLECTION v1.2
+     Enhanced header styles + grid
+     ============================================ */
+
+  #collection-{{ section.id }} {
+    /* Theme colours */
+    --inv-fc-accent: #dc2626;
+    --inv-fc-accent-hover: #b91c1c;
+    --inv-fc-accent-light: #fef2f2;
+    --inv-fc-dark: #1a1a1a;
+    --inv-fc-dark-hover: #2d2d2d;
+    --inv-fc-bg: #f8f8f8;
+    --inv-fc-border: #e5e5e5;
+    --inv-fc-text-muted: rgba(255, 255, 255, 0.65);
+    
+    /* Spacing */
+    --inv-fc-gap: 12px;
+    --inv-fc-slide-width-desktop: 260px;
+    --inv-fc-slide-width-mobile: 156px;
+    --inv-fc-header-radius: 0;
+  }
+
+  .inv-featured-collection {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background: var(--inv-fc-bg);
+  }
+
+  /* ============================================
+     HEADER STYLES
+     ============================================ */
+
+  .inv-fc-header {
+    margin-bottom: 20px;
+  }
+
+  /* ----------------------------------------
+     BAR STYLE (Enhanced Original)
+     ---------------------------------------- */
+  .inv-fc-header__bar {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    background: var(--inv-fc-dark);
+    border-radius: var(--inv-fc-header-radius);
+    position: relative;
+    overflow: hidden;
+    min-height: 52px;
+  }
+
+  /* Red accent - thicker gradient stripe */
+  .inv-fc-header__bar::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: linear-gradient(180deg, #ef4444 0%, var(--inv-fc-accent) 50%, #b91c1c 100%);
+  }
+
+  .inv-fc-header__bar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px 14px 24px;
+    flex-wrap: wrap;
+  }
+
+  .inv-fc-header__title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #fff;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .inv-fc-header__count {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--inv-fc-dark);
+    background: #fff;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+  }
+
+  .inv-fc-header__desc {
+    font-size: 13px;
+    color: var(--inv-fc-text-muted);
+    margin: 0;
+    font-weight: 400;
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+    .inv-fc-header__desc {
+      display: block;
+    }
+  }
+
+  /* Bar CTA button */
+  .inv-fc-header__cta--bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 28px;
+    background: var(--inv-fc-accent);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    transition: background 0.2s ease, gap 0.2s ease;
+    position: relative;
+  }
+
+  .inv-fc-header__cta--bar::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 60%;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .inv-fc-header__cta--bar:hover {
+    background: var(--inv-fc-accent-hover);
+    gap: 12px;
+  }
+
+  .inv-fc-header__cta--bar:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: -4px;
+  }
+
+  .inv-fc-header__cta--bar svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s ease;
+  }
+
+  .inv-fc-header__cta--bar:hover svg {
+    transform: translateX(2px);
+  }
+
+  /* ----------------------------------------
+     MODERN STYLE
+     ---------------------------------------- */
+  .inv-fc-header__modern {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0;
+  }
+
+  .inv-fc-header__modern-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .inv-fc-header__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    background: var(--inv-fc-dark);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .inv-fc-header__badge-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    padding: 10px 16px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  /* Subtle accent underline */
+  .inv-fc-header__badge-text::after {
+    content: '';
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 8px;
+    height: 2px;
+    background: var(--inv-fc-accent);
+    border-radius: 1px;
+  }
+
+  .inv-fc-header__badge-count {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--inv-fc-accent);
+    padding: 10px 14px;
+    min-width: 44px;
+    text-align: center;
+  }
+
+  .inv-fc-header__modern-desc {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  /* Modern CTA */
+  .inv-fc-header__cta--modern {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: transparent;
+    color: var(--inv-fc-dark);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid var(--inv-fc-border);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+  }
+
+  .inv-fc-header__cta--modern:hover {
+    background: var(--inv-fc-dark);
+    border-color: var(--inv-fc-dark);
+    color: #fff;
+    gap: 12px;
+  }
+
+  .inv-fc-header__cta--modern:focus-visible {
+    outline: 2px solid var(--inv-fc-accent);
+    outline-offset: 2px;
+  }
+
+  .inv-fc-header__cta--modern svg {
+    transition: transform 0.2s ease;
+  }
+
+  .inv-fc-header__cta--modern:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* ----------------------------------------
+     BOLD STYLE
+     ---------------------------------------- */
+  .inv-fc-header__bold {
+    background: linear-gradient(135deg, var(--inv-fc-dark) 0%, #2d2d2d 50%, var(--inv-fc-dark) 100%);
+    border-radius: var(--inv-fc-header-radius);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Decorative accent corner */
+  .inv-fc-header__bold::before {
+    content: '';
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 120px;
+    height: 120px;
+    background: var(--inv-fc-accent);
+    opacity: 0.15;
+    border-radius: 50%;
+  }
+
+  .inv-fc-header__bold::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--inv-fc-accent) 0%, transparent 70%);
+  }
+
+  .inv-fc-header__bold-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 24px 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .inv-fc-header__bold-left {
+    flex: 1;
+  }
+
+  .inv-fc-header__bold-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 4px 0;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .inv-fc-header__bold-desc {
+    font-size: 14px;
+    color: var(--inv-fc-text-muted);
+    margin: 0;
+    font-weight: 400;
+  }
+
+  /* Bold CTA */
+  .inv-fc-header__cta--bold {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background: var(--inv-fc-accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+  }
+
+  .inv-fc-header__cta--bold:hover {
+    background: var(--inv-fc-accent-hover);
+    gap: 14px;
+    box-shadow: 0 6px 16px rgba(220, 38, 38, 0.4);
+    transform: translateY(-1px);
+  }
+
+  .inv-fc-header__cta--bold:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+
+  .inv-fc-header__cta--bold svg {
+    transition: transform 0.2s ease;
+  }
+
+  .inv-fc-header__cta--bold:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* ============================================
+     GRID STYLES
+     ============================================ */
+
+  .inv-featured-collection__grid-wrapper {
+    position: relative;
+  }
+
+  .inv-featured-collection__grid {
+    display: grid;
+    gap: var(--inv-fc-gap);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .inv-featured-collection__grid--2-col { grid-template-columns: repeat(2, 1fr); }
+  .inv-featured-collection__grid--3-col { grid-template-columns: repeat(3, 1fr); }
+  .inv-featured-collection__grid--4-col { grid-template-columns: repeat(4, 1fr); }
+  .inv-featured-collection__grid--5-col { grid-template-columns: repeat(5, 1fr); }
+  .inv-featured-collection__grid--6-col { grid-template-columns: repeat(6, 1fr); }
+
+  .inv-featured-collection__item {
+    display: flex;
+  }
+
+  /* Slider mode */
+  .inv-featured-collection__grid--slider {
+    display: flex;
+    gap: var(--inv-fc-gap);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 20px 4px;
+  }
+
+  .inv-featured-collection__grid--slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  .inv-featured-collection__slide {
+    flex: 0 0 var(--inv-fc-slide-width-desktop);
+    scroll-snap-align: start;
+  }
+
+  /* Slider nav */
+  .inv-featured-collection__slider-nav {
+    display: none;
+  }
+
+  .inv-featured-collection__grid-wrapper--slider .inv-featured-collection__slider-nav {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .inv-featured-collection__nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: #fff;
+    border: 1px solid var(--inv-fc-border);
+    border-radius: 0;
+    color: var(--inv-fc-dark);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .inv-featured-collection__nav-btn:hover {
+    background: var(--inv-fc-dark);
+    border-color: var(--inv-fc-dark);
+    color: #fff;
+  }
+
+  .inv-featured-collection__nav-btn:focus-visible {
+    outline: 2px solid var(--inv-fc-accent);
+    outline-offset: 2px;
+  }
+
+  .inv-featured-collection__nav-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Mobile CTA */
+  .inv-featured-collection__mobile-cta {
+    display: none;
+    margin-top: 20px;
+  }
+
+  .inv-featured-collection__mobile-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px 20px;
+    background: var(--inv-fc-dark);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    border-radius: 0;
+    transition: background 0.15s ease;
+  }
+
+  .inv-featured-collection__mobile-btn:hover {
+    background: var(--inv-fc-dark-hover);
+  }
+
+  .inv-featured-collection__mobile-btn:focus-visible {
+    outline: 2px solid var(--inv-fc-accent);
+    outline-offset: 2px;
+  }
+
+  /* Placeholder */
+  .inv-featured-collection__placeholder {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .inv-featured-collection__placeholder-img {
+    aspect-ratio: 4/3;
+    background: #fafafa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ddd;
+  }
+
+  .inv-featured-collection__placeholder-body {
+    padding: 12px;
+  }
+
+  .inv-featured-collection__placeholder-title {
+    height: 14px;
+    background: #eee;
+    margin-bottom: 8px;
+  }
+
+  .inv-featured-collection__placeholder-price {
+    height: 20px;
+    width: 60%;
+    background: #eee;
+  }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+
+  @media (max-width: 1024px) {
+    .inv-featured-collection__grid--5-col,
+    .inv-featured-collection__grid--6-col {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .inv-featured-collection {
+      padding: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px 0 {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+
+    .inv-fc-header {
+      margin-bottom: 16px;
+    }
+
+    /* Bar mobile */
+    .inv-fc-header__bar-left {
+      padding: 12px 16px 12px 20px;
+    }
+
+    .inv-fc-header__title {
+      font-size: 12px;
+    }
+
+    .inv-fc-header__count {
+      font-size: 10px;
+      padding: 2px 8px;
+    }
+
+    .inv-fc-header__cta--bar {
+      display: none;
+    }
+
+    /* Modern mobile */
+    .inv-fc-header__modern {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .inv-fc-header__badge-text {
+      font-size: 12px;
+      padding: 8px 14px;
+    }
+
+    .inv-fc-header__badge-count {
+      font-size: 11px;
+      padding: 8px 12px;
+    }
+
+    .inv-fc-header__cta--modern {
+      display: none;
+    }
+
+    /* Bold mobile */
+    .inv-fc-header__bold-content {
+      padding: 18px 20px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .inv-fc-header__bold-title {
+      font-size: 16px;
+    }
+
+    .inv-fc-header__cta--bold {
+      width: 100%;
+      justify-content: center;
+      padding: 12px 20px;
+    }
+
+    /* Grid mobile */
+    .inv-featured-collection__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .inv-featured-collection__grid--slider {
+      padding: 4px 16px 4px;
+      gap: 10px;
+    }
+
+    .inv-featured-collection__slide {
+      flex: 0 0 var(--inv-fc-slide-width-mobile);
+    }
+
+    .inv-featured-collection__mobile-cta {
+      display: block;
+    }
+
+    .inv-featured-collection__slider-nav {
+      display: none !important;
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .inv-fc-header__cta--bar,
+    .inv-fc-header__cta--bar svg,
+    .inv-fc-header__cta--modern,
+    .inv-fc-header__cta--modern svg,
+    .inv-fc-header__cta--bold,
+    .inv-fc-header__cta--bold svg,
+    .inv-featured-collection__nav-btn,
+    .inv-featured-collection__mobile-btn {
+      transition: none;
+    }
+    
+    .inv-featured-collection__grid--slider {
+      scroll-behavior: auto;
+    }
+  }
+</style>
+
+<script>
+  /**
+   * Invicta Featured Collection Slider v1.2
+   * Handles horizontal scroll navigation with theme editor support
+   */
+  (function() {
+    'use strict';
+    
+    const SECTION_ID = '{{ section.id }}';
+    
+    /**
+     * Check if user prefers reduced motion
+     * @returns {boolean}
+     */
+    function prefersReducedMotion() {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+    
+    /**
+     * Initialise slider functionality
+     * @returns {void}
+     */
+    function initSlider() {
+      const section = document.getElementById('collection-' + SECTION_ID);
+      if (!section) return;
+      
+      const slider = section.querySelector('.inv-featured-collection__grid--slider');
+      if (!slider) return;
+      
+      const prevBtn = section.querySelector('.inv-featured-collection__nav-btn--prev');
+      const nextBtn = section.querySelector('.inv-featured-collection__nav-btn--next');
+      
+      if (!prevBtn || !nextBtn) return;
+      
+      const styles = getComputedStyle(section);
+      const gapValue = styles.getPropertyValue('--inv-fc-gap').trim() || '12px';
+      const gap = parseInt(gapValue, 10) || 12;
+      
+      const firstSlide = slider.querySelector('.inv-featured-collection__slide');
+      const slideWidth = firstSlide ? firstSlide.offsetWidth : 260;
+      const scrollAmount = slideWidth + gap;
+      
+      /**
+       * Scroll the slider by a given amount
+       * @param {number} amount - Pixels to scroll (negative for left)
+       */
+      function scrollSlider(amount) {
+        const behavior = prefersReducedMotion() ? 'auto' : 'smooth';
+        slider.scrollBy({ left: amount, behavior: behavior });
+      }
+      
+      prevBtn.addEventListener('click', function() {
+        scrollSlider(-scrollAmount);
+      });
+      
+      nextBtn.addEventListener('click', function() {
+        scrollSlider(scrollAmount);
+      });
+    }
+    
+    /**
+     * Handle Shopify theme editor section events
+     * @param {Event} event - Shopify section event
+     */
+    function handleSectionEvent(event) {
+      if (event.detail && event.detail.sectionId === SECTION_ID) {
+        initSlider();
+      }
+    }
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSlider);
+    } else {
+      initSlider();
+    }
+    
+    document.addEventListener('shopify:section:load', handleSectionEvent);
+    document.addEventListener('shopify:section:select', handleSectionEvent);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Invicta Feat Collection",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 25,
+      "step": 1,
+      "default": 4,
+      "label": "Products to show"
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "select",
+      "id": "header_style",
+      "label": "Header style",
+      "default": "bar",
+      "options": [
+        { "value": "bar", "label": "Bar (compact)" },
+        { "value": "modern", "label": "Modern (badge)" },
+        { "value": "bold", "label": "Bold (banner)" }
+      ],
+      "info": "Choose the visual style for the collection header."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Featured Collection",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "info": "Optional custom description. Leave blank to use collection description."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show collection description",
+      "default": false,
+      "info": "Displays the collection's description if no custom text is set."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_count",
+      "label": "Show product count",
+      "default": false,
+      "info": "Displays the total number of products in the collection."
+    },
+    {
+      "type": "header",
+      "content": "Grid"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Desktop columns"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_desktop_slider",
+      "label": "Enable slider on desktop",
+      "default": false,
+      "info": "Converts grid to horizontal slider when products exceed column count."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "Show 'View All' button"
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "default": "2",
+      "label": "Mobile columns",
+      "options": [
+        { "value": "1", "label": "1 column" },
+        { "value": "2", "label": "2 columns" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "swipe_on_mobile",
+      "default": false,
+      "label": "Enable swipe on mobile",
+      "info": "Enables horizontal scroll carousel on mobile devices."
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Invicta Featured Collection"
+    }
+  ]
+}
+{% endschema %}

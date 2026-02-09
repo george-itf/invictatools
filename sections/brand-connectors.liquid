@@ -1,0 +1,170 @@
+{% comment %}
+  ============================================
+  BRAND CONNECTORS v1.0
+  ============================================
+  Four-column connector cards on dark background
+  Lamello-specific section for connector systems
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+{{ 'brand-page.css' | asset_url | stylesheet_tag }}
+
+<section class="brand-connectors" id="connectors-{{ section.id }}">
+  <div class="page-width">
+
+    {%- comment -%} Section Header {%- endcomment -%}
+    <div class="brand-connectors__header">
+      {%- if section.settings.section_label != blank -%}
+        <span class="brand-connectors__label">
+          <span class="brand-connectors__label-dash"></span>
+          {{ section.settings.section_label }}
+        </span>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="brand-connectors__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="brand-connectors__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Connector Cards Grid {%- endcomment -%}
+    <div class="brand-connectors__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'connector' -%}
+          <a href="{{ block.settings.url | default: '#' }}" class="brand-connectors__card" {{ block.shopify_attributes }}>
+
+            {%- comment -%} Image Container {%- endcomment -%}
+            <div class="brand-connectors__card-icon">
+              {%- if block.settings.image != blank -%}
+                <img
+                  src="{{ block.settings.image | image_url: width: 120 }}"
+                  alt="{{ block.settings.image.alt | default: block.settings.name }}"
+                  loading="lazy"
+                  width="72"
+                  height="72"
+                  class="brand-connectors__img"
+                >
+              {%- else -%}
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                  <path d="M2 17l10 5 10-5"/>
+                  <path d="M2 12l10 5 10-5"/>
+                </svg>
+              {%- endif -%}
+            </div>
+
+            {%- comment -%} Card Content {%- endcomment -%}
+            <h3 class="brand-connectors__card-name">{{ block.settings.name }}</h3>
+            {%- if block.settings.description != blank -%}
+              <p class="brand-connectors__card-desc">{{ block.settings.description }}</p>
+            {%- endif -%}
+            <span class="brand-connectors__card-link">
+              View Range
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </span>
+
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand Connectors",
+  "tag": "section",
+  "class": "section-brand-connectors",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_label",
+      "label": "Section Label",
+      "default": "Connector Systems"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Innovative Joining Solutions"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Revolutionary connectors for professional furniture making"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "connector",
+      "name": "Connector",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Connector Name",
+          "default": "Clamex P"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Detachable connector for knock-down furniture."
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Connectors",
+      "blocks": [
+        {
+          "type": "connector",
+          "settings": {
+            "name": "Clamex P",
+            "description": "Detachable connector for knock-down furniture. Tool-free assembly."
+          }
+        },
+        {
+          "type": "connector",
+          "settings": {
+            "name": "Tenso P",
+            "description": "Self-clamping connector. No clamps needed during glue-up."
+          }
+        },
+        {
+          "type": "connector",
+          "settings": {
+            "name": "Invis Mx",
+            "description": "Completely invisible magnetic connector. No visible fixings."
+          }
+        },
+        {
+          "type": "connector",
+          "settings": {
+            "name": "Cabineo",
+            "description": "Cabinet connector for fast carcass assembly. Drill and insert."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

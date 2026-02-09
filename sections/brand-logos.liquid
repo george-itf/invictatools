@@ -1,0 +1,193 @@
+{% comment %}
+  Brand Logos Section - Trade 15.4.0 Compatible
+  Version: 1.0.0
+{% endcomment %}
+
+{{ 'section-brand-logos.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign grayscale_class = ''
+  if section.settings.grayscale_effect
+    assign grayscale_class = ' brand-logos--grayscale'
+  endif
+-%}
+
+<div class="brand-logos{{ grayscale_class }} section-{{ section.id }}" style="
+  --brand-padding-top: {{ section.settings.padding_top }}px;
+  --brand-padding-bottom: {{ section.settings.padding_bottom }}px;
+  --brand-bg-color: {{ section.settings.background_color }};
+  --brand-card-bg: {{ section.settings.card_background }};
+">
+  <div class="{% if section.settings.full_width %}brand-logos__full-width{% else %}page-width{% endif %}">
+    {%- if section.settings.heading != blank -%}
+      <div class="brand-logos__header">
+        <h2 class="brand-logos__title">{{ section.settings.heading }}</h2>
+        {%- if section.settings.subheading != blank -%}
+          <p class="brand-logos__subtitle">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.enable_marquee -%}
+      <div class="brand-logos__marquee" aria-label="Brand logos carousel">
+        <div class="brand-logos__marquee-track">
+          {%- for block in section.blocks -%}
+            {%- render 'brand-logo-item', block: block -%}
+          {%- endfor -%}
+          {%- for block in section.blocks -%}
+            {%- render 'brand-logo-item', block: block -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- else -%}
+      <ul class="brand-logos__grid brand-logos__grid--cols-{{ section.settings.columns_desktop }}" role="list">
+        {%- for block in section.blocks -%}
+          <li class="brand-logos__item" {{ block.shopify_attributes }}>
+            {%- render 'brand-logo-item', block: block -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brand Logos",
+  "tag": "section",
+  "class": "section-brand-logos-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Trusted Brands"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Official stockist for the UK's leading tool brands"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_marquee",
+      "label": "Enable auto-scroll",
+      "default": false,
+      "info": "Continuously scrolls logos horizontally"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 4,
+      "max": 8,
+      "step": 1,
+      "label": "Logos per row (desktop)",
+      "default": 6,
+      "info": "Only applies when auto-scroll is off"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Logo card background",
+      "default": "#f9fafb"
+    },
+    {
+      "type": "checkbox",
+      "id": "grayscale_effect",
+      "label": "Grayscale until hover",
+      "default": false,
+      "info": "Logos appear grey, colourful on hover"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 52
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo image"
+        },
+        {
+          "type": "text",
+          "id": "brand_name",
+          "label": "Brand name",
+          "default": "Brand Name",
+          "info": "Used for alt text and accessibility"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional - links to brand collection"
+        },
+        {
+          "type": "color",
+          "id": "background_override",
+          "label": "Card background override",
+          "info": "Optional - use brand colour as background"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Logos",
+      "blocks": [
+        { "type": "brand", "settings": { "brand_name": "Makita" } },
+        { "type": "brand", "settings": { "brand_name": "DeWalt" } },
+        { "type": "brand", "settings": { "brand_name": "HiKOKI" } },
+        { "type": "brand", "settings": { "brand_name": "Milwaukee" } },
+        { "type": "brand", "settings": { "brand_name": "Stanley" } },
+        { "type": "brand", "settings": { "brand_name": "Bosch" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,238 @@
+{% comment %}
+  ============================================
+  LOCAL CONTENT v1.0
+  ============================================
+  Rich text content section for local SEO pages
+  Supports two-column layout with services list
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+<style>
+  .local-content {
+    padding: 48px 0;
+    background: #fff;
+  }
+  .local-content__grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 48px;
+    align-items: start;
+  }
+  @media (max-width: 749px) {
+    .local-content__grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+  .local-content__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #dc2626;
+    margin-bottom: 12px;
+  }
+  .local-content__label::before {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: #dc2626;
+  }
+  .local-content__title {
+    font-size: clamp(22px, 3vw, 28px);
+    font-weight: 700;
+    line-height: 1.3;
+    color: #1a1a2e;
+    margin: 0 0 16px;
+  }
+  .local-content__text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #555;
+    margin: 0 0 16px;
+  }
+  .local-content__services {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 28px;
+    border: 1px solid #eee;
+  }
+  .local-content__services-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0 0 16px;
+  }
+  .local-content__service-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.5;
+  }
+  .local-content__service-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    background: rgba(220,38,38,0.08);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #dc2626;
+    margin-top: 1px;
+  }
+  .local-content__brands {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+  }
+  .local-content__brand-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #f0f0f0;
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+  }
+</style>
+
+<section class="local-content" id="local-content-{{ section.id }}">
+  <div class="page-width">
+    <div class="local-content__grid">
+
+      {%- comment -%} Left Column - About Text {%- endcomment -%}
+      <div class="local-content__main">
+        {%- if section.settings.section_label != blank -%}
+          <span class="local-content__label">{{ section.settings.section_label }}</span>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="local-content__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.paragraph_1 != blank -%}
+          <p class="local-content__text">{{ section.settings.paragraph_1 }}</p>
+        {%- endif -%}
+        {%- if section.settings.paragraph_2 != blank -%}
+          <p class="local-content__text">{{ section.settings.paragraph_2 }}</p>
+        {%- endif -%}
+        {%- if section.settings.paragraph_3 != blank -%}
+          <p class="local-content__text">{{ section.settings.paragraph_3 }}</p>
+        {%- endif -%}
+
+        <div class="local-content__brands">
+          <span class="local-content__brand-tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Authorised Makita Dealer
+          </span>
+          <span class="local-content__brand-tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Authorised DeWalt Dealer
+          </span>
+        </div>
+      </div>
+
+      {%- comment -%} Right Column - Services {%- endcomment -%}
+      <div class="local-content__sidebar">
+        <div class="local-content__services">
+          <h3 class="local-content__services-title">{{ section.settings.services_title | default: 'Services Available' }}</h3>
+
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'service' -%}
+              <div class="local-content__service-item" {{ block.shopify_attributes }}>
+                <div class="local-content__service-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </div>
+                <div>
+                  <strong>{{ block.settings.title }}</strong>
+                  {%- if block.settings.description != blank -%}
+                    <br><span style="color:#777">{{ block.settings.description }}</span>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Local Content",
+  "tag": "section",
+  "class": "section-local-content",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_label",
+      "label": "Section Label",
+      "default": "About"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Why Tradespeople Choose Invicta Tools"
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph_1",
+      "label": "Paragraph 1"
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph_2",
+      "label": "Paragraph 2"
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph_3",
+      "label": "Paragraph 3"
+    },
+    {
+      "type": "text",
+      "id": "services_title",
+      "label": "Services Title",
+      "default": "Services Available"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "service",
+      "name": "Service",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Service Title"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Service Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Local Content"
+    }
+  ]
+}
+{% endschema %}

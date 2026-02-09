@@ -1,0 +1,70 @@
+{% comment %}
+  Brand Logo Item Snippet
+  Renders individual brand logo cards
+  Usage: {% render 'brand-logo-item', block: block %}
+{% endcomment %}
+
+{%- liquid
+  assign has_link = false
+  if block.settings.link != blank
+    assign has_link = true
+  endif
+
+  assign card_style = ''
+  if block.settings.background_override != blank and block.settings.background_override != 'rgba(0,0,0,0)'
+    assign card_style = '--card-bg-override: ' | append: block.settings.background_override | append: ';'
+  endif
+-%}
+
+{%- if has_link -%}
+  <a
+    href="{{ block.settings.link }}"
+    class="brand-logos__card"
+    {% if card_style != '' %}style="{{ card_style }}"{% endif %}
+    {{ block.shopify_attributes }}
+  >
+    {%- if block.settings.logo != blank -%}
+      <img
+        src="{{ block.settings.logo | image_url: width: 200 }}"
+        srcset="
+          {{ block.settings.logo | image_url: width: 140 }} 140w,
+          {{ block.settings.logo | image_url: width: 200 }} 200w,
+          {{ block.settings.logo | image_url: width: 280 }} 280w
+        "
+        sizes="(max-width: 575px) 80px, 120px"
+        alt="{{ block.settings.brand_name | escape }}"
+        width="{{ block.settings.logo.width }}"
+        height="{{ block.settings.logo.height }}"
+        loading="lazy"
+        class="brand-logos__logo"
+      >
+    {%- else -%}
+      <span class="brand-logos__placeholder">{{ block.settings.brand_name }}</span>
+    {%- endif -%}
+  </a>
+{%- else -%}
+  <div
+    class="brand-logos__card brand-logos__card--static"
+    {% if card_style != '' %}style="{{ card_style }}"{% endif %}
+    {{ block.shopify_attributes }}
+  >
+    {%- if block.settings.logo != blank -%}
+      <img
+        src="{{ block.settings.logo | image_url: width: 200 }}"
+        srcset="
+          {{ block.settings.logo | image_url: width: 140 }} 140w,
+          {{ block.settings.logo | image_url: width: 200 }} 200w,
+          {{ block.settings.logo | image_url: width: 280 }} 280w
+        "
+        sizes="(max-width: 575px) 80px, 120px"
+        alt="{{ block.settings.brand_name | escape }}"
+        width="{{ block.settings.logo.width }}"
+        height="{{ block.settings.logo.height }}"
+        loading="lazy"
+        class="brand-logos__logo"
+      >
+    {%- else -%}
+      <span class="brand-logos__placeholder">{{ block.settings.brand_name }}</span>
+    {%- endif -%}
+  </div>
+{%- endif -%}

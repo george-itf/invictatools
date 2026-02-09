@@ -1,0 +1,174 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb-simple",
+      "settings": {
+        "current_page": "Power Tools Folkestone",
+        "parent_url": "/pages/kent-tools",
+        "parent_title": "Kent Areas We Serve"
+      }
+    },
+    "hero": {
+      "type": "local-hero",
+      "settings": {
+        "badge_text": "Serving Kent Since 1996",
+        "headline_line_1": "Power Tools & Trade Supplies",
+        "headline_line_2": "in Folkestone",
+        "subtitle": "Folkestone's Creative Quarter regeneration, the Harbour Arm development and the ongoing transformation of the town's Victorian terraces have turned the area into one of Kent's most active building mar...",
+        "stat_1_value": "28+",
+        "stat_1_label": "Years Trading",
+        "stat_2_value": "2",
+        "stat_2_label": "Kent Branches",
+        "stat_3_value": "\u00a330+",
+        "stat_3_label": "Free Delivery",
+        "branch_name": "Canterbury",
+        "distance_text": "Just 25 minutes from Folkestone town centre",
+        "branch_address": "Unit 9 Cotton Road, Wincheap Industrial Estate, Canterbury, CT1 3TB",
+        "phone": "01843 210 459",
+        "opening_hours": "Mon\u2013Fri 7:30\u201317:00 \u00b7 Sat 8:00\u201312:00",
+        "maps_url": "https://maps.google.com/?q=Unit+9+Cotton+Road+Wincheap+Industrial+Estate+Canterbury+CT1+3TB",
+        "schema_town": "Folkestone",
+        "schema_street": "Unit 9 Cotton Road",
+        "schema_locality": "Canterbury",
+        "schema_postcode": "CT1 3TB",
+        "schema_lat": "51.2697",
+        "schema_lng": "1.0760"
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Delivery to Folkestone",
+            "subtitle": "On orders over \u00a330"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Authorised Dealer",
+            "subtitle": "Makita & DeWalt"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "~25 min Away",
+            "subtitle": "Canterbury Branch"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 210 459"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#dc2626",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "content": {
+      "type": "local-content",
+      "blocks": {
+        "svc_0": {
+          "type": "service",
+          "settings": {
+            "title": "Free Delivery to Folkestone",
+            "description": "On all orders over \u00a330 to Folkestone postcodes"
+          }
+        },
+        "svc_1": {
+          "type": "service",
+          "settings": {
+            "title": "Click & Collect",
+            "description": "Order online, collect from Canterbury branch"
+          }
+        },
+        "svc_2": {
+          "type": "service",
+          "settings": {
+            "title": "Trade Accounts",
+            "description": "Monthly invoicing with competitive trade pricing"
+          }
+        },
+        "svc_3": {
+          "type": "service",
+          "settings": {
+            "title": "Expert Advice",
+            "description": "Knowledgeable team with 28+ years experience"
+          }
+        },
+        "svc_4": {
+          "type": "service",
+          "settings": {
+            "title": "Full Warranty",
+            "description": "Authorised dealer \u2014 full manufacturer warranty"
+          }
+        },
+        "svc_5": {
+          "type": "service",
+          "settings": {
+            "title": "Tool Servicing",
+            "description": "Makita & DeWalt repairs and servicing"
+          }
+        }
+      },
+      "block_order": [
+        "svc_0",
+        "svc_1",
+        "svc_2",
+        "svc_3",
+        "svc_4",
+        "svc_5"
+      ],
+      "settings": {
+        "section_label": "Folkestone Power Tools",
+        "title": "Professional Power Tools for Folkestone Tradespeople",
+        "paragraph_1": "Folkestone's Creative Quarter regeneration, the Harbour Arm development and the ongoing transformation of the town's Victorian terraces have turned the area into one of Kent's most active building markets. Invicta Tools at our Canterbury branch is 25 minutes up the A260/M20 \u2014 a genuine trade counter where you can browse, handle tools and get expert advice face-to-face.",
+        "paragraph_2": "The variety of work in Folkestone \u2014 from seafront commercial conversions to residential renovations in the Leas clifftop area \u2014 demands a broad, professional toolkit. We carry the complete Makita 18V LXT and 40V XGT ranges alongside DeWalt's 18V XR and FlexVolt systems. Impact drivers, combi drills, circular saws, SDS hammers, grinders, sanders, routers \u2014 all available with genuine warranties through our authorised dealership.",
+        "paragraph_3": "For Folkestone tradespeople who'd rather not make the drive, we offer free delivery on orders over \u00a330 to all CT18\u2013CT20 postcodes. Order online or phone our trade team on 01843 210 459 \u2014 we'll sort your order the same day where stock allows.",
+        "services_title": "Services for Folkestone"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Tools in Folkestone?",
+        "subtitle": "Call our Canterbury branch for expert advice, or shop online with free delivery over \u00a330.",
+        "primary_text": "01843 210 459",
+        "primary_url": "tel:01843210459",
+        "primary_icon": "phone",
+        "secondary_text": "Shop Online",
+        "secondary_url": "/collections/all",
+        "secondary_icon": "none"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "hero",
+    "usp_strip",
+    "content",
+    "cta"
+  ]
+}

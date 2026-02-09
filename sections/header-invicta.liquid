@@ -1,0 +1,396 @@
+{% comment %}
+  =========================================================
+  Invicta Header v5.1 — With Button-Style VAT Toggle
+  ---------------------------------------------------------
+  LAYOUT:
+  • Mobile: Logo left | Search centre | Account + Cart right
+  • Desktop: Logo left | Search centre | VAT Toggle + Account + Cart right
+  • NO hamburger menu — mega menu is desktop-only
+  =========================================================
+{% endcomment %}
+
+{% assign ss = section.settings %}
+
+<style>
+/* =======================================================
+   INVICTA HEADER — RED BACKGROUND
+   ======================================================= */
+.invicta-header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+  background: #e11d26;
+  border-bottom: none;
+}
+
+.invicta-header__inner {
+  max-width: 1400px;
+  margin-inline: auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+@media (min-width: 990px) {
+  .invicta-header__inner {
+    padding-inline: 32px;
+    padding-block: 16px;
+    gap: 36px;
+  }
+}
+
+/* =======================================================
+   LOGO — Always Left
+   ======================================================= */
+.invicta-header__logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.invicta-header__logo a {
+  display: flex;
+  align-items: center;
+}
+
+.invicta-header__logo img,
+.invicta-header__logo .header__heading-logo {
+  height: 70px;
+  max-height: 70px;
+  width: auto;
+  object-fit: contain;
+}
+
+@media (min-width: 990px) {
+  .invicta-header__logo img,
+  .invicta-header__logo .header__heading-logo {
+    height: 80px;
+    max-height: 80px;
+  }
+}
+
+/* =======================================================
+   SEARCH — Centre, Flexible Width
+   ======================================================= */
+.invicta-header__search {
+  flex: 1;
+  min-width: 0;
+  max-width: 700px;
+  position: relative;
+  z-index: 9999999;
+}
+
+.invicta-header__search .predictive-search,
+.invicta-header__search form,
+.invicta-header__search .ps-inline-wrapper,
+.invicta-header__search .inv-search-wrapper {
+  width: 100%;
+  position: relative;
+  z-index: 9999999;
+}
+
+/* =======================================================
+   ICONS — Always Right (VAT Toggle + Account + Cart)
+   ======================================================= */
+.invicta-header__icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* =======================================================
+   VAT TOGGLE — Button Style (Matches Nav)
+   ======================================================= */
+
+/* Hide on mobile */
+.invicta-header__vat-toggle {
+  display: none;
+}
+
+/* Desktop: Show as button pair */
+@media (min-width: 990px) {
+  .invicta-header__vat-toggle {
+    display: flex;
+    gap: 0;
+    background-color: #2d2d2d;
+    border-radius: 4px;
+    padding: 3px;
+    margin-right: 8px;
+  }
+  
+  .invicta-header__vat-btn {
+    padding: 5px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.4);
+    background-color: transparent;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: color 0.15s ease, background-color 0.15s ease;
+    white-space: nowrap;
+    line-height: 1;
+  }
+  
+  .invicta-header__vat-btn:hover:not(.invicta-header__vat-btn--active) {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .invicta-header__vat-btn--active {
+    color: #ffffff;
+    background-color: #444444;
+  }
+}
+
+/* Tablet: Slightly smaller */
+@media (min-width: 750px) and (max-width: 989px) {
+  .invicta-header__vat-toggle {
+    display: flex;
+    gap: 0;
+    background-color: #2d2d2d;
+    border-radius: 4px;
+    padding: 2px;
+    margin-right: 6px;
+  }
+  
+  .invicta-header__vat-btn {
+    padding: 4px 6px;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.4);
+    background-color: transparent;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: color 0.15s ease, background-color 0.15s ease;
+    white-space: nowrap;
+    line-height: 1;
+  }
+  
+  .invicta-header__vat-btn:hover:not(.invicta-header__vat-btn--active) {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .invicta-header__vat-btn--active {
+    color: #ffffff;
+    background-color: #444444;
+  }
+}
+
+.invicta-header__icon {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: background 0.16s ease, transform 0.12s ease;
+  border: none;
+  text-decoration: none;
+}
+
+.invicta-header__icon:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.invicta-header__icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: #ffffff;
+  stroke-width: 2;
+  fill: none;
+}
+
+/* =======================================================
+   CART BADGE — WHITE BG, RED TEXT
+   ======================================================= */
+.invicta-header__badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #e11d26;
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.invicta-header__badge.hidden {
+  display: none;
+}
+
+/* =======================================================
+   MOBILE LAYOUT — App Style
+   ======================================================= */
+@media (max-width: 749px) {
+  .invicta-header {
+    position: sticky;
+    top: 0;
+  }
+  
+  .invicta-header__inner {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+  
+  /* Logo — left, compact */
+  .invicta-header__logo img,
+  .invicta-header__logo .header__heading-logo {
+    height: 40px;
+    max-height: 40px;
+  }
+  
+  /* Search — takes available space */
+  .invicta-header__search {
+    flex: 1;
+    max-width: none;
+    margin-inline: 8px;
+  }
+  
+  /* Icons — compact */
+  .invicta-header__icons {
+    gap: 6px;
+  }
+  
+  .invicta-header__icon {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .invicta-header__icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  /* Cart badge smaller */
+  .invicta-header__badge {
+    top: -3px;
+    right: -3px;
+    min-width: 18px;
+    height: 18px;
+    font-size: 10px;
+    padding: 0 5px;
+  }
+}
+
+/* =======================================================
+   TABLET ADJUSTMENTS
+   ======================================================= */
+@media (min-width: 750px) and (max-width: 989px) {
+  .invicta-header__inner {
+    padding: 12px 20px;
+    gap: 16px;
+  }
+  
+  .invicta-header__logo img,
+  .invicta-header__logo .header__heading-logo {
+    height: 56px;
+    max-height: 56px;
+  }
+  
+  .invicta-header__icons {
+    gap: 8px;
+  }
+}
+</style>
+
+<header class="invicta-header" role="banner">
+  <div class="invicta-header__inner">
+
+    <!-- LOGO (Left) -->
+    <div class="invicta-header__logo">
+      <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
+        {%- if settings.logo != blank -%}
+          {{ settings.logo | image_url: width: 400 | image_tag: class: 'header__heading-logo', alt: settings.logo.alt | default: shop.name, loading: 'eager' }}
+        {%- else -%}
+          <span class="h2" style="color: #ffffff; font-weight: 800;">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+
+    <!-- SEARCH (Centre) -->
+    <div class="invicta-header__search">
+      {% render 'predictive-search-inline' %}
+    </div>
+
+    <!-- ICONS (Right) — VAT Toggle + Account + Cart -->
+    <div class="invicta-header__icons">
+      
+      <!-- VAT Toggle (Button Style) -->
+      <div class="invicta-header__vat-toggle" data-vat-toggle>
+        <button 
+          type="button" 
+          class="invicta-header__vat-btn" 
+          data-vat-btn="ex"
+          aria-pressed="false"
+        >
+          Ex VAT
+        </button>
+        <button 
+          type="button" 
+          class="invicta-header__vat-btn invicta-header__vat-btn--active" 
+          data-vat-btn="inc"
+          aria-pressed="true"
+        >
+          Inc VAT
+        </button>
+      </div>
+
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="invicta-header__icon invicta-header__icon--account" aria-label="{% if customer %}Account{% else %}Sign in{% endif %}">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="7" r="4"></circle>
+            <path d="M4 21c0-4 4-7 8-7s8 3 8 7"></path>
+          </svg>
+        </a>
+      {%- endif -%}
+
+      <a id="cart-icon-bubble" href="{{ routes.cart_url }}" class="invicta-header__icon header__icon--cart link focus-inset" aria-label="Cart">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6h15l-1.5 9h-12z"></path>
+          <circle cx="9" cy="19" r="1.5"></circle>
+          <circle cx="17" cy="19" r="1.5"></circle>
+          <path d="M3 3h2l.4 2"></path>
+        </svg>
+        <span class="invicta-header__badge{% if cart == empty or cart.item_count == 0 %} hidden{% endif %}" data-cart-count="{{ cart.item_count }}">{{ cart.item_count }}</span>
+      </a>
+    </div>
+
+  </div>
+</header>
+
+{%- comment -%}
+  VAT Toggle functionality is handled by invicta-vat-toggle.js (v4.0)
+  No inline JS needed here — single source of truth
+{%- endcomment -%}
+
+{% schema %}
+{
+  "name": "Invicta Header",
+  "class": "section-header-invicta",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Invicta Header"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,42 @@
+{
+  "sections": {
+    "main": {
+      "type": "invicta-category-grid",
+      "blocks": {
+        "block_1": {
+          "type": "category",
+          "settings": {
+            "collection": "workwear"
+          }
+        },
+        "block_2": {
+          "type": "category",
+          "settings": {
+            "collection": "hi-vis-clothing"
+          }
+        },
+        "block_3": {
+          "type": "category",
+          "settings": {
+            "collection": "ppe"
+          }
+        },
+        "block_4": {
+          "type": "category",
+          "settings": {
+            "collection": "safety"
+          }
+        }
+      },
+      "block_order": ["block_1", "block_2", "block_3", "block_4"],
+      "settings": {
+        "heading": "Workwear & Safety",
+        "description": "Protective clothing and safety equipment.",
+        "columns_desktop": 4,
+        "columns_tablet": 2,
+        "columns_mobile": 2
+      }
+    }
+  },
+  "order": ["main"]
+}

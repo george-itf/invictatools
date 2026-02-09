@@ -1,0 +1,214 @@
+{% comment %}
+  Category Icons Section - Trade 15.4.0 Compatible
+  Version: 1.0.0
+{% endcomment %}
+
+{{ 'section-category-icons.css' | asset_url | stylesheet_tag }}
+
+<div class="category-icons section-{{ section.id }}" style="
+  --category-padding-top: {{ section.settings.padding_top }}px;
+  --category-padding-bottom: {{ section.settings.padding_bottom }}px;
+  --category-bg-color: {{ section.settings.background_color }};
+  --category-accent: {{ section.settings.accent_color }};
+  --category-columns: {{ section.settings.columns_desktop }};
+">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <div class="category-icons__header">
+        <h2 class="category-icons__title">{{ section.settings.heading }}</h2>
+        {%- if section.settings.subheading != blank -%}
+          <p class="category-icons__subtitle">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <ul class="category-icons__grid" role="list">
+      {%- for block in section.blocks -%}
+        <li class="category-icons__item" {{ block.shopify_attributes }}>
+          <a href="{{ block.settings.link }}" class="category-icons__card">
+            <div class="category-icons__icon-wrapper">
+              {%- if block.settings.custom_icon != blank -%}
+                <img
+                  src="{{ block.settings.custom_icon | image_url: width: 80 }}"
+                  alt=""
+                  width="40"
+                  height="40"
+                  loading="lazy"
+                  class="category-icons__custom-icon"
+                >
+              {%- else -%}
+                {% render 'icon-category', icon: block.settings.icon %}
+              {%- endif -%}
+            </div>
+
+            <span class="category-icons__label">{{ block.settings.label }}</span>
+
+            <span class="category-icons__arrow" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </span>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    {%- if section.settings.show_view_all and section.settings.view_all_link != blank -%}
+      <div class="category-icons__footer">
+        <a href="{{ section.settings.view_all_link }}" class="category-icons__view-all">
+          {{ section.settings.view_all_text }}
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Category Icons",
+  "tag": "section",
+  "class": "section-category-icons-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by Category"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Browse our most popular tool categories"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "label": "Columns on desktop",
+      "default": 6
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent colour (hover)",
+      "default": "#dc2626"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colour",
+      "default": "#f9fafb"
+    },
+    {
+      "type": "header",
+      "content": "View All Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show view all link",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View all link"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View all text",
+      "default": "View all categories"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 52
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "drill",
+          "options": [
+            { "value": "drill", "label": "Cordless Drill" },
+            { "value": "grinder", "label": "Angle Grinder" },
+            { "value": "nailer", "label": "Nail Gun" },
+            { "value": "battery", "label": "Battery" },
+            { "value": "saw", "label": "Circular Saw" },
+            { "value": "storage", "label": "Tool Storage" },
+            { "value": "hammer", "label": "Hammer" },
+            { "value": "screwdriver", "label": "Screwdriver" },
+            { "value": "wrench", "label": "Wrench" },
+            { "value": "pliers", "label": "Pliers" },
+            { "value": "tape", "label": "Tape Measure" },
+            { "value": "safety", "label": "Safety Gear" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom icon (optional)",
+          "info": "Overrides the selected icon. Use a square PNG with transparent background."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Category Name"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category Icons",
+      "blocks": [
+        { "type": "category", "settings": { "icon": "drill", "label": "Cordless Drills" } },
+        { "type": "category", "settings": { "icon": "grinder", "label": "Grinders" } },
+        { "type": "category", "settings": { "icon": "nailer", "label": "Nailers" } },
+        { "type": "category", "settings": { "icon": "battery", "label": "Batteries" } },
+        { "type": "category", "settings": { "icon": "saw", "label": "Saws" } },
+        { "type": "category", "settings": { "icon": "storage", "label": "Tool Storage" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

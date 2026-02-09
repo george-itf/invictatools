@@ -1,0 +1,174 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb-simple",
+      "settings": {
+        "current_page": "Power Tools Ramsgate",
+        "parent_url": "/pages/kent-tools",
+        "parent_title": "Kent Areas We Serve"
+      }
+    },
+    "hero": {
+      "type": "local-hero",
+      "settings": {
+        "badge_text": "Serving Kent Since 1996",
+        "headline_line_1": "Power Tools & Trade Supplies",
+        "headline_line_2": "in Ramsgate",
+        "subtitle": "Our Ramsgate branch at The Oaks Business Park on Invicta Way is purpose-built for the trade. Situated just off the A299, we serve builders, joiners, electricians and plumbers across Thanet with the sa...",
+        "stat_1_value": "28+",
+        "stat_1_label": "Years Trading",
+        "stat_2_value": "2",
+        "stat_2_label": "Kent Branches",
+        "stat_3_value": "\u00a330+",
+        "stat_3_label": "Free Delivery",
+        "branch_name": "Ramsgate",
+        "distance_text": "At our Ramsgate branch on The Oaks Business Park",
+        "branch_address": "Unit 74 The Oaks Business Park, Invicta Way, Ramsgate, CT12 5FS",
+        "phone": "01843 210 459",
+        "opening_hours": "Mon\u2013Fri 7:30\u201317:00 \u00b7 Sat 8:00\u201312:00",
+        "maps_url": "https://maps.google.com/?q=Unit+74+The+Oaks+Business+Park+Invicta+Way+Ramsgate+CT12+5FS",
+        "schema_town": "Ramsgate",
+        "schema_street": "Unit 74 The Oaks Business Park",
+        "schema_locality": "Ramsgate",
+        "schema_postcode": "CT12 5FS",
+        "schema_lat": "51.3400",
+        "schema_lng": "1.3700"
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Delivery to Ramsgate",
+            "subtitle": "On orders over \u00a330"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Authorised Dealer",
+            "subtitle": "Makita & DeWalt"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "0 min Away",
+            "subtitle": "Ramsgate Branch"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 210 459"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#dc2626",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "content": {
+      "type": "local-content",
+      "blocks": {
+        "svc_0": {
+          "type": "service",
+          "settings": {
+            "title": "Free Delivery to Ramsgate",
+            "description": "On all orders over \u00a330 to Ramsgate postcodes"
+          }
+        },
+        "svc_1": {
+          "type": "service",
+          "settings": {
+            "title": "Click & Collect",
+            "description": "Order online, collect from Ramsgate branch"
+          }
+        },
+        "svc_2": {
+          "type": "service",
+          "settings": {
+            "title": "Trade Accounts",
+            "description": "Monthly invoicing with competitive trade pricing"
+          }
+        },
+        "svc_3": {
+          "type": "service",
+          "settings": {
+            "title": "Expert Advice",
+            "description": "Knowledgeable team with 28+ years experience"
+          }
+        },
+        "svc_4": {
+          "type": "service",
+          "settings": {
+            "title": "Full Warranty",
+            "description": "Authorised dealer \u2014 full manufacturer warranty"
+          }
+        },
+        "svc_5": {
+          "type": "service",
+          "settings": {
+            "title": "Tool Servicing",
+            "description": "Makita & DeWalt repairs and servicing"
+          }
+        }
+      },
+      "block_order": [
+        "svc_0",
+        "svc_1",
+        "svc_2",
+        "svc_3",
+        "svc_4",
+        "svc_5"
+      ],
+      "settings": {
+        "section_label": "Ramsgate Power Tools",
+        "title": "Why Ramsgate Tradespeople Rely on Invicta Tools",
+        "paragraph_1": "Our Ramsgate branch at The Oaks Business Park on Invicta Way is purpose-built for the trade. Situated just off the A299, we serve builders, joiners, electricians and plumbers across Thanet with the same professional stock and expertise that's made us a Kent institution since 1996. Whether you're renovating one of Ramsgate's stunning Regency townhouses or fitting out commercial units on the Manston business parks, we've got you covered.",
+        "paragraph_2": "Ramsgate's Royal Harbour regeneration and the ongoing investment in the town centre means skilled tradespeople are in constant demand \u2014 and they need tools that match. As authorised dealers for both Makita and DeWalt, we carry the complete professional ranges including the latest cordless platforms, plus genuine accessories and replacement parts.",
+        "paragraph_3": "Pop in before your first job \u2014 we're open from 7:30am on weekdays. Our trade counter team aren't just sales staff; they're tool specialists who understand what you need on site. Trade accounts available with competitive pricing for regular customers.",
+        "services_title": "Ramsgate Branch Services"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Tools in Ramsgate?",
+        "subtitle": "Call our Ramsgate branch for expert advice, or shop online with free delivery over \u00a330.",
+        "primary_text": "01843 210 459",
+        "primary_url": "tel:01843210459",
+        "primary_icon": "phone",
+        "secondary_text": "Shop Online",
+        "secondary_url": "/collections/all",
+        "secondary_icon": "none"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "hero",
+    "usp_strip",
+    "content",
+    "cta"
+  ]
+}

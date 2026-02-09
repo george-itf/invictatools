@@ -1,0 +1,134 @@
+/* ==========================================================================
+   USP Bar Section Styles
+   Trade 15.4.0 Compatible
+   ========================================================================== */
+
+.usp-bar {
+  padding-top: var(--usp-padding-top, 36px);
+  padding-bottom: var(--usp-padding-bottom, 36px);
+  background-color: var(--usp-bg-color, #ffffff);
+}
+
+.usp-bar__list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (max-width: 989px) {
+  .usp-bar__list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .usp-bar__list {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+.usp-bar__card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  height: 100%;
+}
+
+.usp-bar__card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+@media screen and (max-width: 575px) {
+  .usp-bar__card {
+    padding: 1rem 1.25rem;
+    gap: 0.875rem;
+  }
+}
+
+.usp-bar__icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  background-color: var(--icon-bg, #dc2626);
+  border-radius: 10px;
+  transition:
+    transform 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.usp-bar__icon-wrapper svg {
+  width: 24px;
+  height: 24px;
+  color: #ffffff;
+  stroke-width: 2;
+}
+
+.usp-bar__card:hover .usp-bar__icon-wrapper {
+  transform: scale(1.05);
+}
+
+@media screen and (max-width: 575px) {
+  .usp-bar__icon-wrapper {
+    width: 44px;
+    height: 44px;
+  }
+
+  .usp-bar__icon-wrapper svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.usp-bar__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.usp-bar__heading {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #2d2d2d;
+  letter-spacing: -0.01em;
+}
+
+.usp-bar__subtext {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #6b7280;
+}
+
+@media screen and (max-width: 575px) {
+  .usp-bar__heading {
+    font-size: 0.875rem;
+  }
+
+  .usp-bar__subtext {
+    font-size: 0.75rem;
+  }
+}

@@ -1,0 +1,139 @@
+{%- comment -%}
+  ============================================
+  PWA Head Tags — Invicta Tools
+  ============================================
+  Progressive Web App meta tags, manifest link,
+  Apple touch icons, and service worker registration.
+  
+  Installation:
+  1. Add this file to snippets/pwa-head.liquid
+  2. In layout/theme.liquid, add inside <head>:
+     {%- render 'pwa-head' -%}
+  
+  @version 1.0.0
+  ============================================
+{%- endcomment -%}
+
+{%- comment -%} Web App Manifest {%- endcomment -%}
+<link rel="manifest" href="{{ 'manifest.webmanifest' | asset_url }}" crossorigin="use-credentials">
+
+{%- comment -%} Theme colour for browser UI {%- endcomment -%}
+<meta name="theme-color" content="#e11d26">
+<meta name="theme-color" content="#e11d26" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+
+{%- comment -%} Apple Web App Configuration {%- endcomment -%}
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Invicta Tools">
+
+{%- comment -%} Apple Touch Icons {%- endcomment -%}
+<link rel="apple-touch-icon" href="https://cdn.shopify.com/s/files/1/{{ shop.id | split: '/' | last }}/files/pwa-icon-180.png">
+<link rel="apple-touch-icon" sizes="152x152" href="https://cdn.shopify.com/s/files/1/{{ shop.id | split: '/' | last }}/files/pwa-icon-152.png">
+<link rel="apple-touch-icon" sizes="167x167" href="https://cdn.shopify.com/s/files/1/{{ shop.id | split: '/' | last }}/files/pwa-icon-167.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.shopify.com/s/files/1/{{ shop.id | split: '/' | last }}/files/pwa-icon-180.png">
+
+{%- comment -%} Apple Splash Screens {%- endcomment -%}
+{%- comment -%} iPhone SE, 8, 7, 6s {%- endcomment -%}
+<link rel="apple-touch-startup-image" 
+      href="https://cdn.shopify.com/s/files/1/{{ shop.id | split: '/' | last }}/files/splash-750x1334.png"
+      media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+
+{%- comment -%} iPhone 13/14, 12 Pro {%- endcomment -%}
+<link rel="apple-touch-startup-image" 
+      href="https://cdn.shopify.com/s/files/1/{{ shop.id | split: '/' | last }}/files/splash-1170x2532.png"
+      media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)">
+
+{%- comment -%} iPhone 14 Pro {%- endcomment -%}
+<link rel="apple-touch-startup-image" 
+      href="https://cdn.shopify.com/s/files/1/{{ shop.id | split: '/' | last }}/files/splash-1179x2556.png"
+      media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3)">
+
+{%- comment -%} iPhone 14 Pro Max {%- endcomment -%}
+<link rel="apple-touch-startup-image" 
+      href="https://cdn.shopify.com/s/files/1/{{ shop.id | split: '/' | last }}/files/splash-1290x2796.png"
+      media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3)">
+
+{%- comment -%} iPad Pro 12.9" {%- endcomment -%}
+<link rel="apple-touch-startup-image" 
+      href="https://cdn.shopify.com/s/files/1/{{ shop.id | split: '/' | last }}/files/splash-2048x2732.png"
+      media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+
+{%- comment -%} Windows Tile Configuration {%- endcomment -%}
+<meta name="msapplication-TileColor" content="#e11d26">
+<meta name="msapplication-TileImage" content="https://cdn.shopify.com/s/files/1/{{ shop.id | split: '/' | last }}/files/pwa-icon-144.png">
+<meta name="msapplication-config" content="none">
+
+{%- comment -%} Prevent auto-detection of phone numbers {%- endcomment -%}
+<meta name="format-detection" content="telephone=no">
+
+{%- comment -%} Service Worker Registration (P0.5 FIX) {%- endcomment -%}
+<script>
+  /**
+   * Register Invicta Tools PWA Service Worker
+   * Handles offline caching and performance optimisation
+   *
+   * P0.5 FIX: Reduced update frequency from 60s to once per 12 hours
+   * to avoid unnecessary network churn on mobile networks.
+   */
+  (function() {
+    'use strict';
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('{{ "service-worker.js" | asset_url }}', {
+          scope: '/'
+        })
+        .then(function(registration) {
+          console.log('[Invicta PWA] Service Worker registered');
+
+          /**
+           * P0.5 FIX: Only check for updates once every 12 hours
+           * Uses localStorage timestamp to persist across sessions
+           */
+          const UPDATE_INTERVAL = 12 * 60 * 60 * 1000; // 12 hours in ms
+          const LAST_UPDATE_KEY = 'invicta-sw-last-update';
+
+          function shouldUpdate() {
+            try {
+              const lastUpdate = localStorage.getItem(LAST_UPDATE_KEY);
+              if (!lastUpdate) return true;
+              return (Date.now() - parseInt(lastUpdate, 10)) > UPDATE_INTERVAL;
+            } catch (e) {
+              return true;
+            }
+          }
+
+          function markUpdated() {
+            try {
+              localStorage.setItem(LAST_UPDATE_KEY, Date.now().toString());
+            } catch (e) {
+              // Silent fail
+            }
+          }
+
+          // Check for update on navigation only (not on interval)
+          if (shouldUpdate()) {
+            registration.update();
+            markUpdated();
+          }
+
+          /* Handle update found */
+          registration.addEventListener('updatefound', function() {
+            const newWorker = registration.installing;
+
+            newWorker.addEventListener('statechange', function() {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                console.log('[Invicta PWA] New version available');
+                /* Optionally show update notification here */
+              }
+            });
+          });
+        })
+        .catch(function(error) {
+          console.error('[Invicta PWA] Registration failed:', error);
+        });
+      });
+    }
+  })();
+</script>

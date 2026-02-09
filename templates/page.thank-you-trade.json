@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "trade_thanks": {
+      "type": "trade-thank-you",
+      "settings": {
+        "heading": "Application Received!",
+        "text": "Thanks for your interest in a trade account. We've received your application and will be in touch shortly.",
+        "phone_number": "01843 593 440",
+        "email": "sales@invictatools.co.uk"
+      }
+    }
+  },
+  "order": [
+    "trade_thanks"
+  ]
+}
