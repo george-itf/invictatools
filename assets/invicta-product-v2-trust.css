@@ -1,0 +1,71 @@
+/* Invicta PDP Trust Panel & Delivery Estimate Integration */
+.inv-pdp__trust-panel {
+  background: var(--inv-bg, #f5f5f6);
+  border-radius: var(--inv-radius-card, 12px);
+  padding: 14px 16px;
+  margin-top: 12px;
+}
+.inv-pdp__trust-panel-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.inv-pdp__trust-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--inv-fg, #0f172a);
+  background: var(--inv-bg-elevated, #fff);
+  border: 1px solid var(--inv-border, #e5e7eb);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.inv-pdp__trust-chip:hover {
+  border-color: var(--inv-accent, #e11d26);
+  color: var(--inv-accent, #e11d26);
+  box-shadow: 0 2px 8px rgba(225, 29, 38, 0.12);
+}
+.inv-pdp__trust-chip svg {
+  color: var(--inv-accent, #e11d26);
+  flex-shrink: 0;
+}
+.inv-pdp__trust-panel-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--inv-border, #e5e7eb);
+}
+.inv-pdp__mini-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--inv-fg-muted, #6b7280);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.inv-pdp__mini-badge svg {
+  flex-shrink: 0;
+}
+@media (max-width: 749px) {
+  .inv-pdp__trust-panel-row {
+    gap: 6px;
+  }
+  .inv-pdp__trust-chip {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+  .inv-pdp__trust-panel-badges {
+    gap: 4px 10px;
+  }
+  .inv-pdp__mini-badge {
+    font-size: 11px;
+  }
+}

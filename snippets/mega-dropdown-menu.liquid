@@ -106,17 +106,6 @@
 
 </style>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const header = document.querySelector('header.trade-header');
-  const announce = document.querySelector('.announcement-bar-section');
-  const offset = (header?.offsetHeight || 0) + (announce?.offsetHeight || 0);
-  document.documentElement.style.setProperty('--mega-menu-top', offset + 'px');
-});
-</script>
-
-  
-
 <div id="mega-menu-wrapper">
   <nav class="mmenu-bar-{{ id }}">
     {% for link in ms.menu.links %}
@@ -162,10 +151,18 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const header = document.querySelector('header.trade-header');
-  const announce = document.querySelector('.announcement-bar-section');
-  const offset = (header?.offsetHeight || 0) + (announce?.offsetHeight || 0);
-  document.documentElement.style.setProperty('--mega-menu-top', offset + 'px');
-});
+(function() {
+  function updateMenuTop() {
+    var header = document.querySelector('header.trade-header');
+    var announce = document.querySelector('.announcement-bar-section');
+    var offset = (header ? header.offsetHeight : 0) + (announce ? announce.offsetHeight : 0);
+    document.documentElement.style.setProperty('--mega-menu-top', offset + 'px');
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateMenuTop);
+  } else {
+    updateMenuTop();
+  }
+  window.addEventListener('resize', updateMenuTop, { passive: true });
+})();
 </script>

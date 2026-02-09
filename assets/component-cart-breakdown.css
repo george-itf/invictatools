@@ -1,3 +1,51 @@
+/* Cart Breakdown Layout */
+.invicta-cart-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.invicta-cart-breakdown__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.invicta-cart-breakdown__row--total {
+  border-top: 2px solid #111;
+  padding-top: 12px;
+  margin-top: 4px;
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+.invicta-cart-breakdown__label {
+  color: #374151;
+}
+
+.invicta-cart-breakdown__value {
+  font-weight: 600;
+  color: #111;
+}
+
+.invicta-cart-breakdown__value--negative {
+  color: #059669;
+}
+
+.invicta-cart-breakdown__free-label {
+  color: #059669;
+  font-weight: 500;
+}
+
+.invicta-vat-indicator {
+  font-size: 0.8rem;
+  color: #6b7280;
+  padding: 4px 0 8px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 4px;
+}
+
 /* Shipping Progress Bar */
 .invicta-cart-breakdown__shipping-progress {
   margin: 12px 0;

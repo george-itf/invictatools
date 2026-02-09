@@ -353,10 +353,6 @@
         items.push({ id: parseInt(d.k.id, 10), quantity: 1 });
       }
 
-      // DEBUG
-      console.log('[Kit Builder] Adding items:', items);
-      console.log('[Kit Builder] Calc data:', d);
-
       // Show loading
       addBtn.disabled = true;
       if (btnText) btnText.style.display = 'none';
@@ -369,10 +365,8 @@
           body: JSON.stringify({ items })
         });
 
-        const responseData = await res.json();
-        console.log('[Kit Builder] Cart response:', responseData);
-
         if (!res.ok) throw new Error('Failed to add');
+        await res.json();
 
         // Success — apply discount code and go to cart
         if (btnText) btnText.textContent = 'Added!';
