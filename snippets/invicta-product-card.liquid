@@ -33,11 +33,13 @@
     assign saving_percent = saving | times: 100.0 | divided_by: compare_price | round
   endif
   
-  # VAT calculations (prices include VAT) - P0.4 FIX
-  # Using integer-safe rounding: times: 100 | plus: 60 | divided_by: 120
-  # This rounds to nearest penny, not truncate
-  assign price_ex_vat = price | times: 100 | plus: 60 | divided_by: 120
-  assign compare_price_ex_vat = compare_price | times: 100 | plus: 60 | divided_by: 120
+  # VAT calculations (prices include VAT)
+  # Uses centralised VAT rate from theme settings (Invicta Trade Settings)
+  # Integer-safe rounding: times: 100 | plus: rounding | divided_by: divisor
+  assign inv_vat_divisor = 100 | plus: settings.inv_vat_rate
+  assign inv_vat_rounding = inv_vat_divisor | divided_by: 2
+  assign price_ex_vat = price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor
+  assign compare_price_ex_vat = compare_price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor
   
   # -------------------------
   # Stock status

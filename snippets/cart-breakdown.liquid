@@ -15,20 +15,21 @@
 {% endcomment %}
 
 {%- liquid
-  # Calculate VAT (UK 20%)
-  assign vat_rate = 0.2
+  # Calculate VAT using centralised settings (integer-safe)
+  assign inv_vat_divisor = 100 | plus: settings.inv_vat_rate
+  assign inv_vat_rounding = inv_vat_divisor | divided_by: 2
   assign subtotal_inc_vat = cart.total_price
-  assign subtotal_ex_vat = subtotal_inc_vat | divided_by: 1.2
+  assign subtotal_ex_vat = subtotal_inc_vat | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor
   assign vat_amount = subtotal_inc_vat | minus: subtotal_ex_vat
-  
+
   # Check for discounts
   assign has_discounts = false
   if cart.total_discount > 0
     assign has_discounts = true
   endif
-  
-  # Shipping threshold (free shipping over £30)
-  assign free_shipping_threshold = 3000
+
+  # Free shipping threshold from centralised settings
+  assign free_shipping_threshold = settings.inv_free_shipping_pence | plus: 0
   assign shipping_remaining = free_shipping_threshold | minus: cart.total_price
 -%}
 
@@ -49,7 +50,7 @@
   
   <!-- VAT Amount -->
   <div class="invicta-cart-breakdown__row invicta-cart-breakdown__row--vat">
-    <span class="invicta-cart-breakdown__label">VAT (20%)</span>
+    <span class="invicta-cart-breakdown__label">VAT ({{ settings.inv_vat_rate }}%)</span>
     <span class="invicta-cart-breakdown__value" data-breakdown-vat>
       {{ vat_amount | money }}
     </span>
@@ -105,34 +106,4 @@
   
 </div>
 
-<style>
-  /* Shipping Progress Bar */
-  .invicta-cart-breakdown__shipping-progress {
-    margin: 12px 0;
-    padding: 10px 12px;
-    background: #f0fdf4;
-    border: 1px solid #bbf7d0;
-    border-radius: 6px;
-  }
-  
-  .invicta-cart-breakdown__shipping-text {
-    font-size: 0.85rem;
-    color: #166534;
-    margin-bottom: 8px;
-    text-align: center;
-  }
-  
-  .invicta-cart-breakdown__shipping-bar {
-    height: 6px;
-    background: #dcfce7;
-    border-radius: 3px;
-    overflow: hidden;
-  }
-  
-  .invicta-cart-breakdown__shipping-fill {
-    height: 100%;
-    background: #22c55e;
-    border-radius: 3px;
-    transition: width 0.3s ease;
-  }
-</style>
+{{ 'component-cart-breakdown.css' | asset_url | stylesheet_tag }}

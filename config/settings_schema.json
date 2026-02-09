@@ -1463,5 +1463,50 @@
         "default": "scheme-1"
       }
     ]
+  },
+  {
+    "name": "Invicta Trade Settings",
+    "settings": [
+      {
+        "type": "header",
+        "content": "VAT Configuration"
+      },
+      {
+        "type": "range",
+        "id": "inv_vat_rate",
+        "min": 0,
+        "max": 25,
+        "step": 1,
+        "default": 20,
+        "unit": "%",
+        "label": "VAT Rate",
+        "info": "UK standard rate is 20%. Used for all ex-VAT price calculations across the site."
+      },
+      {
+        "type": "header",
+        "content": "Free Shipping"
+      },
+      {
+        "type": "text",
+        "id": "inv_free_shipping_pence",
+        "default": "3000",
+        "label": "Free shipping threshold (pence)",
+        "info": "Cart total in pence to qualify for free shipping. 3000 = £30.00"
+      },
+      {
+        "type": "header",
+        "content": "Delivery"
+      },
+      {
+        "type": "range",
+        "id": "inv_delivery_cutoff_hour",
+        "min": 8,
+        "max": 18,
+        "step": 1,
+        "default": 14,
+        "label": "Same-day dispatch cutoff (hour)",
+        "info": "Orders placed before this hour (24h format) on weekdays ship same day."
+      }
+    ]
   }
 ]

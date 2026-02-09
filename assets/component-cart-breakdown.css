@@ -1,0 +1,29 @@
+/* Shipping Progress Bar */
+.invicta-cart-breakdown__shipping-progress {
+  margin: 12px 0;
+  padding: 10px 12px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+}
+
+.invicta-cart-breakdown__shipping-text {
+  font-size: 0.85rem;
+  color: #166534;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.invicta-cart-breakdown__shipping-bar {
+  height: 6px;
+  background: #dcfce7;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.invicta-cart-breakdown__shipping-fill {
+  height: 100%;
+  background: #22c55e;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}

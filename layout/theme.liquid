@@ -15,26 +15,6 @@
       >
     {%- endif -%}
 
-    <!-- Google tag (gtag.js) event - delayed navigation helper -->
-<script>
-  // Helper function to delay opening a URL until a gtag event is sent.
-  // Call it in response to an action that should navigate to a URL.
-  function gtagSendEvent(url) {
-    var callback = function () {
-      if (typeof url === 'string') {
-        window.location = url;
-      }
-    };
-    gtag('event', 'search', {
-      'event_callback': callback,
-      'event_timeout': 2000,
-      // <event_parameters>
-    });
-    return false;
-  }
-</script>
-
-
     {%- comment -%}
       =========================================================
       DNS Prefetch & Preconnect Hints
@@ -61,7 +41,6 @@
     {% endif %}
 
     {% render 'meta-tags' %}
-    {% render 'invicta-cart-handler' %}
     {% render 'invicta-css-variables' %}
 
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
@@ -343,11 +322,11 @@
     <!-- 1. Base Theme CSS (foundations) -->
     {{ 'base.css' | asset_url | stylesheet_tag }}
     
-    <!-- 2. Shared Components (load on all devices) -->
-    {{ 'invicta-card.css' | asset_url | stylesheet_tag }}
-    {{ 'invicta-brand-pill.css' | asset_url | stylesheet_tag }}
-    {{ 'invicta-radius-reset.css' | asset_url | stylesheet_tag }}
-    {{ 'inv-product-card.css' | asset_url | stylesheet_tag }}
+    <!-- 2. Shared Components (lazy-loaded — only needed on product listing pages) -->
+    <link rel="stylesheet" href="{{ 'invicta-card.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'invicta-brand-pill.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'inv-product-card.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'invicta-radius-reset.css' | asset_url }}" media="print" onload="this.media='all'">
     
 
     <!-- 3. Device-Specific Styles (PWA optimised) -->
@@ -509,10 +488,27 @@
       };
     </script>
 
+    {%- comment -%} Invicta trade config — exposed to JS via data attributes {%- endcomment -%}
+    {%- liquid
+      assign inv_vat_divisor = 100 | plus: settings.inv_vat_rate
+      assign inv_shipping_threshold = settings.inv_free_shipping_pence | plus: 0
+    -%}
+    <script>
+      window.invictaConfig = {
+        vatRate: {{ settings.inv_vat_rate }},
+        vatDivisor: {{ inv_vat_divisor }},
+        freeShippingPence: {{ inv_shipping_threshold }},
+        deliveryCutoffHour: {{ settings.inv_delivery_cutoff_hour }}
+      };
+    </script>
+
+    <!-- Cart Handler (moved from <head> — needs DOM, not critical path) -->
+    {% render 'invicta-cart-handler' %}
+
     <!-- =============================================
          INVICTA JS — Clean Load Order
          ============================================= -->
-    
+
     <!-- Brand Pill Badges -->
     <script src="{{ 'invicta-brand-pill.js' | asset_url }}" defer></script>
     

@@ -1,0 +1,38 @@
+  .invicta-min-qty {
+    margin: 12px 0;
+  }
+
+  .invicta-min-qty__notice {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #fef3c7;
+    border: 1px solid #fbbf24;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #92400e;
+    transition: all 0.2s ease;
+  }
+
+  .invicta-min-qty__notice svg {
+    flex-shrink: 0;
+    color: #d97706;
+  }
+
+  .invicta-min-qty__notice strong {
+    color: #78350f;
+  }
+
+  /* Warning state - when user tries to go below minimum */
+  .invicta-min-qty--warning .invicta-min-qty__notice {
+    background: #fef2f2;
+    border-color: #f87171;
+    animation: minQtyShake 0.5s ease;
+  }
+
+  @keyframes minQtyShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+  }
