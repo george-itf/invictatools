@@ -67,73 +67,27 @@
 {%- comment -%} Prevent auto-detection of phone numbers {%- endcomment -%}
 <meta name="format-detection" content="telephone=no">
 
-{%- comment -%} Service Worker Registration (P0.5 FIX) {%- endcomment -%}
+{%- comment -%} Service Worker Registration — deferred to avoid blocking render {%- endcomment -%}
 <script>
-  /**
-   * Register Invicta Tools PWA Service Worker
-   * Handles offline caching and performance optimisation
-   *
-   * P0.5 FIX: Reduced update frequency from 60s to once per 12 hours
-   * to avoid unnecessary network churn on mobile networks.
-   */
-  (function() {
-    'use strict';
-
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('{{ "service-worker.js" | asset_url }}', {
-          scope: '/'
-        })
-        .then(function(registration) {
-          console.log('[Invicta PWA] Service Worker registered');
-
-          /**
-           * P0.5 FIX: Only check for updates once every 12 hours
-           * Uses localStorage timestamp to persist across sessions
-           */
-          const UPDATE_INTERVAL = 12 * 60 * 60 * 1000; // 12 hours in ms
-          const LAST_UPDATE_KEY = 'invicta-sw-last-update';
-
-          function shouldUpdate() {
-            try {
-              const lastUpdate = localStorage.getItem(LAST_UPDATE_KEY);
-              if (!lastUpdate) return true;
-              return (Date.now() - parseInt(lastUpdate, 10)) > UPDATE_INTERVAL;
-            } catch (e) {
-              return true;
+  if ('serviceWorker' in navigator) {
+    // Use requestIdleCallback where available, fallback to load event
+    var registerSW = function() {
+      navigator.serviceWorker.register('{{ "service-worker.js" | asset_url }}', { scope: '/' })
+        .then(function(reg) {
+          var KEY = 'invicta-sw-last-update', INTERVAL = 43200000; // 12h
+          try {
+            var last = localStorage.getItem(KEY);
+            if (!last || (Date.now() - parseInt(last, 10)) > INTERVAL) {
+              reg.update();
+              localStorage.setItem(KEY, Date.now().toString());
             }
-          }
-
-          function markUpdated() {
-            try {
-              localStorage.setItem(LAST_UPDATE_KEY, Date.now().toString());
-            } catch (e) {
-              // Silent fail
-            }
-          }
-
-          // Check for update on navigation only (not on interval)
-          if (shouldUpdate()) {
-            registration.update();
-            markUpdated();
-          }
-
-          /* Handle update found */
-          registration.addEventListener('updatefound', function() {
-            const newWorker = registration.installing;
-
-            newWorker.addEventListener('statechange', function() {
-              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                console.log('[Invicta PWA] New version available');
-                /* Optionally show update notification here */
-              }
-            });
-          });
-        })
-        .catch(function(error) {
-          console.error('[Invicta PWA] Registration failed:', error);
-        });
-      });
+          } catch(e) {}
+        }).catch(function() {});
+    };
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(registerSW);
+    } else {
+      window.addEventListener('load', registerSW);
     }
-  })();
+  }
 </script>

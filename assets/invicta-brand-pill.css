@@ -260,6 +260,17 @@
   }
 }
 
+/* BRAND DOT — For filter buttons
+   ====================================================================== */
+
+.invicta-brand-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
 /* SCORE BAR — PERMANENTLY OFF (legacy)
    ====================================================================== */
 

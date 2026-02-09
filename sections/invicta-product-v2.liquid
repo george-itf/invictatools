@@ -114,13 +114,13 @@
   endif
   
   comment
-    Price ex VAT calculation (P0.4 FIX)
-    Shopify prices are in pence, divide by 1.2 for ex VAT
-    Using integer-safe rounding: times: 100 | plus: 60 | divided_by: 120
-    (adds half of 120 to round to nearest penny, not truncate)
+    Price ex VAT — uses centralised VAT rate from theme settings
+    Integer-safe rounding: times: 100 | plus: rounding | divided_by: divisor
   endcomment
-  assign price_ex_vat = current_variant.price | times: 100 | plus: 60 | divided_by: 120
-  assign compare_ex_vat = current_variant.compare_at_price | times: 100 | plus: 60 | divided_by: 120
+  assign inv_vat_divisor = 100 | plus: settings.inv_vat_rate
+  assign inv_vat_rounding = inv_vat_divisor | divided_by: 2
+  assign price_ex_vat = current_variant.price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor
+  assign compare_ex_vat = current_variant.compare_at_price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor
   
   comment
     Discount percentage
@@ -1386,7 +1386,8 @@
     var savingsWrap = priceWrapper.querySelector('[data-savings-wrap]');
     var savingsEl = priceWrapper.querySelector('[data-savings]');
     
-    var exVat = Math.round(variant.price * 100 / 120);
+    var vatDivisor = window.invictaConfig ? window.invictaConfig.vatDivisor : 120;
+    var exVat = Math.round(variant.price * 100 / vatDivisor);
     
     if (priceInc) priceInc.textContent = formatMoney(variant.price);
     if (priceEx) priceEx.textContent = formatMoney(exVat);
@@ -1407,7 +1408,7 @@
     
     if (compareEx) {
       if (hasCompare) {
-        var compareExVat = Math.round(variant.compare_at_price * 100 / 120);
+        var compareExVat = Math.round(variant.compare_at_price * 100 / vatDivisor);
         compareEx.textContent = formatMoney(compareExVat);
         compareEx.style.display = '';
       } else {

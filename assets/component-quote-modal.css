@@ -1,0 +1,213 @@
+  /* Inline Quote Button */
+  .invicta-quote-inline {
+    margin: 12px 0 16px;
+  }
+
+  .invicta-quote-inline__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 1px solid #fbbf24;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #92400e;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .invicta-quote-inline__btn:hover {
+    background: linear-gradient(135deg, #fde68a 0%, #fcd34d 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+  }
+
+  /* Quote Modal */
+  .invicta-quote-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .invicta-quote-modal[hidden] {
+    display: none;
+  }
+
+  .invicta-quote-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+  }
+
+  .invicta-quote-modal__content {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    animation: quoteModalIn 0.2s ease;
+  }
+
+  @keyframes quoteModalIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .invicta-quote-modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .invicta-quote-modal__title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1f2937;
+  }
+
+  .invicta-quote-modal__close {
+    padding: 8px;
+    background: none;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+  }
+
+  .invicta-quote-modal__close:hover {
+    background: #f3f4f6;
+    color: #1f2937;
+  }
+
+  .invicta-quote-modal__body {
+    padding: 24px;
+  }
+
+  /* Quote Form */
+  .invicta-quote-form__product-info {
+    padding: 12px 16px;
+    background: #f9fafb;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .invicta-quote-form__product-info strong {
+    display: block;
+    font-size: 1rem;
+    color: #1f2937;
+  }
+
+  .invicta-quote-form__sku {
+    font-size: 0.85rem;
+    color: #6b7280;
+  }
+
+  .invicta-quote-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  @media screen and (max-width: 500px) {
+    .invicta-quote-form__row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .invicta-quote-form__field {
+    margin-bottom: 16px;
+  }
+
+  .invicta-quote-form__field label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #374151;
+  }
+
+  .invicta-quote-form__field .required {
+    color: #dc2626;
+  }
+
+  .invicta-quote-form__field input,
+  .invicta-quote-form__field textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .invicta-quote-form__field input:focus,
+  .invicta-quote-form__field textarea:focus {
+    outline: none;
+    border-color: #dc2626;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+  }
+
+  .invicta-quote-form__actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .invicta-quote-form__cancel {
+    padding: 12px 20px;
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .invicta-quote-form__cancel:hover {
+    background: #e5e7eb;
+  }
+
+  .invicta-quote-form__submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: #dc2626;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .invicta-quote-form__submit:hover {
+    background: #b91c1c;
+  }
