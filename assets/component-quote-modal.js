@@ -1,42 +1,50 @@
-  (function() {
-    'use strict';
+(function() {
+  'use strict';
 
-    const quoteModal = document.querySelector('[data-quote-modal]');
-    if (!quoteModal) return;
+  var quoteModal = document.querySelector('[data-quote-modal]');
+  if (!quoteModal) return;
 
-    // Close modal handlers
-    document.querySelectorAll('[data-quote-close]').forEach(el => {
-      el.addEventListener('click', () => {
-        quoteModal.hidden = true;
-        document.body.style.overflow = '';
-      });
-    });
+  function closeModal() {
+    quoteModal.hidden = true;
+    document.body.style.overflow = '';
+  }
 
-    // Close on Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !quoteModal.hidden) {
-        quoteModal.hidden = true;
-        document.body.style.overflow = '';
-      }
-    });
+  document.querySelectorAll('[data-quote-close]').forEach(function(el) {
+    el.addEventListener('click', closeModal);
+  });
 
-    // Pre-fill quantity from product page when modal opens
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach(mutation => {
-        if (mutation.attributeName === 'hidden' && !quoteModal.hidden) {
-          const productQty = document.querySelector('#InvQty, input[name="quantity"]');
-          const quoteQty = quoteModal.querySelector('[data-quote-qty]');
-          if (productQty && quoteQty) {
-            quoteQty.value = productQty.value;
-          }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && !quoteModal.hidden) {
+      closeModal();
+    }
+  });
 
-          // Focus first input
-          setTimeout(() => {
-            quoteModal.querySelector('input[name="contact[name]"]')?.focus();
-          }, 100);
+  // Close when clicking backdrop
+  quoteModal.addEventListener('click', function(e) {
+    if (e.target === quoteModal) {
+      closeModal();
+    }
+  });
+
+  // Pre-fill quantity when modal opens — use a simple attribute watch
+  var lastHidden = quoteModal.hidden;
+  var observer = new MutationObserver(function(mutations) {
+    for (var i = 0; i < mutations.length; i++) {
+      if (mutations[i].attributeName === 'hidden' && !quoteModal.hidden) {
+        var productQty = document.querySelector('#InvQty, input[name="quantity"]');
+        var quoteQty = quoteModal.querySelector('[data-quote-qty]');
+        if (productQty && quoteQty) {
+          quoteQty.value = productQty.value;
         }
-      });
-    });
 
-    observer.observe(quoteModal, { attributes: true });
-  })();
+        var nameInput = quoteModal.querySelector('input[name="contact[name]"]');
+        if (nameInput) {
+          setTimeout(function() { nameInput.focus(); }, 100);
+        }
+        break;
+      }
+    }
+  });
+
+  observer.observe(quoteModal, { attributes: true, attributeFilter: ['hidden'] });
+})();

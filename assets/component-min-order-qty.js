@@ -1,11 +1,13 @@
     (function() {
       'use strict';
 
-      const MIN_QTY = parseInt(document.querySelector('[data-min-qty]').dataset.minQty, 10);
-      const minQtyEl = document.querySelector('[data-min-qty]');
-      const qtyInput = document.querySelector('#InvQty, input[name="quantity"]');
+      var minQtyEl = document.querySelector('[data-min-qty]');
+      if (!minQtyEl) return;
 
-      if (!qtyInput || !minQtyEl) return;
+      var MIN_QTY = parseInt(minQtyEl.dataset.minQty, 10) || 1;
+      var qtyInput = document.querySelector('#InvQty, input[name="quantity"]');
+
+      if (!qtyInput) return;
 
       // Set minimum on input
       qtyInput.min = MIN_QTY;

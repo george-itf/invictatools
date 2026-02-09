@@ -76,7 +76,7 @@
     <span class="invicta-cart-breakdown__label">Shipping</span>
     <span class="invicta-cart-breakdown__value" data-breakdown-shipping>
       {%- if cart.total_price >= free_shipping_threshold -%}
-        <span style="color: #059669; font-weight: 500;">FREE</span>
+        <span class="invicta-cart-breakdown__free-label">FREE</span>
       {%- else -%}
         Calculated at checkout
       {%- endif -%}
