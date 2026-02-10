@@ -263,7 +263,16 @@
     },
     "404": {
       "title": "Page not found",
-      "subtext": "404"
+      "subtext": "404",
+      "description": "Sorry, the page you were looking for doesn't exist or may have been moved.",
+      "search_placeholder": "Search our products...",
+      "search_button": "Search",
+      "popular_categories": "Popular categories",
+      "need_help": "Need help?",
+      "need_help_text": "Our team is here to help you find what you need.",
+      "contact_us": "Contact us",
+      "call_us": "Call us",
+      "browse_all": "Browse all products"
     }
   },
   "sections": {
