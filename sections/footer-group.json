@@ -1,1 +1,137 @@
-{"name":"t:sections.footer.name","type":"footer","sections":{"custom_liquid_GMjzRc":{"type":"custom-liquid","name":"t:sections.custom-liquid.presets.name","settings":{"color_scheme":"","show_top_border":true,"top_border_height":6,"top_border_color":"#d5453e","enable_newsletter":false,"nl_title":"Get updates & offers","nl_placeholder":"Enter your email","nl_button":"Subscribe","nl_form_html":"","newsletter_bg":"#2d2d2d","newsletter_text":"#ffffff","subscribe_bg":"#e42e28","subscribe_text":"#ffffff","padding_top":40,"padding_bottom":44,"accent_red":"#e42e28","col1_show":true,"nav_title":"HELP & FAQS","col2_show":true,"addr_heading":"","col3_show":true,"hours_heading":"OPENING HOURS","hours_text":"Mon - Fri | 07:00 - 17:00\nSat - Sun | Closed","trustpilot_url":"https:\/\/uk.trustpilot.com\/review\/invictatools.co.uk","fb_group_url":"https:\/\/www.facebook.com\/groups\/kenttradesmen","credit_url":"https:\/\/cdn.shopify.com\/s\/files\/1\/0594\/2296\/5941\/files\/ITF_Account_Form.pdf?v=1754464713","col4_show":true,"contact_heading":"CONTACT","phone_display":"01843 210 459","phone_href":"","contact_blurb":"<p>Need help? Quick Contacts<\/p>","social_facebook":"https:\/\/www.facebook.com\/InvictaTools","social_linkedin":"https:\/\/uk.linkedin.com\/company\/invicta-tools-&-fixings-limited","social_instagram":"https:\/\/www.instagram.com\/?next=https%3A%2F%2Fwww.instagram.com%2Foauth%2Foidc%2F%3Fredirect_uri%3Dhttps%253A%252F%252Fbusiness.facebook.com%252Fbusiness%252Floginpage%252Figoidc%252Fcallback%252Fidtoken%252F%26app_id%3D532380490911317%26response_type%3Dcode%26scope%3Dopenid%26state%3D%257B%2522user_nonce%2522%253A%2522ATmojEoxSAspMZfGNTR9l_EVt2TI9vTpbZgYa2Hzpoi7bM6ZhNhGOFNQVc84siQ0K4QC5Hw3r_NBTjYtSOQtszk6lBuNZFqGGhQH4MhW%2522%252C%2522from_ig_login_upsell_sso%2522%253Afalse%252C%2522login_source%2522%253A%2522fbs_web%2522%252C%2522next%2522%253A%2522https%255Cu00253A%255Cu00252F%255Cu00252Fbusiness.facebook.com%255Cu00252Flatest%255Cu00252Fhome%255Cu00252F%255Cu00253Fnav_ref%255Cu00253Dbiz_unified_f3_login_page_to_mbs%255Cu002526biz_login_source%255Cu00253Dbiz_unified_f3_ig_oidc_pc_login_button%2522%252C%2522require_professional%2522%253Atrue%252C%2522create_business_manager%2522%253Atrue%252C%2522f3_request_id%2522%253A%2522f08ae700-5698-4e3a-9778-c81829b8024c%2522%257D%26force_consent%3D0%26logger_id%3Df08ae700-5698-4e3a-9778-c81829b8024c%26force_authentication%3D0","show_bottom_bar":false,"copyright_text":"","bottom_menu":"","bottom_bg":"#2d2d2d"}},"footer":{"type":"footer","blocks":{"link_list":{"type":"link_list","settings":{"heading":"Quick links","menu":"footer"}}},"block_order":["link_list"],"disabled":true,"settings":{"color_scheme":"scheme-4","newsletter_enable":false,"newsletter_heading":"Subscribe to our emails","enable_follow_on_shop":true,"show_social":true,"enable_country_selector":true,"enable_language_selector":true,"payment_enable":true,"show_policy":true,"margin_top":0,"padding_top":36,"padding_bottom":36}}},"order":["custom_liquid_GMjzRc","footer"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "invicta_newsletter_Q8y4MQ": {
+      "type": "invicta-newsletter",
+      "blocks": {
+        "trust_badge_6NBHkL": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "No spam, ever"
+          }
+        },
+        "trust_badge_dztaVU": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Unsubscribe anytime"
+          }
+        },
+        "trust_badge_8aCEiM": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Exclusive offers"
+          }
+        }
+      },
+      "block_order": [
+        "trust_badge_6NBHkL",
+        "trust_badge_dztaVU",
+        "trust_badge_8aCEiM"
+      ],
+      "name": "Newsletter Hybrid",
+      "settings": {
+        "badge_percent": "5 %",
+        "badge_text": "Off First Order",
+        "heading": "Get Trade Deals Before Anyone Else",
+        "show_social_proof": true,
+        "subscriber_count": "800+",
+        "subscriber_label": "signed up",
+        "placeholder": "Enter your email",
+        "button_text": "Get My 5% Off",
+        "success_message": "You're in! Check your inbox for your 5% discount code.",
+        "show_trust_badges": true,
+        "background_color": "#2d2d2d",
+        "accent_color": "#e11d26"
+      }
+    },
+    "custom_liquid_GMjzRc": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "show_top_border": true,
+        "top_border_height": 6,
+        "top_border_color": "#d5453e",
+        "enable_newsletter": false,
+        "nl_title": "Get updates & offers",
+        "nl_placeholder": "Enter your email",
+        "nl_button": "Subscribe",
+        "nl_form_html": "",
+        "newsletter_bg": "#2d2d2d",
+        "newsletter_text": "#ffffff",
+        "subscribe_bg": "#e42e28",
+        "subscribe_text": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 44,
+        "accent_red": "#e42e28",
+        "col1_show": true,
+        "nav_title": "HELP & FAQS",
+        "col2_show": true,
+        "addr_heading": "",
+        "col3_show": true,
+        "hours_heading": "OPENING HOURS",
+        "hours_text": "Mon - Fri | 07:00 - 17:00\nSat - Sun | Closed",
+        "trustpilot_url": "https://uk.trustpilot.com/review/invictatools.co.uk",
+        "fb_group_url": "https://www.facebook.com/groups/kenttradesmen",
+        "credit_url": "https://cdn.shopify.com/s/files/1/0594/2296/5941/files/ITF_Account_Form.pdf?v=1754464713",
+        "col4_show": true,
+        "contact_heading": "CONTACT",
+        "phone_display": "01843 210 459",
+        "phone_href": "",
+        "contact_blurb": "<p>Need help? Quick Contacts</p>",
+        "social_facebook": "https://www.facebook.com/InvictaTools",
+        "social_linkedin": "https://uk.linkedin.com/company/invicta-tools-&-fixings-limited",
+        "social_instagram": "https://www.instagram.com/?next=https%3A%2F%2Fwww.instagram.com%2Foauth%2Foidc%2F%3Fredirect_uri%3Dhttps%253A%252F%252Fbusiness.facebook.com%252Fbusiness%252Floginpage%252Figoidc%252Fcallback%252Fidtoken%252F%26app_id%3D532380490911317%26response_type%3Dcode%26scope%3Dopenid%26state%3D%257B%2522user_nonce%2522%253A%2522ATmojEoxSAspMZfGNTR9l_EVt2TI9vTpbZgYa2Hzpoi7bM6ZhNhGOFNQVc84siQ0K4QC5Hw3r_NBTjYtSOQtszk6lBuNZFqGGhQH4MhW%2522%252C%2522from_ig_login_upsell_sso%2522%253Afalse%252C%2522login_source%2522%253A%2522fbs_web%2522%252C%2522next%2522%253A%2522https%255Cu00253A%255Cu00252F%255Cu00252Fbusiness.facebook.com%255Cu00252Flatest%255Cu00252Fhome%255Cu00252F%255Cu00253Fnav_ref%255Cu00253Dbiz_unified_f3_login_page_to_mbs%255Cu002526biz_login_source%255Cu00253Dbiz_unified_f3_ig_oidc_pc_login_button%2522%252C%2522require_professional%2522%253Atrue%252C%2522create_business_manager%2522%253Atrue%252C%2522f3_request_id%2522%253A%2522f08ae700-5698-4e3a-9778-c81829b8024c%2522%257D%26force_consent%3D0%26logger_id%3Df08ae700-5698-4e3a-9778-c81829b8024c%26force_authentication%3D0",
+        "show_bottom_bar": false,
+        "copyright_text": "",
+        "bottom_menu": "",
+        "bottom_bg": "#2d2d2d"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "link_list": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Quick links",
+            "menu": "footer"
+          }
+        }
+      },
+      "block_order": [
+        "link_list"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-4",
+        "newsletter_enable": false,
+        "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "invicta_newsletter_Q8y4MQ",
+    "custom_liquid_GMjzRc",
+    "footer"
+  ]
+}
