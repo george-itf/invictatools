@@ -404,6 +404,7 @@
       thumb.setAttribute('aria-selected', 'true');
 
       if (thumb.dataset.imageSrc) {
+        mainImage.removeAttribute('srcset');
         mainImage.src = thumb.dataset.imageSrc;
       }
     }

@@ -28,16 +28,15 @@
      NEW COMPONENT STYLES — Product V2 additions
      ============================================ */
 
-  /* --- VAT Toggle (compact, inline with price row) --- */
+  /* --- VAT Toggle (own line below price) --- */
   .inv-pdp__vat-toggle {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    margin-left: 12px;
     background: var(--pdp-grey-100, #f5f5f5);
     border-radius: 20px;
-    padding: 4px 10px;
-    vertical-align: middle;
+    padding: 5px 12px;
+    margin-top: 6px;
   }
   .inv-pdp__vat-toggle-label {
     font-size: 11px;
@@ -113,6 +112,14 @@
   }
   .inv-pdp__collect-text span {
     color: var(--pdp-text-muted);
+  }
+  .inv-pdp__collect-text a {
+    color: #0284c7;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .inv-pdp__collect-text a:hover {
+    text-decoration: underline;
   }
 
   /* --- Trade Account Callout --- */
@@ -605,46 +612,35 @@
             aria-live="polite"
             aria-atomic="true"
           >
-            {%- comment -%} PRICE ROW: main price + VAT toggle (always visible) {%- endcomment -%}
-            <div class="inv-pdp__price-row">
-              {%- comment -%} INC VAT price (default) {%- endcomment -%}
-              <span class="inv-pdp__price-view" data-vat-view="inc">
-                <span class="inv-pdp__price-current" data-price-inc>{{ current_variant.price | money }}</span>
-                <span class="inv-pdp__price-label">inc VAT</span>
-                {% if has_compare_price %}
-                  <span class="inv-pdp__price-was" data-compare-inc>{{ current_variant.compare_at_price | money }}</span>
-                {% endif %}
-              </span>
-              {%- comment -%} EX VAT price (toggled) {%- endcomment -%}
-              <span class="inv-pdp__price-view inv-pdp__price-view--hidden" data-vat-view="ex">
-                <span class="inv-pdp__price-current" data-price-ex>{{ price_ex_vat | money }}</span>
-                <span class="inv-pdp__price-label">ex VAT</span>
-                {% if has_compare_price %}
-                  <span class="inv-pdp__price-was" data-compare-ex>{{ compare_ex_vat | money }}</span>
-                {% endif %}
-              </span>
-              {%- comment -%} VAT toggle — OUTSIDE both views so it never hides {%- endcomment -%}
-              <span class="inv-pdp__vat-toggle" data-vat-toggle-inline>
-                <span class="inv-pdp__vat-toggle-label" data-vat-label-ex>EX</span>
-                <button
-                  type="button"
-                  class="inv-pdp__vat-toggle-switch"
-                  role="switch"
-                  aria-checked="true"
-                  aria-label="Toggle VAT display"
-                  data-vat-switch
-                >
-                  <span class="inv-pdp__vat-toggle-thumb"></span>
-                </button>
-                <span class="inv-pdp__vat-toggle-label inv-pdp__vat-toggle-label--active" data-vat-label-inc>INC</span>
-              </span>
+            {%- comment -%} PRICE ROW: main price + compare price {%- endcomment -%}
+            <div class="inv-pdp__price-row" data-vat-view="inc">
+              <span class="inv-pdp__price-current" data-price-inc>{{ current_variant.price | money }}</span>
+              <span class="inv-pdp__price-label">inc VAT</span>
+              {% if has_compare_price %}
+                <span class="inv-pdp__price-was" data-compare-inc>{{ current_variant.compare_at_price | money }}</span>
+              {% endif %}
             </div>
-            {%- comment -%} Alt price line (always visible, shows opposite) {%- endcomment -%}
-            <div class="inv-pdp__price-alt" data-vat-alt="inc" data-vat-view="inc">
-              <span data-price-ex-alt>{{ price_ex_vat | money }}</span> ex VAT
+            <div class="inv-pdp__price-row inv-pdp__price-view--hidden" data-vat-view="ex">
+              <span class="inv-pdp__price-current" data-price-ex>{{ price_ex_vat | money }}</span>
+              <span class="inv-pdp__price-label">ex VAT</span>
+              {% if has_compare_price %}
+                <span class="inv-pdp__price-was" data-compare-ex>{{ compare_ex_vat | money }}</span>
+              {% endif %}
             </div>
-            <div class="inv-pdp__price-alt inv-pdp__price-view--hidden" data-vat-alt="ex" data-vat-view="ex">
-              <span data-price-inc-alt>{{ current_variant.price | money }}</span> inc VAT
+            {%- comment -%} VAT toggle — fixed position below price, never jumps {%- endcomment -%}
+            <div class="inv-pdp__vat-toggle" data-vat-toggle-inline>
+              <span class="inv-pdp__vat-toggle-label" data-vat-label-ex>EX VAT</span>
+              <button
+                type="button"
+                class="inv-pdp__vat-toggle-switch"
+                role="switch"
+                aria-checked="true"
+                aria-label="Toggle VAT display"
+                data-vat-switch
+              >
+                <span class="inv-pdp__vat-toggle-thumb"></span>
+              </button>
+              <span class="inv-pdp__vat-toggle-label inv-pdp__vat-toggle-label--active" data-vat-label-inc>INC VAT</span>
             </div>
 
             {%- comment -%} SAVINGS (visible in both views) {%- endcomment -%}
@@ -690,16 +686,15 @@
           {%- comment -%} DELIVERY ESTIMATE (reusable snippet) {%- endcomment -%}
           {% render 'invicta-delivery-estimate' %}
           
-          {%- comment -%} CLICK & COLLECT {%- endcomment -%}
-          {% if is_in_stock and section.settings.show_click_collect %}
+          {%- comment -%} IN-STORE AVAILABILITY CTA {%- endcomment -%}
+          {% if section.settings.show_click_collect %}
             <div class="inv-pdp__collect">
               <svg class="inv-pdp__collect-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                <circle cx="12" cy="10" r="3"/>
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
               </svg>
               <div class="inv-pdp__collect-text">
-                <strong>Click & Collect</strong>
-                <span>{{ section.settings.collect_text | default: 'Available from Canterbury & Ramsgate — usually ready in 1 hour' }}</span>
+                <strong>Want to collect in store?</strong>
+                <span>{{ section.settings.collect_text | default: 'Call us on <a href="tel:01227 456789">01227 456789</a> to check availability at Canterbury or Ramsgate' }}</span>
               </div>
             </div>
           {% endif %}
@@ -1170,14 +1165,14 @@
     {
       "type": "checkbox",
       "id": "show_click_collect",
-      "label": "Show Click & Collect option",
+      "label": "Show in-store collection CTA",
       "default": true
     },
     {
       "type": "text",
       "id": "collect_text",
-      "label": "Click & Collect text",
-      "default": "Available from Canterbury & Ramsgate — usually ready in 1 hour"
+      "label": "In-store collection text",
+      "default": "Call us on <a href=\"tel:01227 456789\">01227 456789</a> to check availability at Canterbury or Ramsgate"
     },
     {
       "type": "header",
