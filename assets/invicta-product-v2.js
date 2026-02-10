@@ -629,18 +629,23 @@
     function updateVatDisplay(mode) {
       if (!priceWrapper) return;
 
-      const incView = priceWrapper.querySelector('[data-vat-view="inc"]');
-      const exView = priceWrapper.querySelector('[data-vat-view="ex"]');
+      const incViews = priceWrapper.querySelectorAll('[data-vat-view="inc"]');
+      const exViews = priceWrapper.querySelectorAll('[data-vat-view="ex"]');
 
-      if (incView && exView) {
+      incViews.forEach(function(el) {
         if (mode === 'ex') {
-          incView.classList.add('inv-pdp__price-view--hidden');
-          exView.classList.remove('inv-pdp__price-view--hidden');
+          el.classList.add('inv-pdp__price-view--hidden');
         } else {
-          incView.classList.remove('inv-pdp__price-view--hidden');
-          exView.classList.add('inv-pdp__price-view--hidden');
+          el.classList.remove('inv-pdp__price-view--hidden');
         }
-      }
+      });
+      exViews.forEach(function(el) {
+        if (mode === 'ex') {
+          el.classList.remove('inv-pdp__price-view--hidden');
+        } else {
+          el.classList.add('inv-pdp__price-view--hidden');
+        }
+      });
     }
 
     document.addEventListener('invicta:vat-toggle', function(e) {
