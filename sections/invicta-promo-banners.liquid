@@ -202,20 +202,58 @@
 }
 {% endstyle %}
 
+{%- liquid
+  comment
+    Date-window visibility: if start/end dates are set, only show banners within the window.
+    Dates should be entered as YYYY-MM-DD. Uses shop timezone via Shopify's "now".
+    If dates are blank, the banner always shows.
+  endcomment
+  assign now_ts = 'now' | date: '%s' | plus: 0
+
+  assign show_banner_1 = true
+  if section.settings.banner_1_start != blank
+    assign b1_start_ts = section.settings.banner_1_start | append: ' 00:00' | date: '%s' | plus: 0
+    if b1_start_ts > 0 and now_ts < b1_start_ts
+      assign show_banner_1 = false
+    endif
+  endif
+  if section.settings.banner_1_end != blank
+    assign b1_end_ts = section.settings.banner_1_end | append: ' 23:59' | date: '%s' | plus: 0
+    if b1_end_ts > 0 and now_ts > b1_end_ts
+      assign show_banner_1 = false
+    endif
+  endif
+
+  assign show_banner_2 = true
+  if section.settings.banner_2_start != blank
+    assign b2_start_ts = section.settings.banner_2_start | append: ' 00:00' | date: '%s' | plus: 0
+    if b2_start_ts > 0 and now_ts < b2_start_ts
+      assign show_banner_2 = false
+    endif
+  endif
+  if section.settings.banner_2_end != blank
+    assign b2_end_ts = section.settings.banner_2_end | append: ' 23:59' | date: '%s' | plus: 0
+    if b2_end_ts > 0 and now_ts > b2_end_ts
+      assign show_banner_2 = false
+    endif
+  endif
+-%}
+
+{%- if show_banner_1 or show_banner_2 -%}
 <section class="invicta-promos">
   <div class="invicta-promos__grid">
 
-    <!-- Banner 1: Winter Workwear -->
-    <a href="{{ section.settings.banner_1_link | default: '/collections/workwear' }}" class="invicta-promo invicta-promo--winter">
+    {%- if show_banner_1 -%}
+    <a href="{{ section.settings.banner_1_link | default: '/collections/all' }}" class="invicta-promo invicta-promo--winter">
       <div class="invicta-promo__content">
         <span class="invicta-promo__tag">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/>
           </svg>
-          {{ section.settings.banner_1_tag | default: 'Winter Essentials' }}
+          {{ section.settings.banner_1_tag | default: 'New Arrivals' }}
         </span>
-        <h2 class="invicta-promo__title">{{ section.settings.banner_1_title | default: 'Gear Up For Winter' }}</h2>
-        <p class="invicta-promo__subtitle">{{ section.settings.banner_1_subtitle | default: 'Hi-vis jackets, heated workwear & thermal gear to keep you working through the cold.' }}</p>
+        <h2 class="invicta-promo__title">{{ section.settings.banner_1_title | default: 'Latest Power Tools' }}</h2>
+        <p class="invicta-promo__subtitle">{{ section.settings.banner_1_subtitle | default: 'Browse the latest tools from top trade brands.' }}</p>
       </div>
       <div class="invicta-promo__arrow">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -223,18 +261,19 @@
         </svg>
       </div>
     </a>
+    {%- endif -%}
 
-    <!-- Banner 2: Black Friday -->
-    <a href="{{ section.settings.banner_2_link | default: '/collections/black-friday' }}" class="invicta-promo invicta-promo--blackfriday">
+    {%- if show_banner_2 -%}
+    <a href="{{ section.settings.banner_2_link | default: '/collections/deals' }}" class="invicta-promo invicta-promo--blackfriday">
       <div class="invicta-promo__content">
         <span class="invicta-promo__tag">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
           </svg>
-          {{ section.settings.banner_2_tag | default: 'Limited Time' }}
+          {{ section.settings.banner_2_tag | default: 'Special Offers' }}
         </span>
-        <h2 class="invicta-promo__title">{{ section.settings.banner_2_title | default: 'Black Friday Deals' }}</h2>
-        <p class="invicta-promo__subtitle">{{ section.settings.banner_2_subtitle | default: 'Massive savings on Makita, DeWalt, HiKOKI and more. Dont miss out!' }}</p>
+        <h2 class="invicta-promo__title">{{ section.settings.banner_2_title | default: 'Deals & Savings' }}</h2>
+        <p class="invicta-promo__subtitle">{{ section.settings.banner_2_subtitle | default: 'Great prices on Makita, DeWalt, HiKOKI and more.' }}</p>
       </div>
       <div class="invicta-promo__arrow">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -242,9 +281,11 @@
         </svg>
       </div>
     </a>
+    {%- endif -%}
 
   </div>
 </section>
+{%- endif -%}
 
 {% schema %}
 {
@@ -252,25 +293,25 @@
   "settings": [
     {
       "type": "header",
-      "content": "Banner 1 - Winter"
+      "content": "Banner 1"
     },
     {
       "type": "text",
       "id": "banner_1_tag",
       "label": "Tag text",
-      "default": "Winter Essentials"
+      "default": "New Arrivals"
     },
     {
       "type": "text",
       "id": "banner_1_title",
       "label": "Title",
-      "default": "Gear Up For Winter"
+      "default": "Latest Power Tools"
     },
     {
       "type": "text",
       "id": "banner_1_subtitle",
       "label": "Subtitle",
-      "default": "Hi-vis jackets, heated workwear & thermal gear to keep you working through the cold."
+      "default": "Browse the latest tools from top trade brands."
     },
     {
       "type": "url",
@@ -278,31 +319,55 @@
       "label": "Link"
     },
     {
+      "type": "text",
+      "id": "banner_1_start",
+      "label": "Start date (YYYY-MM-DD)",
+      "info": "Leave blank to always show. Uses shop timezone."
+    },
+    {
+      "type": "text",
+      "id": "banner_1_end",
+      "label": "End date (YYYY-MM-DD)",
+      "info": "Leave blank for no end date."
+    },
+    {
       "type": "header",
-      "content": "Banner 2 - Black Friday"
+      "content": "Banner 2"
     },
     {
       "type": "text",
       "id": "banner_2_tag",
       "label": "Tag text",
-      "default": "Limited Time"
+      "default": "Special Offers"
     },
     {
       "type": "text",
       "id": "banner_2_title",
       "label": "Title",
-      "default": "Black Friday Deals"
+      "default": "Deals & Savings"
     },
     {
       "type": "text",
       "id": "banner_2_subtitle",
       "label": "Subtitle",
-      "default": "Massive savings on Makita, DeWalt, HiKOKI and more. Don't miss out!"
+      "default": "Great prices on Makita, DeWalt, HiKOKI and more."
     },
     {
       "type": "url",
       "id": "banner_2_link",
       "label": "Link"
+    },
+    {
+      "type": "text",
+      "id": "banner_2_start",
+      "label": "Start date (YYYY-MM-DD)",
+      "info": "Leave blank to always show. Uses shop timezone."
+    },
+    {
+      "type": "text",
+      "id": "banner_2_end",
+      "label": "End date (YYYY-MM-DD)",
+      "info": "Leave blank for no end date."
     }
   ],
   "presets": [

@@ -1508,5 +1508,111 @@
         "info": "Orders placed before this hour (24h format) on weekdays ship same day."
       }
     ]
+  },
+  {
+    "name": "SEO & Crawl Control",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Collection Pages"
+      },
+      {
+        "type": "checkbox",
+        "id": "seo_noindex_filtered_collections",
+        "label": "Noindex filtered collection pages",
+        "default": true,
+        "info": "Adds noindex,follow to collection pages with active filters or non-default sort order."
+      },
+      {
+        "type": "checkbox",
+        "id": "seo_noindex_paginated_collections",
+        "label": "Noindex paginated collection pages",
+        "default": true,
+        "info": "Adds noindex,follow to collection pages beyond the threshold page number."
+      },
+      {
+        "type": "range",
+        "id": "seo_paginated_noindex_from_page",
+        "min": 2,
+        "max": 10,
+        "step": 1,
+        "default": 2,
+        "label": "Noindex from page number",
+        "info": "Pages at or above this number get noindex. Default: 2 (all paginated pages)."
+      },
+      {
+        "type": "header",
+        "content": "Search Results"
+      },
+      {
+        "type": "checkbox",
+        "id": "seo_noindex_search_results",
+        "label": "Noindex search results pages",
+        "default": true,
+        "info": "Adds noindex,follow to internal search result pages."
+      },
+      {
+        "type": "header",
+        "content": "Robots.txt"
+      },
+      {
+        "type": "checkbox",
+        "id": "seo_robots_block_filter_params",
+        "label": "Block filter URLs in robots.txt",
+        "default": true,
+        "info": "Adds Disallow rules for filter.* and sort_by parameter URLs to reduce crawl waste."
+      },
+      {
+        "type": "header",
+        "content": "Organization Schema"
+      },
+      {
+        "type": "text",
+        "id": "seo_org_name",
+        "label": "Organization name",
+        "default": "Invicta Tools",
+        "info": "Used in sitewide Organization structured data."
+      },
+      {
+        "type": "text",
+        "id": "seo_org_telephone",
+        "label": "Telephone",
+        "info": "E.g. +44 1843 210459. Appears in Organization and LocalBusiness schema."
+      },
+      {
+        "type": "header",
+        "content": "LocalBusiness Schema (optional)"
+      },
+      {
+        "type": "paragraph",
+        "content": "Fill street, city, and postcode to output LocalBusiness (HardwareStore) structured data. Leave blank to disable."
+      },
+      {
+        "type": "text",
+        "id": "seo_local_street",
+        "label": "Street address"
+      },
+      {
+        "type": "text",
+        "id": "seo_local_city",
+        "label": "City / Locality"
+      },
+      {
+        "type": "text",
+        "id": "seo_local_region",
+        "label": "Region / County"
+      },
+      {
+        "type": "text",
+        "id": "seo_local_postcode",
+        "label": "Postal code"
+      },
+      {
+        "type": "text",
+        "id": "seo_local_hours",
+        "label": "Opening hours",
+        "info": "E.g. Mo-Fr 07:30-17:00, Sa 08:00-12:00"
+      }
+    ]
   }
 ]

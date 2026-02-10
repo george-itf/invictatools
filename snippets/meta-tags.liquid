@@ -30,6 +30,42 @@
 
 {%- if should_noindex -%}
   <meta name="robots" content="noindex, nofollow">
+{%- else -%}
+  {%- liquid
+    comment
+      SEO: Meta robots for filtered/paginated collections and search results
+      Controlled via theme settings under "SEO & Crawl Control"
+    endcomment
+    assign seo_noindex = false
+
+    if request.page_type == 'collection' and settings.seo_noindex_filtered_collections
+      for filter in collection.filters
+        if filter.active_values.size > 0 or filter.min_value.value or filter.max_value.value
+          assign seo_noindex = true
+          break
+        endif
+      endfor
+      unless seo_noindex
+        if collection.sort_by != collection.default_sort_by and collection.sort_by != blank
+          assign seo_noindex = true
+        endif
+      endunless
+    endif
+
+    if request.page_type == 'collection' and settings.seo_noindex_paginated_collections
+      assign noindex_from = settings.seo_paginated_noindex_from_page | default: 2
+      if current_page >= noindex_from
+        assign seo_noindex = true
+      endif
+    endif
+
+    if request.page_type == 'search' and settings.seo_noindex_search_results
+      assign seo_noindex = true
+    endif
+  -%}
+  {%- if seo_noindex -%}
+    <meta name="robots" content="noindex, follow">
+  {%- endif -%}
 {%- endif -%}
 
 <meta property="og:site_name" content="{{ shop.name }}">

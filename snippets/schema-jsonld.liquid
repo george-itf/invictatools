@@ -1,0 +1,197 @@
+{%- comment -%}
+  Schema.org JSON-LD structured data — Invicta Tools
+  Renders sitewide Organization + page-specific Product, BreadcrumbList, LocalBusiness
+{%- endcomment -%}
+
+{%- comment -%} ===== ORGANIZATION SCHEMA (sitewide) ===== {%- endcomment -%}
+{%- liquid
+  assign org_name = settings.seo_org_name | default: shop.name
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": {{ org_name | json }},
+  "url": {{ shop.url | json }}
+  {%- if settings.logo -%}
+    ,"logo": {{ settings.logo | image_url: width: 600 | prepend: 'https:' | json }}
+  {%- endif -%}
+  {%- if settings.seo_org_telephone != blank -%}
+    ,"telephone": {{ settings.seo_org_telephone | json }}
+  {%- endif -%}
+  {%- liquid
+    assign social_links = ''
+    if settings.social_facebook_link != blank
+      assign social_links = social_links | append: settings.social_facebook_link | append: '|||'
+    endif
+    if settings.social_instagram_link != blank
+      assign social_links = social_links | append: settings.social_instagram_link | append: '|||'
+    endif
+    if settings.social_youtube_link != blank
+      assign social_links = social_links | append: settings.social_youtube_link | append: '|||'
+    endif
+    if settings.social_tiktok_link != blank
+      assign social_links = social_links | append: settings.social_tiktok_link | append: '|||'
+    endif
+    if settings.social_twitter_link != blank
+      assign social_links = social_links | append: settings.social_twitter_link | append: '|||'
+    endif
+    if settings.social_pinterest_link != blank
+      assign social_links = social_links | append: settings.social_pinterest_link | append: '|||'
+    endif
+    assign social_array = social_links | split: '|||'
+  -%}
+  {%- if social_array.size > 0 -%}
+    ,"sameAs": [
+      {%- for link in social_array -%}
+        {%- unless link == blank -%}
+          {{ link | json }}{%- unless forloop.last %},{% endunless -%}
+        {%- endunless -%}
+      {%- endfor -%}
+    ]
+  {%- endif -%}
+}
+</script>
+
+{%- comment -%} ===== LOCAL BUSINESS SCHEMA (only if address configured) ===== {%- endcomment -%}
+{%- if settings.seo_local_street != blank and settings.seo_local_city != blank and settings.seo_local_postcode != blank -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HardwareStore",
+  "name": {{ org_name | json }},
+  "url": {{ shop.url | json }}
+  {%- if settings.logo -%}
+    ,"image": {{ settings.logo | image_url: width: 600 | prepend: 'https:' | json }}
+  {%- endif -%}
+  {%- if settings.seo_org_telephone != blank -%}
+    ,"telephone": {{ settings.seo_org_telephone | json }}
+  {%- endif -%}
+  ,"address": {
+    "@type": "PostalAddress",
+    "streetAddress": {{ settings.seo_local_street | json }},
+    "addressLocality": {{ settings.seo_local_city | json }}
+    {%- if settings.seo_local_region != blank -%}
+      ,"addressRegion": {{ settings.seo_local_region | json }}
+    {%- endif -%}
+    ,"postalCode": {{ settings.seo_local_postcode | json }},
+    "addressCountry": "GB"
+  }
+  {%- if settings.seo_local_hours != blank -%}
+    ,"openingHours": {{ settings.seo_local_hours | json }}
+  {%- endif -%}
+  ,"priceRange": "££"
+}
+</script>
+{%- endif -%}
+
+{%- comment -%} ===== PRODUCT SCHEMA (product pages only) ===== {%- endcomment -%}
+{%- if request.page_type == 'product' -%}
+<script type="application/ld+json">
+{{ product | structured_data }}
+</script>
+{%- endif -%}
+
+{%- comment -%} ===== BREADCRUMBLIST SCHEMA ===== {%- endcomment -%}
+{%- if request.page_type == 'product' -%}
+  {%- assign bc_collection = product.collections | first -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": {{ shop.url | json }}
+      }
+      {%- if bc_collection -%}
+      ,{
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ bc_collection.title | json }},
+        "item": {{ shop.url | append: bc_collection.url | json }}
+      }
+      ,{
+        "@type": "ListItem",
+        "position": 3,
+        "name": {{ product.title | json }}
+      }
+      {%- else -%}
+      ,{
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ product.title | json }}
+      }
+      {%- endif -%}
+    ]
+  }
+  </script>
+{%- elsif request.page_type == 'collection' -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": {{ shop.url | json }}
+      }
+      ,{
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ collection.title | json }}
+      }
+    ]
+  }
+  </script>
+{%- elsif request.page_type == 'article' -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": {{ shop.url | json }}
+      }
+      ,{
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ blog.title | json }},
+        "item": {{ shop.url | append: blog.url | json }}
+      }
+      ,{
+        "@type": "ListItem",
+        "position": 3,
+        "name": {{ article.title | json }}
+      }
+    ]
+  }
+  </script>
+{%- elsif request.page_type == 'blog' -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": {{ shop.url | json }}
+      }
+      ,{
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ blog.title | json }}
+      }
+    ]
+  }
+  </script>
+{%- endif -%}

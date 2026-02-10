@@ -590,15 +590,14 @@
             {%- comment -%} CART ERROR FEEDBACK {%- endcomment -%}
             <div class="inv-pdp__atc-error" role="alert" aria-live="assertive" data-atc-error data-error-text="{{ section.settings.cart_error_text | escape }}" style="display:none"></div>
 
-            {%- comment -%} BUY NOW — FIXED: Goes to checkout, disabled when OOS {%- endcomment -%}
-            {% if show_buy_now %}
+            {%- comment -%} BUY NOW — only rendered when in stock {%- endcomment -%}
+            {% if show_buy_now and is_in_stock %}
               <div class="inv-pdp__buy-now">
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   class="inv-pdp__buy-now-btn"
                   data-buy-now
                   data-variant-id="{{ current_variant.id }}"
-                  {% unless is_in_stock %}disabled{% endunless %}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
