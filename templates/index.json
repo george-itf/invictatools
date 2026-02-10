@@ -61,59 +61,6 @@
         "padding_bottom": 24
       }
     },
-    "invicta_usp_strip_v2_eepGaQ": {
-      "type": "invicta-usp-strip-v2",
-      "blocks": {
-        "usp_RPxidp": {
-          "type": "usp",
-          "settings": {
-            "icon": "truck",
-            "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £30"
-          }
-        },
-        "usp_nXwwaX": {
-          "type": "usp",
-          "settings": {
-            "icon": "shield",
-            "title": "Authorised Dealer",
-            "subtitle": "Full manufacturer warranty"
-          }
-        },
-        "usp_PC7xiG": {
-          "type": "usp",
-          "settings": {
-            "icon": "location",
-            "title": "2 Kent Locations",
-            "subtitle": "Ramsgate & Canterbury"
-          }
-        },
-        "usp_BR6deT": {
-          "type": "usp",
-          "settings": {
-            "icon": "phone",
-            "title": "Trade Support",
-            "subtitle": "01843 210 459"
-          }
-        }
-      },
-      "block_order": [
-        "usp_RPxidp",
-        "usp_nXwwaX",
-        "usp_PC7xiG",
-        "usp_BR6deT"
-      ],
-      "name": "USP Strip v2",
-      "settings": {
-        "background_color": "#282c31",
-        "accent_color": "#e11d26",
-        "text_color": "#ffffff",
-        "subtitle_color": "#999999",
-        "divider_color": "#282c31",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "quick_cats": {
       "type": "invicta-quick-cats",
       "blocks": {
@@ -187,6 +134,99 @@
         "background_color": "#f9fafb",
         "padding_top": 36,
         "padding_bottom": 32
+      }
+    },
+    "invicta_usp_strip_v2_eepGaQ": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_RPxidp": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £30"
+          }
+        },
+        "usp_nXwwaX": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Authorised Dealer",
+            "subtitle": "Full manufacturer warranty"
+          }
+        },
+        "usp_PC7xiG": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        "usp_BR6deT": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 210 459"
+          }
+        }
+      },
+      "block_order": [
+        "usp_RPxidp",
+        "usp_nXwwaX",
+        "usp_PC7xiG",
+        "usp_BR6deT"
+      ],
+      "name": "USP Strip v2",
+      "settings": {
+        "background_color": "#282c31",
+        "accent_color": "#e11d26",
+        "text_color": "#ffffff",
+        "subtitle_color": "#999999",
+        "divider_color": "#282c31",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "featured_collection_nePQBY": {
+      "type": "featured-collection",
+      "name": "Invicta Featured Collection",
+      "settings": {
+        "collection": "power-tools",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Popular Power Tools",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "featured_collection_handtools": {
+      "type": "featured-collection",
+      "name": "Invicta Featured Collection 2",
+      "settings": {
+        "collection": "batteries-chargers",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Batteries & Chargers",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 16,
+        "padding_bottom": 36
       }
     },
     "brand_strip": {
@@ -368,46 +408,6 @@
         "review_10_author": "Richard Hills",
         "review_10_title": "",
         "review_10_avatar": "shopify://shop_images/unnamed.png"
-      }
-    },
-    "featured_collection_nePQBY": {
-      "type": "featured-collection",
-      "name": "Invicta Featured Collection",
-      "settings": {
-        "collection": "power-tools",
-        "products_to_show": 4,
-        "header_style": "bar",
-        "title": "Popular Power Tools",
-        "description": "",
-        "show_description": false,
-        "show_product_count": false,
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "show_view_all": true,
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 20
-      }
-    },
-    "featured_collection_handtools": {
-      "type": "featured-collection",
-      "name": "Invicta Featured Collection 2",
-      "settings": {
-        "collection": "batteries-chargers",
-        "products_to_show": 4,
-        "header_style": "modern",
-        "title": "Batteries & Chargers",
-        "description": "",
-        "show_description": false,
-        "show_product_count": false,
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "show_view_all": true,
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 16,
-        "padding_bottom": 36
       }
     },
     "invicta_trust_bar_r98CbM": {
