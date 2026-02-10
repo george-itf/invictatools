@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="js" lang="{{ request.locale.iso_code }}">
+<html class="js" lang="en-GB">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -342,6 +342,9 @@
     <link rel="preload" href="{{ 'mobile.css' | asset_url }}" as="style" media="screen and (max-width: 749px)">
     <link rel="preload" href="{{ 'desktop.css' | asset_url }}" as="style" media="screen and (min-width: 750px)">
 
+    <!-- UX Improvements (accessibility, focus states, sticky ATC) -->
+    {{ 'invicta-ux-improvements.css' | asset_url | stylesheet_tag }}
+
     <!-- Cart Components (lazy loaded) -->
     <link
       rel="stylesheet"
@@ -412,7 +415,7 @@
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     <div id="ps-root"></div>
 
-    <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+    <a class="skip-to-content-link" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
 
