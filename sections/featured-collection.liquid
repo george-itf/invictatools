@@ -190,11 +190,28 @@
             aria-label="{{ section.settings.title | default: 'Featured products' | strip_html }} carousel"
           {% endif %}
         >
-          {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
-            <li class="inv-featured-collection__item{% if show_mobile_slider or show_desktop_slider %} inv-featured-collection__slide{% endif %}">
-              {% render 'invicta-product-card', product: product %}
-            </li>
+          {%- comment -%} Two-pass render: available products first, then fill remaining slots {%- endcomment -%}
+          {%- assign products_shown = 0 -%}
+          {%- for product in section.settings.collection.products -%}
+            {%- if products_shown >= section.settings.products_to_show -%}{%- break -%}{%- endif -%}
+            {%- if product.available -%}
+              <li class="inv-featured-collection__item{% if show_mobile_slider or show_desktop_slider %} inv-featured-collection__slide{% endif %}">
+                {% render 'invicta-product-card', product: product %}
+              </li>
+              {%- assign products_shown = products_shown | plus: 1 -%}
+            {%- endif -%}
           {%- endfor -%}
+          {%- if products_shown < section.settings.products_to_show -%}
+            {%- for product in section.settings.collection.products -%}
+              {%- if products_shown >= section.settings.products_to_show -%}{%- break -%}{%- endif -%}
+              {%- unless product.available -%}
+                <li class="inv-featured-collection__item{% if show_mobile_slider or show_desktop_slider %} inv-featured-collection__slide{% endif %}">
+                  {% render 'invicta-product-card', product: product %}
+                </li>
+                {%- assign products_shown = products_shown | plus: 1 -%}
+              {%- endunless -%}
+            {%- endfor -%}
+          {%- endif -%}
         </ul>
         
         {%- comment -%} Slider Controls {%- endcomment -%}

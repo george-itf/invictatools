@@ -195,6 +195,10 @@
   color: {{ section.settings.review_text_color }};
   margin: 0 0 4px;
   line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .review-carousel__author-name-{{ ai_gen_id }} {
