@@ -11,49 +11,6 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
-    "invicta_newsletter_Q8y4MQ": {
-      "type": "invicta-newsletter",
-      "blocks": {
-        "trust_badge_6NBHkL": {
-          "type": "trust_badge",
-          "settings": {
-            "text": "No spam, ever"
-          }
-        },
-        "trust_badge_dztaVU": {
-          "type": "trust_badge",
-          "settings": {
-            "text": "Unsubscribe anytime"
-          }
-        },
-        "trust_badge_8aCEiM": {
-          "type": "trust_badge",
-          "settings": {
-            "text": "Exclusive offers"
-          }
-        }
-      },
-      "block_order": [
-        "trust_badge_6NBHkL",
-        "trust_badge_dztaVU",
-        "trust_badge_8aCEiM"
-      ],
-      "name": "Newsletter Hybrid",
-      "settings": {
-        "badge_percent": "5 %",
-        "badge_text": "Off First Order",
-        "heading": "Get Trade Deals Before Anyone Else",
-        "show_social_proof": true,
-        "subscriber_count": "800+",
-        "subscriber_label": "signed up",
-        "placeholder": "Enter your email",
-        "button_text": "Get My 5% Off",
-        "success_message": "You're in! Check your inbox for your 5% discount code.",
-        "show_trust_badges": true,
-        "background_color": "#2d2d2d",
-        "accent_color": "#e11d26"
-      }
-    },
     "custom_liquid_GMjzRc": {
       "type": "custom-liquid",
       "name": "t:sections.custom-liquid.presets.name",
@@ -130,7 +87,6 @@
     }
   },
   "order": [
-    "invicta_newsletter_Q8y4MQ",
     "custom_liquid_GMjzRc",
     "footer"
   ]

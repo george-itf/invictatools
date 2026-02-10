@@ -1,4 +1,3 @@
-{"sections":{"hero_split":{"type":"invicta-hero-split","blocks":{"promo_card_bAbLAQ":{"type":"promo_card","settings":{"style":"brand","custom_bg":"#cf2922","custom_title_color":"#ffffff","custom_subtitle_color":"#cccccc","custom_icon_bg":"#ffffff","custom_icon_color":"#e41e25","custom_arrow_color":"#ffffff","icon":"clock","title":"LATEST DEALS","text":"Great prices on top trade brands","link":"shopify:\/\/collections\/stocking-fillers"}},"promo_card_fDnDtM":{"type":"promo_card","settings":{"style":"white","custom_bg":"#262626","custom_title_color":"#ffffff","custom_subtitle_color":"#cccccc","custom_icon_bg":"#212329","custom_icon_color":"#fdfdfd","custom_arrow_color":"#ffffff","icon":"store","title":"CLICK & COLLECT","text":"Pick up your orders within 1 hour","link":"shopify:\/\/pages\/about-us"}}},"block_order":["promo_card_bAbLAQ","promo_card_fDnDtM"],"settings":{"main_image":"shopify:\/\/shop_images\/two-cranes-against-a-blue-sky.jpg","badge_text":"","heading":"Trade Power Tools & Professional Equipment","subheading":"Kent's trusted tool supplier since 1996","button_text":"SHOP POWER TOOLS","button_link":"\/collections\/power-tools","background_color":"#f5f5f5","padding_top":24,"padding_bottom":24}},"invicta_usp_strip_v2_eepGaQ":{"type":"invicta-usp-strip-v2","blocks":{"usp_RPxidp":{"type":"usp","settings":{"icon":"truck","title":"Free Next-Day Delivery","subtitle":"On orders over £30"}},"usp_nXwwaX":{"type":"usp","settings":{"icon":"shield","title":"Authorised Dealer","subtitle":"Full manufacturer warranty"}},"usp_PC7xiG":{"type":"usp","settings":{"icon":"location","title":"2 Kent Locations","subtitle":"Ramsgate & Canterbury"}},"usp_BR6deT":{"type":"usp","settings":{"icon":"phone","title":"Trade Support","subtitle":"01843 210 459"}}},"block_order":["usp_RPxidp","usp_nXwwaX","usp_PC7xiG","usp_BR6deT"],"name":"USP Strip v2","settings":{"background_color":"#282c31","accent_color":"#e11d26","text_color":"#ffffff","subtitle_color":"#999999","divider_color":"#282c31","padding_top":0,"padding_bottom":0}},"quick_cats":{"type":"invicta-quick-cats","blocks":{"cat_1":{"type":"category","settings":{"title":"Cordless Drills","collection":"drilling-driving","custom_link":"","icon":"drill","custom_icon":"shopify:\/\/shop_images\/drill-electric-svgrepo-com_1.svg"}},"cat_2":{"type":"category","settings":{"title":"Grinders","collection":"grinding","custom_link":"","icon":"impact","custom_icon":"shopify:\/\/shop_images\/Untitled_design1.svg"}},"cat_3":{"type":"category","settings":{"title":"Nailers","collection":"nailing-fastening","custom_link":"","icon":"grinder","custom_icon":"shopify:\/\/shop_images\/nail-gun-svgrepo-com.svg"}},"cat_4":{"type":"category","settings":{"title":"Batteries","collection":"batteries-chargers","custom_link":"","icon":"battery"}},"cat_5":{"type":"category","settings":{"title":"Saws","collection":"sawing-cutting","custom_link":"","icon":"saw","custom_icon":"shopify:\/\/shop_images\/saw-svgrepo-com.svg"}},"cat_6":{"type":"category","settings":{"title":"Tool Storage","collection":"tool-storage","custom_link":"","icon":"storage"}}},"block_order":["cat_1","cat_2","cat_3","cat_4","cat_5","cat_6"],"settings":{"background_color":"#f9fafb","padding_top":36,"padding_bottom":32}},"brand_strip":{"type":"invicta-brand-strip","blocks":{"brand_1":{"type":"brand","settings":{"brand_collection":"makita","brand_page":"makita"}},"brand_2":{"type":"brand","settings":{"brand_collection":"dewalt","brand_page":"dewalt"}},"brand_3":{"type":"brand","settings":{"brand_collection":"hikoki","brand_page":""}},"brand_4":{"type":"brand","settings":{"brand_collection":"premier-diamond-products","brand_page":""}},"brand_5":{"type":"brand","settings":{"brand_collection":"timco","brand_page":"timco"}},"brand_6":{"type":"brand","settings":{"brand_collection":"stanley","brand_page":""}},"brand_7":{"type":"brand","settings":{"brand_collection":"","brand_page":"lamello"}},"brand_8":{"type":"brand","settings":{"brand_collection":"faithfull","brand_page":""}}},"block_order":["brand_1","brand_2","brand_3","brand_4","brand_5","brand_6","brand_7","brand_8"],"settings":{"heading":"","heading_size":28,"heading_color":"#111827","heading_spacing":24,"pill_height":44,"logo_height":28,"pill_padding":20,"pill_gap":16,"container_width":1400,"container_padding":20,"background_color":"#ffffff","padding_top":24,"padding_bottom":24}},"review_carousel":{"type":"review-carousel","settings":{"container_width":1600,"background_color":"#2d2d2d","section_padding_top":32,"section_padding_bottom":32,"heading":"See Why Local Trades Trust Invicta Tools","subheading":"","google_url":"https:\/\/maps.app.goo.gl\/a7ok1FDJpcntc8r69","google_text":"4.5 ★ on Google","facebook_url":"https:\/\/www.facebook.com\/InvictaTools\/","facebook_text":"4.8 ★  on Facebook","trustpilot_url":"https:\/\/uk.trustpilot.com\/review\/invictatools.co.uk","trustpilot_text":"4.4 ★ on Trustpilot","slides_desktop":4,"slides_tablet":3,"card_gap":20,"card_padding":18,"card_border_radius":12,"card_background":"#e41e25","star_size":20,"star_color":"#ffc107","star_empty_color":"#555555","review_text_size":15,"review_text_color":"#ffffff","avatar_size":50,"avatar_background":"#e11d26","avatar_placeholder_color":"#ffffff","author_name_size":16,"author_name_color":"#ffffff","author_title_size":13,"author_title_color":"#999999","review_1_enabled":true,"review_1_rating":5,"review_1_text":"You want tools and fixings? This is the place. Top notch products & service","review_1_author":"Anthony Fincher","review_1_title":"","review_1_avatar":"shopify:\/\/shop_images\/anthonyfincher.png","review_2_enabled":true,"review_2_rating":5,"review_2_text":"Fantastic firm, great service, range of tools and competitively priced!","review_2_author":"Neil Brennan","review_2_title":"","review_2_avatar":"shopify:\/\/shop_images\/neilbrennan.png","review_3_enabled":true,"review_3_rating":5,"review_3_text":"Ultra helpful. Extremely good value for money. Massive selection of stock","review_3_author":"A W","review_3_title":"","review_3_avatar":"shopify:\/\/shop_images\/a_w.png","review_4_enabled":true,"review_4_rating":5,"review_4_text":"The best professional tools for trade but also for DIY 😁","review_4_author":"Marcin Packowski","review_4_title":"","review_4_avatar":"shopify:\/\/shop_images\/Marcin_Packowski.png","review_5_enabled":true,"review_5_rating":5,"review_5_text":"The place looks small on the outside but it's like a TARDIS on the inside.","review_5_author":"Steven Johnson","review_5_title":"","review_5_avatar":"shopify:\/\/shop_images\/steven_johnson.png","review_6_enabled":true,"review_6_rating":5,"review_6_text":"Amazing service!! Delivery on time! Great price 5*!","review_6_author":"Daniel Marks","review_6_title":"","review_6_avatar":"shopify:\/\/shop_images\/danielmarks.png","review_7_enabled":true,"review_7_rating":5,"review_7_text":"If you're in need of anything come to these guys, they will get you what you need!","review_7_author":"Billy Whitham","review_7_title":"","review_7_avatar":"shopify:\/\/shop_images\/b.png","review_8_enabled":true,"review_8_rating":5,"review_8_text":"Always willing to give you a good deal. Excellent amount of Makita tools!","review_8_author":"Alan Gent","review_8_title":"","review_8_avatar":"shopify:\/\/shop_images\/alangent.png","review_9_enabled":true,"review_9_rating":5,"review_9_text":"Brilliant choice of tools and always seem to have what I want in stock.","review_9_author":"Kieran Windebank","review_9_title":"","review_9_avatar":"shopify:\/\/shop_images\/kieran.png","review_10_enabled":true,"review_10_rating":5,"review_10_text":"A nice little tool shop with friendly informative staff, good prices too!","review_10_author":"Richard Hills","review_10_title":"","review_10_avatar":"shopify:\/\/shop_images\/unnamed.png"}},"featured_collection_nePQBY":{"type":"featured-collection","name":"Invicta Featured Collection","settings":{"collection":"power-tools","products_to_show":8,"header_style":"bar","title":"Popular Power Tools","description":"","show_description":false,"show_product_count":true,"columns_desktop":4,"enable_desktop_slider":false,"show_view_all":true,"columns_mobile":"2","swipe_on_mobile":false,"padding_top":36,"padding_bottom":36}},"invicta_trust_bar_r98CbM":{"type":"invicta-trust-bar","blocks":{"stat_DmH8Dt":{"type":"stat","settings":{"number":"30+","label":"Years Trading"}},"stat_KtUVyC":{"type":"stat","settings":{"number":"15,000+","label":"Products"}},"stat_TMWLdi":{"type":"stat","settings":{"number":"2","label":"Kent Branches"}},"stat_grYNQC":{"type":"stat","settings":{"number":"4.6★","label":"Average Rating"}},"point_mLKJVp":{"type":"point","settings":{"text":"Authorised Makita, DeWalt & HiKOKI dealer"}},"point_PjztFU":{"type":"point","settings":{"text":"Full manufacturer warranty on everything we sell"}},"point_kPweHJ":{"type":"point","settings":{"text":"Free next-day delivery on orders over £30"}},"point_yNgYhB":{"type":"point","settings":{"text":"Trade accounts with 30-day terms"}},"point_DwBdf3":{"type":"point","settings":{"text":"Click & collect ready in 1 hour"}}},"block_order":["stat_DmH8Dt","stat_KtUVyC","stat_TMWLdi","stat_grYNQC","point_mLKJVp","point_PjztFU","point_kPweHJ","point_yNgYhB","point_DwBdf3"],"name":"Trust Bar","settings":{"eyebrow":"Since 1996","heading":"Kent's Trade Tool Specialists","text":"<p>Family-run from Canterbury with a second branch in Ramsgate. We stock what tradespeople actually need, when they need it.<\/p>","image":"shopify:\/\/shop_images\/itf_front_old.jpg","badge_text":"Authorised Dealer","cta_text":"Visit Our Stores","cta_link":"","background_color":"#f9fafb","padding_top":60,"padding_bottom":60}},"newsletter":{"type":"invicta-newsletter","settings":{"badge_percent":"5 %","badge_text":"Off First Order","heading":"Get Trade Deals & Updates","show_social_proof":true,"subscriber_count":"800+","subscriber_label":"signed up","placeholder":"Enter your email","button_text":"Subscribe","success_message":"You're in! Check your inbox for your 5% discount code.","show_trust_badges":true,"background_color":"#2d2d2d","accent_color":"#e11d26"}}},"order":["hero_split","invicta_usp_strip_v2_eepGaQ","quick_cats","brand_strip","review_carousel","featured_collection_nePQBY","invicta_trust_bar_r98CbM","newsletter"]}
 /*
  * ------------------------------------------------------------
  * IMPORTANT: The contents of this file are auto-generated.
@@ -419,7 +418,7 @@
         "stat_grYNQC": {
           "type": "stat",
           "settings": {
-            "number": "4.6★",
+            "number": "4.7★",
             "label": "Average Rating"
           }
         },
@@ -478,6 +477,49 @@
         "padding_top": 60,
         "padding_bottom": 60
       }
+    },
+    "invicta_newsletter_t9TTnj": {
+      "type": "invicta-newsletter",
+      "blocks": {
+        "trust_badge_mrLtAQ": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "No spam, ever"
+          }
+        },
+        "trust_badge_Q7yqbx": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Unsubscribe anytime"
+          }
+        },
+        "trust_badge_HVRmz8": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Exclusive offers"
+          }
+        }
+      },
+      "block_order": [
+        "trust_badge_mrLtAQ",
+        "trust_badge_Q7yqbx",
+        "trust_badge_HVRmz8"
+      ],
+      "name": "Newsletter Hybrid",
+      "settings": {
+        "badge_percent": "5 %",
+        "badge_text": "Off First Order",
+        "heading": "Get Trade Deals Before Anyone Else",
+        "show_social_proof": true,
+        "subscriber_count": "800+",
+        "subscriber_label": "signed up",
+        "placeholder": "Enter your email",
+        "button_text": "Get My 5% Off",
+        "success_message": "You're in! Check your inbox for your 5% discount code.",
+        "show_trust_badges": true,
+        "background_color": "#2d2d2d",
+        "accent_color": "#e11d26"
+      }
     }
   },
   "order": [
@@ -487,6 +529,7 @@
     "brand_strip",
     "review_carousel",
     "featured_collection_nePQBY",
-    "invicta_trust_bar_r98CbM"
+    "invicta_trust_bar_r98CbM",
+    "invicta_newsletter_t9TTnj"
   ]
 }
