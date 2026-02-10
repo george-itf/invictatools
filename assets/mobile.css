@@ -2445,7 +2445,7 @@ html.js .inv-collection .page-width {
 
   .inv-stock__badge--out {
     background: #fef2f2;
-    color: #dc2626;
+    color: #e11d26;
   }
 
   .inv-stock__badge--low {
@@ -4877,7 +4877,7 @@ html.js .mobile-facets__open-wrapper {
 }
 
 html.js .mobile-facets__open {
-  background: var(--color-button, #dc2626);
+  background: var(--color-button, #e11d26);
   color: #fff;
   border-radius: 999px;
   padding: 12px 20px;
@@ -4998,7 +4998,7 @@ html.js body .inv-recs__item .invicta-brand-pill {
   height: 30px;
   padding: 4px 12px;
   border-radius: 999px;
-  background-color: var(--pill-bg, #dc2626);
+  background-color: var(--pill-bg, #e11d26);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
@@ -5338,7 +5338,7 @@ html.js .invicta-quick-qty__btn--active {
 .invicta-qty-total__value {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #dc2626;
+  color: #e11d26;
 }
 
 /* --------------------------------------------------------------------------
@@ -5461,7 +5461,7 @@ body.vat-mode-inc .invicta-vat-indicator::after {
 
 .inv-detail-input:focus {
   outline: none;
-  border-color: #dc2626;
+  border-color: #e11d26;
   box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
 }
 
@@ -5482,7 +5482,7 @@ body.vat-mode-inc .invicta-vat-indicator::after {
 }
 
 .inv-invoices__intro a {
-  color: #dc2626;
+  color: #e11d26;
   text-decoration: underline;
 }
 
@@ -5584,7 +5584,7 @@ html.js .inv-btn--sm {
 
 .inv-vat-toggle__btn[aria-pressed="true"],
 .inv-vat-toggle__btn--active {
-  background: #dc2626;
+  background: #e11d26;
   color: #ffffff;
 }
 
@@ -5803,8 +5803,8 @@ html.js .inv-btn--sm {
 }
 
 .invicta-quick-qty__btn--active {
-  background: #dc2626;
-  border-color: #dc2626;
+  background: #e11d26;
+  border-color: #e11d26;
   color: #ffffff;
 }
 
@@ -5819,7 +5819,7 @@ html.js .inv-btn--sm {
   border-radius: 6px;
   font-size: 0.9rem;
   font-weight: 600;
-  color: #dc2626;
+  color: #e11d26;
 }
 
 
@@ -6185,7 +6185,7 @@ html.js .inv-btn--sm {
   height: 56px;
   margin-top: 14px;
   padding: 0 20px;
-  background: #dc2626;
+  background: #e11d26;
   border: none;
   border-radius: 10px;
   font-size: 1rem;

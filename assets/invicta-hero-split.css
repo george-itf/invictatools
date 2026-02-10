@@ -41,7 +41,7 @@
 
 .inv-hero-split__badge {
   display: inline-block;
-  background: #dc2626;
+  background: #e11d26;
   color: #fff;
   padding: 6px 14px;
   border-radius: 4px;
@@ -70,7 +70,7 @@
 
 .inv-hero-split__btn {
   display: inline-block;
-  background: #dc2626;
+  background: #e11d26;
   color: #fff;
   padding: 14px 28px;
   border-radius: 8px;
@@ -172,7 +172,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 749px) {
   .inv-hero-split__main {
     flex-direction: column;
     text-align: center;

@@ -18,7 +18,7 @@
    CSS VARIABLES
    ============================================ */
 .inv-pdp {
-  --pdp-red: #dc2626;
+  --pdp-red: #e11d26;
   --pdp-red-hover: #b91c1c;
   --pdp-green: #16a34a;
   --pdp-green-light: #f0fdf4;
@@ -988,7 +988,7 @@
 .inv-pdp .inv-pdp__atc-btn {
   flex: 1 1 auto !important;
   height: 52px !important;
-  background: #dc2626 !important;
+  background: #e11d26 !important;
   color: #fff !important;
   border: none !important;
   border-radius: 8px !important;
@@ -1045,7 +1045,7 @@
 }
 
 .inv-pdp__atc-btn.is-error {
-  background: #dc2626 !important;
+  background: #e11d26 !important;
 }
 
 .inv-pdp__spinner {

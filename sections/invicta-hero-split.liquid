@@ -49,7 +49,7 @@
   
   .inv-hero-split__badge {
     display: inline-block;
-    background: #dc2626;
+    background: #e11d26;
     color: #fff;
     padding: 6px 12px;
     font-size: 11px;
@@ -80,7 +80,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: #dc2626;
+    background: #e11d26;
     color: #fff;
     padding: 14px 28px;
     font-size: 14px;
@@ -144,13 +144,13 @@
   }
 
   .inv-hero-split__card:focus-visible {
-    outline: 2px solid #dc2626;
+    outline: 2px solid #e11d26;
     outline-offset: 2px;
   }
 
   /* Card style: Sale (Red with stripes) */
   .inv-hero-split__card--sale {
-    background: #dc2626;
+    background: #e11d26;
     color: #fff;
   }
 
@@ -197,7 +197,7 @@
   }
 
   .inv-hero-split__card--light .inv-hero-split__card-icon {
-    background: #dc2626;
+    background: #e11d26;
   }
 
   .inv-hero-split__card--light .inv-hero-split__card-icon svg {
@@ -242,7 +242,7 @@
 
   /* Card style: Invicta Red (Solid) */
   .inv-hero-split__card--brand {
-    background: #dc2626;
+    background: #e11d26;
     color: #fff;
   }
 
@@ -262,7 +262,7 @@
   }
 
   .inv-hero-split__card--white .inv-hero-split__card-icon {
-    background: #dc2626;
+    background: #e11d26;
   }
 
   .inv-hero-split__card--white .inv-hero-split__card-icon svg {
@@ -367,7 +367,7 @@
     }
   }
   
-  @media (max-width: 768px) {
+  @media (max-width: 749px) {
     .inv-hero-split__main {
       display: flex;
       flex-direction: column;
@@ -461,7 +461,7 @@
           srcset="{{ section.settings.main_image | image_url: width: 400 }} 400w, 
                   {{ section.settings.main_image | image_url: width: 600 }} 600w, 
                   {{ section.settings.main_image | image_url: width: 800 }} 800w"
-          sizes="(max-width: 768px) 100vw, 800px"
+          sizes="(max-width: 749px) 100vw, 800px"
           alt="{{ section.settings.heading | default: 'Hero image' | escape }}"
           class="inv-hero-split__mobile-image"
           loading="eager"

@@ -81,7 +81,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 749px) {
   .inv-quick-cats__grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;

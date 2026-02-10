@@ -148,7 +148,7 @@
   }
 
   .invicta-quote-form__field .required {
-    color: #dc2626;
+    color: #e11d26;
   }
 
   .invicta-quote-form__field input,
@@ -164,7 +164,7 @@
   .invicta-quote-form__field input:focus,
   .invicta-quote-form__field textarea:focus {
     outline: none;
-    border-color: #dc2626;
+    border-color: #e11d26;
     box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
   }
 
@@ -198,7 +198,7 @@
     align-items: center;
     gap: 8px;
     padding: 12px 24px;
-    background: #dc2626;
+    background: #e11d26;
     border: none;
     border-radius: 8px;
     font-size: 0.95rem;

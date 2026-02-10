@@ -541,7 +541,8 @@
       const savingsWrap = priceWrapper.querySelector('[data-savings-wrap]');
       const savingsEl = priceWrapper.querySelector('[data-savings]');
 
-      const vatDivisor = window.invictaConfig ? window.invictaConfig.vatDivisor : 120;
+      const vatRate = parseInt(section.dataset.vatRate, 10) || 20;
+      const vatDivisor = 100 + vatRate;
       const exVat = Math.round(variant.price * 100 / vatDivisor);
 
       if (priceInc) priceInc.textContent = formatMoney(variant.price);
@@ -690,9 +691,16 @@
           }, 2000);
         })
         .catch(function(error) {
-          console.error('[Invicta PDP] Add to cart error:', error);
           atcBtn.classList.remove('is-loading');
           atcBtn.classList.add('is-error');
+
+          // Show error message to user
+          var errorEl = section.querySelector('[data-atc-error]');
+          if (errorEl) {
+            errorEl.textContent = errorEl.dataset.errorText || 'Sorry, couldn\'t add to cart. Please try again.';
+            errorEl.style.display = '';
+            setTimeout(function() { errorEl.style.display = 'none'; }, 5000);
+          }
 
           setTimeout(function() {
             atcBtn.classList.remove('is-error');
@@ -810,7 +818,8 @@
       if (!lightbox || !lightboxImg || !mainImage) return;
 
       previouslyFocused = document.activeElement;
-      lightboxImg.src = mainImage.src.replace('width=800', 'width=1200');
+      var lightboxWidth = window.innerWidth <= 749 ? 800 : 1200;
+      lightboxImg.src = mainImage.src.replace(/width=\d+/, 'width=' + lightboxWidth);
       lightboxImg.alt = mainImage.alt;
       lightbox.hidden = false;
       document.body.style.overflow = 'hidden';

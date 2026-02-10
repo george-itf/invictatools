@@ -16,7 +16,7 @@
     {%- liquid
       assign card_style = block.settings.style
       if card_style == 'sale'
-        assign card_bg = '#dc2626'
+        assign card_bg = '#e11d26'
         assign card_text = '#ffffff'
         assign card_icon_bg = 'rgba(255,255,255,0.2)'
       elsif card_style == 'info'
@@ -26,7 +26,7 @@
       elsif card_style == 'light'
         assign card_bg = '#f5f5f5'
         assign card_text = '#1a1a1a'
-        assign card_icon_bg = '#dc2626'
+        assign card_icon_bg = '#e11d26'
       else
         assign card_bg = block.settings.custom_bg
         assign card_text = block.settings.custom_text
@@ -136,7 +136,7 @@
   }
 
   .inv-promos__card:focus-visible {
-    outline: 2px solid #dc2626;
+    outline: 2px solid #e11d26;
     outline-offset: 2px;
   }
 
@@ -167,7 +167,7 @@
   }
 
   .inv-promos__card--light .inv-promos__icon {
-    background: #dc2626;
+    background: #e11d26;
   }
 
   .inv-promos__card--light .inv-promos__icon svg {
@@ -221,7 +221,7 @@
   /* ----------------------------------------
      RESPONSIVE
      ---------------------------------------- */
-  @media (max-width: 768px) {
+  @media (max-width: 749px) {
     .inv-promos__card {
       padding: 16px 16px 16px 20px;
       gap: 14px;

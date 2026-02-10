@@ -377,14 +377,16 @@
 {% render 'invicta-trust-bar', style: 'full' %}
 
 {%- comment -%} Collection bottom CTA banner {%- endcomment -%}
-{%- liquid
-  assign cta_heading = 'Need Help Choosing?'
-  assign cta_subtext = 'Our team of experts are here to help. Call us or visit one of our Kent branches.'
-  assign cta_btn_text = 'Contact Us'
-  assign cta_btn_url = '/pages/contact-us'
-  assign cta_theme = 'dark'
--%}
-{% render 'invicta-cta-banner', heading: cta_heading, subtext: cta_subtext, button_text: cta_btn_text, button_url: cta_btn_url, theme: cta_theme %}
+{%- if section.settings.show_cta_banner -%}
+  {%- liquid
+    assign cta_heading = section.settings.cta_heading | default: 'Need Help Choosing?'
+    assign cta_subtext = section.settings.cta_text | default: 'Our team of experts are here to help. Call us or visit one of our Kent branches.'
+    assign cta_btn_text = section.settings.cta_button_text | default: 'Contact Us'
+    assign cta_btn_url = section.settings.cta_button_url | default: '/pages/contact-us'
+    assign cta_theme = 'dark'
+  -%}
+  {% render 'invicta-cta-banner', heading: cta_heading, subtext: cta_subtext, button_text: cta_btn_text, button_url: cta_btn_url, theme: cta_theme %}
+{%- endif -%}
 
 <style>
   /* ============================================
@@ -499,6 +501,7 @@
   }
   
   .inv-grid__sort-select {
+    min-height: 44px;
     padding: 8px 36px 8px 12px;
     font-size: 0.8125rem;
     font-weight: 500;
@@ -1269,6 +1272,40 @@
       "id": "empty_message",
       "label": "Empty collection message",
       "default": "No products found. Try adjusting your filters."
+    },
+    {
+      "type": "header",
+      "content": "CTA Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta_banner",
+      "label": "Show CTA banner below grid",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "CTA heading",
+      "default": "Need Help Choosing?"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "Our team of experts are here to help. Call us or visit one of our Kent branches."
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "CTA button text",
+      "default": "Contact Us"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_url",
+      "label": "CTA button link",
+      "default": "/pages/contact-us"
     },
     {
       "type": "header",
