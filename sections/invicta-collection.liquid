@@ -117,8 +117,9 @@
               <div class="inv-hero__brands">
                 {%- for value in filter.values limit: 8 -%}
                   {%- assign brand_handle = value.label | handleize -%}
-                  <a 
-                    href="{{ value.url }}" 
+                  <a
+                    href="{{ value.url }}"
+                    rel="nofollow"
                     class="inv-brand-pill inv-brand-pill--{{ brand_handle }}{% if value.active %} is-active{% endif %}"
                   >
                     {{ value.label }}
@@ -238,7 +239,7 @@
         <div class="inv-active-filters__inner">
           {%- for filter in collection.filters -%}
             {%- for value in filter.active_values -%}
-              <a href="{{ value.url_to_remove }}" class="inv-filter-chip">
+              <a href="{{ value.url_to_remove }}" rel="nofollow" class="inv-filter-chip">
                 <span>{{ value.label }}</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M18 6L6 18M6 6l12 12"/>
@@ -247,7 +248,7 @@
             {%- endfor -%}
             {%- if filter.type == 'price_range' -%}
               {%- if filter.min_value.value != blank or filter.max_value.value != blank -%}
-                <a href="{{ filter.url_to_remove }}" class="inv-filter-chip">
+                <a href="{{ filter.url_to_remove }}" rel="nofollow" class="inv-filter-chip">
                   <span>
                     {%- if filter.min_value.value != blank -%}{{ filter.min_value.value | money_without_trailing_zeros }}{%- else -%}£0{%- endif -%}
                     –
@@ -260,7 +261,7 @@
               {%- endif -%}
             {%- endif -%}
           {%- endfor -%}
-          <a href="{{ collection.url }}" class="inv-clear-all">{{ 'products.facets.clear_all' | t }}</a>
+          <a href="{{ collection.url }}" rel="nofollow" class="inv-clear-all">{{ 'products.facets.clear_all' | t }}</a>
         </div>
       </div>
     </div>

@@ -51,12 +51,10 @@
         var s = Math.floor((diff % 60000) / 1000);
         countdownEl.textContent = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
         countdownEl.style.display = 'inline';
-        if (forTextEl) forTextEl.style.display = 'inline';
         if (orderTextEl) orderTextEl.textContent = 'Order within ';
       } else {
         if (countdownEl) countdownEl.style.display = 'none';
-        if (forTextEl) forTextEl.style.display = 'none';
-        if (orderTextEl) orderTextEl.textContent = 'Order now for delivery on ';
+        if (orderTextEl) orderTextEl.textContent = 'Order now';
 
         // No countdown needed outside business hours — stop the timer
         if (timerId) {

@@ -5,7 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
-    <link rel="canonical" href="{{ canonical_url }}">
+    {%- liquid
+      assign inv_canonical = canonical_url
+      if request.page_type == 'collection' and collection
+        assign inv_canonical = collection.url
+      endif
+    -%}
+    <link rel="canonical" href="{{ inv_canonical }}">
 
     {%- if settings.favicon != blank -%}
       <link
@@ -528,5 +534,8 @@
     <!-- Invicta Trade Features (v2.7) -->
     <script src="{{ 'invicta-vat-toggle.js' | asset_url }}" defer></script>
     <script src="{{ 'invicta-quantity-enhancer.js' | asset_url }}" defer></script>
+
+    {%- comment -%} Structured data: Organization, Product, BreadcrumbList, LocalBusiness {%- endcomment -%}
+    {% render 'schema-jsonld' %}
   </body>
 </html>
