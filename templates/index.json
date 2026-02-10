@@ -193,7 +193,7 @@
       "type": "featured-collection",
       "name": "Invicta Featured Collection",
       "settings": {
-        "collection": "power-tools",
+        "collection": "featured-powertools",
         "products_to_show": 4,
         "header_style": "bar",
         "title": "Popular Power Tools",
