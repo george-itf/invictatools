@@ -11,8 +11,8 @@
   ✓ Tracks products on PDP via meta tags (reliable fallback)
   ✓ Fetches fresh product data via AJAX for accurate pricing
   ✓ Card design matches invicta-product-card snippet
-  ✓ Works for logged in users only
-  ✓ Logged out CTA with benefits
+  ✓ Works for ALL visitors via localStorage
+  ✓ Logged out CTA shown below products when grid is empty
   
   Trade 15.4.0 Compatible
   ============================================================================
@@ -43,10 +43,9 @@
 >
   <div class="inv-recent__container page-width">
     
-    {%- if is_logged_in -%}
-    {%- comment -%} ========== LOGGED IN STATE ========== {%- endcomment -%}
+    {%- comment -%} ========== RECENTLY VIEWED PRODUCTS — All visitors ========== {%- endcomment -%}
     <div class="inv-recent__logged-in" id="inv-recent-logged-in">
-      
+
       <div class="inv-recent__header">
         <h2 class="inv-recent__title">{{ section.settings.title_logged_in }}</h2>
         {%- if section.settings.show_view_all -%}
@@ -56,8 +55,8 @@
         </a>
         {%- endif -%}
       </div>
-      
-      {%- comment -%} Product grid - populated by JavaScript {%- endcomment -%}
+
+      {%- comment -%} Product grid - populated by JavaScript from localStorage {%- endcomment -%}
       <div class="inv-recent__grid" id="inv-recent-products">
         {%- comment -%} Loading skeleton {%- endcomment -%}
         <div class="inv-recent__loading" id="inv-recent-loading">
@@ -72,8 +71,8 @@
           </div>
           {%- endfor -%}
         </div>
-        
-        {%- comment -%} Empty state {%- endcomment -%}
+
+        {%- comment -%} Empty state — shown when no browsing history {%- endcomment -%}
         <div class="inv-recent__empty hidden" id="inv-recent-empty">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/>
@@ -82,58 +81,27 @@
           <p>{{ section.settings.empty_message }}</p>
         </div>
       </div>
-      
+
     </div>
-    
-    {%- else -%}
-    {%- comment -%} ========== LOGGED OUT STATE ========== {%- endcomment -%}
-    <div class="inv-recent__logged-out">
-      
-      <div class="inv-recent__cta">
-        {%- if section.settings.cta_icon != 'none' -%}
-        <div class="inv-recent__cta-icon">
-          {%- case section.settings.cta_icon -%}
-            {%- when 'user' -%}
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            {%- when 'history' -%}
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            {%- when 'star' -%}
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            {%- when 'heart' -%}
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          {%- endcase -%}
-        </div>
-        {%- endif -%}
-        
-        <h2 class="inv-recent__cta-title">{{ section.settings.title_logged_out }}</h2>
-        <p class="inv-recent__cta-text">{{ section.settings.description_logged_out }}</p>
-        
-        <div class="inv-recent__cta-buttons">
-          <a href="{{ routes.account_login_url }}" class="inv-recent__btn inv-recent__btn--primary">
+
+    {%- comment -%} Account CTA — shown below products for logged-out visitors {%- endcomment -%}
+    {%- unless is_logged_in -%}
+    <div class="inv-recent__account-cta">
+      <div class="inv-recent__account-cta-inner">
+        <span class="inv-recent__account-cta-text">
+          <strong>Create an account</strong> for trade pricing, faster checkout &amp; order tracking
+        </span>
+        <div class="inv-recent__account-cta-buttons">
+          <a href="{{ routes.account_login_url }}" class="inv-recent__btn inv-recent__btn--primary inv-recent__btn--sm">
             {{ section.settings.login_button_text }}
           </a>
-          <a href="{{ routes.account_register_url }}" class="inv-recent__btn inv-recent__btn--secondary">
+          <a href="{{ routes.account_register_url }}" class="inv-recent__btn inv-recent__btn--secondary inv-recent__btn--sm">
             {{ section.settings.register_button_text }}
           </a>
         </div>
-        
-        {%- if section.settings.show_benefits -%}
-        <div class="inv-recent__benefits">
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'benefit' -%}
-            <div class="inv-recent__benefit" {{ block.shopify_attributes }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>{{ block.settings.text }}</span>
-            </div>
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
-        {%- endif -%}
-        
       </div>
-      
     </div>
-    {%- endif -%}
+    {%- endunless -%}
     
   </div>
 </div>
@@ -551,6 +519,43 @@
   }
   
   /* ============================================
+     ACCOUNT CTA (logged-out inline bar)
+     ============================================ */
+
+  .inv-recent__account-cta {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--inv-recent-card-border);
+  }
+
+  .inv-recent__account-cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .inv-recent__account-cta-text {
+    font-size: 14px;
+    color: var(--inv-recent-text-muted);
+  }
+
+  .inv-recent__account-cta-text strong {
+    color: var(--inv-recent-text);
+  }
+
+  .inv-recent__account-cta-buttons {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .inv-recent__btn--sm {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  /* ============================================
      RESPONSIVE
      ============================================ */
   
@@ -595,9 +600,14 @@
       width: 100%;
     }
     
-    .inv-recent__benefits {
+    .inv-recent__account-cta-inner {
       flex-direction: column;
-      align-items: center;
+      text-align: center;
+    }
+
+    .inv-recent__account-cta-buttons {
+      width: 100%;
+      justify-content: center;
     }
   }
   

@@ -500,7 +500,7 @@
       }
 
       updatePrices(matchingVariant);
-      updateStockStatus(matchingVariant.available);
+      updateStockStatus(matchingVariant.available, matchingVariant);
 
       if (matchingVariant.featured_image && mainImage) {
         const imgId = matchingVariant.featured_image.id;
@@ -583,17 +583,26 @@
       }
     }
 
-    function updateStockStatus(available) {
+    function updateStockStatus(available, variant) {
       const stockBanner = section.querySelector('[data-stock-banner]');
       const stockText = section.querySelector('[data-stock-text]');
+      const lowStockThreshold = parseInt(section.dataset.lowStockThreshold, 10) || 5;
 
       if (stockBanner && stockText) {
+        stockBanner.classList.remove('inv-pdp__stock-banner--in-stock', 'inv-pdp__stock-banner--out-of-stock', 'inv-pdp__stock-banner--low-stock');
+
         if (available) {
-          stockBanner.classList.remove('inv-pdp__stock-banner--out-of-stock');
-          stockBanner.classList.add('inv-pdp__stock-banner--in-stock');
-          stockText.textContent = 'In Stock \u2014 Ready to Ship';
+          var qty = variant && variant.inventory_quantity;
+          var tracked = variant && variant.inventory_management === 'shopify';
+
+          if (tracked && qty > 0 && qty <= lowStockThreshold) {
+            stockBanner.classList.add('inv-pdp__stock-banner--low-stock');
+            stockText.textContent = 'Only ' + qty + ' left in stock \u2014 order soon';
+          } else {
+            stockBanner.classList.add('inv-pdp__stock-banner--in-stock');
+            stockText.textContent = 'In Stock \u2014 Ready to Ship';
+          }
         } else {
-          stockBanner.classList.remove('inv-pdp__stock-banner--in-stock');
           stockBanner.classList.add('inv-pdp__stock-banner--out-of-stock');
           stockText.textContent = 'Out of Stock';
         }
