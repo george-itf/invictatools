@@ -102,7 +102,7 @@
 .brand-logos__card:focus {
   outline: none;
   box-shadow:
-    0 0 0 3px #dc2626,
+    0 0 0 3px #e11d26,
     0 6px 12px rgba(0, 0, 0, 0.08);
 }
 

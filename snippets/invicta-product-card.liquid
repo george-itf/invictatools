@@ -94,9 +94,10 @@
           srcset="{{ featured_image | image_url: width: 200 }} 200w,
                   {{ featured_image | image_url: width: 400 }} 400w,
                   {{ featured_image | image_url: width: 600 }} 600w"
-          sizes="(max-width: 480px) 50vw, (max-width: 768px) 33vw, 25vw"
+          sizes="(max-width: 480px) 50vw, (max-width: 749px) 33vw, 25vw"
           alt="{{ featured_image.alt | escape | default: product.title }}"
-          loading="lazy"
+          loading="{% if card_index <= 4 %}eager{% else %}lazy{% endif %}"
+          {% if card_index <= 4 %}fetchpriority="high"{% endif %}
           width="{{ featured_image.width }}"
           height="{{ featured_image.height }}"
           class="inv-card__img{% unless available %} inv-card__img--faded{% endunless %}"

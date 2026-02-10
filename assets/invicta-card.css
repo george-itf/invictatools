@@ -281,7 +281,7 @@
   .invicta-card-image { max-height: 175px; }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 749px) {
   .invicta-card {
     border-radius: var(--inv-card-radius-md);
   }

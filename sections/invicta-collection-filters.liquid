@@ -567,14 +567,14 @@
   }
   
   .inv-filters__btn--availability.inv-filters__btn--active {
-    background: {{ section.settings.availability_active_bg | default: '#dc2626' }};
-    border-color: {{ section.settings.availability_active_bg | default: '#dc2626' }};
+    background: {{ section.settings.availability_active_bg | default: '#e11d26' }};
+    border-color: {{ section.settings.availability_active_bg | default: '#e11d26' }};
     color: #fff;
   }
   
   .inv-filters__btn--availability.inv-filters__btn--active:hover {
-    background: {{ section.settings.availability_active_bg | default: '#dc2626' }};
-    border-color: {{ section.settings.availability_active_bg | default: '#dc2626' }};
+    background: {{ section.settings.availability_active_bg | default: '#e11d26' }};
+    border-color: {{ section.settings.availability_active_bg | default: '#e11d26' }};
     opacity: 0.9;
   }
   
@@ -700,6 +700,7 @@
     align-items: center;
     gap: 5px;
     padding: 10px 16px;
+    min-height: 44px;
     font-family: inherit;
     font-size: 12px;
     font-weight: 600;
@@ -713,10 +714,9 @@
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.15s ease;
-    
+
     /* Prevent oval/pill shape */
     min-width: auto;
-    min-height: auto;
     width: auto;
     height: auto;
     aspect-ratio: unset;
@@ -1178,7 +1178,7 @@
       "type": "color",
       "id": "availability_active_bg",
       "label": "Availability active button",
-      "default": "#dc2626"
+      "default": "#e11d26"
     },
     {
       "type": "color",
@@ -1230,7 +1230,7 @@
       "type": "color",
       "id": "button_active_bg",
       "label": "Active button background",
-      "default": "#dc2626"
+      "default": "#e11d26"
     },
     {
       "type": "color",
@@ -1258,7 +1258,7 @@
       "type": "color",
       "id": "tag_brand_bg",
       "label": "Brand tag",
-      "default": "#dc2626"
+      "default": "#e11d26"
     },
     {
       "type": "color",

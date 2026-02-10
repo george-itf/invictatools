@@ -58,12 +58,12 @@
         {%- if show_trust_badges -%}
           <div class="inv-col-hero__badges">
             <span class="inv-col-hero__badge inv-col-hero__badge--delivery">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-              Next Day Delivery
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              {{ section.settings.badge_delivery_text | default: 'Next Day Delivery' }}
             </span>
             <span class="inv-col-hero__badge inv-col-hero__badge--vat">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-              VAT Invoice
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              {{ section.settings.badge_vat_text | default: 'VAT Invoice' }}
             </span>
           </div>
         {%- endif -%}
@@ -112,7 +112,7 @@
 <style>
   .inv-col-hero {
     background: var(--inv-dark, #2d2d2d);
-    padding: 14px 0;
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
   }
   
   .inv-col-hero__inner {
@@ -170,7 +170,7 @@
   
   .inv-col-hero__count {
     padding: 4px 12px;
-    background: var(--inv-primary, #dc2626);
+    background: var(--inv-primary, #e11d26);
     color: #fff;
     font-size: 12px;
     font-weight: 700;
@@ -239,21 +239,21 @@
   }
   
   .inv-col-hero__view-btn--active {
-    background: var(--inv-primary, #dc2626);
+    background: var(--inv-primary, #e11d26);
     color: #fff;
   }
   
   .inv-col-hero__view-btn--active:hover {
-    background: var(--inv-primary, #dc2626);
+    background: var(--inv-primary, #e11d26);
     color: #fff;
   }
   
-  @media (max-width: 768px) {
+  @media (max-width: 749px) {
     .inv-col-hero { padding: 12px 0; }
     .inv-col-hero__breadcrumb { display: none; }
     .inv-col-hero__title { font-size: 18px; }
     .inv-col-hero__badges { display: none; }
-    .inv-col-hero__view-btn { width: 34px; height: 30px; }
+    .inv-col-hero__view-btn { width: 38px; height: 38px; min-height: 44px; }
   }
 </style>
 
@@ -267,34 +267,26 @@
     
     function init() {
       const container = document.getElementById('view-toggle-container');
-      if (!container) {
-        console.log('[Hero] No view toggle container found');
-        return;
-      }
-      
+      if (!container) return;
+
       const buttons = container.querySelectorAll('.inv-col-hero__view-btn');
-      if (!buttons.length) {
-        console.log('[Hero] No view buttons found');
-        return;
-      }
-      
+      if (!buttons.length) return;
+
       // Get saved view
       const saved = localStorage.getItem(STORAGE_KEY) || 'grid';
-      console.log('[Hero] Init with saved view:', saved);
-      
+
       // Apply saved state
       setActive(saved, buttons);
-      
+
       // Dispatch initial event
       dispatchViewChange(saved);
-      
+
       // Bind clicks
       buttons.forEach(btn => {
         btn.addEventListener('click', function(e) {
           e.preventDefault();
           const view = this.dataset.view;
-          console.log('[Hero] Button clicked:', view);
-          
+
           setActive(view, buttons);
           localStorage.setItem(STORAGE_KEY, view);
           dispatchViewChange(view);
@@ -311,9 +303,7 @@
     }
     
     function dispatchViewChange(view) {
-      console.log('[Hero] Dispatching view change:', view);
-      
-      // Also directly toggle class on grid (backup method)
+      // Directly toggle class on grid
       const grid = document.querySelector('[data-product-grid], [id^="product-grid"]');
       if (grid) {
         if (view === 'list') {
@@ -321,7 +311,6 @@
         } else {
           grid.classList.remove('inv-col-grid__products--list');
         }
-        console.log('[Hero] Grid class updated directly');
       }
       
       // Dispatch custom event
@@ -371,6 +360,46 @@
       "id": "show_view_toggle",
       "label": "Show grid/list toggle",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Trust Badge Text"
+    },
+    {
+      "type": "text",
+      "id": "badge_delivery_text",
+      "label": "Delivery badge text",
+      "default": "Next Day Delivery"
+    },
+    {
+      "type": "text",
+      "id": "badge_vat_text",
+      "label": "VAT badge text",
+      "default": "VAT Invoice"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 14
     }
   ],
   "presets": [{ "name": "Collection Hero" }]

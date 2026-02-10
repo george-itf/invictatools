@@ -85,12 +85,13 @@
   assign delivery_text = section.settings.delivery_text
 %}
 
-<div 
-  class="inv-pdp" 
-  data-section-id="{{ section.id }}" 
+<div
+  class="inv-pdp"
+  data-section-id="{{ section.id }}"
   data-product-id="{{ product.id }}"
   data-product-url="{{ product.url }}"
   data-product-handle="{{ product.handle }}"
+  data-vat-rate="{{ settings.inv_vat_rate | default: 20 }}"
 >
   
   {%- comment -%} ========== BREADCRUMB BAR ========== {%- endcomment -%}
@@ -184,13 +185,18 @@
           {% endif %}
           
           <div class="inv-pdp__gallery-image-wrap">
-            <img 
+            <img
               id="inv-pdp-main-image-{{ section.id }}"
               class="inv-pdp__gallery-image"
               src="{{ featured_image | image_url: width: 800 }}"
+              srcset="{{ featured_image | image_url: width: 400 }} 400w,
+                      {{ featured_image | image_url: width: 600 }} 600w,
+                      {{ featured_image | image_url: width: 800 }} 800w,
+                      {{ featured_image | image_url: width: 1200 }} 1200w"
+              sizes="(max-width: 749px) 100vw, 50vw"
               alt="{{ featured_image.alt | escape | default: product.title }}"
-              width="800"
-              height="800"
+              width="{{ featured_image.width | default: 800 }}"
+              height="{{ featured_image.height | default: 800 }}"
               data-main-image
             >
           </div>
@@ -344,9 +350,9 @@
           <span class="inv-pdp__stock-dot" aria-hidden="true"></span>
           <span data-stock-text>
             {% if is_in_stock %}
-              In Stock — Ready to Ship
+              {{ section.settings.in_stock_text | default: 'In Stock — Ready to Ship' }}
             {% else %}
-              Out of Stock
+              {{ section.settings.oos_text | default: 'Out of Stock' }}
             {% endif %}
           </span>
         </div>
@@ -581,6 +587,9 @@
               </button>
             </div>
             
+            {%- comment -%} CART ERROR FEEDBACK {%- endcomment -%}
+            <div class="inv-pdp__atc-error" role="alert" aria-live="assertive" data-atc-error data-error-text="{{ section.settings.cart_error_text | escape }}" style="display:none"></div>
+
             {%- comment -%} BUY NOW — FIXED: Goes to checkout, disabled when OOS {%- endcomment -%}
             {% if show_buy_now %}
               <div class="inv-pdp__buy-now">
@@ -829,6 +838,22 @@
     },
     {
       "type": "header",
+      "content": "Stock & Dispatch"
+    },
+    {
+      "type": "text",
+      "id": "in_stock_text",
+      "label": "In stock text",
+      "default": "In Stock — Ready to Ship"
+    },
+    {
+      "type": "text",
+      "id": "dispatch_text",
+      "label": "Dispatch time text",
+      "default": "Typically dispatches within 1-2 working days"
+    },
+    {
+      "type": "header",
       "content": "Add to Cart"
     },
     {
@@ -848,6 +873,12 @@
       "id": "buy_now_text",
       "label": "Buy now button text",
       "default": "Buy Now — Skip the Cart"
+    },
+    {
+      "type": "text",
+      "id": "cart_error_text",
+      "label": "Cart error message",
+      "default": "Sorry, couldn't add to cart. Please try again."
     }
   ]
 }

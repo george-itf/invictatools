@@ -49,7 +49,7 @@
                   srcset="{{ block.settings.image | image_url: width: 400 }} 400w,
                           {{ block.settings.image | image_url: width: 600 }} 600w,
                           {{ block.settings.image | image_url: width: 800 }} 800w"
-                  sizes="(max-width: 768px) 100vw, {% if block.settings.featured %}66vw{% else %}33vw{% endif %}"
+                  sizes="(max-width: 749px) 100vw, {% if block.settings.featured %}66vw{% else %}33vw{% endif %}"
                   alt="{{ block.settings.image.alt | default: block.settings.title }}"
                   loading="lazy"
                   width="800"

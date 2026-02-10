@@ -11,7 +11,7 @@
    Extends existing theme variables
    ============================================ */
 :root {
-  --brand-red: var(--inv-primary, #dc2626);
+  --brand-red: var(--inv-primary, #e11d26);
   --brand-red-dark: var(--inv-primary-hover, #b91c1c);
   --brand-red-light: #ef5350;
   --brand-dark: var(--inv-dark, #2d2d2d);
@@ -1142,7 +1142,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 749px) {
   .brand-why {
     padding: 48px 0;
   }
@@ -1702,9 +1702,9 @@
 }
 
 /* ============================================
-   RESPONSIVE - Mobile (max-width: 768px)
+   RESPONSIVE - Mobile (max-width: 749px)
    ============================================ */
-@media (max-width: 768px) {
+@media (max-width: 749px) {
   /* Hero */
   .brand-hero {
     padding: 40px 0;

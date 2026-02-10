@@ -763,7 +763,7 @@
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 749px) {
     .tl-hero {
       padding: 36px 0 48px;
     }
@@ -885,7 +885,7 @@
             <img
               src="{{ section.settings.hero_image | image_url: width: 700 }}"
               srcset="{{ section.settings.hero_image | image_url: width: 400 }} 400w, {{ section.settings.hero_image | image_url: width: 600 }} 600w, {{ section.settings.hero_image | image_url: width: 700 }} 700w"
-              sizes="(max-width: 768px) 100vw, 45vw"
+              sizes="(max-width: 749px) 100vw, 45vw"
               alt="{{ section.settings.hero_image.alt | default: 'Invicta Tools & Fixings' }}"
               class="tl-hero__image"
               loading="eager"
@@ -1062,7 +1062,7 @@
               <script>window.location.href = '{{ shop.url }}/pages/thank-you-trade';</script>
             {%- endif -%}
             {%- if form.errors -%}
-              <div style="background:#fef2f2;border:1px solid #dc2626;padding:14px;margin-bottom:20px;color:#dc2626;border-radius:6px;font-size:14px;">{{ form.errors | default_errors }}</div>
+              <div style="background:#fef2f2;border:1px solid #e11d26;padding:14px;margin-bottom:20px;color:#e11d26;border-radius:6px;font-size:14px;">{{ form.errors | default_errors }}</div>
             {%- endif -%}
             <input type="hidden" name="contact[tags]" value="website-account-application, landing-page">
             <div class="tl-form__grid">
