@@ -237,7 +237,6 @@
   border: 1px solid var(--pdp-grey-200);
   border-radius: var(--pdp-radius);
   position: relative;
-  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -249,14 +248,12 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
-  padding: var(--pdp-space-md);
+  padding: 16px;
 }
 
 .inv-pdp__gallery-image {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
+  display: block;
+  width: 100%;
   height: auto;
   object-fit: contain;
 }
@@ -647,17 +644,13 @@
   border-bottom: 1px solid var(--pdp-grey-200);
 }
 
-.inv-pdp__price-view {
-  display: contents;
-}
-
 .inv-pdp__price-view--hidden {
   display: none !important;
 }
 
 .inv-pdp__price-row {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 10px;
   flex-wrap: wrap;
 }
@@ -681,12 +674,6 @@
   font-weight: 500;
   color: var(--pdp-grey-400);
   text-decoration: line-through;
-}
-
-.inv-pdp__price-alt {
-  font-size: 14px;
-  color: var(--pdp-grey-500);
-  margin-top: 4px;
 }
 
 .inv-pdp__price-savings {
