@@ -26,9 +26,9 @@
    CONTAINER & HEADER
    ============================================ */
 .review-carousel__container-{{ ai_gen_id }} {
-  max-width: {{ section.settings.container_width }}px;
+  max-width: var(--inv-container, 1400px);
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 var(--inv-gutter, 24px);
 }
 
 .review-carousel__header-{{ ai_gen_id }} {

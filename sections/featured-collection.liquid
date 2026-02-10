@@ -64,7 +64,7 @@
       ================================ {%- endcomment -%}
   {%- if section.settings.title != blank or section.settings.show_view_all -%}
     <div class="inv-fc-header inv-fc-header--{{ header_style }}">
-      <div class="page-width">
+      <div class="inv-container">
         
         {%- case header_style -%}
         
@@ -178,7 +178,7 @@
       PRODUCT GRID
       ================================ {%- endcomment -%}
   <div class="inv-featured-collection__grid-wrapper{% if show_mobile_slider or show_desktop_slider %} inv-featured-collection__grid-wrapper--slider{% endif %}">
-    <div class="{% unless show_mobile_slider %}page-width{% endunless %}">
+    <div class="{% unless show_mobile_slider %}inv-container{% endunless %}">
       
       {%- if section.settings.collection.products.size > 0 -%}
         
@@ -252,7 +252,7 @@
   {%- comment -%} Mobile View All {%- endcomment -%}
   {%- if section.settings.show_view_all and section.settings.collection != blank -%}
     <div class="inv-featured-collection__mobile-cta">
-      <div class="page-width">
+      <div class="inv-container">
         <a href="{{ section.settings.collection.url }}" class="inv-featured-collection__mobile-btn">
           View All {{ section.settings.collection.title }}
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" focusable="false">

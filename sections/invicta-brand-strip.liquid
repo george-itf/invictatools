@@ -59,9 +59,9 @@
   
   #shopify-section-{{ section.id }} .invicta-brand-strip__container {
     width: 100%;
-    max-width: {{ container_width }}px;
+    max-width: var(--inv-container, 1400px);
     margin: 0 auto;
-    padding: 0 clamp(16px, 3vw, {{ container_padding }}px);
+    padding: 0 var(--inv-gutter, 24px);
   }
   
   #shopify-section-{{ section.id }} .invicta-brand-strip__heading {
