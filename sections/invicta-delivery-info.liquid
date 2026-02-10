@@ -1,0 +1,728 @@
+{% comment %}
+  ============================================================================
+  INVICTA DELIVERY INFORMATION v1.0
+  ============================================================================
+
+  Full-page delivery information section for Invicta Tools & Fixings Ltd.
+  Structured layout with delivery methods table, area coverage,
+  same-day dispatch callout, and contact CTA.
+
+  Features:
+  - Responsive delivery methods table (stacks on mobile)
+  - Delivery area coverage with surcharge notes
+  - Same-day dispatch callout with 2pm cutoff
+  - Free shipping threshold from centralised settings
+  - Tracking information panel
+  - Contact CTA
+  - Fully translatable via invicta.delivery_info.* keys
+  - Schema blocks for delivery methods and areas
+
+  Usage:
+    Add via Theme Editor on any page template.
+
+  Version: 1.0.0
+  ============================================================================
+{% endcomment %}
+
+{%- liquid
+  assign heading = section.settings.heading
+  assign subheading = section.settings.subheading
+  assign show_shipping_table = section.settings.show_shipping_table
+  assign show_areas = section.settings.show_areas
+  assign contact_url = section.settings.contact_url
+
+  assign threshold_pence = settings.inv_free_shipping_pence | plus: 0
+  assign threshold_pounds = threshold_pence | divided_by: 100
+
+  assign method_blocks = section.blocks | where: 'type', 'method'
+  assign area_blocks = section.blocks | where: 'type', 'area'
+-%}
+
+<style>
+  /* ============================================================================
+     DELIVERY INFO — SECTION SCOPED STYLES
+     ============================================================================ */
+
+  #shopify-section-{{ section.id }} .inv-delivery-info {
+    max-width: var(--inv-page-width, 1320px);
+    margin: 0 auto;
+    padding: var(--inv-space-2xl, 3rem) var(--inv-page-gutter, 1.5rem);
+  }
+
+  /* --- Header --- */
+  #shopify-section-{{ section.id }} .inv-delivery-info__header {
+    text-align: center;
+    margin-bottom: var(--inv-space-2xl, 3rem);
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__heading {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: rgb(var(--color-foreground, 15 23 42));
+    margin: 0 0 var(--inv-space-sm, 0.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__subheading {
+    font-size: 1.05rem;
+    color: var(--inv-fg-muted, #6b7280);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* --- Dispatch Callout --- */
+  #shopify-section-{{ section.id }} .inv-delivery-info__dispatch {
+    display: flex;
+    align-items: center;
+    gap: var(--inv-space-md, 1rem);
+    background: var(--inv-accent-soft, rgba(225, 29, 38, 0.08));
+    border-left: 4px solid var(--inv-accent, #e11d26);
+    padding: var(--inv-space-lg, 1.5rem);
+    margin-bottom: var(--inv-space-2xl, 3rem);
+    border-radius: 0;
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__dispatch-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    color: var(--inv-accent, #e11d26);
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__dispatch-text {
+    flex: 1;
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__dispatch-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: rgb(var(--color-foreground, 15 23 42));
+    margin: 0 0 2px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__dispatch-desc {
+    font-size: 0.9rem;
+    color: var(--inv-fg-muted, #6b7280);
+    margin: 0;
+    line-height: 1.45;
+  }
+
+  /* --- Free Shipping Banner --- */
+  #shopify-section-{{ section.id }} .inv-delivery-info__free-shipping {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--inv-space-sm, 0.5rem);
+    background: var(--inv-success, #16a34a);
+    color: #fff;
+    padding: var(--inv-space-md, 1rem) var(--inv-space-lg, 1.5rem);
+    margin-bottom: var(--inv-space-2xl, 3rem);
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: 0;
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__free-shipping svg {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+  }
+
+  /* --- Section Blocks --- */
+  #shopify-section-{{ section.id }} .inv-delivery-info__section {
+    margin-bottom: var(--inv-space-2xl, 3rem);
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: rgb(var(--color-foreground, 15 23 42));
+    margin: 0 0 var(--inv-space-lg, 1.5rem);
+    padding-bottom: var(--inv-space-sm, 0.5rem);
+    border-bottom: 2px solid var(--inv-accent, #e11d26);
+    display: inline-block;
+  }
+
+  /* --- Delivery Methods Table --- */
+  #shopify-section-{{ section.id }} .inv-delivery-info__table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.925rem;
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__table thead {
+    background: rgb(var(--color-foreground, 15 23 42));
+    color: rgb(var(--color-background, 255 255 255));
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__table th {
+    padding: var(--inv-space-md, 1rem) var(--inv-space-lg, 1.5rem);
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__table td {
+    padding: var(--inv-space-md, 1rem) var(--inv-space-lg, 1.5rem);
+    border-bottom: 1px solid var(--inv-border, #e5e7eb);
+    vertical-align: top;
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__table tbody tr:hover {
+    background: var(--inv-bg-muted, #f9fafb);
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__table .inv-delivery-info__method-name {
+    font-weight: 700;
+    color: rgb(var(--color-foreground, 15 23 42));
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__table .inv-delivery-info__method-desc {
+    font-size: 0.825rem;
+    color: var(--inv-fg-muted, #6b7280);
+    margin-top: 2px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__table .inv-delivery-info__price--free {
+    color: var(--inv-success, #16a34a);
+    font-weight: 700;
+  }
+
+  /* Mobile: stack table as cards */
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .inv-delivery-info__table thead {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .inv-delivery-info__table,
+    #shopify-section-{{ section.id }} .inv-delivery-info__table tbody {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .inv-delivery-info__table tr {
+      display: block;
+      border: 1px solid var(--inv-border, #e5e7eb);
+      margin-bottom: var(--inv-space-md, 1rem);
+      padding: var(--inv-space-md, 1rem);
+    }
+
+    #shopify-section-{{ section.id }} .inv-delivery-info__table td {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: var(--inv-space-xs, 0.25rem) 0;
+      border-bottom: none;
+    }
+
+    #shopify-section-{{ section.id }} .inv-delivery-info__table td:first-child {
+      padding-bottom: var(--inv-space-sm, 0.5rem);
+      margin-bottom: var(--inv-space-xs, 0.25rem);
+      border-bottom: 1px solid var(--inv-border, #e5e7eb);
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .inv-delivery-info__table td::before {
+      content: attr(data-label);
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--inv-fg-muted, #6b7280);
+      margin-right: var(--inv-space-md, 1rem);
+      flex-shrink: 0;
+    }
+
+    #shopify-section-{{ section.id }} .inv-delivery-info__table td:first-child::before {
+      content: none;
+    }
+  }
+
+  /* --- Delivery Areas Grid --- */
+  #shopify-section-{{ section.id }} .inv-delivery-info__areas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--inv-space-md, 1rem);
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__area-card {
+    border: 1px solid var(--inv-border, #e5e7eb);
+    padding: var(--inv-space-lg, 1.5rem);
+    border-radius: 0;
+    transition: border-color var(--inv-duration-normal, 150ms) var(--inv-ease-default, ease);
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__area-card:hover {
+    border-color: var(--inv-border-strong, rgba(15, 23, 42, 0.25));
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__area-name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: rgb(var(--color-foreground, 15 23 42));
+    margin: 0 0 var(--inv-space-xs, 0.25rem);
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__area-timeframe {
+    font-size: 0.875rem;
+    color: var(--inv-fg-muted, #6b7280);
+    margin: 0 0 var(--inv-space-sm, 0.5rem);
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__area-note {
+    font-size: 0.8rem;
+    color: var(--inv-warning, #f59e0b);
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__area-note svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  /* --- Tracking Info Panel --- */
+  #shopify-section-{{ section.id }} .inv-delivery-info__tracking {
+    background: var(--inv-bg-soft, #f3f4f6);
+    padding: var(--inv-space-lg, 1.5rem);
+    border-radius: 0;
+    display: flex;
+    gap: var(--inv-space-md, 1rem);
+    align-items: flex-start;
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__tracking-icon {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    color: var(--inv-accent, #e11d26);
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__tracking-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: rgb(var(--color-foreground, 15 23 42));
+    margin: 0 0 var(--inv-space-xs, 0.25rem);
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__tracking-desc {
+    font-size: 0.9rem;
+    color: var(--inv-fg-muted, #6b7280);
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  /* --- Contact CTA --- */
+  #shopify-section-{{ section.id }} .inv-delivery-info__cta {
+    text-align: center;
+    padding: var(--inv-space-2xl, 3rem) 0 0;
+    border-top: 1px solid var(--inv-border, #e5e7eb);
+    margin-top: var(--inv-space-2xl, 3rem);
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__cta-heading {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: rgb(var(--color-foreground, 15 23 42));
+    margin: 0 0 var(--inv-space-sm, 0.5rem);
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__cta-desc {
+    font-size: 0.925rem;
+    color: var(--inv-fg-muted, #6b7280);
+    margin: 0 0 var(--inv-space-lg, 1.5rem);
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--inv-space-sm, 0.5rem);
+    background: var(--inv-accent, #e11d26);
+    color: #fff;
+    border: none;
+    border-radius: 0;
+    padding: var(--inv-space-md, 1rem) var(--inv-space-xl, 2rem);
+    font-size: 0.925rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background var(--inv-duration-normal, 150ms) var(--inv-ease-default, ease);
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__cta-button:hover,
+  #shopify-section-{{ section.id }} .inv-delivery-info__cta-button:focus-visible {
+    background: var(--inv-accent-hover, #c4191f);
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__cta-button:focus-visible {
+    outline: var(--inv-focus-ring-width, 2px) solid var(--inv-focus-ring-color, rgba(225, 29, 38, 0.5));
+    outline-offset: var(--inv-focus-ring-offset, 2px);
+  }
+
+  #shopify-section-{{ section.id }} .inv-delivery-info__cta-button svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* --- Responsive Padding --- */
+  @media (min-width: 750px) {
+    #shopify-section-{{ section.id }} .inv-delivery-info {
+      padding: var(--inv-space-3xl, 4rem) var(--inv-page-gutter-desktop, 3rem);
+    }
+  }
+</style>
+
+<section
+  class="inv-delivery-info"
+  aria-labelledby="DeliveryInfoHeading-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="invicta-delivery-info"
+>
+  {%- comment -%} --- Header --- {%- endcomment -%}
+  <div class="inv-delivery-info__header">
+    {%- if heading != blank -%}
+      <h1 class="inv-delivery-info__heading" id="DeliveryInfoHeading-{{ section.id }}">
+        {{- heading | escape -}}
+      </h1>
+    {%- endif -%}
+    {%- if subheading != blank -%}
+      <p class="inv-delivery-info__subheading">{{ subheading | escape }}</p>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} --- Same-Day Dispatch Callout --- {%- endcomment -%}
+  <div class="inv-delivery-info__dispatch" role="status">
+    <svg class="inv-delivery-info__dispatch-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="1" y="3" width="15" height="13"></rect>
+      <path d="M16 8h4l3 3v5h-7V8z"></path>
+      <circle cx="5.5" cy="18.5" r="2.5"></circle>
+      <circle cx="18.5" cy="18.5" r="2.5"></circle>
+    </svg>
+    <div class="inv-delivery-info__dispatch-text">
+      <p class="inv-delivery-info__dispatch-title">
+        {{ 'invicta.delivery_info.dispatch_title' | t | default: 'Same-Day Dispatch' }}
+      </p>
+      <p class="inv-delivery-info__dispatch-desc">
+        {{ 'invicta.delivery_info.dispatch_desc' | t | default: 'Order before 2pm Monday to Friday for same-day dispatch from our Canterbury warehouse.' }}
+      </p>
+    </div>
+  </div>
+
+  {%- comment -%} --- Free Shipping Banner --- {%- endcomment -%}
+  {%- if threshold_pence > 0 -%}
+    <div class="inv-delivery-info__free-shipping" aria-label="{{ 'invicta.delivery_info.free_shipping_aria' | t | default: 'Free shipping information' }}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+      <span>
+        {{ 'invicta.delivery_info.free_shipping_html' | t: threshold: threshold_pounds | default: 'FREE next-day delivery on all orders over <strong>&pound;' | append: threshold_pounds | append: '</strong> (ex. VAT) to UK Mainland' }}
+      </span>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} --- Delivery Methods Table --- {%- endcomment -%}
+  {%- if show_shipping_table and method_blocks.size > 0 -%}
+    <div class="inv-delivery-info__section">
+      <h2 class="inv-delivery-info__section-title">
+        {{ 'invicta.delivery_info.methods_heading' | t | default: 'Delivery Options' }}
+      </h2>
+      <div class="inv-delivery-info__table-wrap">
+        <table class="inv-delivery-info__table" role="table" aria-label="{{ 'invicta.delivery_info.methods_table_aria' | t | default: 'Delivery methods and pricing' }}">
+          <thead>
+            <tr>
+              <th scope="col">{{ 'invicta.delivery_info.col_method' | t | default: 'Method' }}</th>
+              <th scope="col">{{ 'invicta.delivery_info.col_timeframe' | t | default: 'Timeframe' }}</th>
+              <th scope="col">{{ 'invicta.delivery_info.col_price' | t | default: 'Price' }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for block in method_blocks -%}
+              {%- liquid
+                assign method_name = block.settings.name
+                assign method_desc = block.settings.description
+                assign method_price = block.settings.price
+                assign method_timeframe = block.settings.timeframe
+              -%}
+              <tr {{ block.shopify_attributes }}>
+                <td data-label="">
+                  <div class="inv-delivery-info__method-name">{{ method_name | escape }}</div>
+                  {%- if method_desc != blank -%}
+                    <div class="inv-delivery-info__method-desc">{{ method_desc | escape }}</div>
+                  {%- endif -%}
+                </td>
+                <td data-label="{{ 'invicta.delivery_info.col_timeframe' | t | default: 'Timeframe' }}">
+                  {{ method_timeframe | escape }}
+                </td>
+                <td data-label="{{ 'invicta.delivery_info.col_price' | t | default: 'Price' }}">
+                  {%- if method_price == 'FREE' or method_price == 'Free' or method_price == 'free' -%}
+                    <span class="inv-delivery-info__price--free">{{ method_price }}</span>
+                  {%- else -%}
+                    {{ method_price | escape }}
+                  {%- endif -%}
+                </td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} --- Delivery Areas --- {%- endcomment -%}
+  {%- if show_areas and area_blocks.size > 0 -%}
+    <div class="inv-delivery-info__section">
+      <h2 class="inv-delivery-info__section-title">
+        {{ 'invicta.delivery_info.areas_heading' | t | default: 'Delivery Areas' }}
+      </h2>
+      <div class="inv-delivery-info__areas">
+        {%- for block in area_blocks -%}
+          {%- liquid
+            assign area_name = block.settings.name
+            assign area_timeframe = block.settings.timeframe
+            assign area_surcharge = block.settings.surcharge_note
+          -%}
+          <div class="inv-delivery-info__area-card" {{ block.shopify_attributes }}>
+            <p class="inv-delivery-info__area-name">{{ area_name | escape }}</p>
+            <p class="inv-delivery-info__area-timeframe">{{ area_timeframe | escape }}</p>
+            {%- if area_surcharge != blank -%}
+              <p class="inv-delivery-info__area-note">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                {{ area_surcharge | escape }}
+              </p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} --- Tracking Information --- {%- endcomment -%}
+  <div class="inv-delivery-info__section">
+    <h2 class="inv-delivery-info__section-title">
+      {{ 'invicta.delivery_info.tracking_heading' | t | default: 'Order Tracking' }}
+    </h2>
+    <div class="inv-delivery-info__tracking">
+      <svg class="inv-delivery-info__tracking-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </svg>
+      <div>
+        <p class="inv-delivery-info__tracking-title">
+          {{ 'invicta.delivery_info.tracking_title' | t | default: 'Track Your Order' }}
+        </p>
+        <p class="inv-delivery-info__tracking-desc">
+          {{ 'invicta.delivery_info.tracking_desc' | t | default: 'Once your order has been dispatched, you will receive an email with your tracking number and a link to track your delivery in real time. If you have an account, tracking information is also available in your order history.' }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} --- Contact CTA --- {%- endcomment -%}
+  <div class="inv-delivery-info__cta">
+    <p class="inv-delivery-info__cta-heading">
+      {{ 'invicta.delivery_info.cta_heading' | t | default: 'Need help with delivery?' }}
+    </p>
+    <p class="inv-delivery-info__cta-desc">
+      {{ 'invicta.delivery_info.cta_desc' | t | default: 'Our team in Canterbury is happy to help with any delivery queries, special requirements, or bulk order logistics.' }}
+    </p>
+    {%- if contact_url != blank -%}
+      <a href="{{ contact_url }}" class="inv-delivery-info__cta-button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+          <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+        {{ 'invicta.delivery_info.cta_button' | t | default: 'Contact Us About Delivery' }}
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Invicta Delivery Info",
+  "tag": "section",
+  "class": "section-delivery-info",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Delivery Information"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Fast, reliable delivery across the UK from our Canterbury warehouse."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shipping_table",
+      "label": "Show delivery methods table",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_areas",
+      "label": "Show delivery areas",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "contact_url",
+      "label": "Contact page URL",
+      "info": "Link for the 'Contact us about delivery' button"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "method",
+      "name": "Delivery Method",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Method name",
+          "default": "Standard Delivery"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "info": "Optional short description shown below the method name"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "FREE",
+          "info": "Enter 'FREE' for free shipping or a price such as '£4.95'"
+        },
+        {
+          "type": "text",
+          "id": "timeframe",
+          "label": "Timeframe",
+          "default": "2–3 working days"
+        }
+      ]
+    },
+    {
+      "type": "area",
+      "name": "Delivery Area",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Area name",
+          "default": "UK Mainland"
+        },
+        {
+          "type": "text",
+          "id": "timeframe",
+          "label": "Delivery timeframe",
+          "default": "1–3 working days"
+        },
+        {
+          "type": "text",
+          "id": "surcharge_note",
+          "label": "Surcharge note",
+          "info": "Optional note about surcharges (leave blank if none)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Invicta Delivery Info",
+      "settings": {
+        "heading": "Delivery Information",
+        "subheading": "Fast, reliable delivery across the UK from our Canterbury warehouse.",
+        "show_shipping_table": true,
+        "show_areas": true
+      },
+      "blocks": [
+        {
+          "type": "method",
+          "settings": {
+            "name": "Standard Delivery",
+            "description": "Available on all orders over £30 (ex. VAT) to UK Mainland",
+            "price": "FREE",
+            "timeframe": "2–3 working days"
+          }
+        },
+        {
+          "type": "method",
+          "settings": {
+            "name": "Next-Day Delivery",
+            "description": "Order before 2pm Mon–Fri for next working day delivery",
+            "price": "£4.95",
+            "timeframe": "Next working day"
+          }
+        },
+        {
+          "type": "method",
+          "settings": {
+            "name": "Click & Collect",
+            "description": "Collect from our Canterbury or Ramsgate trade counters",
+            "price": "FREE",
+            "timeframe": "Same day if ordered before 2pm"
+          }
+        },
+        {
+          "type": "area",
+          "settings": {
+            "name": "UK Mainland",
+            "timeframe": "1–3 working days",
+            "surcharge_note": ""
+          }
+        },
+        {
+          "type": "area",
+          "settings": {
+            "name": "Scottish Highlands & Islands",
+            "timeframe": "3–5 working days",
+            "surcharge_note": "Surcharge may apply on heavy or oversized items"
+          }
+        },
+        {
+          "type": "area",
+          "settings": {
+            "name": "Northern Ireland",
+            "timeframe": "3–5 working days",
+            "surcharge_note": "Surcharge may apply on heavy or oversized items"
+          }
+        },
+        {
+          "type": "area",
+          "settings": {
+            "name": "Channel Islands",
+            "timeframe": "5–7 working days",
+            "surcharge_note": "Delivery surcharge applies — contact us for a quote"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

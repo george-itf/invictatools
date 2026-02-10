@@ -8,7 +8,7 @@
    - WCAG touch targets: buttons min-height 44px
    - Added focus-visible states
    - Standardised breakpoint to 749px
-   - Brand colour corrected to #e11d26
+   - Brand colour uses var(--inv-brand-red)
    ======================================================================= */
 
 /* -----------------------------------------------------------------------
@@ -126,7 +126,7 @@
   left: 8px;
   z-index: 10;
   padding: 4px 8px;
-  background: #e11d26;
+  background: var(--inv-brand-red, #e11d26);
   color: #fff;
   font-size: 11px;
   font-weight: 700;
@@ -185,7 +185,7 @@
 }
 
 .inv-card__title a:hover {
-  color: #e11d26;
+  color: var(--inv-brand-red, #e11d26);
 }
 
 /* -----------------------------------------------------------------------
@@ -218,7 +218,7 @@
 }
 
 .inv-card__price--sale {
-  color: #e11d26;
+  color: var(--inv-brand-red, #e11d26);
 }
 
 .inv-card__was {
@@ -296,7 +296,7 @@
 
 .inv-card a:focus-visible,
 .inv-card button:focus-visible {
-  outline: 2px solid #e11d26;
+  outline: 2px solid var(--inv-brand-red, #e11d26);
   outline-offset: 2px;
 }
 

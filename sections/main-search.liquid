@@ -219,12 +219,15 @@
       <h1 class="inv-search__title">
         {%- if search.performed -%}
           {%- if search_terms != blank -%}
-            Search results for "{{ search.terms }}"
+            {{ 'invicta.search.results_for' | t: terms: search.terms }}
           {%- else -%}
-            All Products
+            {{ 'invicta.search.all_products' | t }}
+          {%- endif -%}
+          {%- if search.results_count > 0 -%}
+            <span class="inv-search__result-count">({{ search.results_count }} {{ search.results_count | pluralize: 'product', 'products' }})</span>
           {%- endif -%}
         {%- else -%}
-          Search
+          {{ 'invicta.search.heading' | t }}
         {%- endif -%}
       </h1>
       
@@ -245,7 +248,7 @@
               id="inv-search-input"
               class="inv-search__input"
               value="{{ search.terms | escape }}"
-              placeholder="Search products..."
+              placeholder="{{ 'invicta.search.placeholder' | t }}"
               autocomplete="off"
               autocorrect="off"
               autocapitalize="off"
@@ -260,7 +263,7 @@
               {%- endif -%}
             >
             
-            <button type="submit" class="inv-search__submit" aria-label="Search">
+            <button type="submit" class="inv-search__submit" aria-label="{{ 'invicta.search.submit_label' | t }}">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <circle cx="11" cy="11" r="8"/>
                 <path d="m21 21-4.35-4.35"/>
@@ -268,7 +271,7 @@
             </button>
             
             {%- if search.terms != blank -%}
-              <a href="{{ routes.search_url }}?type=product" class="inv-search__clear" aria-label="Clear search">
+              <a href="{{ routes.search_url }}?type=product" class="inv-search__clear" aria-label="{{ 'invicta.search.clear_label' | t }}">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <line x1="18" y1="6" x2="6" y2="18"/>
                   <line x1="6" y1="6" x2="18" y2="18"/>
@@ -301,9 +304,9 @@
           <div class="inv-filters__row">
             <div class="inv-filters__container page-width">
               <div class="inv-filters__header">
-                <span class="inv-filters__label">Brand</span>
+                <span class="inv-filters__label">{{ 'invicta.search.filter_brand' | t }}</span>
                 {%- if active_brand_count > 0 -%}
-                  <span class="inv-filters__count">({{ active_brand_count }} selected)</span>
+                  <span class="inv-filters__count">({{ 'invicta.search.filter_selected' | t: count: active_brand_count }})</span>
                 {%- endif -%}
               </div>
               
@@ -372,9 +375,9 @@
           <div class="inv-filters__row inv-filters__row--types">
             <div class="inv-filters__container page-width">
               <div class="inv-filters__header">
-                <span class="inv-filters__label">Product Type</span>
+                <span class="inv-filters__label">{{ 'invicta.search.filter_type' | t }}</span>
                 {%- if active_type_count > 0 -%}
-                  <span class="inv-filters__count">({{ active_type_count }} selected)</span>
+                  <span class="inv-filters__count">({{ 'invicta.search.filter_selected' | t: count: active_type_count }})</span>
                 {%- endif -%}
               </div>
               
@@ -444,7 +447,7 @@
             <div class="inv-filters__container page-width">
               <div class="inv-filters__active-content">
                 <div class="inv-filters__active-left">
-                  <span class="inv-filters__active-label">Active:</span>
+                  <span class="inv-filters__active-label">{{ 'invicta.search.filters_active' | t }}:</span>
                   <div class="inv-filters__active-tags">
                     {%- for brand in active_brands -%}
                       {%- if brand != blank -%}
@@ -489,13 +492,13 @@
             <div class="inv-grid__toolbar-left">
               <p class="inv-grid__count" id="inv-product-count" aria-live="polite">
                 {%- if search.results_count == 0 -%}
-                  <strong>0</strong> products
+                  <strong>0</strong> {{ 'invicta.search.products' | t }}
                 {%- elsif paginate.pages > 1 -%}
-                  <strong>{{ search.results_count }}</strong> 
+                  <strong>{{ search.results_count }}</strong>
                   {{ search.results_count | pluralize: 'product', 'products' }}
-                  <span class="inv-grid__count-range">({{ paginate.current_offset | plus: 1 }}–{{ paginate.current_offset | plus: paginate.items.size }})</span>
+                  <span class="inv-grid__count-range">({{ 'invicta.search.showing_range' | t: start: paginate.current_offset | plus: 1, end: paginate.current_offset | plus: paginate.items.size }})</span>
                 {%- else -%}
-                  <strong>{{ search.results_count }}</strong> 
+                  <strong>{{ search.results_count }}</strong>
                   {{ search.results_count | pluralize: 'product', 'products' }}
                 {%- endif -%}
               </p>
@@ -504,7 +507,7 @@
             {%- if show_sort and search.results_count > 0 -%}
               <div class="inv-grid__toolbar-right">
                 <div class="inv-grid__sort">
-                  <label for="inv-sort-select" class="inv-grid__sort-label">Sort:</label>
+                  <label for="inv-sort-select" class="inv-grid__sort-label">{{ 'invicta.search.sort_label' | t }}:</label>
                   <select id="inv-sort-select" class="inv-grid__sort-select" data-inv-sort-select>
                     {%- for option in search.sort_options -%}
                       <option value="{{ option.value }}" {% if sort_by == option.value %}selected{% endif %}>
@@ -539,7 +542,7 @@
                   <p class="inv-grid__empty-message">{{ empty_message }}</p>
                   {%- if has_active_filters -%}
                     <button type="button" class="inv-grid__empty-link" id="inv-clear-filters-empty">
-                      Clear all filters
+                      {{ 'invicta.search.clear_filters' | t }}
                     </button>
                   {%- endif -%}
                 </div>
@@ -555,12 +558,12 @@
                 {%- if paginate.previous -%}
                   <a href="{{ paginate.previous.url }}" class="inv-pagination__btn inv-pagination__btn--prev" data-inv-page-link aria-label="Previous page">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-                    <span>Prev</span>
+                    <span>{{ 'invicta.search.prev' | t }}</span>
                   </a>
                 {%- else -%}
                   <span class="inv-pagination__btn inv-pagination__btn--prev inv-pagination__btn--disabled" aria-disabled="true">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-                    <span>Prev</span>
+                    <span>{{ 'invicta.search.prev' | t }}</span>
                   </span>
                 {%- endif -%}
                 
@@ -579,13 +582,13 @@
                 </div>
                 
                 {%- if paginate.next -%}
-                  <a href="{{ paginate.next.url }}" class="inv-pagination__btn inv-pagination__btn--next" data-inv-page-link aria-label="Next page">
-                    <span>Next</span>
+                  <a href="{{ paginate.next.url }}" class="inv-pagination__btn inv-pagination__btn--next" data-inv-page-link aria-label="{{ 'invicta.search.next_page' | t }}">
+                    <span>{{ 'invicta.search.next' | t }}</span>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
                   </a>
                 {%- else -%}
                   <span class="inv-pagination__btn inv-pagination__btn--next inv-pagination__btn--disabled" aria-disabled="true">
-                    <span>Next</span>
+                    <span>{{ 'invicta.search.next' | t }}</span>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
                   </span>
                 {%- endif -%}
@@ -609,7 +612,7 @@
             <circle cx="11" cy="11" r="8"/>
             <path d="m21 21-4.35-4.35"/>
           </svg>
-          <p>Enter a search term to find products</p>
+          <p>{{ 'invicta.search.enter_term' | t }}</p>
         </div>
       </div>
     </div>

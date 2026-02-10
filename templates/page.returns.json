@@ -1,0 +1,85 @@
+{
+  "sections": {
+    "main": {
+      "type": "invicta-returns",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "step_number": "1",
+            "title": "Contact Us",
+            "description": "Email us at returns@invictatools.co.uk with your order number and reason for return. We'll respond within 1 business day.",
+            "icon": "contact"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "step_number": "2",
+            "title": "Get Your RMA Number",
+            "description": "We'll issue a Return Merchandise Authorisation (RMA) number and provide return shipping instructions.",
+            "icon": "package"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "step_number": "3",
+            "title": "Pack & Ship",
+            "description": "Pack the item securely in its original packaging, include the RMA number, and ship it to the address provided.",
+            "icon": "shipping"
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "step_number": "4",
+            "title": "Refund Processed",
+            "description": "Once we receive and inspect the item, your refund will be processed within 1-2 business days to your original payment method.",
+            "icon": "refund"
+          }
+        },
+        "exception_1": {
+          "type": "exception",
+          "settings": {
+            "title": "Cut-to-Size & Custom Orders",
+            "description": "Items that have been cut, modified, or custom-made to your specifications cannot be returned unless faulty."
+          }
+        },
+        "exception_2": {
+          "type": "exception",
+          "settings": {
+            "title": "Opened Safety Equipment",
+            "description": "For hygiene and safety reasons, PPE and safety equipment that has been opened or used cannot be returned."
+          }
+        },
+        "exception_3": {
+          "type": "exception",
+          "settings": {
+            "title": "Clearance & Special Offer Items",
+            "description": "Items purchased at clearance or heavily discounted promotional prices are sold as final sale and cannot be returned."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4",
+        "exception_1",
+        "exception_2",
+        "exception_3"
+      ],
+      "settings": {
+        "heading": "Returns & Refunds",
+        "subheading": "We want you to be completely satisfied with your purchase. If something isn't right, our returns process is straightforward.",
+        "returns_email": "returns@invictatools.co.uk",
+        "returns_phone": "01227 456789",
+        "contact_url": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

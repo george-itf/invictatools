@@ -1,0 +1,87 @@
+{
+  "sections": {
+    "main": {
+      "type": "invicta-delivery-info",
+      "blocks": {
+        "method_standard": {
+          "type": "method",
+          "settings": {
+            "name": "Standard Delivery",
+            "description": "Royal Mail or courier depending on order size",
+            "price": "FREE on orders over £30",
+            "timeframe": "2-3 working days"
+          }
+        },
+        "method_nextday": {
+          "type": "method",
+          "settings": {
+            "name": "Next-Day Delivery",
+            "description": "Order before 2pm Mon-Fri for next working day delivery",
+            "price": "£4.95",
+            "timeframe": "Next working day"
+          }
+        },
+        "method_collect": {
+          "type": "method",
+          "settings": {
+            "name": "Click & Collect",
+            "description": "Collect from our Canterbury or Herne Bay branch",
+            "price": "FREE",
+            "timeframe": "Same day (if ordered before 2pm)"
+          }
+        },
+        "area_mainland": {
+          "type": "area",
+          "settings": {
+            "name": "UK Mainland",
+            "timeframe": "1-3 working days",
+            "surcharge_note": ""
+          }
+        },
+        "area_highlands": {
+          "type": "area",
+          "settings": {
+            "name": "Scottish Highlands & Islands",
+            "timeframe": "3-5 working days",
+            "surcharge_note": "A surcharge may apply for remote locations"
+          }
+        },
+        "area_ni": {
+          "type": "area",
+          "settings": {
+            "name": "Northern Ireland",
+            "timeframe": "3-5 working days",
+            "surcharge_note": "Additional shipping charges may apply"
+          }
+        },
+        "area_channel": {
+          "type": "area",
+          "settings": {
+            "name": "Channel Islands",
+            "timeframe": "5-7 working days",
+            "surcharge_note": "Import duties and surcharges may apply"
+          }
+        }
+      },
+      "block_order": [
+        "method_standard",
+        "method_nextday",
+        "method_collect",
+        "area_mainland",
+        "area_highlands",
+        "area_ni",
+        "area_channel"
+      ],
+      "settings": {
+        "heading": "Delivery Information",
+        "subheading": "Everything you need to know about how we get your order to you, from dispatch times to delivery areas.",
+        "show_shipping_table": true,
+        "show_areas": true,
+        "contact_url": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

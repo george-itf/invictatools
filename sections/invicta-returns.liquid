@@ -1,0 +1,952 @@
+{% comment %}
+  ============================================================================
+  INVICTA RETURNS & REFUNDS v1.0
+  ============================================================================
+
+  Professional returns & refunds policy page section for Invicta Tools.
+
+  Features:
+  - Step-by-step returns process with visual progress tracker
+  - Refund timeline information
+  - Exception items listing
+  - Warranty claims section
+  - Prominent "Start a Return" CTA
+  - Fully translatable via invicta.returns.* namespace
+
+  Uses .inv-returns__* prefix to avoid conflicts.
+  ============================================================================
+{% endcomment %}
+
+{%- liquid
+  assign returns_email = section.settings.returns_email | default: 'returns@invictatools.co.uk'
+  assign returns_phone = section.settings.returns_phone | default: '01227 456789'
+  assign contact_url = section.settings.contact_url | default: ''
+  assign heading = section.settings.heading
+  assign subheading = section.settings.subheading
+
+  assign steps = section.blocks | where: 'type', 'step'
+  assign exceptions = section.blocks | where: 'type', 'exception'
+-%}
+
+<style>
+  /* ============================================
+     INVICTA RETURNS — Scoped to {{ section.id }}
+     ============================================ */
+
+  #shopify-section-{{ section.id }} {
+    --inv-returns-accent: var(--inv-accent, #e11d26);
+    --inv-returns-accent-hover: var(--inv-accent-hover, #c4191f);
+    --inv-returns-fg: var(--inv-fg, #0f172a);
+    --inv-returns-fg-muted: var(--inv-fg-muted, #6b7280);
+    --inv-returns-bg: var(--inv-bg-elevated, #ffffff);
+    --inv-returns-bg-soft: var(--inv-bg-soft, #f3f4f6);
+    --inv-returns-border: var(--inv-border, #e5e7eb);
+    --inv-returns-step-size: 48px;
+    --inv-returns-line-width: 3px;
+  }
+
+  .inv-returns {
+    padding: 48px 0 64px;
+    color: var(--inv-returns-fg);
+  }
+
+  .inv-returns__container {
+    max-width: var(--inv-page-width, 1320px);
+    margin: 0 auto;
+    padding: 0 var(--inv-page-gutter, 1.5rem);
+  }
+
+  @media screen and (min-width: 750px) {
+    .inv-returns__container {
+      padding: 0 var(--inv-page-gutter-desktop, 3rem);
+    }
+  }
+
+  /* ---- Header ---- */
+  .inv-returns__header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .inv-returns__title {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 12px;
+    color: var(--inv-returns-fg);
+  }
+
+  @media screen and (min-width: 750px) {
+    .inv-returns__title {
+      font-size: 2.5rem;
+    }
+  }
+
+  .inv-returns__subtitle {
+    font-size: 1.125rem;
+    color: var(--inv-returns-fg-muted);
+    margin: 0 auto;
+    max-width: 640px;
+    line-height: 1.6;
+  }
+
+  /* ---- Policy Summary ---- */
+  .inv-returns__summary {
+    background: var(--inv-returns-bg-soft);
+    border: 1px solid var(--inv-returns-border);
+    border-radius: 0;
+    padding: 32px;
+    margin-bottom: 48px;
+  }
+
+  .inv-returns__summary-heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 16px;
+    color: var(--inv-returns-fg);
+  }
+
+  .inv-returns__summary-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--inv-returns-fg-muted);
+    margin: 0;
+  }
+
+  .inv-returns__summary-highlights {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 24px;
+    list-style: none;
+    padding: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .inv-returns__summary-highlights {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .inv-returns__highlight {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--inv-returns-bg);
+    border: 1px solid var(--inv-returns-border);
+    padding: 20px;
+    border-radius: 0;
+  }
+
+  .inv-returns__highlight-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--inv-returns-accent);
+    color: #ffffff;
+  }
+
+  .inv-returns__highlight-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
+  .inv-returns__highlight-text strong {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--inv-returns-fg);
+    margin-bottom: 2px;
+  }
+
+  .inv-returns__highlight-text span {
+    font-size: 0.8125rem;
+    color: var(--inv-returns-fg-muted);
+    line-height: 1.4;
+  }
+
+  /* ---- Steps Section ---- */
+  .inv-returns__section {
+    margin-bottom: 48px;
+  }
+
+  .inv-returns__section-heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 32px;
+    color: var(--inv-returns-fg);
+  }
+
+  /* Progress tracker */
+  .inv-returns__steps {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  @media screen and (min-width: 990px) {
+    .inv-returns__steps {
+      grid-template-columns: repeat({{ steps.size | default: 4 }}, 1fr);
+    }
+  }
+
+  .inv-returns__step {
+    position: relative;
+    padding: 0 16px 40px 72px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .inv-returns__step {
+      padding: 80px 24px 0;
+      text-align: center;
+    }
+  }
+
+  /* Vertical line (mobile) */
+  .inv-returns__step::before {
+    content: '';
+    position: absolute;
+    left: 23px;
+    top: 0;
+    bottom: 0;
+    width: var(--inv-returns-line-width);
+    background: var(--inv-returns-border);
+  }
+
+  .inv-returns__step:last-child::before {
+    display: none;
+  }
+
+  @media screen and (min-width: 990px) {
+    /* Horizontal line (desktop) */
+    .inv-returns__step::before {
+      left: 50%;
+      top: 23px;
+      bottom: auto;
+      width: 100%;
+      height: var(--inv-returns-line-width);
+    }
+
+    .inv-returns__step:last-child::before {
+      display: none;
+    }
+  }
+
+  /* Step number circle */
+  .inv-returns__step-number {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--inv-returns-step-size);
+    height: var(--inv-returns-step-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--inv-returns-accent);
+    color: #ffffff;
+    font-size: 1.125rem;
+    font-weight: 700;
+    z-index: 1;
+    border-radius: 0;
+  }
+
+  @media screen and (min-width: 990px) {
+    .inv-returns__step-number {
+      position: relative;
+      left: auto;
+      top: auto;
+      margin: 0 auto 20px;
+    }
+  }
+
+  .inv-returns__step-icon {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+  }
+
+  .inv-returns__step-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--inv-returns-fg-muted);
+    margin-bottom: 4px;
+  }
+
+  .inv-returns__step-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--inv-returns-fg);
+    margin: 0 0 8px;
+  }
+
+  .inv-returns__step-desc {
+    font-size: 0.875rem;
+    color: var(--inv-returns-fg-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ---- Refund Timeline ---- */
+  .inv-returns__timeline {
+    background: var(--inv-returns-bg-soft);
+    border: 1px solid var(--inv-returns-border);
+    border-radius: 0;
+    padding: 32px;
+    margin-bottom: 48px;
+  }
+
+  .inv-returns__timeline-heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 24px;
+    color: var(--inv-returns-fg);
+  }
+
+  .inv-returns__timeline-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 16px;
+  }
+
+  .inv-returns__timeline-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--inv-returns-bg);
+    border: 1px solid var(--inv-returns-border);
+    border-radius: 0;
+  }
+
+  .inv-returns__timeline-marker {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--inv-returns-fg);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .inv-returns__timeline-content strong {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--inv-returns-fg);
+    margin-bottom: 2px;
+  }
+
+  .inv-returns__timeline-content span {
+    font-size: 0.8125rem;
+    color: var(--inv-returns-fg-muted);
+    line-height: 1.5;
+  }
+
+  /* ---- Exceptions ---- */
+  .inv-returns__exceptions {
+    margin-bottom: 48px;
+  }
+
+  .inv-returns__exceptions-heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 24px;
+    color: var(--inv-returns-fg);
+  }
+
+  .inv-returns__exceptions-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 12px;
+  }
+
+  .inv-returns__exception {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 20px;
+    background: var(--inv-returns-bg-soft);
+    border: 1px solid var(--inv-returns-border);
+    border-left: 4px solid var(--inv-returns-accent);
+    border-radius: 0;
+  }
+
+  .inv-returns__exception-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--inv-returns-accent);
+    margin-top: 2px;
+  }
+
+  .inv-returns__exception-icon svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+
+  .inv-returns__exception-content strong {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--inv-returns-fg);
+    margin-bottom: 2px;
+  }
+
+  .inv-returns__exception-content p {
+    font-size: 0.8125rem;
+    color: var(--inv-returns-fg-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ---- Warranty ---- */
+  .inv-returns__warranty {
+    background: var(--inv-returns-bg-soft);
+    border: 1px solid var(--inv-returns-border);
+    border-radius: 0;
+    padding: 32px;
+    margin-bottom: 48px;
+  }
+
+  .inv-returns__warranty-heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: var(--inv-returns-fg);
+  }
+
+  .inv-returns__warranty-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--inv-returns-fg-muted);
+    margin: 0 0 20px;
+  }
+
+  .inv-returns__warranty-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    background: var(--inv-returns-bg);
+    border: 1px solid var(--inv-returns-border);
+    border-left: 4px solid var(--inv-returns-fg);
+  }
+
+  .inv-returns__warranty-note-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--inv-returns-fg-muted);
+  }
+
+  .inv-returns__warranty-note-icon svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+
+  .inv-returns__warranty-note p {
+    font-size: 0.8125rem;
+    color: var(--inv-returns-fg-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ---- CTA Banner ---- */
+  .inv-returns__cta {
+    text-align: center;
+    background: var(--inv-returns-fg);
+    color: #ffffff;
+    padding: 40px 32px;
+    border-radius: 0;
+  }
+
+  .inv-returns__cta-heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: #ffffff;
+  }
+
+  .inv-returns__cta-text {
+    font-size: 1rem;
+    margin: 0 0 24px;
+    opacity: 0.8;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .inv-returns__cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .inv-returns__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-radius: 0;
+    transition: background var(--inv-duration-normal, 150ms) var(--inv-ease-default, ease),
+                color var(--inv-duration-normal, 150ms) var(--inv-ease-default, ease);
+  }
+
+  .inv-returns__cta-btn:focus-visible {
+    outline: var(--inv-focus-ring-width, 2px) solid var(--inv-focus-ring-color, rgba(225, 29, 38, 0.5));
+    outline-offset: var(--inv-focus-ring-offset, 2px);
+  }
+
+  .inv-returns__cta-btn--primary {
+    background: var(--inv-returns-accent);
+    color: #ffffff;
+    border: 2px solid var(--inv-returns-accent);
+  }
+
+  .inv-returns__cta-btn--primary:hover {
+    background: var(--inv-returns-accent-hover);
+    border-color: var(--inv-returns-accent-hover);
+    color: #ffffff;
+  }
+
+  .inv-returns__cta-btn--secondary {
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+  }
+
+  .inv-returns__cta-btn--secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.7);
+    color: #ffffff;
+  }
+
+  .inv-returns__cta-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+
+  .inv-returns__cta-contact {
+    margin-top: 20px;
+    font-size: 0.875rem;
+    opacity: 0.7;
+  }
+
+  .inv-returns__cta-contact a {
+    color: #ffffff;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .inv-returns__cta-contact a:hover {
+    opacity: 0.9;
+  }
+</style>
+
+<div class="inv-returns" data-section-id="{{ section.id }}">
+  <div class="inv-returns__container">
+
+    {%- comment -%} ================================================================
+       1. PAGE HEADER
+    ================================================================ {%- endcomment -%}
+    <header class="inv-returns__header">
+      <h1 class="inv-returns__title">
+        {%- if heading != blank -%}{{ heading | escape }}{%- else -%}{{ 'invicta.returns.heading' | t }}{%- endif -%}
+      </h1>
+      {%- if subheading != blank -%}
+        <p class="inv-returns__subtitle">{{ subheading }}</p>
+      {%- else -%}
+        <p class="inv-returns__subtitle">
+          {{ 'invicta.returns.subheading' | t }}
+        </p>
+      {%- endif -%}
+    </header>
+
+    {%- comment -%} ================================================================
+       2. POLICY SUMMARY
+    ================================================================ {%- endcomment -%}
+    <div class="inv-returns__summary" role="region" aria-label="{{ 'invicta.returns.summary_label' | t }}">
+      <h2 class="inv-returns__summary-heading">
+        {{ 'invicta.returns.policy_summary.heading' | t }}
+      </h2>
+      <p class="inv-returns__summary-text">
+        {{ 'invicta.returns.policy_summary.description' | t }}
+      </p>
+      <ul class="inv-returns__summary-highlights">
+        <li class="inv-returns__highlight">
+          <span class="inv-returns__highlight-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
+          </span>
+          <span class="inv-returns__highlight-text">
+            <strong>{{ 'invicta.returns.policy_summary.window_title' | t }}</strong>
+            <span>{{ 'invicta.returns.policy_summary.window_description' | t }}</span>
+          </span>
+        </li>
+        <li class="inv-returns__highlight">
+          <span class="inv-returns__highlight-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/></svg>
+          </span>
+          <span class="inv-returns__highlight-text">
+            <strong>{{ 'invicta.returns.policy_summary.condition_title' | t }}</strong>
+            <span>{{ 'invicta.returns.policy_summary.condition_description' | t }}</span>
+          </span>
+        </li>
+        <li class="inv-returns__highlight">
+          <span class="inv-returns__highlight-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+          </span>
+          <span class="inv-returns__highlight-text">
+            <strong>{{ 'invicta.returns.policy_summary.refund_title' | t }}</strong>
+            <span>{{ 'invicta.returns.policy_summary.refund_description' | t }}</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    {%- comment -%} ================================================================
+       3. STEP-BY-STEP RETURNS PROCESS
+    ================================================================ {%- endcomment -%}
+    {%- if steps.size > 0 -%}
+      <section class="inv-returns__section" aria-label="{{ 'invicta.returns.process_label' | t }}">
+        <h2 class="inv-returns__section-heading">
+          {{ 'invicta.returns.process.heading' | t }}
+        </h2>
+        <div class="inv-returns__steps" role="list">
+          {%- for block in steps -%}
+            <div class="inv-returns__step" role="listitem" {{ block.shopify_attributes }}>
+              {%- comment -%} Vertical/Horizontal connector line via ::before pseudo -%}{%- endcomment -%}
+              <div class="inv-returns__step-number" aria-hidden="true">
+                {%- case block.settings.icon -%}
+                  {%- when 'contact' -%}
+                    <svg class="inv-returns__step-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/></svg>
+                  {%- when 'package' -%}
+                    <svg class="inv-returns__step-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1 0-2 .9-2 2v3.01c0 .72.43 1.34 1 1.69V20c0 1.1 1.1 2 2 2h14c.9 0 2-.9 2-2V8.7c.57-.35 1-.97 1-1.69V4c0-1.1-1-2-2-2zm-5 12H9v-2h6v2zm5-7H4V4h16v3z"/></svg>
+                  {%- when 'shipping' -%}
+                    <svg class="inv-returns__step-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM20 9.5l2.46 3.5H17V9.5h3zm-2 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                  {%- when 'refund' -%}
+                    <svg class="inv-returns__step-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+                  {%- else -%}
+                    {{ block.settings.step_number | default: forloop.index }}
+                {%- endcase -%}
+              </div>
+              <span class="inv-returns__step-label">
+                {{ 'invicta.returns.process.step_label' | t }} {{ block.settings.step_number | default: forloop.index }}
+              </span>
+              <h3 class="inv-returns__step-title">{{ block.settings.title }}</h3>
+              <p class="inv-returns__step-desc">{{ block.settings.description }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+      </section>
+    {%- endif -%}
+
+    {%- comment -%} ================================================================
+       4. REFUND TIMELINE
+    ================================================================ {%- endcomment -%}
+    <div class="inv-returns__timeline" role="region" aria-label="{{ 'invicta.returns.timeline_label' | t }}">
+      <h2 class="inv-returns__timeline-heading">
+        {{ 'invicta.returns.timeline.heading' | t }}
+      </h2>
+      <ul class="inv-returns__timeline-list">
+        <li class="inv-returns__timeline-item">
+          <span class="inv-returns__timeline-marker" aria-hidden="true">1</span>
+          <div class="inv-returns__timeline-content">
+            <strong>{{ 'invicta.returns.timeline.received_title' | t }}</strong>
+            <span>{{ 'invicta.returns.timeline.received_description' | t }}</span>
+          </div>
+        </li>
+        <li class="inv-returns__timeline-item">
+          <span class="inv-returns__timeline-marker" aria-hidden="true">2</span>
+          <div class="inv-returns__timeline-content">
+            <strong>{{ 'invicta.returns.timeline.inspected_title' | t }}</strong>
+            <span>{{ 'invicta.returns.timeline.inspected_description' | t }}</span>
+          </div>
+        </li>
+        <li class="inv-returns__timeline-item">
+          <span class="inv-returns__timeline-marker" aria-hidden="true">3</span>
+          <div class="inv-returns__timeline-content">
+            <strong>{{ 'invicta.returns.timeline.processed_title' | t }}</strong>
+            <span>{{ 'invicta.returns.timeline.processed_description' | t }}</span>
+          </div>
+        </li>
+        <li class="inv-returns__timeline-item">
+          <span class="inv-returns__timeline-marker" aria-hidden="true">4</span>
+          <div class="inv-returns__timeline-content">
+            <strong>{{ 'invicta.returns.timeline.completed_title' | t }}</strong>
+            <span>{{ 'invicta.returns.timeline.completed_description' | t }}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    {%- comment -%} ================================================================
+       5. EXCEPTIONS
+    ================================================================ {%- endcomment -%}
+    {%- if exceptions.size > 0 -%}
+      <section class="inv-returns__exceptions" aria-label="{{ 'invicta.returns.exceptions_label' | t }}">
+        <h2 class="inv-returns__exceptions-heading">
+          {{ 'invicta.returns.exceptions.heading' | t }}
+        </h2>
+        <ul class="inv-returns__exceptions-list">
+          {%- for block in exceptions -%}
+            <li class="inv-returns__exception" {{ block.shopify_attributes }}>
+              <span class="inv-returns__exception-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+              </span>
+              <div class="inv-returns__exception-content">
+                <strong>{{ block.settings.title }}</strong>
+                <p>{{ block.settings.description }}</p>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </section>
+    {%- endif -%}
+
+    {%- comment -%} ================================================================
+       6. WARRANTY CLAIMS
+    ================================================================ {%- endcomment -%}
+    <div class="inv-returns__warranty" role="region" aria-label="{{ 'invicta.returns.warranty_label' | t }}">
+      <h2 class="inv-returns__warranty-heading">
+        {{ 'invicta.returns.warranty.heading' | t }}
+      </h2>
+      <p class="inv-returns__warranty-text">
+        {{ 'invicta.returns.warranty.description' | t }}
+      </p>
+      <div class="inv-returns__warranty-note">
+        <span class="inv-returns__warranty-note-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        </span>
+        <p>{{ 'invicta.returns.warranty.note' | t }}</p>
+      </div>
+    </div>
+
+    {%- comment -%} ================================================================
+       7. START A RETURN CTA
+    ================================================================ {%- endcomment -%}
+    <div class="inv-returns__cta" role="region" aria-label="{{ 'invicta.returns.cta_label' | t }}">
+      <h2 class="inv-returns__cta-heading">
+        {{ 'invicta.returns.cta.heading' | t }}
+      </h2>
+      <p class="inv-returns__cta-text">
+        {{ 'invicta.returns.cta.description' | t }}
+      </p>
+      <div class="inv-returns__cta-actions">
+        <a
+          href="mailto:{{ returns_email }}"
+          class="inv-returns__cta-btn inv-returns__cta-btn--primary"
+          aria-label="{{ 'invicta.returns.cta.email_aria' | t }}"
+        >
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          {{ 'invicta.returns.cta.email_button' | t }}
+        </a>
+        {%- if contact_url != blank -%}
+          <a
+            href="{{ contact_url }}"
+            class="inv-returns__cta-btn inv-returns__cta-btn--secondary"
+            aria-label="{{ 'invicta.returns.cta.contact_aria' | t }}"
+          >
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/></svg>
+            {{ 'invicta.returns.cta.contact_button' | t }}
+          </a>
+        {%- endif -%}
+      </div>
+      <p class="inv-returns__cta-contact">
+        {{ 'invicta.returns.cta.or_call' | t }}
+        <a href="tel:{{ returns_phone | remove: ' ' }}">{{ returns_phone }}</a>
+      </p>
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Invicta Returns & Refunds",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Page Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Returns & Refunds"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "We want you to be completely satisfied with your purchase. If something is not right, our straightforward returns process makes it easy to get a resolution."
+    },
+    {
+      "type": "header",
+      "content": "Contact Details"
+    },
+    {
+      "type": "text",
+      "id": "returns_email",
+      "label": "Returns email address",
+      "default": "returns@invictatools.co.uk"
+    },
+    {
+      "type": "text",
+      "id": "returns_phone",
+      "label": "Returns phone number",
+      "default": "01227 456789"
+    },
+    {
+      "type": "url",
+      "id": "contact_url",
+      "label": "Contact page URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Return Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "step_number",
+          "label": "Step number",
+          "default": "1"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Step title",
+          "default": "Contact Us"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Step description",
+          "default": "Get in touch with our team by email or phone to let us know about your return."
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Step icon",
+          "default": "contact",
+          "options": [
+            { "value": "contact", "label": "Contact / Chat" },
+            { "value": "package", "label": "Package / Box" },
+            { "value": "shipping", "label": "Shipping / Truck" },
+            { "value": "refund", "label": "Refund / Money" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "exception",
+      "name": "Exception Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Exception title",
+          "default": "Custom or Cut-to-Size Items"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Exception description",
+          "default": "Items that have been cut, modified, or custom-ordered to your specifications cannot be returned."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Invicta Returns & Refunds",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "step_number": "1",
+            "title": "Contact Us",
+            "description": "Email or call our returns team to request a return. Please have your order number ready so we can assist you quickly.",
+            "icon": "contact"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "step_number": "2",
+            "title": "Get Your RMA Number",
+            "description": "We will issue a Return Merchandise Authorisation (RMA) number and provide instructions for returning your item.",
+            "icon": "package"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "step_number": "3",
+            "title": "Pack & Ship",
+            "description": "Securely pack the item in its original packaging with the RMA number clearly marked and send it to our Canterbury warehouse.",
+            "icon": "shipping"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "step_number": "4",
+            "title": "Refund Processed",
+            "description": "Once received and inspected, your refund will be processed to your original payment method within 5-10 working days.",
+            "icon": "refund"
+          }
+        },
+        {
+          "type": "exception",
+          "settings": {
+            "title": "Cut-to-Size & Custom Orders",
+            "description": "Items that have been cut to specific measurements or custom-ordered to your specification cannot be returned or refunded."
+          }
+        },
+        {
+          "type": "exception",
+          "settings": {
+            "title": "Opened Safety Equipment",
+            "description": "PPE and safety equipment that has been opened, worn, or had its packaging seal broken cannot be returned for hygiene and safety reasons."
+          }
+        },
+        {
+          "type": "exception",
+          "settings": {
+            "title": "Clearance & Special Offer Items",
+            "description": "Products purchased at clearance or heavily discounted special offer pricing are sold as final sale and cannot be returned."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
