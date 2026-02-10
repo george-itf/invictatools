@@ -4,6 +4,29 @@
    ============================================================ */
 
 /* =======================================================
+   0. CANONICAL CONTAINER — Single Source of Truth
+   All Invicta homepage sections use these variables for
+   consistent max-width and gutters across the page.
+   ======================================================= */
+:root {
+  --inv-container: 1400px;
+  --inv-gutter: 24px;
+  --inv-section-gap: 0px;
+}
+
+@media screen and (min-width: 750px) {
+  :root {
+    --inv-gutter: 48px;
+  }
+}
+
+.inv-container {
+  max-width: var(--inv-container);
+  margin: 0 auto;
+  padding: 0 var(--inv-gutter);
+}
+
+/* =======================================================
    1. SKIP TO CONTENT — Visible on Focus
    ======================================================= */
 .skip-to-content-link {

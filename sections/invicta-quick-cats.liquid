@@ -30,9 +30,9 @@
   }
   
   #shopify-section-{{ section.id }} .inv-quick-cats__container {
-    max-width: 1400px;
+    max-width: var(--inv-container, 1400px);
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 var(--inv-gutter, 24px);
   }
   
   #shopify-section-{{ section.id }} .inv-quick-cats__grid {
