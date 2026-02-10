@@ -56,7 +56,7 @@
       } else {
         if (countdownEl) countdownEl.style.display = 'none';
         if (forTextEl) forTextEl.style.display = 'none';
-        if (orderTextEl) orderTextEl.textContent = 'Order now for delivery ';
+        if (orderTextEl) orderTextEl.textContent = 'Order now for delivery on ';
 
         // No countdown needed outside business hours — stop the timer
         if (timerId) {

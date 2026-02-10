@@ -369,13 +369,14 @@
   
   @media (max-width: 768px) {
     .inv-hero-split__main {
-      display: block;
+      display: flex;
+      flex-direction: column;
       text-align: center;
       padding: 0;
       min-height: auto;
       overflow: visible;
       background-image: none !important;
-      background: transparent;
+      background: #2d2d2d;
     }
 
     .inv-hero-split__mobile-image {
@@ -384,8 +385,20 @@
       height: auto;
     }
 
+    /* Show content below image on mobile — heading + CTA must be visible */
     .inv-hero-split__content {
-      display: none;
+      display: block;
+      max-width: 100%;
+      padding: 24px 20px;
+      text-align: center;
+    }
+
+    .inv-hero-split__heading {
+      font-size: 22px;
+    }
+
+    .inv-hero-split__subheading {
+      font-size: 14px;
     }
 
     .inv-hero-split__product-image {

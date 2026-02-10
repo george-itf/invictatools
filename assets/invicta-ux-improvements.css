@@ -1,0 +1,318 @@
+/* ============================================================
+   Invicta UX Improvements v1.0
+   Based on comprehensive UX audit recommendations
+   ============================================================ */
+
+/* =======================================================
+   1. SKIP TO CONTENT — Visible on Focus
+   ======================================================= */
+.skip-to-content-link {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100000;
+  padding: 12px 24px;
+  background: #1a1a1a;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0 0 8px 8px;
+  transition: top 0.2s ease;
+}
+
+.skip-to-content-link:focus {
+  top: 0;
+  outline: 2px solid #e11d26;
+  outline-offset: 2px;
+}
+
+/* =======================================================
+   2. FOCUS STATES — Global Accessibility
+   ======================================================= */
+
+/* Ensure focus outlines are never completely removed */
+*:focus-visible {
+  outline: 2px solid #e11d26;
+  outline-offset: 2px;
+}
+
+/* Buttons and links with focus-visible */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #e11d26;
+  outline-offset: 2px;
+}
+
+/* On dark backgrounds, use white outline */
+.invicta-header a:focus-visible,
+.invicta-header button:focus-visible {
+  outline-color: #ffffff;
+}
+
+/* Disabled buttons */
+button:disabled,
+button[disabled],
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+button:disabled:hover {
+  transform: none;
+}
+
+/* =======================================================
+   3. LINK STYLES — Consistent Hover/Focus
+   ======================================================= */
+
+/* Body text links should have underlines for accessibility */
+.rte a,
+.inv-pdp__info-content a,
+.product-description a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.rte a:hover,
+.inv-pdp__info-content a:hover,
+.product-description a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Footer links hover */
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* =======================================================
+   4. BUTTON CONSISTENCY — Unified System
+   ======================================================= */
+
+/* Primary buttons share a consistent style */
+.inv-pdp__atc-btn,
+.inv-checkout-btn,
+.inv-card__btn--add,
+.inv-hero-split__btn {
+  font-family: var(--font-body-family);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: var(--buttons-radius, 4px);
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.inv-pdp__atc-btn:active:not(:disabled),
+.inv-checkout-btn:active:not(:disabled),
+.inv-card__btn--add:active {
+  transform: scale(0.98);
+}
+
+/* =======================================================
+   5. PRODUCT PAGE — Sticky Add to Cart (Mobile)
+   ======================================================= */
+.inv-pdp__sticky-atc {
+  display: none;
+}
+
+@media (max-width: 749px) {
+  .inv-pdp__sticky-atc {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 998;
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+    padding: 10px 16px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .inv-pdp__sticky-atc--visible {
+    display: block;
+    transform: translateY(0);
+  }
+
+  .inv-pdp__sticky-atc-inner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .inv-pdp__sticky-atc-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .inv-pdp__sticky-atc-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+  }
+
+  .inv-pdp__sticky-atc-price {
+    font-size: 15px;
+    font-weight: 800;
+    color: #e11d26;
+    margin: 0;
+  }
+
+  .inv-pdp__sticky-atc-btn {
+    flex-shrink: 0;
+    padding: 12px 24px;
+    background: #e11d26;
+    color: #fff;
+    border: none;
+    border-radius: var(--buttons-radius, 4px);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .inv-pdp__sticky-atc-btn:hover {
+    background: #c4191f;
+  }
+
+  .inv-pdp__sticky-atc-btn:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+  }
+}
+
+/* =======================================================
+   6. TYPOGRAPHY — Consistency
+   ======================================================= */
+
+/* Ensure body text is legible */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Consistent heading sizes */
+h1, .h1 { line-height: 1.15; }
+h2, .h2 { line-height: 1.2; }
+h3, .h3 { line-height: 1.25; }
+
+/* =======================================================
+   7. SPACING — Consistent Section Spacing
+   ======================================================= */
+
+/* Ensure consistent section margins on homepage */
+.section-hero-split + .shopify-section,
+.shopify-section + .shopify-section {
+  margin-top: 0;
+}
+
+/* =======================================================
+   8. CART — Mobile Improvements
+   ======================================================= */
+
+/* Cart items mobile stacking */
+@media (max-width: 749px) {
+  .cart-item__media {
+    max-width: 100px;
+  }
+
+  /* Ensure checkout button is full width and prominent */
+  .inv-checkout-btn {
+    font-size: 17px;
+    padding: 16px;
+  }
+}
+
+/* =======================================================
+   9. PRODUCT CARD — Hover Effects
+   ======================================================= */
+.inv-card {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.inv-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inv-card:hover {
+    transform: none;
+  }
+
+  .inv-pdp__sticky-atc {
+    transition: none;
+  }
+}
+
+/* =======================================================
+   10. FORM LABELS — Accessibility
+   ======================================================= */
+
+/* Ensure all inputs have visible labels or proper spacing */
+input[type="email"]::placeholder,
+input[type="text"]::placeholder,
+input[type="search"]::placeholder {
+  color: #9ca3af;
+}
+
+/* Newsletter form label accessibility */
+.inv-newsletter__input {
+  font-size: 16px; /* Prevents zoom on iOS */
+}
+
+/* =======================================================
+   11. IMAGE IMPROVEMENTS
+   ======================================================= */
+
+/* Prevent layout shift */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Product images should allow pinch zoom on mobile */
+.inv-pdp__gallery-image {
+  touch-action: pinch-zoom;
+}
+
+/* =======================================================
+   12. COLOR CONTRAST FIXES
+   ======================================================= */
+
+/* Ensure muted text meets WCAG AA contrast (4.5:1) */
+.inv-del-est__meta {
+  color: #4b5563; /* Darker than default for better contrast */
+}
+
+/* Stock badge text contrast */
+.inv-card__stock {
+  font-weight: 700;
+}
+
+/* =======================================================
+   13. PRINT STYLES
+   ======================================================= */
+@media print {
+  .invicta-header,
+  .invicta-drawer,
+  .inv-pdp__sticky-atc {
+    display: none;
+  }
+}
