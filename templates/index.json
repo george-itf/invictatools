@@ -213,7 +213,7 @@
       "type": "featured-collection",
       "name": "Invicta Featured Collection 2",
       "settings": {
-        "collection": "batteries-chargers",
+        "collection": "featured-batteries-chargers",
         "products_to_show": 4,
         "header_style": "bar",
         "title": "Batteries & Chargers",
