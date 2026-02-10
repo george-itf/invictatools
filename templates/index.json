@@ -477,23 +477,6 @@
         "padding_top": 60,
         "padding_bottom": 60
       }
-    },
-    "newsletter": {
-      "type": "invicta-newsletter",
-      "settings": {
-        "badge_percent": "5 %",
-        "badge_text": "Off First Order",
-        "heading": "Get Trade Deals & Updates",
-        "show_social_proof": true,
-        "subscriber_count": "800+",
-        "subscriber_label": "signed up",
-        "placeholder": "Enter your email",
-        "button_text": "Subscribe",
-        "success_message": "You're in! Check your inbox for your 5% discount code.",
-        "show_trust_badges": true,
-        "background_color": "#2d2d2d",
-        "accent_color": "#e11d26"
-      }
     }
   },
   "order": [
@@ -503,7 +486,6 @@
     "brand_strip",
     "review_carousel",
     "featured_collection_nePQBY",
-    "invicta_trust_bar_r98CbM",
-    "newsletter"
+    "invicta_trust_bar_r98CbM"
   ]
 }
