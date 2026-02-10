@@ -12,6 +12,12 @@
   --inv-container: 1400px;
   --inv-gutter: 24px;
   --inv-section-gap: 0px;
+
+  /* Brand colours */
+  --inv-brand: #e11d26;
+  --inv-brand-hover: #b91c1c;
+  --inv-dark: #2d2d2d;
+  --inv-dark-hover: #404040;
 }
 
 @media screen and (min-width: 750px) {
@@ -134,6 +140,87 @@ button:disabled:hover {
 .inv-checkout-btn:active:not(:disabled),
 .inv-card__btn--add:active {
   transform: scale(0.98);
+}
+
+/* ---- Shared Button Utilities ---- */
+
+/* Primary CTA — red brand button */
+.inv-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: var(--inv-brand);
+  color: #fff;
+  border: none;
+  border-radius: var(--buttons-radius, 4px);
+  font-family: var(--font-body-family);
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, gap 0.2s ease;
+}
+
+.inv-btn-primary:hover {
+  background: var(--inv-brand-hover);
+  gap: 12px;
+}
+
+.inv-btn-primary:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* Secondary CTA — dark button */
+.inv-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: var(--inv-dark);
+  color: #fff;
+  border: none;
+  border-radius: var(--buttons-radius, 4px);
+  font-family: var(--font-body-family);
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, gap 0.2s ease;
+}
+
+.inv-btn-secondary:hover {
+  background: var(--inv-dark-hover);
+  gap: 12px;
+}
+
+.inv-btn-secondary:focus-visible {
+  outline: 2px solid var(--inv-brand);
+  outline-offset: 2px;
+}
+
+/* Arrow icon animation on hover */
+.inv-btn-primary svg,
+.inv-btn-secondary svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
+}
+
+.inv-btn-primary:hover svg,
+.inv-btn-secondary:hover svg {
+  transform: translateX(3px);
+}
+
+/* On dark section backgrounds, focus ring should be white */
+[style*="background"][style*="#2d2d2d"] .inv-btn-primary:focus-visible,
+.inv-dark-section .inv-btn-primary:focus-visible {
+  outline-color: #fff;
 }
 
 /* =======================================================
