@@ -217,9 +217,6 @@
     const container = document.querySelector('.inv-recent[data-section-id]');
     if (!container) return;
 
-    const isLoggedIn = container.dataset.loggedIn === 'true';
-    if (!isLoggedIn) return;
-
     const config = {
       maxProducts: parseInt(container.dataset.maxProducts, 10) || 8,
       moneyFormat: container.dataset.moneyFormat || '\u00a3{{amount}}'

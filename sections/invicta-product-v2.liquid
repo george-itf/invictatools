@@ -23,6 +23,181 @@
 {{ 'invicta-product-v2.css' | asset_url | stylesheet_tag }}
 {{ 'invicta-product-v2-trust.css' | asset_url | stylesheet_tag }}
 
+<style>
+  /* ============================================
+     NEW COMPONENT STYLES — Product V2 additions
+     ============================================ */
+
+  /* --- VAT Toggle (inline near price) --- */
+  .inv-pdp__vat-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+  }
+  .inv-pdp__vat-toggle-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--pdp-grey-400);
+    transition: color 0.15s ease;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .inv-pdp__vat-toggle-label--active {
+    color: var(--pdp-text);
+  }
+  .inv-pdp__vat-toggle-switch {
+    position: relative;
+    width: 36px;
+    height: 20px;
+    background: var(--pdp-grey-200);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s ease;
+  }
+  .inv-pdp__vat-toggle-switch[aria-checked="true"] {
+    background: var(--pdp-dark);
+  }
+  .inv-pdp__vat-toggle-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+    pointer-events: none;
+  }
+  .inv-pdp__vat-toggle-switch[aria-checked="true"] .inv-pdp__vat-toggle-thumb {
+    transform: translateX(16px);
+  }
+  .inv-pdp__vat-toggle-switch:focus-visible {
+    box-shadow: var(--pdp-focus);
+    outline: none;
+  }
+
+  /* --- Click & Collect --- */
+  .inv-pdp__collect {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: var(--pdp-radius);
+    margin-bottom: var(--pdp-space-md);
+  }
+  .inv-pdp__collect-icon {
+    flex-shrink: 0;
+    color: #0284c7;
+    margin-top: 1px;
+  }
+  .inv-pdp__collect-text {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--pdp-text);
+  }
+  .inv-pdp__collect-text strong {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+  .inv-pdp__collect-text span {
+    color: var(--pdp-text-muted);
+  }
+
+  /* --- Trade Account Callout --- */
+  .inv-pdp__trade-callout {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: var(--pdp-grey-50);
+    border: 1px dashed var(--pdp-grey-300);
+    border-radius: var(--pdp-radius);
+    margin-top: var(--pdp-space-md);
+    font-size: 13px;
+    color: var(--pdp-text-muted);
+  }
+  .inv-pdp__trade-callout svg {
+    flex-shrink: 0;
+    color: var(--pdp-grey-500);
+  }
+  .inv-pdp__trade-callout strong {
+    color: var(--pdp-text);
+  }
+  .inv-pdp__trade-callout a {
+    color: var(--pdp-red);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .inv-pdp__trade-callout a:hover {
+    color: var(--pdp-red-hover);
+  }
+
+  /* --- Low Stock Banner modifier --- */
+  .inv-pdp__stock-banner--low-stock {
+    background: #fffbeb;
+    border-color: #fde68a;
+    color: #92400e;
+  }
+  .inv-pdp__stock-banner--low-stock .inv-pdp__stock-dot {
+    background: #f59e0b;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+  }
+
+  /* --- Recommendations Section --- */
+  .inv-recs {
+    padding: var(--pdp-space-2xl, 48px) 0;
+    border-top: 1px solid var(--pdp-grey-200, #e5e5e5);
+  }
+  .inv-recs__header {
+    margin-bottom: var(--pdp-space-lg, 24px);
+  }
+  .inv-recs__title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--pdp-text, #1a1a1a);
+    margin: 0;
+  }
+  .inv-recs__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .inv-recs__item {
+    min-width: 0;
+  }
+  @media (max-width: 989px) {
+    .inv-recs__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 749px) {
+    .inv-recs__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .inv-recs__title {
+      font-size: 18px;
+    }
+  }
+
+  /* --- Mobile adjustments for new elements --- */
+  @media (max-width: 749px) {
+    .inv-pdp__collect {
+      padding: 10px 12px;
+    }
+    .inv-pdp__trade-callout {
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+  }
+</style>
 
 {% liquid
   comment
@@ -60,9 +235,24 @@
   endif
   
   comment
-    Stock status
+    Stock status + low-stock indicator
   endcomment
   assign is_in_stock = current_variant.available
+  assign stock_qty = current_variant.inventory_quantity | default: 0
+  assign low_stock_threshold = section.settings.low_stock_threshold | default: 5
+  assign show_low_stock = false
+  if is_in_stock and current_variant.inventory_management == 'shopify' and stock_qty <= low_stock_threshold and stock_qty > 0
+    assign show_low_stock = true
+  endif
+
+  comment
+    Buy Now price threshold (in pounds, converted to pence)
+  endcomment
+  assign buy_now_threshold_pence = section.settings.buy_now_price_threshold | default: 500 | times: 100
+  assign show_buy_now_final = false
+  if show_buy_now and is_in_stock and current_variant.price <= buy_now_threshold_pence
+    assign show_buy_now_final = true
+  endif
   
   comment
     Gallery logic
@@ -92,6 +282,7 @@
   data-product-url="{{ product.url }}"
   data-product-handle="{{ product.handle }}"
   data-vat-rate="{{ settings.inv_vat_rate | default: 20 }}"
+  data-low-stock-threshold="{{ section.settings.low_stock_threshold | default: 5 }}"
 >
   
   {%- comment -%} ========== BREADCRUMB BAR ========== {%- endcomment -%}
@@ -138,9 +329,6 @@
     {%- comment -%} ========== LEFT COLUMN ========== {%- endcomment -%}
     <div class="inv-pdp__left">
       
-      {%- comment -%} PRODUCT TITLE {%- endcomment -%}
-      <h1 class="inv-pdp__title">{{ product.title | escape }}</h1>
-      
       {%- comment -%} GALLERY {%- endcomment -%}
       <div 
         class="inv-pdp__gallery{% unless has_multiple_images %} inv-pdp__gallery--single{% endunless %}"
@@ -154,7 +342,7 @@
             tabindex="0"
             data-gallery-thumbs
           >
-            {% for image in product.images limit: 6 %}
+            {% for image in product.images %}
               <button 
                 type="button"
                 class="inv-pdp__gallery-thumb{% if forloop.first %} inv-pdp__gallery-thumb--active{% endif %}"
@@ -349,7 +537,9 @@
         >
           <span class="inv-pdp__stock-dot" aria-hidden="true"></span>
           <span data-stock-text>
-            {% if is_in_stock %}
+            {% if show_low_stock %}
+              Only {{ stock_qty }} left in stock — order soon
+            {% elsif is_in_stock %}
               {{ section.settings.in_stock_text | default: 'In Stock — Ready to Ship' }}
             {% else %}
               {{ section.settings.oos_text | default: 'Out of Stock' }}
@@ -358,7 +548,10 @@
         </div>
         
         <div class="inv-pdp__buybox-body">
-          
+
+          {%- comment -%} PRODUCT TITLE — in buy box so title+price are scanned together {%- endcomment -%}
+          <h1 class="inv-pdp__title">{{ product.title | escape }}</h1>
+
           {%- comment -%} DEALER BADGE + BRAND PILL {%- endcomment -%}
           {% liquid
             assign dealer_vendor = product.vendor | downcase
@@ -436,6 +629,22 @@
               </div>
             </div>
             
+            {%- comment -%} INLINE VAT TOGGLE — so trade visitors see ex-VAT near price {%- endcomment -%}
+            <div class="inv-pdp__vat-toggle" data-vat-toggle-inline>
+              <span class="inv-pdp__vat-toggle-label" data-vat-label-ex>Ex VAT</span>
+              <button
+                type="button"
+                class="inv-pdp__vat-toggle-switch"
+                role="switch"
+                aria-checked="true"
+                aria-label="Toggle VAT display"
+                data-vat-switch
+              >
+                <span class="inv-pdp__vat-toggle-thumb"></span>
+              </button>
+              <span class="inv-pdp__vat-toggle-label inv-pdp__vat-toggle-label--active" data-vat-label-inc>Inc VAT</span>
+            </div>
+
             {%- comment -%} SAVINGS (visible in both views) {%- endcomment -%}
             {% if has_compare_price %}
               <div class="inv-pdp__price-savings" data-savings-wrap>
@@ -518,6 +727,20 @@
           {%- comment -%} DELIVERY ESTIMATE (reusable snippet) {%- endcomment -%}
           {% render 'invicta-delivery-estimate' %}
           
+          {%- comment -%} CLICK & COLLECT {%- endcomment -%}
+          {% if is_in_stock and section.settings.show_click_collect %}
+            <div class="inv-pdp__collect">
+              <svg class="inv-pdp__collect-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <div class="inv-pdp__collect-text">
+                <strong>Click & Collect</strong>
+                <span>{{ section.settings.collect_text | default: 'Available from Canterbury & Ramsgate — usually ready in 1 hour' }}</span>
+              </div>
+            </div>
+          {% endif %}
+
           {%- comment -%} ADD TO CART FORM {%- endcomment -%}
           <form 
             class="inv-pdp__form" 
@@ -590,8 +813,8 @@
             {%- comment -%} CART ERROR FEEDBACK {%- endcomment -%}
             <div class="inv-pdp__atc-error" role="alert" aria-live="assertive" data-atc-error data-error-text="{{ section.settings.cart_error_text | escape }}" style="display:none"></div>
 
-            {%- comment -%} BUY NOW — only rendered when in stock {%- endcomment -%}
-            {% if show_buy_now and is_in_stock %}
+            {%- comment -%} BUY NOW — only when in stock AND below price threshold {%- endcomment -%}
+            {% if show_buy_now_final %}
               <div class="inv-pdp__buy-now">
                 <button
                   type="button"
@@ -648,10 +871,26 @@
             </div>
           </div>
           
+          {%- comment -%} TRADE ACCOUNT CALLOUT — only for guest/retail visitors {%- endcomment -%}
+          {% unless customer and customer.tags contains 'trade' %}
+            <div class="inv-pdp__trade-callout">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="8.5" cy="7" r="4"/>
+                <line x1="20" y1="8" x2="20" y2="14"/>
+                <line x1="23" y1="11" x2="17" y2="11"/>
+              </svg>
+              <span>
+                <strong>Trade Customer?</strong>
+                <a href="/pages/trade-account">Apply for exclusive trade pricing</a>
+              </span>
+            </div>
+          {% endunless %}
+
         </div>
       </div>
     </div>
-    
+
   </div>
 </div>
 
@@ -708,6 +947,22 @@
   </div>
 </div>
 
+{%- comment -%} ========== PRODUCT RECOMMENDATIONS ========== {%- endcomment -%}
+<div
+  class="inv-recs"
+  data-recommendations
+  data-product-id="{{ product.id }}"
+  data-limit="{{ section.settings.recs_limit | default: 8 }}"
+  style="display:none;"
+>
+  <div class="inv-recs__container inv-container">
+    <div class="inv-recs__header">
+      <h2 class="inv-recs__title">{{ section.settings.recs_title | default: 'You May Also Like' }}</h2>
+    </div>
+    <div class="inv-recs__grid" data-recs-grid></div>
+  </div>
+</div>
+
 {%- comment -%} ========== VARIANT JSON ========== {%- endcomment -%}
 <script type="application/json" data-variants-json>
   {{ product.variants | json }}
@@ -760,6 +1015,75 @@
       });
     });
   }
+})();
+</script>
+
+{%- comment -%} Recommendations AJAX loader {%- endcomment -%}
+<script>
+(function() {
+  var recsContainer = document.querySelector('[data-recommendations]');
+  if (!recsContainer) return;
+  var productId = recsContainer.dataset.productId;
+  var limit = recsContainer.dataset.limit || 8;
+  var grid = recsContainer.querySelector('[data-recs-grid]');
+  if (!productId || !grid) return;
+
+  var url = '/recommendations/products?section_id=invicta-recommendations-ajax&product_id=' + productId + '&limit=' + limit;
+  fetch(url)
+    .then(function(r) { return r.text(); })
+    .then(function(html) {
+      var temp = document.createElement('div');
+      temp.innerHTML = html;
+      var items = temp.querySelectorAll('.inv-recs__item');
+      if (items.length > 0) {
+        items.forEach(function(item) { grid.appendChild(item); });
+        recsContainer.style.display = '';
+      }
+    })
+    .catch(function() {});
+})();
+</script>
+
+{%- comment -%} Inline VAT toggle controller {%- endcomment -%}
+<script>
+(function() {
+  var toggle = document.querySelector('[data-vat-switch]');
+  if (!toggle) return;
+  var labelInc = document.querySelector('[data-vat-label-inc]');
+  var labelEx = document.querySelector('[data-vat-label-ex]');
+
+  function getMode() {
+    try { return localStorage.getItem('invicta-vat-mode') || 'inc'; } catch(e) { return 'inc'; }
+  }
+
+  function setMode(mode) {
+    try { localStorage.setItem('invicta-vat-mode', mode); } catch(e) {}
+    toggle.setAttribute('aria-checked', mode === 'inc' ? 'true' : 'false');
+    if (labelInc) labelInc.classList.toggle('inv-pdp__vat-toggle-label--active', mode === 'inc');
+    if (labelEx) labelEx.classList.toggle('inv-pdp__vat-toggle-label--active', mode === 'ex');
+    document.dispatchEvent(new CustomEvent('invicta:vat-toggle', { detail: { mode: mode } }));
+  }
+
+  // Init from stored state
+  var current = getMode();
+  toggle.setAttribute('aria-checked', current === 'inc' ? 'true' : 'false');
+  if (labelInc) labelInc.classList.toggle('inv-pdp__vat-toggle-label--active', current === 'inc');
+  if (labelEx) labelEx.classList.toggle('inv-pdp__vat-toggle-label--active', current === 'ex');
+
+  toggle.addEventListener('click', function() {
+    var now = getMode();
+    setMode(now === 'inc' ? 'ex' : 'inc');
+  });
+
+  // Sync with header toggle
+  document.addEventListener('invicta:vat-toggle', function(e) {
+    if (e.detail && e.detail.mode) {
+      var mode = e.detail.mode;
+      toggle.setAttribute('aria-checked', mode === 'inc' ? 'true' : 'false');
+      if (labelInc) labelInc.classList.toggle('inv-pdp__vat-toggle-label--active', mode === 'inc');
+      if (labelEx) labelEx.classList.toggle('inv-pdp__vat-toggle-label--active', mode === 'ex');
+    }
+  });
 })();
 </script>
 
@@ -878,6 +1202,69 @@
       "id": "cart_error_text",
       "label": "Cart error message",
       "default": "Sorry, couldn't add to cart. Please try again."
+    },
+    {
+      "type": "header",
+      "content": "Stock Levels"
+    },
+    {
+      "type": "range",
+      "id": "low_stock_threshold",
+      "label": "Low stock warning threshold",
+      "info": "Show 'Only X left' when stock is at or below this number",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Buy Now"
+    },
+    {
+      "type": "range",
+      "id": "buy_now_price_threshold",
+      "label": "Buy Now max price (£)",
+      "info": "Hide Buy Now button on products above this price to reduce friction on high-value items",
+      "min": 50,
+      "max": 2000,
+      "step": 50,
+      "default": 500
+    },
+    {
+      "type": "header",
+      "content": "Click & Collect"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_click_collect",
+      "label": "Show Click & Collect option",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "collect_text",
+      "label": "Click & Collect text",
+      "default": "Available from Canterbury & Ramsgate — usually ready in 1 hour"
+    },
+    {
+      "type": "header",
+      "content": "Recommendations"
+    },
+    {
+      "type": "text",
+      "id": "recs_title",
+      "label": "Recommendations heading",
+      "default": "You May Also Like"
+    },
+    {
+      "type": "range",
+      "id": "recs_limit",
+      "label": "Number of recommendations",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8
     }
   ]
 }

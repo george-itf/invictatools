@@ -1285,37 +1285,33 @@
   }
   
   /* ========================================
-     MOBILE ORDER — Critical fix!
-     1. Title
-     2. Gallery
-     3. Buy box (right column)
-     4. Key specs (optional)
-     5. Features (optional)
-     6. Product Info (description) — LAST
+     MOBILE ORDER
+     Title is now inside .inv-pdp__right (buy box)
+     1. Gallery (image first on mobile — standard pattern)
+     2. Buy box (contains title + price + CTA)
+     3. Key specs (optional)
+     4. Features (optional)
+     5. Product Info (description) — LAST
      ======================================== */
-  .inv-pdp__title {
+  .inv-pdp__gallery {
     order: 1;
   }
-  
-  .inv-pdp__gallery {
+
+  .inv-pdp__right {
     order: 2;
   }
   
-  .inv-pdp__right {
+  .inv-pdp__key-specs {
     order: 3;
   }
-  
-  .inv-pdp__key-specs {
+
+  .inv-pdp__features {
     order: 4;
   }
-  
-  .inv-pdp__features {
-    order: 5;
-  }
-  
-  /* CRITICAL: Product info MUST come last */
+
+  /* Product info comes last */
   .inv-pdp__info {
-    order: 6;
+    order: 5;
   }
   
   /* ========================================

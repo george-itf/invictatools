@@ -1,0 +1,212 @@
+{% comment %}
+  ============================================================================
+  INVICTA PRODUCT Q&A
+  ============================================================================
+  Accordion-style Q&A section for product pages.
+  Merchant adds Q&A pairs via blocks in the theme editor.
+  Only renders if at least one Q&A block exists.
+  ============================================================================
+{% endcomment %}
+
+{%- if section.blocks.size > 0 -%}
+<div class="inv-qa" style="--inv-qa-bg: {{ section.settings.background_color }};">
+  <div class="inv-qa__container inv-container">
+    <h2 class="inv-qa__title">{{ section.settings.heading | default: 'Common Questions' }}</h2>
+
+    <div class="inv-qa__list" role="list">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'qa_pair' and block.settings.question != blank -%}
+          <details class="inv-qa__item" {{ block.shopify_attributes }}>
+            <summary class="inv-qa__question" role="listitem">
+              <span class="inv-qa__question-text">{{ block.settings.question }}</span>
+              <svg class="inv-qa__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </summary>
+            <div class="inv-qa__answer">
+              {{ block.settings.answer }}
+            </div>
+          </details>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+{%- endif -%}
+
+<style>
+  .inv-qa {
+    background: var(--inv-qa-bg, #ffffff);
+    padding: 48px 0;
+    border-top: 1px solid #e5e5e5;
+  }
+
+  .inv-qa__title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 24px;
+  }
+
+  .inv-qa__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .inv-qa__item {
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .inv-qa__item:first-child {
+    border-top: 1px solid #e5e5e5;
+  }
+
+  .inv-qa__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 0;
+    cursor: pointer;
+    list-style: none;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    line-height: 1.4;
+  }
+
+  .inv-qa__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .inv-qa__question::marker {
+    display: none;
+    content: '';
+  }
+
+  .inv-qa__chevron {
+    flex-shrink: 0;
+    color: #737373;
+    transition: transform 0.2s ease;
+  }
+
+  .inv-qa__item[open] .inv-qa__chevron {
+    transform: rotate(180deg);
+  }
+
+  .inv-qa__answer {
+    padding: 0 0 16px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #525252;
+  }
+
+  .inv-qa__answer p {
+    margin: 0 0 8px;
+  }
+
+  .inv-qa__answer p:last-child {
+    margin-bottom: 0;
+  }
+
+  .inv-qa__question:hover {
+    color: #e11d26;
+  }
+
+  .inv-qa__question:focus-visible {
+    outline: 2px solid #2d2d2d;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 749px) {
+    .inv-qa {
+      padding: 36px 0;
+    }
+    .inv-qa__title {
+      font-size: 18px;
+    }
+    .inv-qa__question {
+      font-size: 14px;
+      padding: 14px 0;
+    }
+    .inv-qa__answer {
+      font-size: 13px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .inv-qa__chevron {
+      transition: none;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Product Q&A",
+  "tag": "section",
+  "class": "inv-product-qa-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Common Questions"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colour",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "qa_pair",
+      "name": "Question & Answer",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Q&A",
+      "blocks": [
+        {
+          "type": "qa_pair",
+          "settings": {
+            "question": "What batteries does this product use?",
+            "answer": "<p>Please check the product specifications above for compatible battery information.</p>"
+          }
+        },
+        {
+          "type": "qa_pair",
+          "settings": {
+            "question": "Is this covered by manufacturer warranty?",
+            "answer": "<p>Yes, all products we sell come with full manufacturer warranty. As an authorised dealer, we can handle warranty claims directly.</p>"
+          }
+        },
+        {
+          "type": "qa_pair",
+          "settings": {
+            "question": "Can I collect this from your store?",
+            "answer": "<p>Yes! We offer Click & Collect from both our Canterbury and Ramsgate branches. Orders are usually ready within 1 hour.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
