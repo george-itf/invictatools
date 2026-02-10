@@ -1,7 +1,6 @@
-/* Invicta PDP Trust Bar — Unified single-row design */
+/* Invicta PDP Trust Bar — 3 items, evenly spaced */
 .inv-pdp__trust-bar {
   display: flex;
-  flex-wrap: wrap;
   gap: 0;
   background: var(--pdp-grey-50, #fafafa);
   border-radius: var(--pdp-radius, 8px);
@@ -9,10 +8,12 @@
   overflow: hidden;
 }
 .inv-pdp__trust-item {
+  flex: 1;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  padding: 10px 14px;
+  padding: 12px 10px;
   font-size: 12px;
   font-weight: 600;
   color: var(--pdp-text, #1a1a1a);
@@ -42,18 +43,8 @@
   border-radius: 4px;
 }
 @media (max-width: 749px) {
-  .inv-pdp__trust-bar {
-    flex-wrap: wrap;
-  }
   .inv-pdp__trust-item {
-    flex: 1 1 auto;
-    justify-content: center;
-    padding: 8px 10px;
+    padding: 10px 8px;
     font-size: 11px;
-    border-right: none;
-    border-bottom: 1px solid var(--pdp-grey-200, #e5e5e5);
-  }
-  .inv-pdp__trust-item:nth-child(n+4) {
-    border-bottom: none;
   }
 }
