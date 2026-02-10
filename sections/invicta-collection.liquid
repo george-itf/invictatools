@@ -367,14 +367,9 @@
               <div class="inv-product-grid" id="InvProductGrid">
                 {%- for product in collection.products -%}
                   <div class="inv-product-card">
-                    {%- render 'card-product',
-                      card_product: product,
-                      media_aspect_ratio: 'square',
-                      show_secondary_image: false,
-                      show_vendor: false,
-                      show_rating: false,
-                      show_quick_add: true,
-                      section_id: section.id
+                    {%- render 'invicta-product-card',
+                      product: product,
+                      card_index: forloop.index
                     -%}
                   </div>
                 {%- endfor -%}

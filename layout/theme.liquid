@@ -323,7 +323,7 @@
     {{ 'base.css' | asset_url | stylesheet_tag }}
     
     <!-- 2. Shared Components (lazy-loaded — only needed on product listing pages) -->
-    <link rel="stylesheet" href="{{ 'invicta-card.css' | asset_url }}" media="print" onload="this.media='all'">
+    {%- comment -%} invicta-card.css removed — consolidated to inv-product-card.css (Phase 1A) {%- endcomment -%}
     <link rel="stylesheet" href="{{ 'invicta-brand-pill.css' | asset_url }}" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="{{ 'inv-product-card.css' | asset_url }}" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="{{ 'invicta-radius-reset.css' | asset_url }}" media="print" onload="this.media='all'">
