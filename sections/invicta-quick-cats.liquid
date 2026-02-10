@@ -38,7 +38,7 @@
   #shopify-section-{{ section.id }} .inv-quick-cats__grid {
     display: grid !important;
     visibility: visible !important;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat({{ section.settings.columns_desktop | default: 6 }}, 1fr);
     gap: 12px;
   }
   
@@ -55,7 +55,7 @@
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__card:hover {
-    border-color: #e11d26;
+    border-color: var(--color-button, #e11d26);
     box-shadow: 0 8px 24px rgba(0,0,0,0.1);
     transform: translateY(-2px);
   }
@@ -66,7 +66,7 @@
     width: 56px;
     height: 56px;
     margin: 0 auto 16px;
-    background: #2d2d2d;
+    background: var(--color-foreground, #2d2d2d);
     border-radius: 12px;
     align-items: center;
     justify-content: center;
@@ -74,7 +74,7 @@
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__icon {
-    background: #e11d26;
+    background: var(--color-button, #e11d26);
   }
   
   #shopify-section-{{ section.id }} .inv-quick-cats__icon svg {
@@ -95,14 +95,14 @@
   #shopify-section-{{ section.id }} .inv-quick-cats__title {
     font-size: 13px;
     font-weight: 700;
-    color: #1a1a1a;
+    color: var(--color-foreground, #1a1a1a);
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 0.4px;
   }
   
   #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__title {
-    color: #e11d26;
+    color: var(--color-button, #e11d26);
   }
   
   /* TABLET */
@@ -234,7 +234,7 @@
         {%- endfor -%}
       </div>
     {%- else -%}
-      <p style="text-align:center;padding:40px 20px;color:#6b7280;">Add category blocks using the section settings below.</p>
+      <p class="inv-quick-cats__empty">{{ 'invicta.sections.quick_cats.empty_state' | t }}</p>
     {%- endif -%}
     
   </div>
@@ -247,6 +247,16 @@
   "class": "section-quick-cats",
   "max_blocks": 8,
   "settings": [
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns (Desktop)",
+      "info": "Number of columns on desktop screens",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "default": 6
+    },
     {
       "type": "color",
       "id": "background_color",

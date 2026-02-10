@@ -207,6 +207,9 @@
     }
   }
 
+  /* --- Hidden utility (replaces inline display:none) --- */
+  .inv-pdp--hidden { display: none; }
+
   /* --- Mobile adjustments for new elements --- */
   @media (max-width: 749px) {
     .inv-pdp__collect {
@@ -508,23 +511,23 @@
             </div>
             
             {%- comment -%} JS will populate these rows {%- endcomment -%}
-            <div class="inv-pdp__info-row inv-pdp__info-row--full" data-row="description" style="display:none;">
+            <div class="inv-pdp__info-row inv-pdp__info-row--full inv-pdp--hidden" data-row="description">
               <span class="inv-pdp__info-label">Description</span>
               <div class="inv-pdp__info-content" data-content></div>
             </div>
-            <div class="inv-pdp__info-row inv-pdp__info-row--full" data-row="why-buy" style="display:none;">
+            <div class="inv-pdp__info-row inv-pdp__info-row--full inv-pdp--hidden" data-row="why-buy">
               <span class="inv-pdp__info-label">Why Buy?</span>
               <ul class="inv-pdp__info-list" data-content></ul>
             </div>
-            <div class="inv-pdp__info-row inv-pdp__info-row--full" data-row="used-for" style="display:none;">
+            <div class="inv-pdp__info-row inv-pdp__info-row--full inv-pdp--hidden" data-row="used-for">
               <span class="inv-pdp__info-label">Used For</span>
               <ul class="inv-pdp__info-list" data-content></ul>
             </div>
-            <div class="inv-pdp__info-row inv-pdp__info-row--full" data-row="specifications" style="display:none;">
+            <div class="inv-pdp__info-row inv-pdp__info-row--full inv-pdp--hidden" data-row="specifications">
               <span class="inv-pdp__info-label">Specifications</span>
               <div class="inv-pdp__info-specs" data-content></div>
             </div>
-            <div class="inv-pdp__info-row inv-pdp__info-row--full" data-row="whats-included" style="display:none;">
+            <div class="inv-pdp__info-row inv-pdp__info-row--full inv-pdp--hidden" data-row="whats-included">
               <span class="inv-pdp__info-label">What's Included</span>
               <ul class="inv-pdp__info-list inv-pdp__info-list--included" data-content></ul>
             </div>
@@ -769,7 +772,7 @@
             </div>
             
             {%- comment -%} CART ERROR FEEDBACK {%- endcomment -%}
-            <div class="inv-pdp__atc-error" role="alert" aria-live="assertive" data-atc-error data-error-text="{{ section.settings.cart_error_text | escape }}" style="display:none"></div>
+            <div class="inv-pdp__atc-error inv-pdp--hidden" role="alert" aria-live="assertive" data-atc-error data-error-text="{{ section.settings.cart_error_text | escape }}"></div>
 
             {%- comment -%} BUY NOW — only when in stock AND below price threshold {%- endcomment -%}
             {% if show_buy_now_final %}
@@ -883,11 +886,10 @@
 
 {%- comment -%} ========== PRODUCT RECOMMENDATIONS ========== {%- endcomment -%}
 <div
-  class="inv-recs"
+  class="inv-recs inv-pdp--hidden"
   data-recommendations
   data-product-id="{{ product.id }}"
   data-limit="{{ section.settings.recs_limit | default: 4 }}"
-  style="display:none;"
 >
   <div class="inv-recs__container inv-container">
     <div class="inv-recs__header">
@@ -971,7 +973,7 @@
       var items = temp.querySelectorAll('.inv-recs__item');
       if (items.length > 0) {
         items.forEach(function(item) { grid.appendChild(item); });
-        recsContainer.style.display = '';
+        recsContainer.classList.remove('inv-pdp--hidden');
       }
     })
     .catch(function() {});

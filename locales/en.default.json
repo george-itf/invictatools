@@ -536,5 +536,73 @@
       "send_on": "YYYY-MM-DD",
       "send_on_label": "Send on (optional)"
     }
+  },
+  "invicta": {
+    "trust_bar": {
+      "aria_label": "Why shop with Invicta Tools",
+      "authorised_dealer": "Authorised Dealer",
+      "free_delivery": "Free Delivery over £30",
+      "full_warranty": "Full Warranty",
+      "locations": "2 Kent Branches",
+      "years_trading": "30+ Years Trading"
+    },
+    "delivery": {
+      "order_now": "Order now",
+      "order_within": "Order within ",
+      "for_delivery_on": " for delivery on ",
+      "returns_warranty": "30-day returns · Full manufacturer warranty"
+    },
+    "delivery_bar": {
+      "qualified_html": "You qualify for <strong>FREE next-day delivery!</strong>",
+      "remaining_html": "You're <strong>{{ amount }}</strong> away from <strong>FREE delivery!</strong>"
+    },
+    "cart": {
+      "prices_include_vat": "All prices include VAT",
+      "subtotal_ex_vat": "Subtotal (ex VAT)",
+      "vat_rate": "VAT ({{ rate }}%)",
+      "discount": "Discount",
+      "shipping": "Shipping",
+      "shipping_free": "FREE",
+      "shipping_calculated": "Calculated at checkout",
+      "shipping_progress_html": "Spend <strong>{{ amount }}</strong> more for FREE shipping",
+      "total_inc_vat": "Total (inc VAT)",
+      "empty_message": "Looks like you haven't added anything yet.",
+      "start_shopping": "Start Shopping",
+      "sku_label": "SKU: {{ sku }}",
+      "stock_in_stock": "In Stock",
+      "stock_out_of_stock": "Out of Stock"
+    },
+    "product": {
+      "stock_in_stock": "In Stock",
+      "stock_sold_out": "Sold Out",
+      "stock_low": "Only {{ quantity }} Left",
+      "add_to_cart": "Add to Cart",
+      "notify_me": "Notify Me",
+      "images_label": "Product images",
+      "zoom_image": "Zoom image",
+      "key_specs": "Key specifications",
+      "product_features": "Product features",
+      "decrease_quantity": "Decrease quantity",
+      "increase_quantity": "Increase quantity"
+    },
+    "header": {
+      "vat_ex": "Ex VAT",
+      "vat_inc": "Inc VAT",
+      "prices_label": "Prices:",
+      "menu": "Menu",
+      "my_account": "My Account",
+      "sign_in_register": "Sign In / Register"
+    },
+    "pricing": {
+      "per_unit": "/ea"
+    },
+    "sections": {
+      "brand_categories": {
+        "shop_now": "Shop Now"
+      },
+      "quick_cats": {
+        "empty_state": "Add category blocks using the section settings below."
+      }
+    }
   }
 }

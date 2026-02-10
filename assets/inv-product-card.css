@@ -90,6 +90,14 @@
   z-index: 10;
 }
 
+/* Stock status colour variants (replaces inline style="background-color") */
+.inv-card__stock-bar--in-stock,
+.inv-card__stock--in-stock { background-color: var(--inv-stock-in, #16a34a); }
+.inv-card__stock-bar--out,
+.inv-card__stock--out { background-color: var(--inv-stock-out, #9ca3af); }
+.inv-card__stock-bar--low,
+.inv-card__stock--low { background-color: var(--inv-stock-low, #f59e0b); }
+
 /* -----------------------------------------------------------------------
    4. STOCK LABEL
    ----------------------------------------------------------------------- */

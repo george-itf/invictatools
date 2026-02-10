@@ -37,12 +37,12 @@
   
   <!-- VAT Mode Indicator -->
   <div class="invicta-vat-indicator" data-vat-indicator>
-    All prices include VAT
+    {{ 'invicta.cart.prices_include_vat' | t }}
   </div>
   
   <!-- Subtotal (Ex VAT) -->
   <div class="invicta-cart-breakdown__row invicta-cart-breakdown__row--subtotal">
-    <span class="invicta-cart-breakdown__label">Subtotal (ex VAT)</span>
+    <span class="invicta-cart-breakdown__label">{{ 'invicta.cart.subtotal_ex_vat' | t }}</span>
     <span class="invicta-cart-breakdown__value" data-breakdown-subtotal-ex>
       {{ subtotal_ex_vat | money }}
     </span>
@@ -50,7 +50,7 @@
   
   <!-- VAT Amount -->
   <div class="invicta-cart-breakdown__row invicta-cart-breakdown__row--vat">
-    <span class="invicta-cart-breakdown__label">VAT ({{ settings.inv_vat_rate }}%)</span>
+    <span class="invicta-cart-breakdown__label">{{ 'invicta.cart.vat_rate' | t: rate: settings.inv_vat_rate }}</span>
     <span class="invicta-cart-breakdown__value" data-breakdown-vat>
       {{ vat_amount | money }}
     </span>
@@ -60,7 +60,7 @@
     <!-- Discounts -->
     <div class="invicta-cart-breakdown__row invicta-cart-breakdown__row--discount">
       <span class="invicta-cart-breakdown__label">
-        Discount
+        {{ 'invicta.cart.discount' | t }}
         {%- if cart.cart_level_discount_applications.size > 0 -%}
           <small>({{ cart.cart_level_discount_applications.first.title }})</small>
         {%- endif -%}
@@ -73,12 +73,12 @@
   
   <!-- Shipping -->
   <div class="invicta-cart-breakdown__row invicta-cart-breakdown__row--shipping">
-    <span class="invicta-cart-breakdown__label">Shipping</span>
+    <span class="invicta-cart-breakdown__label">{{ 'invicta.cart.shipping' | t }}</span>
     <span class="invicta-cart-breakdown__value" data-breakdown-shipping>
       {%- if cart.total_price >= free_shipping_threshold -%}
-        <span class="invicta-cart-breakdown__free-label">FREE</span>
+        <span class="invicta-cart-breakdown__free-label">{{ 'invicta.cart.shipping_free' | t }}</span>
       {%- else -%}
-        Calculated at checkout
+        {{ 'invicta.cart.shipping_calculated' | t }}
       {%- endif -%}
     </span>
   </div>
@@ -87,7 +87,7 @@
     <!-- Free Shipping Progress -->
     <div class="invicta-cart-breakdown__shipping-progress">
       <div class="invicta-cart-breakdown__shipping-text">
-        Spend <strong>{{ shipping_remaining | money }}</strong> more for FREE shipping
+        {{ 'invicta.cart.shipping_progress_html' | t: amount: shipping_remaining | money }}
       </div>
       <div class="invicta-cart-breakdown__shipping-bar">
         {%- assign progress_percent = cart.total_price | times: 100 | divided_by: free_shipping_threshold -%}
@@ -98,7 +98,7 @@
   
   <!-- Total -->
   <div class="invicta-cart-breakdown__row invicta-cart-breakdown__row--total">
-    <span class="invicta-cart-breakdown__label">Total (inc VAT)</span>
+    <span class="invicta-cart-breakdown__label">{{ 'invicta.cart.total_inc_vat' | t }}</span>
     <span class="invicta-cart-breakdown__value" data-breakdown-total>
       {{ cart.total_price | money }}
     </span>

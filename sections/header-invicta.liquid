@@ -15,6 +15,7 @@
 {% assign ss = section.settings %}
 
 <style>
+  :root { --inv-brand-red: #e11d26; }
 /* =======================================================
    INVICTA HEADER v6.0 — RED BACKGROUND
    ======================================================= */
@@ -23,7 +24,7 @@
   top: 0;
   z-index: 999;
   width: 100%;
-  background: #e11d26;
+  background: var(--inv-brand-red);
   border-bottom: none;
 }
 
@@ -170,7 +171,7 @@
 }
 
 .invicta-drawer__close:focus-visible {
-  outline: 2px solid #e11d26;
+  outline: 2px solid var(--inv-brand-red);
   outline-offset: 2px;
 }
 
@@ -211,18 +212,18 @@
 
 .invicta-drawer__nav-link:hover {
   background: #f9fafb;
-  color: #e11d26;
+  color: var(--inv-brand-red);
 }
 
 .invicta-drawer__nav-link:focus-visible {
-  outline: 2px solid #e11d26;
+  outline: 2px solid var(--inv-brand-red);
   outline-offset: -2px;
 }
 
 .invicta-drawer__nav-link[aria-current="page"] {
-  color: #e11d26;
+  color: var(--inv-brand-red);
   background: #fef2f2;
-  border-left: 3px solid #e11d26;
+  border-left: 3px solid var(--inv-brand-red);
 }
 
 .invicta-drawer__nav-link svg {
@@ -254,11 +255,11 @@
 
 .invicta-drawer__submenu-toggle:hover {
   background: #f9fafb;
-  color: #e11d26;
+  color: var(--inv-brand-red);
 }
 
 .invicta-drawer__submenu-toggle:focus-visible {
-  outline: 2px solid #e11d26;
+  outline: 2px solid var(--inv-brand-red);
   outline-offset: -2px;
 }
 
@@ -297,16 +298,16 @@
 }
 
 .invicta-drawer__submenu a:hover {
-  color: #e11d26;
+  color: var(--inv-brand-red);
 }
 
 .invicta-drawer__submenu a:focus-visible {
-  outline: 2px solid #e11d26;
+  outline: 2px solid var(--inv-brand-red);
   outline-offset: -2px;
 }
 
 .invicta-drawer__submenu a[aria-current="page"] {
-  color: #e11d26;
+  color: var(--inv-brand-red);
   font-weight: 700;
 }
 
@@ -347,7 +348,7 @@
 }
 
 .invicta-drawer__vat-pill--active {
-  background: #e11d26;
+  background: var(--inv-brand-red);
   color: #fff;
 }
 
@@ -369,7 +370,7 @@
 }
 
 .invicta-drawer__account-link:hover {
-  color: #e11d26;
+  color: var(--inv-brand-red);
 }
 
 .invicta-drawer__account-link svg {
@@ -407,6 +408,8 @@
   outline: 2px solid #fff;
   outline-offset: 2px;
 }
+
+.invicta-header__logo-text { color: #fff; font-weight: 800; }
 
 .invicta-header__logo img,
 .invicta-header__logo .header__heading-logo {
@@ -621,7 +624,7 @@
   padding: 0 6px;
   border-radius: 999px;
   background: #ffffff;
-  color: #e11d26;
+  color: var(--inv-brand-red);
   font-size: 11px;
   font-weight: 700;
   display: inline-flex;
@@ -733,7 +736,7 @@
         {%- if settings.logo != blank -%}
           {{ settings.logo | image_url: width: 400 | image_tag: class: 'header__heading-logo', alt: settings.logo.alt | default: shop.name, loading: 'eager' }}
         {%- else -%}
-          <span class="h2" style="color: #ffffff; font-weight: 800;">{{ shop.name }}</span>
+          <span class="h2 invicta-header__logo-text">{{ shop.name }}</span>
         {%- endif -%}
       </a>
     </div>
@@ -754,7 +757,7 @@
           data-vat-btn="ex"
           aria-pressed="false"
         >
-          Ex VAT
+          {{ 'invicta.header.vat_ex' | t }}
         </button>
         <button
           type="button"
@@ -762,7 +765,7 @@
           data-vat-btn="inc"
           aria-pressed="true"
         >
-          Inc VAT
+          {{ 'invicta.header.vat_inc' | t }}
         </button>
       </div>
 
@@ -794,7 +797,7 @@
   <div class="invicta-drawer__backdrop" data-drawer-close></div>
   <div class="invicta-drawer__panel">
     <div class="invicta-drawer__header">
-      <span class="invicta-drawer__title">Menu</span>
+      <span class="invicta-drawer__title">{{ 'invicta.header.menu' | t }}</span>
       <button type="button" class="invicta-drawer__close" data-drawer-close aria-label="Close menu">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -847,10 +850,10 @@
 
     {%- comment -%} VAT toggle inside drawer for mobile {%- endcomment -%}
     <div class="invicta-drawer__vat">
-      <span class="invicta-drawer__vat-label">Prices:</span>
+      <span class="invicta-drawer__vat-label">{{ 'invicta.header.prices_label' | t }}</span>
       <div class="invicta-drawer__vat-pills" data-vat-toggle>
-        <button type="button" class="invicta-drawer__vat-pill" data-vat-btn="ex" aria-pressed="false">Ex VAT</button>
-        <button type="button" class="invicta-drawer__vat-pill invicta-drawer__vat-pill--active" data-vat-btn="inc" aria-pressed="true">Inc VAT</button>
+        <button type="button" class="invicta-drawer__vat-pill" data-vat-btn="ex" aria-pressed="false">{{ 'invicta.header.vat_ex' | t }}</button>
+        <button type="button" class="invicta-drawer__vat-pill invicta-drawer__vat-pill--active" data-vat-btn="inc" aria-pressed="true">{{ 'invicta.header.vat_inc' | t }}</button>
       </div>
     </div>
 
@@ -861,7 +864,7 @@
             <circle cx="12" cy="7" r="4"></circle>
             <path d="M4 21c0-4 4-7 8-7s8 3 8 7"></path>
           </svg>
-          {% if customer %}My Account{% else %}Sign In / Register{% endif %}
+          {% if customer %}{{ 'invicta.header.my_account' | t }}{% else %}{{ 'invicta.header.sign_in_register' | t }}{% endif %}
         </a>
       </div>
     {%- endif -%}
