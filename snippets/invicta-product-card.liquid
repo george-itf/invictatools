@@ -123,7 +123,8 @@
     {%- comment -%} Header row: Brand {%- endcomment -%}
     {%- if brand != blank -%}
       <div class="inv-card__header">
-        {% render 'invicta-brand-pill', vendor: brand, pill_context: 'card', pill_size: 'compact' %}
+        {%- assign card_pill_type = brand_pill_type | default: 'pill' -%}
+        {% render 'invicta-brand-pill', vendor: brand, pill_context: 'card', pill_size: 'compact', type: card_pill_type %}
       </div>
     {%- endif -%}
     
