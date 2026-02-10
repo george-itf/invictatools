@@ -110,13 +110,22 @@
       }
     },
     "featured-products": {
-      "type": "brand-featured-products",
+      "type": "featured-collection",
       "settings": {
-        "title": "Featured Products",
         "collection": "",
         "products_to_show": 4,
-        "cta_text": "View All",
-        "cta_url": ""
+        "header_style": "bar",
+        "title": "Featured Products",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 20
       }
     },
     "brand_applications": {

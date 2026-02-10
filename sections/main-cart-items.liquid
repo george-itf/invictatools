@@ -185,29 +185,7 @@
            FREE SHIPPING PROGRESS BAR
            ========================================= -->
       {% if section.settings.show_free_shipping_bar %}
-        <div class="inv-shipping-bar">
-          {% if has_free_shipping %}
-            <div class="inv-shipping-bar__success">
-              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm3.7-9.3a1 1 0 0 0-1.4-1.4L9 10.6 7.7 9.3a1 1 0 0 0-1.4 1.4l2 2a1 1 0 0 0 1.4 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>{{ section.settings.free_shipping_success | default: 'You\'ve unlocked <strong>FREE delivery!</strong>' }}</span>
-            </div>
-          {% else %}
-            <div class="inv-shipping-bar__message">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <rect x="1" y="3" width="15" height="13" rx="1"/>
-                <path d="M16 8h4l3 3v5h-7V8z"/>
-                <circle cx="5.5" cy="18.5" r="2.5"/>
-                <circle cx="18.5" cy="18.5" r="2.5"/>
-              </svg>
-              <span>You're <strong>{{ amount_remaining | money }}</strong> away from FREE delivery!</span>
-            </div>
-            <div class="inv-shipping-bar__track">
-              <div class="inv-shipping-bar__progress" style="width: {{ shipping_percentage }}%;"></div>
-            </div>
-          {% endif %}
-        </div>
+        {% render 'invicta-free-delivery-bar' %}
       {% endif %}
 
       <!-- =========================================
