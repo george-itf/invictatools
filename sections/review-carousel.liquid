@@ -289,7 +289,7 @@
               <div class="review-carousel__content-{{ ai_gen_id }}">
 
                 {%- comment -%} Stars {%- endcomment -%}
-                <div class="review-carousel__stars-{{ ai_gen_id }}">
+                <div class="review-carousel__stars-{{ ai_gen_id }}" role="img" aria-label="{{ review_rating }} out of 5 stars">
                   {% for star in (1..5) %}
                     {% if star <= review_rating %}
                       <svg class="review-carousel__star-{{ ai_gen_id }}" viewBox="0 0 24 24" aria-hidden="true">

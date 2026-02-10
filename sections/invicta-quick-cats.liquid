@@ -55,7 +55,7 @@
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__card:hover {
-    border-color: #d32f2f;
+    border-color: #e11d26;
     box-shadow: 0 8px 24px rgba(0,0,0,0.1);
     transform: translateY(-2px);
   }
@@ -74,7 +74,7 @@
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__icon {
-    background: #d32f2f;
+    background: #e11d26;
   }
   
   #shopify-section-{{ section.id }} .inv-quick-cats__icon svg {
@@ -106,14 +106,14 @@
   }
   
   /* TABLET */
-  @media screen and (max-width: 1200px) {
+  @media screen and (max-width: 989px) {
     #shopify-section-{{ section.id }} .inv-quick-cats__grid {
       grid-template-columns: repeat(3, 1fr) !important;
     }
   }
   
   /* MOBILE */
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .inv-quick-cats__grid {
       grid-template-columns: repeat(2, 1fr) !important;
       gap: 10px;
@@ -146,6 +146,7 @@
 <section class="inv-quick-cats">
   <div class="inv-quick-cats__container">
     
+    <h2 class="visually-hidden">Shop by Category</h2>
     {%- if section.blocks.size > 0 -%}
       <div class="inv-quick-cats__grid">
         {%- for block in section.blocks -%}

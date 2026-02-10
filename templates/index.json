@@ -376,7 +376,7 @@
       "name": "Invicta Featured Collection",
       "settings": {
         "collection": "power-tools",
-        "products_to_show": 8,
+        "products_to_show": 4,
         "header_style": "bar",
         "title": "Popular Power Tools",
         "description": "",
@@ -388,6 +388,26 @@
         "columns_mobile": "2",
         "swipe_on_mobile": false,
         "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_handtools": {
+      "type": "featured-collection",
+      "name": "Invicta Featured Collection 2",
+      "settings": {
+        "collection": "hand-tools",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Best Selling Hand Tools",
+        "description": "",
+        "show_description": false,
+        "show_product_count": true,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 0,
         "padding_bottom": 36
       }
     },
@@ -428,28 +448,10 @@
             "text": "Authorised Makita, DeWalt & HiKOKI dealer"
           }
         },
-        "point_PjztFU": {
-          "type": "point",
-          "settings": {
-            "text": "Full manufacturer warranty on everything we sell"
-          }
-        },
-        "point_kPweHJ": {
-          "type": "point",
-          "settings": {
-            "text": "Free next-day delivery on orders over £30"
-          }
-        },
         "point_yNgYhB": {
           "type": "point",
           "settings": {
             "text": "Trade accounts with 30-day terms"
-          }
-        },
-        "point_DwBdf3": {
-          "type": "point",
-          "settings": {
-            "text": "Click & collect ready in 1 hour"
           }
         }
       },
@@ -459,10 +461,7 @@
         "stat_TMWLdi",
         "stat_grYNQC",
         "point_mLKJVp",
-        "point_PjztFU",
-        "point_kPweHJ",
-        "point_yNgYhB",
-        "point_DwBdf3"
+        "point_yNgYhB"
       ],
       "name": "Trust Bar",
       "settings": {
@@ -524,11 +523,12 @@
   },
   "order": [
     "hero_split",
-    "invicta_usp_strip_v2_eepGaQ",
     "quick_cats",
+    "invicta_usp_strip_v2_eepGaQ",
+    "featured_collection_nePQBY",
+    "featured_collection_handtools",
     "brand_strip",
     "review_carousel",
-    "featured_collection_nePQBY",
     "invicta_trust_bar_r98CbM",
     "invicta_newsletter_t9TTnj"
   ]

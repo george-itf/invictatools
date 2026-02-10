@@ -119,9 +119,9 @@
      ============================================ */
 
   #trust-{{ section.id }} {
-    --inv-trust-accent: #e11d26;
-    --inv-trust-dark: #2d2d2d;
-    --inv-trust-grey: #2d2d2d;
+    --inv-trust-accent: var(--inv-brand);
+    --inv-trust-dark: var(--inv-dark);
+    --inv-trust-grey: var(--inv-dark);
   }
 
   .inv-trust {
@@ -355,7 +355,7 @@
   /* ----------------------------------------
      RESPONSIVE
      ---------------------------------------- */
-  @media (max-width: 900px) {
+  @media (max-width: 989px) {
     .inv-trust__grid {
       grid-template-columns: 1fr;
       gap: 40px;
@@ -373,7 +373,7 @@
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 749px) {
     .inv-trust__stats-grid {
       grid-template-columns: repeat(2, 1fr);
     }
