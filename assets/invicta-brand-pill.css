@@ -243,7 +243,7 @@
   }
 }
 
-@media (min-width: 821px) {
+@media (min-width: 990px) {
   .invicta-brand-pill-wrapper--hero .invicta-brand-pill {
     --pill-height: 34px;
     --pill-logo-height: 24px;
