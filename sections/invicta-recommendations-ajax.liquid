@@ -14,7 +14,7 @@
 {%- if recommendations.performed and recommendations.products_count > 0 -%}
   {%- for product in recommendations.products -%}
     <div class="inv-recs__item">
-      {% render 'invicta-product-card', product: product, card_index: forloop.index %}
+      {% render 'invicta-product-card', product: product, card_index: forloop.index, brand_pill_type: 'text-only' %}
     </div>
   {%- endfor -%}
 {%- endif -%}

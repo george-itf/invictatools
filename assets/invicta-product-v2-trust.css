@@ -1,71 +1,59 @@
-/* Invicta PDP Trust Panel & Delivery Estimate Integration */
-.inv-pdp__trust-panel {
-  background: var(--inv-bg, #f5f5f6);
-  border-radius: var(--inv-radius-card, 12px);
-  padding: 14px 16px;
-  margin-top: 12px;
-}
-.inv-pdp__trust-panel-row {
+/* Invicta PDP Trust Bar — Unified single-row design */
+.inv-pdp__trust-bar {
   display: flex;
-  gap: 8px;
   flex-wrap: wrap;
-  margin-bottom: 12px;
+  gap: 0;
+  background: var(--pdp-grey-50, #fafafa);
+  border-radius: var(--pdp-radius, 8px);
+  margin-top: 12px;
+  overflow: hidden;
 }
-.inv-pdp__trust-chip {
-  display: inline-flex;
+.inv-pdp__trust-item {
+  display: flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 13px;
+  padding: 10px 14px;
+  font-size: 12px;
   font-weight: 600;
-  color: var(--inv-fg, #0f172a);
-  background: var(--inv-bg-elevated, #fff);
-  border: 1px solid var(--inv-border, #e5e7eb);
+  color: var(--pdp-text, #1a1a1a);
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.2s;
-}
-.inv-pdp__trust-chip:hover {
-  border-color: var(--inv-accent, #e11d26);
-  color: var(--inv-accent, #e11d26);
-  box-shadow: 0 2px 8px rgba(225, 29, 38, 0.12);
-}
-.inv-pdp__trust-chip svg {
-  color: var(--inv-accent, #e11d26);
-  flex-shrink: 0;
-}
-.inv-pdp__trust-panel-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 14px;
-  padding-top: 10px;
-  border-top: 1px solid var(--inv-border, #e5e7eb);
-}
-.inv-pdp__mini-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 12px;
-  color: var(--inv-fg-muted, #6b7280);
-  font-weight: 500;
+  background: none;
+  border: none;
+  border-right: 1px solid var(--pdp-grey-200, #e5e5e5);
+  transition: background 0.15s ease, color 0.15s ease;
   white-space: nowrap;
+  font-family: inherit;
 }
-.inv-pdp__mini-badge svg {
+.inv-pdp__trust-item:last-child {
+  border-right: none;
+}
+.inv-pdp__trust-item:hover {
+  background: var(--pdp-grey-100, #f5f5f5);
+  color: var(--inv-accent, #e11d26);
+}
+.inv-pdp__trust-item svg {
   flex-shrink: 0;
+  color: var(--inv-accent, #e11d26);
+}
+.inv-pdp__trust-item:focus-visible {
+  outline: 2px solid var(--pdp-dark, #1a1a1a);
+  outline-offset: -2px;
+  border-radius: 4px;
 }
 @media (max-width: 749px) {
-  .inv-pdp__trust-panel-row {
-    gap: 6px;
+  .inv-pdp__trust-bar {
+    flex-wrap: wrap;
   }
-  .inv-pdp__trust-chip {
-    font-size: 12px;
-    padding: 5px 10px;
-  }
-  .inv-pdp__trust-panel-badges {
-    gap: 4px 10px;
-  }
-  .inv-pdp__mini-badge {
+  .inv-pdp__trust-item {
+    flex: 1 1 auto;
+    justify-content: center;
+    padding: 8px 10px;
     font-size: 11px;
+    border-right: none;
+    border-bottom: 1px solid var(--pdp-grey-200, #e5e5e5);
+  }
+  .inv-pdp__trust-item:nth-child(n+4) {
+    border-bottom: none;
   }
 }
