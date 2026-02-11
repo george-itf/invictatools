@@ -87,14 +87,68 @@
 
 {%- comment -%} ===== PRODUCT SCHEMA (product pages only) ===== {%- endcomment -%}
 {%- if request.page_type == 'product' -%}
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_image = product.featured_image | image_url: width: 1200 | prepend: 'https:'
+  assign product_desc = product.description | strip_html | truncate: 5000 | escape
+-%}
 <script type="application/ld+json">
-{{ product | structured_data }}
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "description": {{ product_desc | json }},
+  "url": {{ shop.url | append: product.url | json }}
+  {%- if product.featured_image -%}
+    ,"image": {{ product_image | json }}
+  {%- endif -%}
+  {%- if current_variant.sku != blank -%}
+    ,"sku": {{ current_variant.sku | json }}
+  {%- endif -%}
+  {%- if current_variant.barcode != blank -%}
+    ,"mpn": {{ current_variant.barcode | json }}
+  {%- elsif current_variant.sku != blank -%}
+    ,"mpn": {{ current_variant.sku | json }}
+  {%- endif -%}
+  {%- if product.vendor != blank -%}
+    ,"brand": {
+      "@type": "Brand",
+      "name": {{ product.vendor | json }}
+    }
+  {%- endif -%}
+  ,"offers": {
+    "@type": "Offer",
+    "url": {{ shop.url | append: product.url | json }},
+    "priceCurrency": "GBP",
+    "price": {{ current_variant.price | money_without_currency | remove: ',' | json }},
+    "priceValidUntil": "{{ 'now' | date: '%Y' | plus: 1 }}-12-31",
+    "itemCondition": "https://schema.org/NewCondition"
+    {%- if current_variant.available -%}
+      ,"availability": "https://schema.org/InStock"
+    {%- else -%}
+      ,"availability": "https://schema.org/OutOfStock"
+    {%- endif -%}
+  }
+}
 </script>
 {%- endif -%}
 
 {%- comment -%} ===== BREADCRUMBLIST SCHEMA ===== {%- endcomment -%}
 {%- if request.page_type == 'product' -%}
-  {%- assign bc_collection = product.collections | first -%}
+  {%- liquid
+    assign bc_collection = nil
+    assign current_path = request.path
+    for col in product.collections
+      assign col_path = col.url
+      if current_path contains col_path
+        assign bc_collection = col
+        break
+      endif
+    endfor
+    if bc_collection == nil
+      assign bc_collection = product.collections | first
+    endif
+  -%}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",

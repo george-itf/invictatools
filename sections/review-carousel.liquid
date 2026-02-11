@@ -390,32 +390,73 @@
 <script>
 /**
  * Review Carousel Auto-Scroll
- * Continuously scrolls reviews left, loops seamlessly
+ * Continuously scrolls reviews left, loops seamlessly.
+ * Performance: pauses rAF when off-screen or tab is backgrounded.
  */
 document.addEventListener('DOMContentLoaded', () => {
   const carousel = document.querySelector('.review-carousel__track-{{ ai_gen_id }}');
-  if (!carousel) return;
+  const section = document.querySelector('.review-carousel-{{ ai_gen_id }}');
+  if (!carousel || !section) return;
 
   let scrollPosition = 0;
   const speed = 0.5;
+  let rafId = null;
+  let playing = false;       /* master play/pause state */
+  let isVisible = true;      /* IntersectionObserver: section in viewport */
+  let isTabActive = true;    /* Page Visibility API: tab is foreground */
 
   /* Duplicate slides for seamless looping */
   const slides = carousel.innerHTML;
   carousel.insertAdjacentHTML('beforeend', slides);
 
   /**
-   * Animates continuous scroll
+   * Determines if the animation should be running and starts/stops accordingly.
+   */
+  function updatePlayState() {
+    const shouldPlay = isVisible && isTabActive;
+    if (shouldPlay && !playing) {
+      playing = true;
+      rafId = requestAnimationFrame(autoScroll);
+    } else if (!shouldPlay && playing) {
+      playing = false;
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    }
+  }
+
+  /**
+   * Animates continuous scroll — only schedules next frame when playing.
    */
   function autoScroll() {
+    if (!playing) return;
     scrollPosition += speed;
     if (scrollPosition >= carousel.scrollWidth / 2) {
       scrollPosition = 0;
     }
     carousel.style.transform = `translateX(${-scrollPosition}px)`;
-    requestAnimationFrame(autoScroll);
+    rafId = requestAnimationFrame(autoScroll);
   }
 
-  autoScroll();
+  /* --- IntersectionObserver: pause when carousel is off-screen --- */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      isVisible = entry.isIntersecting;
+      updatePlayState();
+    });
+  }, { threshold: 0 });
+  observer.observe(section);
+
+  /* --- Page Visibility API: pause when tab is backgrounded --- */
+  document.addEventListener('visibilitychange', () => {
+    isTabActive = !document.hidden;
+    updatePlayState();
+  });
+
+  /* Kick off initial state check */
+  isTabActive = !document.hidden;
+  updatePlayState();
 });
 </script>
 

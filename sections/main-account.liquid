@@ -53,7 +53,7 @@
     <div class="inv-account__header-left">
       <!-- Avatar -->
       <div class="inv-account__avatar">
-        {{ customer_initials }}
+        {{ customer_initials | escape }}
       </div>
       
       <!-- Welcome & Name -->
@@ -61,9 +61,9 @@
         <span class="inv-account__greeting">Welcome back</span>
         <h1 class="inv-account__name">
           {% if customer.first_name != blank %}
-            {{ customer.first_name }} {{ customer.last_name }}
+            {{ customer.first_name | escape }} {{ customer.last_name | escape }}
           {% else %}
-            {{ customer.email }}
+            {{ customer.email | escape }}
           {% endif %}
         </h1>
       </div>
@@ -142,7 +142,7 @@
                   <tr>
                     <td data-label="Order">
                       <a href="{{ order.customer_url }}" class="inv-order-link">
-                        {{ order.name }}
+                        {{ order.name | escape }}
                       </a>
                     </td>
                     <td data-label="Date">
@@ -150,12 +150,12 @@
                     </td>
                     <td data-label="Payment">
                       <span class="inv-status inv-status--{{ order.financial_status }}">
-                        {{ order.financial_status_label }}
+                        {{ order.financial_status_label | escape }}
                       </span>
                     </td>
                     <td data-label="Status">
                       <span class="inv-status {{ status_class }}">
-                        {{ order.fulfillment_status_label | default: 'Unfulfilled' }}
+                        {{ order.fulfillment_status_label | default: 'Unfulfilled' | escape }}
                       </span>
                     </td>
                     <td data-label="Total">
@@ -233,7 +233,7 @@
           <span class="inv-detail-label">Name</span>
           <span class="inv-detail-value">
             {% if customer.first_name != blank %}
-              {{ customer.first_name }} {{ customer.last_name }}
+              {{ customer.first_name | escape }} {{ customer.last_name | escape }}
             {% else %}
               Not set
             {% endif %}
@@ -242,13 +242,13 @@
         
         <div class="inv-detail-group">
           <span class="inv-detail-label">Email</span>
-          <span class="inv-detail-value">{{ customer.email }}</span>
+          <span class="inv-detail-value">{{ customer.email | escape }}</span>
         </div>
         
         {% if customer.phone != blank %}
           <div class="inv-detail-group">
             <span class="inv-detail-label">Phone</span>
-            <span class="inv-detail-value">{{ customer.phone }}</span>
+            <span class="inv-detail-value">{{ customer.phone | escape }}</span>
           </div>
         {% endif %}
         
@@ -258,14 +258,14 @@
             <span class="inv-detail-label">Default Address</span>
             <address class="inv-detail-address">
               {% if customer.default_address.company != blank %}
-                <strong>{{ customer.default_address.company }}</strong><br>
+                <strong>{{ customer.default_address.company | escape }}</strong><br>
               {% endif %}
-              {{ customer.default_address.address1 }}<br>
+              {{ customer.default_address.address1 | escape }}<br>
               {% if customer.default_address.address2 != blank %}
-                {{ customer.default_address.address2 }}<br>
+                {{ customer.default_address.address2 | escape }}<br>
               {% endif %}
-              {{ customer.default_address.city }}, {{ customer.default_address.province_code }} {{ customer.default_address.zip }}<br>
-              {{ customer.default_address.country }}
+              {{ customer.default_address.city | escape }}, {{ customer.default_address.province_code | escape }} {{ customer.default_address.zip | escape }}<br>
+              {{ customer.default_address.country | escape }}
             </address>
           </div>
         {% endif %}
@@ -307,7 +307,7 @@
               id="CompanyName" 
               name="company_name"
               class="inv-detail-input"
-              value="{{ customer.metafields.custom.company_name.value | default: customer.default_address.company }}"
+              value="{{ customer.metafields.custom.company_name.value | default: customer.default_address.company | escape }}"
               placeholder="Your Company Ltd"
             >
           </div>
@@ -323,7 +323,7 @@
               id="VatNumber" 
               name="vat_number"
               class="inv-detail-input"
-              value="{{ customer.metafields.custom.vat_number.value }}"
+              value="{{ customer.metafields.custom.vat_number.value | escape }}"
               placeholder="GB123456789"
               pattern="^(GB)?[0-9]{9}$"
             >
@@ -340,7 +340,7 @@
               id="InvoiceEmail" 
               name="invoice_email"
               class="inv-detail-input"
-              value="{{ customer.metafields.custom.invoice_email.value }}"
+              value="{{ customer.metafields.custom.invoice_email.value | escape }}"
               placeholder="accounts@company.com"
             >
           </div>

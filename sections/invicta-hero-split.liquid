@@ -458,13 +458,14 @@
       {%- if section.settings.main_image -%}
         <img
           src="{{ section.settings.main_image | image_url: width: 800 }}"
-          srcset="{{ section.settings.main_image | image_url: width: 400 }} 400w, 
-                  {{ section.settings.main_image | image_url: width: 600 }} 600w, 
+          srcset="{{ section.settings.main_image | image_url: width: 400 }} 400w,
+                  {{ section.settings.main_image | image_url: width: 600 }} 600w,
                   {{ section.settings.main_image | image_url: width: 800 }} 800w"
           sizes="(max-width: 749px) 100vw, 800px"
           alt="{{ section.settings.heading | default: 'Hero image' | escape }}"
           class="inv-hero-split__mobile-image"
           loading="eager"
+          fetchpriority="high"
           width="{{ section.settings.main_image.width }}"
           height="{{ section.settings.main_image.height }}"
         >
@@ -494,11 +495,12 @@
       </div>
       
       {%- if section.settings.hero_product_image -%}
-        <img 
+        <img
           src="{{ section.settings.hero_product_image | image_url: width: 500 }}"
           alt="{{ section.settings.heading | escape }}"
           class="inv-hero-split__product-image"
           loading="eager"
+          fetchpriority="high"
           width="{{ section.settings.hero_product_image.width }}"
           height="{{ section.settings.hero_product_image.height }}"
         >
