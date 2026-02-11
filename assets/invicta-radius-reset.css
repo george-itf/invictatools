@@ -208,3 +208,21 @@ select,
 .avatar {
   border-radius: 50% !important;
 }
+
+/* Drawer panel — full-height, no rounded corners */
+.invicta-drawer__panel {
+  border-radius: 0 !important;
+}
+
+/* Drawer VAT pills — explicit radii, not the [class*="drawer"] modal radius */
+.invicta-drawer__vat {
+  border-radius: 0 !important;
+}
+
+.invicta-drawer__vat-pills {
+  border-radius: 8px !important;
+}
+
+.invicta-drawer__vat-pill {
+  border-radius: 6px !important;
+}
