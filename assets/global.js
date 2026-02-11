@@ -740,13 +740,32 @@ class SliderComponent extends HTMLElement {
 
     if (!this.slider || !this.nextButton) return;
 
-    this.initPages();
-    const resizeObserver = new ResizeObserver((entries) => this.initPages());
-    resizeObserver.observe(this.slider);
+    // Store bound references for cleanup in disconnectedCallback (H31 fix)
+    this.boundUpdate = this.update.bind(this);
+    this.boundOnButtonClick = this.onButtonClick.bind(this);
 
-    this.slider.addEventListener('scroll', this.update.bind(this));
-    this.prevButton.addEventListener('click', this.onButtonClick.bind(this));
-    this.nextButton.addEventListener('click', this.onButtonClick.bind(this));
+    this.initPages();
+    this.resizeObserver = new ResizeObserver((entries) => this.initPages());
+    this.resizeObserver.observe(this.slider);
+
+    this.slider.addEventListener('scroll', this.boundUpdate);
+    this.prevButton.addEventListener('click', this.boundOnButtonClick);
+    this.nextButton.addEventListener('click', this.boundOnButtonClick);
+  }
+
+  disconnectedCallback() {
+    if (this.slider && this.boundUpdate) {
+      this.slider.removeEventListener('scroll', this.boundUpdate);
+    }
+    if (this.prevButton && this.boundOnButtonClick) {
+      this.prevButton.removeEventListener('click', this.boundOnButtonClick);
+    }
+    if (this.nextButton && this.boundOnButtonClick) {
+      this.nextButton.removeEventListener('click', this.boundOnButtonClick);
+    }
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
   }
 
   initPages() {
