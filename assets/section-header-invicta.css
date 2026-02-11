@@ -112,6 +112,7 @@
   transition: transform 0.3s ease;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -300,12 +301,13 @@
   border-top: 1px solid #e5e7eb;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-shrink: 0;
+  overflow: hidden;
 }
 
 .invicta-drawer__vat-label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: #374151;
   white-space: nowrap;
@@ -320,13 +322,12 @@
   padding: 3px;
   flex: 1;
   min-width: 0;
-  max-width: 160px;
 }
 
 .invicta-drawer__vat-pill {
   flex: 1;
-  padding: 8px 0;
-  font-size: 13px;
+  padding: 8px 6px;
+  font-size: 12px;
   font-weight: 700;
   border: none;
   border-radius: 6px;
@@ -337,6 +338,9 @@
   text-align: center;
   white-space: nowrap;
   line-height: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .invicta-drawer__vat-pill--active {
