@@ -1487,9 +1487,13 @@
         "content": "Free Shipping"
       },
       {
-        "type": "text",
+        "type": "range",
         "id": "inv_free_shipping_pence",
-        "default": "3000",
+        "min": 0,
+        "max": 50000,
+        "step": 100,
+        "default": 3000,
+        "unit": "p",
         "label": "Free shipping threshold (pence)",
         "info": "Cart total in pence to qualify for free shipping. 3000 = £30.00"
       },

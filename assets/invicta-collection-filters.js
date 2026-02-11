@@ -1,5 +1,5 @@
 /**
- * Invicta Collection Filters v4.1
+ * Invicta Collection Filters v4.2
  * Extracted from inline — no Liquid dependencies
  *
  * AJAX-powered multi-select filters with:
@@ -8,6 +8,7 @@
  * - Debounced requests with AbortController
  * - Skeleton loading on product grid
  * - Full accessibility support
+ * - Proper event listener cleanup via AbortController signal (H7 fix)
  */
 (function() {
   'use strict';
@@ -25,6 +26,9 @@
       this.debounceTimer = null;
       this.debounceDelay = 150;
 
+      /** @type {AbortController} Controls all event listener lifecycles for cleanup */
+      this._listenerController = new AbortController();
+
       this.activeBrands = new Set(
         (container.dataset.activeBrands || '').split('|||').filter(Boolean)
       );
@@ -37,13 +41,33 @@
     }
 
     init() {
-      this.container.addEventListener('click', this.handleClick.bind(this));
+      // Abort any previous listeners before re-adding (prevents duplicates on re-init)
+      this.destroy();
+      this._listenerController = new AbortController();
+      const signal = this._listenerController.signal;
+
+      this.container.addEventListener('click', this.handleClick.bind(this), { signal });
       this._boundPopState = this.handlePopState.bind(this);
-      window.addEventListener('popstate', this._boundPopState);
-      this.initScrollArrows();
+      window.addEventListener('popstate', this._boundPopState, { signal });
+      this.initScrollArrows(signal);
     }
 
-    initScrollArrows() {
+    /**
+     * Clean up all event listeners. Called before re-initialization
+     * and can be called externally to fully tear down the instance.
+     */
+    destroy() {
+      if (this._listenerController) {
+        this._listenerController.abort();
+      }
+      clearTimeout(this.debounceTimer);
+      if (this.abortController) {
+        this.abortController.abort();
+        this.abortController = null;
+      }
+    }
+
+    initScrollArrows(signal) {
       const scrollContainers = this.container.querySelectorAll('.inv-filters__scroll-container');
 
       scrollContainers.forEach(container => {
@@ -66,16 +90,16 @@
           e.preventDefault();
           e.stopPropagation();
           wrapper.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        });
+        }, { signal });
 
         rightBtn.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
           wrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        });
+        }, { signal });
 
-        wrapper.addEventListener('scroll', updateArrows, { passive: true });
-        window.addEventListener('resize', updateArrows, { passive: true });
+        wrapper.addEventListener('scroll', updateArrows, { passive: true, signal });
+        window.addEventListener('resize', updateArrows, { passive: true, signal });
         updateArrows();
       });
     }
@@ -274,6 +298,11 @@
       const newContent = doc.body.firstElementChild;
 
       if (newContent) {
+        // Destroy current listeners before replacing the DOM node
+        if (container === this.container) {
+          this.destroy();
+        }
+
         container.replaceWith(newContent);
 
         if (container === this.container) {

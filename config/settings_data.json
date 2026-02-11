@@ -110,7 +110,7 @@
     "brand_headline": "",
     "brand_description": "<p></p>",
     "brand_image_width": 100,
-    "social_facebook_link": "",
+    "social_facebook_link": "https://www.facebook.com/InvictaTools",
     "social_instagram_link": "https://www.instagram.com/invicta_tools/",
     "social_youtube_link": "",
     "social_tiktok_link": "",
@@ -129,7 +129,7 @@
     "cart_drawer_collection": "accessories",
     "cart_color_scheme": "scheme-1",
     "inv_vat_rate": 20,
-    "inv_free_shipping_pence": "3000",
+    "inv_free_shipping_pence": 3000,
     "inv_delivery_cutoff_hour": 14,
     "seo_org_name": "Invicta Tools & Fixings Ltd",
     "seo_org_telephone": "+441843210459",
@@ -137,7 +137,7 @@
     "seo_local_city": "Canterbury",
     "seo_local_region": "Kent",
     "seo_local_postcode": "CT1 3RB",
-    "seo_local_hours": "Mo-Fr 07:00-17:00",
+    "seo_local_hours": "Mo-Fr 07:30-17:00, Sa 08:00-12:00",
     "seo_noindex_filtered_collections": true,
     "seo_noindex_paginated_collections": true,
     "seo_paginated_noindex_from_page": 2,
@@ -172,7 +172,7 @@
           "background_gradient": "",
           "text": "#262626",
           "button": "#e41e25",
-          "button_label": "#262626",
+          "button_label": "#ffffff",
           "secondary_button_label": "#001128",
           "shadow": "#001128"
         }
@@ -183,7 +183,7 @@
           "background_gradient": "",
           "text": "#001128",
           "button": "#e41e25",
-          "button_label": "#001128",
+          "button_label": "#ffffff",
           "secondary_button_label": "#e41e25",
           "shadow": "#001128"
         }
@@ -195,7 +195,7 @@
           "text": "#ffffff",
           "button": "#fdfdfd",
           "button_label": "#262626",
-          "secondary_button_label": "#54483c",
+          "secondary_button_label": "#ffffff",
           "shadow": "#001128"
         }
       },
@@ -216,7 +216,7 @@
           "background_gradient": "",
           "text": "#ffffff",
           "button": "#e41e25",
-          "button_label": "#262626",
+          "button_label": "#ffffff",
           "secondary_button_label": "#e41e25",
           "shadow": "#001128"
         }
@@ -227,7 +227,7 @@
           "background_gradient": "",
           "text": "#2b2c2d",
           "button": "#e41e25",
-          "button_label": "#262626",
+          "button_label": "#ffffff",
           "secondary_button_label": "#001128",
           "shadow": "#001128"
         }

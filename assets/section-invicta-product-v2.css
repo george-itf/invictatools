@@ -1,0 +1,196 @@
+/* ============================================
+   NEW COMPONENT STYLES — Product V2 additions
+   ============================================ */
+
+/* --- VAT Toggle (own line below price) --- */
+.inv-pdp__vat-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--pdp-grey-100, #f5f5f5);
+  border-radius: 20px;
+  padding: 5px 12px;
+  margin-top: 6px;
+}
+.inv-pdp__vat-toggle-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--pdp-grey-400);
+  transition: color 0.15s ease;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1;
+}
+.inv-pdp__vat-toggle-label--active {
+  color: var(--pdp-text);
+}
+.inv-pdp__vat-toggle-switch {
+  position: relative;
+  width: 28px;
+  height: 16px;
+  background: var(--pdp-grey-200);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s ease;
+}
+.inv-pdp__vat-toggle-switch[aria-checked="true"] {
+  background: var(--pdp-dark);
+}
+.inv-pdp__vat-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+  pointer-events: none;
+}
+.inv-pdp__vat-toggle-switch[aria-checked="true"] .inv-pdp__vat-toggle-thumb {
+  transform: translateX(12px);
+}
+.inv-pdp__vat-toggle-switch:focus-visible {
+  box-shadow: var(--pdp-focus);
+  outline: none;
+}
+
+/* --- Click & Collect --- */
+.inv-pdp__collect {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: var(--pdp-radius);
+  margin-bottom: var(--pdp-space-md);
+}
+.inv-pdp__collect-icon {
+  flex-shrink: 0;
+  color: #0284c7;
+  margin-top: 1px;
+}
+.inv-pdp__collect-text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--pdp-text);
+}
+.inv-pdp__collect-text strong {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+.inv-pdp__collect-text span {
+  color: var(--pdp-text-muted);
+}
+.inv-pdp__collect-text a {
+  color: #0284c7;
+  font-weight: 600;
+  text-decoration: none;
+}
+.inv-pdp__collect-text a:hover {
+  text-decoration: underline;
+}
+
+/* --- Trade Account Callout --- */
+.inv-pdp__trade-callout {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--pdp-grey-50);
+  border: 1px dashed var(--pdp-grey-300);
+  border-radius: var(--pdp-radius);
+  margin-top: var(--pdp-space-md);
+  font-size: 13px;
+  color: var(--pdp-text-muted);
+}
+.inv-pdp__trade-callout svg {
+  flex-shrink: 0;
+  color: var(--pdp-grey-500);
+}
+.inv-pdp__trade-callout strong {
+  color: var(--pdp-text);
+}
+.inv-pdp__trade-callout a {
+  color: var(--pdp-red);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.inv-pdp__trade-callout a:hover {
+  color: var(--pdp-red-hover);
+}
+
+/* --- Low Stock Banner modifier --- */
+.inv-pdp__stock-banner--low-stock {
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #92400e;
+}
+.inv-pdp__stock-banner--low-stock .inv-pdp__stock-dot {
+  background: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+}
+
+/* --- Recommendations Section --- */
+.inv-recs {
+  padding: var(--pdp-space-2xl, 48px) 0;
+  border-top: 1px solid var(--pdp-grey-200, #e5e5e5);
+}
+.inv-recs__header {
+  margin-bottom: var(--pdp-space-lg, 24px);
+}
+.inv-recs__title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--pdp-text, #1a1a1a);
+  margin: 0;
+}
+.inv-recs__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  gap: 16px;
+  overflow: hidden;
+}
+.inv-recs__item {
+  min-width: 0;
+}
+.inv-recs__item:nth-child(n+5) {
+  display: none;
+}
+@media (max-width: 989px) {
+  .inv-recs__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 749px) {
+  .inv-recs__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .inv-recs__item:nth-child(n+5) {
+    display: none;
+  }
+  .inv-recs__title {
+    font-size: 18px;
+  }
+}
+
+/* --- Hidden utility (replaces inline display:none) --- */
+.inv-pdp--hidden { display: none; }
+
+/* --- Mobile adjustments for new elements --- */
+@media (max-width: 749px) {
+  .inv-pdp__collect {
+    padding: 10px 12px;
+  }
+  .inv-pdp__trade-callout {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}

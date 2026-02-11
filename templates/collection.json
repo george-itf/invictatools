@@ -26,7 +26,7 @@
         "background_color": "#ffffff",
         "availability_row_bg": "#f9fafb",
         "availability_row_border": "#e5e5e5",
-        "availability_active_bg": "#e11d26",
+        "availability_active_bg": "#e41e25",
         "brand_row_bg": "#f9fafb",
         "type_row_bg": "#ffffff",
         "text_color": "#1a1a1a",
@@ -34,11 +34,11 @@
         "button_text": "#1a1a1a",
         "button_border": "#e5e5e5",
         "button_hover_bg": "#f5f5f5",
-        "button_active_bg": "#e11d26",
+        "button_active_bg": "#e41e25",
         "button_active_text": "#ffffff",
         "active_bar_bg": "#fef2f2",
         "active_bar_border": "#fecaca",
-        "tag_brand_bg": "#e11d26",
+        "tag_brand_bg": "#e41e25",
         "tag_type_bg": "#2d2d2d"
       }
     },

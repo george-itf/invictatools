@@ -28,7 +28,7 @@
       {%- if order.cancelled -%}
         {%- assign cancelled_at = order.cancelled_at | time_tag: format: 'date_at_time' -%}
         <p>{{ 'customer.order.cancelled_html' | t: date: cancelled_at }}</p>
-        <p>{{ 'customer.order.cancelled_reason' | t: reason: order.cancel_reason_label }}</p>
+        <p>{{ 'customer.order.cancelled_reason' | t: reason: order.cancel_reason_label | escape }}</p>
       {%- endif -%}
 
       <table role="table" class="order-details">
@@ -70,19 +70,19 @@
                       {%- endunless -%}
                       {%- unless line_item.selling_plan_allocation == null -%}
                         <span>
-                          {{ line_item.selling_plan_allocation.selling_plan.name }}
+                          {{ line_item.selling_plan_allocation.selling_plan.name | escape }}
                         </span>
                       {%- endunless -%}
                       {%- if property_size != 0 -%}
                         {%- for property in line_item.properties -%}
                           {% assign property_first_char = property.first | slice: 0 %}
                           {%- if property.last != blank and property_first_char != '_' -%}
-                            <span>{{ property.first }}:</span>
+                            <span>{{ property.first | escape }}:</span>
                             <span>
                               {%- if property.last contains '/uploads/' -%}
-                                <a href="{{ property.last }}">{{ property.last | split: '/' | last }}</a>
+                                <a href="{{ property.last }}">{{ property.last | split: '/' | last | escape }}</a>
                               {%- else -%}
-                                {{ property.last }}
+                                {{ property.last | escape }}
                               {%- endif -%}
                             </span>
                           {%- endif -%}
@@ -117,9 +117,9 @@
                         </a>
                       {%- endif -%}
                       <span>
-                        {{ line_item.fulfillment.tracking_company }}
+                        {{ line_item.fulfillment.tracking_company | escape }}
                         {%- if line_item.fulfillment.tracking_number -%}
-                          #{{ line_item.fulfillment.tracking_number }}
+                          #{{ line_item.fulfillment.tracking_number | escape }}
                         {%- endif -%}
                       </span>
                     </div>
@@ -131,7 +131,7 @@
                 role="cell"
                 data-label="{{ 'customer.order.sku' | t }}"
               >
-                {{ line_item.sku }}
+                {{ line_item.sku | escape }}
               </td>
               <td
                 headers="Row{{ line_item.key }} ColumnPrice"
@@ -309,7 +309,7 @@
         <h2>{{ 'customer.order.billing_address' | t }}</h2>
         <p>
           <strong>{{ 'customer.order.payment_status' | t }}:</strong>
-          {{ order.financial_status_label }}
+          {{ order.financial_status_label | escape }}
         </p>
         {{ order.billing_address | format_address }}
       </div>
@@ -317,7 +317,7 @@
         <h2>{{ 'customer.order.shipping_address' | t }}</h2>
         <p>
           <strong>{{ 'customer.order.fulfillment_status' | t }}:</strong>
-          {{ order.fulfillment_status_label }}
+          {{ order.fulfillment_status_label | escape }}
         </p>
         {{ order.shipping_address | format_address }}
       </div>

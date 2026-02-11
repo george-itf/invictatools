@@ -166,7 +166,7 @@
     {%- comment -%} Action button {%- endcomment -%}
     <div class="inv-card__action">
       {%- if available -%}
-        <form action="/cart/add" method="post" class="inv-card__form">
+        {% form 'product', product, class: 'inv-card__form' %}
           <input type="hidden" name="id" value="{{ current_variant.id }}">
           <input type="hidden" name="quantity" value="1">
           <button type="submit" class="inv-card__btn inv-card__btn--add">
@@ -177,7 +177,7 @@
             </svg>
             {{ 'invicta.product.add_to_cart' | t }}
           </button>
-        </form>
+        {% endform %}
       {%- else -%}
         <button type="button" class="inv-card__btn inv-card__btn--notify" data-product-id="{{ product.id }}">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">

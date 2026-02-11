@@ -1,0 +1,528 @@
+/* ============================================
+   INVICTA COLLECTION FILTERS v4.0
+   Static CSS — extracted for performance.
+   Dynamic (Liquid-dependent) rules remain inline
+   in sections/invicta-collection-filters.liquid.
+   ============================================ */
+
+.inv-filters__container {
+  max-width: var(--page-width, 1200px);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ----------------------------------------
+   FILTER ROWS
+   ---------------------------------------- */
+
+.inv-filters__row {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--inv-filter-btn-border);
+}
+
+/* Availability buttons - slightly different styling */
+.inv-filters__buttons--availability {
+  gap: 12px;
+}
+
+.inv-filters__btn--availability {
+  padding: 10px 20px;
+  font-weight: 600;
+  border-width: 2px;
+}
+
+.inv-filters__btn--availability .inv-filters__btn-icon {
+  flex-shrink: 0;
+  margin-right: 6px;
+  width: 16px;
+  height: 16px;
+}
+
+.inv-filters__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.inv-filters__label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--inv-filter-text);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.inv-filters__count {
+  font-size: 11px;
+  color: #888;
+}
+
+/* ----------------------------------------
+   SCROLL CONTAINER WITH ARROWS
+   ---------------------------------------- */
+
+.inv-filters__scroll-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inv-filters__scroll-btn {
+  /* Reset Trade theme defaults */
+  all: unset;
+  box-sizing: border-box;
+
+  /* Our styles */
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: #fff;
+  border: 1px solid var(--inv-filter-btn-border);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  /* Prevent oval/pill shape */
+  min-width: 32px;
+  min-height: 32px;
+  aspect-ratio: 1;
+}
+
+.inv-filters__scroll-btn:hover {
+  background: var(--inv-filter-btn-hover-bg);
+  border-color: #bbb;
+}
+
+.inv-filters__scroll-btn:focus-visible {
+  outline: 2px solid var(--inv-filter-btn-active-bg);
+  outline-offset: 2px;
+}
+
+.inv-filters__scroll-btn[hidden] {
+  display: none !important;
+}
+
+.inv-filters__scroll-btn--left {
+  left: -16px;
+}
+
+.inv-filters__scroll-btn--right {
+  right: -16px;
+}
+
+.inv-filters__scroll-btn svg {
+  color: var(--inv-filter-text);
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ----------------------------------------
+   SCROLL WRAPPER
+   ---------------------------------------- */
+
+.inv-filters__scroll-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  flex: 1;
+}
+
+.inv-filters__scroll-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+/* ----------------------------------------
+   FILTER BUTTONS — Theme-safe overrides
+   ---------------------------------------- */
+
+.inv-filters__buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.inv-filters__btn {
+  /* Reset Trade theme defaults */
+  all: unset;
+  box-sizing: border-box;
+
+  /* Our styles */
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 16px;
+  min-height: 44px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  color: var(--inv-filter-btn-text);
+  background: var(--inv-filter-btn-bg);
+  border: 1px solid var(--inv-filter-btn-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  /* Prevent oval/pill shape */
+  min-width: auto;
+  width: auto;
+  height: auto;
+  aspect-ratio: unset;
+}
+
+.inv-filters__btn:hover {
+  background: var(--inv-filter-btn-hover-bg);
+  border-color: #bbb;
+}
+
+.inv-filters__btn:focus-visible {
+  outline: 2px solid var(--inv-filter-btn-active-bg);
+  outline-offset: 2px;
+}
+
+.inv-filters__btn--active {
+  color: var(--inv-filter-btn-active-text);
+  background: var(--inv-filter-btn-active-bg);
+  border-color: var(--inv-filter-btn-active-bg);
+  animation: inv-filter-pop 0.2s ease;
+}
+
+.inv-filters__btn--active:hover {
+  background: var(--inv-filter-btn-active-bg);
+  border-color: var(--inv-filter-btn-active-bg);
+  opacity: 0.9;
+}
+
+.inv-filters__btn-text {
+  line-height: 1;
+}
+
+.inv-filters__btn-count {
+  font-size: 10px;
+  opacity: 0.7;
+  line-height: 1;
+}
+
+.inv-filters__btn-icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+@keyframes inv-filter-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* ----------------------------------------
+   ACTIVE FILTERS BAR
+   ---------------------------------------- */
+
+.inv-filters__active-bar {
+  padding: 12px 0;
+  background: var(--inv-filter-active-bar-bg);
+  border-bottom: 1px solid var(--inv-filter-active-bar-border);
+  transition: opacity 0.2s ease, max-height 0.3s ease;
+}
+
+.inv-filters__active-bar--hidden {
+  display: none;
+}
+
+.inv-filters__active-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.inv-filters__active-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.inv-filters__active-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--inv-filter-text);
+}
+
+.inv-filters__active-tags {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.inv-filters__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  border-radius: 4px;
+  animation: inv-tag-in 0.2s ease;
+}
+
+.inv-filters__tag--brand {
+  background: var(--inv-filter-tag-brand-bg);
+}
+
+.inv-filters__tag--type {
+  background: var(--inv-filter-tag-type-bg);
+}
+
+.inv-filters__tag-text {
+  line-height: 1;
+}
+
+.inv-filters__tag-remove {
+  /* Reset Trade theme defaults */
+  all: unset;
+  box-sizing: border-box;
+
+  /* Our styles */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+  min-height: 14px;
+  background: none;
+  border: none;
+  color: inherit;
+  opacity: 0.8;
+  cursor: pointer;
+  transition: opacity 0.1s ease;
+}
+
+.inv-filters__tag-remove:hover {
+  opacity: 1;
+}
+
+.inv-filters__tag-remove svg {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+}
+
+.inv-filters__tag-separator {
+  font-size: 11px;
+  font-weight: 700;
+  color: #999;
+}
+
+@keyframes inv-tag-in {
+  0% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.inv-filters__clear-all {
+  /* Reset Trade theme defaults */
+  all: unset;
+  box-sizing: border-box;
+
+  /* Our styles */
+  padding: 8px 14px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--inv-filter-btn-active-bg);
+  background: #fff;
+  border: 1px solid var(--inv-filter-btn-active-bg);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.inv-filters__clear-all:hover {
+  color: #fff;
+  background: var(--inv-filter-btn-active-bg);
+}
+
+.inv-filters__clear-all:focus-visible {
+  outline: 2px solid var(--inv-filter-btn-active-bg);
+  outline-offset: 2px;
+}
+
+/* ----------------------------------------
+   LOADING STATE
+   ---------------------------------------- */
+
+.inv-filters--loading {
+  pointer-events: none;
+}
+
+.inv-filters--loading .inv-filters__btn,
+.inv-filters--loading .inv-filters__tag,
+.inv-filters--loading .inv-filters__clear-all {
+  opacity: 0.6;
+}
+
+/* ----------------------------------------
+   SKELETON LOADING (applied to product grid)
+   ---------------------------------------- */
+
+.inv-grid--loading .inv-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.inv-grid--loading .inv-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: inv-shimmer 1.2s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.inv-grid--loading .inv-card > * {
+  opacity: 0.4;
+}
+
+@keyframes inv-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ----------------------------------------
+   RESPONSIVE
+   ---------------------------------------- */
+
+@media (max-width: 989px) {
+  .inv-filters__container {
+    padding: 0 1rem;
+  }
+
+  .inv-filters__btn {
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+
+  .inv-filters__scroll-btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  .inv-filters__scroll-btn--left {
+    left: -12px;
+  }
+
+  .inv-filters__scroll-btn--right {
+    right: -12px;
+  }
+}
+
+@media (max-width: 749px) {
+  .inv-filters__row {
+    padding: 12px 0;
+  }
+
+  .inv-filters__header {
+    margin-bottom: 10px;
+  }
+
+  .inv-filters__btn {
+    padding: 7px 10px;
+    font-size: 10px;
+  }
+
+  .inv-filters__scroll-btn {
+    width: 24px;
+    height: 24px;
+  }
+
+  .inv-filters__scroll-btn--left {
+    left: -8px;
+  }
+
+  .inv-filters__scroll-btn--right {
+    right: -8px;
+  }
+
+  .inv-filters__scroll-btn svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .inv-filters__active-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .inv-filters__clear-all {
+    align-self: flex-end;
+  }
+
+  .inv-filters__tag {
+    padding: 4px 6px;
+    font-size: 9px;
+  }
+}
+
+/* ----------------------------------------
+   REDUCED MOTION
+   ---------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .inv-filters__btn,
+  .inv-filters__tag,
+  .inv-filters__clear-all,
+  .inv-filters__active-bar {
+    transition: none;
+    animation: none;
+  }
+
+  .inv-grid--loading .inv-card::after {
+    animation: none;
+    opacity: 0.3;
+  }
+}
+
+/* ----------------------------------------
+   VISUALLY HIDDEN (accessibility)
+   ---------------------------------------- */
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}

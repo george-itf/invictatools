@@ -1,0 +1,156 @@
+/**
+ * Invicta Cart Handler
+ * Manages add-to-cart actions from product cards
+ * Extracted from inline script in snippets/invicta-cart-handler.liquid
+ */
+(function() {
+  'use strict';
+
+  /**
+   * Invicta Cart Handler
+   * Manages add-to-cart actions from product cards
+   * @class
+   */
+  class InvictaCartHandler {
+    constructor() {
+      this.cartCountSelectors = [
+        '.cart-count-bubble span[aria-hidden="true"]',
+        '.header__cart-count',
+        '[data-cart-count]',
+        '.cart-count'
+      ];
+
+      this.init();
+    }
+
+    /**
+     * Initialise event listeners
+     */
+    init() {
+      document.addEventListener('click', (e) => {
+        const addBtn = e.target.closest('[data-add-to-cart]');
+        if (addBtn) {
+          e.preventDefault();
+          this.handleAddToCart(addBtn);
+        }
+      });
+    }
+
+    /**
+     * Handle add to cart button click
+     * @param {HTMLElement} button - The clicked button
+     */
+    async handleAddToCart(button) {
+      const variantId = button.dataset.variantId;
+      const quantity = parseInt(button.dataset.quantity || '1', 10);
+
+      if (!variantId) {
+        console.error('No variant ID found');
+        return;
+      }
+
+      // Set loading state
+      button.classList.add('inv-card__btn--loading');
+      const originalHtml = button.innerHTML;
+      button.innerHTML = '<span>Adding...</span>';
+      button.disabled = true;
+
+      try {
+        const response = await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            id: parseInt(variantId, 10),
+            quantity: quantity
+          })
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.description || 'Failed to add to cart');
+        }
+
+        const item = await response.json();
+
+        // Success state
+        button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Added!</span>';
+        button.classList.remove('inv-card__btn--loading');
+
+        // Update cart count
+        this.updateCartCount();
+
+        // Dispatch custom event for other scripts to hook into
+        document.dispatchEvent(new CustomEvent('invicta:cart:added', {
+          detail: { item, button }
+        }));
+
+        // Reset button after delay
+        setTimeout(() => {
+          button.innerHTML = originalHtml;
+          button.disabled = false;
+        }, 1500);
+
+      } catch (error) {
+        console.error('Add to cart error:', error);
+
+        // Error state
+        button.innerHTML = '<span>Error</span>';
+        button.classList.remove('inv-card__btn--loading');
+
+        // Reset button after delay
+        setTimeout(() => {
+          button.innerHTML = originalHtml;
+          button.disabled = false;
+        }, 2000);
+      }
+    }
+
+    /**
+     * Update cart count in header
+     */
+    async updateCartCount() {
+      try {
+        const response = await fetch('/cart.js', {
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (!response.ok) return;
+
+        const cart = await response.json();
+        const count = cart.item_count;
+
+        // Try multiple selectors to find cart count element
+        for (const selector of this.cartCountSelectors) {
+          const elements = document.querySelectorAll(selector);
+          elements.forEach(el => {
+            el.textContent = count;
+
+            // Show/hide based on count
+            const bubble = el.closest('.cart-count-bubble, [data-cart-bubble]');
+            if (bubble) {
+              bubble.style.display = count > 0 ? '' : 'none';
+            }
+          });
+        }
+
+        // Dispatch event for custom cart count handlers
+        document.dispatchEvent(new CustomEvent('invicta:cart:updated', {
+          detail: { cart }
+        }));
+
+      } catch (error) {
+        console.error('Failed to update cart count:', error);
+      }
+    }
+  }
+
+  // Initialise
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => new InvictaCartHandler());
+  } else {
+    new InvictaCartHandler();
+  }
+})();

@@ -88,7 +88,7 @@
       ],
       "settings": {
         "background_color": "#fdfdfd",
-        "accent_color": "#e11d26",
+        "accent_color": "#e41e25",
         "text_color": "#2d2d2d",
         "subtitle_color": "#999999",
         "divider_color": "#333333",
@@ -194,6 +194,36 @@
             "distance": "Ramsgate Branch \u00b7 0\u201310 min",
             "url": "/pages/power-tools-thanet"
           }
+        },
+        "branch_canterbury": {
+          "type": "branch",
+          "settings": {
+            "branch_name": "Canterbury",
+            "address_line_1": "Unit 9 Cotton Road",
+            "address_line_2": "Wincheap Industrial Estate",
+            "city": "Canterbury",
+            "postcode": "CT1 3TB",
+            "phone": "01843 210 459",
+            "phone_href": "tel:+441843210459",
+            "hours_weekday": "Mon\u2013Fri 7:30\u201317:00",
+            "hours_saturday": "Sat 8:00\u201312:00",
+            "map_url": "https://maps.google.com/?q=Unit+9+Cotton+Road+Wincheap+Industrial+Estate+Canterbury+CT1+3TB"
+          }
+        },
+        "branch_ramsgate": {
+          "type": "branch",
+          "settings": {
+            "branch_name": "Ramsgate",
+            "address_line_1": "Unit 74 The Oaks Business Park",
+            "address_line_2": "Invicta Way",
+            "city": "Ramsgate",
+            "postcode": "CT12 5FS",
+            "phone": "01843 210 459",
+            "phone_href": "tel:+441843210459",
+            "hours_weekday": "Mon\u2013Fri 7:30\u201317:00",
+            "hours_saturday": "Sat 8:00\u201312:00",
+            "map_url": "https://maps.google.com/?q=Unit+74+The+Oaks+Business+Park+Invicta+Way+Ramsgate+CT12+5FS"
+          }
         }
       },
       "block_order": [
@@ -208,7 +238,9 @@
         "t9",
         "t10",
         "t11",
-        "t12"
+        "t12",
+        "branch_canterbury",
+        "branch_ramsgate"
       ],
       "settings": {
         "title": "Find Your Nearest Branch",
