@@ -13,9 +13,9 @@
       "type": "invicta-collection-filters",
       "name": "Invicta Filters",
       "settings": {
-        "show_availability_filters": true,
-        "show_brand_filters": true,
-        "show_type_filters": true,
+        "show_availability_filters": false,
+        "show_brand_filters": false,
+        "show_type_filters": false,
         "excluded_ranges": "Cutting & Sawing, Site Tools & Equipment",
         "show_counts": true,
         "availability_label": "Availability",
@@ -79,4 +79,3 @@
     "invicta_product_grid_KU7TrY"
   ]
 }
-
