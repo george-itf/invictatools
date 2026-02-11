@@ -1,1 +1,87 @@
-{"name":"t:sections.header.name","type":"header","sections":{"announcement-bar":{"type":"announcement-bar","blocks":{"announcement-bar-0":{"type":"announcement","settings":{"text":"FREE NEXT-DAY DELIVERY OVER £30","link":""}}},"block_order":["announcement-bar-0"],"settings":{"auto_rotate":false,"change_slides_speed":5,"color_scheme":"scheme-4","show_line_separator":false,"show_social":false,"enable_country_selector":false,"enable_language_selector":false}},"header_invicta_eLmeMd":{"type":"header-invicta","name":"Invicta Header","settings":{}},"invicta_simple_nav":{"type":"invicta-simple-nav","settings":{"menu":"simple-menu","alignment":"space-evenly","item_flex":"1","padding_vertical":20,"padding_horizontal":8,"bar_bg_color":"#282c31","text_color":"#f4f4f4","hover_bg_color":"#f4f4f4","hover_text_color":"#e41e25","active_bg_color":"#f4f4f4","active_text_color":"#e41e25","font_size":13,"font_weight":"600","text_transform":"uppercase","letter_spacing":0,"border_top_width":0,"border_bottom_width":0,"border_color":"#e0e0e0","divider_width":1,"divider_height":60,"divider_color":"#e0e0e0","show_underline":true,"underline_height":2,"underline_color":"#e41e25","show_dropdown_icon":false,"icon_size":12,"highlight_last_item":true,"highlight_bg_color":"#ffffff","highlight_text_color":"#282c31","highlight_hover_bg_color":"#282c31","highlight_hover_text_color":"#ffffff","highlight_font_weight":"700","highlight_border_radius":4}}},"order":["announcement-bar","header_invicta_eLmeMd","invicta_simple_nav"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement-bar-0": {
+          "type": "announcement",
+          "settings": {
+            "text": "FREE NEXT-DAY DELIVERY OVER £30",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement-bar-0"
+      ],
+      "settings": {
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "color_scheme": "scheme-4",
+        "show_line_separator": false,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
+    "header_invicta_eLmeMd": {
+      "type": "header-invicta",
+      "name": "Invicta Header",
+      "settings": {}
+    },
+    "invicta_simple_nav": {
+      "type": "invicta-simple-nav",
+      "settings": {
+        "menu": "simple-menu",
+        "alignment": "space-evenly",
+        "item_flex": "1",
+        "padding_vertical": 20,
+        "padding_horizontal": 8,
+        "bar_bg_color": "#282c31",
+        "text_color": "#f4f4f4",
+        "hover_bg_color": "#f4f4f4",
+        "hover_text_color": "#e41e25",
+        "active_bg_color": "#f4f4f4",
+        "active_text_color": "#e41e25",
+        "font_size": 13,
+        "font_weight": "600",
+        "text_transform": "uppercase",
+        "letter_spacing": 0,
+        "border_top_width": 0,
+        "border_bottom_width": 0,
+        "border_color": "#e0e0e0",
+        "divider_width": 1,
+        "divider_height": 60,
+        "divider_color": "#e0e0e0",
+        "show_underline": true,
+        "underline_height": 2,
+        "underline_color": "#e41e25",
+        "show_dropdown_icon": false,
+        "icon_size": 12,
+        "highlight_last_item": true,
+        "highlight_bg_color": "#ffffff",
+        "highlight_text_color": "#282c31",
+        "highlight_hover_bg_color": "#282c31",
+        "highlight_hover_text_color": "#ffffff",
+        "highlight_font_weight": "700",
+        "highlight_border_radius": 4
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header_invicta_eLmeMd",
+    "invicta_simple_nav"
+  ]
+}
