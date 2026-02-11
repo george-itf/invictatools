@@ -33,16 +33,23 @@
    HAMBURGER MENU BUTTON — Mobile Only
    ======================================================= */
 .invicta-header__menu-btn {
+  /* Reset generic button styles from base.css */
+  min-width: 44px;
+  max-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+  /* Hamburger button styling */
   display: none;
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   border-radius: 999px;
   align-items: center;
   justify-content: center;
   background: rgba(255, 255, 255, 0.15);
   cursor: pointer;
   border: none;
-  padding: 0;
   flex-shrink: 0;
   transition: background 0.16s ease;
 }
@@ -626,9 +633,14 @@
     justify-items: center;
   }
 
-  /* Menu button — left */
+  /* Menu button — left, match cart icon size */
   .invicta-header__menu-btn {
     justify-self: start;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    max-width: 38px;
+    min-height: 38px;
   }
 
   /* Logo — center */

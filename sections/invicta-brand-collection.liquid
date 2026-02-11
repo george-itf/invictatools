@@ -1,18 +1,17 @@
 {%- comment -%}
   ============================================================================
-  INVICTA COLLECTION v9.0
+  INVICTA BRAND COLLECTION v1.0
   ============================================================================
-  
-  Complete rebuild with app-style mobile experience
-  
-  Features:
-  - Compact centered hero
-  - Sticky toolbar
-  - 2-column mobile grid
-  - Bottom sheet filter drawer
-  - Floating filter button
-  - Back to top pill
-  
+
+  Brand/vendor collection variant (Makita, DeWalt, etc.)
+  Based on Invicta Collection v9.1
+
+  Differences from invicta-collection.liquid:
+  - Hero section replaced with invicta-brand-hero snippet render
+  - Schema includes brand_description textarea
+  - Badge defaults changed for brand context
+  - No enabled_on restrictions (called from specific template)
+
   ============================================================================
 {%- endcomment -%}
 
@@ -37,14 +36,14 @@
   endfor
 
   assign current_sort = collection.sort_by | default: collection.default_sort_by
-  
+
   # ----------------------------------------
   # FULL CATALOGUE LINK
   # ----------------------------------------
   assign full_catalogue_collection = section.settings.full_catalogue_collection
   assign full_catalogue_count = section.settings.full_catalogue_count | default: 0
   assign show_full_catalogue_link = false
-  
+
   if full_catalogue_collection != blank and full_catalogue_count > 0
     assign show_full_catalogue_link = true
   endif
@@ -57,83 +56,9 @@
 <div class="inv-collection" data-section-id="{{ section.id }}">
 
   {%- comment -%} ================================================================
-     1. HERO SECTION
+     1. BRAND HERO SECTION
   ================================================================ {%- endcomment -%}
-  <section class="inv-hero">
-    <div class="page-width">
-      <div class="inv-hero__inner">
-        
-        {%- comment -%} Accent bar {%- endcomment -%}
-        <div class="inv-hero__accent"></div>
-        
-        {%- comment -%} Title + Count {%- endcomment -%}
-        <div class="inv-hero__row">
-          <h1 class="inv-hero__title">{{ collection.title | escape }}</h1>
-          <span class="inv-hero__count">{{ collection.products_count }} Products</span>
-        </div>
-        
-        {%- comment -%} Subheading {%- endcomment -%}
-        {%- if section.settings.hero_subheading != blank -%}
-          <p class="inv-hero__subheading">{{ section.settings.hero_subheading }}</p>
-        {%- elsif collection.description != blank -%}
-          <p class="inv-hero__subheading">{{ collection.description | strip_html | truncate: 120 }}</p>
-        {%- endif -%}
-        
-        {%- comment -%} USP Pills {%- endcomment -%}
-        <div class="inv-hero__usps">
-          {%- if section.settings.badge_1 != blank -%}
-            <a href="{{ section.settings.badge_1_link | default: '#' }}" class="inv-usp-pill">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              </svg>
-              <span>{{ section.settings.badge_1 }}</span>
-            </a>
-          {%- endif -%}
-          {%- if section.settings.badge_2 != blank -%}
-            <a href="{{ section.settings.badge_2_link | default: '#' }}" class="inv-usp-pill">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="1" y="3" width="15" height="13" rx="2"/>
-                <path d="m16 8 4 2v7l-4 2V8z"/>
-                <path d="M5 12h4"/>
-              </svg>
-              <span>{{ section.settings.badge_2 }}</span>
-            </a>
-          {%- endif -%}
-          {%- if section.settings.badge_3 != blank -%}
-            <a href="{{ section.settings.badge_3_link | default: '#' }}" class="inv-usp-pill">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-              <span>{{ section.settings.badge_3 }}</span>
-            </a>
-          {%- endif -%}
-        </div>
-        
-        {%- comment -%} Brand Quick Filters {%- endcomment -%}
-        {%- if show_brand_filters -%}
-          {%- for filter in collection.filters -%}
-            {%- if filter.param_name == 'filter.p.vendor' or filter.label == 'Brand' -%}
-              <div class="inv-hero__brands">
-                {%- for value in filter.values limit: 8 -%}
-                  {%- assign brand_handle = value.label | handleize -%}
-                  <a
-                    href="{{ value.url }}"
-                    rel="nofollow"
-                    class="inv-brand-pill inv-brand-pill--{{ brand_handle }}{% if value.active %} is-active{% endif %}"
-                  >
-                    {{ value.label }}
-                  </a>
-                {%- endfor -%}
-              </div>
-              {%- break -%}
-            {%- endif -%}
-          {%- endfor -%}
-        {%- endif -%}
-        
-      </div>
-    </div>
-  </section>
+  {% render 'invicta-brand-hero', collection: collection, badge_1: section.settings.badge_1, badge_2: section.settings.badge_2, badge_3: section.settings.badge_3, subheading: section.settings.hero_subheading %}
 
 
   {%- comment -%} ================================================================
@@ -148,8 +73,8 @@
       </ol>
     </div>
   </nav>
-  
-  
+
+
   {%- comment -%} ================================================================
      2B. FULL CATALOGUE LINK
      Shows link to browse all products (including non-stocked items)
@@ -181,7 +106,7 @@
   <div class="inv-toolbar" id="InvToolbar">
     <div class="page-width">
       <div class="inv-toolbar__inner">
-        
+
         {%- comment -%} Left: Count + Filter button {%- endcomment -%}
         <div class="inv-toolbar__left">
           <span class="inv-toolbar__count">
@@ -205,7 +130,7 @@
             {%- endif -%}
           </button>
         </div>
-        
+
         {%- comment -%} Right: Sort {%- endcomment -%}
         <div class="inv-toolbar__right">
           {%- if show_sort -%}
@@ -224,7 +149,7 @@
             </div>
           {%- endif -%}
         </div>
-        
+
       </div>
     </div>
   </div>
@@ -274,7 +199,7 @@
   <div class="inv-layout">
     <div class="page-width">
       <div class="inv-layout__inner">
-        
+
         {%- comment -%} ===== SIDEBAR (Desktop only) ===== {%- endcomment -%}
         <aside class="inv-sidebar" id="InvSidebar">
           <form id="InvFilterForm" class="inv-filter-form">
@@ -284,7 +209,7 @@
                 <a href="{{ collection.url }}" class="inv-sidebar__clear">{{ 'products.facets.clear_all' | t }}</a>
               {%- endif -%}
             </div>
-            
+
             {%- for filter in collection.filters -%}
               <details class="inv-facet" open>
                 <summary class="inv-facet__header">
@@ -294,16 +219,16 @@
                   </svg>
                 </summary>
                 <div class="inv-facet__body">
-                  
+
                   {%- case filter.type -%}
                     {%- when 'list' or 'boolean' -%}
                       <ul class="inv-facet__list">
                         {%- for value in filter.values -%}
                           <li class="inv-facet__item">
                             <label class="inv-facet__label-wrap">
-                              <input 
-                                type="checkbox" 
-                                name="{{ value.param_name }}" 
+                              <input
+                                type="checkbox"
+                                name="{{ value.param_name }}"
                                 value="{{ value.value }}"
                                 class="inv-facet__checkbox"
                                 {% if value.active %}checked{% endif %}
@@ -315,14 +240,14 @@
                           </li>
                         {%- endfor -%}
                       </ul>
-                      
+
                     {%- when 'price_range' -%}
                       <div class="inv-facet__price-row">
                         <div class="inv-facet__price-field">
                           <span class="inv-facet__price-symbol">£</span>
-                          <input 
-                            type="number" 
-                            name="{{ filter.min_value.param_name }}" 
+                          <input
+                            type="number"
+                            name="{{ filter.min_value.param_name }}"
                             class="inv-facet__price-input"
                             placeholder="Min"
                             min="0"
@@ -333,9 +258,9 @@
                         <span class="inv-facet__price-sep">–</span>
                         <div class="inv-facet__price-field">
                           <span class="inv-facet__price-symbol">£</span>
-                          <input 
-                            type="number" 
-                            name="{{ filter.max_value.param_name }}" 
+                          <input
+                            type="number"
+                            name="{{ filter.max_value.param_name }}"
                             class="inv-facet__price-input"
                             placeholder="Max"
                             min="0"
@@ -345,25 +270,25 @@
                         </div>
                       </div>
                   {%- endcase -%}
-                  
+
                 </div>
               </details>
             {%- endfor -%}
-            
+
             <button type="submit" class="inv-sidebar__apply">
               {{ section.settings.apply_text | default: 'Apply Filters' }}
             </button>
           </form>
         </aside>
-        
-        
+
+
         {%- comment -%} ===== MAIN CONTENT ===== {%- endcomment -%}
         <main class="inv-main" id="InvMain">
-          
+
           {%- paginate collection.products by products_per_page -%}
-            
+
             {%- if collection.products.size > 0 -%}
-              
+
               {%- comment -%} Product Grid {%- endcomment -%}
               <div class="inv-product-grid" id="InvProductGrid">
                 {%- for product in collection.products -%}
@@ -375,7 +300,7 @@
                   </div>
                 {%- endfor -%}
               </div>
-              
+
               {%- comment -%} Pagination {%- endcomment -%}
               {%- if paginate.pages > 1 -%}
                 <nav class="inv-pagination" aria-label="Pagination">
@@ -386,7 +311,7 @@
                       </svg>
                     </a>
                   {%- endif -%}
-                  
+
                   {%- for part in paginate.parts -%}
                     {%- if part.is_link -%}
                       <a href="{{ part.url }}" class="inv-pagination__item">{{ part.title }}</a>
@@ -396,7 +321,7 @@
                       <span class="inv-pagination__item inv-pagination__item--ellipsis">{{ part.title }}</span>
                     {%- endif -%}
                   {%- endfor -%}
-                  
+
                   {%- if paginate.next -%}
                     <a href="{{ paginate.next.url }}" class="inv-pagination__item inv-pagination__item--arrow" aria-label="Next page">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -406,9 +331,9 @@
                   {%- endif -%}
                 </nav>
               {%- endif -%}
-              
+
             {%- else -%}
-              
+
               {%- comment -%} Empty State {%- endcomment -%}
               <div class="inv-empty">
                 <svg class="inv-empty__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -419,13 +344,13 @@
                 <p class="inv-empty__text">Try adjusting your filters or browse all products.</p>
                 <a href="{{ collection.url }}" class="inv-empty__btn">Clear Filters</a>
               </div>
-              
+
             {%- endif -%}
-            
+
           {%- endpaginate -%}
-          
+
         </main>
-        
+
       </div>
     </div>
   </div>
@@ -435,7 +360,7 @@
      6. MOBILE FILTER DRAWER
   ================================================================ {%- endcomment -%}
   <div class="inv-drawer-overlay" id="InvDrawerOverlay"></div>
-  
+
   <div class="inv-drawer" id="InvDrawer" aria-hidden="true">
     <div class="inv-drawer__header">
       <span class="inv-drawer__title">Filters</span>
@@ -445,7 +370,7 @@
         </svg>
       </button>
     </div>
-    
+
     <div class="inv-drawer__body" id="InvDrawerBody">
       {%- comment -%} Filters rendered inline {%- endcomment -%}
       <form id="InvDrawerForm" class="inv-drawer-form">
@@ -458,16 +383,16 @@
               </svg>
             </summary>
             <div class="inv-facet__body">
-              
+
               {%- case filter.type -%}
                 {%- when 'list' or 'boolean' -%}
                   <ul class="inv-facet__list">
                     {%- for value in filter.values -%}
                       <li class="inv-facet__item">
                         <label class="inv-facet__label-wrap">
-                          <input 
-                            type="checkbox" 
-                            name="{{ value.param_name }}" 
+                          <input
+                            type="checkbox"
+                            name="{{ value.param_name }}"
                             value="{{ value.value }}"
                             class="inv-facet__checkbox"
                             {% if value.active %}checked{% endif %}
@@ -479,14 +404,14 @@
                       </li>
                     {%- endfor -%}
                   </ul>
-                  
+
                 {%- when 'price_range' -%}
                   <div class="inv-facet__price-row">
                     <div class="inv-facet__price-field">
                       <span class="inv-facet__price-symbol">£</span>
-                      <input 
-                        type="number" 
-                        name="{{ filter.min_value.param_name }}" 
+                      <input
+                        type="number"
+                        name="{{ filter.min_value.param_name }}"
                         class="inv-facet__price-input"
                         placeholder="Min"
                         min="0"
@@ -497,9 +422,9 @@
                     <span class="inv-facet__price-sep">–</span>
                     <div class="inv-facet__price-field">
                       <span class="inv-facet__price-symbol">£</span>
-                      <input 
-                        type="number" 
-                        name="{{ filter.max_value.param_name }}" 
+                      <input
+                        type="number"
+                        name="{{ filter.max_value.param_name }}"
                         class="inv-facet__price-input"
                         placeholder="Max"
                         min="0"
@@ -509,13 +434,13 @@
                     </div>
                   </div>
               {%- endcase -%}
-              
+
             </div>
           </details>
         {%- endfor -%}
       </form>
     </div>
-    
+
     <div class="inv-drawer__footer">
       <a href="{{ collection.url }}" class="inv-drawer__reset">{{ 'products.facets.clear_all' | t }}</a>
       <button type="button" class="inv-drawer__apply" id="InvDrawerApply">Apply Filters</button>
@@ -568,7 +493,7 @@
   /* ==========================================================================
      DOM ELEMENTS
      ========================================================================== */
-  
+
   var drawer = document.getElementById('InvDrawer');
   var overlay = document.getElementById('InvDrawerOverlay');
   var drawerClose = document.getElementById('InvDrawerClose');
@@ -580,11 +505,11 @@
   var sortSelect = document.getElementById('InvSortSelect');
   var toolbar = document.getElementById('InvToolbar');
   var hero = document.querySelector('.inv-hero');
-  
+
   /* ==========================================================================
      DRAWER FUNCTIONS
      ========================================================================== */
-  
+
   function openDrawer() {
     if (!drawer || !overlay) return;
     drawer.classList.add('is-open');
@@ -593,7 +518,7 @@
     document.body.style.overflow = 'hidden';
     if (filterToggle) filterToggle.setAttribute('aria-expanded', 'true');
   }
-  
+
   function closeDrawer() {
     if (!drawer || !overlay) return;
     drawer.classList.remove('is-open');
@@ -602,7 +527,7 @@
     document.body.style.overflow = '';
     if (filterToggle) filterToggle.setAttribute('aria-expanded', 'false');
   }
-  
+
   // Open drawer — toolbar button
   if (filterToggle) {
     filterToggle.addEventListener('click', function(e) {
@@ -610,7 +535,7 @@
       openDrawer();
     });
   }
-  
+
   // Open drawer — floating button
   if (floatingFilter) {
     floatingFilter.addEventListener('click', function(e) {
@@ -618,7 +543,7 @@
       openDrawer();
     });
   }
-  
+
   // Close drawer — close button
   if (drawerClose) {
     drawerClose.addEventListener('click', function(e) {
@@ -626,25 +551,25 @@
       closeDrawer();
     });
   }
-  
+
   // Close drawer — overlay click
   if (overlay) {
     overlay.addEventListener('click', closeDrawer);
   }
-  
+
   // Close drawer — Escape key
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && drawer && drawer.classList.contains('is-open')) {
       closeDrawer();
     }
   });
-  
+
   // Apply filters
   if (drawerApply && drawerForm) {
     drawerApply.addEventListener('click', function() {
       var params = new URLSearchParams();
       var inputs = drawerForm.querySelectorAll('input:checked, input[type="number"]');
-      
+
       inputs.forEach(function(input) {
         if (input.type === 'checkbox' && input.checked) {
           params.append(input.name, input.value);
@@ -652,27 +577,27 @@
           params.append(input.name, input.value);
         }
       });
-      
+
       // Preserve sort
       if (sortSelect && sortSelect.value) {
         params.set('sort_by', sortSelect.value);
       }
-      
+
       var url = window.location.pathname;
       var queryString = params.toString();
       if (queryString) {
         url += '?' + queryString;
       }
-      
+
       closeDrawer();
       window.location.href = url;
     });
   }
-  
+
   /* ==========================================================================
      SORT
      ========================================================================== */
-  
+
   if (sortSelect) {
     sortSelect.addEventListener('change', function() {
       var params = new URLSearchParams(window.location.search);
@@ -680,66 +605,66 @@
       window.location.search = params.toString();
     });
   }
-  
+
   /* ==========================================================================
      SCROLL EFFECTS
      ========================================================================== */
-  
+
   var ticking = false;
   var heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 300;
-  
+
   function handleScroll() {
     var scrollY = window.scrollY || window.pageYOffset;
-    
+
     // Toolbar shadow
     if (toolbar) {
       toolbar.classList.toggle('is-stuck', scrollY > 10);
     }
-    
+
     // Floating filter — show after hero
     if (floatingFilter) {
       floatingFilter.classList.toggle('is-visible', scrollY > heroBottom);
     }
-    
+
     // Back to top — show after 400px
     if (scrollTopBtn) {
       scrollTopBtn.classList.toggle('is-visible', scrollY > 400);
     }
-    
+
     ticking = false;
   }
-  
+
   window.addEventListener('scroll', function() {
     if (!ticking) {
       window.requestAnimationFrame(handleScroll);
       ticking = true;
     }
   }, { passive: true });
-  
+
   // Recalculate hero height on resize
   window.addEventListener('resize', function() {
     if (hero) {
       heroBottom = hero.offsetTop + hero.offsetHeight;
     }
   }, { passive: true });
-  
+
   // Initial check
   handleScroll();
-  
+
   /* ==========================================================================
      SCROLL TO TOP
      ========================================================================== */
-  
+
   if (scrollTopBtn) {
     scrollTopBtn.addEventListener('click', function() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
-  
+
   /* ==========================================================================
      ENSURE DRAWER CLOSED ON LOAD
      ========================================================================== */
-  
+
   if (drawer) drawer.classList.remove('is-open');
   if (overlay) overlay.classList.remove('is-visible');
   document.body.style.overflow = '';
@@ -750,10 +675,20 @@
 
 {% schema %}
 {
-  "name": "Invicta Collection v9.1",
+  "name": "Invicta Brand Collection v1.0",
   "tag": "section",
   "class": "section-invicta-collection",
   "settings": [
+    {
+      "type": "header",
+      "content": "Brand Settings"
+    },
+    {
+      "type": "textarea",
+      "id": "brand_description",
+      "label": "Brand description",
+      "info": "Override the default collection description for this brand page."
+    },
     {
       "type": "header",
       "content": "Hero Section"
@@ -792,7 +727,7 @@
       "type": "text",
       "id": "badge_1",
       "label": "USP 1 — Text",
-      "default": "Trade-Trusted Brands"
+      "default": "Authorised Dealer"
     },
     {
       "type": "url",
@@ -814,7 +749,7 @@
       "type": "text",
       "id": "badge_3",
       "label": "USP 3 — Text",
-      "default": "Find in Store"
+      "default": "Trade Counter Pickup"
     },
     {
       "type": "url",
@@ -859,7 +794,7 @@
   ],
   "presets": [
     {
-      "name": "Invicta Collection v9.1"
+      "name": "Invicta Brand Collection"
     }
   ]
 }
