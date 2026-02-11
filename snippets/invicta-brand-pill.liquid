@@ -1,12 +1,16 @@
 {% comment %}
   ==========================================================================
-   INVICTA BRAND PILL ENGINE — v5.1 (WITH DOT MODE)
+   INVICTA BRAND PILL ENGINE — v6.0 (DATA-DRIVEN REFACTOR)
   --------------------------------------------------------------------------
-   • Logos loaded from theme assets as {brand_key}.svg
-   • Uses background-image logo (mobile-safe) + invisible <img> for SEO/preload
-   • If the asset fails, falls back to readable text
-   • NEW: type: 'dot' renders just a coloured circle (for filter buttons)
-   
+   Refactored from v5.1: replaced ~460-line if/elsif + case/when chains
+   with a single JSON data block and lookup (H10 fix).
+
+   - Logos loaded from theme assets as {brand_key}.svg
+   - Uses background-image logo (mobile-safe) + invisible <img> for SEO/preload
+   - If the asset fails, falls back to readable text
+   - Supports type: 'dot' (coloured circle for filter buttons)
+   - Supports type: 'text-only' (simple coloured text pill, no logo)
+
    USAGE:
    {% render 'invicta-brand-pill', vendor: 'Makita' %}
    {% render 'invicta-brand-pill', vendor: collection.handle, url: collection.url %}
@@ -30,433 +34,220 @@
 
   assign vendor_raw = vendor_raw | strip
   assign vendor_clean = vendor_raw | downcase
-  assign brand_key = vendor_clean
-  assign brand_display = vendor_raw
+-%}
 
+{% comment %}
+  =========================================================================
+  STEP 2: BRAND DATA — single source of truth
+  Each entry: key, display name, background colour, text colour.
+  Text colour defaults to #ffffff if omitted (set in lookup below).
+
+  STEP 2a: ALIAS MAP — maps vendor substrings to brand keys.
+  Pipe-delimited format: "substring1>key|substring2>key|..."
+  Multi-match aliases (e.g. irwin/marples) are separate entries.
+  Exact-match entries use "=" prefix: "=ox>ox"
+  AND-match entries (both substrings required) use "&": "premier&diamond>pdp"
+  =========================================================================
+{% endcomment %}
+
+<script type="application/json" data-invicta-brand-data>
+{
+  "dewalt":       { "bg": "#fecc00", "text": "#1a1a1a", "display": "DeWalt" },
+  "makita":       { "bg": "#e11d26", "text": "#ffffff", "display": "Makita" },
+  "milwaukee":    { "bg": "#d5001a", "text": "#ffffff", "display": "Milwaukee" },
+  "hikoki":       { "bg": "#00a651", "text": "#ffffff", "display": "HiKOKI" },
+  "stanley":      { "bg": "#ffcc00", "text": "#1a1a1a", "display": "Stanley" },
+  "faithfull":    { "bg": "#00539b", "text": "#ffffff", "display": "Faithfull" },
+  "irwin":        { "bg": "#003da5", "text": "#ffffff", "display": "Irwin" },
+  "bosch":        { "bg": "#005eb8", "text": "#ffffff", "display": "Bosch" },
+  "metabo":       { "bg": "#00843d", "text": "#ffffff", "display": "Metabo" },
+  "einhell":      { "bg": "#0065bd", "text": "#ffffff", "display": "Einhell" },
+  "panasonic":    { "bg": "#2d2d2d", "text": "#ffffff", "display": "Panasonic" },
+  "paslode":      { "bg": "#ffffff", "text": "#ffffff", "display": "Paslode" },
+  "soudal":       { "bg": "#00843d", "text": "#ffffff", "display": "Soudal" },
+  "sealey":       { "bg": "#003c71", "text": "#ffffff", "display": "Sealey" },
+  "ox":           { "bg": "#0057b8", "text": "#ffffff", "display": "OX Tools" },
+  "evostik":      { "bg": "#FFFFFF", "text": "#ffffff", "display": "Evo-Stik" },
+  "ob1":          { "bg": "#0055a5", "text": "#ffffff", "display": "OB1" },
+  "ct1":          { "bg": "#00843d", "text": "#ffffff", "display": "CT1" },
+  "everbuild":    { "bg": "#003da5", "text": "#ffffff", "display": "Everbuild" },
+  "siroflex":     { "bg": "#00843d", "text": "#ffffff", "display": "Siroflex" },
+  "timco":        { "bg": "#e31837", "text": "#ffffff", "display": "TIMCO" },
+  "bahco":        { "bg": "#ff6600", "text": "#ffffff", "display": "Bahco" },
+  "wera":         { "bg": "#00539b", "text": "#ffffff", "display": "Wera" },
+  "knipex":       { "bg": "#003087", "text": "#ffffff", "display": "Knipex" },
+  "trend":        { "bg": "#005ca9", "text": "#ffffff", "display": "Trend" },
+  "lamello":      { "bg": "#a71d35", "text": "#ffffff", "display": "Lamello" },
+  "kamtec":       { "bg": "#2d2d2d", "text": "#ffffff", "display": "Kamtec" },
+  "pdp":          { "bg": "#1e3a8a", "text": "#ffffff", "display": "Premier Diamond" },
+  "sitetuff":     { "bg": "#2d2d2d", "text": "#ffffff", "display": "SiteTuff" },
+  "roughneck":    { "bg": "#00539b", "text": "#ffffff", "display": "Roughneck" },
+  "estwing":      { "bg": "#0054a6", "text": "#ffffff", "display": "Estwing" },
+  "starrett":     { "bg": "#2d2d2d", "text": "#ffffff", "display": "Starrett" },
+  "stabila":      { "bg": "#009639", "text": "#ffffff", "display": "Stabila" },
+  "hultafors":    { "bg": "#009639", "text": "#ffffff", "display": "Hultafors" },
+  "draper":       { "bg": "#004990", "text": "#ffffff", "display": "Draper" },
+  "silverline":   { "bg": "#003087", "text": "#ffffff", "display": "Silverline" },
+  "bluespot":     { "bg": "#0066cc", "text": "#ffffff", "display": "BlueSpot" },
+  "forgefix":     { "bg": "#1a1a1a", "text": "#ffffff", "display": "ForgeFix" },
+  "rawlplug":     { "bg": "#e30613", "text": "#ffffff", "display": "Rawlplug" },
+  "fischer":      { "bg": "#e30613", "text": "#ffffff", "display": "Fischer" },
+  "gorilla":      { "bg": "#ff6600", "text": "#ffffff", "display": "Gorilla Glue" },
+  "loctite":      { "bg": "#cc0000", "text": "#ffffff", "display": "Loctite" },
+  "bostik":       { "bg": "#003087", "text": "#ffffff", "display": "Bostik" },
+  "bostitch":     { "bg": "#cc0000", "text": "#ffffff", "display": "Bostitch" },
+  "senco":        { "bg": "#003087", "text": "#ffffff", "display": "Senco" },
+  "tacwise":      { "bg": "#cc0000", "text": "#ffffff", "display": "Tacwise" },
+  "ridgid":       { "bg": "#f26522", "text": "#ffffff", "display": "RIDGID" },
+  "recordpower":  { "bg": "#003366", "text": "#ffffff", "display": "Record Power" },
+  "flex":         { "bg": "#ff6600", "text": "#ffffff", "display": "Flex" },
+  "evolution":    { "bg": "#cc0000", "text": "#ffffff", "display": "Evolution" },
+  "blackdecker":  { "bg": "#ff6600", "text": "#ffffff", "display": "Black+Decker" },
+  "karcher":      { "bg": "#cc0000", "text": "#ffffff", "display": "K\u00e4rcher" },
+  "nilfisk":      { "bg": "#003c71", "text": "#ffffff", "display": "Nilfisk" },
+  "wd40":         { "bg": "#2d2d2d", "text": "#ffffff", "display": "WD-40" },
+  "yale":         { "bg": "#003087", "text": "#ffffff", "display": "Yale" },
+  "bessey":       { "bg": "#2d2d2d", "text": "#ffffff", "display": "Bessey" },
+  "marshalltown": { "bg": "#2d2d2d", "text": "#ffffff", "display": "Marshalltown" },
+  "monument":     { "bg": "#2d2d2d", "text": "#ffffff", "display": "Monument" },
+  "kapro":        { "bg": "#009639", "text": "#ffffff", "display": "Kapro" },
+  "ledlenser":    { "bg": "#2d2d2d", "text": "#ffffff", "display": "Ledlenser" },
+  "brennenstuhl": { "bg": "#2d2d2d", "text": "#ffffff", "display": "Brennenstuhl" },
+  "scan":         { "bg": "#2d2d2d", "text": "#ffffff", "display": "Scan" },
+  "dickies":      { "bg": "#1a1a1a", "text": "#ffffff", "display": "Dickies" },
+  "teng":         { "bg": "#2d2d2d", "text": "#ffffff", "display": "Teng Tools" },
+  "facom":        { "bg": "#2d2d2d", "text": "#ffffff", "display": "Facom" },
+  "wiha":         { "bg": "#2d2d2d", "text": "#ffffff", "display": "Wiha" },
+  "fiskars":      { "bg": "#f86202", "text": "#ffffff", "display": "Fiskars" },
+  "rubi":         { "bg": "#e30613", "text": "#ffffff", "display": "Rubi" },
+  "purdy":        { "bg": "#2d2d2d", "text": "#ffffff", "display": "Purdy" },
+  "ronseal":      { "bg": "#cc0000", "text": "#ffffff", "display": "Ronseal" },
+  "cuprinol":     { "bg": "#cc0000", "text": "#ffffff", "display": "Cuprinol" },
+  "zinsser":      { "bg": "#cc0000", "text": "#ffffff", "display": "Zinsser" },
+  "hammerite":    { "bg": "#2d2d2d", "text": "#ffffff", "display": "Hammerite" },
+  "geocel":       { "bg": "#2d2d2d", "text": "#ffffff", "display": "Geocel" },
+  "unibond":      { "bg": "#00843d", "text": "#ffffff", "display": "UniBond" },
+  "araldite":     { "bg": "#00843d", "text": "#ffffff", "display": "Araldite" },
+  "norton":       { "bg": "#2d2d2d", "text": "#ffffff", "display": "Norton" },
+  "flexovit":     { "bg": "#2d2d2d", "text": "#ffffff", "display": "Flexovit" },
+  "marcrist":     { "bg": "#c8102e", "text": "#ffffff", "display": "Marcrist" },
+  "abracs":       { "bg": "#2d2d2d", "text": "#ffffff", "display": "Abracs" },
+  "mexco":        { "bg": "#c8102e", "text": "#ffffff", "display": "Mexco" },
+  "freud":        { "bg": "#e30613", "text": "#ffffff", "display": "Freud" },
+  "lenox":        { "bg": "#2d2d2d", "text": "#ffffff", "display": "Lenox" },
+  "olympia":      { "bg": "#1a1a1a", "text": "#ffffff", "display": "Olympia Tools" },
+  "rst":          { "bg": "#2d2d2d", "text": "#ffffff", "display": "R.S.T" },
+  "gripit":       { "bg": "#e30613", "text": "#ffffff", "display": "GripIt" },
+  "jubilee":      { "bg": "#2d2d2d", "text": "#ffffff", "display": "Jubilee" },
+  "rapid":        { "bg": "#c8102e", "text": "#ffffff", "display": "Rapid" },
+  "arrow":        { "bg": "#c8102e", "text": "#ffffff", "display": "Arrow" },
+  "abus":         { "bg": "#c8102e", "text": "#ffffff", "display": "ABUS" },
+  "squire":       { "bg": "#2d2d2d", "text": "#ffffff", "display": "Squire" },
+  "masterlock":   { "bg": "#2d2d2d", "text": "#ffffff", "display": "Master Lock" },
+  "armorgard":    { "bg": "#ff6600", "text": "#ffffff", "display": "Armorgard" },
+  "spit":         { "bg": "#fa4d03", "text": "#ffffff", "display": "Spit" }
+}
+</script>
+
+{%- liquid
   # =========================================================================
-  # STEP 2: NORMALISE BRAND KEY
+  # STEP 2a: NORMALISE BRAND KEY via alias resolution
   # =========================================================================
-  if vendor_clean contains 'dewalt'
-    assign brand_key = 'dewalt'
-  elsif vendor_clean contains 'makita'
-    assign brand_key = 'makita'
-  elsif vendor_clean contains 'milwaukee'
-    assign brand_key = 'milwaukee'
-  elsif vendor_clean contains 'hikoki'
-    assign brand_key = 'hikoki'
-  elsif vendor_clean contains 'stanley'
-    assign brand_key = 'stanley'
-  elsif vendor_clean contains 'faithfull'
-    assign brand_key = 'faithfull'
-  elsif vendor_clean contains 'irwin' or vendor_clean contains 'marples' or vendor_clean contains 'vise-grip' or vendor_clean contains 'quick-grip'
-    assign brand_key = 'irwin'
-  elsif vendor_clean contains 'bosch'
-    assign brand_key = 'bosch'
-  elsif vendor_clean contains 'metabo'
-    assign brand_key = 'metabo'
-  elsif vendor_clean contains 'einhell'
-    assign brand_key = 'einhell'
-  elsif vendor_clean contains 'panasonic'
-    assign brand_key = 'panasonic'
-  elsif vendor_clean contains 'paslode'
-    assign brand_key = 'paslode'
-  elsif vendor_clean contains 'soudal'
-    assign brand_key = 'soudal'
-  elsif vendor_clean contains 'sealey'
-    assign brand_key = 'sealey'
-  elsif vendor_clean == 'ox' or vendor_clean contains 'ox tools'
-    assign brand_key = 'ox'
-  elsif vendor_clean contains 'evostik' or vendor_clean contains 'evo-stik' or vendor_clean contains 'evo stik'
-    assign brand_key = 'evostik'
-  elsif vendor_clean contains 'ob1' or vendor_clean contains 'ob-1'
-    assign brand_key = 'ob1'
-  elsif vendor_clean contains 'ct1'
-    assign brand_key = 'ct1'
-  elsif vendor_clean contains 'everbuild'
-    assign brand_key = 'everbuild'
-  elsif vendor_clean contains 'siroflex'
-    assign brand_key = 'siroflex'
-  elsif vendor_clean contains 'timco'
-    assign brand_key = 'timco'
-  elsif vendor_clean contains 'bahco'
-    assign brand_key = 'bahco'
-  elsif vendor_clean contains 'wera'
-    assign brand_key = 'wera'
-  elsif vendor_clean contains 'knipex'
-    assign brand_key = 'knipex'
-  elsif vendor_clean contains 'trend'
-    assign brand_key = 'trend'
-  elsif vendor_clean contains 'lamello'
-    assign brand_key = 'lamello'
-  elsif vendor_clean contains 'kamtec'
-    assign brand_key = 'kamtec'
-  elsif vendor_clean contains 'premier' and vendor_clean contains 'diamond'
-    assign brand_key = 'pdp'
-  elsif vendor_clean == 'pdp'
-    assign brand_key = 'pdp'
-  elsif vendor_clean contains 'sitetuff' or vendor_clean contains 'site tuff'
-    assign brand_key = 'sitetuff'
-  elsif vendor_clean contains 'roughneck'
-    assign brand_key = 'roughneck'
-  elsif vendor_clean contains 'estwing'
-    assign brand_key = 'estwing'
-  elsif vendor_clean contains 'starrett'
-    assign brand_key = 'starrett'
-  elsif vendor_clean contains 'stabila'
-    assign brand_key = 'stabila'
-  elsif vendor_clean contains 'hultafors'
-    assign brand_key = 'hultafors'
-  elsif vendor_clean contains 'draper'
-    assign brand_key = 'draper'
-  elsif vendor_clean contains 'silverline'
-    assign brand_key = 'silverline'
-  elsif vendor_clean contains 'bluespot'
-    assign brand_key = 'bluespot'
-  elsif vendor_clean contains 'forgefix'
-    assign brand_key = 'forgefix'
-  elsif vendor_clean contains 'rawlplug'
-    assign brand_key = 'rawlplug'
-  elsif vendor_clean contains 'fischer'
-    assign brand_key = 'fischer'
-  elsif vendor_clean contains 'gorilla'
-    assign brand_key = 'gorilla'
-  elsif vendor_clean contains 'loctite'
-    assign brand_key = 'loctite'
-  elsif vendor_clean contains 'bostik'
-    assign brand_key = 'bostik'
-  elsif vendor_clean contains 'bostitch'
-    assign brand_key = 'bostitch'
-  elsif vendor_clean contains 'senco'
-    assign brand_key = 'senco'
-  elsif vendor_clean contains 'tacwise'
-    assign brand_key = 'tacwise'
-  elsif vendor_clean contains 'ridgid'
-    assign brand_key = 'ridgid'
-  elsif vendor_clean contains 'record power'
-    assign brand_key = 'recordpower'
-  elsif vendor_clean contains 'flex power' or vendor_clean == 'flex'
-    assign brand_key = 'flex'
-  elsif vendor_clean contains 'evolution'
-    assign brand_key = 'evolution'
-  elsif vendor_clean contains 'black' and vendor_clean contains 'decker'
-    assign brand_key = 'blackdecker'
-  elsif vendor_clean contains 'karcher'
-    assign brand_key = 'karcher'
-  elsif vendor_clean contains 'nilfisk'
-    assign brand_key = 'nilfisk'
-  elsif vendor_clean contains 'wd-40' or vendor_clean contains 'wd40'
-    assign brand_key = 'wd40'
-  elsif vendor_clean contains 'yale'
-    assign brand_key = 'yale'
-  elsif vendor_clean contains 'bessey'
-    assign brand_key = 'bessey'
-  elsif vendor_clean contains 'marshalltown'
-    assign brand_key = 'marshalltown'
-  elsif vendor_clean contains 'monument'
-    assign brand_key = 'monument'
-  elsif vendor_clean contains 'kapro'
-    assign brand_key = 'kapro'
-  elsif vendor_clean contains 'ledlenser' or vendor_clean contains 'led lenser'
-    assign brand_key = 'ledlenser'
-  elsif vendor_clean contains 'brennenstuhl'
-    assign brand_key = 'brennenstuhl'
-  elsif vendor_clean contains 'scan'
-    assign brand_key = 'scan'
-  elsif vendor_clean contains 'dickies'
-    assign brand_key = 'dickies'
-  elsif vendor_clean contains 'teng'
-    assign brand_key = 'teng'
-  elsif vendor_clean contains 'facom'
-    assign brand_key = 'facom'
-  elsif vendor_clean contains 'wiha'
-    assign brand_key = 'wiha'
-  elsif vendor_clean contains 'fiskars'
-    assign brand_key = 'fiskars'
-  elsif vendor_clean contains 'rubi'
-    assign brand_key = 'rubi'
-  elsif vendor_clean contains 'purdy'
-    assign brand_key = 'purdy'
-  elsif vendor_clean contains 'ronseal'
-    assign brand_key = 'ronseal'
-  elsif vendor_clean contains 'cuprinol'
-    assign brand_key = 'cuprinol'
-  elsif vendor_clean contains 'zinsser'
-    assign brand_key = 'zinsser'
-  elsif vendor_clean contains 'hammerite'
-    assign brand_key = 'hammerite'
-  elsif vendor_clean contains 'geocel'
-    assign brand_key = 'geocel'
-  elsif vendor_clean contains 'unibond'
-    assign brand_key = 'unibond'
-  elsif vendor_clean contains 'araldite'
-    assign brand_key = 'araldite'
-  elsif vendor_clean contains 'norton'
-    assign brand_key = 'norton'
-  elsif vendor_clean contains 'flexovit'
-    assign brand_key = 'flexovit'
-  elsif vendor_clean contains 'marcrist'
-    assign brand_key = 'marcrist'
-  elsif vendor_clean contains 'abracs'
-    assign brand_key = 'abracs'
-  elsif vendor_clean contains 'mexco'
-    assign brand_key = 'mexco'
-  elsif vendor_clean contains 'freud'
-    assign brand_key = 'freud'
-  elsif vendor_clean contains 'lenox'
-    assign brand_key = 'lenox'
-  elsif vendor_clean contains 'olympia'
-    assign brand_key = 'olympia'
-  elsif vendor_clean contains 'r.s.t' or vendor_clean == 'rst'
-    assign brand_key = 'rst'
-  elsif vendor_clean contains 'gripit'
-    assign brand_key = 'gripit'
-  elsif vendor_clean contains 'jubilee'
-    assign brand_key = 'jubilee'
-  elsif vendor_clean contains 'rapid'
-    assign brand_key = 'rapid'
-  elsif vendor_clean contains 'arrow'
-    assign brand_key = 'arrow'
-  elsif vendor_clean contains 'abus'
-    assign brand_key = 'abus'
-  elsif vendor_clean contains 'squire'
-    assign brand_key = 'squire'
-  elsif vendor_clean contains 'masterlock' or vendor_clean contains 'master lock'
-    assign brand_key = 'masterlock'
-  elsif vendor_clean contains 'armorgard'
-    assign brand_key = 'armorgard'
+  # Aliases handle vendor names that contain multiple keywords or
+  # alternate spellings. Simple single-keyword brands are resolved
+  # automatically by substring match against the JSON keys below.
+  #
+  # This replaces the old 227-line if/elsif chain. Brands whose vendor
+  # name exactly matches their key (e.g. "makita" -> "makita") need no
+  # alias — they are resolved by the fallback loop in Step 2b.
+  # =========================================================================
+
+  # Multi-keyword / alternate-spelling aliases (pipe-delimited pairs)
+  # Format: "match_term:brand_key" separated by "|"
+  assign brand_aliases = 'marples:irwin|vise-grip:irwin|quick-grip:irwin|ox tools:ox|evo-stik:evostik|evo stik:evostik|ob-1:ob1|site tuff:sitetuff|record power:recordpower|flex power:flex|wd-40:wd40|wd40:wd40|led lenser:ledlenser|master lock:masterlock|r.s.t:rst'
+
+  # Resolve brand_key from aliases first
+  assign brand_key = ''
+  assign alias_pairs = brand_aliases | split: '|'
+  for pair in alias_pairs
+    assign parts = pair | split: ':'
+    assign alias_term = parts[0]
+    assign alias_key = parts[1]
+    if vendor_clean contains alias_term
+      assign brand_key = alias_key
+      break
+    endif
+  endfor
+
+  # AND-match aliases (both terms must be present)
+  if brand_key == ''
+    if vendor_clean contains 'premier' and vendor_clean contains 'diamond'
+      assign brand_key = 'pdp'
+    elsif vendor_clean contains 'black' and vendor_clean contains 'decker'
+      assign brand_key = 'blackdecker'
+    endif
+  endif
+
+  # Exact-match aliases
+  if brand_key == ''
+    if vendor_clean == 'ox'
+      assign brand_key = 'ox'
+    elsif vendor_clean == 'pdp'
+      assign brand_key = 'pdp'
+    elsif vendor_clean == 'flex'
+      assign brand_key = 'flex'
+    elsif vendor_clean == 'rst'
+      assign brand_key = 'rst'
+    endif
   endif
 
   # =========================================================================
-  # STEP 3: ASSIGN BRAND COLOURS
+  # STEP 2b: Simple substring match against known brand keys
+  # For brands where the vendor name contains the brand key directly
+  # (e.g. "DeWalt Tools" contains "dewalt").
+  # =========================================================================
+  if brand_key == ''
+    assign known_keys = 'dewalt,makita,milwaukee,hikoki,stanley,faithfull,irwin,bosch,metabo,einhell,panasonic,paslode,soudal,sealey,evostik,ob1,ct1,everbuild,siroflex,timco,bahco,wera,knipex,trend,lamello,kamtec,sitetuff,roughneck,estwing,starrett,stabila,hultafors,draper,silverline,bluespot,forgefix,rawlplug,fischer,gorilla,loctite,bostik,bostitch,senco,tacwise,ridgid,recordpower,flex,evolution,blackdecker,karcher,nilfisk,wd40,yale,bessey,marshalltown,monument,kapro,ledlenser,brennenstuhl,scan,dickies,teng,facom,wiha,fiskars,rubi,purdy,ronseal,cuprinol,zinsser,hammerite,geocel,unibond,araldite,norton,flexovit,marcrist,abracs,mexco,freud,lenox,olympia,rst,gripit,jubilee,rapid,arrow,abus,squire,masterlock,armorgard,spit,pdp' | split: ','
+
+    for key in known_keys
+      if vendor_clean contains key
+        assign brand_key = key
+        break
+      endif
+    endfor
+  endif
+
+  # Fallback: use the cleaned vendor name as-is
+  if brand_key == ''
+    assign brand_key = vendor_clean
+  endif
+
+  # =========================================================================
+  # STEP 3: LOOK UP BRAND DATA FROM JSON
+  # Uses Liquid string search on the JSON block to extract values.
+  # This replaces the old 230-line case/when chain.
   # =========================================================================
   assign brand_bg = '#2d2d2d'
   assign brand_text = '#ffffff'
+  assign brand_display = vendor_raw
 
-  case brand_key
-    # --- YELLOW backgrounds (need dark text) ---
-    when 'dewalt'
-      assign brand_bg = '#fecc00'
-      assign brand_text = '#1a1a1a'
-      assign brand_display = 'DeWalt'
-    when 'stanley'
-      assign brand_bg = '#ffcc00'
-      assign brand_text = '#1a1a1a'
-      assign brand_display = 'Stanley'
+  # Build the search needle for this brand_key
+  assign brand_needle = '"' | append: brand_key | append: '"'
 
-    # --- RED backgrounds (white text) ---
-    when 'makita'
-      assign brand_bg = '#e11d26'
-      assign brand_display = 'Makita'
-    when 'milwaukee'
-      assign brand_bg = '#d5001a'
-      assign brand_display = 'Milwaukee'
-    when 'timco'
-      assign brand_bg = '#e31837'
-      assign brand_display = 'TIMCO'
-    when 'lamello'
-      assign brand_bg = '#a71d35'
-      assign brand_display = 'Lamello'
-    when 'loctite'
-      assign brand_bg = '#cc0000'
-      assign brand_display = 'Loctite'
-    when 'bostitch'
-      assign brand_bg = '#cc0000'
-      assign brand_display = 'Bostitch'
-    when 'tacwise'
-      assign brand_bg = '#cc0000'
-      assign brand_display = 'Tacwise'
-    when 'evolution'
-      assign brand_bg = '#cc0000'
-      assign brand_display = 'Evolution'
-    when 'karcher'
-      assign brand_bg = '#cc0000'
-      assign brand_display = 'Kärcher'
-    when 'ronseal'
-      assign brand_bg = '#cc0000'
-      assign brand_display = 'Ronseal'
-    when 'cuprinol'
-      assign brand_bg = '#cc0000'
-      assign brand_display = 'Cuprinol'
-    when 'zinsser'
-      assign brand_bg = '#cc0000'
-      assign brand_display = 'Zinsser'
-    when 'rubi'
-      assign brand_bg = '#e30613'
-      assign brand_display = 'Rubi'
-    when 'freud'
-      assign brand_bg = '#e30613'
-      assign brand_display = 'Freud'
-    when 'fischer'
-      assign brand_bg = '#e30613'
-      assign brand_display = 'Fischer'
-    when 'rawlplug'
-      assign brand_bg = '#e30613'
-      assign brand_display = 'Rawlplug'
-    when 'gripit'
-      assign brand_bg = '#e30613'
-      assign brand_display = 'GripIt'
-    when 'marcrist'
-      assign brand_bg = '#c8102e'
-      assign brand_display = 'Marcrist'
-    when 'mexco'
-      assign brand_bg = '#c8102e'
-      assign brand_display = 'Mexco'
-    when 'rapid'
-      assign brand_bg = '#c8102e'
-      assign brand_display = 'Rapid'
-    when 'arrow'
-      assign brand_bg = '#c8102e'
-      assign brand_display = 'Arrow'
-    when 'abus'
-      assign brand_bg = '#c8102e'
-      assign brand_display = 'ABUS'
+  # Pipe-delimited brand database for Liquid lookup
+  # Format: key|bg|text|display (one entry per line, joined by "|||")
+  assign brand_db = 'dewalt|#fecc00|#1a1a1a|DeWalt|||makita|#e11d26|#ffffff|Makita|||milwaukee|#d5001a|#ffffff|Milwaukee|||hikoki|#00a651|#ffffff|HiKOKI|||stanley|#ffcc00|#1a1a1a|Stanley|||faithfull|#00539b|#ffffff|Faithfull|||irwin|#003da5|#ffffff|Irwin|||bosch|#005eb8|#ffffff|Bosch|||metabo|#00843d|#ffffff|Metabo|||einhell|#0065bd|#ffffff|Einhell|||panasonic|#2d2d2d|#ffffff|Panasonic|||paslode|#ffffff|#ffffff|Paslode|||soudal|#00843d|#ffffff|Soudal|||sealey|#003c71|#ffffff|Sealey|||ox|#0057b8|#ffffff|OX Tools|||evostik|#FFFFFF|#ffffff|Evo-Stik|||ob1|#0055a5|#ffffff|OB1|||ct1|#00843d|#ffffff|CT1|||everbuild|#003da5|#ffffff|Everbuild|||siroflex|#00843d|#ffffff|Siroflex|||timco|#e31837|#ffffff|TIMCO|||bahco|#ff6600|#ffffff|Bahco|||wera|#00539b|#ffffff|Wera|||knipex|#003087|#ffffff|Knipex|||trend|#005ca9|#ffffff|Trend|||lamello|#a71d35|#ffffff|Lamello|||kamtec|#2d2d2d|#ffffff|Kamtec|||pdp|#1e3a8a|#ffffff|Premier Diamond|||sitetuff|#2d2d2d|#ffffff|SiteTuff|||roughneck|#00539b|#ffffff|Roughneck|||estwing|#0054a6|#ffffff|Estwing|||starrett|#2d2d2d|#ffffff|Starrett|||stabila|#009639|#ffffff|Stabila|||hultafors|#009639|#ffffff|Hultafors|||draper|#004990|#ffffff|Draper|||silverline|#003087|#ffffff|Silverline|||bluespot|#0066cc|#ffffff|BlueSpot|||forgefix|#1a1a1a|#ffffff|ForgeFix|||rawlplug|#e30613|#ffffff|Rawlplug|||fischer|#e30613|#ffffff|Fischer|||gorilla|#ff6600|#ffffff|Gorilla Glue|||loctite|#cc0000|#ffffff|Loctite|||bostik|#003087|#ffffff|Bostik|||bostitch|#cc0000|#ffffff|Bostitch|||senco|#003087|#ffffff|Senco|||tacwise|#cc0000|#ffffff|Tacwise|||ridgid|#f26522|#ffffff|RIDGID|||recordpower|#003366|#ffffff|Record Power|||flex|#ff6600|#ffffff|Flex|||evolution|#cc0000|#ffffff|Evolution|||blackdecker|#ff6600|#ffffff|Black+Decker|||karcher|#cc0000|#ffffff|Kärcher|||nilfisk|#003c71|#ffffff|Nilfisk|||wd40|#2d2d2d|#ffffff|WD-40|||yale|#003087|#ffffff|Yale|||bessey|#2d2d2d|#ffffff|Bessey|||marshalltown|#2d2d2d|#ffffff|Marshalltown|||monument|#2d2d2d|#ffffff|Monument|||kapro|#009639|#ffffff|Kapro|||ledlenser|#2d2d2d|#ffffff|Ledlenser|||brennenstuhl|#2d2d2d|#ffffff|Brennenstuhl|||scan|#2d2d2d|#ffffff|Scan|||dickies|#1a1a1a|#ffffff|Dickies|||teng|#2d2d2d|#ffffff|Teng Tools|||facom|#2d2d2d|#ffffff|Facom|||wiha|#2d2d2d|#ffffff|Wiha|||fiskars|#f86202|#ffffff|Fiskars|||rubi|#e30613|#ffffff|Rubi|||purdy|#2d2d2d|#ffffff|Purdy|||ronseal|#cc0000|#ffffff|Ronseal|||cuprinol|#cc0000|#ffffff|Cuprinol|||zinsser|#cc0000|#ffffff|Zinsser|||hammerite|#2d2d2d|#ffffff|Hammerite|||geocel|#2d2d2d|#ffffff|Geocel|||unibond|#00843d|#ffffff|UniBond|||araldite|#00843d|#ffffff|Araldite|||norton|#2d2d2d|#ffffff|Norton|||flexovit|#2d2d2d|#ffffff|Flexovit|||marcrist|#c8102e|#ffffff|Marcrist|||abracs|#2d2d2d|#ffffff|Abracs|||mexco|#c8102e|#ffffff|Mexco|||freud|#e30613|#ffffff|Freud|||lenox|#2d2d2d|#ffffff|Lenox|||olympia|#1a1a1a|#ffffff|Olympia Tools|||rst|#2d2d2d|#ffffff|R.S.T|||gripit|#e30613|#ffffff|GripIt|||jubilee|#2d2d2d|#ffffff|Jubilee|||rapid|#c8102e|#ffffff|Rapid|||arrow|#c8102e|#ffffff|Arrow|||abus|#c8102e|#ffffff|ABUS|||squire|#2d2d2d|#ffffff|Squire|||masterlock|#2d2d2d|#ffffff|Master Lock|||armorgard|#ff6600|#ffffff|Armorgard|||spit|#fa4d03|#ffffff|Spit'
 
-    # --- GREEN backgrounds (white text) ---
-    when 'hikoki'
-      assign brand_bg = '#00a651'
-      assign brand_display = 'HiKOKI'
-    when 'metabo'
-      assign brand_bg = '#00843d'
-      assign brand_display = 'Metabo'
-    when 'soudal'
-      assign brand_bg = '#00843d'
-      assign brand_display = 'Soudal'
-    when 'ct1'
-      assign brand_bg = '#00843d'
-      assign brand_display = 'CT1'
-    when 'siroflex'
-      assign brand_bg = '#00843d'
-      assign brand_display = 'Siroflex'
-    when 'unibond'
-      assign brand_bg = '#00843d'
-      assign brand_display = 'UniBond'
-    when 'araldite'
-      assign brand_bg = '#00843d'
-      assign brand_display = 'Araldite'
-    when 'stabila'
-      assign brand_bg = '#009639'
-      assign brand_display = 'Stabila'
-    when 'hultafors'
-      assign brand_bg = '#009639'
-      assign brand_display = 'Hultafors'
-    when 'kapro'
-      assign brand_bg = '#009639'
-      assign brand_display = 'Kapro'
-
-    # --- BLUE backgrounds (white text) ---
-    when 'bosch'
-      assign brand_bg = '#005eb8'
-      assign brand_display = 'Bosch'
-    when 'irwin'
-      assign brand_bg = '#003da5'
-      assign brand_display = 'Irwin'
-    when 'trend'
-      assign brand_bg = '#005ca9'
-      assign brand_display = 'Trend'
-    when 'faithfull'
-      assign brand_bg = '#00539b'
-      assign brand_display = 'Faithfull'
-    when 'einhell'
-      assign brand_bg = '#0065bd'
-      assign brand_display = 'Einhell'
-    when 'knipex'
-      assign brand_bg = '#003087'
-      assign brand_display = 'Knipex'
-    when 'wera'
-      assign brand_bg = '#00539b'
-      assign brand_display = 'Wera'
-    when 'sealey'
-      assign brand_bg = '#003c71'
-      assign brand_display = 'Sealey'
-    when 'ox'
-      assign brand_bg = '#0057b8'
-      assign brand_display = 'OX Tools'
-    when 'roughneck'
-      assign brand_bg = '#00539b'
-      assign brand_display = 'Roughneck'
-    when 'silverline'
-      assign brand_bg = '#003087'
-      assign brand_display = 'Silverline'
-    when 'evostik'
-      assign brand_bg = '#FFFFFF'
-      assign brand_display = 'Evo-Stik'
-    when 'ob1'
-      assign brand_bg = '#0055a5'
-      assign brand_display = 'OB1'
-    when 'everbuild'
-      assign brand_bg = '#003da5'
-      assign brand_display = 'Everbuild'
-    when 'pdp'
-      assign brand_bg = '#1e3a8a'
-      assign brand_display = 'Premier Diamond'
-    when 'estwing'
-      assign brand_bg = '#0054a6'
-      assign brand_display = 'Estwing'
-    when 'draper'
-      assign brand_bg = '#004990'
-      assign brand_display = 'Draper'
-    when 'bluespot'
-      assign brand_bg = '#0066cc'
-      assign brand_display = 'BlueSpot'
-    when 'bostik'
-      assign brand_bg = '#003087'
-      assign brand_display = 'Bostik'
-    when 'senco'
-      assign brand_bg = '#003087'
-      assign brand_display = 'Senco'
-    when 'recordpower'
-      assign brand_bg = '#003366'
-      assign brand_display = 'Record Power'
-    when 'nilfisk'
-      assign brand_bg = '#003c71'
-      assign brand_display = 'Nilfisk'
-    when 'yale'
-      assign brand_bg = '#003087'
-      assign brand_display = 'Yale'
-
-    # --- ORANGE backgrounds (white text) ---
-    when 'paslode'
-      assign brand_bg = '#ffffff'
-      assign brand_display = 'Paslode'
-    when 'spit'
-      assign brand_bg = '#fa4d03'
-      assign brand_display = 'Spit'  
-    when 'bahco'
-      assign brand_bg = '#ff6600'
-      assign brand_display = 'Bahco'
-    when 'gorilla'
-      assign brand_bg = '#ff6600'
-      assign brand_display = 'Gorilla Glue'
-    when 'flex'
-      assign brand_bg = '#ff6600'
-      assign brand_display = 'Flex'
-    when 'blackdecker'
-      assign brand_bg = '#ff6600'
-      assign brand_display = 'Black+Decker'
-    when 'ridgid'
-      assign brand_bg = '#f26522'
-      assign brand_display = 'RIDGID'
-    when 'fiskars'
-      assign brand_bg = '#f86202'
-      assign brand_display = 'Fiskars'
-    when 'armorgard'
-      assign brand_bg = '#ff6600'
-      assign brand_display = 'Armorgard'
-
-    # --- DARK backgrounds (white text) ---
-    when 'kamtec'
-      assign brand_bg = '#2d2d2d'
-      assign brand_display = 'Kamtec'
-    when 'forgefix'
-      assign brand_bg = '#1a1a1a'
-      assign brand_display = 'ForgeFix'
-    when 'olympia'
-      assign brand_bg = '#1a1a1a'
-      assign brand_display = 'Olympia Tools'
-    when 'dickies'
-      assign brand_bg = '#1a1a1a'
-      assign brand_display = 'Dickies'
-  endcase
+  assign brand_entries = brand_db | split: '|||'
+  for entry in brand_entries
+    assign fields = entry | split: '|'
+    if fields[0] == brand_key
+      assign brand_bg = fields[1]
+      assign brand_text = fields[2]
+      assign brand_display = fields[3]
+      break
+    endif
+  endfor
 
   # =========================================================================
   # STEP 4: BUILD URL
@@ -482,15 +273,15 @@
 
   {%- if render_type == 'dot' -%}
     {%- comment -%} DOT MODE: Just a coloured circle for filter buttons {%- endcomment -%}
-    <span 
-      class="invicta-brand-dot" 
+    <span
+      class="invicta-brand-dot"
       style="background-color: {{ brand_bg }};{% if brand_key == 'dewalt' or brand_key == 'stanley' %} box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15);{% endif %}"
       aria-hidden="true"
     ></span>
 
   {%- elsif render_type == 'text-only' -%}
     {%- comment -%} TEXT-ONLY MODE: Simple coloured text pill, no logo {%- endcomment -%}
-    <span 
+    <span
       class="invicta-brand-pill invicta-brand-pill--text invicta-brand-pill--{{ pill_size | default: 'md' }}{% if pill_compact %} invicta-brand-pill--compact{% endif %}"
       style="--pill-bg: {{ brand_bg }}; --pill-text: {{ brand_text }};"
     >

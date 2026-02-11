@@ -1,0 +1,181 @@
+/* ============================================================
+   INVICTA DESIGN TOKENS v2.0 (CONSOLIDATED)
+   ============================================================
+   Single source of truth for all Invicta brand tokens.
+   Extracted from snippets/invicta-css-variables.liquid for
+   performance (cacheable external CSS file).
+
+   All values are static (no Liquid dependencies).
+   ============================================================ */
+
+:root {
+  /* ========================================
+     BRAND COLORS
+     ======================================== */
+  /* Primary Brand Red - Canonical Invicta red */
+  --inv-accent: #e11d26;
+  --inv-accent-hover: #c4191f;
+  --inv-accent-soft: rgba(225, 29, 38, 0.08);
+  --inv-accent-light: rgba(225, 29, 38, 0.12);
+
+  /* Legacy aliases (for backwards compatibility) */
+  --inv-primary: var(--inv-accent);
+  --inv-primary-hover: var(--inv-accent-hover);
+
+  /* Semantic Colors */
+  --inv-success: #16a34a;
+  --inv-warning: #f59e0b;
+  --inv-error: #dc2626;
+  --inv-info: #3b82f6;
+
+  /* Legacy aliases */
+  --inv-green: var(--inv-success);
+  --inv-amber: var(--inv-warning);
+
+  /* ========================================
+     BACKGROUND COLORS
+     ======================================== */
+  --inv-bg: #f5f5f6;
+  --inv-bg-elevated: #ffffff;
+  --inv-bg-soft: #f3f4f6;
+  --inv-bg-muted: #f9fafb;
+
+  /* Legacy alias */
+  --inv-white: var(--inv-bg-elevated);
+
+  /* ========================================
+     TEXT COLORS
+     ======================================== */
+  --inv-fg: #0f172a;
+  --inv-fg-muted: #6b7280;
+  --inv-fg-subtle: #9ca3af;
+
+  /* Legacy aliases */
+  --inv-text: var(--inv-fg);
+  --inv-text-muted: var(--inv-fg-muted);
+  --inv-text-light: var(--inv-fg-subtle);
+  --inv-dark: #2d2d2d;
+
+  /* ========================================
+     BORDER COLORS
+     ======================================== */
+  --inv-border: #e5e7eb;
+  --inv-border-subtle: rgba(148, 163, 184, 0.4);
+  --inv-border-strong: rgba(15, 23, 42, 0.25);
+  --inv-border-light: #e5e7eb;
+
+  /* ========================================
+     SHADOWS
+     ======================================== */
+  --inv-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --inv-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --inv-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --inv-shadow-elevated: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --inv-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --inv-shadow-soft: 0 18px 40px -28px rgba(15, 23, 42, 0.35);
+  --inv-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+  /* ========================================
+     BORDER RADIUS
+     ======================================== */
+  --inv-radius-none: 0;
+  --inv-radius-sm: 4px;
+  --inv-radius-md: 8px;
+  --inv-radius-lg: 12px;
+  --inv-radius-xl: 16px;
+  --inv-radius-pill: 999px;
+
+  /* Component-specific radii */
+  --inv-radius-card: 12px;
+  --inv-radius-button: 999px;
+  --inv-radius-input: 8px;
+
+  /* ========================================
+     SPACING
+     ======================================== */
+  --inv-space-xs: 0.25rem;  /* 4px */
+  --inv-space-sm: 0.5rem;   /* 8px */
+  --inv-space-md: 1rem;     /* 16px */
+  --inv-space-lg: 1.5rem;   /* 24px */
+  --inv-space-xl: 2rem;     /* 32px */
+  --inv-space-2xl: 3rem;    /* 48px */
+  --inv-space-3xl: 4rem;    /* 64px */
+
+  /* Page Layout */
+  --inv-page-width: 1320px;
+  --inv-page-gutter: 1.5rem;
+  --inv-page-gutter-desktop: 3rem;
+
+  /* ========================================
+     DURATION (Animation/Transition)
+     ======================================== */
+  --inv-duration-instant: 50ms;
+  --inv-duration-fast: 100ms;
+  --inv-duration-normal: 150ms;
+  --inv-duration-moderate: 200ms;
+  --inv-duration-slow: 300ms;
+  --inv-duration-slower: 500ms;
+  --inv-duration-slowest: 600ms;
+
+  /* Legacy aliases (from base.css) */
+  --duration-short: var(--inv-duration-fast);
+  --duration-default: var(--inv-duration-moderate);
+  --duration-medium: var(--inv-duration-slow);
+  --duration-long: var(--inv-duration-slower);
+  --duration-extended: var(--inv-duration-slowest);
+  --duration-announcement-bar: 250ms;
+
+  /* ========================================
+     EASING FUNCTIONS
+     ======================================== */
+  --inv-ease-linear: linear;
+  --inv-ease-default: ease;
+  --inv-ease-in: ease-in;
+  --inv-ease-out: ease-out;
+  --inv-ease-in-out: ease-in-out;
+  --inv-ease-out-slow: cubic-bezier(0, 0, 0.3, 1);
+  --inv-ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Legacy alias */
+  --ease-out-slow: var(--inv-ease-out-slow);
+
+  /* ========================================
+     Z-INDEX SCALE
+     ======================================== */
+  --inv-z-base: 0;
+  --inv-z-dropdown: 100;
+  --inv-z-sticky: 500;
+  --inv-z-header: 999;
+  --inv-z-overlay: 1000;
+  --inv-z-mega-menu: 1500;
+  --inv-z-drawer: 2000;
+  --inv-z-search-dropdown: 9999;
+  --inv-z-modal: 10000;
+  --inv-z-search-active: 99999;
+  --inv-z-toast: 100000;
+
+  /* Legacy aliases (from base.css) */
+  --z-dropdown: var(--inv-z-dropdown);
+  --z-sticky: var(--inv-z-sticky);
+  --z-header: var(--inv-z-header);
+  --z-mega-menu: var(--inv-z-mega-menu);
+  --z-search-dropdown: var(--inv-z-search-dropdown);
+  --z-search-active: var(--inv-z-search-active);
+  --z-modal: var(--inv-z-modal);
+
+  /* ========================================
+     FOCUS STATES
+     ======================================== */
+  --inv-focus-ring-width: 2px;
+  --inv-focus-ring-color: rgba(225, 29, 38, 0.5);
+  --inv-focus-ring-offset: 2px;
+
+  /* Legacy aliases (from base.css) */
+  --alpha-button-background: 1;
+  --alpha-button-border: 1;
+  --alpha-link: 0.85;
+  --alpha-badge-border: 0.1;
+  --focused-base-outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  --focused-base-outline-offset: 0.3rem;
+  --focused-base-box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
+}

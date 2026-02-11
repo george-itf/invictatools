@@ -361,6 +361,99 @@
           "label": "Vertical space"
         }
       }
+    },
+    "invicta_trade": {
+      "name": "Invicta Trade Settings",
+      "settings": {
+        "header__vat": {
+          "content": "VAT Configuration"
+        },
+        "inv_vat_rate": {
+          "label": "VAT Rate",
+          "info": "UK standard rate is 20%. Used for all ex-VAT price calculations across the site."
+        },
+        "header__free_shipping": {
+          "content": "Free Shipping"
+        },
+        "inv_free_shipping_pence": {
+          "label": "Free shipping threshold (pence)",
+          "info": "Cart total in pence to qualify for free shipping. 3000 = £30.00"
+        },
+        "header__delivery": {
+          "content": "Delivery"
+        },
+        "inv_delivery_cutoff_hour": {
+          "label": "Same-day dispatch cutoff (hour)",
+          "info": "Orders placed before this hour (24h format) on weekdays ship same day."
+        }
+      }
+    },
+    "seo_crawl": {
+      "name": "SEO & Crawl Control",
+      "settings": {
+        "header__collections": {
+          "content": "Collection Pages"
+        },
+        "seo_noindex_filtered_collections": {
+          "label": "Noindex filtered collection pages",
+          "info": "Adds noindex,follow to collection pages with active filters or non-default sort order."
+        },
+        "seo_noindex_paginated_collections": {
+          "label": "Noindex paginated collection pages",
+          "info": "Adds noindex,follow to collection pages beyond the threshold page number."
+        },
+        "seo_paginated_noindex_from_page": {
+          "label": "Noindex from page number",
+          "info": "Pages at or above this number get noindex. Default: 2 (all paginated pages)."
+        },
+        "header__search": {
+          "content": "Search Results"
+        },
+        "seo_noindex_search_results": {
+          "label": "Noindex search results pages",
+          "info": "Adds noindex,follow to internal search result pages."
+        },
+        "header__robots": {
+          "content": "Robots.txt"
+        },
+        "seo_robots_block_filter_params": {
+          "label": "Block filter URLs in robots.txt",
+          "info": "Adds Disallow rules for filter.* and sort_by parameter URLs to reduce crawl waste."
+        },
+        "header__org_schema": {
+          "content": "Organization Schema"
+        },
+        "seo_org_name": {
+          "label": "Organization name",
+          "info": "Used in sitewide Organization structured data."
+        },
+        "seo_org_telephone": {
+          "label": "Telephone",
+          "info": "E.g. +44 1843 210459. Appears in Organization and LocalBusiness schema."
+        },
+        "header__local_schema": {
+          "content": "LocalBusiness Schema (optional)"
+        },
+        "paragraph__local_schema": {
+          "content": "Fill street, city, and postcode to output LocalBusiness (HardwareStore) structured data. Leave blank to disable."
+        },
+        "seo_local_street": {
+          "label": "Street address"
+        },
+        "seo_local_city": {
+          "label": "City / Locality"
+        },
+        "seo_local_region": {
+          "label": "Region / County"
+        },
+        "seo_local_postcode": {
+          "label": "Postal code"
+        },
+        "seo_local_hours": {
+          "label": "Opening hours",
+          "info": "E.g. Mo-Fr 07:30-17:00, Sa 08:00-12:00"
+        }
+      }
     }
   },
   "sections": {
