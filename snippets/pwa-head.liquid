@@ -67,14 +67,30 @@
 {%- comment -%} Prevent auto-detection of phone numbers {%- endcomment -%}
 <meta name="format-detection" content="telephone=no">
 
-{%- comment -%} Service Worker Registration — deferred to avoid blocking render {%- endcomment -%}
+{%- comment -%}
+  Service Worker Registration — DISABLED (H25 fix)
+
+  Shopify serves theme assets (including service-worker.js) from cdn.shopify.com,
+  which is a different origin than the shop's domain. The Service Worker spec
+  requires that the SW script must be served from the same origin as the page,
+  and the SW can only control pages within its scope. Since the asset_url points
+  to cdn.shopify.com, the browser will reject the registration with a
+  SecurityError because the SW script's origin does not match the page origin.
+
+  Additionally, even if a first-party SW could be registered, Shopify's CDN
+  and storefront architecture means the SW cannot control navigation requests
+  or cache pages effectively.
+
+  The PWA manifest and meta tags above are kept intact — they still enable
+  "Add to Home Screen" functionality and theming on mobile devices.
+{%- endcomment -%}
+<!--
 <script>
   if ('serviceWorker' in navigator) {
-    // Use requestIdleCallback where available, fallback to load event
     var registerSW = function() {
       navigator.serviceWorker.register('{{ "service-worker.js" | asset_url }}', { scope: '/' })
         .then(function(reg) {
-          var KEY = 'invicta-sw-last-update', INTERVAL = 43200000; // 12h
+          var KEY = 'invicta-sw-last-update', INTERVAL = 43200000;
           try {
             var last = localStorage.getItem(KEY);
             if (!last || (Date.now() - parseInt(last, 10)) > INTERVAL) {
@@ -91,3 +107,4 @@
     }
   }
 </script>
+-->

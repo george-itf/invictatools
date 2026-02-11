@@ -1465,11 +1465,11 @@
     ]
   },
   {
-    "name": "Invicta Trade Settings",
+    "name": "t:settings_schema.invicta_trade.name",
     "settings": [
       {
         "type": "header",
-        "content": "VAT Configuration"
+        "content": "t:settings_schema.invicta_trade.settings.header__vat.content"
       },
       {
         "type": "range",
@@ -1479,12 +1479,12 @@
         "step": 1,
         "default": 20,
         "unit": "%",
-        "label": "VAT Rate",
-        "info": "UK standard rate is 20%. Used for all ex-VAT price calculations across the site."
+        "label": "t:settings_schema.invicta_trade.settings.inv_vat_rate.label",
+        "info": "t:settings_schema.invicta_trade.settings.inv_vat_rate.info"
       },
       {
         "type": "header",
-        "content": "Free Shipping"
+        "content": "t:settings_schema.invicta_trade.settings.header__free_shipping.content"
       },
       {
         "type": "range",
@@ -1494,12 +1494,12 @@
         "step": 100,
         "default": 3000,
         "unit": "p",
-        "label": "Free shipping threshold (pence)",
-        "info": "Cart total in pence to qualify for free shipping. 3000 = £30.00"
+        "label": "t:settings_schema.invicta_trade.settings.inv_free_shipping_pence.label",
+        "info": "t:settings_schema.invicta_trade.settings.inv_free_shipping_pence.info"
       },
       {
         "type": "header",
-        "content": "Delivery"
+        "content": "t:settings_schema.invicta_trade.settings.header__delivery.content"
       },
       {
         "type": "range",
@@ -1508,31 +1508,31 @@
         "max": 18,
         "step": 1,
         "default": 14,
-        "label": "Same-day dispatch cutoff (hour)",
-        "info": "Orders placed before this hour (24h format) on weekdays ship same day."
+        "label": "t:settings_schema.invicta_trade.settings.inv_delivery_cutoff_hour.label",
+        "info": "t:settings_schema.invicta_trade.settings.inv_delivery_cutoff_hour.info"
       }
     ]
   },
   {
-    "name": "SEO & Crawl Control",
+    "name": "t:settings_schema.seo_crawl.name",
     "settings": [
       {
         "type": "header",
-        "content": "Collection Pages"
+        "content": "t:settings_schema.seo_crawl.settings.header__collections.content"
       },
       {
         "type": "checkbox",
         "id": "seo_noindex_filtered_collections",
-        "label": "Noindex filtered collection pages",
+        "label": "t:settings_schema.seo_crawl.settings.seo_noindex_filtered_collections.label",
         "default": true,
-        "info": "Adds noindex,follow to collection pages with active filters or non-default sort order."
+        "info": "t:settings_schema.seo_crawl.settings.seo_noindex_filtered_collections.info"
       },
       {
         "type": "checkbox",
         "id": "seo_noindex_paginated_collections",
-        "label": "Noindex paginated collection pages",
+        "label": "t:settings_schema.seo_crawl.settings.seo_noindex_paginated_collections.label",
         "default": true,
-        "info": "Adds noindex,follow to collection pages beyond the threshold page number."
+        "info": "t:settings_schema.seo_crawl.settings.seo_noindex_paginated_collections.info"
       },
       {
         "type": "range",
@@ -1541,81 +1541,81 @@
         "max": 10,
         "step": 1,
         "default": 2,
-        "label": "Noindex from page number",
-        "info": "Pages at or above this number get noindex. Default: 2 (all paginated pages)."
+        "label": "t:settings_schema.seo_crawl.settings.seo_paginated_noindex_from_page.label",
+        "info": "t:settings_schema.seo_crawl.settings.seo_paginated_noindex_from_page.info"
       },
       {
         "type": "header",
-        "content": "Search Results"
+        "content": "t:settings_schema.seo_crawl.settings.header__search.content"
       },
       {
         "type": "checkbox",
         "id": "seo_noindex_search_results",
-        "label": "Noindex search results pages",
+        "label": "t:settings_schema.seo_crawl.settings.seo_noindex_search_results.label",
         "default": true,
-        "info": "Adds noindex,follow to internal search result pages."
+        "info": "t:settings_schema.seo_crawl.settings.seo_noindex_search_results.info"
       },
       {
         "type": "header",
-        "content": "Robots.txt"
+        "content": "t:settings_schema.seo_crawl.settings.header__robots.content"
       },
       {
         "type": "checkbox",
         "id": "seo_robots_block_filter_params",
-        "label": "Block filter URLs in robots.txt",
+        "label": "t:settings_schema.seo_crawl.settings.seo_robots_block_filter_params.label",
         "default": true,
-        "info": "Adds Disallow rules for filter.* and sort_by parameter URLs to reduce crawl waste."
+        "info": "t:settings_schema.seo_crawl.settings.seo_robots_block_filter_params.info"
       },
       {
         "type": "header",
-        "content": "Organization Schema"
+        "content": "t:settings_schema.seo_crawl.settings.header__org_schema.content"
       },
       {
         "type": "text",
         "id": "seo_org_name",
-        "label": "Organization name",
+        "label": "t:settings_schema.seo_crawl.settings.seo_org_name.label",
         "default": "Invicta Tools",
-        "info": "Used in sitewide Organization structured data."
+        "info": "t:settings_schema.seo_crawl.settings.seo_org_name.info"
       },
       {
         "type": "text",
         "id": "seo_org_telephone",
-        "label": "Telephone",
-        "info": "E.g. +44 1843 210459. Appears in Organization and LocalBusiness schema."
+        "label": "t:settings_schema.seo_crawl.settings.seo_org_telephone.label",
+        "info": "t:settings_schema.seo_crawl.settings.seo_org_telephone.info"
       },
       {
         "type": "header",
-        "content": "LocalBusiness Schema (optional)"
+        "content": "t:settings_schema.seo_crawl.settings.header__local_schema.content"
       },
       {
         "type": "paragraph",
-        "content": "Fill street, city, and postcode to output LocalBusiness (HardwareStore) structured data. Leave blank to disable."
+        "content": "t:settings_schema.seo_crawl.settings.paragraph__local_schema.content"
       },
       {
         "type": "text",
         "id": "seo_local_street",
-        "label": "Street address"
+        "label": "t:settings_schema.seo_crawl.settings.seo_local_street.label"
       },
       {
         "type": "text",
         "id": "seo_local_city",
-        "label": "City / Locality"
+        "label": "t:settings_schema.seo_crawl.settings.seo_local_city.label"
       },
       {
         "type": "text",
         "id": "seo_local_region",
-        "label": "Region / County"
+        "label": "t:settings_schema.seo_crawl.settings.seo_local_region.label"
       },
       {
         "type": "text",
         "id": "seo_local_postcode",
-        "label": "Postal code"
+        "label": "t:settings_schema.seo_crawl.settings.seo_local_postcode.label"
       },
       {
         "type": "text",
         "id": "seo_local_hours",
-        "label": "Opening hours",
-        "info": "E.g. Mo-Fr 07:30-17:00, Sa 08:00-12:00"
+        "label": "t:settings_schema.seo_crawl.settings.seo_local_hours.label",
+        "info": "t:settings_schema.seo_crawl.settings.seo_local_hours.info"
       }
     ]
   }

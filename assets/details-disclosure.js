@@ -30,7 +30,7 @@ class DetailsDisclosure extends HTMLElement {
   }
 }
 
-customElements.define('details-disclosure', DetailsDisclosure);
+if (!customElements.get('details-disclosure')) customElements.define('details-disclosure', DetailsDisclosure);
 
 class HeaderMenu extends DetailsDisclosure {
   constructor() {
@@ -50,4 +50,4 @@ class HeaderMenu extends DetailsDisclosure {
   }
 }
 
-customElements.define('header-menu', HeaderMenu);
+if (!customElements.get('header-menu')) customElements.define('header-menu', HeaderMenu);

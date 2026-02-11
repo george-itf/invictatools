@@ -710,6 +710,10 @@
       "write_first_review": "Write the First Review",
       "no_reviews": "No reviews yet. Be the first to share your experience."
     },
+    "section_header": {
+      "home": "Home",
+      "official_dealer": "Official Dealer"
+    },
     "sections": {
       "brand_categories": {
         "shop_now": "Shop Now"

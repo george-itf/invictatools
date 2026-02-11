@@ -279,7 +279,7 @@ class QuantityInput extends HTMLElement {
   }
 }
 
-customElements.define('quantity-input', QuantityInput);
+if (!customElements.get('quantity-input')) customElements.define('quantity-input', QuantityInput);
 
 function debounce(fn, wait) {
   let t;
@@ -555,7 +555,7 @@ class MenuDrawer extends HTMLElement {
   }
 }
 
-customElements.define('menu-drawer', MenuDrawer);
+if (!customElements.get('menu-drawer')) customElements.define('menu-drawer', MenuDrawer);
 
 class HeaderDrawer extends MenuDrawer {
   constructor() {
@@ -599,7 +599,7 @@ class HeaderDrawer extends MenuDrawer {
   };
 }
 
-customElements.define('header-drawer', HeaderDrawer);
+if (!customElements.get('header-drawer')) customElements.define('header-drawer', HeaderDrawer);
 
 class ModalDialog extends HTMLElement {
   constructor() {
@@ -644,7 +644,7 @@ class ModalDialog extends HTMLElement {
     window.pauseAllMedia();
   }
 }
-customElements.define('modal-dialog', ModalDialog);
+if (!customElements.get('modal-dialog')) customElements.define('modal-dialog', ModalDialog);
 
 class BulkModal extends HTMLElement {
   constructor() {
@@ -676,7 +676,7 @@ class BulkModal extends HTMLElement {
   }
 }
 
-customElements.define('bulk-modal', BulkModal);
+if (!customElements.get('bulk-modal')) customElements.define('bulk-modal', BulkModal);
 
 class ModalOpener extends HTMLElement {
   constructor() {
@@ -691,7 +691,7 @@ class ModalOpener extends HTMLElement {
     });
   }
 }
-customElements.define('modal-opener', ModalOpener);
+if (!customElements.get('modal-opener')) customElements.define('modal-opener', ModalOpener);
 
 class DeferredMedia extends HTMLElement {
   constructor() {
@@ -725,7 +725,7 @@ class DeferredMedia extends HTMLElement {
   }
 }
 
-customElements.define('deferred-media', DeferredMedia);
+if (!customElements.get('deferred-media')) customElements.define('deferred-media', DeferredMedia);
 
 class SliderComponent extends HTMLElement {
   constructor() {
@@ -740,13 +740,32 @@ class SliderComponent extends HTMLElement {
 
     if (!this.slider || !this.nextButton) return;
 
-    this.initPages();
-    const resizeObserver = new ResizeObserver((entries) => this.initPages());
-    resizeObserver.observe(this.slider);
+    // Store bound references for cleanup in disconnectedCallback (H31 fix)
+    this.boundUpdate = this.update.bind(this);
+    this.boundOnButtonClick = this.onButtonClick.bind(this);
 
-    this.slider.addEventListener('scroll', this.update.bind(this));
-    this.prevButton.addEventListener('click', this.onButtonClick.bind(this));
-    this.nextButton.addEventListener('click', this.onButtonClick.bind(this));
+    this.initPages();
+    this.resizeObserver = new ResizeObserver((entries) => this.initPages());
+    this.resizeObserver.observe(this.slider);
+
+    this.slider.addEventListener('scroll', this.boundUpdate);
+    this.prevButton.addEventListener('click', this.boundOnButtonClick);
+    this.nextButton.addEventListener('click', this.boundOnButtonClick);
+  }
+
+  disconnectedCallback() {
+    if (this.slider && this.boundUpdate) {
+      this.slider.removeEventListener('scroll', this.boundUpdate);
+    }
+    if (this.prevButton && this.boundOnButtonClick) {
+      this.prevButton.removeEventListener('click', this.boundOnButtonClick);
+    }
+    if (this.nextButton && this.boundOnButtonClick) {
+      this.nextButton.removeEventListener('click', this.boundOnButtonClick);
+    }
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
   }
 
   initPages() {
@@ -826,7 +845,7 @@ class SliderComponent extends HTMLElement {
   }
 }
 
-customElements.define('slider-component', SliderComponent);
+if (!customElements.get('slider-component')) customElements.define('slider-component', SliderComponent);
 
 class SlideshowComponent extends SliderComponent {
   constructor() {
@@ -1060,7 +1079,7 @@ class SlideshowComponent extends SliderComponent {
   }
 }
 
-customElements.define('slideshow-component', SlideshowComponent);
+if (!customElements.get('slideshow-component')) customElements.define('slideshow-component', SlideshowComponent);
 
 class VariantSelects extends HTMLElement {
   constructor() {
@@ -1125,7 +1144,7 @@ class VariantSelects extends HTMLElement {
   }
 }
 
-customElements.define('variant-selects', VariantSelects);
+if (!customElements.get('variant-selects')) customElements.define('variant-selects', VariantSelects);
 
 class ProductRecommendations extends HTMLElement {
   observer = undefined;
@@ -1177,7 +1196,7 @@ class ProductRecommendations extends HTMLElement {
   }
 }
 
-customElements.define('product-recommendations', ProductRecommendations);
+if (!customElements.get('product-recommendations')) customElements.define('product-recommendations', ProductRecommendations);
 
 class AccountIcon extends HTMLElement {
   constructor() {
@@ -1197,7 +1216,7 @@ class AccountIcon extends HTMLElement {
   }
 }
 
-customElements.define('account-icon', AccountIcon);
+if (!customElements.get('account-icon')) customElements.define('account-icon', AccountIcon);
 
 class BulkAdd extends HTMLElement {
   static ASYNC_REQUEST_DELAY = 250;
