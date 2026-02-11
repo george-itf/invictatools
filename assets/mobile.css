@@ -63,13 +63,7 @@
    1. MOBILE VARIABLES
    ============================================================================ */
 
-:root {
-  --inv-mobile-gutter: 12px;
-  --inv-mobile-section-gap: 24px;
-  --inv-mobile-card-gap: 10px;
-  --inv-touch-target-min: 44px;
-  --inv-mobile-radius: 8px;
-}
+/* Mobile tokens consolidated into invicta-css-variables.css v3.0 */
 
 
 /* ============================================================================

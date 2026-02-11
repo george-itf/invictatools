@@ -8,11 +8,11 @@
 
 | Prefix | Purpose | Examples |
 |--------|---------|---------|
-| `invicta-` | Custom Invicta business features | `invicta-product-v2`, `invicta-collection-filters` |
+| `invicta-` | Custom Invicta business features | `invicta-product-v2`, `invicta-footer`, `invicta-faq` |
 | `main-` | Core Shopify template sections | `main-cart-items`, `main-search`, `main-404` |
 | `brand-` | Brand/supplier landing page sections | `brand-hero`, `brand-categories` |
 | `header-` | Header layout section | `header-invicta` |
-| No prefix | Core Shopify standard sections | `featured-collection`, `announcement-bar`, `footer` |
+| No prefix | Core Shopify standard sections | `featured-collection`, `announcement-bar`, `predictive-search` |
 
 ### Snippets (`snippets/`)
 
@@ -28,7 +28,7 @@
 |--------|---------|---------|
 | `invicta-` | Custom Invicta CSS/JS | `invicta-product-card.css`, `invicta-vat-toggle.js` |
 | `component-` | Reusable component styles | `component-trust-bar.css`, `component-cart-breakdown.css` |
-| `section-` | Section-specific styles | `section-footer.css`, `section-main-search.css` |
+| `section-` | Section-specific styles | `section-trade-landing.css`, `section-header-invicta.css` |
 | `template-` | Template-wide styles | `template-collection.css` |
 | No prefix | Core / base files | `base.css`, `global.js`, `cart.js` |
 
@@ -38,15 +38,38 @@
 |--------|-------|---------|
 | `inv-` | Invicta custom components | `.inv-card__title`, `.inv-del-est__row` |
 | `inv-pdp--` | Product detail page | `.inv-pdp--hidden`, `.inv-pdp__row` |
+| `inv-vat--` | VAT toggle visibility | `.inv-vat--hidden`, `.inv-vat--inc`, `.inv-vat--ex` |
 | `invicta-` | Broader Invicta layouts | `.invicta-cart-breakdown`, `.invicta-header` |
 
 ### CSS Custom Properties
 
 | Prefix | Scope | Examples |
 |--------|-------|---------|
-| `--inv-` | Invicta brand/component tokens | `--inv-brand-red`, `--inv-stock-in` |
+| `--inv-` | Invicta brand/component tokens | `--inv-accent`, `--inv-radius-card`, `--inv-space-md` |
 | `--pdp-` | Product detail page | `--pdp-bg`, `--pdp-border` |
 | `--color-` | Shopify theme settings | `--color-button`, `--color-foreground` |
+
+> **Rule:** All `--inv-*` tokens are defined ONLY in `assets/invicta-css-variables.css` (v3.0). No other file should define `:root` custom properties in the `--inv-*` namespace.
+
+---
+
+## Design Tokens (v3.0)
+
+All design tokens live in `assets/invicta-css-variables.css`. Loaded via `snippets/invicta-css-variables.liquid` in `theme.liquid`.
+
+| Category | Key Tokens |
+|----------|-----------|
+| Brand colours | `--inv-accent` (#e11d26), `--inv-accent-hover`, `--inv-success`, `--inv-error` |
+| Backgrounds | `--inv-bg`, `--inv-bg-elevated`, `--inv-bg-soft`, `--inv-bg-muted` |
+| Text | `--inv-fg`, `--inv-fg-muted`, `--inv-fg-subtle` |
+| Borders | `--inv-border`, `--inv-border-subtle`, `--inv-border-strong` |
+| Radius | `--inv-radius-sm` (4px), `--inv-radius-md` (8px), `--inv-radius-lg` (12px), `--inv-radius-pill` |
+| Component radii | `--inv-radius-button` (8px), `--inv-radius-card` (8px), `--inv-radius-input` (8px) |
+| Spacing | `--inv-space-xs` through `--inv-space-3xl` |
+| Layout | `--inv-page-width`, `--inv-container`, `--inv-page-gutter` |
+| Mobile | `--inv-mobile-gutter`, `--inv-mobile-section-gap`, `--inv-touch-target-min` |
+| Z-index | `--inv-z-dropdown` through `--inv-z-toast` |
+| Duration | `--inv-duration-fast` through `--inv-duration-slowest` |
 
 ---
 
@@ -83,6 +106,11 @@
 | `main-cart-items` | Cart line items with breakdown |
 | `main-cart-footer` | Cart totals and checkout CTA |
 | `featured-collection` | Cross-sell products |
+
+### Footer (`footer-group.json`)
+| Section | Purpose |
+|---------|---------|
+| `invicta-footer` | Full-width footer with columns, newsletter, trust logos |
 
 ### Information Pages
 | Template | Section | Purpose |
@@ -127,8 +155,10 @@
 | `invicta-delivery-estimate` (v1.0) | PDP, cart drawer | Delivery day estimate with countdown |
 | `invicta-free-delivery-bar` | Cart, cart drawer | Free shipping progress bar |
 | `invicta-brand-pill` | Product cards, PDP | Brand/vendor label pill |
-| `invicta-css-variables` (v2.0) | `theme.liquid` | Global CSS custom property definitions |
+| `invicta-css-variables` (v3.0) | `theme.liquid` | Global CSS design tokens |
 | `invicta-cart-handler` | `theme.liquid` | AJAX cart operations |
+| `cart-drawer` | `theme.liquid` | Cart drawer (when `cart_type = drawer`) |
+| `cart-notification` | `theme.liquid` | Cart notification popup |
 | `cart-breakdown` | Cart page | Itemised VAT/subtotal/shipping breakdown |
 | `tiered-pricing` | PDP | Volume/tiered pricing table |
 | `consumables-pricing` | PDP | Consumables pack pricing |
@@ -157,7 +187,12 @@ All custom strings use the `invicta.*` namespace in `locales/en.default.json`:
 
 These features are critical business logic — preserve when making changes:
 
-- **VAT Toggle**: `invicta-vat-toggle.js` + `[data-price-inc-container]`/`[data-price-ex-container]` pattern
+- **VAT Toggle**: `invicta-vat-toggle.js` v5.0 — canonical markup contract:
+  - Price elements: `[data-price-inc]` / `[data-price-ex]` with `.inv-vat--hidden`
+  - Toggle buttons: `[data-vat-toggle]` with `aria-pressed`
+  - Storage: `localStorage` key `invicta-vat-mode` ('inc' | 'ex')
+  - Event: `invicta:vat-toggle` with `{ detail: { mode } }`
+  - API: `window.InvictaVAT.getMode()` / `.setMode(mode)`
 - **Tiered Pricing**: `snippets/tiered-pricing.liquid` using `quantity_price_breaks`
 - **Quick Order**: `sections/bulk-quick-order-list.liquid`
 - **Minimum Order Qty**: `snippets/min-order-qty.liquid` via metafields
@@ -168,18 +203,37 @@ These features are critical business logic — preserve when making changes:
 
 ---
 
+## Cart Architecture
+
+The theme supports three cart modes via `settings.cart_type`:
+
+| Mode | Behaviour | Key Files |
+|------|-----------|-----------|
+| `drawer` | Slide-out cart drawer | `cart-drawer.js`, `snippets/cart-drawer.liquid`, `component-cart-drawer.css` |
+| `notification` | Toast notification on add (default) | `cart-notification.js`, `snippets/cart-notification.liquid`, `component-cart-notification.css` |
+| `page` | Redirect to `/cart` page | `cart.js`, `sections/main-cart-items.liquid` |
+
+Detection in `product-form.js`: checks for `<cart-notification>` or `<cart-drawer>` element; falls back to page redirect.
+
+---
+
 ## CSS Architecture
 
 ```
-base.css              → Core foundations (3700+ lines)
-desktop.css           → Desktop-specific overrides
-mobile.css            → Mobile-specific overrides
-invicta-product-card.css → Product card component
-invicta-product-v2.css   → PDP styles
-invicta-brand-pill.css   → Brand pill component
-invicta-radius-reset.css → Sharp corner overrides
-component-*.css       → Lazy-loaded component styles
-section-*.css         → Lazy-loaded section styles
+invicta-css-variables.css   → Design tokens v3.0 (THE canonical layer)
+base.css                    → Core foundations (Trade 15.4.0)
+desktop.css                 → Desktop-specific overrides
+mobile.css                  → Mobile-specific overrides
+invicta-ux-improvements.css → UX enhancements (container, focus, skip-link)
+invicta-radius-reset.css    → Global border-radius enforcement
+invicta-product-card.css    → Product card component
+invicta-product-v2.css      → PDP styles
+section-*.css               → Section-specific styles (lazy-loaded)
+component-*.css             → Component styles (lazy-loaded)
 ```
 
 Global CSS loads in `theme.liquid`. Component/section CSS loads on demand via `{{ 'file.css' | asset_url | stylesheet_tag }}` at the bottom of each snippet/section.
+
+### JSON Templates
+
+All `.json` templates and section groups use strict JSON — no comment headers. The Shopify theme editor may regenerate these files at any time.

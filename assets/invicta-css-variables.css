@@ -1,24 +1,33 @@
 /* ============================================================
-   INVICTA DESIGN TOKENS v2.0 (CONSOLIDATED)
+   INVICTA DESIGN TOKENS v3.0 (CANONICAL)
    ============================================================
-   Single source of truth for all Invicta brand tokens.
-   Extracted from snippets/invicta-css-variables.liquid for
-   performance (cacheable external CSS file).
+   Single source of truth for ALL Invicta design tokens.
+   Every token lives here. No other file should define :root
+   custom properties in the --inv-* namespace.
 
-   All values are static (no Liquid dependencies).
+   All values are static (no Liquid dependencies) so the
+   entire file is externalized for browser caching.
+
+   CHANGELOG:
+   v3.0 - Consolidated scattered tokens from 6 satellite files
+        - Resolved radius conflicts (8px canonical, not pill)
+        - Added mobile/responsive tokens
+        - Added container/layout tokens
+        - Unified brand colour to --inv-accent (retired --inv-brand)
+   v2.1 - Moved all static tokens to external CSS file
+   v2.0 - Initial consolidation from Liquid variables
    ============================================================ */
 
 :root {
   /* ========================================
      BRAND COLORS
      ======================================== */
-  /* Primary Brand Red - Canonical Invicta red */
   --inv-accent: #e11d26;
-  --inv-accent-hover: #c4191f;
+  --inv-accent-hover: #b91c1c;
   --inv-accent-soft: rgba(225, 29, 38, 0.08);
   --inv-accent-light: rgba(225, 29, 38, 0.12);
 
-  /* Legacy aliases (for backwards compatibility) */
+  /* Legacy aliases */
   --inv-primary: var(--inv-accent);
   --inv-primary-hover: var(--inv-accent-hover);
 
@@ -55,6 +64,7 @@
   --inv-text-muted: var(--inv-fg-muted);
   --inv-text-light: var(--inv-fg-subtle);
   --inv-dark: #2d2d2d;
+  --inv-dark-hover: #404040;
 
   /* ========================================
      BORDER COLORS
@@ -85,10 +95,13 @@
   --inv-radius-xl: 16px;
   --inv-radius-pill: 999px;
 
-  /* Component-specific radii */
-  --inv-radius-card: 12px;
-  --inv-radius-button: 999px;
-  --inv-radius-input: 8px;
+  /* Component-specific radii (enforced site-wide) */
+  --inv-radius-button: var(--inv-radius-md);
+  --inv-radius-card: var(--inv-radius-md);
+  --inv-radius-input: var(--inv-radius-md);
+  --inv-radius-modal: var(--inv-radius-lg);
+  --inv-radius-toggle-outer: var(--inv-radius-md);
+  --inv-radius-toggle-inner: var(--inv-radius-sm);
 
   /* ========================================
      SPACING
@@ -103,8 +116,20 @@
 
   /* Page Layout */
   --inv-page-width: 1320px;
+  --inv-container: 1400px;
   --inv-page-gutter: 1.5rem;
   --inv-page-gutter-desktop: 3rem;
+  --inv-section-gap: 0px;
+
+  /* Legacy alias (retired → use --inv-page-gutter) */
+  --inv-gutter: var(--inv-page-gutter);
+
+  /* Mobile / Responsive */
+  --inv-mobile-gutter: 12px;
+  --inv-mobile-section-gap: 24px;
+  --inv-mobile-card-gap: 10px;
+  --inv-mobile-radius: 8px;
+  --inv-touch-target-min: 44px;
 
   /* ========================================
      DURATION (Animation/Transition)
@@ -178,4 +203,11 @@
   --focused-base-outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
   --focused-base-outline-offset: 0.3rem;
   --focused-base-box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
+}
+
+/* Desktop gutter override */
+@media screen and (min-width: 750px) {
+  :root {
+    --inv-page-gutter: var(--inv-page-gutter-desktop);
+  }
 }

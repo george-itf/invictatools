@@ -863,8 +863,11 @@ class SlideshowComponent extends SliderComponent {
     this.announcerBarAnimationDelay = this.announcementBarSlider ? 250 : 0;
 
     this.sliderControlLinksArray = Array.from(this.sliderControlWrapper.querySelectorAll('.slider-counter__link'));
-    this.sliderControlLinksArray.forEach((link) => link.addEventListener('click', this.linkToSlide.bind(this)));
-    this.slider.addEventListener('scroll', this.setSlideVisibility.bind(this));
+    // Store bound references for cleanup in disconnectedCallback (H31 fix)
+    this.boundLinkToSlide = this.linkToSlide.bind(this);
+    this.boundSetSlideVisibility = this.setSlideVisibility.bind(this);
+    this.sliderControlLinksArray.forEach((link) => link.addEventListener('click', this.boundLinkToSlide));
+    this.slider.addEventListener('scroll', this.boundSetSlideVisibility);
     this.setSlideVisibility();
 
     if (this.announcementBarSlider) {
@@ -889,16 +892,46 @@ class SlideshowComponent extends SliderComponent {
     if (this.slider.getAttribute('data-autoplay') === 'true') this.setAutoPlay();
   }
 
+  disconnectedCallback() {
+    // Clean up parent class listeners
+    super.disconnectedCallback();
+    // Clean up SlideshowComponent-specific listeners (H31 fix)
+    if (this.slider && this.boundSetSlideVisibility) {
+      this.slider.removeEventListener('scroll', this.boundSetSlideVisibility);
+    }
+    if (this.sliderControlLinksArray && this.boundLinkToSlide) {
+      this.sliderControlLinksArray.forEach((link) => link.removeEventListener('click', this.boundLinkToSlide));
+    }
+    if (this.boundFocusInHandling) {
+      this.removeEventListener('mouseover', this.boundFocusInHandling);
+      this.removeEventListener('focusin', this.boundFocusInHandling);
+    }
+    if (this.boundFocusOutHandling) {
+      this.removeEventListener('mouseleave', this.boundFocusOutHandling);
+      this.removeEventListener('focusout', this.boundFocusOutHandling);
+    }
+    if (this.sliderAutoplayButton && this.boundAutoPlayToggle) {
+      this.sliderAutoplayButton.removeEventListener('click', this.boundAutoPlayToggle);
+    }
+    // Stop autoplay interval
+    clearInterval(this.autoplay);
+    clearTimeout(this.setPositionTimeout);
+  }
+
   setAutoPlay() {
     this.autoplaySpeed = this.slider.dataset.speed * 1000;
-    this.addEventListener('mouseover', this.focusInHandling.bind(this));
-    this.addEventListener('mouseleave', this.focusOutHandling.bind(this));
-    this.addEventListener('focusin', this.focusInHandling.bind(this));
-    this.addEventListener('focusout', this.focusOutHandling.bind(this));
+    // Store bound references for cleanup in disconnectedCallback (H31 fix)
+    this.boundFocusInHandling = this.focusInHandling.bind(this);
+    this.boundFocusOutHandling = this.focusOutHandling.bind(this);
+    this.boundAutoPlayToggle = this.autoPlayToggle.bind(this);
+    this.addEventListener('mouseover', this.boundFocusInHandling);
+    this.addEventListener('mouseleave', this.boundFocusOutHandling);
+    this.addEventListener('focusin', this.boundFocusInHandling);
+    this.addEventListener('focusout', this.boundFocusOutHandling);
 
     if (this.querySelector('.slideshow__autoplay')) {
       this.sliderAutoplayButton = this.querySelector('.slideshow__autoplay');
-      this.sliderAutoplayButton.addEventListener('click', this.autoPlayToggle.bind(this));
+      this.sliderAutoplayButton.addEventListener('click', this.boundAutoPlayToggle);
       this.autoplayButtonIsSetToPlay = true;
       this.play();
     } else {
@@ -1206,7 +1239,15 @@ class AccountIcon extends HTMLElement {
   }
 
   connectedCallback() {
-    document.addEventListener('storefront:signincompleted', this.handleStorefrontSignInCompleted.bind(this));
+    // Store bound reference for cleanup in disconnectedCallback (H31 fix)
+    this.boundHandleSignIn = this.handleStorefrontSignInCompleted.bind(this);
+    document.addEventListener('storefront:signincompleted', this.boundHandleSignIn);
+  }
+
+  disconnectedCallback() {
+    if (this.boundHandleSignIn) {
+      document.removeEventListener('storefront:signincompleted', this.boundHandleSignIn);
+    }
   }
 
   handleStorefrontSignInCompleted(event) {

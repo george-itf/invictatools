@@ -407,33 +407,34 @@
             {% render 'invicta-brand-pill', product: product %}
           </div>
           
-          {%- comment -%} 
-            PRICE BLOCK — FIXED DATA ATTRIBUTES
-            Aligned with VAT toggle expectations
+          {%- comment -%}
+            PRICE BLOCK — Canonical VAT contract (Decision 6)
+            Uses [data-price-inc] / [data-price-ex] + .inv-vat--hidden
           {%- endcomment -%}
-          <div 
-            class="inv-pdp__price" 
+          <div
+            class="inv-pdp__price"
             data-price-wrapper
             aria-live="polite"
             aria-atomic="true"
           >
-            {%- comment -%} PRICE ROW: main price + compare price {%- endcomment -%}
-            <div class="inv-pdp__price-row" data-vat-view="inc">
-              <span class="inv-pdp__price-current" data-price-inc>{{ current_variant.price | money }}</span>
+            {%- comment -%} Inc VAT price row {%- endcomment -%}
+            <div class="inv-pdp__price-row inv-vat inv-vat--inc" data-price-inc>
+              <span class="inv-pdp__price-current" data-price-inc-value>{{ current_variant.price | money }}</span>
               <span class="inv-pdp__price-label">inc VAT</span>
               {% if has_compare_price %}
                 <span class="inv-pdp__price-was" data-compare-inc>{{ current_variant.compare_at_price | money }}</span>
               {% endif %}
             </div>
-            <div class="inv-pdp__price-row inv-pdp__price-view--hidden" data-vat-view="ex">
-              <span class="inv-pdp__price-current" data-price-ex>{{ price_ex_vat | money }}</span>
+            {%- comment -%} Ex VAT price row (hidden by default via .inv-vat--hidden) {%- endcomment -%}
+            <div class="inv-pdp__price-row inv-vat inv-vat--ex inv-vat--hidden" data-price-ex>
+              <span class="inv-pdp__price-current" data-price-ex-value>{{ price_ex_vat | money }}</span>
               <span class="inv-pdp__price-label">ex VAT</span>
               {% if has_compare_price %}
                 <span class="inv-pdp__price-was" data-compare-ex>{{ compare_ex_vat | money }}</span>
               {% endif %}
             </div>
             {%- comment -%} VAT toggle — fixed position below price, never jumps {%- endcomment -%}
-            <div class="inv-pdp__vat-toggle" data-vat-toggle-inline>
+            <div class="inv-pdp__vat-toggle">
               <span class="inv-pdp__vat-toggle-label" data-vat-label-ex>EX VAT</span>
               <button
                 type="button"
@@ -441,7 +442,7 @@
                 role="switch"
                 aria-checked="true"
                 aria-label="Toggle VAT display"
-                data-vat-switch
+                data-vat-toggle
               >
                 <span class="inv-pdp__vat-toggle-thumb"></span>
               </button>

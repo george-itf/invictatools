@@ -49,6 +49,14 @@
     {% render 'meta-tags' %}
     {% render 'invicta-css-variables' %}
 
+    {%- comment -%}
+      H32 SRI audit: All scripts below load from Shopify's asset CDN via {{ asset_url }},
+      which is same-origin for CORS purposes. No external third-party scripts are loaded.
+      If any external scripts are added in the future (e.g. from a third-party CDN),
+      they MUST include crossorigin="anonymous" and an integrity="sha384-..." attribute
+      (Subresource Integrity) to prevent supply-chain attacks.
+      Example: <script src="https://cdn.example.com/lib.js" crossorigin="anonymous" integrity="sha384-..."></script>
+    {%- endcomment -%}
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
@@ -60,7 +68,7 @@
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-    {{ content_for_header }}
+    {{ content_for_header }} {%- comment -%} H32 note: Shopify injects third-party app scripts here. SRI cannot be added to these as they are controlled by Shopify/apps. {%- endcomment -%}
 
     {%- liquid
       assign body_font_bold        = settings.type_body_font | font_modify: 'weight', 'bold'
@@ -413,8 +421,6 @@
     </script>
 
 
-    {% render 'pwa-head' %}
-    
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">

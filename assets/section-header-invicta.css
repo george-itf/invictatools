@@ -1,4 +1,4 @@
-:root { --inv-brand-red: #e11d26; }
+/* Brand token consolidated into invicta-css-variables.css v3.0 (use --inv-accent) */
 /* =======================================================
    INVICTA HEADER v6.0 — RED BACKGROUND
    ======================================================= */
@@ -7,7 +7,7 @@
   top: 0;
   z-index: 999;
   width: 100%;
-  background: var(--inv-brand-red);
+  background: var(--inv-accent);
   border-bottom: none;
 }
 
@@ -154,7 +154,7 @@
 }
 
 .invicta-drawer__close:focus-visible {
-  outline: 2px solid var(--inv-brand-red);
+  outline: 2px solid var(--inv-accent);
   outline-offset: 2px;
 }
 
@@ -195,18 +195,18 @@
 
 .invicta-drawer__nav-link:hover {
   background: #f9fafb;
-  color: var(--inv-brand-red);
+  color: var(--inv-accent);
 }
 
 .invicta-drawer__nav-link:focus-visible {
-  outline: 2px solid var(--inv-brand-red);
+  outline: 2px solid var(--inv-accent);
   outline-offset: -2px;
 }
 
 .invicta-drawer__nav-link[aria-current="page"] {
-  color: var(--inv-brand-red);
+  color: var(--inv-accent);
   background: #fef2f2;
-  border-left: 3px solid var(--inv-brand-red);
+  border-left: 3px solid var(--inv-accent);
 }
 
 .invicta-drawer__nav-link svg {
@@ -238,11 +238,11 @@
 
 .invicta-drawer__submenu-toggle:hover {
   background: #f9fafb;
-  color: var(--inv-brand-red);
+  color: var(--inv-accent);
 }
 
 .invicta-drawer__submenu-toggle:focus-visible {
-  outline: 2px solid var(--inv-brand-red);
+  outline: 2px solid var(--inv-accent);
   outline-offset: -2px;
 }
 
@@ -281,16 +281,16 @@
 }
 
 .invicta-drawer__submenu a:hover {
-  color: var(--inv-brand-red);
+  color: var(--inv-accent);
 }
 
 .invicta-drawer__submenu a:focus-visible {
-  outline: 2px solid var(--inv-brand-red);
+  outline: 2px solid var(--inv-accent);
   outline-offset: -2px;
 }
 
 .invicta-drawer__submenu a[aria-current="page"] {
-  color: var(--inv-brand-red);
+  color: var(--inv-accent);
   font-weight: 700;
 }
 
@@ -331,7 +331,7 @@
 }
 
 .invicta-drawer__vat-pill--active {
-  background: var(--inv-brand-red);
+  background: var(--inv-accent);
   color: #fff;
 }
 
@@ -353,7 +353,7 @@
 }
 
 .invicta-drawer__account-link:hover {
-  color: var(--inv-brand-red);
+  color: var(--inv-accent);
 }
 
 .invicta-drawer__account-link svg {
@@ -607,7 +607,7 @@
   padding: 0 6px;
   border-radius: 999px;
   background: #ffffff;
-  color: var(--inv-brand-red);
+  color: var(--inv-accent);
   font-size: 11px;
   font-weight: 700;
   display: inline-flex;

@@ -6,21 +6,8 @@
    Usage:   All components must use these custom properties
    ======================================================= */
 
-:root {
-  /* Core radius scale */
-  --inv-radius-none: 0;
-  --inv-radius-sm: 4px;
-  --inv-radius-md: 8px;
-  --inv-radius-lg: 12px;
-  
-  /* Semantic aliases (optional, for clarity) */
-  --inv-radius-button: var(--inv-radius-md);
-  --inv-radius-card: var(--inv-radius-md);
-  --inv-radius-input: var(--inv-radius-md);
-  --inv-radius-modal: var(--inv-radius-lg);
-  --inv-radius-toggle-outer: var(--inv-radius-md);
-  --inv-radius-toggle-inner: var(--inv-radius-sm);
-}
+/* Radius tokens consolidated into invicta-css-variables.css v3.0
+   This file retains only the global selector overrides. */
 
 /* =======================================================
    GLOBAL RESET — Override all default/theme radii
