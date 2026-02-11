@@ -1,48 +1,53 @@
 /**
  * ============================================
- * Invicta VAT Toggle v4.1 (UNIFIED)
+ * Invicta VAT Toggle v5.0 (STANDARDISED)
  * ============================================
  *
- * Handles VAT toggle functionality site-wide.
- * - Persists preference in localStorage
- * - Dispatches custom events for other components
- * - Updates all price displays across the page
+ * Single canonical VAT toggle controller for the entire site.
  *
- * USAGE:
- * Add to theme.liquid before </body> or as an asset
+ * MARKUP CONTRACT:
+ *
+ *   <!-- Price wrapper -->
+ *   <div data-price-wrapper>
+ *     <span data-price-inc class="inv-vat inv-vat--inc">£35.99 inc VAT</span>
+ *     <span data-price-ex  class="inv-vat inv-vat--ex">£29.99 ex VAT</span>
+ *   </div>
+ *
+ *   <!-- Toggle button -->
+ *   <button data-vat-toggle aria-pressed="true|false">Inc VAT / Ex VAT</button>
+ *
+ * HIDDEN STATE:
+ *   .inv-vat--hidden { display: none; }
+ *
+ * STORAGE:
+ *   localStorage key: 'invicta-vat-mode'
+ *   Values: 'inc' | 'ex'
  *
  * EVENTS DISPATCHED:
- * - invicta:vat-toggle { detail: { mode: 'inc' | 'ex' } }
- *
- * LISTENS FOR:
- * - Clicks on [data-vat-btn] elements
- *
- * SELECTOR CONTRACT (unified):
- * - Price wrapper: [data-vat-price-wrapper] OR [data-price-wrapper]
- * - Views: [data-vat-view="inc"], [data-vat-view="ex"]
- * - Hidden class: .inv-pdp__price-row--hidden OR .is-hidden
+ *   'invicta:vat-toggle' with detail: { mode: 'inc' | 'ex' }
  *
  * ============================================
  */
 (function() {
   'use strict';
-  
-  const STORAGE_KEY = 'invicta-vat-mode';
-  const DEFAULT_MODE = 'inc';
-  
+
+  var STORAGE_KEY = 'invicta-vat-mode';
+  var DEFAULT_MODE = 'inc';
+  var HIDDEN_CLASS = 'inv-vat--hidden';
+
   /**
    * Get current VAT mode from localStorage
    * @returns {string} 'inc' or 'ex'
    */
   function getVatMode() {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      return stored === 'ex' ? 'ex' : 'inc';
+      var stored = localStorage.getItem(STORAGE_KEY);
+      return stored === 'ex' ? 'ex' : DEFAULT_MODE;
     } catch (e) {
       return DEFAULT_MODE;
     }
   }
-  
+
   /**
    * Save VAT mode to localStorage
    * @param {string} mode - 'inc' or 'ex'
@@ -54,98 +59,61 @@
       // Silent fail for storage errors
     }
   }
-  
+
   /**
    * Dispatch custom event for VAT toggle
    * @param {string} mode - 'inc' or 'ex'
    */
   function dispatchVatEvent(mode) {
     document.dispatchEvent(new CustomEvent('invicta:vat-toggle', {
-      detail: { mode },
+      detail: { mode: mode },
       bubbles: true
     }));
   }
-  
+
   /**
    * Update all VAT toggle buttons to reflect current state
    * @param {string} mode - 'inc' or 'ex'
    */
   function updateToggleButtons(mode) {
-    document.querySelectorAll('[data-vat-btn]').forEach(btn => {
-      const btnMode = btn.dataset.vatBtn;
-      const isActive = btnMode === mode;
-      
-      btn.classList.toggle('invicta-header__vat-btn--active', isActive);
-      btn.classList.toggle('invicta-nav__vat-btn--active', isActive);
-      btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    document.querySelectorAll('[data-vat-toggle]').forEach(function(btn) {
+      var btnMode = btn.getAttribute('data-vat-toggle');
+
+      // If the button has a mode value (e.g. data-vat-toggle="inc"),
+      // update aria-pressed and active class accordingly
+      if (btnMode === 'inc' || btnMode === 'ex') {
+        var isActive = btnMode === mode;
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        btn.classList.toggle('inv-vat-toggle--active', isActive);
+      }
     });
   }
-  
+
   /**
    * Update all price displays on the page
-   * Unified to support both PDP and PLP selectors
+   * Uses ONLY [data-price-inc] and [data-price-ex] with .inv-vat--hidden
    * @param {string} mode - 'inc' or 'ex'
    */
   function updatePriceDisplays(mode) {
-    // Unified selector: supports both data-vat-price-wrapper AND data-price-wrapper
-    const priceWrappers = document.querySelectorAll('[data-vat-price-wrapper], [data-price-wrapper]');
-
-    priceWrappers.forEach(wrapper => {
-      const incView = wrapper.querySelector('[data-vat-view="inc"]');
-      const exView = wrapper.querySelector('[data-vat-view="ex"]');
-
-      if (incView && exView) {
-        // Support both class naming conventions
-        const hiddenClasses = ['inv-pdp__price-row--hidden', 'inv-pdp__price-view--hidden', 'is-hidden'];
-
-        if (mode === 'ex') {
-          hiddenClasses.forEach(cls => {
-            incView.classList.add(cls);
-            exView.classList.remove(cls);
-          });
-        } else {
-          hiddenClasses.forEach(cls => {
-            incView.classList.remove(cls);
-            exView.classList.add(cls);
-          });
-        }
-      }
-
-      // Toggle alt price text
-      const incAlt = wrapper.querySelector('[data-vat-alt="inc"]');
-      const exAlt = wrapper.querySelector('[data-vat-alt="ex"]');
-
-      if (incAlt && exAlt) {
-        const altHiddenClasses = ['inv-pdp__price-alt--hidden', 'is-hidden'];
-        if (mode === 'ex') {
-          altHiddenClasses.forEach(cls => {
-            incAlt.classList.add(cls);
-            exAlt.classList.remove(cls);
-          });
-        } else {
-          altHiddenClasses.forEach(cls => {
-            incAlt.classList.remove(cls);
-            exAlt.classList.add(cls);
-          });
-        }
+    // Show/hide inc-VAT price elements
+    document.querySelectorAll('[data-price-inc]').forEach(function(el) {
+      if (mode === 'inc') {
+        el.classList.remove(HIDDEN_CLASS);
+      } else {
+        el.classList.add(HIDDEN_CLASS);
       }
     });
 
-    // Update collection/card price displays (if they exist)
-    document.querySelectorAll('[data-price-inc-container]').forEach(el => {
-      el.style.display = mode === 'inc' ? '' : 'none';
-    });
-    document.querySelectorAll('[data-price-ex-container]').forEach(el => {
-      el.style.display = mode === 'ex' ? '' : 'none';
-    });
-
-    // Update any generic VAT-aware elements
-    document.querySelectorAll('[data-vat-display]').forEach(el => {
-      const showMode = el.dataset.vatDisplay;
-      el.style.display = showMode === mode ? '' : 'none';
+    // Show/hide ex-VAT price elements
+    document.querySelectorAll('[data-price-ex]').forEach(function(el) {
+      if (mode === 'ex') {
+        el.classList.remove(HIDDEN_CLASS);
+      } else {
+        el.classList.add(HIDDEN_CLASS);
+      }
     });
 
-    // Push to dataLayer for analytics (P1.5)
+    // Push to dataLayer for analytics
     if (typeof window.dataLayer !== 'undefined') {
       window.dataLayer.push({
         event: 'vat_toggle',
@@ -153,65 +121,70 @@
       });
     }
   }
-  
+
   /**
-   * Handle VAT toggle button click
-   * @param {Event} e - Click event
+   * Apply VAT mode: update buttons, prices, and persist
+   * @param {string} mode - 'inc' or 'ex'
    */
-  function handleToggleClick(e) {
-    const btn = e.target.closest('[data-vat-btn]');
-    if (!btn) return;
-    
-    const mode = btn.dataset.vatBtn;
-    if (!mode || (mode !== 'inc' && mode !== 'ex')) return;
-    
-    // Prevent double-toggle if already active
-    if (btn.classList.contains('invicta-header__vat-btn--active') || 
-        btn.classList.contains('invicta-nav__vat-btn--active')) {
-      return;
-    }
-    
-    // Update state
+  function applyVatMode(mode) {
     setVatMode(mode);
     updateToggleButtons(mode);
     updatePriceDisplays(mode);
     dispatchVatEvent(mode);
   }
-  
+
+  /**
+   * Handle VAT toggle button click (delegated)
+   * @param {Event} e - Click event
+   */
+  function handleToggleClick(e) {
+    var btn = e.target.closest('[data-vat-toggle]');
+    if (!btn) return;
+
+    var btnMode = btn.getAttribute('data-vat-toggle');
+
+    if (btnMode === 'inc' || btnMode === 'ex') {
+      // Button with explicit mode (e.g. header "Inc" / "Ex" buttons)
+      if (btnMode === getVatMode()) return; // already active
+      applyVatMode(btnMode);
+    } else {
+      // Generic toggle (e.g. PDP switch) — flip current mode
+      var current = getVatMode();
+      applyVatMode(current === 'inc' ? 'ex' : 'inc');
+    }
+  }
+
   /**
    * Initialise VAT toggle on page load
    */
   function init() {
-    const mode = getVatMode();
-    
+    var mode = getVatMode();
+
     // Set initial state
     updateToggleButtons(mode);
     updatePriceDisplays(mode);
-    
+
     // Attach click listener (delegated)
     document.addEventListener('click', handleToggleClick);
-    
+
     // Dispatch initial event for any listeners
     dispatchVatEvent(mode);
   }
-  
+
   // Run on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
-  
+
   // Expose API for external use
   window.InvictaVAT = {
     getMode: getVatMode,
     setMode: function(mode) {
       if (mode !== 'inc' && mode !== 'ex') return;
-      setVatMode(mode);
-      updateToggleButtons(mode);
-      updatePriceDisplays(mode);
-      dispatchVatEvent(mode);
+      applyVatMode(mode);
     }
   };
-  
+
 })();
