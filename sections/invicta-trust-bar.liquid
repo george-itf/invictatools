@@ -522,6 +522,13 @@
   }
 
   @media (max-width: 749px) {
+    /* Override mobile.css which sets .inv-trust to 2-column grid
+       (meant for PDP trust badges, but shares the class name).
+       Force single-column stacking: stats ABOVE content. */
+    #trust-{{ section.id }}.inv-trust {
+      display: block;
+    }
+
     /* Stats: clean 2x2 grid, full width, above everything */
     .inv-trust__stats {
       overflow: visible;
