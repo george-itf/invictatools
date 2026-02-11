@@ -1,9 +1,9 @@
 {% comment %}
   ============================================
-  LOCAL HUB v1.0
+  LOCAL HUB v2.0
   ============================================
   Kent areas hub section with town grid and
-  branch details cards
+  branch details cards (now driven by blocks)
   Trade 15.4.0 Compatible
   ============================================
 {% endcomment %}
@@ -14,8 +14,8 @@
 .kent-hub__subtitle{text-align:center;color:#777;font-size:15px;margin:0 0 36px}
 .kent-hub__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin-bottom:48px}
 .kent-hub__card{display:flex;align-items:center;gap:14px;padding:18px 20px;background:#f8f9fa;border:1px solid #eee;border-radius:10px;text-decoration:none;color:#1a1a2e;transition:all .2s}
-.kent-hub__card:hover{border-color:#e11d26;box-shadow:0 4px 12px rgba(220,38,38,.1);transform:translateY(-2px)}
-.kent-hub__card-icon{width:40px;height:40px;background:rgba(220,38,38,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#e11d26}
+.kent-hub__card:hover{border-color:#e41e25;box-shadow:0 4px 12px rgba(220,38,38,.1);transform:translateY(-2px)}
+.kent-hub__card-icon{width:40px;height:40px;background:rgba(220,38,38,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#e41e25}
 .kent-hub__card-name{font-weight:700;font-size:15px;display:block}
 .kent-hub__card-dist{font-size:12px;color:#999}
 .kent-hub__branches{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px}
@@ -25,7 +25,7 @@
 .kent-hub__branch-badge{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#f87171;margin-bottom:12px;display:block}
 .kent-hub__branch-detail{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;font-size:14px;color:rgba(255,255,255,.8)}
 .kent-hub__branch-detail svg{flex-shrink:0;margin-top:2px;color:rgba(255,255,255,.4)}
-.kent-hub__map-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 16px;background:#e11d26;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none}
+.kent-hub__map-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 16px;background:#e41e25;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none}
 .kent-hub__map-btn:hover{background:#b91c1c;color:#fff}
 </style>
 
@@ -51,46 +51,43 @@
     </div>
 
     <div class="kent-hub__branches">
-      <div class="kent-hub__branch">
-        <span class="kent-hub__branch-badge">Canterbury Branch</span>
-        <h3 class="kent-hub__branch-name">Invicta Tools Canterbury</h3>
-        <div class="kent-hub__branch-detail">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span>Unit 9 Cotton Road, Wincheap Industrial Estate, Canterbury, CT1 3TB</span>
-        </div>
-        <div class="kent-hub__branch-detail">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <span>Mon–Fri 7:30–17:00 · Sat 8:00–12:00</span>
-        </div>
-        <div class="kent-hub__branch-detail">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          <span>01843 210 459</span>
-        </div>
-        <a href="https://maps.google.com/?q=Unit+9+Cotton+Road+Wincheap+Industrial+Estate+Canterbury+CT1+3TB" target="_blank" rel="noopener" class="kent-hub__map-btn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-          Get Directions
-        </a>
-      </div>
-      <div class="kent-hub__branch">
-        <span class="kent-hub__branch-badge">Ramsgate Branch</span>
-        <h3 class="kent-hub__branch-name">Invicta Tools Ramsgate</h3>
-        <div class="kent-hub__branch-detail">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span>Unit 74 The Oaks Business Park, Invicta Way, Ramsgate, CT12 5FS</span>
-        </div>
-        <div class="kent-hub__branch-detail">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <span>Mon–Fri 7:30–17:00 · Sat 8:00–12:00</span>
-        </div>
-        <div class="kent-hub__branch-detail">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          <span>01843 210 459</span>
-        </div>
-        <a href="https://maps.google.com/?q=Unit+74+The+Oaks+Business+Park+Invicta+Way+Ramsgate+CT12+5FS" target="_blank" rel="noopener" class="kent-hub__map-btn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-          Get Directions
-        </a>
-      </div>
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'branch' -%}
+          {%- liquid
+            assign full_address = block.settings.address_line_1
+            if block.settings.address_line_2 != blank
+              assign full_address = full_address | append: ', ' | append: block.settings.address_line_2
+            endif
+            assign full_address = full_address | append: ', ' | append: block.settings.city | append: ', ' | append: block.settings.postcode
+            assign hours_line = block.settings.hours_weekday
+            if block.settings.hours_saturday != blank
+              assign hours_line = hours_line | append: ' · ' | append: block.settings.hours_saturday
+            endif
+          -%}
+          <div class="kent-hub__branch" {{ block.shopify_attributes }}>
+            <span class="kent-hub__branch-badge">{{ block.settings.branch_name }} Branch</span>
+            <h3 class="kent-hub__branch-name">Invicta Tools {{ block.settings.branch_name }}</h3>
+            <div class="kent-hub__branch-detail">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>{{ full_address }}</span>
+            </div>
+            <div class="kent-hub__branch-detail">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>{{ hours_line }}</span>
+            </div>
+            <div class="kent-hub__branch-detail">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>{{ block.settings.phone }}</span>
+            </div>
+            {%- if block.settings.map_url != blank -%}
+              <a href="{{ block.settings.map_url }}" target="_blank" rel="noopener" class="kent-hub__map-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                Get Directions
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
     </div>
   </div>
 </section>
@@ -135,11 +132,104 @@
           "label": "Page URL"
         }
       ]
+    },
+    {
+      "type": "branch",
+      "name": "Branch",
+      "settings": [
+        {
+          "type": "text",
+          "id": "branch_name",
+          "label": "Branch Name",
+          "info": "Used in heading and badge, e.g. 'Canterbury'"
+        },
+        {
+          "type": "text",
+          "id": "address_line_1",
+          "label": "Address Line 1"
+        },
+        {
+          "type": "text",
+          "id": "address_line_2",
+          "label": "Address Line 2"
+        },
+        {
+          "type": "text",
+          "id": "city",
+          "label": "City"
+        },
+        {
+          "type": "text",
+          "id": "postcode",
+          "label": "Postcode"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone (display)",
+          "default": "01843 210 459"
+        },
+        {
+          "type": "text",
+          "id": "phone_href",
+          "label": "Phone (href)",
+          "default": "tel:+441843210459"
+        },
+        {
+          "type": "text",
+          "id": "hours_weekday",
+          "label": "Weekday Hours",
+          "default": "Mon\u2013Fri 7:30\u201317:00"
+        },
+        {
+          "type": "text",
+          "id": "hours_saturday",
+          "label": "Saturday Hours",
+          "default": "Sat 8:00\u201312:00"
+        },
+        {
+          "type": "url",
+          "id": "map_url",
+          "label": "Map URL"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Local Hub"
+      "name": "Local Hub",
+      "blocks": [
+        {
+          "type": "branch",
+          "settings": {
+            "branch_name": "Canterbury",
+            "address_line_1": "Unit 9 Cotton Road",
+            "address_line_2": "Wincheap Industrial Estate",
+            "city": "Canterbury",
+            "postcode": "CT1 3TB",
+            "phone": "01843 210 459",
+            "phone_href": "tel:+441843210459",
+            "hours_weekday": "Mon\u2013Fri 7:30\u201317:00",
+            "hours_saturday": "Sat 8:00\u201312:00",
+            "map_url": "https://maps.google.com/?q=Unit+9+Cotton+Road+Wincheap+Industrial+Estate+Canterbury+CT1+3TB"
+          }
+        },
+        {
+          "type": "branch",
+          "settings": {
+            "branch_name": "Ramsgate",
+            "address_line_1": "Unit 74 The Oaks Business Park",
+            "address_line_2": "Invicta Way",
+            "city": "Ramsgate",
+            "postcode": "CT12 5FS",
+            "phone": "01843 210 459",
+            "phone_href": "tel:+441843210459",
+            "hours_weekday": "Mon\u2013Fri 7:30\u201317:00",
+            "hours_saturday": "Sat 8:00\u201312:00",
+            "map_url": "https://maps.google.com/?q=Unit+74+The+Oaks+Business+Park+Invicta+Way+Ramsgate+CT12+5FS"
+          }
+        }
+      ]
     }
   ]
 }

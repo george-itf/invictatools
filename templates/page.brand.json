@@ -77,7 +77,7 @@
       "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
       "settings": {
         "background_color": "#fdfdfd",
-        "accent_color": "#e11d26",
+        "accent_color": "#e41e25",
         "text_color": "#2d2d2d",
         "subtitle_color": "#999999",
         "divider_color": "#333333",

@@ -588,4 +588,67 @@
   </div>
 </cart-drawer>
 
+<script>
+/**
+ * Cart Drawer Accessibility Enhancements
+ * ----------------------------------------
+ * Ensures focus trap, Escape-to-close, and focus restoration
+ * even if the external cart-drawer.js is delayed or overridden.
+ */
+(function() {
+  'use strict';
+
+  const drawerEl = document.querySelector('cart-drawer');
+  if (!drawerEl) return;
+
+  const drawerInner = drawerEl.querySelector('.drawer__inner');
+  if (drawerInner) {
+    /* Ensure ARIA attributes are present */
+    if (!drawerInner.hasAttribute('role')) drawerInner.setAttribute('role', 'dialog');
+    if (!drawerInner.hasAttribute('aria-modal')) drawerInner.setAttribute('aria-modal', 'true');
+  }
+
+  /* Track the element that triggered the drawer open */
+  let _triggerElement = null;
+
+  /* Observe when the drawer becomes active to engage focus trap */
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(m) {
+      if (m.attributeName !== 'class') return;
+      const isActive = drawerEl.classList.contains('active');
+
+      if (isActive) {
+        /* Store the trigger element for focus return */
+        if (!_triggerElement) {
+          _triggerElement = document.activeElement;
+        }
+        /* Let the existing trapFocus in cart-drawer.js handle focus;
+           this is a safety net for Escape key */
+        document.addEventListener('keydown', handleDrawerEscape);
+      } else {
+        document.removeEventListener('keydown', handleDrawerEscape);
+        /* Return focus to trigger element */
+        if (_triggerElement && typeof _triggerElement.focus === 'function') {
+          _triggerElement.focus();
+          _triggerElement = null;
+        }
+      }
+    });
+  });
+
+  observer.observe(drawerEl, { attributes: true, attributeFilter: ['class'] });
+
+  function handleDrawerEscape(e) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      if (typeof drawerEl.close === 'function') {
+        drawerEl.close();
+      } else {
+        drawerEl.classList.remove('active');
+        document.body.classList.remove('overflow-hidden');
+      }
+    }
+  }
+})();
+</script>
 

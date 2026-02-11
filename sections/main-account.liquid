@@ -356,7 +356,7 @@
               id="PoReference" 
               name="po_reference"
               class="inv-detail-input"
-              value="{{ customer.metafields.custom.po_reference.value }}"
+              value="{{ customer.metafields.custom.po_reference.value | escape }}"
               placeholder="PO-12345"
             >
           </div>
@@ -402,7 +402,7 @@
           {%- for order in customer.orders limit: 5 -%}
             <li class="inv-invoice-row">
               <div class="inv-invoice-row__info">
-                <span class="inv-invoice-row__order">{{ order.name }}</span>
+                <span class="inv-invoice-row__order">{{ order.name | escape }}</span>
                 <span class="inv-invoice-row__date">{{ order.created_at | date: "%d %b %Y" }}</span>
               </div>
               <div class="inv-invoice-row__total">
@@ -510,33 +510,59 @@
     }
   }
   
+  function escapeText(str) {
+    var div = document.createElement('div');
+    div.textContent = str || '';
+    return div.innerHTML;
+  }
+
   function renderProducts(products) {
     const container = document.getElementById('InvRecentlyViewed');
     const grid = document.getElementById('InvRecentlyViewedGrid');
-    
+
     if (!container || !grid || products.length === 0) return;
-    
+
     // Show the section
     container.style.display = 'block';
-    
-    // Build HTML
-    let html = '';
+
+    // Build cards using DOM construction (avoids innerHTML XSS from localStorage)
     products.slice(0, MAX_DISPLAY).forEach(function(product) {
-      html += `
-        <a href="${product.url}" class="inv-rv-card">
-          <div class="inv-rv-card__image">
-            <img src="${product.image}" alt="${product.title}" loading="lazy" width="200" height="200">
-          </div>
-          <div class="inv-rv-card__info">
-            <span class="inv-rv-card__vendor">${product.vendor || ''}</span>
-            <h3 class="inv-rv-card__title">${product.title}</h3>
-            <span class="inv-rv-card__price">${product.price}</span>
-          </div>
-        </a>
-      `;
+      var anchor = document.createElement('a');
+      anchor.setAttribute('href', product.url || '');
+      anchor.className = 'inv-rv-card';
+
+      var imgWrapper = document.createElement('div');
+      imgWrapper.className = 'inv-rv-card__image';
+      var img = document.createElement('img');
+      img.setAttribute('src', product.image || '');
+      img.setAttribute('alt', product.title || '');
+      img.setAttribute('loading', 'lazy');
+      img.setAttribute('width', '200');
+      img.setAttribute('height', '200');
+      imgWrapper.appendChild(img);
+      anchor.appendChild(imgWrapper);
+
+      var info = document.createElement('div');
+      info.className = 'inv-rv-card__info';
+
+      var vendorSpan = document.createElement('span');
+      vendorSpan.className = 'inv-rv-card__vendor';
+      vendorSpan.textContent = product.vendor || '';
+      info.appendChild(vendorSpan);
+
+      var titleH3 = document.createElement('h3');
+      titleH3.className = 'inv-rv-card__title';
+      titleH3.textContent = product.title || '';
+      info.appendChild(titleH3);
+
+      var priceSpan = document.createElement('span');
+      priceSpan.className = 'inv-rv-card__price';
+      priceSpan.textContent = product.price || '';
+      info.appendChild(priceSpan);
+
+      anchor.appendChild(info);
+      grid.appendChild(anchor);
     });
-    
-    grid.innerHTML = html;
   }
   
   // Init

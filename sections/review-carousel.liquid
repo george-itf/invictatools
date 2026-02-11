@@ -236,6 +236,48 @@
     display: none !important;
   }
 }
+
+/* ============================================
+   PAUSE / PLAY BUTTON
+   ============================================ */
+.review-carousel__controls-{{ ai_gen_id }} {
+  display: flex;
+  justify-content: center;
+}
+
+.review-carousel__pause-btn-{{ ai_gen_id }} {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 16px auto 0;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  text-align: center;
+}
+
+.review-carousel__pause-btn-{{ ai_gen_id }}:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.review-carousel__pause-btn-{{ ai_gen_id }}:focus,
+.review-carousel__pause-btn-{{ ai_gen_id }}:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.review-carousel__pause-btn-{{ ai_gen_id }} svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
 {% endstyle %}
 
 <section class="review-carousel-{{ ai_gen_id }}" {{ section.shopify_attributes }}>
@@ -255,7 +297,7 @@
 
     {%- comment -%} CAROUSEL {%- endcomment -%}
     <div class="review-carousel__wrapper-{{ ai_gen_id }}">
-      <div class="review-carousel__track-{{ ai_gen_id }}">
+      <div class="review-carousel__track-{{ ai_gen_id }}" aria-live="polite" aria-atomic="false">
         {% for i in (1..10) %}
           {% assign review_enabled_key = 'review_' | append: i | append: '_enabled' %}
           {% assign review_rating_key = 'review_' | append: i | append: '_rating' %}
@@ -315,6 +357,22 @@
           {% endif %}
         {% endfor %}
       </div>
+    </div>
+
+    {%- comment -%} PAUSE / PLAY CONTROL {%- endcomment -%}
+    <div class="review-carousel__controls-{{ ai_gen_id }}">
+      <button
+        type="button"
+        class="review-carousel__pause-btn-{{ ai_gen_id }}"
+        aria-label="Pause review carousel"
+        data-carousel-pause="{{ ai_gen_id }}"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="review-carousel__pause-icon-{{ ai_gen_id }}">
+          <rect x="6" y="4" width="4" height="16"></rect>
+          <rect x="14" y="4" width="4" height="16"></rect>
+        </svg>
+        <span class="review-carousel__pause-label-{{ ai_gen_id }}">Pause</span>
+      </button>
     </div>
 
     {%- comment -%} REVIEW PLATFORM LINKS {%- endcomment -%}
@@ -392,11 +450,14 @@
  * Review Carousel Auto-Scroll
  * Continuously scrolls reviews left, loops seamlessly.
  * Performance: pauses rAF when off-screen or tab is backgrounded.
+ * Accessibility: pause/play button, hover pause, focus pause.
  */
 document.addEventListener('DOMContentLoaded', () => {
   const carousel = document.querySelector('.review-carousel__track-{{ ai_gen_id }}');
-  const section = document.querySelector('.review-carousel-{{ ai_gen_id }}');
-  if (!carousel || !section) return;
+  const sectionEl = document.querySelector('.review-carousel-{{ ai_gen_id }}');
+  const wrapper = document.querySelector('.review-carousel__wrapper-{{ ai_gen_id }}');
+  const pauseBtn = document.querySelector('[data-carousel-pause="{{ ai_gen_id }}"]');
+  if (!carousel || !sectionEl) return;
 
   let scrollPosition = 0;
   const speed = 0.5;
@@ -404,6 +465,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let playing = false;       /* master play/pause state */
   let isVisible = true;      /* IntersectionObserver: section in viewport */
   let isTabActive = true;    /* Page Visibility API: tab is foreground */
+  let userPaused = false;    /* User explicitly paused via button */
+  let hoverPaused = false;   /* Paused due to mouse hover */
+  let focusPaused = false;   /* Paused due to keyboard focus inside carousel */
 
   /* Duplicate slides for seamless looping */
   const slides = carousel.innerHTML;
@@ -413,12 +477,16 @@ document.addEventListener('DOMContentLoaded', () => {
    * Determines if the animation should be running and starts/stops accordingly.
    */
   function updatePlayState() {
-    const shouldPlay = isVisible && isTabActive;
+    const shouldPlay = isVisible && isTabActive && !userPaused && !hoverPaused && !focusPaused;
     if (shouldPlay && !playing) {
       playing = true;
+      /* Turn off aria-live while scrolling so screen readers aren't flooded */
+      carousel.setAttribute('aria-live', 'off');
       rafId = requestAnimationFrame(autoScroll);
     } else if (!shouldPlay && playing) {
       playing = false;
+      /* Restore polite announcements when paused */
+      carousel.setAttribute('aria-live', 'polite');
       if (rafId) {
         cancelAnimationFrame(rafId);
         rafId = null;
@@ -427,7 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Animates continuous scroll — only schedules next frame when playing.
+   * Animates continuous scroll -- only schedules next frame when playing.
    */
   function autoScroll() {
     if (!playing) return;
@@ -439,6 +507,61 @@ document.addEventListener('DOMContentLoaded', () => {
     rafId = requestAnimationFrame(autoScroll);
   }
 
+  /* --- Pause / Play Button --- */
+  if (pauseBtn) {
+    const pauseIcon = pauseBtn.querySelector('.review-carousel__pause-icon-{{ ai_gen_id }}');
+    const pauseLabel = pauseBtn.querySelector('.review-carousel__pause-label-{{ ai_gen_id }}');
+
+    pauseBtn.addEventListener('click', () => {
+      userPaused = !userPaused;
+
+      if (userPaused) {
+        pauseBtn.setAttribute('aria-label', 'Play review carousel');
+        if (pauseLabel) pauseLabel.textContent = 'Play';
+        if (pauseIcon) {
+          pauseIcon.innerHTML = '<polygon points="6,4 20,12 6,20"></polygon>';
+        }
+      } else {
+        pauseBtn.setAttribute('aria-label', 'Pause review carousel');
+        if (pauseLabel) pauseLabel.textContent = 'Pause';
+        if (pauseIcon) {
+          pauseIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>';
+        }
+      }
+
+      updatePlayState();
+    });
+  }
+
+  /* --- Pause on Hover --- */
+  if (wrapper) {
+    wrapper.addEventListener('mouseenter', () => {
+      hoverPaused = true;
+      updatePlayState();
+    });
+
+    wrapper.addEventListener('mouseleave', () => {
+      hoverPaused = false;
+      updatePlayState();
+    });
+  }
+
+  /* --- Pause on Focus Within Carousel --- */
+  if (wrapper) {
+    wrapper.addEventListener('focusin', () => {
+      focusPaused = true;
+      updatePlayState();
+    });
+
+    wrapper.addEventListener('focusout', (e) => {
+      /* Only resume if focus leaves the wrapper entirely */
+      if (!wrapper.contains(e.relatedTarget)) {
+        focusPaused = false;
+        updatePlayState();
+      }
+    });
+  }
+
   /* --- IntersectionObserver: pause when carousel is off-screen --- */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -446,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
       updatePlayState();
     });
   }, { threshold: 0 });
-  observer.observe(section);
+  observer.observe(sectionEl);
 
   /* --- Page Visibility API: pause when tab is backgrounded --- */
   document.addEventListener('visibilitychange', () => {

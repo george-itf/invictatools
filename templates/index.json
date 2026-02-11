@@ -181,7 +181,7 @@
       "name": "USP Strip v2",
       "settings": {
         "background_color": "#282c31",
-        "accent_color": "#e11d26",
+        "accent_color": "#e41e25",
         "text_color": "#ffffff",
         "subtitle_color": "#999999",
         "divider_color": "#282c31",
@@ -342,7 +342,7 @@
         "review_text_size": 15,
         "review_text_color": "#ffffff",
         "avatar_size": 50,
-        "avatar_background": "#e11d26",
+        "avatar_background": "#e41e25",
         "avatar_placeholder_color": "#ffffff",
         "author_name_size": 16,
         "author_name_color": "#ffffff",
@@ -566,7 +566,7 @@
         "success_message": "You're in! Check your inbox for your 5% discount code.",
         "show_trust_badges": true,
         "background_color": "#2d2d2d",
-        "accent_color": "#e11d26"
+        "accent_color": "#e41e25"
       }
     }
   },
