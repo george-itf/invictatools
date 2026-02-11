@@ -307,32 +307,42 @@
 .invicta-drawer__vat-label {
   font-size: 13px;
   font-weight: 600;
-  color: #6b7280;
+  color: #374151;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .invicta-drawer__vat-pills {
   display: flex;
   gap: 0;
-  background: #f3f4f6;
-  border-radius: 6px;
+  background: #e5e7eb;
+  border-radius: 8px;
   padding: 3px;
+  flex: 1;
+  min-width: 0;
+  max-width: 160px;
 }
 
 .invicta-drawer__vat-pill {
-  padding: 6px 14px;
+  flex: 1;
+  padding: 8px 0;
   font-size: 13px;
   font-weight: 700;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   background: transparent;
   color: #6b7280;
   transition: all 0.15s;
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1;
 }
 
 .invicta-drawer__vat-pill--active {
   background: var(--inv-accent);
   color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 /* Drawer footer with account link */
@@ -444,35 +454,10 @@
    VAT TOGGLE — Button Style (Matches Nav)
    ======================================================= */
 
-/* Mobile: Compact pill toggle */
+/* Mobile: Hide VAT toggle — it lives in the hamburger menu instead */
 @media (max-width: 749px) {
   .invicta-header__vat-toggle {
-    display: flex;
-    gap: 0;
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 4px;
-    padding: 2px;
-  }
-
-  .invicta-header__vat-btn {
-    padding: 4px 6px;
-    font-size: 9px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    color: rgba(255, 255, 255, 0.5);
-    background-color: transparent;
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: color 0.15s ease, background-color 0.15s ease;
-    white-space: nowrap;
-    line-height: 1;
-  }
-
-  .invicta-header__vat-btn--active {
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.25);
+    display: none !important;
   }
 }
 
@@ -620,7 +605,7 @@
 }
 
 /* =======================================================
-   MOBILE LAYOUT — App Style
+   MOBILE LAYOUT — Menu | Logo | Cart
    ======================================================= */
 @media (max-width: 749px) {
   .invicta-header {
@@ -631,24 +616,36 @@
   .invicta-header__inner {
     padding: 10px 12px;
     gap: 8px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    justify-items: center;
   }
 
-  /* Logo — left, compact */
+  /* Menu button — left */
+  .invicta-header__menu-btn {
+    justify-self: start;
+  }
+
+  /* Logo — center */
+  .invicta-header__logo {
+    justify-self: center;
+  }
+
   .invicta-header__logo img,
   .invicta-header__logo .header__heading-logo {
     height: 40px;
     max-height: 40px;
   }
 
-  /* Search — takes available space */
+  /* Search — hidden in top bar on mobile, use drawer or search icon */
   .invicta-header__search {
-    flex: 1;
-    max-width: none;
-    margin-inline: 4px;
+    display: none;
   }
 
-  /* Icons — compact */
+  /* Icons — right, only cart */
   .invicta-header__icons {
+    justify-self: end;
     gap: 4px;
   }
 

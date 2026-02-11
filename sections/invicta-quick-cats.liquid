@@ -43,15 +43,18 @@
   }
   
   #shopify-section-{{ section.id }} .inv-quick-cats__card {
-    display: block !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
     visibility: visible !important;
     background: #fff;
     border: 1px solid #d1d5db;
     border-radius: 10px;
-    padding: 24px 12px;
+    padding: 0;
     text-align: center;
     text-decoration: none;
     transition: all 0.15s ease;
+    overflow: hidden;
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__card:hover {
@@ -60,12 +63,33 @@
     transform: translateY(-2px);
   }
 
+  /* Category image (collection photo) */
+  #shopify-section-{{ section.id }} .inv-quick-cats__image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #f5f5f5;
+  }
+
+  #shopify-section-{{ section.id }} .inv-quick-cats__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__image img {
+    transform: scale(1.05);
+  }
+
+  /* Icon fallback (shown when no image) */
   #shopify-section-{{ section.id }} .inv-quick-cats__icon {
     display: flex !important;
     visibility: visible !important;
     width: 56px;
     height: 56px;
-    margin: 0 auto 16px;
+    margin: 24px auto 16px;
     background: var(--color-foreground, #2d2d2d);
     border-radius: 12px;
     align-items: center;
@@ -76,14 +100,14 @@
   #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__icon {
     background: var(--color-button, #e11d26);
   }
-  
+
   #shopify-section-{{ section.id }} .inv-quick-cats__icon svg {
     width: 28px;
     height: 28px;
     color: #ffffff;
     display: block !important;
   }
-  
+
   #shopify-section-{{ section.id }} .inv-quick-cats__icon img {
     width: 28px;
     height: 28px;
@@ -91,16 +115,22 @@
     filter: brightness(0) invert(1);
     display: block !important;
   }
-  
+
   #shopify-section-{{ section.id }} .inv-quick-cats__title {
     font-size: 13px;
     font-weight: 700;
     color: var(--color-foreground, #1a1a1a);
     margin: 0;
+    padding: 12px 10px 16px;
     text-transform: uppercase;
     letter-spacing: 0.4px;
   }
-  
+
+  /* When card has no image, add top padding for icon-only cards */
+  #shopify-section-{{ section.id }} .inv-quick-cats__card--icon-only .inv-quick-cats__title {
+    padding-bottom: 24px;
+  }
+
   #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__title {
     color: var(--color-button, #e11d26);
   }
@@ -120,25 +150,29 @@
     }
     
     #shopify-section-{{ section.id }} .inv-quick-cats__card {
-      padding: 16px 10px;
       border-radius: 8px;
     }
-    
+
     #shopify-section-{{ section.id }} .inv-quick-cats__icon {
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       border-radius: 10px;
-      margin-bottom: 12px;
+      margin: 16px auto 10px;
     }
-    
+
     #shopify-section-{{ section.id }} .inv-quick-cats__icon svg,
     #shopify-section-{{ section.id }} .inv-quick-cats__icon img {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
     }
-    
+
     #shopify-section-{{ section.id }} .inv-quick-cats__title {
       font-size: 11px;
+      padding: 8px 8px 12px;
+    }
+
+    #shopify-section-{{ section.id }} .inv-quick-cats__card--icon-only .inv-quick-cats__title {
+      padding-bottom: 16px;
     }
   }
 </style>
@@ -159,15 +193,15 @@
             assign cat_url = '#'
             assign cat_collection_setting = block.settings.collection
             assign cat_custom_link = block.settings.custom_link
-            
+
             # Method 1: Check if it's already a collection object with .url
             if cat_collection_setting.url != blank
               assign cat_url = cat_collection_setting.url
-            
+
             # Method 2: Check if it has .handle (collection object)
             elsif cat_collection_setting.handle != blank
               assign cat_url = cat_collection_setting.url | default: '/collections/' | append: cat_collection_setting.handle
-            
+
             # Method 3: It's a string handle — use collections[] global lookup
             elsif cat_collection_setting != blank and cat_collection_setting != ''
               assign lookup_collection = collections[cat_collection_setting]
@@ -177,29 +211,55 @@
                 # Fallback: manually build URL from string
                 assign cat_url = '/collections/' | append: cat_collection_setting
               endif
-            
+
             # Method 4: Custom link fallback
             elsif cat_custom_link != blank
               assign cat_url = cat_custom_link
             endif
-            
+
             # Title with fallback
             assign cat_title = block.settings.title | default: 'Category'
-            
+
             # Icon settings
             assign cat_icon = block.settings.icon | default: 'drill'
             assign cat_custom_icon = block.settings.custom_icon
+
+            # Image resolution: explicit image > collection image > icon fallback
+            assign cat_image = block.settings.category_image
+            if cat_image == blank and cat_collection_setting.image != blank
+              assign cat_image = cat_collection_setting.image
+            elsif cat_image == blank and cat_collection_setting != blank and cat_collection_setting != ''
+              assign lookup_collection = collections[cat_collection_setting]
+              if lookup_collection.image != blank
+                assign cat_image = lookup_collection.image
+              endif
+            endif
           -%}
           
-          <a 
-            href="{{ cat_url }}" 
-            class="inv-quick-cats__card"
+          <a
+            href="{{ cat_url }}"
+            class="inv-quick-cats__card{% if cat_image == blank %} inv-quick-cats__card--icon-only{% endif %}"
             {{ block.shopify_attributes }}
           >
+            {%- if cat_image != blank -%}
+              <div class="inv-quick-cats__image">
+                <img
+                  src="{{ cat_image | image_url: width: 400 }}"
+                  srcset="{{ cat_image | image_url: width: 200 }} 200w,
+                          {{ cat_image | image_url: width: 300 }} 300w,
+                          {{ cat_image | image_url: width: 400 }} 400w"
+                  sizes="(max-width: 749px) 45vw, 200px"
+                  alt="{{ cat_title | escape }}"
+                  width="{{ cat_image.width }}"
+                  height="{{ cat_image.height }}"
+                  loading="lazy"
+                >
+              </div>
+            {%- else -%}
             <div class="inv-quick-cats__icon">
               {%- if cat_custom_icon != blank -%}
-                <img 
-                  src="{{ cat_custom_icon | image_url: width: 56 }}" 
+                <img
+                  src="{{ cat_custom_icon | image_url: width: 56 }}"
                   alt="{{ cat_title | escape }}"
                   width="28"
                   height="28"
@@ -228,6 +288,7 @@
                 {%- endcase -%}
               {%- endif -%}
             </div>
+            {%- endif -%}
             <h3 class="inv-quick-cats__title">{{ cat_title }}</h3>
           </a>
           
@@ -324,9 +385,15 @@
         },
         {
           "type": "image_picker",
+          "id": "category_image",
+          "label": "Category Image",
+          "info": "Photo for this category. If empty, uses the collection's featured image. Falls back to icon."
+        },
+        {
+          "type": "image_picker",
           "id": "custom_icon",
           "label": "Custom Icon Image",
-          "info": "Overrides built-in icon. Use a white or light-coloured icon."
+          "info": "Overrides built-in icon when no category image is set. Use a white or light-coloured icon."
         }
       ]
     }
