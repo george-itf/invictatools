@@ -320,7 +320,7 @@
       "settings": {
         "container_width": 1600,
         "background_color": "#2d2d2d",
-        "section_padding_top": 32,
+        "section_padding_top": 24,
         "section_padding_bottom": 32,
         "heading": "See Why Local Trades Trust Invicta Tools",
         "subheading": "",
@@ -473,7 +473,7 @@
         "cta_link": "",
         "background_color": "#f9fafb",
         "padding_top": 60,
-        "padding_bottom": 60
+        "padding_bottom": 16
       }
     },
     "invicta_newsletter_t9TTnj": {
