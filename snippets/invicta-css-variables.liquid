@@ -1,19 +1,17 @@
 {% comment %}
   ============================================================
-  INVICTA DESIGN TOKENS v2.0 (CONSOLIDATED)
+  INVICTA DESIGN TOKENS v3.0 (CANONICAL)
   ============================================================
-  Single source of truth for all Invicta brand tokens.
+  Single source of truth for ALL Invicta design tokens.
   Include in theme.liquid BEFORE base.css:
   {% render 'invicta-css-variables' %}
 
-  CHANGELOG:
-  v2.0 - Consolidated from base.css and invicta-css-variables.liquid
-       - Standardized naming convention (--inv-*)
-       - Added duration, easing, z-index, and spacing tokens
-       - Resolved color conflicts (#e11d26 is the canonical brand red)
-  v2.1 - Moved all static tokens to assets/invicta-css-variables.css
-       - All values are hardcoded (no Liquid dependencies), so the
-         entire file is externalized for browser caching.
+  v3.0 - Consolidated scattered tokens from 6 satellite files
+       - Resolved radius conflicts (8px canonical, not pill)
+       - Added mobile/responsive tokens
+       - Unified brand colour to --inv-accent
+  v2.1 - Moved all static tokens to external CSS file
+  v2.0 - Initial consolidation
   ============================================================
 {% endcomment %}
 
