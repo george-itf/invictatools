@@ -1,0 +1,899 @@
+{% comment %}
+  ============================================================================
+  INVICTA PRODUCT REVIEWS v1.0
+  ============================================================================
+
+  Product reviews section for the PDP. Displays a rating summary with
+  breakdown bars, individual review cards, and supports Shopify app blocks
+  so third-party review apps (Judge.me, etc.) can inject themselves.
+
+  Features:
+  - Rating summary with breakdown bars
+  - Individual review cards with star ratings
+  - Verified Purchase badges
+  - "Write a Review" CTA
+  - @app block support
+  - Simple JS pagination (no dependencies)
+  - Fully accessible (ARIA labels, heading hierarchy)
+
+  Uses .inv-reviews__* prefix to avoid conflicts
+  ============================================================================
+{% endcomment %}
+
+{%- liquid
+  assign heading = section.settings.heading | default: 'invicta.reviews.heading' | t
+  assign show_summary = section.settings.show_summary
+  assign show_write_review = section.settings.show_write_review
+  assign write_review_url = section.settings.write_review_url
+  assign reviews_per_page = section.settings.reviews_per_page | default: 5
+  assign bg_color = section.settings.background_color
+
+  comment
+    Gather review blocks and compute stats
+  endcomment
+  assign review_blocks = '' | split: ','
+  assign total_reviews = 0
+  assign rating_sum = 0
+  assign star_5 = 0
+  assign star_4 = 0
+  assign star_3 = 0
+  assign star_2 = 0
+  assign star_1 = 0
+
+  for block in section.blocks
+    if block.type == 'review'
+      assign total_reviews = total_reviews | plus: 1
+      assign this_rating = block.settings.rating | default: 5
+      assign rating_sum = rating_sum | plus: this_rating
+
+      case this_rating
+        when 5
+          assign star_5 = star_5 | plus: 1
+        when 4
+          assign star_4 = star_4 | plus: 1
+        when 3
+          assign star_3 = star_3 | plus: 1
+        when 2
+          assign star_2 = star_2 | plus: 1
+        when 1
+          assign star_1 = star_1 | plus: 1
+      endcase
+    endif
+  endfor
+
+  if total_reviews > 0
+    assign avg_rating_x10 = rating_sum | times: 10 | divided_by: total_reviews
+    assign avg_whole = avg_rating_x10 | divided_by: 10
+    assign avg_remainder = avg_rating_x10 | modulo: 10
+
+    assign pct_5 = star_5 | times: 100 | divided_by: total_reviews
+    assign pct_4 = star_4 | times: 100 | divided_by: total_reviews
+    assign pct_3 = star_3 | times: 100 | divided_by: total_reviews
+    assign pct_2 = star_2 | times: 100 | divided_by: total_reviews
+    assign pct_1 = star_1 | times: 100 | divided_by: total_reviews
+  else
+    assign avg_whole = 0
+    assign avg_remainder = 0
+    assign pct_5 = 0
+    assign pct_4 = 0
+    assign pct_3 = 0
+    assign pct_2 = 0
+    assign pct_1 = 0
+  endif
+-%}
+
+{%- comment -%} ===== INLINE STYLES ===== {%- endcomment -%}
+
+<style>
+  #shopify-section-{{ section.id }} .inv-reviews {
+    --inv-reviews-star: #f59e0b;
+    --inv-reviews-star-empty: #d1d5db;
+    --inv-reviews-verified: #16a34a;
+    --inv-reviews-bar: var(--inv-accent, #e11d26);
+    --inv-reviews-bg: {{ bg_color | default: 'transparent' }};
+    --inv-reviews-border: var(--inv-border, #e5e7eb);
+    --inv-reviews-fg: var(--color-foreground, var(--inv-fg, #0f172a));
+    --inv-reviews-fg-muted: var(--inv-fg-muted, #6b7280);
+    font-family: inherit;
+    background: var(--inv-reviews-bg);
+    padding: var(--inv-space-2xl, 3rem) 0;
+    color: var(--inv-reviews-fg);
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__container {
+    max-width: var(--inv-page-width, 1320px);
+    margin: 0 auto;
+    padding: 0 var(--inv-page-gutter, 1.5rem);
+  }
+
+  @media (min-width: 990px) {
+    #shopify-section-{{ section.id }} .inv-reviews__container {
+      padding: 0 var(--inv-page-gutter-desktop, 3rem);
+    }
+  }
+
+  /* ---- Heading ---- */
+  #shopify-section-{{ section.id }} .inv-reviews__heading {
+    font-family: inherit;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 var(--inv-space-lg, 1.5rem);
+    color: var(--inv-reviews-fg);
+  }
+
+  /* ---- Summary ---- */
+  #shopify-section-{{ section.id }} .inv-reviews__summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--inv-space-xl, 2rem);
+    align-items: flex-start;
+    padding: var(--inv-space-lg, 1.5rem);
+    border: 1px solid var(--inv-reviews-border);
+    border-radius: 0;
+    margin-bottom: var(--inv-space-xl, 2rem);
+    background: var(--inv-bg-elevated, #ffffff);
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__summary-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--inv-space-xs, 0.25rem);
+    min-width: 140px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__avg-number {
+    font-family: inherit;
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--inv-reviews-fg);
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__avg-stars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin: var(--inv-space-xs, 0.25rem) 0;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__total-count {
+    font-family: inherit;
+    font-size: 0.875rem;
+    color: var(--inv-reviews-fg-muted);
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__breakdown {
+    flex: 1;
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--inv-space-xs, 0.25rem);
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__breakdown-row {
+    display: flex;
+    align-items: center;
+    gap: var(--inv-space-sm, 0.5rem);
+    font-family: inherit;
+    font-size: 0.875rem;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__breakdown-label {
+    white-space: nowrap;
+    min-width: 44px;
+    color: var(--inv-reviews-fg-muted);
+    font-weight: 500;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__breakdown-bar {
+    flex: 1;
+    height: 10px;
+    background: var(--inv-bg-soft, #f3f4f6);
+    border-radius: 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__breakdown-fill {
+    height: 100%;
+    background: var(--inv-reviews-bar);
+    border-radius: 0;
+    transition: width 0.4s ease;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__breakdown-count {
+    min-width: 24px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    color: var(--inv-reviews-fg-muted);
+  }
+
+  /* ---- Stars (shared) ---- */
+  #shopify-section-{{ section.id }} .inv-reviews__star-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__star-icon--sm {
+    width: 16px;
+    height: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__star-icon--lg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* ---- App block area ---- */
+  #shopify-section-{{ section.id }} .inv-reviews__app-blocks {
+    margin-bottom: var(--inv-space-lg, 1.5rem);
+  }
+
+  /* ---- Review list ---- */
+  #shopify-section-{{ section.id }} .inv-reviews__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__card {
+    padding: var(--inv-space-lg, 1.5rem) 0;
+    border-bottom: 1px solid var(--inv-reviews-border);
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__card:first-child {
+    border-top: 1px solid var(--inv-reviews-border);
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__card[hidden] {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__card-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--inv-space-sm, 0.5rem);
+    margin-bottom: var(--inv-space-sm, 0.5rem);
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__card-stars {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__card-title {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0 0 var(--inv-space-xs, 0.25rem);
+    color: var(--inv-reviews-fg);
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__card-body {
+    font-family: inherit;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--inv-reviews-fg);
+    margin: 0 0 var(--inv-space-sm, 0.5rem);
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__card-body p {
+    margin: 0 0 0.5em;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__card-body p:last-child {
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--inv-space-sm, 0.5rem);
+    font-family: inherit;
+    font-size: 0.8125rem;
+    color: var(--inv-reviews-fg-muted);
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__reviewer-name {
+    font-weight: 600;
+    color: var(--inv-reviews-fg);
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__meta-sep {
+    color: var(--inv-reviews-border);
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__verified-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--inv-reviews-verified);
+    background: rgba(22, 163, 74, 0.08);
+    padding: 2px 8px;
+    border-radius: 0;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__verified-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  /* ---- Actions ---- */
+  #shopify-section-{{ section.id }} .inv-reviews__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--inv-space-md, 1rem);
+    margin-top: var(--inv-space-xl, 2rem);
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__show-more {
+    font-family: inherit;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    padding: 12px 28px;
+    border: 2px solid var(--inv-reviews-border);
+    border-radius: 0;
+    background: transparent;
+    color: var(--inv-reviews-fg);
+    cursor: pointer;
+    transition: background var(--inv-duration-normal, 150ms) ease,
+                border-color var(--inv-duration-normal, 150ms) ease;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__show-more:hover {
+    background: var(--inv-bg-soft, #f3f4f6);
+    border-color: var(--inv-reviews-fg-muted);
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__show-more:focus-visible {
+    outline: 2px solid var(--inv-accent, #e11d26);
+    outline-offset: 2px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__show-more[hidden] {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__write-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--inv-space-sm, 0.5rem);
+    font-family: inherit;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 0;
+    background: var(--inv-accent, #e11d26);
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background var(--inv-duration-normal, 150ms) ease;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__write-cta:hover {
+    background: var(--inv-accent-hover, #c4191f);
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__write-cta:focus-visible {
+    outline: 2px solid var(--inv-accent, #e11d26);
+    outline-offset: 2px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__write-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* ---- Empty state ---- */
+  #shopify-section-{{ section.id }} .inv-reviews__empty {
+    text-align: center;
+    padding: var(--inv-space-2xl, 3rem) var(--inv-space-lg, 1.5rem);
+    color: var(--inv-reviews-fg-muted);
+    font-family: inherit;
+    font-size: 1rem;
+  }
+
+  #shopify-section-{{ section.id }} .inv-reviews__empty p {
+    margin: 0 0 var(--inv-space-md, 1rem);
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .inv-reviews__summary {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--inv-space-lg, 1.5rem);
+    }
+
+    #shopify-section-{{ section.id }} .inv-reviews__summary-score {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--inv-space-md, 1rem);
+      min-width: 0;
+    }
+
+    #shopify-section-{{ section.id }} .inv-reviews__avg-number {
+      font-size: 2.25rem;
+    }
+
+    #shopify-section-{{ section.id }} .inv-reviews__heading {
+      font-size: 1.375rem;
+    }
+
+    #shopify-section-{{ section.id }} .inv-reviews__card {
+      padding: var(--inv-space-md, 1rem) 0;
+    }
+
+    #shopify-section-{{ section.id }} .inv-reviews__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    #shopify-section-{{ section.id }} .inv-reviews__show-more,
+    #shopify-section-{{ section.id }} .inv-reviews__write-cta {
+      text-align: center;
+      justify-content: center;
+    }
+  }
+</style>
+
+{%- comment -%} ===== STAR SVG SNIPPETS ===== {%- endcomment -%}
+
+{%- capture star_filled -%}
+<svg class="inv-reviews__star-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M10 1.25l2.472 5.01 5.528.803-4 3.9.944 5.506L10 13.757l-4.944 2.712L6 10.963l-4-3.9 5.528-.803L10 1.25z" fill="#f59e0b"/>
+</svg>
+{%- endcapture -%}
+
+{%- capture star_half -%}
+<svg class="inv-reviews__star-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="half-grad-{{ section.id }}">
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="50%" stop-color="#d1d5db"/>
+    </linearGradient>
+  </defs>
+  <path d="M10 1.25l2.472 5.01 5.528.803-4 3.9.944 5.506L10 13.757l-4.944 2.712L6 10.963l-4-3.9 5.528-.803L10 1.25z" fill="url(#half-grad-{{ section.id }})"/>
+</svg>
+{%- endcapture -%}
+
+{%- capture star_empty -%}
+<svg class="inv-reviews__star-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M10 1.25l2.472 5.01 5.528.803-4 3.9.944 5.506L10 13.757l-4.944 2.712L6 10.963l-4-3.9 5.528-.803L10 1.25z" fill="#d1d5db"/>
+</svg>
+{%- endcapture -%}
+
+{%- capture star_filled_lg -%}
+<svg class="inv-reviews__star-icon inv-reviews__star-icon--lg" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M10 1.25l2.472 5.01 5.528.803-4 3.9.944 5.506L10 13.757l-4.944 2.712L6 10.963l-4-3.9 5.528-.803L10 1.25z" fill="#f59e0b"/>
+</svg>
+{%- endcapture -%}
+
+{%- capture star_half_lg -%}
+<svg class="inv-reviews__star-icon inv-reviews__star-icon--lg" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="half-grad-lg-{{ section.id }}">
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="50%" stop-color="#d1d5db"/>
+    </linearGradient>
+  </defs>
+  <path d="M10 1.25l2.472 5.01 5.528.803-4 3.9.944 5.506L10 13.757l-4.944 2.712L6 10.963l-4-3.9 5.528-.803L10 1.25z" fill="url(#half-grad-lg-{{ section.id }})"/>
+</svg>
+{%- endcapture -%}
+
+{%- capture star_empty_lg -%}
+<svg class="inv-reviews__star-icon inv-reviews__star-icon--lg" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M10 1.25l2.472 5.01 5.528.803-4 3.9.944 5.506L10 13.757l-4.944 2.712L6 10.963l-4-3.9 5.528-.803L10 1.25z" fill="#d1d5db"/>
+</svg>
+{%- endcapture -%}
+
+{%- capture star_filled_sm -%}
+<svg class="inv-reviews__star-icon inv-reviews__star-icon--sm" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M10 1.25l2.472 5.01 5.528.803-4 3.9.944 5.506L10 13.757l-4.944 2.712L6 10.963l-4-3.9 5.528-.803L10 1.25z" fill="#f59e0b"/>
+</svg>
+{%- endcapture -%}
+
+{%- capture star_half_sm -%}
+<svg class="inv-reviews__star-icon inv-reviews__star-icon--sm" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="half-grad-sm-{{ section.id }}">
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="50%" stop-color="#d1d5db"/>
+    </linearGradient>
+  </defs>
+  <path d="M10 1.25l2.472 5.01 5.528.803-4 3.9.944 5.506L10 13.757l-4.944 2.712L6 10.963l-4-3.9 5.528-.803L10 1.25z" fill="url(#half-grad-sm-{{ section.id }})"/>
+</svg>
+{%- endcapture -%}
+
+{%- capture star_empty_sm -%}
+<svg class="inv-reviews__star-icon inv-reviews__star-icon--sm" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M10 1.25l2.472 5.01 5.528.803-4 3.9.944 5.506L10 13.757l-4.944 2.712L6 10.963l-4-3.9 5.528-.803L10 1.25z" fill="#d1d5db"/>
+</svg>
+{%- endcapture -%}
+
+{%- comment -%} ===== Verified badge icon ===== {%- endcomment -%}
+
+{%- capture verified_icon -%}
+<svg class="inv-reviews__verified-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M10 18a8 8 0 100-16 8 8 0 000 16z" fill="#16a34a"/>
+  <path d="M7 10l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+{%- endcapture -%}
+
+{%- comment -%} ===== Pen / write icon ===== {%- endcomment -%}
+
+{%- capture write_icon -%}
+<svg class="inv-reviews__write-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M13.586 3.586a2 2 0 112.828 2.828l-8.793 8.793-3.536.707.707-3.536 8.794-8.792z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+{%- endcapture -%}
+
+{%- comment -%} ===== MACRO: render N stars for a rating ===== {%- endcomment -%}
+
+{%- comment -%} ===== HTML ===== {%- endcomment -%}
+
+<div class="inv-reviews" data-section-id="{{ section.id }}">
+  <div class="inv-reviews__container">
+
+    {%- comment -%} Section heading {%- endcomment -%}
+    <h2 class="inv-reviews__heading">
+      {{ heading }}
+      {%- if total_reviews > 0 -%}
+        <span class="inv-reviews__heading-count">({{ total_reviews }})</span>
+      {%- endif -%}
+    </h2>
+
+    {%- comment -%} App block area — rendered before manual reviews {%- endcomment -%}
+    {%- assign has_app_blocks = false -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == '@app' -%}
+        {%- assign has_app_blocks = true -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if has_app_blocks -%}
+      <div class="inv-reviews__app-blocks">
+        {%- for block in section.blocks -%}
+          {%- if block.type == '@app' -%}
+            {% render block %}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if total_reviews > 0 -%}
+
+      {%- comment -%} Rating summary {%- endcomment -%}
+      {%- if show_summary -%}
+        <div class="inv-reviews__summary" aria-label="{{ 'invicta.reviews.summary_label' | t | default: 'Rating summary' }}">
+
+          {%- comment -%} Left: big number + stars {%- endcomment -%}
+          <div class="inv-reviews__summary-score">
+            <span class="inv-reviews__avg-number">{{ avg_whole }}.{{ avg_remainder }}</span>
+            <div class="inv-reviews__avg-stars" role="img" aria-label="{{ avg_whole }}.{{ avg_remainder }} {{ 'invicta.reviews.out_of_5' | t | default: 'out of 5 stars' }}">
+              {%- for i in (1..5) -%}
+                {%- if i <= avg_whole -%}
+                  {{ star_filled_lg }}
+                {%- elsif i == avg_whole | plus: 1 and avg_remainder >= 5 -%}
+                  {{ star_half_lg }}
+                {%- else -%}
+                  {{ star_empty_lg }}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+            <span class="inv-reviews__total-count">
+              {{ total_reviews }} {{ 'invicta.reviews.review_count' | t | default: 'reviews' }}
+            </span>
+          </div>
+
+          {%- comment -%} Right: breakdown bars {%- endcomment -%}
+          <div class="inv-reviews__breakdown" role="list" aria-label="{{ 'invicta.reviews.breakdown_label' | t | default: 'Rating breakdown' }}">
+            {%- assign star_counts = '5,4,3,2,1' | split: ',' -%}
+            {%- assign star_pcts = pct_5 | append: ',' | append: pct_4 | append: ',' | append: pct_3 | append: ',' | append: pct_2 | append: ',' | append: pct_1 | split: ',' -%}
+            {%- assign star_nums = star_5 | append: ',' | append: star_4 | append: ',' | append: star_3 | append: ',' | append: star_2 | append: ',' | append: star_1 | split: ',' -%}
+            {%- for star_level in star_counts -%}
+              {%- assign idx = forloop.index0 -%}
+              <div class="inv-reviews__breakdown-row" role="listitem">
+                <span class="inv-reviews__breakdown-label">{{ star_level }} {{ 'invicta.reviews.stars' | t | default: 'stars' }}</span>
+                <div class="inv-reviews__breakdown-bar" role="progressbar" aria-valuenow="{{ star_pcts[idx] }}" aria-valuemin="0" aria-valuemax="100" aria-label="{{ star_level }} {{ 'invicta.reviews.stars' | t | default: 'stars' }}: {{ star_pcts[idx] }}%">
+                  <div class="inv-reviews__breakdown-fill" style="width: {{ star_pcts[idx] }}%"></div>
+                </div>
+                <span class="inv-reviews__breakdown-count">{{ star_nums[idx] }}</span>
+              </div>
+            {%- endfor -%}
+          </div>
+
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} Review cards {%- endcomment -%}
+      <ul class="inv-reviews__list" id="inv-reviews-list-{{ section.id }}">
+        {%- assign review_index = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'review' -%}
+            {%- assign review_index = review_index | plus: 1 -%}
+            {%- assign this_rating = block.settings.rating | default: 5 -%}
+            <li
+              class="inv-reviews__card"
+              {{ block.shopify_attributes }}
+              {% if review_index > reviews_per_page %}hidden{% endif %}
+              data-review-index="{{ review_index }}"
+            >
+              {%- comment -%} Stars + date row {%- endcomment -%}
+              <div class="inv-reviews__card-header">
+                <div class="inv-reviews__card-stars" role="img" aria-label="{{ this_rating }} {{ 'invicta.reviews.out_of_5' | t | default: 'out of 5 stars' }}">
+                  {%- for i in (1..5) -%}
+                    {%- if i <= this_rating -%}
+                      {{ star_filled_sm }}
+                    {%- else -%}
+                      {{ star_empty_sm }}
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+
+                {%- if block.settings.verified -%}
+                  <span class="inv-reviews__verified-badge">
+                    {{ verified_icon }}
+                    {{ 'invicta.reviews.verified_purchase' | t | default: 'Verified Purchase' }}
+                  </span>
+                {%- endif -%}
+              </div>
+
+              {%- comment -%} Title {%- endcomment -%}
+              {%- if block.settings.title != blank -%}
+                <h3 class="inv-reviews__card-title">{{ block.settings.title }}</h3>
+              {%- endif -%}
+
+              {%- comment -%} Body {%- endcomment -%}
+              {%- if block.settings.body != blank -%}
+                <div class="inv-reviews__card-body">{{ block.settings.body }}</div>
+              {%- endif -%}
+
+              {%- comment -%} Meta: reviewer name + date {%- endcomment -%}
+              <div class="inv-reviews__card-meta">
+                {%- if block.settings.reviewer_name != blank -%}
+                  <span class="inv-reviews__reviewer-name">{{ block.settings.reviewer_name }}</span>
+                {%- endif -%}
+                {%- if block.settings.reviewer_name != blank and block.settings.date != blank -%}
+                  <span class="inv-reviews__meta-sep" aria-hidden="true">&middot;</span>
+                {%- endif -%}
+                {%- if block.settings.date != blank -%}
+                  <time class="inv-reviews__date">{{ block.settings.date }}</time>
+                {%- endif -%}
+              </div>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+
+      {%- comment -%} Actions: Show More + Write a Review {%- endcomment -%}
+      <div class="inv-reviews__actions">
+        {%- if total_reviews > reviews_per_page -%}
+          <button
+            type="button"
+            class="inv-reviews__show-more"
+            id="inv-reviews-show-more-{{ section.id }}"
+            aria-controls="inv-reviews-list-{{ section.id }}"
+            data-per-page="{{ reviews_per_page }}"
+            data-total="{{ total_reviews }}"
+          >
+            {{ 'invicta.reviews.show_more' | t | default: 'Show More Reviews' }}
+          </button>
+        {%- endif -%}
+
+        {%- if show_write_review -%}
+          <a
+            href="{{ write_review_url | default: '#write-review' }}"
+            class="inv-reviews__write-cta"
+          >
+            {{ write_icon }}
+            {{ 'invicta.reviews.write_review' | t | default: 'Write a Review' }}
+          </a>
+        {%- endif -%}
+      </div>
+
+    {%- else -%}
+
+      {%- comment -%} Empty state {%- endcomment -%}
+      <div class="inv-reviews__empty">
+        <p>{{ 'invicta.reviews.no_reviews' | t | default: 'No reviews yet. Be the first to share your experience.' }}</p>
+        {%- if show_write_review -%}
+          <a
+            href="{{ write_review_url | default: '#write-review' }}"
+            class="inv-reviews__write-cta"
+          >
+            {{ write_icon }}
+            {{ 'invicta.reviews.write_first_review' | t | default: 'Write the First Review' }}
+          </a>
+        {%- endif -%}
+      </div>
+
+    {%- endif -%}
+
+  </div>
+</div>
+
+{%- comment -%} ===== JAVASCRIPT: Simple pagination ===== {%- endcomment -%}
+
+<script>
+  (function() {
+    var sectionId = {{ section.id | json }};
+    var btn = document.getElementById('inv-reviews-show-more-' + sectionId);
+    if (!btn) return;
+
+    var list = document.getElementById('inv-reviews-list-' + sectionId);
+    var perPage = parseInt(btn.getAttribute('data-per-page'), 10) || 5;
+    var total = parseInt(btn.getAttribute('data-total'), 10) || 0;
+    var shown = perPage;
+
+    btn.addEventListener('click', function() {
+      shown = shown + perPage;
+      var cards = list.querySelectorAll('.inv-reviews__card');
+      for (var i = 0; i < cards.length; i++) {
+        var idx = parseInt(cards[i].getAttribute('data-review-index'), 10);
+        if (idx <= shown) {
+          cards[i].removeAttribute('hidden');
+        }
+      }
+      if (shown >= total) {
+        btn.setAttribute('hidden', '');
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Invicta Product Reviews",
+  "tag": "section",
+  "class": "inv-reviews-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_summary",
+      "label": "Show rating summary",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_write_review",
+      "label": "Show \"Write a Review\" button",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "write_review_url",
+      "label": "Write a review URL",
+      "info": "Leave blank to link to #write-review anchor"
+    },
+    {
+      "type": "range",
+      "id": "reviews_per_page",
+      "label": "Reviews shown before \"Show More\"",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colour"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer name",
+          "default": "Customer"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Date",
+          "default": "15 January 2025",
+          "info": "Display date, e.g. \"15 January 2025\""
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Review title",
+          "default": "Great product"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Review body",
+          "default": "<p>Excellent quality and fast delivery. Would recommend.</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Verified purchase",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Invicta Product Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "reviewer_name": "James Whitfield",
+            "rating": 5,
+            "date": "28 January 2025",
+            "title": "Brilliant drill bits — cut through steel with no issue",
+            "body": "<p>Ordered a set of HSS drill bits for a metalworking job. They arrived next day and the quality is superb. Cut through mild steel plate cleanly with no wandering. Far better than the budget sets I have used before. Will definitely be ordering more from Invicta.</p>",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "reviewer_name": "Sarah Mitchell",
+            "rating": 4,
+            "date": "14 January 2025",
+            "title": "Good fixings, quick dispatch",
+            "body": "<p>Needed a bulk pack of coach bolts for a fencing project. Ordered before 2pm and they were dispatched the same day. Arrived well-packaged and exactly as described. Only reason for four stars is I wish the listing showed the thread pitch more clearly — otherwise, no complaints.</p>",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "reviewer_name": "Dave Connors",
+            "rating": 5,
+            "date": "3 December 2024",
+            "title": "Top-notch SDS chisels — proper trade quality",
+            "body": "<p>Been buying from Invicta for our construction firm for over two years now. These SDS-plus chisels are exactly what you need on site — they hold their edge and fit the Bosch rotary hammer perfectly. Pricing is fair for trade and the free delivery over thirty quid is a bonus. Recommended to all our subbies.</p>",
+            "verified": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

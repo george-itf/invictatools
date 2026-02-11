@@ -22,9 +22,9 @@
       <circle cx="18.5" cy="18.5" r="2.5"></circle>
     </svg>
     <span class="inv-del-est__text">
-      <span data-inv-del-order-text>Order now</span>
+      <span data-inv-del-order-text>{{ 'invicta.delivery.order_now' | t }}</span>
       <strong data-inv-del-countdown style="display:none"></strong>
-      <span data-inv-del-for-text> for delivery on </span>
+      <span data-inv-del-for-text>{{ 'invicta.delivery.for_delivery_on' | t }}</span>
       <strong data-inv-del-day class="inv-del-est__day">Monday</strong>
     </span>
   </div>
@@ -33,7 +33,7 @@
     <svg class="inv-del-est__icon inv-del-est__icon--muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
     </svg>
-    <span class="inv-del-est__meta">30-day returns · Full manufacturer warranty</span>
+    <span class="inv-del-est__meta">{{ 'invicta.delivery.returns_warranty' | t }}</span>
   </div>
   {% endunless %}
 </div>

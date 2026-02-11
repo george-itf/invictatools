@@ -1,0 +1,825 @@
+{% comment %}
+  ============================================================================
+  INVICTA FAQ SECTION v1.0
+  ============================================================================
+
+  Block-based FAQ page with category grouping and search/filter.
+
+  Features:
+  - Category-grouped accordion FAQ items
+  - Real-time search/filter input
+  - Fully accessible (ARIA, keyboard navigation)
+  - Section-scoped inline CSS using --inv-* design tokens
+  - Translation-ready via invicta.faq.* namespace
+  - Up to 25 FAQ blocks
+
+  Uses .inv-faq__* prefix to avoid conflicts.
+  ============================================================================
+{% endcomment %}
+
+{%- liquid
+  assign show_search = section.settings.show_search
+  assign heading = section.settings.heading
+  assign subheading = section.settings.subheading
+  assign contact_url = section.settings.contact_url | default: '/pages/contact'
+
+  assign categories = 'ordering_payment,delivery_shipping,returns_refunds,trade_accounts,products_availability' | split: ','
+  assign category_labels = 'Ordering & Payment,Delivery & Shipping,Returns & Refunds,Trade Accounts,Products & Availability' | split: ','
+-%}
+
+<style>
+  /* ============================================================================
+     INVICTA FAQ — SECTION SCOPED STYLES
+     ============================================================================ */
+
+  #shopify-section-{{ section.id }} .inv-faq {
+    padding: var(--inv-space-2xl) 0;
+    background: var(--color-background, var(--inv-bg-elevated));
+    color: var(--color-foreground, var(--inv-fg));
+    font-family: inherit;
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__container {
+    max-width: var(--inv-page-width, 1320px);
+    margin: 0 auto;
+    padding: 0 var(--inv-page-gutter, 1.5rem);
+  }
+
+  @media (min-width: 750px) {
+    #shopify-section-{{ section.id }} .inv-faq__container {
+      padding: 0 var(--inv-page-gutter-desktop, 3rem);
+    }
+  }
+
+  /* --- Header --- */
+  #shopify-section-{{ section.id }} .inv-faq__header {
+    text-align: center;
+    margin-bottom: var(--inv-space-2xl);
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__heading {
+    font-family: inherit;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 var(--inv-space-sm);
+    color: var(--color-foreground, var(--inv-fg));
+    letter-spacing: -0.02em;
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__subheading {
+    font-family: inherit;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    color: var(--inv-fg-muted);
+    margin: 0;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* --- Search --- */
+  #shopify-section-{{ section.id }} .inv-faq__search {
+    max-width: 560px;
+    margin: var(--inv-space-xl) auto var(--inv-space-2xl);
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: var(--inv-fg-muted);
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__search-input {
+    width: 100%;
+    padding: 14px 16px 14px 48px;
+    font-family: inherit;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    color: var(--color-foreground, var(--inv-fg));
+    background: var(--inv-bg-elevated, #ffffff);
+    border: 1px solid var(--inv-border);
+    border-radius: 0;
+    outline: none;
+    transition: border-color var(--inv-duration-normal) var(--inv-ease-default);
+    -webkit-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__search-input::placeholder {
+    color: var(--inv-fg-subtle);
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__search-input:focus {
+    border-color: var(--inv-brand-red, var(--inv-accent));
+    box-shadow: 0 0 0 var(--inv-focus-ring-width, 2px) var(--inv-focus-ring-color, rgba(225, 29, 38, 0.5));
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__search-clear {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--inv-fg-muted);
+    padding: 0;
+    border-radius: 0;
+    transition: color var(--inv-duration-normal) var(--inv-ease-default);
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__search-clear:hover {
+    color: var(--color-foreground, var(--inv-fg));
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__search-clear.is-visible {
+    display: flex;
+  }
+
+  /* --- No results --- */
+  #shopify-section-{{ section.id }} .inv-faq__no-results {
+    display: none;
+    text-align: center;
+    padding: var(--inv-space-2xl) var(--inv-space-md);
+    color: var(--inv-fg-muted);
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__no-results.is-visible {
+    display: block;
+  }
+
+  /* --- Category group --- */
+  #shopify-section-{{ section.id }} .inv-faq__category {
+    margin-bottom: var(--inv-space-xl);
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__category:last-child {
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__category-heading {
+    font-family: inherit;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-foreground, var(--inv-fg));
+    margin: 0 0 var(--inv-space-md);
+    padding-bottom: var(--inv-space-sm);
+    border-bottom: 2px solid var(--inv-brand-red, var(--inv-accent));
+    letter-spacing: -0.01em;
+  }
+
+  /* --- Accordion item --- */
+  #shopify-section-{{ section.id }} .inv-faq__item {
+    border-bottom: 1px solid var(--inv-border);
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__item.is-hidden {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--inv-space-md);
+    width: 100%;
+    padding: var(--inv-space-md) 0;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--color-foreground, var(--inv-fg));
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 0;
+    transition: color var(--inv-duration-normal) var(--inv-ease-default);
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__question:hover {
+    color: var(--inv-brand-red, var(--inv-accent));
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__question:focus-visible {
+    outline: var(--inv-focus-ring-width, 2px) solid var(--inv-focus-ring-color, rgba(225, 29, 38, 0.5));
+    outline-offset: var(--inv-focus-ring-offset, 2px);
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__question-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--inv-fg-muted);
+    transition: transform var(--inv-duration-slow) var(--inv-ease-out);
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__question[aria-expanded="true"] .inv-faq__icon {
+    transform: rotate(180deg);
+    color: var(--inv-brand-red, var(--inv-accent));
+  }
+
+  /* --- Answer panel --- */
+  #shopify-section-{{ section.id }} .inv-faq__answer {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height var(--inv-duration-slow) var(--inv-ease-out);
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__answer-inner {
+    padding: 0 0 var(--inv-space-lg);
+    font-family: inherit;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--inv-fg-muted);
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__answer-inner p {
+    margin: 0 0 var(--inv-space-sm);
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__answer-inner p:last-child {
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__answer-inner a {
+    color: var(--inv-brand-red, var(--inv-accent));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__answer-inner a:hover {
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__answer-inner ul,
+  #shopify-section-{{ section.id }} .inv-faq__answer-inner ol {
+    margin: var(--inv-space-sm) 0;
+    padding-left: var(--inv-space-lg);
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__answer-inner li {
+    margin-bottom: var(--inv-space-xs);
+  }
+
+  /* --- CTA banner --- */
+  #shopify-section-{{ section.id }} .inv-faq__cta {
+    margin-top: var(--inv-space-2xl);
+    padding: var(--inv-space-xl) var(--inv-space-lg);
+    background: var(--inv-bg-soft, #f3f4f6);
+    border: 1px solid var(--inv-border);
+    border-left: 4px solid var(--inv-brand-red, var(--inv-accent));
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__cta-heading {
+    font-family: inherit;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-foreground, var(--inv-fg));
+    margin: 0 0 var(--inv-space-xs);
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__cta-text {
+    font-family: inherit;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--inv-fg-muted);
+    margin: 0 0 var(--inv-space-md);
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--inv-space-sm);
+    padding: 12px 28px;
+    font-family: inherit;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1;
+    color: #ffffff;
+    background: var(--inv-brand-red, var(--inv-accent));
+    border: none;
+    border-radius: 0;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background var(--inv-duration-normal) var(--inv-ease-default);
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__cta-button:hover {
+    background: var(--inv-accent-hover, #c4191f);
+  }
+
+  #shopify-section-{{ section.id }} .inv-faq__cta-button:focus-visible {
+    outline: var(--inv-focus-ring-width, 2px) solid var(--inv-focus-ring-color, rgba(225, 29, 38, 0.5));
+    outline-offset: var(--inv-focus-ring-offset, 2px);
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .inv-faq {
+      padding: var(--inv-space-xl) 0;
+    }
+
+    #shopify-section-{{ section.id }} .inv-faq__heading {
+      font-size: 1.5rem;
+    }
+
+    #shopify-section-{{ section.id }} .inv-faq__category-heading {
+      font-size: 1.125rem;
+    }
+
+    #shopify-section-{{ section.id }} .inv-faq__question {
+      font-size: 0.9375rem;
+      padding: var(--inv-space-sm) 0 var(--inv-space-md);
+    }
+
+    #shopify-section-{{ section.id }} .inv-faq__answer-inner {
+      font-size: 0.875rem;
+    }
+
+    #shopify-section-{{ section.id }} .inv-faq__cta {
+      padding: var(--inv-space-lg) var(--inv-space-md);
+    }
+  }
+</style>
+
+<div class="inv-faq" data-faq-section="{{ section.id }}">
+  <div class="inv-faq__container">
+
+    {%- comment -%} ===== HEADER ===== {%- endcomment -%}
+    <div class="inv-faq__header">
+      {%- if heading != blank -%}
+        <h1 class="inv-faq__heading">{{ heading | escape }}</h1>
+      {%- else -%}
+        <h1 class="inv-faq__heading">{{ 'invicta.faq.heading' | t | default: 'Frequently Asked Questions' }}</h1>
+      {%- endif -%}
+
+      {%- if subheading != blank -%}
+        <p class="inv-faq__subheading">{{ subheading | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} ===== SEARCH ===== {%- endcomment -%}
+    {%- if show_search -%}
+      <div class="inv-faq__search">
+        <svg class="inv-faq__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input
+          type="search"
+          class="inv-faq__search-input"
+          placeholder="{{ 'invicta.faq.search_placeholder' | t | default: 'Search frequently asked questions...' }}"
+          aria-label="{{ 'invicta.faq.search_label' | t | default: 'Search FAQ' }}"
+          data-faq-search
+          autocomplete="off"
+        >
+        <button
+          type="button"
+          class="inv-faq__search-clear"
+          aria-label="{{ 'invicta.faq.search_clear' | t | default: 'Clear search' }}"
+          data-faq-search-clear
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} ===== NO RESULTS MESSAGE ===== {%- endcomment -%}
+    <div class="inv-faq__no-results" data-faq-no-results aria-live="polite">
+      {{ 'invicta.faq.no_results' | t | default: 'No questions match your search. Try a different term or browse by category below.' }}
+    </div>
+
+    {%- comment -%} ===== FAQ ITEMS GROUPED BY CATEGORY ===== {%- endcomment -%}
+    {%- for i in (0..4) -%}
+      {%- assign cat_key = categories[i] -%}
+      {%- assign cat_label = category_labels[i] -%}
+
+      {%- comment -%} Check if this category has any blocks {%- endcomment -%}
+      {%- assign cat_has_items = false -%}
+      {%- for block in section.blocks -%}
+        {%- if block.settings.category == cat_key -%}
+          {%- assign cat_has_items = true -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if cat_has_items -%}
+        <div class="inv-faq__category" data-faq-category="{{ cat_key }}">
+          <h2 class="inv-faq__category-heading">{{ cat_label }}</h2>
+
+          {%- for block in section.blocks -%}
+            {%- if block.settings.category == cat_key -%}
+              {%- assign question = block.settings.question -%}
+              {%- assign answer = block.settings.answer -%}
+              {%- assign item_id = 'faq-' | append: section.id | append: '-' | append: block.id -%}
+
+              {%- if question != blank and answer != blank -%}
+                <div
+                  class="inv-faq__item"
+                  data-faq-item
+                  data-faq-question="{{ question | escape | downcase }}"
+                  data-faq-answer="{{ answer | strip_html | escape | downcase }}"
+                  {{ block.shopify_attributes }}
+                >
+                  <button
+                    type="button"
+                    class="inv-faq__question"
+                    id="{{ item_id }}-trigger"
+                    aria-expanded="false"
+                    aria-controls="{{ item_id }}-panel"
+                    data-faq-trigger
+                  >
+                    <span class="inv-faq__question-text">{{ question | escape }}</span>
+                    <svg class="inv-faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </button>
+                  <div
+                    class="inv-faq__answer"
+                    id="{{ item_id }}-panel"
+                    role="region"
+                    aria-labelledby="{{ item_id }}-trigger"
+                    data-faq-panel
+                  >
+                    <div class="inv-faq__answer-inner rte">
+                      {{ answer }}
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- comment -%} ===== CONTACT CTA ===== {%- endcomment -%}
+    <div class="inv-faq__cta">
+      <h2 class="inv-faq__cta-heading">{{ 'invicta.faq.cta_heading' | t | default: "Can't find what you're looking for?" }}</h2>
+      <p class="inv-faq__cta-text">{{ 'invicta.faq.cta_text' | t | default: 'Our team is here to help. Get in touch and we will get back to you as soon as possible.' }}</p>
+      <a href="{{ contact_url }}" class="inv-faq__cta-button">
+        {{ 'invicta.faq.cta_button' | t | default: 'Contact Us' }}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  var sectionId = {{ section.id | json }};
+  var container = document.querySelector('[data-faq-section="' + sectionId + '"]');
+  if (!container) return;
+
+  /* ========================================
+     ACCORDION
+     ======================================== */
+  var triggers = container.querySelectorAll('[data-faq-trigger]');
+
+  function toggleItem(trigger) {
+    var expanded = trigger.getAttribute('aria-expanded') === 'true';
+    var panel = document.getElementById(trigger.getAttribute('aria-controls'));
+    if (!panel) return;
+
+    if (expanded) {
+      /* Collapse */
+      trigger.setAttribute('aria-expanded', 'false');
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+      /* Force reflow to enable transition */
+      panel.offsetHeight; /* eslint-disable-line no-unused-expressions */
+      panel.style.maxHeight = '0';
+    } else {
+      /* Expand */
+      trigger.setAttribute('aria-expanded', 'true');
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+
+      /* Remove fixed max-height after transition so content can reflow */
+      var onTransitionEnd = function() {
+        panel.removeEventListener('transitionend', onTransitionEnd);
+        if (trigger.getAttribute('aria-expanded') === 'true') {
+          panel.style.maxHeight = 'none';
+        }
+      };
+      panel.addEventListener('transitionend', onTransitionEnd);
+    }
+  }
+
+  triggers.forEach(function(trigger) {
+    trigger.addEventListener('click', function() {
+      toggleItem(trigger);
+    });
+
+    /* Keyboard: Enter and Space are handled natively by <button>,
+       but we add Home/End navigation across FAQ items */
+    trigger.addEventListener('keydown', function(e) {
+      var allTriggers = Array.prototype.slice.call(
+        container.querySelectorAll('[data-faq-trigger]')
+      ).filter(function(t) {
+        return t.closest('[data-faq-item]').style.display !== 'none' &&
+               !t.closest('[data-faq-item]').classList.contains('is-hidden');
+      });
+
+      var index = allTriggers.indexOf(trigger);
+      var target = null;
+
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
+          target = allTriggers[index + 1] || allTriggers[0];
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          target = allTriggers[index - 1] || allTriggers[allTriggers.length - 1];
+          break;
+        case 'Home':
+          e.preventDefault();
+          target = allTriggers[0];
+          break;
+        case 'End':
+          e.preventDefault();
+          target = allTriggers[allTriggers.length - 1];
+          break;
+      }
+
+      if (target) {
+        target.focus();
+      }
+    });
+  });
+
+  /* ========================================
+     SEARCH / FILTER
+     ======================================== */
+  var searchInput = container.querySelector('[data-faq-search]');
+  var clearBtn = container.querySelector('[data-faq-search-clear]');
+  var noResults = container.querySelector('[data-faq-no-results]');
+
+  if (!searchInput) return;
+
+  var items = container.querySelectorAll('[data-faq-item]');
+  var categoryGroups = container.querySelectorAll('[data-faq-category]');
+  var debounceTimer = null;
+
+  function filterItems() {
+    var query = searchInput.value.trim().toLowerCase();
+
+    /* Toggle clear button visibility */
+    if (clearBtn) {
+      if (query.length > 0) {
+        clearBtn.classList.add('is-visible');
+      } else {
+        clearBtn.classList.remove('is-visible');
+      }
+    }
+
+    /* If search is empty, show everything */
+    if (query.length === 0) {
+      items.forEach(function(item) {
+        item.classList.remove('is-hidden');
+      });
+      categoryGroups.forEach(function(group) {
+        group.style.display = '';
+      });
+      if (noResults) {
+        noResults.classList.remove('is-visible');
+      }
+      return;
+    }
+
+    var visibleCount = 0;
+
+    items.forEach(function(item) {
+      var questionText = item.getAttribute('data-faq-question') || '';
+      var answerText = item.getAttribute('data-faq-answer') || '';
+      var matches = questionText.indexOf(query) !== -1 || answerText.indexOf(query) !== -1;
+
+      if (matches) {
+        item.classList.remove('is-hidden');
+        visibleCount++;
+      } else {
+        item.classList.add('is-hidden');
+
+        /* Collapse hidden items */
+        var trigger = item.querySelector('[data-faq-trigger]');
+        var panel = item.querySelector('[data-faq-panel]');
+        if (trigger && trigger.getAttribute('aria-expanded') === 'true') {
+          trigger.setAttribute('aria-expanded', 'false');
+          if (panel) panel.style.maxHeight = '0';
+        }
+      }
+    });
+
+    /* Hide empty categories */
+    categoryGroups.forEach(function(group) {
+      var visibleItems = group.querySelectorAll('[data-faq-item]:not(.is-hidden)');
+      group.style.display = visibleItems.length === 0 ? 'none' : '';
+    });
+
+    /* Show/hide no results message */
+    if (noResults) {
+      if (visibleCount === 0) {
+        noResults.classList.add('is-visible');
+      } else {
+        noResults.classList.remove('is-visible');
+      }
+    }
+  }
+
+  searchInput.addEventListener('input', function() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(filterItems, 150);
+  });
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function() {
+      searchInput.value = '';
+      filterItems();
+      searchInput.focus();
+    });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Invicta FAQ",
+  "tag": "section",
+  "class": "inv-faq-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Find answers to common questions about ordering, delivery, returns, trade accounts and our product range."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search filter",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "contact_url",
+      "label": "Contact page URL",
+      "default": "/pages/contact"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "limit": 25,
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer"
+        },
+        {
+          "type": "select",
+          "id": "category",
+          "label": "Category",
+          "options": [
+            {
+              "value": "ordering_payment",
+              "label": "Ordering & Payment"
+            },
+            {
+              "value": "delivery_shipping",
+              "label": "Delivery & Shipping"
+            },
+            {
+              "value": "returns_refunds",
+              "label": "Returns & Refunds"
+            },
+            {
+              "value": "trade_accounts",
+              "label": "Trade Accounts"
+            },
+            {
+              "value": "products_availability",
+              "label": "Products & Availability"
+            }
+          ],
+          "default": "ordering_payment"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Invicta FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What payment methods do you accept?",
+            "answer": "<p>We accept all major credit and debit cards (Visa, Mastercard, American Express), PayPal, and bank transfer for trade account holders. All payments are processed securely.</p>",
+            "category": "ordering_payment"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is there a minimum order value?",
+            "answer": "<p>There is no minimum order value for online orders. However, some trade account benefits may require minimum order thresholds. Contact our sales team for details on your account terms.</p>",
+            "category": "ordering_payment"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How much does delivery cost?",
+            "answer": "<p>We offer <strong>FREE next working day delivery</strong> on all orders over \\u00a330. For orders under \\u00a330, a flat-rate delivery charge applies. See our delivery page for full details.</p>",
+            "category": "delivery_shipping"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is the delivery cut-off time for next day?",
+            "answer": "<p>Orders placed before <strong>2:00 PM</strong> on working days are dispatched the same day for next working day delivery. Orders placed after 2:00 PM or on weekends will be dispatched the next working day.</p>",
+            "category": "delivery_shipping"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is your returns policy?",
+            "answer": "<p>We accept returns within 30 days of delivery for unused items in their original packaging. To initiate a return, please contact our customer service team with your order number. Please note that bespoke or cut-to-size items cannot be returned.</p>",
+            "category": "returns_refunds"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I apply for a trade account?",
+            "answer": "<p>Trade accounts are available for businesses in the construction, maintenance and building trades. Apply online through our trade account page or visit one of our trade counters in Canterbury or Ramsgate. Benefits include trade pricing, credit terms, and dedicated account management.</p>",
+            "category": "trade_accounts"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What are the benefits of a trade account?",
+            "answer": "<p>Trade account holders receive:</p><ul><li>Exclusive trade pricing and volume discounts</li><li>30-day credit terms (subject to approval)</li><li>Dedicated account manager</li><li>Priority same-day dispatch</li><li>Access to trade-only promotions</li></ul>",
+            "category": "trade_accounts"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How can I check stock availability?",
+            "answer": "<p>Stock levels are displayed on each product page in real time. If an item is out of stock, you can register for an email notification when it becomes available. For bulk order enquiries, please contact our sales team directly.</p>",
+            "category": "products_availability"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

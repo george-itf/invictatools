@@ -536,5 +536,187 @@
       "send_on": "YYYY-MM-DD",
       "send_on_label": "Send on (optional)"
     }
+  },
+  "invicta": {
+    "trust_bar": {
+      "aria_label": "Why shop with Invicta Tools",
+      "authorised_dealer": "Authorised Dealer",
+      "free_delivery": "Free Delivery over £30",
+      "full_warranty": "Full Warranty",
+      "locations": "2 Kent Branches",
+      "years_trading": "30+ Years Trading"
+    },
+    "delivery": {
+      "order_now": "Order now",
+      "order_within": "Order within ",
+      "for_delivery_on": " for delivery on ",
+      "returns_warranty": "30-day returns · Full manufacturer warranty"
+    },
+    "delivery_info": {
+      "dispatch_title": "Same-Day Dispatch",
+      "dispatch_desc": "Order before 2pm Monday to Friday for same-day dispatch from our Canterbury warehouse.",
+      "free_shipping_aria": "Free shipping information",
+      "free_shipping_html": "FREE next-day delivery on all orders over <strong>&pound;{{ threshold }}</strong> (ex. VAT) to UK Mainland",
+      "methods_heading": "Delivery Options",
+      "methods_table_aria": "Delivery methods and pricing",
+      "col_method": "Method",
+      "col_timeframe": "Timeframe",
+      "col_price": "Price",
+      "areas_heading": "Delivery Areas",
+      "tracking_heading": "Order Tracking",
+      "tracking_title": "Track Your Order",
+      "tracking_desc": "Once your order has been dispatched, you will receive an email with your tracking number and a link to track your delivery in real time. If you have an account, tracking information is also available in your order history.",
+      "cta_heading": "Need help with delivery?",
+      "cta_desc": "Our team in Canterbury is happy to help with any delivery queries, special requirements, or bulk order logistics.",
+      "cta_button": "Contact Us About Delivery"
+    },
+    "delivery_bar": {
+      "qualified_html": "You qualify for <strong>FREE next-day delivery!</strong>",
+      "remaining_html": "You're <strong>{{ amount }}</strong> away from <strong>FREE delivery!</strong>"
+    },
+    "cart": {
+      "prices_include_vat": "All prices include VAT",
+      "subtotal_ex_vat": "Subtotal (ex VAT)",
+      "vat_rate": "VAT ({{ rate }}%)",
+      "discount": "Discount",
+      "shipping": "Shipping",
+      "shipping_free": "FREE",
+      "shipping_calculated": "Calculated at checkout",
+      "shipping_progress_html": "Spend <strong>{{ amount }}</strong> more for FREE shipping",
+      "total_inc_vat": "Total (inc VAT)",
+      "empty_message": "Looks like you haven't added anything yet.",
+      "start_shopping": "Start Shopping",
+      "sku_label": "SKU: {{ sku }}",
+      "stock_in_stock": "In Stock",
+      "stock_out_of_stock": "Out of Stock"
+    },
+    "product": {
+      "stock_in_stock": "In Stock",
+      "stock_sold_out": "Sold Out",
+      "stock_low": "Only {{ quantity }} Left",
+      "add_to_cart": "Add to Cart",
+      "notify_me": "Notify Me",
+      "images_label": "Product images",
+      "zoom_image": "Zoom image",
+      "key_specs": "Key specifications",
+      "product_features": "Product features",
+      "decrease_quantity": "Decrease quantity",
+      "increase_quantity": "Increase quantity"
+    },
+    "header": {
+      "vat_ex": "Ex VAT",
+      "vat_inc": "Inc VAT",
+      "prices_label": "Prices:",
+      "menu": "Menu",
+      "my_account": "My Account",
+      "sign_in_register": "Sign In / Register"
+    },
+    "pricing": {
+      "per_unit": "/ea"
+    },
+    "search": {
+      "heading": "Search",
+      "results_for": "Search results for \"{{ terms }}\"",
+      "all_products": "All Products",
+      "placeholder": "Search products...",
+      "submit_label": "Search",
+      "clear_label": "Clear search",
+      "enter_term": "Enter a search term to find products",
+      "products": "products",
+      "showing_range": "{{ start }}\u2013{{ end }}",
+      "sort_label": "Sort",
+      "filter_brand": "Brand",
+      "filter_type": "Product Type",
+      "filter_selected": "{{ count }} selected",
+      "filters_active": "Active",
+      "clear_filters": "Clear all filters",
+      "prev": "Prev",
+      "next": "Next",
+      "prev_page": "Previous page",
+      "next_page": "Next page"
+    },
+    "faq": {
+      "heading": "Frequently Asked Questions",
+      "search_placeholder": "Search frequently asked questions...",
+      "search_label": "Search FAQ",
+      "search_clear": "Clear search",
+      "no_results": "No questions match your search. Try a different term or browse by category below.",
+      "cta_heading": "Can't find what you're looking for?",
+      "cta_text": "Our team is here to help. Get in touch and we will get back to you as soon as possible.",
+      "cta_button": "Contact Us"
+    },
+    "returns": {
+      "heading": "Returns & Refunds",
+      "subheading": "We want you to be completely satisfied with your purchase. If something isn't right, our returns process is straightforward.",
+      "summary_label": "Returns policy summary",
+      "policy_summary": {
+        "heading": "Our Returns Policy",
+        "description": "We accept returns within 30 days of delivery for most items. Products must be unused, in their original packaging, and in resalable condition.",
+        "window_title": "30-Day Returns",
+        "window_description": "Return items within 30 days of delivery for a full refund.",
+        "condition_title": "Original Condition",
+        "condition_description": "Items must be unused and in original packaging.",
+        "refund_title": "Full Refund",
+        "refund_description": "Refunded to your original payment method."
+      },
+      "process_label": "Returns process steps",
+      "process": {
+        "heading": "How to Return an Item",
+        "step_label": "Step"
+      },
+      "timeline_label": "Refund timeline",
+      "timeline": {
+        "heading": "Refund Timeline",
+        "received_title": "Item Received",
+        "received_description": "We'll confirm receipt of your return by email within 1 business day.",
+        "inspected_title": "Inspection",
+        "inspected_description": "Our team inspects the item within 2 business days of receipt.",
+        "processed_title": "Refund Processed",
+        "processed_description": "Once approved, your refund is processed within 1 business day.",
+        "completed_title": "Funds Returned",
+        "completed_description": "Depending on your bank, funds appear in your account within 3-5 business days."
+      },
+      "exceptions_label": "Items that cannot be returned",
+      "exceptions": {
+        "heading": "Items That Cannot Be Returned"
+      },
+      "warranty_label": "Warranty claims information",
+      "warranty": {
+        "heading": "Warranty Claims",
+        "description": "Warranty claims are handled separately from returns. If your product develops a fault within the manufacturer's warranty period, we'll help you resolve it.",
+        "note": "Please contact us with your order number and a description of the fault. We'll liaise with the manufacturer on your behalf to arrange a repair, replacement, or refund."
+      },
+      "cta_label": "Start a return",
+      "cta": {
+        "heading": "Ready to Start a Return?",
+        "description": "Contact our team with your order number and we'll get your return processed quickly.",
+        "email_button": "Start a Return",
+        "email_aria": "Start a return via email",
+        "contact_button": "Contact Us",
+        "contact_aria": "Visit our contact page",
+        "or_call": "Or call us on"
+      }
+    },
+    "reviews": {
+      "heading": "Customer Reviews",
+      "summary_label": "Rating summary",
+      "out_of_5": "out of 5 stars",
+      "review_count": "reviews",
+      "breakdown_label": "Rating breakdown",
+      "stars": "stars",
+      "verified_purchase": "Verified Purchase",
+      "show_more": "Show More Reviews",
+      "write_review": "Write a Review",
+      "write_first_review": "Write the First Review",
+      "no_reviews": "No reviews yet. Be the first to share your experience."
+    },
+    "sections": {
+      "brand_categories": {
+        "shop_now": "Shop Now"
+      },
+      "quick_cats": {
+        "empty_state": "Add category blocks using the section settings below."
+      }
+    }
   }
 }

@@ -341,7 +341,7 @@
         }
 
         if (contentEl.children.length > 0 || contentEl.textContent.trim()) {
-          row.style.display = '';
+          row.classList.remove('inv-pdp--hidden');
           anyRowShown = true;
         }
       });
@@ -357,7 +357,7 @@
             const newP = document.createElement('p');
             newP.textContent = plainText.length > 500 ? plainText.substring(0, 500) + '...' : plainText;
             contentEl.appendChild(newP);
-            descRow.style.display = '';
+            descRow.classList.remove('inv-pdp--hidden');
           }
         }
       }
@@ -713,8 +713,8 @@
           var errorEl = section.querySelector('[data-atc-error]');
           if (errorEl) {
             errorEl.textContent = errorEl.dataset.errorText || 'Sorry, couldn\'t add to cart. Please try again.';
-            errorEl.style.display = '';
-            setTimeout(function() { errorEl.style.display = 'none'; }, 5000);
+            errorEl.classList.remove('inv-pdp--hidden');
+            setTimeout(function() { errorEl.classList.add('inv-pdp--hidden'); }, 5000);
           }
 
           setTimeout(function() {

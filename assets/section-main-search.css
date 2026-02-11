@@ -34,6 +34,13 @@
   text-align: center;
 }
 
+.inv-search__result-count {
+  font-size: 0.6em;
+  font-weight: 400;
+  color: #666;
+  white-space: nowrap;
+}
+
 /* ----------------------------------------
    SEARCH INPUT — Clean reset (no shadows)
    ---------------------------------------- */
