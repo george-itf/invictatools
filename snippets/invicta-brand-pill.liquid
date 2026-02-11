@@ -514,28 +514,20 @@
           <!-- Visible logo (mobile-safe) -->
           <span
             class="invicta-brand-pill__logo-bg"
-            style="background-image:url('{{ brand_logo_url }}');"
+            style="background-image:url('{{ brand_logo_url | escape }}');"
             aria-hidden="true"
           ></span>
 
           <!-- Hidden detector img: only used to trigger fallback if asset missing -->
           <img
-            src="{{ brand_logo_url }}"
+            src="{{ brand_logo_url | escape }}"
             alt="{{ brand_display }} logo - Shop {{ brand_display }} tools at Invicta Tools"
             class="invicta-brand-pill__logo"
             loading="eager"
             width="120"
             height="40"
             style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;"
-            onerror="
-              var wrap=this.closest('.invicta-brand-pill__inner');
-              if(!wrap) return;
-              var bg=wrap.querySelector('.invicta-brand-pill__logo-bg');
-              var label=wrap.querySelector('.invicta-brand-pill__label');
-              if(bg) bg.style.display='none';
-              if(label) label.style.display='inline-block';
-              this.closest('.invicta-brand-pill').classList.add('invicta-brand-pill--text');
-            "
+            data-brand-pill-detector
           >
 
           <!-- Text fallback: hard-hidden until onerror fires -->
@@ -552,3 +544,28 @@
   {%- endif -%}
 
 {%- endif -%}
+
+<script>
+/* Brand pill logo fallback — delegated error handler (replaces inline onerror) */
+(function() {
+  if (window.__invictaBrandPillErrorBound) return;
+  window.__invictaBrandPillErrorBound = true;
+
+  document.addEventListener('error', function(e) {
+    var img = e.target;
+    if (!img || img.tagName !== 'IMG' || !img.hasAttribute('data-brand-pill-detector')) return;
+
+    var wrap = img.closest('.invicta-brand-pill__inner');
+    if (!wrap) return;
+
+    var bg = wrap.querySelector('.invicta-brand-pill__logo-bg');
+    var label = wrap.querySelector('.invicta-brand-pill__label');
+
+    if (bg) bg.style.display = 'none';
+    if (label) label.style.display = 'inline-block';
+
+    var pill = img.closest('.invicta-brand-pill');
+    if (pill) pill.classList.add('invicta-brand-pill--text');
+  }, true);
+})();
+</script>

@@ -672,6 +672,39 @@
 })();
 </script>
 
+{%- comment -%} ===== FAQPage JSON-LD Schema ===== {%- endcomment -%}
+{%- assign faq_blocks_with_content = '' -%}
+{%- assign faq_count = 0 -%}
+{%- for block in section.blocks -%}
+  {%- if block.settings.question != blank and block.settings.answer != blank -%}
+    {%- assign faq_count = faq_count | plus: 1 -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if faq_count > 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- assign faq_index = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.settings.question != blank and block.settings.answer != blank -%}
+        {%- assign faq_index = faq_index | plus: 1 -%}
+        {
+          "@type": "Question",
+          "name": {{ block.settings.question | escape | json }},
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": {{ block.settings.answer | strip_html | strip | json }}
+          }
+        }{%- if faq_index < faq_count -%},{%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "Invicta FAQ",

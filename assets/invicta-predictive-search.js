@@ -1,6 +1,7 @@
 /**
- * Invicta Predictive Search v7.4
+ * Invicta Predictive Search v7.5
  * Extracted from inline — no Liquid dependencies
+ * Security: replaced innerHTML with programmatic DOM construction
  */
 (function() {
   'use strict';
@@ -16,12 +17,21 @@
   let currentQuery = '';
   let abortController = null;
 
+  /**
+   * Remove all child nodes from an element (safe alternative to innerHTML = '')
+   */
+  function clearElement(el) {
+    while (el.firstChild) {
+      el.removeChild(el.firstChild);
+    }
+  }
+
   /* CLEAR BUTTON */
   if (clearBtn && input) {
     clearBtn.addEventListener('click', function() {
       input.value = '';
       input.focus();
-      results.innerHTML = '';
+      clearElement(results);
       results.style.display = 'none';
     });
   }
@@ -34,12 +44,19 @@
       clearTimeout(debounceTimer);
 
       if (query.length < 2) {
-        results.innerHTML = '';
+        clearElement(results);
         results.style.display = 'none';
         return;
       }
 
-      results.innerHTML = '<div class="inv-search-results__loading"><div class="inv-search-results__spinner"></div></div>';
+      // Show loading spinner (built with DOM)
+      clearElement(results);
+      var loadingDiv = document.createElement('div');
+      loadingDiv.className = 'inv-search-results__loading';
+      var spinner = document.createElement('div');
+      spinner.className = 'inv-search-results__spinner';
+      loadingDiv.appendChild(spinner);
+      results.appendChild(loadingDiv);
       results.style.display = 'block';
 
       debounceTimer = setTimeout(function() {
@@ -59,7 +76,7 @@
     });
 
     input.addEventListener('focus', function() {
-      if (results.innerHTML && this.value.length >= 2) {
+      if (results.hasChildNodes() && this.value.length >= 2) {
         results.style.display = 'block';
       }
     });
@@ -84,57 +101,99 @@
       })
       .catch(function(error) {
         if (error.name === 'AbortError') return;
-        results.innerHTML = '<div class="inv-search-results__empty"><p class="inv-search-results__empty-text">Something went wrong. Please try again.</p></div>';
+        clearElement(results);
+        var errorDiv = document.createElement('div');
+        errorDiv.className = 'inv-search-results__empty';
+        var errorText = document.createElement('p');
+        errorText.className = 'inv-search-results__empty-text';
+        errorText.textContent = 'Something went wrong. Please try again.';
+        errorDiv.appendChild(errorText);
+        results.appendChild(errorDiv);
       });
   }
 
   function renderResults(data, query) {
-    const products = data.resources?.results?.products || [];
+    var products = data.resources?.results?.products || [];
+
+    clearElement(results);
 
     if (products.length === 0) {
-      results.innerHTML =
-        '<div class="inv-search-results__empty">' +
-          '<svg class="inv-search-results__empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' +
-            '<circle cx="11" cy="11" r="8"/>' +
-            '<path d="m21 21-4.35-4.35"/>' +
-          '</svg>' +
-          '<p class="inv-search-results__empty-text">No products found for "' + escapeHtml(query) + '"</p>' +
-        '</div>';
+      var emptyDiv = document.createElement('div');
+      emptyDiv.className = 'inv-search-results__empty';
+
+      var svgNS = 'http://www.w3.org/2000/svg';
+      var svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('class', 'inv-search-results__empty-icon');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('stroke', 'currentColor');
+      svg.setAttribute('stroke-width', '1.5');
+      var circle = document.createElementNS(svgNS, 'circle');
+      circle.setAttribute('cx', '11');
+      circle.setAttribute('cy', '11');
+      circle.setAttribute('r', '8');
+      svg.appendChild(circle);
+      var path = document.createElementNS(svgNS, 'path');
+      path.setAttribute('d', 'm21 21-4.35-4.35');
+      svg.appendChild(path);
+      emptyDiv.appendChild(svg);
+
+      var emptyText = document.createElement('p');
+      emptyText.className = 'inv-search-results__empty-text';
+      emptyText.textContent = 'No products found for \u201c' + query + '\u201d';
+      emptyDiv.appendChild(emptyText);
+
+      results.appendChild(emptyDiv);
       return;
     }
 
-    let html = '';
-
     products.forEach(function(product) {
-      const image = product.featured_image?.url || product.image || '';
-      const title = escapeHtml(product.title);
-      const price = formatMoney(product.price);
-      const url = product.url;
+      var image = product.featured_image?.url || product.image || '';
+      var title = product.title || '';
+      var price = formatMoney(product.price);
+      var url = product.url || '';
 
-      html +=
-        '<a href="' + url + '" class="inv-search-results__item">' +
-          (image ? '<img src="' + image + '&width=144" alt="' + title + '" class="inv-search-results__image" loading="lazy">' : '') +
-          '<div class="inv-search-results__info">' +
-            '<p class="inv-search-results__title">' + title + '</p>' +
-            '<p class="inv-search-results__price">' + price + '</p>' +
-          '</div>' +
-        '</a>';
+      var anchor = document.createElement('a');
+      anchor.setAttribute('href', url);
+      anchor.className = 'inv-search-results__item';
+
+      if (image) {
+        var img = document.createElement('img');
+        img.setAttribute('src', image + '&width=144');
+        img.setAttribute('alt', title);
+        img.className = 'inv-search-results__image';
+        img.setAttribute('loading', 'lazy');
+        anchor.appendChild(img);
+      }
+
+      var infoDiv = document.createElement('div');
+      infoDiv.className = 'inv-search-results__info';
+
+      var titleP = document.createElement('p');
+      titleP.className = 'inv-search-results__title';
+      titleP.textContent = title;
+      infoDiv.appendChild(titleP);
+
+      var priceP = document.createElement('p');
+      priceP.className = 'inv-search-results__price';
+      priceP.textContent = price;
+      infoDiv.appendChild(priceP);
+
+      anchor.appendChild(infoDiv);
+      results.appendChild(anchor);
     });
 
-    html += '<a href="/search?q=' + encodeURIComponent(query) + '" class="inv-search-results__view-all">View all results \u2192</a>';
+    var viewAllLink = document.createElement('a');
+    viewAllLink.setAttribute('href', '/search?q=' + encodeURIComponent(query));
+    viewAllLink.className = 'inv-search-results__view-all';
+    viewAllLink.textContent = 'View all results \u2192';
+    results.appendChild(viewAllLink);
 
-    results.innerHTML = html;
     results.style.display = 'block';
   }
 
-  function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-  }
-
   function formatMoney(price) {
-    const amount = (price / 1).toFixed(2);
+    var amount = (price / 1).toFixed(2);
     return '\u00a3' + amount;
   }
 })();

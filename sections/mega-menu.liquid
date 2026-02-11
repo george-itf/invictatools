@@ -2,6 +2,13 @@
 {% assign menu = linklists[s.menu] %}
 
 <style>
+/*
+ * H26 Performance note: This CSS must remain inline because every selector
+ * contains {{ section.id }} and most property values use Liquid settings
+ * ({{ s.bar_bg }}, {{ s.bar_height }}, {{ s.accent_color }}, etc.).
+ * Extracting to an external .css file is not possible without losing
+ * per-section scoping and theme-editor configurability.
+ */
 
 /* Hide mega menu on mobile — use drawer instead */
 @media (max-width: 989px) {
@@ -119,38 +126,72 @@
   transform: translateX(4px);
 }
 
+/* Keyboard focus styles */
+.mega-item-{{ section.id }}:focus,
+.mega-item-{{ section.id }}:focus-visible {
+  outline: 2px solid {{ s.accent_color }};
+  outline-offset: -2px;
+  background: rgba(0,0,0,0.08);
+}
+
+.mega-cat-title-{{ section.id }}:focus,
+.mega-cat-title-{{ section.id }}:focus-visible,
+.mega-sub-item-{{ section.id }}:focus,
+.mega-sub-item-{{ section.id }}:focus-visible {
+  outline: 2px solid {{ s.accent_color }};
+  outline-offset: 2px;
+}
+
 </style>
 
-<nav class="mega-menu-bar-{{ section.id }}">
+<nav class="mega-menu-bar-{{ section.id }}" aria-label="Main menu">
+  <ul role="menubar" style="display:contents;list-style:none;margin:0;padding:0;">
   {% for l in menu.links %}
-    <div class="mega-item-{{ section.id }}"
+    <li role="none" style="display:contents;">
+    {% if l.links.size > 0 %}
+      <div class="mega-item-{{ section.id }}"
+           role="menuitem"
+           aria-haspopup="true"
+           aria-expanded="false"
+           tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+           data-dropdown="dropdown-{{ section.id }}-{{ forloop.index }}">
+        {{ l.title }}
+        <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+      </div>
+    {% else %}
+      <a class="mega-item-{{ section.id }}"
+         href="{{ l.url }}"
+         role="menuitem"
+         tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
          data-dropdown="dropdown-{{ section.id }}-{{ forloop.index }}">
-      {{ l.title }}
-      {% if l.links.size > 0 %}
-      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
-      {% endif %}
-    </div>
+        {{ l.title }}
+      </a>
+    {% endif %}
+    </li>
   {% endfor %}
+  </ul>
 </nav>
 
 {% for l in menu.links %}
   {% if l.links.size > 0 %}
   <div id="dropdown-{{ section.id }}-{{ forloop.index }}"
-       class="mega-dropdown-{{ section.id }}">
+       class="mega-dropdown-{{ section.id }}"
+       role="menu"
+       aria-label="{{ l.title }}">
 
     <div class="mega-grid-{{ section.id }}">
       {% for child in l.links %}
-        <div>
+        <div role="group" aria-label="{{ child.title }}">
           {%- comment -%}
             CATEGORY TITLE — Now a clickable link
             Links to the collection/page URL assigned in the menu
           {%- endcomment -%}
-          <a href="{{ child.url }}" class="mega-cat-title-{{ section.id }}">
+          <a href="{{ child.url }}" class="mega-cat-title-{{ section.id }}" role="menuitem">
             {{ child.title }}
           </a>
 
           {% for sub in child.links %}
-            <a href="{{ sub.url }}" class="mega-sub-item-{{ section.id }}">
+            <a href="{{ sub.url }}" class="mega-sub-item-{{ section.id }}" role="menuitem">
               {{ sub.title }}
             </a>
           {% endfor %}
@@ -166,8 +207,13 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
-  const items = document.querySelectorAll('.mega-item-{{ section.id }}');
-  const dropdowns = document.querySelectorAll('.mega-dropdown-{{ section.id }}');
+  const menubar = document.querySelector('.mega-menu-bar-{{ section.id }} [role="menubar"]');
+  if (!menubar) return;
+
+  const items = Array.from(menubar.querySelectorAll('[role="menuitem"]'));
+  const allDropdowns = document.querySelectorAll('.mega-dropdown-{{ section.id }}');
+
+  /* ========= MOUSE BEHAVIOUR (preserved) ========= */
 
   items.forEach(item => {
     const id = item.dataset.dropdown;
@@ -177,29 +223,191 @@ document.addEventListener('DOMContentLoaded', () => {
 
     item.addEventListener('mouseenter', () => {
       closeAll();
-      item.classList.add('active');
-      panel.classList.add('open');
+      openDropdown(item, panel, false);
     });
 
     item.addEventListener('mouseleave', () => {
       setTimeout(() => {
         if (!panel.matches(':hover') && !item.matches(':hover')) {
-          item.classList.remove('active');
-          panel.classList.remove('open');
+          closeDropdown(item, panel);
         }
       }, 80);
     });
 
     panel.addEventListener('mouseleave', () => {
-      item.classList.remove('active');
-      panel.classList.remove('open');
+      closeDropdown(item, panel);
     });
   });
 
-  function closeAll() {
-    items.forEach(x => x.classList.remove('active'));
-    dropdowns.forEach(x => x.classList.remove('open'));
+  /* ========= OPEN / CLOSE HELPERS ========= */
+
+  function openDropdown(trigger, panel, moveFocus) {
+    closeAll();
+    trigger.classList.add('active');
+    trigger.setAttribute('aria-expanded', 'true');
+    panel.classList.add('open');
+
+    if (moveFocus) {
+      const firstLink = panel.querySelector('a[role="menuitem"]');
+      if (firstLink) firstLink.focus();
+    }
   }
+
+  function closeDropdown(trigger, panel) {
+    trigger.classList.remove('active');
+    trigger.setAttribute('aria-expanded', 'false');
+    panel.classList.remove('open');
+  }
+
+  function closeAll(returnFocusTo) {
+    items.forEach(x => {
+      x.classList.remove('active');
+      if (x.hasAttribute('aria-expanded')) {
+        x.setAttribute('aria-expanded', 'false');
+      }
+    });
+    allDropdowns.forEach(x => x.classList.remove('open'));
+    if (returnFocusTo) returnFocusTo.focus();
+  }
+
+  /* ========= MENUBAR KEYBOARD NAVIGATION ========= */
+
+  function focusMenuItem(index) {
+    items.forEach((el, i) => el.setAttribute('tabindex', i === index ? '0' : '-1'));
+    items[index].focus();
+  }
+
+  items.forEach((item, idx) => {
+    item.addEventListener('keydown', (e) => {
+      const id = item.dataset.dropdown;
+      const panel = id ? document.getElementById(id) : null;
+      const hasPopup = item.getAttribute('aria-haspopup') === 'true';
+
+      switch (e.key) {
+        case 'ArrowRight': {
+          e.preventDefault();
+          const next = (idx + 1) % items.length;
+          closeAll();
+          focusMenuItem(next);
+          break;
+        }
+        case 'ArrowLeft': {
+          e.preventDefault();
+          const prev = (idx - 1 + items.length) % items.length;
+          closeAll();
+          focusMenuItem(prev);
+          break;
+        }
+        case 'ArrowDown': {
+          e.preventDefault();
+          if (hasPopup && panel) {
+            openDropdown(item, panel, true);
+          }
+          break;
+        }
+        case 'Enter':
+        case ' ': {
+          if (hasPopup && panel) {
+            e.preventDefault();
+            const isOpen = item.getAttribute('aria-expanded') === 'true';
+            if (isOpen) {
+              closeDropdown(item, panel);
+            } else {
+              openDropdown(item, panel, true);
+            }
+          }
+          /* For plain links, let the default action (navigation) happen */
+          break;
+        }
+        case 'Escape': {
+          e.preventDefault();
+          closeAll();
+          focusMenuItem(idx);
+          break;
+        }
+        case 'Home': {
+          e.preventDefault();
+          closeAll();
+          focusMenuItem(0);
+          break;
+        }
+        case 'End': {
+          e.preventDefault();
+          closeAll();
+          focusMenuItem(items.length - 1);
+          break;
+        }
+      }
+    });
+  });
+
+  /* ========= DROPDOWN KEYBOARD NAVIGATION ========= */
+
+  allDropdowns.forEach(panel => {
+    const panelLinks = Array.from(panel.querySelectorAll('a[role="menuitem"]'));
+    const triggerItem = items.find(i => i.dataset.dropdown === panel.id);
+
+    panel.addEventListener('keydown', (e) => {
+      const currentIndex = panelLinks.indexOf(document.activeElement);
+
+      switch (e.key) {
+        case 'ArrowDown': {
+          e.preventDefault();
+          const next = currentIndex < panelLinks.length - 1 ? currentIndex + 1 : 0;
+          panelLinks[next].focus();
+          break;
+        }
+        case 'ArrowUp': {
+          e.preventDefault();
+          if (currentIndex <= 0) {
+            /* Move focus back to the trigger */
+            if (triggerItem) {
+              closeDropdown(triggerItem, panel);
+              triggerItem.focus();
+            }
+          } else {
+            panelLinks[currentIndex - 1].focus();
+          }
+          break;
+        }
+        case 'Escape': {
+          e.preventDefault();
+          if (triggerItem) {
+            closeDropdown(triggerItem, panel);
+            triggerItem.focus();
+          }
+          break;
+        }
+        case 'Tab': {
+          /* Close dropdown when tabbing out */
+          if (triggerItem) {
+            closeDropdown(triggerItem, panel);
+          }
+          break;
+        }
+        case 'Home': {
+          e.preventDefault();
+          if (panelLinks.length) panelLinks[0].focus();
+          break;
+        }
+        case 'End': {
+          e.preventDefault();
+          if (panelLinks.length) panelLinks[panelLinks.length - 1].focus();
+          break;
+        }
+      }
+    });
+  });
+
+  /* ========= CLOSE ON OUTSIDE CLICK ========= */
+
+  document.addEventListener('click', (e) => {
+    const inMenu = e.target.closest('.mega-menu-bar-{{ section.id }}');
+    const inDropdown = e.target.closest('.mega-dropdown-{{ section.id }}');
+    if (!inMenu && !inDropdown) {
+      closeAll();
+    }
+  });
 
 });
 </script>
