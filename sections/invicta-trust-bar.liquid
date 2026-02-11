@@ -92,6 +92,54 @@
             {%- endfor -%}
           </ul>
           
+          {%- comment -%} Mini Review Carousel {%- endcomment -%}
+          {%- assign review_blocks = section.blocks | where: 'type', 'review' -%}
+          {%- if review_blocks.size > 0 -%}
+            <div class="inv-trust__reviews" data-trust-reviews>
+              <div class="inv-trust__reviews-track" data-trust-reviews-track>
+                {%- for block in review_blocks -%}
+                  <div class="inv-trust__review{% if forloop.first %} inv-trust__review--active{% endif %}" data-trust-review="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+                    <div class="inv-trust__review-stars" role="img" aria-label="{{ block.settings.rating }} out of 5 stars">
+                      {%- for i in (1..5) -%}
+                        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"{% if i > block.settings.rating %} class="inv-trust__star--empty"{% endif %}>
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                      {%- endfor -%}
+                    </div>
+                    <p class="inv-trust__review-text">"{{ block.settings.text }}"</p>
+                    <div class="inv-trust__review-author">
+                      {%- if block.settings.avatar != blank -%}
+                        <img
+                          src="{{ block.settings.avatar | image_url: width: 64 }}"
+                          alt="{{ block.settings.author | escape }}"
+                          width="28"
+                          height="28"
+                          loading="lazy"
+                          class="inv-trust__review-avatar"
+                        >
+                      {%- endif -%}
+                      <span class="inv-trust__review-name">{{ block.settings.author }}</span>
+                    </div>
+                  </div>
+                {%- endfor -%}
+              </div>
+              {%- if review_blocks.size > 1 -%}
+                <div class="inv-trust__reviews-dots" role="tablist" aria-label="Review navigation">
+                  {%- for block in review_blocks -%}
+                    <button
+                      type="button"
+                      class="inv-trust__reviews-dot{% if forloop.first %} inv-trust__reviews-dot--active{% endif %}"
+                      data-trust-dot="{{ forloop.index0 }}"
+                      role="tab"
+                      aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                      aria-label="Review {{ forloop.index }}"
+                    ></button>
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
           {%- comment -%} CTA {%- endcomment -%}
           {%- if section.settings.cta_text != blank and section.settings.cta_link != blank -%}
             <div class="inv-trust__cta-wrap">
@@ -103,7 +151,7 @@
               </a>
             </div>
           {%- endif -%}
-          
+
         </div>
         
       </div>
@@ -353,6 +401,106 @@
   }
 
   /* ----------------------------------------
+     MINI REVIEW CAROUSEL
+     ---------------------------------------- */
+  .inv-trust__reviews {
+    margin-top: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .inv-trust__reviews-track {
+    position: relative;
+    min-height: 100px;
+  }
+
+  .inv-trust__review {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(12px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
+  }
+
+  .inv-trust__review--active {
+    position: relative;
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .inv-trust__review-stars {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 8px;
+  }
+
+  .inv-trust__review-stars svg {
+    fill: #f59e0b;
+  }
+
+  .inv-trust__star--empty {
+    fill: #d1d5db !important;
+  }
+
+  .inv-trust__review-text {
+    font-size: 14px;
+    font-style: italic;
+    color: #444;
+    line-height: 1.5;
+    margin: 0 0 10px;
+  }
+
+  .inv-trust__review-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .inv-trust__review-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .inv-trust__review-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--inv-trust-dark);
+  }
+
+  .inv-trust__reviews-dots {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .inv-trust__reviews-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    background: #d1d5db;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .inv-trust__reviews-dot--active {
+    background: var(--inv-trust-accent);
+    transform: scale(1.25);
+  }
+
+  .inv-trust__reviews-dot:focus-visible {
+    outline: 2px solid var(--inv-trust-accent);
+    outline-offset: 2px;
+  }
+
+  /* ----------------------------------------
      RESPONSIVE
      ---------------------------------------- */
   @media (max-width: 989px) {
@@ -425,6 +573,59 @@
     }
   }
 </style>
+
+<script>
+(function() {
+  var container = document.querySelector('[data-trust-reviews]');
+  if (!container) return;
+
+  var reviews = container.querySelectorAll('[data-trust-review]');
+  var dots = container.querySelectorAll('[data-trust-dot]');
+  if (reviews.length < 2) return;
+
+  var current = 0;
+  var total = reviews.length;
+  var interval = null;
+  var DELAY = 5000;
+
+  function show(index) {
+    reviews[current].classList.remove('inv-trust__review--active');
+    if (dots[current]) {
+      dots[current].classList.remove('inv-trust__reviews-dot--active');
+      dots[current].setAttribute('aria-selected', 'false');
+    }
+    current = index;
+    reviews[current].classList.add('inv-trust__review--active');
+    if (dots[current]) {
+      dots[current].classList.add('inv-trust__reviews-dot--active');
+      dots[current].setAttribute('aria-selected', 'true');
+    }
+  }
+
+  function next() { show((current + 1) % total); }
+
+  function startAutoplay() {
+    stopAutoplay();
+    interval = setInterval(next, DELAY);
+  }
+
+  function stopAutoplay() {
+    if (interval) { clearInterval(interval); interval = null; }
+  }
+
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      show(parseInt(this.dataset.trustDot, 10));
+      startAutoplay();
+    });
+  });
+
+  container.addEventListener('mouseenter', stopAutoplay);
+  container.addEventListener('mouseleave', startAutoplay);
+
+  startAutoplay();
+})();
+</script>
 
 {% schema %}
 {
@@ -548,6 +749,38 @@
           "id": "text",
           "label": "Text",
           "default": "Authorised Makita, DeWalt & HiKOKI dealer"
+        }
+      ]
+    },
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Review text",
+          "default": "Fantastic service and great prices!"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Reviewer name",
+          "default": "John D."
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Reviewer photo"
         }
       ]
     }

@@ -320,7 +320,7 @@
       "settings": {
         "container_width": 1600,
         "background_color": "#2d2d2d",
-        "section_padding_top": 24,
+        "section_padding_top": 32,
         "section_padding_bottom": 32,
         "heading": "See Why Local Trades Trust Invicta Tools",
         "subheading": "",
@@ -452,6 +452,51 @@
           "settings": {
             "text": "Trade accounts with 30-day terms"
           }
+        },
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "Top notch products & service",
+            "author": "Anthony Fincher",
+            "avatar": "shopify://shop_images/anthonyfincher.png"
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "Fantastic firm, great service, range of tools and competitively priced!",
+            "author": "Neil Brennan",
+            "avatar": "shopify://shop_images/neilbrennan.png"
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "Ultra helpful. Extremely good value for money. Massive selection of stock",
+            "author": "A W",
+            "avatar": "shopify://shop_images/a_w.png"
+          }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "The best professional tools for trade but also for DIY",
+            "author": "Marcin Packowski",
+            "avatar": "shopify://shop_images/Marcin_Packowski.png"
+          }
+        },
+        "review_5": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "Amazing service!! Delivery on time! Great price!",
+            "author": "Daniel Marks",
+            "avatar": "shopify://shop_images/danielmarks.png"
+          }
         }
       },
       "block_order": [
@@ -460,7 +505,12 @@
         "stat_TMWLdi",
         "stat_grYNQC",
         "point_mLKJVp",
-        "point_yNgYhB"
+        "point_yNgYhB",
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4",
+        "review_5"
       ],
       "name": "Trust Bar",
       "settings": {
@@ -473,7 +523,7 @@
         "cta_link": "",
         "background_color": "#f9fafb",
         "padding_top": 60,
-        "padding_bottom": 16
+        "padding_bottom": 60
       }
     },
     "invicta_newsletter_t9TTnj": {
@@ -528,7 +578,6 @@
     "featured_collection_nePQBY",
     "featured_collection_handtools",
     "invicta_trust_bar_r98CbM",
-    "review_carousel",
     "invicta_newsletter_t9TTnj"
   ]
 }
