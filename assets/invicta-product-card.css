@@ -29,7 +29,7 @@
 @media (hover: hover) {
   .inv-card:hover {
     border-color: #d0d0d0;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   }
 }
 
@@ -57,7 +57,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 16px;
+  padding: 10px;
   transition: transform 0.2s ease;
   border-radius: 0 !important;
 }
@@ -78,7 +78,8 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  color: #ddd;
+  color: #ccc;
+  background: #fafafa;
 }
 
 /* -----------------------------------------------------------------------
@@ -90,13 +91,13 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 5px;
+  height: 3px;
   z-index: 10;
 }
 
 /* Stock status colour variants (replaces inline style="background-color") */
-.inv-card__stock-bar--in-stock,
-.inv-card__stock--in-stock { background-color: var(--inv-stock-in, #16a34a); }
+.inv-card__stock-bar--in-stock { background-color: var(--inv-stock-in, #16a34a); }
+.inv-card__stock--in-stock { background-color: var(--inv-stock-in, #16a34a); display: none; }
 .inv-card__stock-bar--out,
 .inv-card__stock--out { background-color: var(--inv-stock-out, #9ca3af); }
 .inv-card__stock-bar--low,
@@ -111,12 +112,12 @@
   top: 8px;
   left: 8px;
   z-index: 10;
-  padding: 3px 8px;
+  padding: 2px 7px;
   color: #fff;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.06em;
   border-radius: 0;
 }
 
@@ -145,7 +146,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 12px 14px 14px;
+  padding: 10px 12px 12px;
   background: #f5f5f5;
   border-radius: 0 !important;
 }
@@ -155,7 +156,7 @@
    ----------------------------------------------------------------------- */
 
 .inv-card__header {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 /* -----------------------------------------------------------------------
@@ -233,7 +234,8 @@
 
 .inv-card__vat {
   font-size: 11px;
-  color: #888;
+  color: #555;
+  font-weight: 600;
 }
 
 /* Extras row removed in v7.4 — Save badge no longer shown on cards */
@@ -243,7 +245,7 @@
    ----------------------------------------------------------------------- */
 
 .inv-card__action {
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
 .inv-card__form {
