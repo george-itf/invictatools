@@ -84,14 +84,14 @@
     {%- endif -%}
     
     {%- comment -%} Image link {%- endcomment -%}
-    <a href="{{ product_url }}" class="inv-card__img-link" tabindex="-1">
+    <a href="{{ product_url }}" class="inv-card__img-link" aria-label="{{ product.title | escape }}">
       {%- if featured_image -%}
         <img 
           src="{{ featured_image | image_url: width: 400 }}"
           srcset="{{ featured_image | image_url: width: 200 }} 200w,
                   {{ featured_image | image_url: width: 400 }} 400w,
                   {{ featured_image | image_url: width: 600 }} 600w"
-          sizes="(max-width: 480px) 50vw, (max-width: 749px) 33vw, 25vw"
+          sizes="(max-width: 749px) 50vw, (max-width: 989px) 25vw, 20vw"
           alt="{{ featured_image.alt | escape | default: product.title }}"
           loading="{% if card_index <= 4 %}eager{% else %}lazy{% endif %}"
           {% if card_index <= 4 %}fetchpriority="high"{% endif %}
