@@ -1,0 +1,104 @@
+{% comment %}
+  ============================================
+  INVICTA BRAND HERO v1.0
+  ============================================
+  Rich hero section for brand collection pages.
+  Shows brand logo, name, description, product count,
+  USP badges, and a link to the shop-by-brand page.
+
+  Params:
+    collection: (object) The brand collection
+    badge_1 / badge_2 / badge_3: (string) USP text
+    subheading: (string) Override description
+
+  Usage:
+    {% render 'invicta-brand-hero', collection: collection %}
+  ============================================
+{% endcomment %}
+
+{%- liquid
+  assign brand_name = collection.title | default: 'Brand'
+  assign brand_handle = collection.handle | downcase
+  assign product_count = collection.products_count | default: 0
+  assign brand_desc = subheading | default: collection.description | strip_html | truncate: 180
+
+  # Try to get brand logo from assets
+  assign brand_logo_url = brand_handle | append: '.svg' | asset_url
+  assign brand_logo_wide = brand_handle | append: '-wide.svg' | asset_url
+
+  # Brand colour lookup (compact version)
+  assign brand_bg = '#2d2d2d'
+  assign brand_accent = '#e11d26'
+  assign brand_db = 'dewalt:#fecc00|makita:#e11d26|milwaukee:#d5001a|hikoki:#00a651|stanley:#ffcc00|faithfull:#00539b|bosch:#005eb8|metabo:#00843d|timco:#e31837|trend:#005ca9|lamello:#a71d35|irwin:#003da5|knipex:#003087|wera:#00539b'
+  assign brand_pairs = brand_db | split: '|'
+  for pair in brand_pairs
+    assign kv = pair | split: ':'
+    if brand_handle contains kv[0]
+      assign brand_accent = kv[1]
+      break
+    endif
+  endfor
+-%}
+
+{{ 'section-invicta-brand-hero.css' | asset_url | stylesheet_tag }}
+
+<section class="inv-brand-hero" style="--brand-accent: {{ brand_accent }};">
+  <div class="inv-brand-hero__bg"></div>
+  <div class="page-width">
+    <div class="inv-brand-hero__inner">
+
+      {%- comment -%} Brand logo {%- endcomment -%}
+      <div class="inv-brand-hero__logo-wrap">
+        <img
+          src="{{ brand_logo_url }}"
+          alt="{{ brand_name }} logo"
+          class="inv-brand-hero__logo"
+          width="160"
+          height="60"
+          loading="eager"
+          onerror="this.closest('.inv-brand-hero__logo-wrap').classList.add('inv-brand-hero__logo-wrap--fallback')"
+        >
+        <span class="inv-brand-hero__logo-fallback">{{ brand_name }}</span>
+      </div>
+
+      {%- comment -%} Title + badge row {%- endcomment -%}
+      <div class="inv-brand-hero__title-row">
+        <h1 class="inv-brand-hero__title">{{ brand_name }}</h1>
+        <span class="inv-brand-hero__dealer-badge">Official Dealer</span>
+        {%- if product_count > 0 -%}
+          <span class="inv-brand-hero__count">{{ product_count }} {{ product_count | pluralize: 'Product', 'Products' }}</span>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Description {%- endcomment -%}
+      {%- if brand_desc != blank -%}
+        <p class="inv-brand-hero__desc">{{ brand_desc }}</p>
+      {%- else -%}
+        <p class="inv-brand-hero__desc">Shop the full range of {{ brand_name }} power tools, accessories and fixings. Trade prices with next-day delivery.</p>
+      {%- endif -%}
+
+      {%- comment -%} USP Pills {%- endcomment -%}
+      <div class="inv-brand-hero__usps">
+        <span class="inv-brand-hero__usp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>{{ badge_1 | default: 'Authorised Dealer' }}</span>
+        </span>
+        <span class="inv-brand-hero__usp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          <span>{{ badge_2 | default: 'Next-Day Delivery' }}</span>
+        </span>
+        <span class="inv-brand-hero__usp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>{{ badge_3 | default: 'Trade Counter Pickup' }}</span>
+        </span>
+      </div>
+
+      {%- comment -%} Browse all brands link {%- endcomment -%}
+      <a href="/pages/shop-by-brand" class="inv-brand-hero__all-brands">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="m15 18-6-6 6-6"/></svg>
+        All Brands
+      </a>
+
+    </div>
+  </div>
+</section>

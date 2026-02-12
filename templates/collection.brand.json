@@ -1,18 +1,19 @@
 {
   "sections": {
-    "invicta_collection_main": {
-      "type": "invicta-collection",
+    "invicta_brand_collection_main": {
+      "type": "invicta-brand-collection",
       "settings": {
         "hero_subheading": "",
+        "brand_description": "",
         "full_catalogue_collection": "",
         "full_catalogue_count": 0,
-        "badge_1": "Trade-Trusted Brands",
+        "badge_1": "Authorised Dealer",
         "badge_1_link": "",
         "badge_2": "Next-Day Delivery",
         "badge_2_link": "",
-        "badge_3": "Find in Store",
+        "badge_3": "Trade Counter Pickup",
         "badge_3_link": "",
-        "show_brand_filters": true,
+        "show_brand_filters": false,
         "products_per_page": 24,
         "show_sort": true,
         "apply_text": "Apply Filters"
@@ -20,6 +21,6 @@
     }
   },
   "order": [
-    "invicta_collection_main"
+    "invicta_brand_collection_main"
   ]
 }
