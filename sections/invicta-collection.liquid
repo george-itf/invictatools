@@ -61,90 +61,46 @@
   ================================================================ {%- endcomment -%}
   <section class="inv-hero">
     <div class="page-width">
-      <div class="inv-hero__inner">
-        
-        {%- comment -%} Title + Count {%- endcomment -%}
-        <div class="inv-hero__row">
-          <h1 class="inv-hero__title">{{ collection.title | escape }}</h1>
-          <span class="inv-hero__count">{{ collection.products_count }} Products</span>
-        </div>
-        
-        {%- comment -%} Subheading {%- endcomment -%}
-        {%- if section.settings.hero_subheading != blank -%}
-          <p class="inv-hero__subheading">{{ section.settings.hero_subheading }}</p>
-        {%- elsif collection.description != blank -%}
-          <p class="inv-hero__subheading">{{ collection.description | strip_html | truncate: 120 }}</p>
-        {%- endif -%}
-        
-        {%- comment -%} USP Pills {%- endcomment -%}
-        <div class="inv-hero__usps">
-          {%- if section.settings.badge_1 != blank -%}
-            <a href="{{ section.settings.badge_1_link | default: '#' }}" class="inv-usp-pill">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              </svg>
-              <span>{{ section.settings.badge_1 }}</span>
-            </a>
-          {%- endif -%}
-          {%- if section.settings.badge_2 != blank -%}
-            <a href="{{ section.settings.badge_2_link | default: '#' }}" class="inv-usp-pill">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="1" y="3" width="15" height="13" rx="2"/>
-                <path d="m16 8 4 2v7l-4 2V8z"/>
-                <path d="M5 12h4"/>
-              </svg>
-              <span>{{ section.settings.badge_2 }}</span>
-            </a>
-          {%- endif -%}
-          {%- if section.settings.badge_3 != blank -%}
-            <a href="{{ section.settings.badge_3_link | default: '#' }}" class="inv-usp-pill">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-              <span>{{ section.settings.badge_3 }}</span>
-            </a>
-          {%- endif -%}
-        </div>
-        
-        {%- comment -%} Brand Quick Filters {%- endcomment -%}
-        {%- if show_brand_filters -%}
-          {%- for filter in collection.filters -%}
-            {%- if filter.param_name == 'filter.p.vendor' or filter.label == 'Brand' -%}
-              <div class="inv-hero__brands">
-                {%- for value in filter.values limit: 8 -%}
-                  {%- assign brand_handle = value.label | handleize -%}
-                  <a
-                    href="{{ value.url }}"
-                    rel="nofollow"
-                    class="inv-brand-pill inv-brand-pill--{{ brand_handle }}{% if value.active %} is-active{% endif %}"
-                  >
-                    {{ value.label }}
-                  </a>
-                {%- endfor -%}
-              </div>
-              {%- break -%}
-            {%- endif -%}
-          {%- endfor -%}
-        {%- endif -%}
-        
+
+      {%- comment -%} Breadcrumb (inside hero) {%- endcomment -%}
+      <nav class="inv-hero__breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="{{ routes.root_url }}">Home</a></li>
+          <li aria-current="page">{{ collection.title }}</li>
+        </ol>
+      </nav>
+
+      {%- comment -%} Title row: heading left, count right {%- endcomment -%}
+      <div class="inv-hero__row">
+        <h1 class="inv-hero__title">{{ collection.title | escape }}</h1>
+        <span class="inv-hero__count">{{ collection.products_count }} products</span>
       </div>
+
+      {%- comment -%} Brand Quick Filters — the main interactive element {%- endcomment -%}
+      {%- if show_brand_filters -%}
+        {%- for filter in collection.filters -%}
+          {%- if filter.param_name == 'filter.p.vendor' or filter.label == 'Brand' -%}
+            <div class="inv-hero__brands">
+              <span class="inv-hero__brands-label">Brands:</span>
+              {%- for value in filter.values limit: 10 -%}
+                {%- assign brand_handle = value.label | handleize -%}
+                <a
+                  href="{{ value.url }}"
+                  rel="nofollow"
+                  class="inv-brand-pill inv-brand-pill--{{ brand_handle }}{% if value.active %} is-active{% endif %}"
+                >
+                  {{ value.label }}
+                  <span class="inv-brand-pill__count">{{ value.count }}</span>
+                </a>
+              {%- endfor -%}
+            </div>
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+
     </div>
   </section>
-
-
-  {%- comment -%} ================================================================
-     2. BREADCRUMB
-  ================================================================ {%- endcomment -%}
-  <nav class="inv-breadcrumb" aria-label="Breadcrumb">
-    <div class="page-width">
-      <ol class="inv-breadcrumb__list">
-        <li><a href="{{ routes.root_url }}" class="inv-breadcrumb__link">Home</a></li>
-        <li><span class="inv-breadcrumb__sep">›</span></li>
-        <li><span class="inv-breadcrumb__current" aria-current="page">{{ collection.title }}</span></li>
-      </ol>
-    </div>
-  </nav>
   
   
   {%- comment -%} ================================================================
@@ -762,7 +718,8 @@
 
 {% schema %}
 {
-  "name": "Invicta Collection v9.1",
+  "name": "Invicta Collection v9.2",
+
   "tag": "section",
   "class": "section-invicta-collection",
   "settings": [
@@ -798,45 +755,12 @@
     },
     {
       "type": "header",
-      "content": "USP Pills"
-    },
-    {
-      "type": "text",
-      "id": "badge_1",
-      "label": "USP 1 — Text",
-      "default": "Trade-Trusted Brands"
-    },
-    {
-      "type": "url",
-      "id": "badge_1_link",
-      "label": "USP 1 — Link"
-    },
-    {
-      "type": "text",
-      "id": "badge_2",
-      "label": "USP 2 — Text",
-      "default": "Next-Day Delivery"
-    },
-    {
-      "type": "url",
-      "id": "badge_2_link",
-      "label": "USP 2 — Link"
-    },
-    {
-      "type": "text",
-      "id": "badge_3",
-      "label": "USP 3 — Text",
-      "default": "Find in Store"
-    },
-    {
-      "type": "url",
-      "id": "badge_3_link",
-      "label": "USP 3 — Link"
+      "content": "Brand Quick Filters"
     },
     {
       "type": "checkbox",
       "id": "show_brand_filters",
-      "label": "Show brand quick filters",
+      "label": "Show brand quick filters in hero",
       "default": true
     },
     {
@@ -871,7 +795,7 @@
   ],
   "presets": [
     {
-      "name": "Invicta Collection v9.1"
+      "name": "Invicta Collection v9.2"
     }
   ]
 }
