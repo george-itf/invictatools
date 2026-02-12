@@ -3956,7 +3956,21 @@ html.js .invicta-quick-qty__btn--active {
 #checkout,
 button[name="checkout"] {
   width: 100%;
+  max-width: none;
   height: 52px;
+}
+
+/* Dynamic checkout buttons: full width */
+.cart__dynamic-checkout-buttons {
+  max-width: none;
+  width: 100%;
+}
+.cart__dynamic-checkout-buttons [data-shopify-buttoncontainer] {
+  justify-content: center;
+}
+.cart__dynamic-checkout-buttons .dynamic-checkout__buttons {
+  max-width: 100% !important;
+  width: 100% !important;
 }
 
 /* Trust signals: horizontal on mobile */

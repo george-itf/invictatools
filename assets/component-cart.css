@@ -164,8 +164,8 @@ cart-items {
 }
 
 .cart__dynamic-checkout-buttons {
-  max-width: 36rem;
-  margin: 0 auto;
+  max-width: 100%;
+  width: 100%;
 }
 
 .cart__dynamic-checkout-buttons:has(.dynamic-checkout__content:empty) {
@@ -189,7 +189,8 @@ cart-items {
 }
 
 .cart__checkout-button {
-  max-width: 36rem;
+  max-width: none;
+  width: 100%;
 }
 
 .cart__ctas {
@@ -212,7 +213,7 @@ cart-items {
   }
 
   [data-shopify-buttoncontainer] {
-    justify-content: flex-end;
+    justify-content: center;
   }
 
   .cart__ctas {
