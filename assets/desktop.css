@@ -3253,6 +3253,23 @@ button[name="checkout"] {
 /* --- Additional checkout buttons (PayPal etc) --- */
 .cart__dynamic-checkout-buttons {
   margin-top: 8px;
+  max-width: none;
+  width: 100%;
+}
+.cart__dynamic-checkout-buttons [data-shopify-buttoncontainer] {
+  justify-content: center;
+}
+.cart__dynamic-checkout-buttons .dynamic-checkout__content {
+  max-width: 100%;
+  width: 100%;
+}
+.cart__dynamic-checkout-buttons .dynamic-checkout__buttons {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+.cart__checkout-button,
+.cart__ctas #checkout {
+  max-width: none;
 }
 
 /* --- Trust signals --- */

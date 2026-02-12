@@ -24,6 +24,7 @@
   overflow: hidden;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
   height: 100%;
+  width: 100%;
 }
 
 @media (hover: hover) {
