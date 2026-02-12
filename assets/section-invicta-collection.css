@@ -25,9 +25,9 @@
    ============================================================================ */
 
 .inv-hero {
-  background: var(--inv-c-dark);
+  background: linear-gradient(135deg, var(--inv-c-dark) 0%, #1a2332 100%);
   color: #fff;
-  padding: 28px 0 24px;
+  padding: 32px 0 28px;
 }
 
 .inv-hero__inner {
@@ -39,7 +39,7 @@
 }
 
 .inv-hero__accent {
-  width: 40px;
+  width: 48px;
   height: 3px;
   background: var(--inv-c-accent);
   border-radius: 2px;
@@ -73,7 +73,7 @@
 
 .inv-hero__subheading {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.7);
   margin: 0;
   max-width: 540px;
   line-height: 1.5;
@@ -128,16 +128,16 @@
 .inv-brand-pill {
   display: inline-flex;
   align-items: center;
-  padding: 6px 14px;
-  font-size: 12px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.75);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 7px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 6px;
   text-decoration: none;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
   transition: all var(--inv-c-transition);
 }
 
@@ -278,7 +278,8 @@
 }
 
 .inv-toolbar.is-stuck {
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+  border-color: transparent;
 }
 
 .inv-toolbar__inner {
@@ -310,11 +311,11 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 14px;
+  padding: 8px 16px;
   font-size: 13px;
   font-weight: 600;
   color: var(--inv-c-text);
-  background: var(--inv-c-surface);
+  background: #fff;
   border: 1px solid var(--inv-c-border);
   border-radius: 6px;
   cursor: pointer;
@@ -323,8 +324,8 @@
 }
 
 .inv-filter-toggle:hover {
-  border-color: #999;
-  background: #eee;
+  border-color: var(--inv-c-accent);
+  color: var(--inv-c-accent);
 }
 
 .inv-filter-toggle svg {
@@ -371,7 +372,7 @@
   min-height: 40px;
   padding: 8px 32px 8px 12px;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   font-family: inherit;
   color: var(--inv-c-text);
   background: #fff;
@@ -386,7 +387,7 @@
 }
 
 .inv-sort__select:hover {
-  border-color: #999;
+  border-color: var(--inv-c-accent);
 }
 
 .inv-sort__select:focus {
@@ -514,22 +515,23 @@
   display: block;
   width: calc(100% - 32px);
   margin: 16px;
-  padding: 12px;
+  padding: 13px;
   font-size: 13px;
   font-weight: 700;
   font-family: inherit;
   color: #fff;
-  background: var(--inv-c-dark);
+  background: var(--inv-c-accent);
   border: none;
   border-radius: 6px;
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  transition: background var(--inv-c-transition);
+  transition: background var(--inv-c-transition), box-shadow var(--inv-c-transition);
 }
 
 .inv-sidebar__apply:hover {
-  background: #333;
+  background: #c41920;
+  box-shadow: 0 2px 8px rgba(225, 29, 38, 0.3);
 }
 
 /* Facets */
@@ -583,6 +585,21 @@
   padding: 0;
   max-height: 220px;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ddd transparent;
+}
+
+.inv-facet__list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.inv-facet__list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.inv-facet__list::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 2px;
 }
 
 .inv-facet__item {
@@ -605,10 +622,38 @@
 }
 
 .inv-facet__checkbox {
-  width: 16px;
-  height: 16px;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
-  accent-color: var(--inv-c-accent);
+  border: 2px solid #d0d0d0;
+  border-radius: 3px;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color var(--inv-c-transition), background var(--inv-c-transition);
+  position: relative;
+}
+
+.inv-facet__checkbox:hover {
+  border-color: #999;
+}
+
+.inv-facet__checkbox:checked {
+  background: var(--inv-c-accent);
+  border-color: var(--inv-c-accent);
+}
+
+.inv-facet__checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
 .inv-facet__checkbox:disabled + .inv-facet__label {
@@ -686,7 +731,7 @@
 .inv-product-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 12px;
 }
 
 .inv-product-card {
@@ -718,7 +763,7 @@
   height: 40px;
   padding: 0 10px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--inv-c-text);
   background: #fff;
   border: 1px solid var(--inv-c-border);
@@ -733,8 +778,8 @@
 }
 
 .inv-pagination__item--current {
-  background: var(--inv-c-dark);
-  border-color: var(--inv-c-dark);
+  background: var(--inv-c-accent);
+  border-color: var(--inv-c-accent);
   color: #fff;
   font-weight: 700;
 }
@@ -942,12 +987,12 @@
 
 .inv-drawer__apply {
   flex: 2;
-  padding: 12px 24px;
+  padding: 14px 24px;
   font-size: 14px;
   font-weight: 700;
   font-family: inherit;
   color: #fff;
-  background: var(--inv-c-dark);
+  background: var(--inv-c-accent);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -955,7 +1000,7 @@
 }
 
 .inv-drawer__apply:hover {
-  background: #333;
+  background: #c41920;
 }
 
 /* ============================================================================
@@ -1061,7 +1106,7 @@
 
   .inv-product-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    gap: 10px;
   }
 }
 
@@ -1136,7 +1181,7 @@
   /* Grid — 2 columns on mobile */
   .inv-product-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 8px;
   }
 
   /* Active filters */
