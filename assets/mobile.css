@@ -1342,37 +1342,38 @@ html.js .cart-drawer {
 }
 
 html.js .cart-drawer__header {
-  padding: 16px;
+  padding: 12px 16px;
 }
 
 html.js .cart-item {
-  padding: 12px;
-  gap: 12px;
+  padding: 10px;
+  gap: 10px;
 }
 
 html.js .cart-item__image {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
 }
 
 html.js .cart-item__name {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 html.js .cart-item__price {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
 }
 
 html.js .cart-drawer__footer {
-  padding: 16px;
+  padding: 12px 16px;
 }
 
 html.js .cart-drawer__footer .button {
   width: 100%;
-  height: 48px;
+  height: 44px;
   font-size: 14px;
   font-weight: 700;
+  border-radius: 6px;
 }
 
 
@@ -3436,12 +3437,13 @@ html.js .inv-product {
 
 }
 
-/* --- From invicta-cart.css --- */
+/* --- Cart v2.0 mobile overrides --- */
 
   html.js .cart__footer,
   html.js .cart__blocks {
     flex-direction: column;
     align-items: stretch;
+    gap: 16px;
   }
 
   html.js .js-contents:has(.totals),
@@ -3450,42 +3452,45 @@ html.js .inv-product {
     margin: 0;
   }
 
+  html.js .inv-cart-checkout-col {
+    flex: none;
+    width: 100%;
+  }
+
   html.js .inv-cart-trust {
-    max-width: 100%;
-    margin: 0;
+    justify-content: center;
   }
 
   html.js .cart__ctas {
     max-width: 100%;
   }
-  html.js .inv-shipping-bar,
-  html.js .inv-delivery-estimate {
-    margin-left: -1rem;
-    margin-right: -1rem;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
+
+  /* Info strip banners: full bleed on mobile */
+  html.js .inv-cart-info-strip {
+    flex-direction: column;
+    gap: 6px;
   }
 
-  html.js .inv-cart-trust {
-    grid-template-columns: 1fr;
+  html.js .inv-delivery-bar,
+  html.js .inv-del-est {
+    border-radius: 6px;
   }
 
   html.js cart-items .title--primary {
-    font-size: 2.2rem;
+    font-size: 18px;
   }
 
   html.js .totals__total-value {
-    font-size: 2rem;
+    font-size: 18px;
   }
 
   html.js .cart-item__image-container {
-    width: 110px;
-    min-width: 110px;
+    width: 80px;
+    min-width: 80px;
   }
 
   html.js .cart-item__name {
-    font-size: 1.25rem;
+    font-size: 13px;
   }
 
 
@@ -4020,11 +4025,11 @@ html.js .invicta-quick-qty__btn--active {
 
 .invicta-cart-breakdown__row--total {
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 15px;
   color: #1f2937;
-  padding-top: 12px;
+  padding-top: 10px;
   margin-top: 8px;
-  border-top: 2px solid #1f2937;
+  border-top: 1px solid #e5e7eb;
 }
 
 .invicta-cart-breakdown__label {
@@ -4239,10 +4244,9 @@ html.js .inv-btn--sm {
 }
 
 /* --------------------------------------------------------------------------
-   3. CART QUANTITY BUTTONS - Match Trade's Native Sizing
+   3. CART QUANTITY — Compact (40px)
    -------------------------------------------------------------------------- */
 
-/* Fix cart quantity wrapper - ensure proper flex display */
 .cart-item .quantity,
 .cart-item .cart-quantity,
 .cart-item quantity-input {
@@ -4251,42 +4255,34 @@ html.js .inv-btn--sm {
   border: 1px solid #d1d5db;
   border-radius: 6px;
   overflow: hidden;
-  height: 44px;
+  height: 36px;
 }
 
-/* Fix cart quantity buttons - proper sizing */
 .cart-item .quantity__button,
 .cart-item .inv-qty-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
   padding: 0;
   border: none;
   background: transparent;
   color: #374151;
   cursor: pointer;
-  transition: background 0.15s ease;
-}
-
-.cart-item .quantity__button:hover,
-.cart-item .inv-qty-btn:hover {
-  background: #f3f4f6;
 }
 
 .cart-item .quantity__button svg,
 .cart-item .inv-qty-btn svg {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
 }
 
-/* Fix cart quantity input */
 .cart-item .quantity__input,
 .cart-item .inv-qty-input {
-  width: 50px;
-  min-width: 50px;
+  width: 40px;
+  min-width: 40px;
   height: 100%;
   padding: 0;
   border: none;
@@ -4294,7 +4290,7 @@ html.js .inv-btn--sm {
   border-right: 1px solid #e5e7eb;
   background: transparent;
   text-align: center;
-  font-size: 1rem;
+  font-size: 14px;
   font-weight: 600;
   color: #1f2937;
   -moz-appearance: textfield;
@@ -4309,99 +4305,64 @@ html.js .inv-btn--sm {
 }
 
 /* --------------------------------------------------------------------------
-   4. CART FOOTER - 3-Column Grid Layout
+   4. CART FOOTER — Stacked on mobile
    -------------------------------------------------------------------------- */
 
-/* Main cart blocks container - horizontal layout */
 .cart__blocks,
 .inv-cart-blocks {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 24px;
-  align-items: start;
-}
-
-/* Totals column - left side with breakdown */
-.inv-cart-totals,
-.cart__blocks .js-contents {
-  grid-column: 1;
-}
-
-/* Trust badges - center */
-.inv-cart-trust {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 0 24px;
-  border-left: 1px solid #e5e7eb;
-  border-right: 1px solid #e5e7eb;
+  gap: 16px;
+}
+
+.inv-cart-checkout-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inv-cart-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  padding: 8px 12px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  justify-content: center;
 }
 
 .inv-cart-trust__item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.85rem;
+  gap: 5px;
+  font-size: 11px;
   color: #4b5563;
+  white-space: nowrap;
 }
 
 .inv-cart-trust__item svg {
-  width: 18px;
-  height: 18px;
+  width: 13px;
+  height: 13px;
   flex-shrink: 0;
   stroke: #059669;
 }
 
-/* Checkout buttons - right side */
 .cart__ctas,
 .inv-cart-ctas {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  min-width: 280px;
+  gap: 8px;
 }
 
-/* Checkout button - prominent */
 .inv-checkout-btn,
 .cart__checkout-button {
   width: 100%;
-  height: 56px;
-  font-size: 1.1rem;
+  height: 48px;
+  font-size: 15px;
   font-weight: 700;
+  border-radius: 6px;
 }
-
-/* --------------------------------------------------------------------------
-   5. MOBILE RESPONSIVE - Stack on small screens
-   -------------------------------------------------------------------------- */
-
-@media screen and (max-width: 989px) {
-  .cart__blocks,
-  .inv-cart-blocks {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .inv-cart-trust {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 16px 0;
-    border-left: none;
-    border-right: none;
-    border-top: 1px solid #e5e7eb;
-    border-bottom: 1px solid #e5e7eb;
-  }
-
-  .inv-cart-trust__item {
-    flex: 0 0 auto;
-  }
-
-  .cart__ctas,
-  .inv-cart-ctas {
-    min-width: unset;
-  }
-
-  }
 
 
 /* --------------------------------------------------------------------------
