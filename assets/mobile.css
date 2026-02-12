@@ -3898,12 +3898,23 @@ html.js .invicta-quick-qty__btn--active {
    Cart — Mobile Overrides
    -------------------------------------------------------------------------- */
 
-/* Kill Dawn's excessive spacing on mobile */
+/* Kill Dawn's spacing and flex constraints on mobile */
+.cart__footer {
+  display: block !important;
+}
+.cart__footer > * {
+  width: 100% !important;
+}
 .cart__footer > * + * {
   margin-top: 0;
 }
 .cart__items {
   padding-bottom: 0;
+}
+.cart__ctas {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
 }
 
 /* Cart header: full width, compact */
