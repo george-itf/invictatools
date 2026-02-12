@@ -3895,73 +3895,98 @@ html.js .invicta-quick-qty__btn--active {
 }
 
 /* --------------------------------------------------------------------------
-   Cart Subtotal Breakdown
+   Cart — Mobile Overrides
    -------------------------------------------------------------------------- */
 
+/* Cart header: full width, compact */
+.inv-cart-header {
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+.inv-cart-header__title {
+  font-size: 17px;
+}
+.inv-cart-header__count {
+  font-size: 13px;
+}
+.inv-cart-header__continue {
+  font-size: 12px;
+}
+
+/* Info strip: stack vertically on mobile */
+.inv-cart-info-strip {
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  margin-bottom: 16px;
+}
+
+/* Footer grid: single column on mobile */
+.inv-cart-footer-grid {
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+/* Checkout total */
+.inv-cart-checkout-total__price {
+  font-size: 20px;
+}
+
+/* Checkout button: full width */
+.cart__checkout-button,
+#checkout,
+button[name="checkout"] {
+  width: 100%;
+  height: 52px;
+}
+
+/* Trust signals: horizontal on mobile */
+.inv-cart-trust {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.inv-cart-trust__item {
+  font-size: 12px;
+}
+
+/* Ex-VAT pricing */
+.inv-cart-item__ex-vat {
+  font-size: 11px;
+}
+.inv-cart-item__line-ex-vat {
+  font-size: 10px;
+}
+
+/* Cart breakdown — mobile sizing */
 .invicta-cart-breakdown {
-  padding: 16px 0;
-  border-top: 1px solid #e5e7eb;
-  margin-top: 16px;
+  padding: 12px 0;
 }
-
 .invicta-cart-breakdown__row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6px 0;
-  font-size: 0.95rem;
+  padding: 3px 0;
+  font-size: 13px;
 }
-
-.invicta-cart-breakdown__row--subtotal {
-  color: #6b7280;
-}
-
-.invicta-cart-breakdown__row--vat {
-  color: #6b7280;
-  font-size: 0.9rem;
-}
-
-.invicta-cart-breakdown__row--shipping {
-  color: #6b7280;
-  font-size: 0.9rem;
-}
-
-.invicta-cart-breakdown__row--discount {
-  color: #059669;
-  font-weight: 500;
-}
-
 .invicta-cart-breakdown__row--total {
-  font-weight: 700;
   font-size: 15px;
-  color: #1f2937;
-  padding-top: 8px;
-  margin-top: 6px;
-  border-top: 1px solid #e5e7eb;
-}
-
-.invicta-cart-breakdown__label {
-  flex: 1;
-}
-
-.invicta-cart-breakdown__value {
-  font-weight: 500;
-  text-align: right;
-}
-
-.invicta-cart-breakdown__value--negative {
-  color: #059669;
 }
 
 /* VAT mode indicator */
 .invicta-vat-indicator {
-  font-size: 0.8rem;
-  color: #6b7280;
-  text-align: center;
-  padding: 8px 0;
-  background: #f9fafb;
-  border-radius: 4px;
-  margin-bottom: 12px;
+  font-size: 11px;
+  padding: 4px 0 6px;
+}
+
+/* Cart note */
+.cart__note {
+  margin-bottom: 16px;
+}
+
+/* Empty cart */
+.cart__warnings {
+  padding: 32px 0;
+}
+.cart__warnings .cart__empty-text {
+  font-size: 16px;
 }
 
 /* --------------------------------------------------------------------------

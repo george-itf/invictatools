@@ -3078,52 +3078,279 @@ html.js body .slider-counter {
 
 
 /* ============================================================================
-   SECTION 5: CART — Minimal overrides on Dawn base
+   SECTION 5: CART — Invicta trade-focused cart
    ============================================================================ */
 
-/* Kill red colour scheme bleeding into cart footer */
+/* --- Cart header bar --- */
+.inv-cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #282c31;
+  color: #fff;
+  padding: 16px 24px;
+  margin-bottom: 24px;
+}
+.inv-cart-header__left {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.inv-cart-header__title {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: #fff;
+}
+.inv-cart-header__count {
+  font-size: 14px;
+  font-weight: 500;
+  color: #9ca3af;
+}
+.inv-cart-header__continue {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+}
+.inv-cart-header__continue:hover {
+  color: #e5e7eb;
+}
+
+/* --- Info strip (delivery bar + estimate) --- */
+.inv-cart-info-strip {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 12px 16px;
+  background: #f5f5f5;
+  border: 1px solid #e5e7eb;
+}
+.inv-cart-info-strip > * {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+/* --- Per-item ex-VAT pricing --- */
+.inv-cart-item__ex-vat {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+.inv-cart-item__line-ex-vat {
+  display: block;
+  font-size: 11px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* --- Cart images: sharp corners --- */
+.cart-item__image-container {
+  border-radius: 0;
+}
+.cart-item__image {
+  border-radius: 0;
+}
+
+/* --- Footer: kill colour scheme bleeding --- */
 .cart__footer-wrapper,
 .cart__footer-wrapper.gradient,
 #main-cart-footer,
 #main-cart-footer > div {
   background: #fff !important;
 }
-#main-cart-footer { border-top: 1px solid #e5e7eb; }
+#main-cart-footer {
+  border-top: 2px solid #282c31;
+}
 
-/* Checkout button — red */
+/* --- Footer grid: two columns on desktop --- */
+.inv-cart-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 48px;
+  align-items: start;
+}
+.inv-cart-footer-grid__breakdown {
+  padding-top: 4px;
+}
+.inv-cart-footer-grid__checkout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* --- Checkout total (right column) --- */
+.inv-cart-checkout-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #1a1a1a;
+}
+.inv-cart-checkout-total__label {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+.inv-cart-checkout-total__price {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1a1a1a;
+  letter-spacing: -0.02em;
+}
+
+/* --- Checkout button --- */
 .cart__checkout-button,
 #checkout,
 button[name="checkout"] {
-  background: var(--inv-accent, #e11d26);
+  background: #e11d26;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  height: 52px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  width: 100%;
 }
 .cart__checkout-button:hover,
 #checkout:hover {
   background: #c81a22;
 }
 
-/* Cart breakdown */
-.invicta-cart-breakdown { padding: 12px 0; border-top: 1px solid #e5e7eb; margin-top: 12px; }
-.invicta-cart-breakdown__row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; }
-.invicta-cart-breakdown__row--subtotal { color: #6b7280; }
-.invicta-cart-breakdown__row--vat { color: #6b7280; font-size: 12px; }
-.invicta-cart-breakdown__row--shipping { color: #6b7280; font-size: 12px; }
-.invicta-cart-breakdown__row--discount { color: #059669; font-weight: 500; }
-.invicta-cart-breakdown__row--total { font-weight: 700; font-size: 15px; padding-top: 8px; margin-top: 6px; border-top: 1px solid #e5e7eb; color: #1f2937; }
+/* --- Additional checkout buttons (PayPal etc) --- */
+.cart__dynamic-checkout-buttons {
+  margin-top: 8px;
+}
+
+/* --- Trust signals --- */
+.inv-cart-trust {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+}
+.inv-cart-trust__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #6b7280;
+}
+.inv-cart-trust__item svg {
+  flex-shrink: 0;
+  color: #6b7280;
+}
+
+/* --- Cart breakdown --- */
+.invicta-cart-breakdown {
+  padding: 16px 0;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 0;
+}
+.invicta-cart-breakdown__row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-size: 14px;
+}
+.invicta-cart-breakdown__row--subtotal { color: #374151; }
+.invicta-cart-breakdown__row--vat { color: #6b7280; font-size: 13px; }
+.invicta-cart-breakdown__row--shipping { color: #6b7280; font-size: 13px; }
+.invicta-cart-breakdown__row--discount { color: #059669; font-weight: 600; }
+.invicta-cart-breakdown__row--total {
+  font-weight: 700;
+  font-size: 16px;
+  padding-top: 10px;
+  margin-top: 8px;
+  border-top: 2px solid #1a1a1a;
+  color: #1a1a1a;
+}
 .invicta-cart-breakdown__label { flex: 1; }
 .invicta-cart-breakdown__value { font-weight: 500; text-align: right; }
 .invicta-cart-breakdown__value--negative { color: #059669; }
 .invicta-cart-breakdown__free-label { color: #059669; font-weight: 600; }
-.invicta-cart-breakdown__shipping-progress { margin-top: 6px; }
-.invicta-cart-breakdown__shipping-bar { height: 4px; background: #e5e7eb; border-radius: 2px; overflow: hidden; margin-top: 4px; }
-.invicta-cart-breakdown__shipping-fill { height: 100%; background: #d97706; border-radius: 2px; }
+.invicta-cart-breakdown__shipping-progress { margin-top: 8px; }
+.invicta-cart-breakdown__shipping-bar {
+  height: 4px;
+  background: #e5e7eb;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.invicta-cart-breakdown__shipping-fill {
+  height: 100%;
+  background: #d97706;
+  border-radius: 2px;
+}
 .invicta-cart-breakdown__shipping-text { font-size: 12px; color: #6b7280; }
-.invicta-vat-indicator { font-size: 12px; color: #6b7280; text-align: center; padding: 6px 0; background: #f9fafb; border-radius: 4px; margin-bottom: 8px; }
+.invicta-vat-indicator {
+  font-size: 12px;
+  color: #6b7280;
+  text-align: left;
+  padding: 6px 0 8px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 8px;
+}
 
-/* Visibility fix */
+/* --- Hide Dawn default totals (we use cart-breakdown instead) --- */
+.cart__footer .totals { display: none; }
+.cart__footer .tax-note { display: none; }
+
+/* --- Quantity selectors: compact --- */
+.cart-quantity .quantity__input {
+  height: 40px;
+  width: 40px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.cart-quantity .quantity__button {
+  height: 40px;
+  width: 36px;
+}
+
+/* --- Visibility fix --- */
 .cart__footer, .cart__ctas, .totals, #checkout { visibility: visible; opacity: 1; }
+
+/* --- Cart note --- */
+.cart__note { margin-bottom: 24px; }
+.cart__note .text-area {
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  font-size: 14px;
+  min-height: 80px;
+}
+
+/* --- Empty cart --- */
+.cart__warnings {
+  text-align: center;
+  padding: 48px 0;
+}
+.cart__warnings .cart__empty-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: #374151;
+  margin-bottom: 16px;
+}
+.cart__warnings .button {
+  background: #e11d26;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  height: 48px;
+  padding: 0 32px;
+  font-weight: 700;
+  font-size: 14px;
+}
 
 /* ============================================================================
    INVICTA PRODUCT PAGE — Desktop Gallery & Components

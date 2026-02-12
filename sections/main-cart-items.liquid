@@ -27,10 +27,20 @@
 <cart-items class="gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
   <div class="page-width">
 
-    <div class="title-wrapper-with-link">
-      <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
-      <a href="{{ routes.all_products_collection_url }}" class="underlined-link">
+    {%- comment -%} Cart header bar {%- endcomment -%}
+    <div class="inv-cart-header">
+      <div class="inv-cart-header__left">
+        <h1 class="inv-cart-header__title">{{ 'sections.cart.title' | t }}</h1>
+        {%- if cart != empty -%}
+          <span class="inv-cart-header__count">
+            ({{ cart.item_count }}
+            {%- if cart.item_count == 1 %} item{% else %} items{% endif -%})
+          </span>
+        {%- endif -%}
+      </div>
+      <a href="{{ routes.all_products_collection_url }}" class="inv-cart-header__continue">
         {{- 'general.continue_shopping' | t -}}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
     </div>
 
@@ -49,13 +59,16 @@
 
     <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
 
-      {% if section.settings.show_free_shipping_bar %}
-        {% render 'invicta-free-delivery-bar' %}
-      {% endif %}
-
-      {% if section.settings.show_delivery_estimate %}
-        {% render 'invicta-delivery-estimate', compact: true %}
-      {% endif %}
+      {%- if section.settings.show_free_shipping_bar or section.settings.show_delivery_estimate -%}
+        <div class="inv-cart-info-strip">
+          {%- if section.settings.show_free_shipping_bar -%}
+            {% render 'invicta-free-delivery-bar' %}
+          {%- endif -%}
+          {%- if section.settings.show_delivery_estimate -%}
+            {% render 'invicta-delivery-estimate', compact: true %}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
 
       <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
         <div class="js-contents">
@@ -116,6 +129,13 @@
                         <div class="product-option">{{ item.original_price | money }}</div>
                       {%- endif -%}
 
+                      {%- comment -%} Ex-VAT unit price for trade customers {%- endcomment -%}
+                      {%- assign item_vat_divisor = 100 | plus: settings.inv_vat_rate -%}
+                      {%- assign item_vat_rounding = item_vat_divisor | divided_by: 2 -%}
+                      {%- assign item_price_for_vat = item.final_price | times: 100 | plus: item_vat_rounding -%}
+                      {%- assign item_ex_vat = item_price_for_vat | divided_by: item_vat_divisor -%}
+                      <div class="inv-cart-item__ex-vat">{{ item_ex_vat | money }} ex VAT</div>
+
                       {%- if item.product.has_only_default_variant == false or item.properties.size != 0 or item.selling_plan_allocation != null -%}
                         <dl>
                           {%- if item.product.has_only_default_variant == false -%}
@@ -172,6 +192,10 @@
                         {%- if item.variant.available and item.unit_price_measurement -%}
                           {% render 'unit-price', price: item.unit_price, measurement: item.unit_price_measurement %}
                         {%- endif -%}
+                        {%- comment -%} Line ex-VAT total {%- endcomment -%}
+                        {%- assign line_price_for_vat = item.final_line_price | times: 100 | plus: item_vat_rounding -%}
+                        {%- assign line_ex_vat = line_price_for_vat | divided_by: item_vat_divisor -%}
+                        <span class="inv-cart-item__line-ex-vat">{{ line_ex_vat | money }} ex VAT</span>
                       </div>
                     </td>
 
@@ -316,6 +340,10 @@
                         {%- if item.variant.available and item.unit_price_measurement -%}
                           {% render 'unit-price', price: item.unit_price, measurement: item.unit_price_measurement %}
                         {%- endif -%}
+                        {%- comment -%} Line ex-VAT total {%- endcomment -%}
+                        {%- assign line_price_for_vat = item.final_line_price | times: 100 | plus: item_vat_rounding -%}
+                        {%- assign line_ex_vat = line_price_for_vat | divided_by: item_vat_divisor -%}
+                        <span class="inv-cart-item__line-ex-vat">{{ line_ex_vat | money }} ex VAT</span>
                       </div>
                     </td>
                   </tr>
