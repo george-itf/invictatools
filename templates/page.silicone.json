@@ -1,1 +1,156 @@
-{"sections":{"main":{"type":"invicta-category-grid","blocks":{"block_1":{"type":"category","settings":{"collection":"ct1-hybrid-sealants","title":"","link":"","image":"shopify:\/\/shop_images\/CT1-adhesive-and-sealant.webp"}},"block_2":{"type":"category","settings":{"collection":"soudal","title":"","link":"","image":"shopify:\/\/shop_images\/joint-repair2.jpg"}},"block_3":{"type":"category","settings":{"collection":"evostik","title":"","link":"","image":"shopify:\/\/shop_images\/Evo-Stik-sticks-like-clear-turbo-2-1026x1026-f50_50.webp"}},"block_4":{"type":"category","settings":{"collection":"ob1-sealants","title":"","link":"","image":"shopify:\/\/shop_images\/514JF_A2.avif"}}},"block_order":["block_1","block_2","block_3","block_4"],"settings":{"heading":"Silicone","description":"Premium silicone sealants from leading brands.","header_align":"center","columns_desktop":4,"columns_tablet":2,"columns_mobile":2,"grid_gap":20,"card_radius":12,"card_padding":16,"image_ratio":75,"show_arrow":true,"padding_top":48,"padding_bottom":48,"heading_size":36,"heading_transform":"none","card_title_size":15,"card_title_transform":"uppercase","section_bg":"#ffffff","heading_color":"#1a1a1a","card_bg":"#ffffff","card_border":"#e5e5e5","card_hover_border":"#666666","image_bg":"#f8f8f8","title_color":"#1a1a1a"}},"invicta_recently_viewed_axJiEC":{"type":"invicta-recently-viewed","blocks":{"benefit_EVCaGK":{"type":"benefit","settings":{"text":"Track your orders"}},"benefit_HBzL77":{"type":"benefit","settings":{"text":"Save favourite products"}},"benefit_pqgNzV":{"type":"benefit","settings":{"text":"Faster checkout"}},"benefit_AEL4bP":{"type":"benefit","settings":{"text":"Exclusive trade pricing"}}},"block_order":["benefit_EVCaGK","benefit_HBzL77","benefit_pqgNzV","benefit_AEL4bP"],"name":"Recently Viewed","settings":{"title_logged_in":"Recently Viewed","empty_message":"You haven't viewed any products yet. Start browsing to see your history here.","show_view_all":false,"view_all_link":"","max_products":8,"title_logged_out":"See Your Recommendations","description_logged_out":"Log in or create an account to see personalised product recommendations based on your browsing history.","cta_icon":"user","login_button_text":"Log In","register_button_text":"Create Account","show_benefits":true,"padding_top":48,"padding_bottom":48,"card_width":180,"card_image_height":140,"card_radius":8,"title_size":20,"cta_title_size":24,"background_color":"#ffffff","text_color":"#1a1a1a","text_muted_color":"#666666","accent_color":"#e41e25","card_bg_color":"#ffffff","card_border_color":"#e5e5e5","cta_icon_bg":"#f5f5f5","cta_icon_color":"#1a1a1a","button_radius":6,"benefit_check_color":"#10b981"}}},"order":["main","invicta_recently_viewed_axJiEC"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "invicta-category-grid",
+      "blocks": {
+        "block_1": {
+          "type": "category",
+          "settings": {
+            "collection": "ct1-hybrid-sealants",
+            "title": "",
+            "link": "",
+            "image": "shopify://shop_images/CT1-adhesive-and-sealant.webp"
+          }
+        },
+        "block_2": {
+          "type": "category",
+          "settings": {
+            "collection": "soudal",
+            "title": "",
+            "link": "",
+            "image": "shopify://shop_images/joint-repair2.jpg"
+          }
+        },
+        "block_3": {
+          "type": "category",
+          "settings": {
+            "collection": "evostik",
+            "title": "",
+            "link": "",
+            "image": "shopify://shop_images/Evo-Stik-sticks-like-clear-turbo-2-1026x1026-f50_50.webp"
+          }
+        },
+        "block_4": {
+          "type": "category",
+          "settings": {
+            "collection": "ob1-sealants",
+            "title": "",
+            "link": "",
+            "image": "shopify://shop_images/514JF_A2.avif"
+          }
+        }
+      },
+      "block_order": [
+        "block_1",
+        "block_2",
+        "block_3",
+        "block_4"
+      ],
+      "settings": {
+        "heading": "Silicone",
+        "description": "Premium silicone sealants from leading brands.",
+        "header_align": "center",
+        "columns_desktop": 4,
+        "columns_tablet": 2,
+        "columns_mobile": 2,
+        "grid_gap": 20,
+        "card_radius": 12,
+        "card_padding": 16,
+        "image_ratio": 75,
+        "show_arrow": true,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "heading_size": 36,
+        "heading_transform": "none",
+        "card_title_size": 15,
+        "card_title_transform": "uppercase",
+        "section_bg": "#ffffff",
+        "heading_color": "#1a1a1a",
+        "card_bg": "#ffffff",
+        "card_border": "#e5e5e5",
+        "card_hover_border": "#666666",
+        "image_bg": "#f8f8f8",
+        "title_color": "#1a1a1a"
+      }
+    },
+    "invicta_recently_viewed_axJiEC": {
+      "type": "invicta-recently-viewed",
+      "blocks": {
+        "benefit_EVCaGK": {
+          "type": "benefit",
+          "settings": {
+            "text": "Track your orders"
+          }
+        },
+        "benefit_HBzL77": {
+          "type": "benefit",
+          "settings": {
+            "text": "Save favourite products"
+          }
+        },
+        "benefit_pqgNzV": {
+          "type": "benefit",
+          "settings": {
+            "text": "Faster checkout"
+          }
+        },
+        "benefit_AEL4bP": {
+          "type": "benefit",
+          "settings": {
+            "text": "Exclusive trade pricing"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_EVCaGK",
+        "benefit_HBzL77",
+        "benefit_pqgNzV",
+        "benefit_AEL4bP"
+      ],
+      "name": "Recently Viewed",
+      "settings": {
+        "title_logged_in": "Recently Viewed",
+        "empty_message": "You haven't viewed any products yet. Start browsing to see your history here.",
+        "show_view_all": false,
+        "view_all_link": "",
+        "max_products": 8,
+        "title_logged_out": "See Your Recommendations",
+        "description_logged_out": "Log in or create an account to see personalised product recommendations based on your browsing history.",
+        "cta_icon": "user",
+        "login_button_text": "Log In",
+        "register_button_text": "Create Account",
+        "show_benefits": true,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "card_width": 180,
+        "card_image_height": 140,
+        "card_radius": 8,
+        "title_size": 20,
+        "cta_title_size": 24,
+        "background_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "text_muted_color": "#666666",
+        "accent_color": "#e41e25",
+        "card_bg_color": "#ffffff",
+        "card_border_color": "#e5e5e5",
+        "cta_icon_bg": "#f5f5f5",
+        "cta_icon_color": "#1a1a1a",
+        "button_radius": 6,
+        "benefit_check_color": "#10b981"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "invicta_recently_viewed_axJiEC"
+  ]
+}
