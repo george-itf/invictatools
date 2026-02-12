@@ -20,7 +20,7 @@
   assign brand_name = collection.title | default: 'Brand'
   assign brand_handle = collection.handle | downcase
   assign product_count = collection.products_count | default: 0
-  assign brand_desc = subheading | default: collection.description | strip_html | truncate: 180
+  assign brand_desc = brand_description | default: subheading | default: collection.description | strip_html | truncate: 180
 
   # Try to get brand logo from assets
   assign brand_logo_url = brand_handle | append: '.svg' | asset_url
@@ -29,7 +29,7 @@
   # Brand colour lookup (compact version)
   assign brand_bg = '#2d2d2d'
   assign brand_accent = '#e11d26'
-  assign brand_db = 'dewalt:#fecc00|makita:#e11d26|milwaukee:#d5001a|hikoki:#00a651|stanley:#ffcc00|faithfull:#00539b|bosch:#005eb8|metabo:#00843d|timco:#e31837|trend:#005ca9|lamello:#a71d35|irwin:#003da5|knipex:#003087|wera:#00539b'
+  assign brand_db = 'dewalt:#fecc00|makita:#e11d26|milwaukee:#d5001a|hikoki:#00a651|stanley:#ffcc00|faithfull:#00539b|bosch:#005eb8|metabo:#00843d|timco:#e31837|trend:#005ca9|lamello:#a71d35|irwin:#003da5|knipex:#003087|wera:#00539b|festool:#0091d3|hilti:#d02b2b|ryobi:#bdd203|karcher:#ffcc00|draper:#e41e26|bahco:#ef7d00|facom:#e30613|gedore:#003da5|hazet:#0054a6|stahlwille:#003da5|teng:#e30613|sealey:#003da5|kress:#75b531|einhell:#cc0000|flex:#f7a600|fein:#004b87|paslode:#ff6600|bostitch:#ffcc00|dremel:#cc0000|gorilla:#ff6600|unibond:#0055a4|rawlplug:#e30613|fischer:#ff0000|reisser:#82b541|forgefix:#003da5|rust-oleum:#e30613|osmo:#8dc73f|ronseal:#003da5|dulux:#00539b|triton:#ee7f00|silverline:#003da5|ox:#003087|roughneck:#e30613|magnusson:#003da5|titan:#0072bc|vitrex:#003da5|marshalltown:#003da5'
   assign brand_pairs = brand_db | split: '|'
   for pair in brand_pairs
     assign kv = pair | split: ':'
@@ -56,7 +56,6 @@
           width="160"
           height="60"
           loading="eager"
-          onerror="this.closest('.inv-brand-hero__logo-wrap').classList.add('inv-brand-hero__logo-wrap--fallback')"
         >
         <span class="inv-brand-hero__logo-fallback">{{ brand_name }}</span>
       </div>
@@ -102,3 +101,16 @@
     </div>
   </div>
 </section>
+
+<script>
+(function() {
+  var img = document.querySelector('.inv-brand-hero__logo');
+  if (!img) return;
+  function handleFallback() {
+    var wrap = img.closest('.inv-brand-hero__logo-wrap');
+    if (wrap) wrap.classList.add('inv-brand-hero__logo-wrap--fallback');
+  }
+  img.addEventListener('error', handleFallback);
+  if (img.complete && img.naturalWidth === 0) handleFallback();
+})();
+</script>

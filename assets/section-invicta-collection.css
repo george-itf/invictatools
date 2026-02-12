@@ -873,8 +873,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   background: var(--inv-c-surface);
   border: none;
@@ -1114,6 +1114,7 @@
   }
 
   .inv-filter-toggle {
+    min-height: 44px;
     padding: 6px 10px;
     font-size: 12px;
   }
@@ -1165,8 +1166,8 @@
   }
 
   .inv-pagination__item {
-    min-width: 36px;
-    height: 36px;
+    min-width: 44px;
+    height: 44px;
     font-size: 13px;
     padding: 0 8px;
   }
@@ -1193,6 +1194,30 @@
     bottom: 80px;
     right: 16px;
   }
+}
+
+/* ============================================================================
+   FOCUS-VISIBLE (Accessibility)
+   ============================================================================ */
+
+.inv-collection a:focus-visible,
+.inv-collection button:focus-visible,
+.inv-collection select:focus-visible,
+.inv-collection input:focus-visible {
+  outline: 2px solid var(--inv-c-accent);
+  outline-offset: 2px;
+}
+
+.inv-facet__checkbox:focus-visible {
+  outline-offset: 1px;
+}
+
+.inv-pagination__item:focus-visible {
+  outline-offset: -2px;
+}
+
+.inv-drawer__close:focus-visible {
+  outline-offset: -2px;
 }
 
 /* ============================================================================

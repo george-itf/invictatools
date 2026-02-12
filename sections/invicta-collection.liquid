@@ -436,7 +436,7 @@
   ================================================================ {%- endcomment -%}
   <div class="inv-drawer-overlay" id="InvDrawerOverlay"></div>
   
-  <div class="inv-drawer" id="InvDrawer" aria-hidden="true">
+  <div class="inv-drawer" id="InvDrawer" role="dialog" aria-modal="true" aria-label="Filter products" aria-hidden="true">
     <div class="inv-drawer__header">
       <span class="inv-drawer__title">Filters</span>
       <button type="button" class="inv-drawer__close" id="InvDrawerClose" aria-label="Close filters">
@@ -578,8 +578,10 @@
   var floatingFilter = document.getElementById('InvFloatingFilter');
   var scrollTopBtn = document.getElementById('InvScrollTop');
   var sortSelect = document.getElementById('InvSortSelect');
+  var sidebarForm = document.getElementById('InvFilterForm');
   var toolbar = document.getElementById('InvToolbar');
   var hero = document.querySelector('.inv-hero');
+  var lastFocusedEl = null;
   
   /* ==========================================================================
      DRAWER FUNCTIONS
@@ -587,13 +589,15 @@
   
   function openDrawer() {
     if (!drawer || !overlay) return;
+    lastFocusedEl = document.activeElement;
     drawer.classList.add('is-open');
     drawer.setAttribute('aria-hidden', 'false');
     overlay.classList.add('is-visible');
     document.body.style.overflow = 'hidden';
     if (filterToggle) filterToggle.setAttribute('aria-expanded', 'true');
+    if (drawerClose) drawerClose.focus();
   }
-  
+
   function closeDrawer() {
     if (!drawer || !overlay) return;
     drawer.classList.remove('is-open');
@@ -601,6 +605,8 @@
     overlay.classList.remove('is-visible');
     document.body.style.overflow = '';
     if (filterToggle) filterToggle.setAttribute('aria-expanded', 'false');
+    if (lastFocusedEl) lastFocusedEl.focus();
+    lastFocusedEl = null;
   }
   
   // Open drawer — toolbar button
@@ -632,40 +638,49 @@
     overlay.addEventListener('click', closeDrawer);
   }
   
-  // Close drawer — Escape key
+  // Keyboard: Escape close + Tab focus trap
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && drawer && drawer.classList.contains('is-open')) {
-      closeDrawer();
+    if (!drawer || !drawer.classList.contains('is-open')) return;
+    if (e.key === 'Escape') { closeDrawer(); return; }
+    if (e.key === 'Tab') {
+      var focusable = drawer.querySelectorAll('button, [href], input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (!focusable.length) return;
+      var first = focusable[0], last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     }
   });
-  
-  // Apply filters
+
+  // Build filter URL from form inputs
+  function buildFilterUrl(form) {
+    var params = new URLSearchParams();
+    var inputs = form.querySelectorAll('input:checked, input[type="number"]');
+    inputs.forEach(function(input) {
+      if (input.type === 'checkbox' && input.checked) {
+        params.append(input.name, input.value);
+      } else if (input.type === 'number' && input.value) {
+        params.append(input.name, input.value);
+      }
+    });
+    if (sortSelect && sortSelect.value) params.set('sort_by', sortSelect.value);
+    var url = window.location.pathname;
+    var qs = params.toString();
+    return qs ? url + '?' + qs : url;
+  }
+
+  // Apply filters — drawer (mobile)
   if (drawerApply && drawerForm) {
     drawerApply.addEventListener('click', function() {
-      var params = new URLSearchParams();
-      var inputs = drawerForm.querySelectorAll('input:checked, input[type="number"]');
-      
-      inputs.forEach(function(input) {
-        if (input.type === 'checkbox' && input.checked) {
-          params.append(input.name, input.value);
-        } else if (input.type === 'number' && input.value) {
-          params.append(input.name, input.value);
-        }
-      });
-      
-      // Preserve sort
-      if (sortSelect && sortSelect.value) {
-        params.set('sort_by', sortSelect.value);
-      }
-      
-      var url = window.location.pathname;
-      var queryString = params.toString();
-      if (queryString) {
-        url += '?' + queryString;
-      }
-      
       closeDrawer();
-      window.location.href = url;
+      window.location.href = buildFilterUrl(drawerForm);
+    });
+  }
+
+  // Apply filters — sidebar (desktop)
+  if (sidebarForm) {
+    sidebarForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      window.location.href = buildFilterUrl(sidebarForm);
     });
   }
   

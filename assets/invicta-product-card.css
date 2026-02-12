@@ -26,9 +26,11 @@
   height: 100%;
 }
 
-.inv-card:hover {
-  border-color: #d0d0d0;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+@media (hover: hover) {
+  .inv-card:hover {
+    border-color: #d0d0d0;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  }
 }
 
 /* -----------------------------------------------------------------------
@@ -60,8 +62,10 @@
   border-radius: 0 !important;
 }
 
-.inv-card:hover .inv-card__img {
-  transform: scale(1.02);
+@media (hover: hover) {
+  .inv-card:hover .inv-card__img {
+    transform: scale(1.02);
+  }
 }
 
 .inv-card__img--faded {
