@@ -23,6 +23,8 @@
 
 .invicta-cart-breakdown__label {
   color: #374151;
+  white-space: nowrap;
+  margin-right: 12px;
 }
 
 .invicta-cart-breakdown__value {
