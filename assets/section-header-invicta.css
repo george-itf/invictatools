@@ -2,6 +2,14 @@
 /* =======================================================
    INVICTA HEADER v6.0 — RED BACKGROUND
    ======================================================= */
+
+/* Section wrapper — match header bg, prevent white gap */
+.section-header-invicta {
+  background: var(--inv-accent) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 .invicta-header {
   position: sticky;
   top: 0;
