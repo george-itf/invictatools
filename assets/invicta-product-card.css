@@ -28,8 +28,8 @@
 
 @media (hover: hover) {
   .inv-card:hover {
-    border-color: #ccc;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-color: #d0d0d0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   }
 }
 
@@ -78,7 +78,8 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  color: #ddd;
+  color: #ccc;
+  background: #fafafa;
 }
 
 /* -----------------------------------------------------------------------
@@ -95,8 +96,8 @@
 }
 
 /* Stock status colour variants (replaces inline style="background-color") */
-.inv-card__stock-bar--in-stock,
-.inv-card__stock--in-stock { background-color: var(--inv-stock-in, #16a34a); }
+.inv-card__stock-bar--in-stock { background-color: var(--inv-stock-in, #16a34a); }
+.inv-card__stock--in-stock { background-color: var(--inv-stock-in, #16a34a); display: none; }
 .inv-card__stock-bar--out,
 .inv-card__stock--out { background-color: var(--inv-stock-out, #9ca3af); }
 .inv-card__stock-bar--low,
@@ -233,7 +234,8 @@
 
 .inv-card__vat {
   font-size: 11px;
-  color: #888;
+  color: #555;
+  font-weight: 600;
 }
 
 /* Extras row removed in v7.4 — Save badge no longer shown on cards */

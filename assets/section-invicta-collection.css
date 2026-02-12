@@ -25,9 +25,9 @@
    ============================================================================ */
 
 .inv-hero {
-  background: linear-gradient(135deg, var(--inv-c-dark) 0%, #1a2332 100%);
+  background: var(--inv-c-dark);
   color: #fff;
-  padding: 32px 0 28px;
+  padding: 24px 0 20px;
 }
 
 .inv-hero__inner {
@@ -35,7 +35,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .inv-hero__accent {
@@ -278,8 +278,7 @@
 }
 
 .inv-toolbar.is-stuck {
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
-  border-color: transparent;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
 }
 
 .inv-toolbar__inner {
@@ -287,7 +286,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 10px 0;
+  padding: 8px 0;
 }
 
 .inv-toolbar__left {
@@ -476,7 +475,7 @@
 
 .inv-sidebar {
   position: sticky;
-  top: 70px;
+  top: 60px;
   background: #fff;
   border: 1px solid var(--inv-c-border);
   border-radius: var(--inv-c-radius);
@@ -487,7 +486,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 16px;
+  padding: 12px 16px;
   border-bottom: 1px solid var(--inv-c-border);
   background: var(--inv-c-surface);
 }
@@ -513,8 +512,8 @@
 
 .inv-sidebar__apply {
   display: block;
-  width: calc(100% - 32px);
-  margin: 16px;
+  width: calc(100% - 24px);
+  margin: 12px;
   padding: 13px;
   font-size: 13px;
   font-weight: 700;
@@ -526,12 +525,11 @@
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  transition: background var(--inv-c-transition), box-shadow var(--inv-c-transition);
+  transition: background var(--inv-c-transition);
 }
 
 .inv-sidebar__apply:hover {
   background: #c41920;
-  box-shadow: 0 2px 8px rgba(225, 29, 38, 0.3);
 }
 
 /* Facets */
@@ -547,7 +545,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 10px 16px;
   cursor: pointer;
   list-style: none;
   user-select: none;
@@ -576,14 +574,14 @@
 }
 
 .inv-facet__body {
-  padding: 0 16px 14px;
+  padding: 0 16px 10px;
 }
 
 .inv-facet__list {
   list-style: none;
   margin: 0;
   padding: 0;
-  max-height: 220px;
+  max-height: 200px;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #ddd transparent;
@@ -610,7 +608,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 0;
+  padding: 4px 0;
   cursor: pointer;
   font-size: 13px;
   color: var(--inv-c-text);
@@ -1117,7 +1115,7 @@
 @media (max-width: 749px) {
   /* Hero */
   .inv-hero {
-    padding: 20px 0 16px;
+    padding: 16px 0 14px;
   }
 
   .inv-hero__title {
