@@ -2,7 +2,7 @@
     padding: var(--inv-space-sm, 0.5rem) var(--inv-space-md, 1rem);
     background: var(--inv-bg-muted, #f9fafb);
     border: 1px solid var(--inv-border, #e5e7eb);
-    border-radius: var(--inv-radius-md, 8px);
+    border-radius: 0;
     margin: var(--inv-space-sm, 0.5rem) 0;
   }
   .inv-delivery-bar__message {
@@ -34,12 +34,12 @@
   .inv-delivery-bar__fill {
     height: 100%;
     border-radius: 3px;
-    background: linear-gradient(90deg, var(--inv-accent, #e11d26), var(--inv-accent-hover, #c4191f));
-    transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    background: var(--inv-accent, #e11d26);
+    transition: width 0.3s ease;
     min-width: 0;
     max-width: 100%;
   }
   .inv-delivery-bar__message--qualified + .inv-delivery-bar__track .inv-delivery-bar__fill,
   .inv-delivery-bar__message--qualified ~ .inv-delivery-bar__track .inv-delivery-bar__fill {
-    background: linear-gradient(90deg, var(--inv-success, #16a34a), #22c55e);
+    background: var(--inv-success, #16a34a);
   }

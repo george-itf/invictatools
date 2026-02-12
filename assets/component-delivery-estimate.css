@@ -1,8 +1,8 @@
   .inv-del-est {
     border: 2px solid var(--inv-accent, #e11d26);
-    border-radius: var(--inv-radius-card, 12px);
+    border-radius: 0;
     padding: 12px 16px;
-    background: linear-gradient(135deg, #fef2f2, #fff);
+    background: #fff;
     margin: 12px 0;
   }
   .inv-del-est--compact {
