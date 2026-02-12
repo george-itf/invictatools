@@ -3170,13 +3170,28 @@ html.js body .slider-counter {
   border-top: 2px solid #282c31;
 }
 
-/* --- Kill Dawn's excessive spacing --- */
+/* --- Kill Dawn's flex layout and width constraints on footer --- */
+.cart__footer {
+  display: block !important;
+}
+.cart__footer > * {
+  width: 100% !important;
+}
 .cart__footer > * + * {
   margin-top: 0;
   margin-left: 0;
 }
+.cart__footer > div:only-child {
+  margin-left: 0;
+}
 .cart__items {
   padding-bottom: 0;
+}
+/* Force checkout CTA stack (Dawn sets flex-row at 750px+) */
+.cart__ctas {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
 }
 
 /* --- Footer grid: two columns on desktop --- */
