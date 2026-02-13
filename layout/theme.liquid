@@ -346,17 +346,16 @@
     
 
     <!-- 3. Device-Specific Styles (PWA optimised) -->
-    <!-- 
+    <!--
       v2.6 FIX: Always use media queries for reliable mobile/desktop detection.
       User-agent detection was failing on iPhone 16 / iOS 18.
       Media queries are bulletproof and work regardless of browser settings.
     -->
-    <link rel="stylesheet" href="{{ 'mobile.css' | asset_url }}" media="screen and (max-width: 749px)">
-    <link rel="stylesheet" href="{{ 'desktop.css' | asset_url }}" media="screen and (min-width: 750px)">
-    
-    <!-- Preload critical CSS for faster rendering -->
+    <!-- CX v1.1: Preload BEFORE stylesheet for effective priority hinting -->
     <link rel="preload" href="{{ 'mobile.css' | asset_url }}" as="style" media="screen and (max-width: 749px)">
     <link rel="preload" href="{{ 'desktop.css' | asset_url }}" as="style" media="screen and (min-width: 750px)">
+    <link rel="stylesheet" href="{{ 'mobile.css' | asset_url }}" media="screen and (max-width: 749px)">
+    <link rel="stylesheet" href="{{ 'desktop.css' | asset_url }}" media="screen and (min-width: 750px)">
 
     <!-- UX Improvements (accessibility, focus states, sticky ATC) -->
     {{ 'invicta-ux-improvements.css' | asset_url | stylesheet_tag }}
@@ -370,11 +369,12 @@
     >
 
     {%- if settings.cart_type == 'drawer' -%}
-      {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
-      {{ 'component-cart.css' | asset_url | stylesheet_tag }}
-      {{ 'component-totals.css' | asset_url | stylesheet_tag }}
-      {{ 'component-price.css' | asset_url | stylesheet_tag }}
-      {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
+      {%- comment -%} CX v1.1: Defer cart CSS — drawer not visible until user interaction {%- endcomment -%}
+      <link rel="stylesheet" href="{{ 'component-cart-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
+      <link rel="stylesheet" href="{{ 'component-cart.css' | asset_url }}" media="print" onload="this.media='all'">
+      <link rel="stylesheet" href="{{ 'component-totals.css' | asset_url }}" media="print" onload="this.media='all'">
+      <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
+      <link rel="stylesheet" href="{{ 'component-discounts.css' | asset_url }}" media="print" onload="this.media='all'">
     {%- endif -%}
 
     {%- unless settings.type_body_font.system? -%}
