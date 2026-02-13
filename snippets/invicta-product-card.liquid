@@ -42,16 +42,30 @@
   assign compare_price_ex_vat = compare_price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor
   
   # -------------------------
-  # Stock status
+  # Stock status + supplier source
   # -------------------------
   assign available = current_variant.available
   assign inventory_qty = current_variant.inventory_quantity | default: 0
   assign stock_status = 'in-stock'
   assign stock_label = 'invicta.product.stock_in_stock' | t
+  assign is_supplier_stock = false
+
+  for tag in product.tags
+    assign tag_lower = tag | downcase | strip
+    if tag_lower == 'invicta-stock'
+      assign is_supplier_stock = false
+      break
+    elsif tag_lower == 'trend-stock' or tag_lower == 'toolbank-stock' or tag_lower == 'timco-stock' or tag_lower == 'pdp-stock'
+      assign is_supplier_stock = true
+    endif
+  endfor
 
   if available == false
     assign stock_status = 'out'
     assign stock_label = 'invicta.product.stock_sold_out' | t
+  elsif is_supplier_stock
+    assign stock_status = 'supplier'
+    assign stock_label = '3–5 Day Delivery'
   elsif inventory_qty > 0 and inventory_qty <= 5
     assign stock_status = 'low'
     assign stock_label = 'invicta.product.stock_low' | t: quantity: inventory_qty

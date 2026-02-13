@@ -1,19 +1,23 @@
 {% comment %}
   ============================================
-  INVICTA DELIVERY ESTIMATE v1.0
+  INVICTA DELIVERY ESTIMATE v2.0
   Reusable across product pages, cart, and cart drawer
-  
+  Now supports stock_source for supplier-sourced items
+
   Usage:
     {% render 'invicta-delivery-estimate' %}
     {% render 'invicta-delivery-estimate', compact: true %}
+    {% render 'invicta-delivery-estimate', stock_source: 'supplier', supplier_delivery_est: '3–5 working days' %}
   ============================================
 {% endcomment %}
 
 {% liquid
   assign is_compact = compact | default: false
+  assign source = stock_source | default: 'invicta'
+  assign del_est = supplier_delivery_est | default: '3–5 working days'
 %}
 
-<div class="inv-del-est{% if is_compact %} inv-del-est--compact{% endif %}" data-inv-delivery-estimate>
+<div class="inv-del-est{% if is_compact %} inv-del-est--compact{% endif %}" data-inv-delivery-estimate data-stock-source="{{ source }}">
   <div class="inv-del-est__row inv-del-est__delivery">
     <svg class="inv-del-est__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
       <rect x="1" y="3" width="15" height="13" rx="1"></rect>
@@ -21,12 +25,18 @@
       <circle cx="5.5" cy="18.5" r="2.5"></circle>
       <circle cx="18.5" cy="18.5" r="2.5"></circle>
     </svg>
-    <span class="inv-del-est__text">
-      <span data-inv-del-order-text>{{ 'invicta.delivery.order_now' | t }}</span>
-      <strong data-inv-del-countdown style="display:none"></strong>
-      <span data-inv-del-for-text>{{ 'invicta.delivery.for_delivery_on' | t }}</span>
-      <strong data-inv-del-day class="inv-del-est__day">Monday</strong>
-    </span>
+    {%- if source == 'supplier' -%}
+      <span class="inv-del-est__text">
+        Estimated delivery <strong class="inv-del-est__day">{{ del_est }}</strong> from order
+      </span>
+    {%- else -%}
+      <span class="inv-del-est__text">
+        <span data-inv-del-order-text>{{ 'invicta.delivery.order_now' | t }}</span>
+        <strong data-inv-del-countdown style="display:none"></strong>
+        <span data-inv-del-for-text>{{ 'invicta.delivery.for_delivery_on' | t }}</span>
+        <strong data-inv-del-day class="inv-del-est__day">Monday</strong>
+      </span>
+    {%- endif -%}
   </div>
   {% unless is_compact %}
   <div class="inv-del-est__row inv-del-est__returns">

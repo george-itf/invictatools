@@ -103,6 +103,9 @@
 .inv-card__stock--out { background-color: var(--inv-stock-out, #9ca3af); }
 .inv-card__stock-bar--low,
 .inv-card__stock--low { background-color: var(--inv-stock-low, #f59e0b); }
+/* Supplier stock — blue bar + visible label */
+.inv-card__stock-bar--supplier { background-color: var(--inv-stock-supplier, #3b82f6); }
+.inv-card__stock--supplier { display: inline-block; background-color: #3b82f6; color: #fff; }
 
 /* -----------------------------------------------------------------------
    4. STOCK LABEL

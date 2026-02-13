@@ -2,6 +2,11 @@
   'use strict';
 
   document.querySelectorAll('[data-inv-delivery-estimate]').forEach(function(el) {
+    var stockSource = el.dataset.stockSource || 'invicta';
+
+    // Supplier-sourced items show a static estimate — no countdown needed
+    if (stockSource === 'supplier') return;
+
     var dayEl = el.querySelector('[data-inv-del-day]');
     var countdownEl = el.querySelector('[data-inv-del-countdown]');
     var orderTextEl = el.querySelector('[data-inv-del-order-text]');
