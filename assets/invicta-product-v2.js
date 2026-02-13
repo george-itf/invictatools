@@ -587,25 +587,47 @@
     function updateStockStatus(available, variant) {
       const stockBanner = section.querySelector('[data-stock-banner]');
       const stockText = section.querySelector('[data-stock-text]');
+      const dispatchInfo = section.querySelector('[data-dispatch-info]');
       const lowStockThreshold = parseInt(section.dataset.lowStockThreshold, 10) || 5;
+      var stockSource = stockBanner ? (stockBanner.dataset.stockSource || 'invicta') : 'invicta';
+      var supplierBannerText = stockBanner ? (stockBanner.dataset.supplierBannerText || 'In Stock with Supplier \u2014 Usually Dispatched within 2\u20133 Working Days') : '';
 
       if (stockBanner && stockText) {
-        stockBanner.classList.remove('inv-pdp__stock-banner--in-stock', 'inv-pdp__stock-banner--out-of-stock', 'inv-pdp__stock-banner--low-stock');
+        stockBanner.classList.remove(
+          'inv-pdp__stock-banner--in-stock',
+          'inv-pdp__stock-banner--out-of-stock',
+          'inv-pdp__stock-banner--low-stock',
+          'inv-pdp__stock-banner--supplier-stock'
+        );
 
         if (available) {
-          var qty = variant && variant.inventory_quantity;
-          var tracked = variant && variant.inventory_management === 'shopify';
-
-          if (tracked && qty > 0 && qty <= lowStockThreshold) {
-            stockBanner.classList.add('inv-pdp__stock-banner--low-stock');
-            stockText.textContent = 'Only ' + qty + ' left in stock \u2014 order soon';
+          if (stockSource === 'supplier') {
+            stockBanner.classList.add('inv-pdp__stock-banner--supplier-stock');
+            stockText.textContent = supplierBannerText;
           } else {
-            stockBanner.classList.add('inv-pdp__stock-banner--in-stock');
-            stockText.textContent = 'In Stock \u2014 Ready to Ship';
+            var qty = variant && variant.inventory_quantity;
+            var tracked = variant && variant.inventory_management === 'shopify';
+
+            if (tracked && qty > 0 && qty <= lowStockThreshold) {
+              stockBanner.classList.add('inv-pdp__stock-banner--low-stock');
+              stockText.textContent = 'Only ' + qty + ' left in stock \u2014 order soon';
+            } else {
+              stockBanner.classList.add('inv-pdp__stock-banner--in-stock');
+              stockText.textContent = 'In Stock \u2014 Ready to Ship';
+            }
           }
         } else {
           stockBanner.classList.add('inv-pdp__stock-banner--out-of-stock');
           stockText.textContent = 'Out of Stock';
+        }
+      }
+
+      /* Show/hide dispatch info block for supplier items */
+      if (dispatchInfo) {
+        if (available && stockSource === 'supplier') {
+          dispatchInfo.classList.remove('inv-pdp--hidden');
+        } else {
+          dispatchInfo.classList.add('inv-pdp--hidden');
         }
       }
 

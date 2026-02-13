@@ -136,6 +136,36 @@
   box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
 }
 
+/* --- Supplier Stock Banner — blue to differentiate from in-stock green --- */
+.inv-pdp__stock-banner--supplier-stock {
+  background: #dbeafe;
+  color: #1e40af;
+}
+.inv-pdp__stock-banner--supplier-stock .inv-pdp__stock-dot {
+  background: #3b82f6;
+  animation: none;
+}
+
+/* --- Supplier Dispatch Info disclaimer block --- */
+.inv-pdp__dispatch-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #1e40af;
+  margin-bottom: 4px;
+}
+.inv-pdp__dispatch-info-icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: #3b82f6;
+}
+
 /* --- Recommendations Section --- */
 .inv-recs {
   padding: var(--pdp-space-2xl, 48px) 0;

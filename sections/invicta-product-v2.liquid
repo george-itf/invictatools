@@ -71,11 +71,87 @@
   endif
 
   comment
+    Fulfillment source detection — which stock tag does this product carry?
+    invicta-stock = held in our warehouse (ships same/next day)
+    trend-stock / toolbank-stock / timco-stock / pdp-stock = held by supplier (longer lead)
+    Priority: invicta-stock wins if present (ships faster)
+  endcomment
+  assign stock_source = 'invicta'
+  assign supplier_key = ''
+  for tag in product.tags
+    assign tag_lower = tag | downcase | strip
+    if tag_lower == 'invicta-stock'
+      assign stock_source = 'invicta'
+      assign supplier_key = ''
+      break
+    elsif tag_lower == 'trend-stock'
+      assign stock_source = 'supplier'
+      assign supplier_key = 'trend'
+    elsif tag_lower == 'toolbank-stock'
+      assign stock_source = 'supplier'
+      assign supplier_key = 'toolbank'
+    elsif tag_lower == 'timco-stock'
+      assign stock_source = 'supplier'
+      assign supplier_key = 'timco'
+    elsif tag_lower == 'pdp-stock'
+      assign stock_source = 'supplier'
+      assign supplier_key = 'pdp'
+    endif
+  endfor
+
+  comment
+    Resolve per-supplier text from section settings (falls back to generic defaults)
+  endcomment
+  assign supplier_banner_text = section.settings.supplier_stock_text | default: 'In Stock with Supplier — Usually Dispatched within 2–3 Working Days'
+  assign supplier_dispatch_text = section.settings.supplier_dispatch_text | default: 'This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 3–5 working days.'
+  assign supplier_delivery_est = section.settings.supplier_delivery_estimate | default: '3–5 working days'
+
+  if supplier_key == 'trend' and section.settings.trend_banner_text != blank
+    assign supplier_banner_text = section.settings.trend_banner_text
+  endif
+  if supplier_key == 'trend' and section.settings.trend_dispatch_text != blank
+    assign supplier_dispatch_text = section.settings.trend_dispatch_text
+  endif
+  if supplier_key == 'trend' and section.settings.trend_delivery_estimate != blank
+    assign supplier_delivery_est = section.settings.trend_delivery_estimate
+  endif
+
+  if supplier_key == 'toolbank' and section.settings.toolbank_banner_text != blank
+    assign supplier_banner_text = section.settings.toolbank_banner_text
+  endif
+  if supplier_key == 'toolbank' and section.settings.toolbank_dispatch_text != blank
+    assign supplier_dispatch_text = section.settings.toolbank_dispatch_text
+  endif
+  if supplier_key == 'toolbank' and section.settings.toolbank_delivery_estimate != blank
+    assign supplier_delivery_est = section.settings.toolbank_delivery_estimate
+  endif
+
+  if supplier_key == 'timco' and section.settings.timco_banner_text != blank
+    assign supplier_banner_text = section.settings.timco_banner_text
+  endif
+  if supplier_key == 'timco' and section.settings.timco_dispatch_text != blank
+    assign supplier_dispatch_text = section.settings.timco_dispatch_text
+  endif
+  if supplier_key == 'timco' and section.settings.timco_delivery_estimate != blank
+    assign supplier_delivery_est = section.settings.timco_delivery_estimate
+  endif
+
+  if supplier_key == 'pdp' and section.settings.pdp_banner_text != blank
+    assign supplier_banner_text = section.settings.pdp_banner_text
+  endif
+  if supplier_key == 'pdp' and section.settings.pdp_dispatch_text != blank
+    assign supplier_dispatch_text = section.settings.pdp_dispatch_text
+  endif
+  if supplier_key == 'pdp' and section.settings.pdp_delivery_estimate != blank
+    assign supplier_delivery_est = section.settings.pdp_delivery_estimate
+  endif
+
+  comment
     Buy Now price threshold (in pounds, converted to pence)
   endcomment
   assign buy_now_threshold_pence = section.settings.buy_now_price_threshold | default: 500 | times: 100
   assign show_buy_now_final = false
-  if show_buy_now and is_in_stock and current_variant.price <= buy_now_threshold_pence
+  if show_buy_now and is_in_stock and current_variant.price <= buy_now_threshold_pence and stock_source == 'invicta'
     assign show_buy_now_final = true
   endif
   
@@ -353,24 +429,54 @@
       <div class="inv-pdp__buybox">
         
         {%- comment -%} STOCK BANNER {%- endcomment -%}
-        <div 
-          class="inv-pdp__stock-banner{% if is_in_stock %} inv-pdp__stock-banner--in-stock{% else %} inv-pdp__stock-banner--out-of-stock{% endif %}"
+        <div
+          class="inv-pdp__stock-banner
+            {%- if is_in_stock and stock_source == 'supplier' %} inv-pdp__stock-banner--supplier-stock
+            {%- elsif is_in_stock and show_low_stock %} inv-pdp__stock-banner--low-stock
+            {%- elsif is_in_stock %} inv-pdp__stock-banner--in-stock
+            {%- else %} inv-pdp__stock-banner--out-of-stock
+            {%- endif -%}"
           role="status"
           aria-live="polite"
           data-stock-banner
+          data-stock-source="{{ stock_source }}"
+          data-supplier-banner-text="{{ supplier_banner_text | escape }}"
         >
           <span class="inv-pdp__stock-dot" aria-hidden="true"></span>
           <span data-stock-text>
-            {% if show_low_stock %}
-              Only {{ stock_qty }} left in stock — order soon
-            {% elsif is_in_stock %}
-              {{ section.settings.in_stock_text | default: 'In Stock — Ready to Ship' }}
-            {% else %}
+            {%- if is_in_stock == false -%}
               {{ section.settings.oos_text | default: 'Out of Stock' }}
-            {% endif %}
+            {%- elsif stock_source == 'supplier' -%}
+              {{ supplier_banner_text }}
+            {%- elsif show_low_stock -%}
+              Only {{ stock_qty }} left in stock — order soon
+            {%- else -%}
+              {{ section.settings.in_stock_text | default: 'In Stock — Ready to Ship' }}
+            {%- endif -%}
           </span>
         </div>
-        
+
+        {%- comment -%} SUPPLIER DISPATCH DISCLAIMER — only for supplier-sourced items {%- endcomment -%}
+        {%- if is_in_stock and stock_source == 'supplier' -%}
+          <div class="inv-pdp__dispatch-info" data-dispatch-info>
+            <svg class="inv-pdp__dispatch-info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <span data-dispatch-text>{{ supplier_dispatch_text }}</span>
+          </div>
+        {%- else -%}
+          <div class="inv-pdp__dispatch-info inv-pdp--hidden" data-dispatch-info>
+            <svg class="inv-pdp__dispatch-info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <span data-dispatch-text></span>
+          </div>
+        {%- endif -%}
+
         <div class="inv-pdp__buybox-body">
 
           {%- comment -%} PRODUCT TITLE — in buy box so title+price are scanned together {%- endcomment -%}
@@ -529,10 +635,10 @@
           {%- endif -%}
 
           {%- comment -%} DELIVERY ESTIMATE (reusable snippet) {%- endcomment -%}
-          {% render 'invicta-delivery-estimate' %}
-          
-          {%- comment -%} IN-STORE AVAILABILITY CTA {%- endcomment -%}
-          {% if section.settings.show_click_collect %}
+          {% render 'invicta-delivery-estimate', stock_source: stock_source, supplier_delivery_est: supplier_delivery_est %}
+
+          {%- comment -%} IN-STORE AVAILABILITY CTA — hidden for supplier-sourced (item not in shop) {%- endcomment -%}
+          {% if section.settings.show_click_collect and stock_source == 'invicta' %}
             <div class="inv-pdp__collect">
               <svg class="inv-pdp__collect-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
@@ -995,6 +1101,124 @@
       "id": "dispatch_text",
       "label": "Dispatch time text",
       "default": "Typically dispatches within 1-2 working days"
+    },
+    {
+      "type": "header",
+      "content": "Supplier Stock — Defaults"
+    },
+    {
+      "type": "paragraph",
+      "content": "Default text for products sourced from a supplier. Per-supplier overrides below."
+    },
+    {
+      "type": "text",
+      "id": "supplier_stock_text",
+      "label": "Supplier stock banner text",
+      "default": "In Stock with Supplier — Usually Dispatched within 2–3 Working Days"
+    },
+    {
+      "type": "text",
+      "id": "supplier_dispatch_text",
+      "label": "Supplier dispatch disclaimer",
+      "default": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 3–5 working days."
+    },
+    {
+      "type": "text",
+      "id": "supplier_delivery_estimate",
+      "label": "Supplier delivery estimate (delivery row)",
+      "default": "3–5 working days"
+    },
+    {
+      "type": "header",
+      "content": "Trend — Overrides"
+    },
+    {
+      "type": "paragraph",
+      "content": "Leave blank to use the defaults above."
+    },
+    {
+      "type": "text",
+      "id": "trend_banner_text",
+      "label": "Trend — Banner text"
+    },
+    {
+      "type": "text",
+      "id": "trend_dispatch_text",
+      "label": "Trend — Dispatch disclaimer"
+    },
+    {
+      "type": "text",
+      "id": "trend_delivery_estimate",
+      "label": "Trend — Delivery estimate"
+    },
+    {
+      "type": "header",
+      "content": "Toolbank — Overrides"
+    },
+    {
+      "type": "paragraph",
+      "content": "Leave blank to use the defaults above."
+    },
+    {
+      "type": "text",
+      "id": "toolbank_banner_text",
+      "label": "Toolbank — Banner text"
+    },
+    {
+      "type": "text",
+      "id": "toolbank_dispatch_text",
+      "label": "Toolbank — Dispatch disclaimer"
+    },
+    {
+      "type": "text",
+      "id": "toolbank_delivery_estimate",
+      "label": "Toolbank — Delivery estimate"
+    },
+    {
+      "type": "header",
+      "content": "Timco — Overrides"
+    },
+    {
+      "type": "paragraph",
+      "content": "Leave blank to use the defaults above."
+    },
+    {
+      "type": "text",
+      "id": "timco_banner_text",
+      "label": "Timco — Banner text"
+    },
+    {
+      "type": "text",
+      "id": "timco_dispatch_text",
+      "label": "Timco — Dispatch disclaimer"
+    },
+    {
+      "type": "text",
+      "id": "timco_delivery_estimate",
+      "label": "Timco — Delivery estimate"
+    },
+    {
+      "type": "header",
+      "content": "PDP — Overrides"
+    },
+    {
+      "type": "paragraph",
+      "content": "Leave blank to use the defaults above."
+    },
+    {
+      "type": "text",
+      "id": "pdp_banner_text",
+      "label": "PDP — Banner text"
+    },
+    {
+      "type": "text",
+      "id": "pdp_dispatch_text",
+      "label": "PDP — Dispatch disclaimer"
+    },
+    {
+      "type": "text",
+      "id": "pdp_delivery_estimate",
+      "label": "PDP — Delivery estimate"
     },
     {
       "type": "header",
