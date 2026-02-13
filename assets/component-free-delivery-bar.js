@@ -1,8 +1,12 @@
   /* Auto-update delivery bar when cart changes (for AJAX carts) */
+  /* CX v1.0: Enhanced with animation classes and urgency states */
   (function() {
     var bar = document.querySelector('[data-delivery-bar]');
     if (!bar) return;
     var threshold = parseInt(bar.dataset.threshold, 10);
+
+    /* CX v1.0: Enable smooth fill animation */
+    bar.classList.add('inv-delivery-bar--animated');
 
     function updateBar(totalPence) {
       var fill = bar.querySelector('[data-delivery-fill]');
@@ -12,6 +16,13 @@
       var qualified = totalPence >= threshold;
       var progress = qualified ? 100 : Math.min(Math.round((totalPence / threshold) * 100), 100);
       fill.style.width = progress + '%';
+
+      /* CX v1.0: "Almost there" urgency pulse when 75-99% complete */
+      if (progress >= 75 && progress < 100) {
+        bar.classList.add('inv-delivery-bar--almost');
+      } else {
+        bar.classList.remove('inv-delivery-bar--almost');
+      }
 
       if (qualified) {
         msgContainer.className = 'inv-delivery-bar__message inv-delivery-bar__message--qualified';
@@ -27,6 +38,13 @@
     document.addEventListener('cart:updated', function(e) {
       if (e.detail && e.detail.total_price != null) {
         updateBar(e.detail.total_price);
+      }
+    });
+
+    /* CX v1.0: Also listen for invicta cart events */
+    document.addEventListener('invicta:cart:updated', function(e) {
+      if (e.detail && e.detail.cart && e.detail.cart.total_price != null) {
+        updateBar(e.detail.cart.total_price);
       }
     });
   })();

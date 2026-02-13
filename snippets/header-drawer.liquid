@@ -135,6 +135,28 @@
               {%- endfor -%}
             </ul>
           </nav>
+          {%- comment -%} CX v1.0: Quick access shortcuts for mobile navigation {%- endcomment -%}
+          <div class="inv-mobile-shortcuts" role="navigation" aria-label="Quick links">
+            <a href="/collections/all" class="inv-mobile-shortcut">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              <span>Shop All</span>
+            </a>
+            {%- unless customer -%}
+              <a href="/pages/trade-account" class="inv-mobile-shortcut">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Trade</span>
+              </a>
+            {%- endunless -%}
+            <a href="/collections" class="inv-mobile-shortcut">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+              <span>Categories</span>
+            </a>
+            <a href="/pages/contact" class="inv-mobile-shortcut">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              <span>Contact</span>
+            </a>
+          </div>
+
           <div class="menu-drawer__utility-links">
             {%- if shop.customer_accounts_enabled -%}
               <a

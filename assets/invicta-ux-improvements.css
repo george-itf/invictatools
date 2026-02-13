@@ -47,20 +47,20 @@
    2. FOCUS STATES — Global Accessibility
    ======================================================= */
 
-/* Ensure focus outlines are never completely removed */
+/* CX v1.0: Higher contrast focus ring — 3px solid for WCAG AAA compliance */
 *:focus-visible {
-  outline: 2px solid #e11d26;
+  outline: 3px solid #1a1a1a;
   outline-offset: 2px;
 }
 
-/* Buttons and links with focus-visible */
+/* Interactive elements use brand accent color for focus */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 [tabindex]:focus-visible {
-  outline: 2px solid #e11d26;
+  outline: 3px solid var(--inv-accent, #e11d26);
   outline-offset: 2px;
 }
 
@@ -353,6 +353,14 @@ h3, .h3 { line-height: 1.25; }
   }
 
   .inv-pdp__sticky-atc {
+    transition: none;
+  }
+
+  /* CX v1.0: Comprehensive reduced-motion support */
+  .inv-pdp__atc-btn,
+  .inv-btn-primary,
+  .inv-btn-secondary,
+  .skip-to-content-link {
     transition: none;
   }
 }
