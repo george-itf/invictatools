@@ -422,6 +422,9 @@
   <div class="inv-drawer-overlay" id="InvDrawerOverlay"></div>
   
   <div class="inv-drawer" id="InvDrawer" role="dialog" aria-modal="true" aria-label="Filter products" aria-hidden="true">
+    <div class="inv-drawer__drag-handle" id="InvDrawerHandle" aria-hidden="true">
+      <span class="inv-drawer__drag-bar"></span>
+    </div>
     <div class="inv-drawer__header">
       <span class="inv-drawer__title">Filters</span>
       <button type="button" class="inv-drawer__close" id="InvDrawerClose" aria-label="Close filters">
@@ -572,13 +575,17 @@
      DRAWER FUNCTIONS
      ========================================================================== */
   
+  var scrollPosition = 0;
+
   function openDrawer() {
     if (!drawer || !overlay) return;
     lastFocusedEl = document.activeElement;
+    scrollPosition = window.scrollY || window.pageYOffset;
     drawer.classList.add('is-open');
     drawer.setAttribute('aria-hidden', 'false');
     overlay.classList.add('is-visible');
-    document.body.style.overflow = 'hidden';
+    document.body.classList.add('inv-drawer-open');
+    document.body.style.top = '-' + scrollPosition + 'px';
     if (filterToggle) filterToggle.setAttribute('aria-expanded', 'true');
     if (drawerClose) drawerClose.focus();
   }
@@ -586,9 +593,12 @@
   function closeDrawer() {
     if (!drawer || !overlay) return;
     drawer.classList.remove('is-open');
+    drawer.style.transform = '';
     drawer.setAttribute('aria-hidden', 'true');
     overlay.classList.remove('is-visible');
-    document.body.style.overflow = '';
+    document.body.classList.remove('inv-drawer-open');
+    document.body.style.top = '';
+    window.scrollTo(0, scrollPosition);
     if (filterToggle) filterToggle.setAttribute('aria-expanded', 'false');
     if (lastFocusedEl) lastFocusedEl.focus();
     lastFocusedEl = null;
@@ -635,6 +645,56 @@
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     }
   });
+
+  /* ==========================================================================
+     DRAG-TO-DISMISS (bottom sheet gesture)
+     ========================================================================== */
+
+  (function() {
+    if (!drawer) return;
+    var handle = document.getElementById('InvDrawerHandle');
+    var startY = 0;
+    var currentY = 0;
+    var isDragging = false;
+    var DISMISS_THRESHOLD = 120;
+
+    function onTouchStart(e) {
+      if (!drawer.classList.contains('is-open')) return;
+      isDragging = true;
+      startY = e.touches[0].clientY;
+      currentY = startY;
+      drawer.style.transition = 'none';
+    }
+
+    function onTouchMove(e) {
+      if (!isDragging) return;
+      currentY = e.touches[0].clientY;
+      var deltaY = currentY - startY;
+      if (deltaY < 0) deltaY = 0;
+      drawer.style.transform = 'translateY(' + deltaY + 'px)';
+      overlay.style.opacity = Math.max(0, 1 - (deltaY / 300));
+    }
+
+    function onTouchEnd() {
+      if (!isDragging) return;
+      isDragging = false;
+      var deltaY = currentY - startY;
+      drawer.style.transition = '';
+      overlay.style.opacity = '';
+      overlay.style.transition = '';
+      if (deltaY > DISMISS_THRESHOLD) {
+        closeDrawer();
+      } else {
+        drawer.style.transform = 'translateY(0)';
+      }
+    }
+
+    if (handle) {
+      handle.addEventListener('touchstart', onTouchStart, { passive: true });
+      handle.addEventListener('touchmove', onTouchMove, { passive: false });
+      handle.addEventListener('touchend', onTouchEnd, { passive: true });
+    }
+  })();
 
   // Build filter URL from form inputs
   function buildFilterUrl(form) {
@@ -742,7 +802,8 @@
   
   if (drawer) drawer.classList.remove('is-open');
   if (overlay) overlay.classList.remove('is-visible');
-  document.body.style.overflow = '';
+  document.body.classList.remove('inv-drawer-open');
+  document.body.style.top = '';
 
 })();
 </script>

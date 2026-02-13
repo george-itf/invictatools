@@ -371,7 +371,7 @@
 
 @media (max-width: 749px) {
   .inv-card__media {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 1 / 1;
   }
 
   .inv-card__body {
