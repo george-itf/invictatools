@@ -465,13 +465,14 @@
 .inv-filter-chip {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 5px 10px;
+  gap: 6px;
+  padding: 8px 12px;
+  min-height: 36px;
   font-size: 12px;
   font-weight: 600;
   color: #fff;
   background: var(--inv-c-accent);
-  border-radius: 4px;
+  border-radius: 6px;
   text-decoration: none;
   transition: opacity var(--inv-c-transition);
 }
@@ -481,8 +482,8 @@
 }
 
 .inv-filter-chip svg {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   flex-shrink: 0;
 }
 
@@ -492,9 +493,12 @@
   font-weight: 600;
   color: var(--inv-c-accent);
   text-decoration: none;
-  padding: 5px 10px;
+  padding: 8px 12px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
   border: 1px solid var(--inv-c-accent);
-  border-radius: 4px;
+  border-radius: 6px;
   transition: all var(--inv-c-transition);
 }
 
@@ -658,7 +662,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 4px 0;
+  padding: 8px 0;
+  min-height: 40px;
   cursor: pointer;
   font-size: 13px;
   color: var(--inv-c-text);
@@ -745,8 +750,9 @@
 
 .inv-facet__price-input {
   width: 100%;
-  padding: 8px 10px;
-  font-size: 13px;
+  padding: 10px;
+  min-height: 44px;
+  font-size: 14px;
   font-family: inherit;
   border: none;
   outline: none;
@@ -755,7 +761,7 @@
 }
 
 .inv-facet__price-input::placeholder {
-  color: #bbb;
+  color: #888;
 }
 
 .inv-facet__price-sep {
@@ -908,6 +914,14 @@
   background: #333;
 }
 
+/* iOS body scroll lock — prevents background scroll when drawer open */
+body.inv-drawer-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  -webkit-overflow-scrolling: none;
+}
+
 /* ============================================================================
    6. MOBILE FILTER DRAWER
    ============================================================================ */
@@ -947,11 +961,29 @@
   transform: translateY(0);
 }
 
+/* Drag handle — visual swipe hint */
+.inv-drawer__drag-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0 2px;
+  cursor: grab;
+  flex-shrink: 0;
+  touch-action: none;
+}
+
+.inv-drawer__drag-bar {
+  width: 36px;
+  height: 4px;
+  background: #d0d0d0;
+  border-radius: 2px;
+}
+
 .inv-drawer__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
+  padding: 12px 20px 16px;
   border-bottom: 1px solid var(--inv-c-border);
   flex-shrink: 0;
 }
@@ -1010,15 +1042,20 @@
   align-items: center;
   gap: 12px;
   padding: 16px 20px;
+  padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
   border-top: 1px solid var(--inv-c-border);
   background: #fff;
   flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
 }
 
 .inv-drawer__reset {
   flex: 1;
   text-align: center;
-  padding: 12px;
+  padding: 14px 12px;
+  min-height: 48px;
   font-size: 14px;
   font-weight: 600;
   color: var(--inv-c-muted);
@@ -1036,6 +1073,7 @@
 .inv-drawer__apply {
   flex: 2;
   padding: 14px 24px;
+  min-height: 48px;
   font-size: 14px;
   font-weight: 700;
   font-family: inherit;
@@ -1057,15 +1095,16 @@
 
 .inv-floating-filter {
   position: fixed;
-  bottom: 20px;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%) translateY(80px);
-  z-index: 100;
+  z-index: 92;
   display: none; /* Hidden on desktop */
   align-items: center;
   gap: 6px;
-  padding: 12px 20px;
-  font-size: 13px;
+  padding: 14px 24px;
+  min-height: 48px;
+  font-size: 14px;
   font-weight: 700;
   font-family: inherit;
   color: #fff;
@@ -1074,7 +1113,7 @@
   border-radius: 999px;
   cursor: pointer;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.3s ease;
+  transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.25s ease;
   opacity: 0;
 }
 
@@ -1104,14 +1143,16 @@
 
 .inv-scroll-top {
   position: fixed;
-  bottom: 20px;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
   right: 20px;
-  z-index: 100;
+  z-index: 91;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2px;
   padding: 10px 12px 8px;
+  min-width: 44px;
+  min-height: 44px;
   font-size: 10px;
   font-weight: 700;
   font-family: inherit;
@@ -1187,8 +1228,8 @@
   }
 
   .inv-hero__description {
-    font-size: 0.85rem;
-    margin-top: 8px;
+    font-size: 0.9rem;
+    margin-top: 10px;
   }
 
   .inv-hero__brands {
@@ -1202,8 +1243,9 @@
   }
 
   .inv-brand-pill {
-    padding: 5px 10px;
-    font-size: 11px;
+    padding: 8px 12px;
+    min-height: 36px;
+    font-size: 12px;
   }
 
   .inv-brand-pill:hover {
@@ -1216,7 +1258,7 @@
 
   /* Toolbar */
   .inv-toolbar__inner {
-    padding: 8px 0;
+    padding: 10px 0;
   }
 
   .inv-sort__label {
@@ -1224,15 +1266,15 @@
   }
 
   .inv-sort__select {
-    min-height: 36px;
-    font-size: 12px;
-    padding: 6px 28px 6px 10px;
+    min-height: 44px;
+    font-size: 13px;
+    padding: 8px 32px 8px 12px;
   }
 
   .inv-filter-toggle {
     min-height: 44px;
-    padding: 6px 10px;
-    font-size: 12px;
+    padding: 8px 12px;
+    font-size: 13px;
   }
 
   /* Layout — single column, no sidebar */
@@ -1261,8 +1303,19 @@
   }
 
   .inv-filter-chip {
-    font-size: 11px;
-    padding: 4px 8px;
+    font-size: 12px;
+    padding: 6px 10px;
+    min-height: 36px;
+  }
+
+  .inv-filter-chip svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .inv-clear-all {
+    min-height: 36px;
+    padding: 6px 10px;
   }
 
   /* Floating filter — visible on mobile */
@@ -1278,7 +1331,7 @@
   /* Pagination */
   .inv-collection .inv-pagination {
     margin-top: 24px;
-    gap: 4px;
+    gap: 6px;
   }
 
   .inv-pagination__item {
@@ -1297,7 +1350,8 @@
 
   .inv-full-catalogue-banner__link {
     justify-content: center;
-    padding: 10px 12px;
+    padding: 12px;
+    min-height: 44px;
   }
 
   /* Empty state */
@@ -1305,10 +1359,31 @@
     padding: 48px 16px;
   }
 
-  /* Scroll to top */
+  /* Scroll to top — raised above floating filter */
   .inv-scroll-top {
-    bottom: 80px;
+    bottom: calc(80px + env(safe-area-inset-bottom, 0px));
     right: 16px;
+  }
+
+  /* Drawer adjustments for mobile */
+  .inv-drawer {
+    max-height: 90vh;
+  }
+
+  .inv-facet__label-wrap {
+    padding: 10px 0;
+    min-height: 44px;
+    font-size: 14px;
+  }
+
+  .inv-facet__checkbox {
+    width: 20px;
+    height: 20px;
+  }
+
+  .inv-facet__checkbox:checked::after {
+    left: 6px;
+    top: 2px;
   }
 }
 
