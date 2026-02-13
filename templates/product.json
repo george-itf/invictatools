@@ -1,103 +1,51 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "invicta-product-v2",
       "settings": {
         "show_breadcrumb": true,
-        "delivery_title": "FREE Next Day Delivery"
-      }
-    },
-    "invicta_product_reviews": {
-      "type": "invicta-product-reviews",
-      "blocks": {
-        "review_1": {
-          "type": "review",
-          "settings": {
-            "reviewer_name": "James T.",
-            "rating": 5,
-            "date": "28 January 2026",
-            "title": "Excellent quality drill bits",
-            "body": "<p>Been using these HSS drill bits on site for the past month. They hold their edge brilliantly and the price is very competitive compared to what we were paying before. Will be ordering more.</p>",
-            "verified": true
-          }
-        },
-        "review_2": {
-          "type": "review",
-          "settings": {
-            "reviewer_name": "Sarah M.",
-            "rating": 4,
-            "date": "15 January 2026",
-            "title": "Good product, quick delivery",
-            "body": "<p>Ordered Monday afternoon, arrived Tuesday morning. Product exactly as described. Only reason for 4 stars is the packaging could be better for heavier items — box was a bit battered on arrival but contents were fine.</p>",
-            "verified": true
-          }
-        },
-        "review_3": {
-          "type": "review",
-          "settings": {
-            "reviewer_name": "Dave K.",
-            "rating": 5,
-            "date": "8 January 2026",
-            "title": "Great value for trade",
-            "body": "<p>We've switched all our fixings orders to Invicta. The trade pricing is genuinely competitive and the next-day delivery has been spot on every time. Highly recommended for any tradesperson in Kent.</p>",
-            "verified": true
-          }
-        }
-      },
-      "block_order": [
-        "review_1",
-        "review_2",
-        "review_3"
-      ],
-      "settings": {
-        "heading": "Customer Reviews",
-        "show_summary": true,
-        "show_write_review": true,
-        "reviews_per_page": 5,
-        "background_color": "#ffffff"
-      }
-    },
-    "invicta_product_qa_xK4mPz": {
-      "type": "invicta-product-qa",
-      "blocks": {
-        "qa_1": {
-          "type": "qa_pair",
-          "settings": {
-            "question": "What's included in the box?",
-            "answer": "<p>Please check the product description above for what's included. 'Bare Unit' means the tool body only — batteries, charger and case are sold separately or can be added via the Build & Save option.</p>"
-          }
-        },
-        "qa_2": {
-          "type": "qa_pair",
-          "settings": {
-            "question": "Is this covered by manufacturer warranty?",
-            "answer": "<p>Yes. As an authorised dealer, all products come with full manufacturer warranty. We handle claims directly — just contact us with your order number.</p>"
-          }
-        },
-        "qa_3": {
-          "type": "qa_pair",
-          "settings": {
-            "question": "Can I collect from your store?",
-            "answer": "<p>Yes! Click & Collect is available from both our Canterbury and Ramsgate branches. Orders are usually ready within 1 hour during opening hours.</p>"
-          }
-        },
-        "qa_4": {
-          "type": "qa_pair",
-          "settings": {
-            "question": "Do you offer trade accounts?",
-            "answer": "<p>Yes — trade accounts come with 30-day payment terms, exclusive pricing and a dedicated account manager. <a href='/pages/trade-account'>Apply here</a>.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "qa_1",
-        "qa_2",
-        "qa_3",
-        "qa_4"
-      ],
-      "settings": {
-        "heading": "Common Questions",
-        "background_color": "#ffffff"
+        "show_sku": true,
+        "show_key_specs": true,
+        "show_buy_now": true,
+        "show_trust_badges": false,
+        "delivery_title": "FREE Next Day Delivery",
+        "delivery_text": "Order before 2pm for next working day delivery",
+        "in_stock_text": "In Stock — Ready to Ship",
+        "dispatch_text": "Typically dispatches within 1-2 working days",
+        "supplier_stock_text": "In Stock with Supplier — Usually Dispatched within 2–3 Working Days",
+        "supplier_dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 3–5 working days.",
+        "supplier_delivery_estimate": "3–5 working days",
+        "trend_banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
+        "trend_dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
+        "trend_delivery_estimate": "2-3 working days",
+        "toolbank_banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
+        "toolbank_dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
+        "toolbank_delivery_estimate": "2-3 working days",
+        "timco_banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
+        "timco_dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
+        "timco_delivery_estimate": "2-3 working days",
+        "pdp_banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
+        "pdp_dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
+        "pdp_delivery_estimate": "2-3 working days",
+        "atc_text": "Add to Cart",
+        "oos_text": "Out of Stock",
+        "buy_now_text": "Buy Now — Skip the Cart",
+        "cart_error_text": "Sorry, couldn't add to cart. Please try again.",
+        "low_stock_threshold": 5,
+        "buy_now_price_threshold": 500,
+        "show_click_collect": true,
+        "collect_text": "Call us on 01227 456789 to check availability at Canterbury or Ramsgate",
+        "recs_title": "You May Also Like",
+        "recs_limit": 4
       }
     },
     "invicta_recently_viewed_DMDqhH": {
@@ -156,7 +104,7 @@
         "background_color": "#ffffff",
         "text_color": "#1a1a1a",
         "text_muted_color": "#666666",
-        "accent_color": "#e41e25",
+        "accent_color": "#e11d26",
         "card_bg_color": "#ffffff",
         "card_border_color": "#e5e5e5",
         "cta_icon_bg": "#f5f5f5",
@@ -168,8 +116,6 @@
   },
   "order": [
     "main",
-    "invicta_product_reviews",
-    "invicta_product_qa_xK4mPz",
     "invicta_recently_viewed_DMDqhH"
   ]
 }
