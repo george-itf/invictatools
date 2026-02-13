@@ -433,20 +433,24 @@
                 <span class="inv-pdp__price-was" data-compare-ex>{{ compare_ex_vat | money }}</span>
               {% endif %}
             </div>
-            {%- comment -%} VAT toggle — fixed position below price, never jumps {%- endcomment -%}
-            <div class="inv-pdp__vat-toggle">
+            {%- comment -%} CX v1.1: VAT toggle — improved UX for trade customers {%- endcomment -%}
+            <div class="inv-pdp__vat-toggle" data-vat-toggle-wrap>
               <span class="inv-pdp__vat-toggle-label" data-vat-label-ex>EX VAT</span>
               <button
                 type="button"
                 class="inv-pdp__vat-toggle-switch"
                 role="switch"
                 aria-checked="true"
-                aria-label="Toggle VAT display"
+                aria-label="Show prices including or excluding VAT"
+                title="Switch between prices including and excluding VAT"
                 data-vat-toggle
               >
                 <span class="inv-pdp__vat-toggle-thumb"></span>
               </button>
               <span class="inv-pdp__vat-toggle-label inv-pdp__vat-toggle-label--active" data-vat-label-inc>INC VAT</span>
+              {%- if customer and customer.tags contains 'trade' -%}
+                <span class="inv-pdp__vat-trade-hint">Trade prices shown ex VAT by default</span>
+              {%- endif -%}
             </div>
 
             {%- comment -%} SAVINGS (visible in both views) {%- endcomment -%}
@@ -489,6 +493,41 @@
             </div>
           {% endif %}
           
+          {%- comment -%} CX v1.1: VOLUME / TIERED PRICING TABLE {%- endcomment -%}
+          {%- if current_variant.quantity_price_breaks.size > 0 -%}
+            <div class="invicta-tiered-pricing" data-tiered-pricing>
+              <h3 class="invicta-tiered-pricing__title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                Buy More, Save More
+              </h3>
+              <div class="invicta-tiered-pricing__table" role="table" aria-label="Volume pricing tiers">
+                <div class="invicta-tiered-pricing__header" role="row">
+                  <span role="columnheader">Quantity</span>
+                  <span role="columnheader">Price Each</span>
+                  <span role="columnheader">Savings</span>
+                </div>
+                {%- assign base_price = current_variant.price -%}
+                {%- assign sorted_breaks = current_variant.quantity_price_breaks | sort: 'minimum_quantity' -%}
+                {%- for price_break in sorted_breaks -%}
+                  {%- assign saving_pence = base_price | minus: price_break.price | times: price_break.minimum_quantity -%}
+                  {%- assign saving_percent = base_price | minus: price_break.price | times: 100 | divided_by: base_price -%}
+                  <div class="invicta-tiered-pricing__row" role="row" data-tier-qty="{{ price_break.minimum_quantity }}">
+                    <span class="invicta-tiered-pricing__qty" role="cell">{{ price_break.minimum_quantity }}+</span>
+                    <span class="invicta-tiered-pricing__price" role="cell">{{ price_break.price | money }}</span>
+                    <span role="cell">
+                      {%- if saving_percent > 0 -%}
+                        <span class="invicta-tiered-pricing__badge">Save {{ saving_percent }}%</span>
+                      {%- endif -%}
+                    </span>
+                  </div>
+                {%- endfor -%}
+              </div>
+              <p class="invicta-tiered-pricing__note">Prices update automatically based on quantity</p>
+            </div>
+            {{ 'component-tiered-pricing.css' | asset_url | stylesheet_tag }}
+            <script src="{{ 'component-tiered-pricing.js' | asset_url }}" defer></script>
+          {%- endif -%}
+
           {%- comment -%} DELIVERY ESTIMATE (reusable snippet) {%- endcomment -%}
           {% render 'invicta-delivery-estimate' %}
           
@@ -576,6 +615,41 @@
             
             {%- comment -%} CART ERROR FEEDBACK {%- endcomment -%}
             <div class="inv-pdp__atc-error inv-pdp--hidden" role="alert" aria-live="assertive" data-atc-error data-error-text="{{ section.settings.cart_error_text | escape }}"></div>
+
+            {%- comment -%} CX v1.1: BACK-IN-STOCK NOTIFICATION {%- endcomment -%}
+            <div class="inv-pdp__notify{% if is_in_stock %} inv-pdp--hidden{% endif %}" data-notify-wrap>
+              <div class="inv-pdp__notify-inner">
+                <p class="inv-pdp__notify-heading">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                  Notify me when back in stock
+                </p>
+                <form class="inv-pdp__notify-form" data-notify-form data-product-title="{{ product.title | escape }}" data-product-handle="{{ product.handle }}">
+                  <div class="inv-pdp__notify-field">
+                    <input
+                      type="email"
+                      name="email"
+                      class="inv-pdp__notify-input"
+                      placeholder="Enter your email address"
+                      aria-label="Email address for back-in-stock notification"
+                      required
+                      data-notify-email
+                    >
+                    <button type="submit" class="inv-pdp__notify-btn" data-notify-submit>
+                      <span data-notify-btn-text>Notify Me</span>
+                      <span class="inv-pdp__notify-spinner inv-pdp--hidden" data-notify-spinner aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="12"/></svg>
+                      </span>
+                    </button>
+                  </div>
+                  <p class="inv-pdp__notify-success inv-pdp--hidden" data-notify-success role="status">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    We'll email you when this item is available again.
+                  </p>
+                  <p class="inv-pdp__notify-error inv-pdp--hidden" data-notify-error role="alert"></p>
+                  <p class="inv-pdp__notify-privacy">We'll only use your email for this notification.</p>
+                </form>
+              </div>
+            </div>
 
             {%- comment -%} BUY NOW — only when in stock AND below price threshold {%- endcomment -%}
             {% if show_buy_now_final %}

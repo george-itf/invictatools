@@ -627,6 +627,93 @@
     initTradeCTA();
     initPDPTrustStrip();
     addMobileShortcuts();
+    initBackInStockNotify();
+  }
+
+  /* ========================================
+     CX v1.1: BACK-IN-STOCK NOTIFICATIONS
+     Handles the notify-me form submission
+     ======================================== */
+
+  function initBackInStockNotify() {
+    document.querySelectorAll('[data-notify-form]').forEach(function(form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var emailInput = form.querySelector('[data-notify-email]');
+        var submitBtn = form.querySelector('[data-notify-submit]');
+        var btnText = form.querySelector('[data-notify-btn-text]');
+        var spinner = form.querySelector('[data-notify-spinner]');
+        var successMsg = form.querySelector('[data-notify-success]');
+        var errorMsg = form.querySelector('[data-notify-error]');
+        var email = emailInput ? emailInput.value.trim() : '';
+
+        if (!email) return;
+
+        /* Show loading state */
+        if (submitBtn) submitBtn.disabled = true;
+        if (btnText) btnText.classList.add('inv-pdp--hidden');
+        if (spinner) spinner.classList.remove('inv-pdp--hidden');
+        if (errorMsg) errorMsg.classList.add('inv-pdp--hidden');
+
+        var productTitle = form.getAttribute('data-product-title') || '';
+        var productHandle = form.getAttribute('data-product-handle') || '';
+
+        /* Submit to Shopify customer API (creates a contact form entry) */
+        var formData = new FormData();
+        formData.append('form_type', 'customer');
+        formData.append('utf8', '\u2713');
+        formData.append('customer[email]', email);
+        formData.append('customer[tags]', 'back-in-stock,' + productHandle);
+        formData.append('customer[note]', 'Back in stock request for: ' + productTitle + ' (' + productHandle + ')');
+
+        fetch('/contact', {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(function() {
+          /* Show success regardless — we don't want to leak customer data */
+          if (successMsg) successMsg.classList.remove('inv-pdp--hidden');
+          if (submitBtn) submitBtn.style.display = 'none';
+          if (emailInput) emailInput.style.display = 'none';
+          form.closest('.inv-pdp__notify-field').style.display = 'none';
+
+          /* Store in localStorage so we don't pester them again */
+          try {
+            var notified = JSON.parse(localStorage.getItem('invicta-notify') || '[]');
+            notified.push(productHandle);
+            localStorage.setItem('invicta-notify', JSON.stringify(notified));
+          } catch (err) { /* silent */ }
+        })
+        .catch(function() {
+          if (errorMsg) {
+            errorMsg.textContent = 'Something went wrong. Please try again.';
+            errorMsg.classList.remove('inv-pdp--hidden');
+          }
+          if (submitBtn) submitBtn.disabled = false;
+          if (btnText) btnText.classList.remove('inv-pdp--hidden');
+          if (spinner) spinner.classList.add('inv-pdp--hidden');
+        });
+      });
+    });
+
+    /* Check if user already signed up for this product */
+    try {
+      var notified = JSON.parse(localStorage.getItem('invicta-notify') || '[]');
+      document.querySelectorAll('[data-notify-form]').forEach(function(form) {
+        var handle = form.getAttribute('data-product-handle');
+        if (handle && notified.indexOf(handle) > -1) {
+          var field = form.querySelector('.inv-pdp__notify-field');
+          var success = form.querySelector('[data-notify-success]');
+          if (field) field.style.display = 'none';
+          if (success) {
+            success.classList.remove('inv-pdp--hidden');
+            success.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> You\u2019re signed up \u2014 we\u2019ll email you when it\u2019s back.';
+          }
+        }
+      });
+    } catch (err) { /* silent */ }
   }
 
   if (document.readyState === 'loading') {

@@ -32,7 +32,9 @@
   'use strict';
 
   var STORAGE_KEY = 'invicta-vat-mode';
-  var DEFAULT_MODE = 'inc';
+  /* CX v1.1: Default to 'ex' for trade customers who haven't set a preference */
+  var isTradeCustomer = window.invictaConfig && window.invictaConfig.isTradeCustomer;
+  var DEFAULT_MODE = isTradeCustomer ? 'ex' : 'inc';
   var HIDDEN_CLASS = 'inv-vat--hidden';
 
   /**
@@ -42,7 +44,8 @@
   function getVatMode() {
     try {
       var stored = localStorage.getItem(STORAGE_KEY);
-      return stored === 'ex' ? 'ex' : DEFAULT_MODE;
+      if (stored === 'inc' || stored === 'ex') return stored;
+      return DEFAULT_MODE;
     } catch (e) {
       return DEFAULT_MODE;
     }

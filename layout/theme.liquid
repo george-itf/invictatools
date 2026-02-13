@@ -515,7 +515,8 @@
         vatRate: {{ settings.inv_vat_rate }},
         vatDivisor: {{ inv_vat_divisor }},
         freeShippingPence: {{ inv_shipping_threshold }},
-        deliveryCutoffHour: {{ settings.inv_delivery_cutoff_hour }}
+        deliveryCutoffHour: {{ settings.inv_delivery_cutoff_hour }},
+        isTradeCustomer: {% if customer and customer.tags contains 'trade' %}true{% else %}false{% endif %}
       };
     </script>
 

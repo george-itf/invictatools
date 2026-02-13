@@ -617,6 +617,16 @@
       if (buyNowBtn) {
         buyNowBtn.disabled = !available;
       }
+
+      /* CX v1.1: Show/hide back-in-stock notification form */
+      var notifyWrap = section.querySelector('[data-notify-wrap]');
+      if (notifyWrap) {
+        if (available) {
+          notifyWrap.classList.add('inv-pdp--hidden');
+        } else {
+          notifyWrap.classList.remove('inv-pdp--hidden');
+        }
+      }
     }
 
     variantSelects.forEach(function(select) {
