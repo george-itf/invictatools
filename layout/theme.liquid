@@ -31,6 +31,9 @@
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     <link rel="dns-prefetch" href="https://monorail-edge.shopifysvc.com">
 
+    {%- comment -%} CX v1.0: Preconnect to search API for faster predictive search {%- endcomment -%}
+    <link rel="dns-prefetch" href="{{ request.origin }}">
+
     {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
@@ -333,8 +336,8 @@
          INVICTA CSS — PWA-Ready Load Order
          ============================================= -->
     
-    <!-- 1. Base Theme CSS (foundations) -->
-    {{ 'base.css' | asset_url | stylesheet_tag }}
+    <!-- 1. Base Theme CSS (foundations — high priority) -->
+    <link rel="stylesheet" href="{{ 'base.css' | asset_url }}" fetchpriority="high">
     
     <!-- 2. Shared Components (lazy-loaded — only needed on product listing pages) -->
     <link rel="stylesheet" href="{{ 'invicta-brand-pill.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -518,6 +521,10 @@
 
     <!-- Cart Handler (moved from <head> — needs DOM, not critical path) -->
     {% render 'invicta-cart-handler' %}
+
+    <!-- CX v1.0: Customer Experience Improvements -->
+    <script src="{{ 'invicta-cx-improvements.js' | asset_url }}" defer></script>
+    {{ 'invicta-cx-improvements.css' | asset_url | stylesheet_tag }}
 
     <!-- =============================================
          INVICTA JS — Clean Load Order

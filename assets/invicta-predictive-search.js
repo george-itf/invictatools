@@ -152,10 +152,13 @@
       var title = product.title || '';
       var price = formatMoney(product.price);
       var url = product.url || '';
+      var vendor = product.vendor || '';
+      var available = product.available !== false;
 
       var anchor = document.createElement('a');
       anchor.setAttribute('href', url);
       anchor.className = 'inv-search-results__item';
+      anchor.setAttribute('role', 'option');
 
       if (image) {
         var img = document.createElement('img');
@@ -169,15 +172,34 @@
       var infoDiv = document.createElement('div');
       infoDiv.className = 'inv-search-results__info';
 
+      /* CX v1.0: Show vendor/brand above title */
+      if (vendor) {
+        var vendorP = document.createElement('p');
+        vendorP.className = 'inv-search-results__vendor';
+        vendorP.textContent = vendor;
+        infoDiv.appendChild(vendorP);
+      }
+
       var titleP = document.createElement('p');
       titleP.className = 'inv-search-results__title';
       titleP.textContent = title;
       infoDiv.appendChild(titleP);
 
+      var metaDiv = document.createElement('div');
+      metaDiv.style.cssText = 'display:flex;align-items:center;gap:8px;margin-top:2px';
+
       var priceP = document.createElement('p');
       priceP.className = 'inv-search-results__price';
       priceP.textContent = price;
-      infoDiv.appendChild(priceP);
+      metaDiv.appendChild(priceP);
+
+      /* CX v1.0: Stock status badge */
+      var stockBadge = document.createElement('span');
+      stockBadge.className = 'inv-search-results__stock inv-search-results__stock--' + (available ? 'in-stock' : 'out-of-stock');
+      stockBadge.textContent = available ? 'In Stock' : 'Out of Stock';
+      metaDiv.appendChild(stockBadge);
+
+      infoDiv.appendChild(metaDiv);
 
       anchor.appendChild(infoDiv);
       results.appendChild(anchor);

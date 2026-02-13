@@ -52,9 +52,22 @@
         countdownEl.textContent = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
         countdownEl.style.display = 'inline';
         if (orderTextEl) orderTextEl.textContent = 'Order within ';
+
+        /* CX v1.0: Add urgency classes when time is running low */
+        if (h < 2) {
+          el.classList.add('inv-del-est--urgent');
+        } else {
+          el.classList.remove('inv-del-est--urgent');
+        }
+        if (h === 0 && m < 30) {
+          el.classList.add('inv-del-est--critical');
+        } else {
+          el.classList.remove('inv-del-est--critical');
+        }
       } else {
         if (countdownEl) countdownEl.style.display = 'none';
         if (orderTextEl) orderTextEl.textContent = 'Order now';
+        el.classList.remove('inv-del-est--urgent', 'inv-del-est--critical');
 
         // No countdown needed outside business hours — stop the timer
         if (timerId) {
