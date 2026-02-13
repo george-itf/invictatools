@@ -21,24 +21,69 @@
 }
 
 /* ============================================================================
-   1. HERO
+   1. HERO — CX v1.2 Redesigned
    ============================================================================ */
 
 .inv-hero {
-  background: var(--inv-c-dark);
+  position: relative;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
   color: #fff;
-  padding: 16px 0 18px;
+  padding: 32px 0 28px;
+  overflow: hidden;
 }
 
-/* Breadcrumb (inside hero) */
+/* Subtle geometric pattern overlay for visual texture */
+.inv-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(225, 29, 38, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* When collection has a featured image */
+.inv-hero--has-image {
+  padding: 40px 0 32px;
+}
+
+.inv-hero__image-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.inv-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.inv-hero--has-image .inv-hero__overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.92) 0%,
+    rgba(15, 23, 42, 0.80) 40%,
+    rgba(15, 23, 42, 0.70) 100%
+  );
+}
+
+.inv-hero__content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Breadcrumb */
 .inv-hero__breadcrumb ol {
   display: flex;
   align-items: center;
   list-style: none;
-  margin: 0 0 10px;
+  margin: 0 0 14px;
   padding: 0;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .inv-hero__breadcrumb li {
@@ -48,25 +93,27 @@
 
 .inv-hero__breadcrumb li + li::before {
   content: '›';
-  margin: 0 6px;
+  margin: 0 8px;
   color: rgba(255, 255, 255, 0.3);
+  font-size: 14px;
 }
 
 .inv-hero__breadcrumb a {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.55);
   text-decoration: none;
+  transition: color 0.15s ease;
 }
 
 .inv-hero__breadcrumb a:hover {
-  color: rgba(255, 255, 255, 0.8);
+  color: #fff;
 }
 
 .inv-hero__breadcrumb [aria-current] {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.8);
 }
 
-/* Title row */
-.inv-hero__row {
+/* Title block */
+.inv-hero__title-block {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -75,75 +122,129 @@
 }
 
 .inv-hero__title {
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  font-weight: 700;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 800;
   margin: 0;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Accent underline on the title */
+.inv-hero__title::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  margin-top: 10px;
+  background: var(--inv-c-accent, #e11d26);
+  border-radius: 2px;
 }
 
 .inv-hero__count {
-  font-size: 13px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 5px 12px;
+  border-radius: 20px;
   white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.inv-hero__count svg {
+  opacity: 0.6;
+}
+
+/* Description / subheading */
+.inv-hero__description {
+  margin: 12px 0 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 640px;
 }
 
 /* Brand Quick Filters */
 .inv-hero__brands {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   flex-wrap: wrap;
-  margin-top: 12px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .inv-hero__brands-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.45);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   margin-right: 2px;
+}
+
+.inv-hero__brands-label svg {
+  opacity: 0.5;
 }
 
 .inv-brand-pill {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 6px 12px;
+  padding: 7px 14px;
   font-size: 12px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.85);
-  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 4px;
+  border-radius: 6px;
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  transition: background var(--inv-c-transition), border-color var(--inv-c-transition);
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .inv-brand-pill:hover {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
   color: #fff;
+  transform: translateY(-1px);
 }
 
 .inv-brand-pill.is-active {
   background: var(--inv-c-accent);
   border-color: var(--inv-c-accent);
   color: #fff;
+  box-shadow: 0 2px 8px rgba(225, 29, 38, 0.3);
 }
 
 .inv-brand-pill__count {
   font-size: 10px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+
+.inv-brand-pill:hover .inv-brand-pill__count {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .inv-brand-pill.is-active .inv-brand-pill__count {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 /* ============================================================================
@@ -1064,7 +1165,11 @@
 @media (max-width: 749px) {
   /* Hero */
   .inv-hero {
-    padding: 12px 0 14px;
+    padding: 20px 0 18px;
+  }
+
+  .inv-hero--has-image {
+    padding: 24px 0 20px;
   }
 
   .inv-hero__breadcrumb {
@@ -1072,11 +1177,24 @@
   }
 
   .inv-hero__title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+  }
+
+  .inv-hero__title::after {
+    width: 36px;
+    height: 2px;
+    margin-top: 8px;
+  }
+
+  .inv-hero__description {
+    font-size: 0.85rem;
+    margin-top: 8px;
   }
 
   .inv-hero__brands {
-    margin-top: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    gap: 6px;
   }
 
   .inv-hero__brands-label {
@@ -1086,6 +1204,10 @@
   .inv-brand-pill {
     padding: 5px 10px;
     font-size: 11px;
+  }
+
+  .inv-brand-pill:hover {
+    transform: none;
   }
 
   .inv-brand-pill__count {

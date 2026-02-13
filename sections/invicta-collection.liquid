@@ -57,12 +57,26 @@
 <div class="inv-collection" data-section-id="{{ section.id }}">
 
   {%- comment -%} ================================================================
-     1. HERO SECTION
+     1. HERO SECTION — CX v1.2 Redesigned
   ================================================================ {%- endcomment -%}
-  <section class="inv-hero">
-    <div class="page-width">
+  <section class="inv-hero{% if collection.image %} inv-hero--has-image{% endif %}">
+    {%- if collection.image -%}
+      <div class="inv-hero__image-wrap">
+        <img
+          src="{{ collection.image | image_url: width: 1920 }}"
+          alt=""
+          width="1920"
+          height="400"
+          loading="eager"
+          fetchpriority="high"
+          class="inv-hero__image"
+        >
+      </div>
+    {%- endif -%}
+    <div class="inv-hero__overlay"></div>
+    <div class="inv-hero__content page-width">
 
-      {%- comment -%} Breadcrumb (inside hero) {%- endcomment -%}
+      {%- comment -%} Breadcrumb {%- endcomment -%}
       <nav class="inv-hero__breadcrumb" aria-label="Breadcrumb">
         <ol>
           <li><a href="{{ routes.root_url }}">Home</a></li>
@@ -70,18 +84,36 @@
         </ol>
       </nav>
 
-      {%- comment -%} Title row: heading left, count right {%- endcomment -%}
-      <div class="inv-hero__row">
+      {%- comment -%} Title block {%- endcomment -%}
+      <div class="inv-hero__title-block">
         <h1 class="inv-hero__title">{{ collection.title | escape }}</h1>
-        <span class="inv-hero__count">{{ collection.products_count }} products</span>
+        <span class="inv-hero__count">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          {{ collection.products_count }} products
+        </span>
       </div>
 
-      {%- comment -%} Brand Quick Filters — the main interactive element {%- endcomment -%}
+      {%- comment -%} Subheading / Collection description {%- endcomment -%}
+      {%- assign hero_sub = section.settings.hero_subheading -%}
+      {%- if hero_sub != blank or collection.description != blank -%}
+        <p class="inv-hero__description">
+          {%- if collection.description != blank -%}
+            {{ collection.description | strip_html | truncate: 160 }}
+          {%- else -%}
+            {{ hero_sub }}
+          {%- endif -%}
+        </p>
+      {%- endif -%}
+
+      {%- comment -%} Brand Quick Filters {%- endcomment -%}
       {%- if show_brand_filters -%}
         {%- for filter in collection.filters -%}
           {%- if filter.param_name == 'filter.p.vendor' or filter.label == 'Brand' -%}
-            <div class="inv-hero__brands">
-              <span class="inv-hero__brands-label">Brands:</span>
+            <div class="inv-hero__brands" role="navigation" aria-label="Filter by brand">
+              <span class="inv-hero__brands-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                Brands:
+              </span>
               {%- for value in filter.values limit: 10 -%}
                 {%- assign brand_handle = value.label | handleize -%}
                 <a
