@@ -40,7 +40,7 @@
         "oos_text": "Out of Stock",
         "buy_now_text": "Buy Now — Skip the Cart",
         "cart_error_text": "Sorry, couldn't add to cart. Please try again.",
-        "low_stock_threshold": 5,
+        "low_stock_threshold": 3,
         "buy_now_price_threshold": 500,
         "show_click_collect": true,
         "collect_text": "Call us on 01227 456789 to check availability at Canterbury or Ramsgate",
