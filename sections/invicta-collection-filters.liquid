@@ -16,14 +16,7 @@
   
   Filter Logic:
   - Multiple brands = OR (Bosch OR DeWalt)
-  - Multiple types = OR (Combi Drills OR Impact Drivers)
-  - Brands + Types = AND between categories
-  
-  Requirements:
-  - Product metafield: custom.range (list, single-line text)
-  - Enabled in Settings → Search & Discovery → Filters
-  - Storefront API access enabled on metafield
-  
+
   Trade 15.4.0 Compatible
   ============================================================================
 {% endcomment %}
@@ -35,8 +28,6 @@
   # Use Shopify's built-in filter.active_values — reliable for multi-select
   
   assign active_brands_param = ''
-  assign active_ranges_param = ''
-  assign active_stocked_value = ''
   
   # Build arrays for data attributes (used by JS)
   for filter in collection.filters
@@ -50,37 +41,9 @@
       endfor
     endif
     
-    if filter.param_name == 'filter.p.m.custom.range'
-      for value in filter.active_values
-        if active_ranges_param == ''
-          assign active_ranges_param = value.label
-        else
-          assign active_ranges_param = active_ranges_param | append: '|||' | append: value.label
-        endif
-      endfor
-    endif
-    
-    # Stocked filter (boolean metafield)
-    if filter.param_name == 'filter.p.m.custom.stocked'
-      # If there are any active values, stocked filter is on
-      if filter.active_values.size > 0
-        assign active_stocked_value = 'true'
-      endif
-    endif
   endfor
-  
+
   assign active_brands = active_brands_param | split: '|||'
-  assign active_ranges = active_ranges_param | split: '|||'
-  
-  # Determine stocked filter state
-  # stocked_filter_active = true means "Invicta Stock" is selected
-  # When false, "Full Catalogue" (show all) is selected
-  assign stocked_filter_active = false
-  
-  # Check Shopify's active_values
-  if active_stocked_value == true or active_stocked_value == 'true' or active_stocked_value == 'True'
-    assign stocked_filter_active = true
-  endif
   
   # ========================================
   # BUILD SORTED FILTER DATA
@@ -89,8 +52,6 @@
   
   assign brand_data_active = ''
   assign brand_data_inactive = ''
-  assign range_data_active = ''
-  assign range_data_inactive = ''
   
   for filter in collection.filters
     
@@ -119,146 +80,34 @@
       endfor
     endif
     
-    # ----- RANGE FILTER (metafield) -----
-    if filter.param_name == 'filter.p.m.custom.range'
-      # Get excluded ranges from settings (comma-separated)
-      assign excluded_ranges_raw = section.settings.excluded_ranges | default: ''
-      assign excluded_ranges_list = excluded_ranges_raw | downcase | split: ','
-      
-      for value in filter.values
-        # Check if this range should be excluded
-        assign skip_range = false
-        assign range_label_lower = value.label | downcase | strip
-        
-        for excluded in excluded_ranges_list
-          assign excluded_clean = excluded | strip
-          if range_label_lower == excluded_clean
-            assign skip_range = true
-            break
-          endif
-        endfor
-        
-        if value.count > 0 and skip_range == false
-          assign sort_key = 99999 | minus: value.count
-          assign sort_key_padded = sort_key | prepend: '00000' | slice: -5, 5
-          assign range_entry = sort_key_padded | append: '|' | append: value.label | append: '|' | append: value.count | append: '|' | append: value.param_name
-          
-          if value.active
-            if range_data_active == ''
-              assign range_data_active = range_entry
-            else
-              assign range_data_active = range_data_active | append: '|||' | append: range_entry
-            endif
-          else
-            if range_data_inactive == ''
-              assign range_data_inactive = range_entry
-            else
-              assign range_data_inactive = range_data_inactive | append: '|||' | append: range_entry
-            endif
-          endif
-        endif
-      endfor
-    endif
-    
   endfor
   
   # Sort each group by count
   assign brand_entries_active = brand_data_active | split: '|||' | sort
   assign brand_entries_inactive = brand_data_inactive | split: '|||' | sort
-  assign range_entries_active = range_data_active | split: '|||' | sort
-  assign range_entries_inactive = range_data_inactive | split: '|||' | sort
-  
   # Check if we have filters to show
   assign has_brands = false
-  assign has_ranges = false
-  
+
   if brand_entries_active.size > 0 or brand_entries_inactive.size > 0
     assign has_brands = true
   endif
-  
-  if range_entries_active.size > 0 or range_entries_inactive.size > 0
-    assign has_ranges = true
-  endif
-  
+
   # Calculate active filter counts
   assign active_brand_count = active_brands | size
-  assign active_range_count = active_ranges | size
-  assign total_active = active_brand_count | plus: active_range_count
+  assign total_active = active_brand_count
 -%}
 
-{%- if has_brands or has_ranges -%}
+{%- if has_brands -%}
 <div 
   id="invicta-collection-filters"
   class="inv-filters"
   data-section-id="{{ section.id }}"
   data-collection-url="{{ collection.url }}"
   data-active-brands="{{ active_brands_param | escape }}"
-  data-active-ranges="{{ active_ranges_param | escape }}"
-  data-active-stocked="{{ active_stocked_value | escape }}"
   data-product-grid-id="invicta-product-grid"
   role="search"
   aria-label="Product filters"
 >
-  
-  {%- comment -%} ========== AVAILABILITY FILTER ROW ========== {%- endcomment -%}
-  {%- if section.settings.show_availability_filters -%}
-  <div class="inv-filters__row inv-filters__row--availability">
-    <div class="inv-filters__container page-width">
-      
-      <div class="inv-filters__header">
-        <span class="inv-filters__label" id="availability-filter-label">
-          {{ section.settings.availability_label | default: 'Availability' }}
-        </span>
-      </div>
-      
-      <div class="inv-filters__scroll-wrapper">
-        <div 
-          class="inv-filters__buttons inv-filters__buttons--availability" 
-          data-filter-group="availability"
-          role="group"
-          aria-labelledby="availability-filter-label"
-        >
-          
-          {%- comment -%} Invicta Stock button {%- endcomment -%}
-          <button
-            type="button"
-            class="inv-filters__btn inv-filters__btn--availability{% if stocked_filter_active %} inv-filters__btn--active{% endif %}"
-            data-filter-value="true"
-            data-filter-type="stocked"
-            data-filter-param="filter.p.m.custom.stocked"
-            aria-pressed="{{ stocked_filter_active }}"
-          >
-            <svg class="inv-filters__btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-              <polyline points="22 4 12 14.01 9 11.01"/>
-            </svg>
-            <span class="inv-filters__btn-text">{{ section.settings.stocked_label | default: 'Invicta Stock' }}</span>
-          </button>
-          
-          {%- comment -%} Full Catalogue button — clears filter to show all {%- endcomment -%}
-          <button
-            type="button"
-            class="inv-filters__btn inv-filters__btn--availability{% unless stocked_filter_active %} inv-filters__btn--active{% endunless %}"
-            data-filter-value=""
-            data-filter-type="stocked"
-            data-filter-param="filter.p.m.custom.stocked"
-            aria-pressed="{% unless stocked_filter_active %}true{% else %}false{% endunless %}"
-          >
-            <svg class="inv-filters__btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="3" y="3" width="7" height="7"/>
-              <rect x="14" y="3" width="7" height="7"/>
-              <rect x="3" y="14" width="7" height="7"/>
-              <rect x="14" y="14" width="7" height="7"/>
-            </svg>
-            <span class="inv-filters__btn-text">{{ section.settings.available_label | default: 'Full Catalogue' }}</span>
-          </button>
-          
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  {%- endif -%}
   
   {%- comment -%} ========== BRAND FILTER ROW ========== {%- endcomment -%}
   {%- if has_brands and section.settings.show_brand_filters -%}
@@ -349,95 +198,6 @@
   </div>
   {%- endif -%}
   
-  {%- comment -%} ========== RANGE FILTER ROW ========== {%- endcomment -%}
-  {%- if has_ranges and section.settings.show_type_filters -%}
-  <div class="inv-filters__row inv-filters__row--types">
-    <div class="inv-filters__container page-width">
-      
-      <div class="inv-filters__header">
-        <span class="inv-filters__label" id="type-filter-label">
-          {{ section.settings.type_label | default: 'Filter by Type' }}
-        </span>
-        {%- if active_range_count > 0 -%}
-        <span class="inv-filters__count">({{ active_range_count }} selected)</span>
-        {%- endif -%}
-      </div>
-      
-      <div class="inv-filters__scroll-container">
-        <button type="button" class="inv-filters__scroll-btn inv-filters__scroll-btn--left" aria-label="Scroll left" hidden>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="15 18 9 12 15 6"/>
-          </svg>
-        </button>
-        
-        <div class="inv-filters__scroll-wrapper">
-          <div 
-            class="inv-filters__buttons" 
-            data-filter-group="range"
-            role="group"
-            aria-labelledby="type-filter-label"
-          >
-            
-            {%- comment -%} Active ranges first {%- endcomment -%}
-            {%- for entry in range_entries_active -%}
-              {%- if entry != blank -%}
-                {%- assign entry_parts = entry | split: '|' -%}
-                {%- assign range_label = entry_parts[1] -%}
-                {%- assign range_count = entry_parts[2] -%}
-                
-                <button
-                  type="button"
-                  class="inv-filters__btn inv-filters__btn--type inv-filters__btn--active"
-                  data-filter-value="{{ range_label | escape }}"
-                  data-filter-type="range"
-                  data-filter-param="filter.p.m.custom.range"
-                  aria-pressed="true"
-                >
-                  <span class="inv-filters__btn-text">{{ range_label }}</span>
-                  {%- if section.settings.show_counts -%}
-                  <span class="inv-filters__btn-count">({{ range_count }})</span>
-                  {%- endif -%}
-                </button>
-              {%- endif -%}
-            {%- endfor -%}
-            
-            {%- comment -%} Inactive ranges {%- endcomment -%}
-            {%- for entry in range_entries_inactive -%}
-              {%- if entry != blank -%}
-                {%- assign entry_parts = entry | split: '|' -%}
-                {%- assign range_label = entry_parts[1] -%}
-                {%- assign range_count = entry_parts[2] -%}
-                
-                <button
-                  type="button"
-                  class="inv-filters__btn inv-filters__btn--type"
-                  data-filter-value="{{ range_label | escape }}"
-                  data-filter-type="range"
-                  data-filter-param="filter.p.m.custom.range"
-                  aria-pressed="false"
-                >
-                  <span class="inv-filters__btn-text">{{ range_label }}</span>
-                  {%- if section.settings.show_counts -%}
-                  <span class="inv-filters__btn-count">({{ range_count }})</span>
-                  {%- endif -%}
-                </button>
-              {%- endif -%}
-            {%- endfor -%}
-            
-          </div>
-        </div>
-        
-        <button type="button" class="inv-filters__scroll-btn inv-filters__scroll-btn--right" aria-label="Scroll right" hidden>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="9 18 15 12 9 6"/>
-          </svg>
-        </button>
-      </div>
-      
-    </div>
-  </div>
-  {%- endif -%}
-  
   {%- comment -%} ========== ACTIVE FILTERS BAR ========== {%- endcomment -%}
   <div 
     class="inv-filters__active-bar{% if total_active == 0 %} inv-filters__active-bar--hidden{% endif %}"
@@ -465,22 +225,6 @@
               {%- endif -%}
             {%- endfor -%}
             
-            {%- if active_brand_count > 0 and active_range_count > 0 -%}
-            <span class="inv-filters__tag-separator" aria-hidden="true">+</span>
-            {%- endif -%}
-            
-            {%- for range_value in active_ranges -%}
-              {%- if range_value != blank -%}
-              <span class="inv-filters__tag inv-filters__tag--type" data-filter-value="{{ range_value | escape }}" data-filter-type="range">
-                <span class="inv-filters__tag-text">{{ range_value }}</span>
-                <button type="button" class="inv-filters__tag-remove" aria-label="Remove {{ range_value }} filter">
-                  <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
-                    <path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                  </svg>
-                </button>
-              </span>
-              {%- endif -%}
-            {%- endfor -%}
           </div>
         </div>
         
@@ -513,29 +257,11 @@
     --inv-filter-btn-active-text: {{ section.settings.button_active_text }};
     --inv-filter-btn-hover-bg: {{ section.settings.button_hover_bg }};
     --inv-filter-tag-brand-bg: {{ section.settings.tag_brand_bg }};
-    --inv-filter-tag-type-bg: {{ section.settings.tag_type_bg }};
     --inv-filter-active-bar-bg: {{ section.settings.active_bar_bg }};
     --inv-filter-active-bar-border: {{ section.settings.active_bar_border }};
   }
   .inv-filters__row--brands {
     background: {{ section.settings.brand_row_bg }};
-  }
-  .inv-filters__row--types {
-    background: {{ section.settings.type_row_bg }};
-  }
-  .inv-filters__row--availability {
-    background: {{ section.settings.availability_row_bg | default: '#f9fafb' }};
-    border-bottom: 2px solid {{ section.settings.availability_row_border | default: '#e5e5e5' }};
-  }
-  .inv-filters__btn--availability.inv-filters__btn--active {
-    background: {{ section.settings.availability_active_bg | default: '#e11d26' }};
-    border-color: {{ section.settings.availability_active_bg | default: '#e11d26' }};
-    color: #fff;
-  }
-  .inv-filters__btn--availability.inv-filters__btn--active:hover {
-    background: {{ section.settings.availability_active_bg | default: '#e11d26' }};
-    border-color: {{ section.settings.availability_active_bg | default: '#e11d26' }};
-    opacity: 0.9;
   }
 </style>
 
@@ -557,30 +283,9 @@
     },
     {
       "type": "checkbox",
-      "id": "show_availability_filters",
-      "label": "Show availability filters",
-      "default": true,
-      "info": "Invicta Stock / Available to Order toggle"
-    },
-    {
-      "type": "checkbox",
       "id": "show_brand_filters",
       "label": "Show brand filters",
       "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_type_filters",
-      "label": "Show product range filters",
-      "default": true,
-      "info": "Uses custom.range metafield"
-    },
-    {
-      "type": "textarea",
-      "id": "excluded_ranges",
-      "label": "Excluded range values",
-      "info": "Comma-separated list of range values to hide from filter (e.g. Cutting & Sawing, Site Tools & Equipment)",
-      "default": "Cutting & Sawing, Site Tools & Equipment"
     },
     {
       "type": "checkbox",
@@ -595,33 +300,9 @@
     },
     {
       "type": "text",
-      "id": "availability_label",
-      "label": "Availability filter label",
-      "default": "Availability"
-    },
-    {
-      "type": "text",
-      "id": "stocked_label",
-      "label": "Stocked button label",
-      "default": "Invicta Stock"
-    },
-    {
-      "type": "text",
-      "id": "available_label",
-      "label": "Full catalogue label",
-      "default": "Full Catalogue"
-    },
-    {
-      "type": "text",
       "id": "brand_label",
       "label": "Brand filter label",
       "default": "Filter by Brand"
-    },
-    {
-      "type": "text",
-      "id": "type_label",
-      "label": "Product range label",
-      "default": "Product Type"
     },
     {
       "type": "header",
@@ -635,33 +316,9 @@
     },
     {
       "type": "color",
-      "id": "availability_row_bg",
-      "label": "Availability row background",
-      "default": "#f9fafb"
-    },
-    {
-      "type": "color",
-      "id": "availability_row_border",
-      "label": "Availability row border",
-      "default": "#e5e5e5"
-    },
-    {
-      "type": "color",
-      "id": "availability_active_bg",
-      "label": "Availability active button",
-      "default": "#e11d26"
-    },
-    {
-      "type": "color",
       "id": "brand_row_bg",
       "label": "Brand row background",
       "default": "#f9fafb"
-    },
-    {
-      "type": "color",
-      "id": "type_row_bg",
-      "label": "Type row background",
-      "default": "#ffffff"
     },
     {
       "type": "color",
@@ -730,12 +387,6 @@
       "id": "tag_brand_bg",
       "label": "Brand tag",
       "default": "#e11d26"
-    },
-    {
-      "type": "color",
-      "id": "tag_type_bg",
-      "label": "Type tag",
-      "default": "#2d2d2d"
     }
   ],
   "presets": [
@@ -743,7 +394,6 @@
       "name": "Invicta Filters",
       "settings": {
         "show_brand_filters": true,
-        "show_type_filters": true,
         "show_counts": true
       }
     }

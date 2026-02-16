@@ -1,5 +1,5 @@
 /**
- * Invicta Collection Filters v4.2
+ * Invicta Collection Filters v4.3
  * Extracted from inline — no Liquid dependencies
  *
  * AJAX-powered multi-select filters with:
@@ -32,10 +32,6 @@
       this.activeBrands = new Set(
         (container.dataset.activeBrands || '').split('|||').filter(Boolean)
       );
-      this.activeRanges = new Set(
-        (container.dataset.activeRanges || '').split('|||').filter(Boolean)
-      );
-      this.activeStocked = container.dataset.activeStocked || '';
 
       this.init();
     }
@@ -141,38 +137,6 @@
         }
         btn.classList.toggle('inv-filters__btn--active');
         btn.setAttribute('aria-pressed', (!isActive).toString());
-
-      } else if (filterType === 'range') {
-        if (isActive) {
-          this.activeRanges.delete(filterValue);
-        } else {
-          this.activeRanges.add(filterValue);
-        }
-        btn.classList.toggle('inv-filters__btn--active');
-        btn.setAttribute('aria-pressed', (!isActive).toString());
-
-      } else if (filterType === 'stocked') {
-        if (filterValue === '') {
-          this.activeStocked = '';
-        } else if (isActive) {
-          this.activeStocked = '';
-        } else {
-          this.activeStocked = filterValue;
-        }
-
-        this.container.querySelectorAll('[data-filter-type="stocked"]').forEach(b => {
-          const btnValue = b.dataset.filterValue;
-          if (this.activeStocked === '' && btnValue === '') {
-            b.classList.add('inv-filters__btn--active');
-            b.setAttribute('aria-pressed', 'true');
-          } else if (this.activeStocked === btnValue && btnValue !== '') {
-            b.classList.add('inv-filters__btn--active');
-            b.setAttribute('aria-pressed', 'true');
-          } else {
-            b.classList.remove('inv-filters__btn--active');
-            b.setAttribute('aria-pressed', 'false');
-          }
-        });
       }
 
       this.debouncedFetch();
@@ -184,8 +148,6 @@
 
       if (filterType === 'brand') {
         this.activeBrands.delete(filterValue);
-      } else if (filterType === 'range') {
-        this.activeRanges.delete(filterValue);
       }
 
       tag.style.opacity = '0';
@@ -204,8 +166,6 @@
 
     clearAllFilters() {
       this.activeBrands.clear();
-      this.activeRanges.clear();
-      this.activeStocked = '';
 
       this.container.querySelectorAll('.inv-filters__btn--active').forEach(btn => {
         btn.classList.remove('inv-filters__btn--active');
@@ -228,14 +188,6 @@
       this.activeBrands.forEach(brand => {
         url.searchParams.append('filter.p.vendor', brand);
       });
-
-      this.activeRanges.forEach(range => {
-        url.searchParams.append('filter.p.m.custom.range', range);
-      });
-
-      if (this.activeStocked) {
-        url.searchParams.append('filter.p.m.custom.stocked', this.activeStocked);
-      }
 
       return url;
     }
@@ -279,7 +231,6 @@
         }
 
         this.announceResults();
-        this.syncStockedButtons();
 
       } catch (err) {
         if (err.name === 'AbortError') return;
@@ -330,7 +281,7 @@
 
       const countEl = document.querySelector('.inv-grid__count strong');
       const count = countEl ? countEl.textContent : '0';
-      const totalFilters = this.activeBrands.size + this.activeRanges.size;
+      const totalFilters = this.activeBrands.size;
 
       if (totalFilters === 0) {
         announce.textContent = `Showing all products. ${count} products found.`;
@@ -343,25 +294,9 @@
       }, 1000);
     }
 
-    syncStockedButtons() {
-      const urlHasStocked = window.location.href.includes('stocked=true');
-      const stockedBtns = this.container.querySelectorAll('[data-filter-type="stocked"]');
-
-      stockedBtns.forEach(btn => {
-        const isStockedBtn = btn.dataset.filterValue === 'true';
-        const shouldBeActive = urlHasStocked ? isStockedBtn : !isStockedBtn;
-        btn.classList.toggle('inv-filters__btn--active', shouldBeActive);
-        btn.setAttribute('aria-pressed', shouldBeActive.toString());
-      });
-
-      this.activeStocked = urlHasStocked ? 'true' : '';
-    }
-
     handlePopState() {
       const url = new URL(window.location.href);
       this.activeBrands = new Set(url.searchParams.getAll('filter.p.vendor'));
-      this.activeRanges = new Set(url.searchParams.getAll('filter.p.m.custom.range'));
-      this.activeStocked = url.searchParams.get('filter.p.m.custom.stocked') || '';
       this.fetchFiltered();
     }
   }
@@ -369,8 +304,7 @@
   function init() {
     const container = document.getElementById('invicta-collection-filters');
     if (container) {
-      const filters = new InvictaFilters(container);
-      filters.syncStockedButtons();
+      new InvictaFilters(container);
     }
   }
 

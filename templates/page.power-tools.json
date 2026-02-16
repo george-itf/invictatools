@@ -17,7 +17,7 @@
           "settings": {
             "collection": "drilling-driving",
             "title": "",
-            "link": "/collections/drilling-driving?filter.p.m.custom.stocked=true"
+            "link": "/collections/drilling-driving"
           }
         },
         "category_EFgAHN": {
@@ -25,7 +25,7 @@
           "settings": {
             "collection": "sawing-cutting",
             "title": "",
-            "link": "/collections/sawing-cutting?filter.p.m.custom.stocked=true"
+            "link": "/collections/sawing-cutting"
           }
         },
         "category_AcFCb8": {
@@ -33,7 +33,7 @@
           "settings": {
             "collection": "sanding-planing-finishing",
             "title": "",
-            "link": "/collections/sanding-planing-finishing?filter.p.m.custom.stocked=true"
+            "link": "/collections/sanding-planing-finishing"
           }
         },
         "category_neFLJL": {
@@ -41,7 +41,7 @@
           "settings": {
             "collection": "grinding",
             "title": "",
-            "link": "/collections/grinding?filter.p.m.custom.stocked=true"
+            "link": "/collections/grinding"
           }
         },
         "category_aB7aqw": {
@@ -49,7 +49,7 @@
           "settings": {
             "collection": "nailing-fastening",
             "title": "",
-            "link": "/collections/nailing-fastening?filter.p.m.custom.stocked=true"
+            "link": "/collections/nailing-fastening"
           }
         },
         "category_GF7qx4": {
@@ -57,7 +57,7 @@
           "settings": {
             "collection": "outdoor-power",
             "title": "",
-            "link": "/collections/outdoor-power?filter.p.m.custom.stocked=true"
+            "link": "/collections/outdoor-power"
           }
         },
         "category_JkXGxL": {
@@ -65,7 +65,7 @@
           "settings": {
             "collection": "extraction",
             "title": "",
-            "link": "/collections/extraction?filter.p.m.custom.stocked=true"
+            "link": "/collections/extraction"
           }
         },
         "category_gB6NyM": {
@@ -73,7 +73,7 @@
           "settings": {
             "collection": "heating-soldering",
             "title": "",
-            "link": "/collections/heating-soldering?filter.p.m.custom.stocked=true"
+            "link": "/collections/heating-soldering"
           }
         },
         "category_4pjRRe": {
@@ -81,7 +81,7 @@
           "settings": {
             "collection": "lighting-audio",
             "title": "",
-            "link": "/collections/lighting-audio?filter.p.m.custom.stocked=true"
+            "link": "/collections/lighting-audio"
           }
         },
         "category_aHx4EV": {
@@ -89,7 +89,7 @@
           "settings": {
             "collection": "batteries-chargers",
             "title": "",
-            "link": "/collections/batteries-chargers?filter.p.m.custom.stocked=true"
+            "link": "/collections/batteries-chargers"
           }
         }
       },
