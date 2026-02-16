@@ -70,11 +70,6 @@
   assign btn_secondary_text = section.settings.btn_secondary_text
   assign btn_secondary_border = section.settings.btn_secondary_border
   
-  # ----------------------------------------
-  # FULL CATALOGUE LINK (Auto-detect stocked filter)
-  # ----------------------------------------
-  # If ?filter.p.m.custom.stocked=true is active, show "See all" link
-  # Note: JS syncs this on page load, Liquid just provides initial state
   assign full_catalogue_count = collection.all_products_count
   
   # ----------------------------------------
@@ -1167,22 +1162,7 @@
       new InvictaGrid(container);
     }
     
-    // Show/hide "See all" link based on URL
-    const fullCatalogueLink = document.getElementById('inv-full-catalogue-link');
-    if (fullCatalogueLink) {
-      const urlHasStocked = window.location.href.includes('stocked=true');
-      fullCatalogueLink.style.display = urlHasStocked ? '' : 'none';
-    }
   }
-  
-  // Also update on URL change (for AJAX navigation)
-  window.addEventListener('popstate', () => {
-    const fullCatalogueLink = document.getElementById('inv-full-catalogue-link');
-    if (fullCatalogueLink) {
-      const urlHasStocked = window.location.href.includes('stocked=true');
-      fullCatalogueLink.style.display = urlHasStocked ? '' : 'none';
-    }
-  });
   
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

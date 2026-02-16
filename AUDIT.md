@@ -616,8 +616,8 @@ main (production)
 | `custom.bulk_pricing` | String/JSON | `tiered-pricing.liquid` |
 | `custom.pack_pricing` | String/JSON | `consumables-pricing.liquid` |
 | `custom.min_qty` | Number | `min-order-qty.liquid` |
-| `custom.range` | List (single-line text) | `invicta-collection-filters.liquid` |
-| `custom.stocked` | Boolean | `invicta-collection-filters.liquid` |
+| `custom.range` | ~~List (single-line text)~~ | **REMOVED** — no longer used |
+| `custom.stocked` | ~~Boolean~~ | **REMOVED** — no longer used |
 | `custom.voltage` | String | `invicta-product-v2.liquid` |
 | `custom.max_torque` | String | `invicta-product-v2.liquid` |
 | `custom.motor_type` | String | `invicta-product-v2.liquid` |
