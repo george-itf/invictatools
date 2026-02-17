@@ -216,6 +216,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
+            "image": "shopify://shop_images/MAKDTD173Z_C__73906.jpg",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
