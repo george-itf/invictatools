@@ -12,7 +12,7 @@
     "hero": {
       "type": "brand-hero",
       "settings": {
-        "brand_logo": "",
+        "brand_logo": "shopify://shop_images/BRAND_LOGOS_8.png",
         "dealer_badge": "Authorised UK Dealer",
         "headline_line_1": "Swiss Precision.",
         "headline_line_2": "Perfect Joints.",
@@ -27,7 +27,7 @@
         "primary_cta_url": "",
         "secondary_cta_text": "Browse by Category",
         "secondary_cta_url": "#categories",
-        "hero_image": ""
+        "hero_image": "shopify://shop_images/IMG_FOT_Lamello-System__SALL__AIN__V1_60fb8053-c82e-4e79-856a-b680207f2667.webp"
       }
     },
     "usp_strip": {
@@ -85,7 +85,6 @@
     "about": {
       "type": "brand-about",
       "settings": {
-        "image": "",
         "badge_label": "Since",
         "badge_value": "1944",
         "section_label": "The Lamello Story",
@@ -131,46 +130,46 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
             "featured": true,
             "title": "Commercial Furniture",
-            "description": "Hüba in Lucerne used over 30,000 Clamex connectors for their tubular metal furniture system — saving 25% assembly time."
+            "description": "Hüba in Lucerne used over 30,000 Clamex connectors for their tubular metal furniture system — saving 25% assembly time.",
+            "connector_used": "Cabineo 12"
           }
         },
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
             "featured": false,
             "title": "Kitchen Fitting",
-            "description": "Fast carcass assembly with invisible connections that can be disassembled and reassembled without damage."
+            "description": "Fast carcass assembly with invisible connections that can be disassembled and reassembled without damage.",
+            "connector_used": "Cabineo 12"
           }
         },
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
             "featured": false,
             "title": "Bespoke Furniture",
-            "description": "STORY Design Amsterdam creates sustainable flat-pack furniture with invisible Lamello joints."
+            "description": "STORY Design Amsterdam creates sustainable flat-pack furniture with invisible Lamello joints.",
+            "connector_used": "Cabineo 12"
           }
         },
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
             "featured": false,
             "title": "Shop Fitting",
-            "description": "Retail displays that can be assembled and reconfigured on-site without specialist tools."
+            "description": "Retail displays that can be assembled and reconfigured on-site without specialist tools.",
+            "connector_used": "Cabineo 12"
           }
         },
         "app_5": {
           "type": "application",
           "settings": {
-            "image": "",
             "featured": false,
             "title": "Cabinet Making",
-            "description": "Traditional joinery with modern efficiency — invisible joints that maintain the integrity of fine woodwork."
+            "description": "Traditional joinery with modern efficiency — invisible joints that maintain the integrity of fine woodwork.",
+            "connector_used": "Cabineo 12"
           }
         }
       },
@@ -195,7 +194,6 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
             "show_badge": true,
             "badge_text": "NEW",
             "launch_date": "Available Now",
@@ -212,7 +210,6 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
@@ -309,7 +306,6 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
             "title": "Biscuit Joiners",
             "description": "The original Lamello innovation — precision biscuit joiners for professional woodworking and joinery.",
             "url": ""
@@ -318,7 +314,6 @@
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
             "title": "Connector Systems",
             "description": "Clamex, Cabineo and Tenso — invisible, demountable connector systems for furniture and cabinet assembly.",
             "url": ""
@@ -327,7 +322,6 @@
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
             "title": "Accessories",
             "description": "Biscuits, blades, diamond cutters and spare parts to keep your Lamello tools performing at their best.",
             "url": ""
@@ -348,7 +342,6 @@
     "video": {
       "type": "brand-video",
       "settings": {
-        "thumbnail": "",
         "video_url": "",
         "section_label": "See It In Action",
         "title": "Lamello Cabineo in Action",
