@@ -117,7 +117,7 @@
     "featured-products": {
       "type": "featured-collection",
       "settings": {
-        "collection": "",
+        "collection": "makita",
         "products_to_show": 4,
         "header_style": "bar",
         "title": "Featured Makita Products",
