@@ -131,6 +131,7 @@
         "app_1": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/Makita_GMH04_Action_Shot.jpg",
             "featured": true,
             "title": "Construction",
             "description": "From framing to finishing, Makita cordless tools power through the toughest construction projects with brushless efficiency and all-day battery life.",
