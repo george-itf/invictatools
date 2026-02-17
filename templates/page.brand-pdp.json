@@ -1,0 +1,434 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb-simple",
+      "settings": {
+        "current_page": "",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    },
+    "hero": {
+      "type": "brand-hero",
+      "settings": {
+        "brand_logo": "",
+        "dealer_badge": "Authorised Stockist",
+        "headline_line_1": "Cut with Confidence.",
+        "headline_line_2": "Precision Diamond Blades.",
+        "subtitle": "UK-manufactured diamond blades and cutting discs engineered for construction professionals. From concrete to ceramics, PDP blades deliver fast, clean cuts every time.",
+        "stat_1_value": "UK",
+        "stat_1_label": "Manufactured",
+        "stat_2_value": "ISO",
+        "stat_2_label": "9001 Certified",
+        "stat_3_value": "100+",
+        "stat_3_label": "Blade Specs",
+        "primary_cta_text": "Shop All PDP",
+        "primary_cta_url": "",
+        "secondary_cta_text": "Browse by Category",
+        "secondary_cta_url": "#categories",
+        "hero_image": ""
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £30"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Authorised Stockist",
+            "subtitle": "Full product range"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 210 459"
+          }
+        }
+      },
+      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#e41e25",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "about": {
+      "type": "brand-about",
+      "settings": {
+        "image": "",
+        "badge_label": "Made in",
+        "badge_value": "the UK",
+        "section_label": "The PDP Story",
+        "title": "British-Made Diamond Blades for Professionals",
+        "paragraph_1": "Premier Diamond Products (PDP) is a UK manufacturer of professional diamond blades, core drills and cutting discs. Every PDP blade is engineered and manufactured in Britain to ISO 9001 standards, with EN 13236 compliance ensuring safe, consistent performance on every cut.",
+        "paragraph_2": "From general-purpose blades for angle grinders to specialist segmented and turbo blades for floor saws and wall chasers, PDP covers every cutting application. Their application-matched blade selection means you always get the right blade for the material — whether it's concrete, ceramics, asphalt, granite or brick.",
+        "stat_1_value": "UK",
+        "stat_1_label": "Manufactured",
+        "stat_2_value": "ISO",
+        "stat_2_label": "9001 Certified",
+        "stat_3_value": "EN",
+        "stat_3_label": "13236 Compliant",
+        "feature_1": "UK-manufactured diamond blades",
+        "feature_2": "ISO 9001 quality management",
+        "feature_3": "EN 13236 safety compliance",
+        "feature_4": "Application-matched blade selection",
+        "cta_text": "Learn More",
+        "cta_url": ""
+      }
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Featured PDP Products",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "brand_applications": {
+      "type": "brand-applications",
+      "blocks": {
+        "app_1": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": true,
+            "title": "Concrete Cutting",
+            "description": "Segmented and turbo diamond blades engineered for reinforced concrete, cured concrete and lightweight blocks. Fast cutting with long blade life.",
+            "product_highlight": "P5-C Concrete Blade"
+          }
+        },
+        "app_2": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Tile & Ceramic",
+            "description": "Continuous rim blades for clean, chip-free cuts in porcelain, ceramic and natural stone tiles.",
+            "product_highlight": "DP16 Tile Blade"
+          }
+        },
+        "app_3": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Masonry",
+            "description": "General-purpose diamond blades for brick, block, paving and natural stone — the everyday blade for construction sites.",
+            "product_highlight": "P3-B Masonry Blade"
+          }
+        },
+        "app_4": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Road Work",
+            "description": "Floor saw blades for asphalt and green concrete — designed for road repairs, utility trenching and pavement work.",
+            "product_highlight": "P5-A Asphalt Blade"
+          }
+        },
+        "app_5": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Demolition",
+            "description": "Rescue and demolition blades for cutting through reinforced concrete, steel pipe, cast iron and mixed materials.",
+            "product_highlight": "P5-MM Multi-Material"
+          }
+        }
+      },
+      "block_order": ["app_1", "app_2", "app_3", "app_4", "app_5"],
+      "settings": {
+        "section_label": "Real World Applications",
+        "title": "Where PDP Blades Cut",
+        "subtitle": "Application-matched diamond blades for every material and method",
+        "cta_text": "View All PDP Products",
+        "cta_url": ""
+      }
+    },
+    "brand_new_products": {
+      "type": "brand-new-products",
+      "blocks": {
+        "new_1": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "BESTSELLER",
+            "launch_date": "",
+            "title": "P5-C Concrete Diamond Blade",
+            "description": "PDP's flagship concrete blade. Laser-welded turbo segments deliver fast, clean cuts through reinforced and cured concrete with exceptional blade life.",
+            "feature_1": "Laser-welded turbo segments",
+            "feature_2": "Reinforced concrete rated",
+            "feature_3": "115mm to 350mm sizes",
+            "feature_4": "EN 13236 compliant",
+            "cta_text": "Shop Concrete Blades",
+            "cta_url": ""
+          }
+        },
+        "new_2": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "POPULAR",
+            "launch_date": "",
+            "title": "DP16 Continuous Rim Tile Blade",
+            "description": "Clean, chip-free cuts in porcelain and ceramic tiles. Continuous rim design with thin kerf minimises material waste and delivers a professional finish.",
+            "feature_1": "Chip-free porcelain cuts",
+            "feature_2": "Thin kerf for precision",
+            "feature_3": "Wet cutting recommended",
+            "feature_4": "115mm to 250mm sizes",
+            "cta_text": "Shop Tile Blades",
+            "cta_url": ""
+          }
+        }
+      },
+      "block_order": ["new_1", "new_2"],
+      "settings": {
+        "section_label": "Popular Products",
+        "title": "Best Sellers from PDP",
+        "subtitle": "The diamond blades professionals reach for on every job"
+      }
+    },
+    "brand_why_choose": {
+      "type": "brand-why-choose",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "UK",
+            "title": "British Made",
+            "description": "Every PDP blade is manufactured in the UK. British engineering, British quality control and British jobs — supporting UK manufacturing."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "ISO",
+            "title": "9001 Certified",
+            "description": "PDP's manufacturing facility operates under ISO 9001 quality management. Every blade is tested and certified before it leaves the factory."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "EN",
+            "title": "13236 Compliant",
+            "description": "All PDP blades meet EN 13236 — the European safety standard for diamond cutting tools. Maximum peripheral speed ratings are clearly marked on every blade."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "APP",
+            "title": "Application Matched",
+            "description": "PDP engineers blades for specific materials — concrete, tile, asphalt, masonry, granite. The right diamond concentration and bond for every application."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "£",
+            "title": "Trade Pricing",
+            "description": "Professional-quality diamond blades at competitive trade prices. PDP delivers performance that rivals premium European brands at a fraction of the cost."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "100+",
+            "title": "Blade Specifications",
+            "description": "Over 100 blade specifications covering every diameter, bore size and application. Whatever you're cutting, PDP has the blade for the job."
+          }
+        }
+      },
+      "block_order": ["benefit_1", "benefit_2", "benefit_3", "benefit_4", "benefit_5", "benefit_6"],
+      "settings": {
+        "section_label": "Why PDP",
+        "title": "Why Professionals Choose Premier Diamond Products",
+        "subtitle": "UK-made diamond blades engineered for performance and value"
+      }
+    },
+    "categories": {
+      "type": "brand-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Diamond Blades",
+            "description": "Segmented, turbo and continuous rim diamond blades for concrete, masonry, tile, asphalt and multi-material cutting.",
+            "url": ""
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Core Drills",
+            "description": "Diamond core drills for clean, precise holes in concrete, masonry, brick and reinforced materials.",
+            "url": ""
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Cutting Discs",
+            "description": "Abrasive cutting and grinding discs for metal, stone and general-purpose construction applications.",
+            "url": ""
+          }
+        }
+      },
+      "block_order": ["cat_1", "cat_2", "cat_3"],
+      "settings": {
+        "section_label": "Shop By Category",
+        "title": "Explore the PDP Range",
+        "subtitle": "From diamond blades to core drills and cutting discs"
+      }
+    },
+    "video": {
+      "type": "brand-video",
+      "settings": {
+        "thumbnail": "",
+        "video_url": "",
+        "section_label": "See It In Action",
+        "title": "PDP Diamond Blades in Action",
+        "description": "See how PDP diamond blades cut through concrete, masonry and ceramics with precision and speed.",
+        "feature_1": "Fast concrete cutting",
+        "feature_2": "Clean tile finishing",
+        "feature_3": "Long blade life",
+        "feature_4": "UK manufactured quality"
+      }
+    },
+    "faq": {
+      "type": "brand-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "Which diamond blade should I use for concrete?",
+            "answer": "<p>For general concrete, use the <strong>PDP P5-C turbo segmented blade</strong> — it's designed for cured and reinforced concrete. For green (uncured) concrete, use the <strong>P5-CG green concrete blade</strong> which has a softer bond. For heavy reinforcement, choose a blade rated for reinforced concrete with a higher diamond concentration.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the difference between wet and dry cutting?",
+            "answer": "<p><strong>Dry cutting</strong> is more convenient — no water supply needed — but generates more dust and heat. <strong>Wet cutting</strong> keeps the blade cool, extends blade life significantly and suppresses dust. For porcelain tiles, wet cutting is essential. For concrete and masonry, both methods work but wet cutting gives better results and longer blade life.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "What does the maximum peripheral speed rating mean?",
+            "answer": "<p>The <strong>maximum peripheral speed (MPS)</strong> is the maximum safe operating speed of the blade, measured in metres per second. It's determined by the blade diameter and the RPM of your tool. Never exceed the MPS rating — it's printed on every PDP blade. EN 13236 requires all diamond blades to display this rating.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I use a diamond blade on metal?",
+            "answer": "<p>Standard diamond blades are not designed for metal cutting — the steel in metal clogs the diamond segments. For <strong>reinforced concrete</strong> (concrete with steel rebar), use a blade specifically rated for reinforced concrete. For cutting metal pipes or steel, use an <strong>abrasive cutting disc</strong> instead.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "What sizes of diamond blade do you stock?",
+            "answer": "<p>We stock PDP diamond blades in all common sizes: <strong>115mm, 125mm, 150mm, 180mm, 230mm, 300mm and 350mm</strong> diameters. Bore sizes include standard 22.23mm and 25.4mm with reducing bushes available. Contact us if you need a specialist size.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer trade pricing on PDP blades?",
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full PDP range. Contact our trade team on <strong>01843 210 459</strong> for volume discounts and trade account enquiries. We also offer free next-day delivery on all orders over £30.</p>"
+          }
+        }
+      },
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5", "faq_6"],
+      "settings": {
+        "heading": "Diamond Blade FAQs",
+        "subheading": "Common questions about PDP diamond blades and cutting discs"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Not Sure Which Blade You Need?",
+        "subtitle": "Tell us what you're cutting and we'll recommend the right PDP blade",
+        "primary_text": "01843 210 459",
+        "primary_url": "tel:01843210459",
+        "primary_icon": "phone",
+        "secondary_text": "Send Enquiry",
+        "secondary_url": "/pages/contact",
+        "secondary_icon": "email"
+      }
+    },
+    "schema": {
+      "type": "brand-schema",
+      "settings": {
+        "brand_name": "Premier Diamond Products",
+        "brand_description": "Premier Diamond Products (PDP) is a UK manufacturer of professional diamond blades, core drills and cutting discs for the construction industry. ISO 9001 certified and EN 13236 compliant.",
+        "brand_url": "",
+        "brand_founding_year": "",
+        "brand_country": "United Kingdom",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "hero",
+    "usp_strip",
+    "about",
+    "featured-products",
+    "brand_applications",
+    "brand_new_products",
+    "brand_why_choose",
+    "categories",
+    "video",
+    "faq",
+    "cta",
+    "schema"
+  ]
+}

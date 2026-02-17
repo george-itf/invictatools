@@ -129,7 +129,7 @@
             "featured": true,
             "title": "",
             "description": "",
-            "connector_used": ""
+            "product_highlight": ""
           }
         },
         "app_2": {
@@ -139,7 +139,7 @@
             "featured": false,
             "title": "",
             "description": "",
-            "connector_used": ""
+            "product_highlight": ""
           }
         },
         "app_3": {
@@ -149,7 +149,7 @@
             "featured": false,
             "title": "",
             "description": "",
-            "connector_used": ""
+            "product_highlight": ""
           }
         },
         "app_4": {
@@ -159,7 +159,7 @@
             "featured": false,
             "title": "",
             "description": "",
-            "connector_used": ""
+            "product_highlight": ""
           }
         },
         "app_5": {
@@ -169,7 +169,7 @@
             "featured": false,
             "title": "",
             "description": "",
-            "connector_used": ""
+            "product_highlight": ""
           }
         }
       },

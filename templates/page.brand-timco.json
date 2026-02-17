@@ -1,0 +1,434 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb-simple",
+      "settings": {
+        "current_page": "",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    },
+    "hero": {
+      "type": "brand-hero",
+      "settings": {
+        "brand_logo": "",
+        "dealer_badge": "Authorised Stockist",
+        "headline_line_1": "Every Fix.",
+        "headline_line_2": "Every Fastener.",
+        "subtitle": "The UK's leading range of fixings, fasteners and building products. From screws to silicones, Timco keeps tradespeople moving with quality products at trade prices.",
+        "stat_1_value": "5,000+",
+        "stat_1_label": "Products",
+        "stat_2_value": "UK",
+        "stat_2_label": "Stocked",
+        "stat_3_value": "Trade",
+        "stat_3_label": "Prices",
+        "primary_cta_text": "Shop All Timco",
+        "primary_cta_url": "",
+        "secondary_cta_text": "Browse by Category",
+        "secondary_cta_url": "#categories",
+        "hero_image": ""
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £30"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Authorised Stockist",
+            "subtitle": "Full product range"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 210 459"
+          }
+        }
+      },
+      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#e41e25",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "about": {
+      "type": "brand-about",
+      "settings": {
+        "image": "",
+        "badge_label": "Range",
+        "badge_value": "5,000+",
+        "section_label": "The Timco Story",
+        "title": "The UK's Fixings Specialist",
+        "paragraph_1": "Timco is the UK's leading supplier of fixings, fasteners and building products. With a range of over 5,000 products — from woodscrews and coach bolts to silicones, sealants and PPE — Timco has everything tradespeople need to get the job done, always in stock and always at trade prices.",
+        "paragraph_2": "What sets Timco apart is their relentless focus on what matters to the trade: consistent quality, reliable stock and packaging designed for the van, not the shelf. TIMpak bags are resealable, clearly labelled and sized for real-world use. No wasted product, no wasted time.",
+        "stat_1_value": "5,000+",
+        "stat_1_label": "Products in Range",
+        "stat_2_value": "99%",
+        "stat_2_label": "In-Stock Rate",
+        "stat_3_value": "UK",
+        "stat_3_label": "Distribution",
+        "feature_1": "Over 5,000 fixings and building products",
+        "feature_2": "TIMpak trade-sized resealable packaging",
+        "feature_3": "Consistent quality across every product line",
+        "feature_4": "UK-based distribution and stock",
+        "cta_text": "Learn More",
+        "cta_url": ""
+      }
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Featured Timco Products",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "brand_applications": {
+      "type": "brand-applications",
+      "blocks": {
+        "app_1": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": true,
+            "title": "First Fix",
+            "description": "Structural screws, coach bolts, anchor fixings and joist hangers for timber frame, roofing and structural first-fix applications.",
+            "product_highlight": "Structural Screws"
+          }
+        },
+        "app_2": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Second Fix",
+            "description": "Woodscrews, machine screws, cabinet hardware and finishing fixings for joinery, kitchen fitting and second-fix trades.",
+            "product_highlight": "Solo Woodscrews"
+          }
+        },
+        "app_3": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Roofing",
+            "description": "Roofing screws, roof bolts, lead flashing fixings and sealants for pitched and flat roof installations.",
+            "product_highlight": "Roofing Bolts"
+          }
+        },
+        "app_4": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Fencing",
+            "description": "Coach screws, post brackets, fence panel clips and galvanised bolts for domestic and commercial fencing projects.",
+            "product_highlight": "Coach Screws"
+          }
+        },
+        "app_5": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "General Building",
+            "description": "Wall plugs, cavity fixings, masonry anchors and general-purpose screws — the everyday essentials that keep builders moving.",
+            "product_highlight": "Nylon Plugs"
+          }
+        }
+      },
+      "block_order": ["app_1", "app_2", "app_3", "app_4", "app_5"],
+      "settings": {
+        "section_label": "Real World Applications",
+        "title": "Where Timco Fits",
+        "subtitle": "From first fix to finishing, Timco has the right fixing for every application",
+        "cta_text": "View All Timco Products",
+        "cta_url": ""
+      }
+    },
+    "brand_new_products": {
+      "type": "brand-new-products",
+      "blocks": {
+        "new_1": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "POPULAR",
+            "launch_date": "",
+            "title": "Solo Woodscrews — Yellow Zinc",
+            "description": "The UK's favourite trade woodscrew. Solo screws feature a double-countersunk head, single-thread design and yellow zinc plating — they drive cleanly, hold tight and resist corrosion.",
+            "feature_1": "Double-countersunk head",
+            "feature_2": "Pozi drive recess",
+            "feature_3": "Yellow zinc plated",
+            "feature_4": "Resealable TIMpak bag",
+            "cta_text": "Shop Solo Screws",
+            "cta_url": ""
+          }
+        },
+        "new_2": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "TRADE FAVOURITE",
+            "launch_date": "",
+            "title": "Multi-Purpose Silicone Sealant",
+            "description": "Professional-grade silicone sealant for internal and external use. Mould-resistant, flexible and available in clear, white, brown, grey and black.",
+            "feature_1": "Mould-resistant formula",
+            "feature_2": "Interior and exterior use",
+            "feature_3": "5 colours available",
+            "feature_4": "BS 5889 Type A compliant",
+            "cta_text": "Shop Sealants",
+            "cta_url": ""
+          }
+        }
+      },
+      "block_order": ["new_1", "new_2"],
+      "settings": {
+        "section_label": "Popular Products",
+        "title": "Best Sellers from Timco",
+        "subtitle": "The fixings and sealants that tradespeople reach for every day"
+      }
+    },
+    "brand_why_choose": {
+      "type": "brand-why-choose",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "5,000+",
+            "title": "Widest Range",
+            "description": "Over 5,000 fixings, fasteners and building products in one brand. If you need a fixing, Timco almost certainly makes it."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "99%",
+            "title": "Always In Stock",
+            "description": "Timco maintains a 99% in-stock rate across their entire range. No more waiting, no more substitutions — the fixing you need is always available."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "£",
+            "title": "Genuine Trade Pricing",
+            "description": "Timco products are priced for the trade — competitive on every line, from individual TIMpaks to bulk quantities. No gimmicks, just honest pricing."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "TIM",
+            "title": "TIMpak Packaging",
+            "description": "Resealable, clearly labelled bags sized for real-world use. No wasted fixings rattling around the van — every TIMpak is practical and portable."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "QA",
+            "title": "Consistent Quality",
+            "description": "Every Timco product is quality-tested to the relevant British and European standards. Screws drive clean, bolts torque correctly and sealants perform."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "UK",
+            "title": "UK Distribution",
+            "description": "Timco products are distributed from UK warehouses, ensuring fast and reliable delivery. Order before 3pm for next-day availability."
+          }
+        }
+      },
+      "block_order": ["benefit_1", "benefit_2", "benefit_3", "benefit_4", "benefit_5", "benefit_6"],
+      "settings": {
+        "section_label": "Why Timco",
+        "title": "Why Tradespeople Choose Timco",
+        "subtitle": "The fixings brand that keeps the UK building"
+      }
+    },
+    "categories": {
+      "type": "brand-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Screws & Fixings",
+            "description": "Woodscrews, machine screws, self-drilling screws, coach bolts, anchors and all the fixings you use every day.",
+            "url": ""
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Sealants & Adhesives",
+            "description": "Silicones, PU foams, grab adhesives, decorators caulk and specialist sealants for every trade application.",
+            "url": ""
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "PPE & Workwear",
+            "description": "Safety glasses, gloves, ear protection, dust masks and hi-vis workwear — essential site safety from Timco.",
+            "url": ""
+          }
+        }
+      },
+      "block_order": ["cat_1", "cat_2", "cat_3"],
+      "settings": {
+        "section_label": "Shop By Category",
+        "title": "Explore the Timco Range",
+        "subtitle": "From screws and fixings to sealants and PPE"
+      }
+    },
+    "video": {
+      "type": "brand-video",
+      "settings": {
+        "thumbnail": "",
+        "video_url": "",
+        "section_label": "See It In Action",
+        "title": "Timco Solo Woodscrews",
+        "description": "See why Solo woodscrews are the trade's favourite — clean driving, strong holding and consistent quality in every box.",
+        "feature_1": "Double-countersunk head",
+        "feature_2": "Clean, split-free driving",
+        "feature_3": "Yellow zinc corrosion resistance",
+        "feature_4": "TIMpak resealable bags"
+      }
+    },
+    "faq": {
+      "type": "brand-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "What screws should I use for decking?",
+            "answer": "<p>For timber decking, use <strong>Timco decking screws</strong> in A2 stainless steel or green organic-coated carbon steel. Choose 4.5 x 65mm for standard 28mm deck boards. Stainless steel is best for hardwood and coastal environments, while coated screws work well for softwood decking with tanalised joists.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the difference between stainless steel and zinc-plated screws?",
+            "answer": "<p><strong>Zinc-plated</strong> screws are suitable for interior use and dry environments — they offer basic corrosion resistance at a lower cost. <strong>Stainless steel (A2)</strong> screws are essential for exterior use, wet areas, treated timber and coastal environments where corrosion resistance is critical.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I buy Timco products in bulk?",
+            "answer": "<p>Yes. Timco products are available in individual <strong>TIMpak bags</strong> for everyday use and in <strong>trade boxes</strong> for larger quantities. Contact our trade team on <strong>01843 210 459</strong> for bulk pricing and trade account enquiries. We offer free next-day delivery on all orders over £30.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "What silicone should I use for bathrooms?",
+            "answer": "<p>For bathrooms, use <strong>Timco anti-mould silicone sealant</strong> — it contains a fungicide that prevents black mould growth in wet areas. Available in white, clear, grey and other colours to match your sanitary ware. Always ensure surfaces are clean, dry and free from old sealant before application.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "What fixings do I need for plasterboard?",
+            "answer": "<p>For plasterboard fixings, Timco offers <strong>spring toggles</strong> for heavy loads, <strong>metal cavity anchors</strong> for medium loads and <strong>nylon speed plugs</strong> for light fixtures. The right choice depends on the weight you're hanging — always check the safe working load for your chosen fixing.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "Do Timco products meet British Standards?",
+            "answer": "<p>Yes. All relevant Timco products are manufactured and tested to applicable <strong>British and European standards</strong> including BS EN ISO specifications. Screws are tested for torque, tensile strength and corrosion resistance. Sealants meet BS 5889 and relevant ETAG requirements.</p>"
+          }
+        }
+      },
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5", "faq_6"],
+      "settings": {
+        "heading": "Timco FAQs",
+        "subheading": "Common questions about Timco fixings, screws and sealants"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Help Choosing the Right Fixing?",
+        "subtitle": "Our team can recommend the right Timco product for your application",
+        "primary_text": "01843 210 459",
+        "primary_url": "tel:01843210459",
+        "primary_icon": "phone",
+        "secondary_text": "Send Enquiry",
+        "secondary_url": "/pages/contact",
+        "secondary_icon": "email"
+      }
+    },
+    "schema": {
+      "type": "brand-schema",
+      "settings": {
+        "brand_name": "Timco",
+        "brand_description": "Timco is the UK's leading supplier of fixings, fasteners and building products for the construction trade. With over 5,000 products including screws, bolts, sealants and PPE, Timco keeps tradespeople moving.",
+        "brand_url": "https://www.timco.co.uk",
+        "brand_founding_year": "",
+        "brand_country": "United Kingdom",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "hero",
+    "usp_strip",
+    "about",
+    "featured-products",
+    "brand_applications",
+    "brand_new_products",
+    "brand_why_choose",
+    "categories",
+    "video",
+    "faq",
+    "cta",
+    "schema"
+  ]
+}

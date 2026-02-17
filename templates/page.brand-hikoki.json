@@ -1,0 +1,434 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb-simple",
+      "settings": {
+        "current_page": "",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    },
+    "hero": {
+      "type": "brand-hero",
+      "settings": {
+        "brand_logo": "",
+        "dealer_badge": "Authorised UK Dealer",
+        "headline_line_1": "Power Without Limits.",
+        "headline_line_2": "MultiVolt Freedom.",
+        "subtitle": "Formerly Hitachi Power Tools — HiKOKI's MultiVolt battery system delivers corded power without the cord. Engineered in Japan for professional performance.",
+        "stat_1_value": "1948",
+        "stat_1_label": "Founded",
+        "stat_2_value": "36V",
+        "stat_2_label": "MultiVolt",
+        "stat_3_value": "Japan",
+        "stat_3_label": "Engineered",
+        "primary_cta_text": "Shop All HiKOKI",
+        "primary_cta_url": "",
+        "secondary_cta_text": "Browse by Category",
+        "secondary_cta_url": "#categories",
+        "hero_image": ""
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £30"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Authorised Dealer",
+            "subtitle": "Full manufacturer warranty"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 210 459"
+          }
+        }
+      },
+      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#e41e25",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "about": {
+      "type": "brand-about",
+      "settings": {
+        "image": "",
+        "badge_label": "Since",
+        "badge_value": "1948",
+        "section_label": "The HiKOKI Story",
+        "title": "From Hitachi to HiKOKI — Same DNA, New Identity",
+        "paragraph_1": "In 2018, Hitachi Power Tools became HiKOKI — a fresh identity backed by 70+ years of Japanese engineering excellence. The name changed, but the DNA didn't. Every HiKOKI tool carries the same relentless focus on precision, durability and innovation that made Hitachi a global standard.",
+        "paragraph_2": "The game-changer? MultiVolt. HiKOKI's revolutionary battery system delivers 36V power from a compact battery that's also backwards compatible with 18V tools. One battery, two voltages, zero compromises. It's corded power without the cord — and it's why HiKOKI is the fastest-growing professional tool brand in the UK.",
+        "stat_1_value": "70+",
+        "stat_1_label": "Years of Heritage",
+        "stat_2_value": "36V",
+        "stat_2_label": "MultiVolt Power",
+        "stat_3_value": "2-in-1",
+        "stat_3_label": "Battery System",
+        "feature_1": "MultiVolt: one battery, two voltages",
+        "feature_2": "Backwards compatible with 18V tools",
+        "feature_3": "Brushless motors across the range",
+        "feature_4": "Lifetime warranty on MultiVolt batteries",
+        "cta_text": "Learn More",
+        "cta_url": ""
+      }
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Featured HiKOKI Products",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "brand_applications": {
+      "type": "brand-applications",
+      "blocks": {
+        "app_1": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": true,
+            "title": "Construction",
+            "description": "MultiVolt SDS rotary hammers, circular saws and combi drills that match corded performance on the most demanding construction sites.",
+            "product_highlight": "MultiVolt 36V Range"
+          }
+        },
+        "app_2": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Woodworking",
+            "description": "Precision mitre saws, planers and routers with MultiVolt power for workshop and on-site joinery applications.",
+            "product_highlight": "C3610DRA Mitre Saw"
+          }
+        },
+        "app_3": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Metalwork",
+            "description": "Angle grinders, cut-off saws and band saws engineered for steel fabrication and metalworking professionals.",
+            "product_highlight": "G3613DB Grinder"
+          }
+        },
+        "app_4": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Demolition",
+            "description": "SDS-Max breakers and demolition hammers with anti-vibration technology for heavy-duty concrete and masonry demolition.",
+            "product_highlight": "H60MEY Breaker"
+          }
+        },
+        "app_5": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Renovation",
+            "description": "Multi-tools, reciprocating saws and dust extractors for efficient strip-out and refurbishment projects.",
+            "product_highlight": "CV18DBL Multi-Tool"
+          }
+        }
+      },
+      "block_order": ["app_1", "app_2", "app_3", "app_4", "app_5"],
+      "settings": {
+        "section_label": "Real World Applications",
+        "title": "Where HiKOKI Performs",
+        "subtitle": "MultiVolt power across every trade and application",
+        "cta_text": "View All HiKOKI Products",
+        "cta_url": ""
+      }
+    },
+    "brand_new_products": {
+      "type": "brand-new-products",
+      "blocks": {
+        "new_1": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "NEW",
+            "launch_date": "Available Now",
+            "title": "MultiVolt 36V Brushless Circular Saw",
+            "description": "True corded power from a cordless platform. The MultiVolt circular saw delivers 66mm cutting depth with a brushless motor and AWS-compatible dust extraction.",
+            "feature_1": "66mm maximum cutting depth",
+            "feature_2": "36V MultiVolt brushless motor",
+            "feature_3": "AWS wireless dust extraction",
+            "feature_4": "Silent mode for noise-sensitive sites",
+            "cta_text": "Shop MultiVolt",
+            "cta_url": ""
+          }
+        },
+        "new_2": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "BESTSELLER",
+            "launch_date": "",
+            "title": "MultiVolt 36V Combi Drill",
+            "description": "HiKOKI's flagship combi drill. 138Nm torque, 36V MultiVolt brushless motor with backwards 18V compatibility and Bluetooth connectivity.",
+            "feature_1": "138Nm maximum torque",
+            "feature_2": "36V/18V MultiVolt compatible",
+            "feature_3": "Bluetooth battery monitoring",
+            "feature_4": "IP56 dust and water protection",
+            "cta_text": "Shop Combi Drills",
+            "cta_url": ""
+          }
+        }
+      },
+      "block_order": ["new_1", "new_2"],
+      "settings": {
+        "section_label": "Latest Products",
+        "title": "What's New from HiKOKI",
+        "subtitle": "The latest MultiVolt innovations for professional tradespeople"
+      }
+    },
+    "brand_why_choose": {
+      "type": "brand-why-choose",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "2-in-1",
+            "title": "MultiVolt Battery",
+            "description": "One battery, two voltages. MultiVolt batteries deliver 36V in MultiVolt tools and step down to 18V in legacy tools. No adaptors needed — just slot in and go."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "18V",
+            "title": "Backwards Compatible",
+            "description": "Already have HiKOKI 18V tools? MultiVolt batteries work in them too. Upgrade to 36V power when you're ready, without throwing away your existing kit."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "∞",
+            "title": "Lifetime Battery Warranty",
+            "description": "HiKOKI offers a lifetime warranty on MultiVolt batteries when registered. If your battery fails, it's replaced free of charge. No other brand matches this."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "BL",
+            "title": "Brushless Throughout",
+            "description": "Every MultiVolt tool features a brushless motor for maximum efficiency, longer runtime and extended tool life. No exceptions."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "£",
+            "title": "Exceptional Value",
+            "description": "HiKOKI delivers Japanese engineering quality at a price point that undercuts the big two. Professional performance without the premium price tag."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "BT",
+            "title": "Bluetooth Connectivity",
+            "description": "Track battery health, set tool configurations and monitor usage through the HiKOKI Bluetooth app. Smart tools for the modern professional."
+          }
+        }
+      },
+      "block_order": ["benefit_1", "benefit_2", "benefit_3", "benefit_4", "benefit_5", "benefit_6"],
+      "settings": {
+        "section_label": "Why HiKOKI",
+        "title": "Why Professionals Are Switching to HiKOKI",
+        "subtitle": "The MultiVolt revolution — corded power, cordless freedom"
+      }
+    },
+    "categories": {
+      "type": "brand-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "MultiVolt 36V Tools",
+            "description": "The flagship range — 36V brushless tools that deliver corded power without the cord. Drills, saws, grinders and more.",
+            "url": ""
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "18V Cordless Tools",
+            "description": "The proven 18V platform with full MultiVolt battery compatibility. Compact, lightweight and ready for every day.",
+            "url": ""
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Woodworking Machines",
+            "description": "Mitre saws, table saws and planers — MultiVolt-powered workshop machines for professional woodworkers.",
+            "url": ""
+          }
+        }
+      },
+      "block_order": ["cat_1", "cat_2", "cat_3"],
+      "settings": {
+        "section_label": "Shop By Category",
+        "title": "Explore the HiKOKI Range",
+        "subtitle": "From MultiVolt flagships to everyday 18V essentials"
+      }
+    },
+    "video": {
+      "type": "brand-video",
+      "settings": {
+        "thumbnail": "",
+        "video_url": "",
+        "section_label": "See It In Action",
+        "title": "HiKOKI MultiVolt Explained",
+        "description": "Discover how one battery powers both 36V and 18V tools — the MultiVolt system that's changing cordless power.",
+        "feature_1": "36V power from a compact battery",
+        "feature_2": "Backwards compatible with 18V",
+        "feature_3": "Lifetime battery warranty",
+        "feature_4": "Bluetooth battery monitoring"
+      }
+    },
+    "faq": {
+      "type": "brand-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "What is HiKOKI MultiVolt and how does it work?",
+            "answer": "<p><strong>MultiVolt</strong> is HiKOKI's innovative battery system. A single MultiVolt battery automatically delivers <strong>36V</strong> when used in MultiVolt tools and steps down to <strong>18V</strong> when used in standard 18V HiKOKI tools. No adaptors, no compromise — just slot in and the battery adjusts to the tool.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "Are old Hitachi batteries compatible with HiKOKI tools?",
+            "answer": "<p>Yes — HiKOKI 18V slide-type batteries are fully compatible with Hitachi 18V slide-type tools (and vice versa). The battery design is identical; only the brand name changed. <strong>MultiVolt batteries also work in older 18V Hitachi tools</strong>, making the transition seamless.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Is HiKOKI the same as Hitachi?",
+            "answer": "<p>Yes — HiKOKI <em>is</em> Hitachi Power Tools, rebranded in 2018 following a corporate restructure. The engineering team, factory locations and product quality are identical. The name is new, but the Japanese engineering excellence is the same as it has been since 1948.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "What warranty do HiKOKI tools come with?",
+            "answer": "<p>HiKOKI power tools come with a <strong>3-year warranty</strong> when purchased from an authorised dealer. MultiVolt batteries carry an extraordinary <strong>lifetime warranty</strong> when registered online. As an authorised HiKOKI dealer, Invicta Tools handles all warranty claims directly.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "How does HiKOKI compare to Makita and DeWalt?",
+            "answer": "<p>HiKOKI sits alongside Makita and DeWalt as a genuine professional-grade alternative. The key differentiators are the <strong>MultiVolt dual-voltage system</strong>, the <strong>lifetime battery warranty</strong> and the <strong>competitive pricing</strong>. Many tradespeople are switching to HiKOKI for the value proposition without sacrificing performance.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you stock HiKOKI batteries and chargers?",
+            "answer": "<p>Yes. We carry the full range of HiKOKI batteries including <strong>MultiVolt 36V/18V</strong> in 2.5Ah and 4.0Ah, plus <strong>standard 18V</strong> batteries and <strong>rapid chargers</strong>. All available with free next-day delivery on orders over £30.</p>"
+          }
+        }
+      },
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5", "faq_6"],
+      "settings": {
+        "heading": "HiKOKI FAQs",
+        "subheading": "Common questions about HiKOKI, MultiVolt and the Hitachi transition"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Help Choosing the Right HiKOKI?",
+        "subtitle": "Our team can help you find the perfect MultiVolt setup for your trade",
+        "primary_text": "01843 210 459",
+        "primary_url": "tel:01843210459",
+        "primary_icon": "phone",
+        "secondary_text": "Send Enquiry",
+        "secondary_url": "/pages/contact",
+        "secondary_icon": "email"
+      }
+    },
+    "schema": {
+      "type": "brand-schema",
+      "settings": {
+        "brand_name": "HiKOKI",
+        "brand_description": "HiKOKI (formerly Hitachi Power Tools) is a Japanese manufacturer of professional power tools featuring the innovative MultiVolt battery system. Founded in 1948, HiKOKI tools are engineered for construction, woodworking and industrial applications.",
+        "brand_url": "https://www.hikoki-powertools.co.uk",
+        "brand_founding_year": "1948",
+        "brand_country": "Japan",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "hero",
+    "usp_strip",
+    "about",
+    "featured-products",
+    "brand_applications",
+    "brand_new_products",
+    "brand_why_choose",
+    "categories",
+    "video",
+    "faq",
+    "cta",
+    "schema"
+  ]
+}

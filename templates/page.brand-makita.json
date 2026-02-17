@@ -1,0 +1,434 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb-simple",
+      "settings": {
+        "current_page": "",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    },
+    "hero": {
+      "type": "brand-hero",
+      "settings": {
+        "brand_logo": "",
+        "dealer_badge": "Authorised UK Dealer",
+        "headline_line_1": "Built for the Job.",
+        "headline_line_2": "Trusted for Life.",
+        "subtitle": "Industry-leading cordless power tools powered by LXT and XGT battery platforms. From site to workshop, Makita delivers the performance professionals depend on.",
+        "stat_1_value": "1915",
+        "stat_1_label": "Founded",
+        "stat_2_value": "40V",
+        "stat_2_label": "XGT Max",
+        "stat_3_value": "300+",
+        "stat_3_label": "Cordless Tools",
+        "primary_cta_text": "Shop All Makita",
+        "primary_cta_url": "",
+        "secondary_cta_text": "Browse by Category",
+        "secondary_cta_url": "#categories",
+        "hero_image": ""
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £30"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Authorised Dealer",
+            "subtitle": "Full manufacturer warranty"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 210 459"
+          }
+        }
+      },
+      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#e41e25",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "about": {
+      "type": "brand-about",
+      "settings": {
+        "image": "",
+        "badge_label": "Since",
+        "badge_value": "1915",
+        "section_label": "The Makita Story",
+        "title": "Japanese Engineering Excellence",
+        "paragraph_1": "Founded in 1915 in Anjo, Aichi, Japan, Makita has grown from a small electric motor repair company into one of the world's largest manufacturers of professional power tools. With over a century of engineering expertise, Makita tools are trusted on jobsites across the globe.",
+        "paragraph_2": "Makita pioneered the cordless tool revolution with the LXT 18V platform — the world's largest compatible cordless system with over 300 tools. The 40V XGT platform pushes boundaries further, delivering corded-equivalent power for the most demanding applications. Every Makita tool is built to perform, day in, day out.",
+        "stat_1_value": "100+",
+        "stat_1_label": "Years of Heritage",
+        "stat_2_value": "300+",
+        "stat_2_label": "LXT Tools",
+        "stat_3_value": "#1",
+        "stat_3_label": "Cordless Platform",
+        "feature_1": "World's largest 18V cordless system",
+        "feature_2": "40V XGT for maximum power demand",
+        "feature_3": "Brushless motor technology throughout",
+        "feature_4": "Industry-leading dust extraction solutions",
+        "cta_text": "Learn More",
+        "cta_url": ""
+      }
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Featured Makita Products",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "brand_applications": {
+      "type": "brand-applications",
+      "blocks": {
+        "app_1": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": true,
+            "title": "Construction",
+            "description": "From framing to finishing, Makita cordless tools power through the toughest construction projects with brushless efficiency and all-day battery life.",
+            "product_highlight": "LXT & XGT Platform"
+          }
+        },
+        "app_2": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Woodworking",
+            "description": "Precision planers, routers and sanders with class-leading dust extraction for a cleaner, healthier workshop.",
+            "product_highlight": "DKP181Z Planer"
+          }
+        },
+        "app_3": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Landscaping",
+            "description": "The XGT outdoor power equipment range delivers petrol-equivalent performance with zero emissions and lower noise.",
+            "product_highlight": "XGT Outdoor Range"
+          }
+        },
+        "app_4": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Metalworking",
+            "description": "Angle grinders, cut-off saws and metal-cutting circular saws built to handle steel, aluminium and stainless.",
+            "product_highlight": "DGA519Z"
+          }
+        },
+        "app_5": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Renovation",
+            "description": "Multi-tools, reciprocating saws and demolition hammers for strip-out, refit and refurbishment projects.",
+            "product_highlight": "DTM52Z Multi-Tool"
+          }
+        }
+      },
+      "block_order": ["app_1", "app_2", "app_3", "app_4", "app_5"],
+      "settings": {
+        "section_label": "Real World Applications",
+        "title": "Where Makita Performs",
+        "subtitle": "From site to workshop, Makita cordless tools are built for every trade",
+        "cta_text": "View All Makita Products",
+        "cta_url": ""
+      }
+    },
+    "brand_new_products": {
+      "type": "brand-new-products",
+      "blocks": {
+        "new_1": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "NEW",
+            "launch_date": "Available Now",
+            "title": "40V XGT Brushless Combi Drill",
+            "description": "Makita's most powerful cordless combi drill. 40V XGT brushless motor delivers 150Nm torque with intelligent auto-stop technology for precision fastening.",
+            "feature_1": "150Nm maximum torque",
+            "feature_2": "XGT 40V brushless motor",
+            "feature_3": "Auto-stop clutch technology",
+            "feature_4": "Dust and drip-proof IP56",
+            "cta_text": "Shop XGT Drills",
+            "cta_url": ""
+          }
+        },
+        "new_2": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "BESTSELLER",
+            "launch_date": "",
+            "title": "LXT 18V Brushless Impact Driver",
+            "description": "The go-to impact driver for UK tradespeople. Quick-Shift Mode reduces over-driving in timber, while the brushless motor extends runtime and tool life.",
+            "feature_1": "190Nm fastening torque",
+            "feature_2": "Quick-Shift Mode for timber",
+            "feature_3": "Ultra-compact 117mm body",
+            "feature_4": "4 speed settings",
+            "cta_text": "Shop LXT Drivers",
+            "cta_url": ""
+          }
+        }
+      },
+      "block_order": ["new_1", "new_2"],
+      "settings": {
+        "section_label": "Latest Products",
+        "title": "What's New from Makita",
+        "subtitle": "The latest additions to the LXT and XGT cordless platforms"
+      }
+    },
+    "brand_why_choose": {
+      "type": "brand-why-choose",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "300+",
+            "title": "LXT Cordless Tools",
+            "description": "One battery system, 300+ tools. Makita LXT is the world's largest 18V cordless platform — your batteries work across drills, saws, grinders, vacuums and more."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "40V",
+            "title": "XGT Maximum Power",
+            "description": "When 18V isn't enough, XGT delivers. 40V max brushless tools give you corded power without the cord — ideal for SDS drills, mitre saws and cut-off saws."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "BL",
+            "title": "Brushless Across the Range",
+            "description": "Brushless motors run cooler, last longer and deliver more runtime per charge. Makita has rolled out brushless technology across the entire professional range."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "IP56",
+            "title": "Built for Site Conditions",
+            "description": "Dust-proof and shower-proof construction rated to IP56. Makita tools are engineered to perform in the harshest jobsite conditions, rain or shine."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "AWS",
+            "title": "Auto Dust Extraction",
+            "description": "Auto-Start Wireless System (AWS) connects your tool to a dust extractor wirelessly — it starts and stops automatically for a cleaner, safer workspace."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "3 Yr",
+            "title": "Manufacturer Warranty",
+            "description": "Every Makita power tool is backed by a 3-year manufacturer warranty when purchased from an authorised dealer. We handle all warranty claims in-house."
+          }
+        }
+      },
+      "block_order": ["benefit_1", "benefit_2", "benefit_3", "benefit_4", "benefit_5", "benefit_6"],
+      "settings": {
+        "section_label": "Why Makita",
+        "title": "Why Professionals Choose Makita",
+        "subtitle": "The cordless platform trusted by more tradespeople than any other"
+      }
+    },
+    "categories": {
+      "type": "brand-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Cordless Power Tools",
+            "description": "Drills, impact drivers, saws, grinders, planers and more — all powered by the LXT 18V or XGT 40V battery platform.",
+            "url": ""
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Outdoor Power Equipment",
+            "description": "Chainsaws, hedge trimmers, blowers and lawnmowers — cordless outdoor tools with petrol-equivalent performance.",
+            "url": ""
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Accessories & Consumables",
+            "description": "Batteries, chargers, drill bits, saw blades, sanding sheets and carrying cases to keep you working.",
+            "url": ""
+          }
+        }
+      },
+      "block_order": ["cat_1", "cat_2", "cat_3"],
+      "settings": {
+        "section_label": "Shop By Category",
+        "title": "Explore the Makita Range",
+        "subtitle": "From cordless drills to outdoor power equipment"
+      }
+    },
+    "video": {
+      "type": "brand-video",
+      "settings": {
+        "thumbnail": "",
+        "video_url": "",
+        "section_label": "See It In Action",
+        "title": "Makita XGT 40V Max System",
+        "description": "Discover how the 40V XGT platform delivers corded power without the cord — from SDS hammers to mitre saws.",
+        "feature_1": "40V max brushless power",
+        "feature_2": "Fast-charging 40V batteries",
+        "feature_3": "Backwards compatible with adaptor",
+        "feature_4": "Growing range of XGT tools"
+      }
+    },
+    "faq": {
+      "type": "brand-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the difference between Makita LXT and XGT?",
+            "answer": "<p><strong>LXT</strong> is Makita's 18V cordless platform with over 300 compatible tools — it's the world's largest cordless system and ideal for the vast majority of trade applications. <strong>XGT</strong> is the 40V max platform designed for the most demanding tools like SDS-MAX hammers, mitre saws and cut-off saws where 18V isn't enough. Both platforms have their own battery shape and charger.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "Are Makita LXT batteries compatible with XGT tools?",
+            "answer": "<p>Not directly — LXT (18V) and XGT (40V) batteries have different shapes and voltages. However, Makita offers an <strong>adaptor (ADP10)</strong> that lets you use two LXT 18V batteries to power XGT 40V tools. This is a great way to transition to XGT without replacing all your batteries at once.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "What does brushless mean and why does it matter?",
+            "answer": "<p>Brushless motors use electronic commutation instead of carbon brushes, which means <strong>less friction, less heat and longer motor life</strong>. In practice, this gives you more power, more runtime per battery charge and a tool that lasts significantly longer. All professional-grade Makita tools now feature brushless motors.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "What is Makita's warranty on power tools?",
+            "answer": "<p>All Makita power tools purchased from an authorised dealer carry a <strong>3-year manufacturer warranty</strong>. As an authorised Makita dealer, Invicta Tools can process warranty claims directly. We also stock a full range of genuine Makita spare parts and accessories.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "Which Makita drill should I buy?",
+            "answer": "<p>For most tradespeople, the <strong>LXT 18V brushless combi drill</strong> is the all-round choice — it drills, hammer drills and drives screws. If you need maximum power for large-diameter holes or heavy masonry, step up to the <strong>XGT 40V combi drill</strong>. For dedicated screw driving, the LXT impact driver is unbeatable.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer trade pricing on Makita?",
+            "answer": "<p>Yes. As an authorised Makita dealer, we offer <strong>competitive trade pricing</strong> on the full Makita range. Contact our trade team on <strong>01843 210 459</strong> for bulk and trade account enquiries. We also offer free next-day delivery on orders over £30.</p>"
+          }
+        }
+      },
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5", "faq_6"],
+      "settings": {
+        "heading": "Makita FAQs",
+        "subheading": "Common questions about Makita cordless tools and battery platforms"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Help Choosing the Right Makita?",
+        "subtitle": "Our team can help you pick the right tools for your trade",
+        "primary_text": "01843 210 459",
+        "primary_url": "tel:01843210459",
+        "primary_icon": "phone",
+        "secondary_text": "Send Enquiry",
+        "secondary_url": "/pages/contact",
+        "secondary_icon": "email"
+      }
+    },
+    "schema": {
+      "type": "brand-schema",
+      "settings": {
+        "brand_name": "Makita",
+        "brand_description": "Makita is a Japanese manufacturer of professional power tools and outdoor power equipment. Founded in 1915, Makita's LXT and XGT cordless platforms power over 300 tools used by tradespeople worldwide.",
+        "brand_url": "https://www.makitauk.com",
+        "brand_founding_year": "1915",
+        "brand_country": "Japan",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "hero",
+    "usp_strip",
+    "about",
+    "featured-products",
+    "brand_applications",
+    "brand_new_products",
+    "brand_why_choose",
+    "categories",
+    "video",
+    "faq",
+    "cta",
+    "schema"
+  ]
+}

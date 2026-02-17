@@ -1939,3 +1939,139 @@
     transform: none;
   }
 }
+
+
+/* ============================================================================
+   BRAND FAQ
+   ============================================================================ */
+
+.brand-faq {
+  padding: 4rem 0;
+  background: #fafafa;
+}
+
+.brand-faq__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.brand-faq__heading {
+  font-family: inherit;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--brand-dark, #1a1a1a);
+  margin: 0 0 0.5rem;
+}
+
+.brand-faq__subheading {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.brand-faq__list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.brand-faq__item {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.brand-faq__item:first-child {
+  border-top: 1px solid #e5e5e5;
+}
+
+.brand-faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  cursor: pointer;
+  list-style: none;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--brand-dark, #1a1a1a);
+  user-select: none;
+}
+
+.brand-faq__question::-webkit-details-marker {
+  display: none;
+}
+
+.brand-faq__question::marker {
+  content: '';
+}
+
+.brand-faq__question:hover {
+  color: var(--brand-red, #e11d26);
+}
+
+.brand-faq__question-text {
+  flex: 1;
+}
+
+.brand-faq__chevron {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  color: #666;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.brand-faq__item[open] .brand-faq__chevron {
+  transform: rotate(180deg);
+  background: var(--brand-red, #e11d26);
+  color: #fff;
+}
+
+.brand-faq__answer {
+  padding: 0 0 1.25rem;
+}
+
+.brand-faq__answer-inner {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: #555;
+  max-width: 720px;
+}
+
+.brand-faq__answer-inner p {
+  margin: 0 0 0.75rem;
+}
+
+.brand-faq__answer-inner p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 749px) {
+  .brand-faq {
+    padding: 3rem 0;
+  }
+
+  .brand-faq__header {
+    margin-bottom: 2rem;
+  }
+
+  .brand-faq__question {
+    font-size: 1rem;
+    padding: 1rem 0;
+  }
+
+  .brand-faq__answer {
+    padding: 0 0 1rem;
+  }
+}
