@@ -73,7 +73,7 @@
           "settings": {
             "collection": "lighting-audio",
             "title": "",
-            "link": "/collections/heating-soldering"
+            "link": "shopify://collections/lighting-audio"
           }
         },
         "category_4pjRRe": {
@@ -81,7 +81,7 @@
           "settings": {
             "collection": "batteries-chargers",
             "title": "",
-            "link": "/collections/lighting-audio"
+            "link": "shopify://collections/batteries-chargers"
           }
         },
         "category_aHx4EV": {
@@ -89,7 +89,7 @@
           "settings": {
             "collection": "power-tools-kits",
             "title": "",
-            "link": "/collections/batteries-chargers"
+            "link": "shopify://collections/power-tools-kits"
           }
         }
       },
