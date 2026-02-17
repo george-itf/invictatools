@@ -1,0 +1,128 @@
+{% comment %}
+  ============================================
+  BRAND SCHEMA v1.0
+  ============================================
+  Zero-visual section — outputs JSON-LD only
+  BreadcrumbList + WebPage/Brand structured data
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+{%- comment -%} ===== BreadcrumbList Schema ===== {%- endcomment -%}
+{%- if section.settings.brand_name != blank -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": {{ shop.url | json }}
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": {{ section.settings.parent_title | default: "Brands" | json }},
+      "item": {{ shop.url | append: section.settings.parent_url | json }}
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ section.settings.brand_name | json }}
+    }
+  ]
+}
+</script>
+
+{%- comment -%} ===== WebPage + Brand Schema ===== {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": {{ page.title | json }},
+  "url": {{ shop.url | append: page.url | json }},
+  "description": {{ section.settings.brand_description | default: page.title | json }},
+  "about": {
+    "@type": "Brand",
+    "name": {{ section.settings.brand_name | json }}
+    {%- if section.settings.brand_description != blank -%}
+      ,"description": {{ section.settings.brand_description | json }}
+    {%- endif -%}
+    {%- if section.settings.brand_url != blank -%}
+      ,"url": {{ section.settings.brand_url | json }}
+    {%- endif -%}
+    {%- if section.settings.brand_founding_year != blank -%}
+      ,"foundingDate": {{ section.settings.brand_founding_year | json }}
+    {%- endif -%}
+    {%- if section.settings.brand_country != blank -%}
+      ,"brand": {
+        "@type": "Organization",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": {{ section.settings.brand_country | json }}
+        }
+      }
+    {%- endif -%}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    "url": {{ shop.url | json }}
+  }
+}
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Brand Schema",
+  "tag": "section",
+  "class": "section-brand-schema",
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand Name"
+    },
+    {
+      "type": "textarea",
+      "id": "brand_description",
+      "label": "Brand Description (SEO)"
+    },
+    {
+      "type": "url",
+      "id": "brand_url",
+      "label": "Official Brand Website"
+    },
+    {
+      "type": "text",
+      "id": "brand_founding_year",
+      "label": "Founding Year"
+    },
+    {
+      "type": "text",
+      "id": "brand_country",
+      "label": "Country of Origin"
+    },
+    {
+      "type": "text",
+      "id": "parent_url",
+      "label": "Parent Page URL",
+      "default": "/pages/shop-by-brand"
+    },
+    {
+      "type": "text",
+      "id": "parent_title",
+      "label": "Parent Page Title",
+      "default": "Brands"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Schema"
+    }
+  ]
+}
+{% endschema %}

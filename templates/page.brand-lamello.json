@@ -1,0 +1,434 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb-simple",
+      "settings": {
+        "current_page": "",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    },
+    "hero": {
+      "type": "brand-hero",
+      "settings": {
+        "brand_logo": "",
+        "dealer_badge": "Authorised UK Dealer",
+        "headline_line_1": "Swiss Precision.",
+        "headline_line_2": "Perfect Joints.",
+        "subtitle": "Inventors of biscuit joinery since 1944. Lamello connector systems are engineered in Switzerland and trusted by joiners, cabinet makers and woodworkers worldwide.",
+        "stat_1_value": "1944",
+        "stat_1_label": "Founded",
+        "stat_2_value": "Swiss",
+        "stat_2_label": "Engineered",
+        "stat_3_value": "3 Year",
+        "stat_3_label": "Warranty",
+        "primary_cta_text": "Shop All Lamello",
+        "primary_cta_url": "",
+        "secondary_cta_text": "Browse by Category",
+        "secondary_cta_url": "#categories",
+        "hero_image": ""
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £30"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Authorised Dealer",
+            "subtitle": "Full manufacturer warranty"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 210 459"
+          }
+        }
+      },
+      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#e41e25",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "about": {
+      "type": "brand-about",
+      "settings": {
+        "image": "",
+        "badge_label": "Since",
+        "badge_value": "1944",
+        "section_label": "The Lamello Story",
+        "title": "The Inventor of Biscuit Joinery",
+        "paragraph_1": "In 1944, Hermann Steiner founded Lamello in Bubendorf, Switzerland, with a single vision: to create the perfect invisible wood joint. What began as a small workshop innovation — the biscuit joiner — has grown into a global standard for professional joinery, furniture assembly and cabinet making.",
+        "paragraph_2": "Today, Lamello continues to push the boundaries of connection technology. From the original Zeta biscuit joiner to the revolutionary Clamex and Cabineo connector systems, every Lamello product is precision-engineered in Switzerland to deliver invisible, tool-free joints that save time and elevate craftsmanship.",
+        "stat_1_value": "80+",
+        "stat_1_label": "Years of Innovation",
+        "stat_2_value": "50+",
+        "stat_2_label": "Countries Worldwide",
+        "stat_3_value": "100%",
+        "stat_3_label": "Swiss Made",
+        "feature_1": "Inventor of the biscuit joinery system",
+        "feature_2": "Clamex & Cabineo connector systems",
+        "feature_3": "Precision-engineered in Bubendorf, Switzerland",
+        "feature_4": "Trusted by professional joiners worldwide",
+        "cta_text": "Learn More",
+        "cta_url": ""
+      }
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Featured Lamello Products",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "brand_applications": {
+      "type": "brand-applications",
+      "blocks": {
+        "app_1": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": true,
+            "title": "Commercial Furniture",
+            "description": "Hüba in Lucerne used over 30,000 Clamex connectors for their tubular metal furniture system — saving 25% assembly time.",
+            "product_highlight": "Clamex P-14 Flexus"
+          }
+        },
+        "app_2": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Kitchen Fitting",
+            "description": "Fast carcass assembly with invisible connections that can be disassembled and reassembled without damage.",
+            "product_highlight": "Cabineo 12"
+          }
+        },
+        "app_3": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Bespoke Furniture",
+            "description": "STORY Design Amsterdam creates sustainable flat-pack furniture with invisible Lamello joints.",
+            "product_highlight": "Clamex P-14"
+          }
+        },
+        "app_4": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Shop Fitting",
+            "description": "Retail displays that can be assembled and reconfigured on-site without specialist tools.",
+            "product_highlight": "Clamex P-10"
+          }
+        },
+        "app_5": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Cabinet Making",
+            "description": "Traditional joinery with modern efficiency — invisible joints that maintain the integrity of fine woodwork.",
+            "product_highlight": "Zeta P2"
+          }
+        }
+      },
+      "block_order": ["app_1", "app_2", "app_3", "app_4", "app_5"],
+      "settings": {
+        "section_label": "Real World Applications",
+        "title": "Who Uses Lamello?",
+        "subtitle": "From bespoke furniture makers to large-scale commercial projects, Lamello connector systems deliver invisible joints that save time and elevate craftsmanship.",
+        "cta_text": "View All Lamello Products",
+        "cta_url": ""
+      }
+    },
+    "brand_new_products": {
+      "type": "brand-new-products",
+      "blocks": {
+        "new_1": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "NEW",
+            "launch_date": "Available Now",
+            "title": "Cabineo 12 Connector System",
+            "description": "The next generation of invisible cabinet connectors. One-hand assembly, no tools required — with 800N pull-out strength for professional carcass construction.",
+            "feature_1": "Tool-free one-hand assembly",
+            "feature_2": "800N pull-out force",
+            "feature_3": "Invisible from outside",
+            "feature_4": "Demountable & reusable",
+            "cta_text": "Shop Cabineo",
+            "cta_url": ""
+          }
+        },
+        "new_2": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "BESTSELLER",
+            "launch_date": "",
+            "title": "Zeta P2 Biscuit Joiner",
+            "description": "The benchmark biscuit joiner for professional workshops. Swiss-engineered with a powerful 780W motor, guided fence system and dust extraction port.",
+            "feature_1": "780W motor for hardwoods",
+            "feature_2": "Precision guided fence",
+            "feature_3": "Integrated dust extraction",
+            "feature_4": "Swiss engineered quality",
+            "cta_text": "Shop Zeta P2",
+            "cta_url": ""
+          }
+        }
+      },
+      "block_order": ["new_1", "new_2"],
+      "settings": {
+        "section_label": "Latest Products",
+        "title": "What's New from Lamello",
+        "subtitle": "The latest innovations in invisible joining technology"
+      }
+    },
+    "brand_why_choose": {
+      "type": "brand-why-choose",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "100%",
+            "title": "Invisible Joints",
+            "description": "Every Lamello connector creates a completely invisible joint — no visible fixings, no filler needed. The wood speaks for itself."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "0",
+            "title": "Tools Required",
+            "description": "Clamex and Cabineo connector systems snap together by hand. No screws, no clamps, no specialist tools needed on-site."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "80+",
+            "title": "Years of Innovation",
+            "description": "Since 1944, Lamello has been the undisputed leader in invisible joinery. Every product is the result of decades of Swiss engineering."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "50%",
+            "title": "Faster Assembly",
+            "description": "Tool-free connector systems like Cabineo cut assembly time in half compared to traditional methods — more projects, more profit."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "800N",
+            "title": "Pull-Out Strength",
+            "description": "Cabineo connectors deliver 800N pull-out force — exceeding the requirements of professional cabinet and furniture construction."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "♻️",
+            "title": "Demountable Design",
+            "description": "Clamex and Cabineo connectors can be disassembled and reassembled without damage — perfect for flat-pack, transport and reconfiguration."
+          }
+        }
+      },
+      "block_order": ["benefit_1", "benefit_2", "benefit_3", "benefit_4", "benefit_5", "benefit_6"],
+      "settings": {
+        "section_label": "Why Lamello",
+        "title": "Why Professionals Choose Lamello",
+        "subtitle": "Swiss precision engineering that transforms the way you build"
+      }
+    },
+    "categories": {
+      "type": "brand-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Biscuit Joiners",
+            "description": "The original Lamello innovation — precision biscuit joiners for professional woodworking and joinery.",
+            "url": ""
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Connector Systems",
+            "description": "Clamex, Cabineo and Tenso — invisible, demountable connector systems for furniture and cabinet assembly.",
+            "url": ""
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Accessories",
+            "description": "Biscuits, blades, diamond cutters and spare parts to keep your Lamello tools performing at their best.",
+            "url": ""
+          }
+        }
+      },
+      "block_order": ["cat_1", "cat_2", "cat_3"],
+      "settings": {
+        "section_label": "Shop By Category",
+        "title": "Explore the Lamello Range",
+        "subtitle": "From biscuit joiners to revolutionary connector systems"
+      }
+    },
+    "video": {
+      "type": "brand-video",
+      "settings": {
+        "thumbnail": "",
+        "video_url": "",
+        "section_label": "See It In Action",
+        "title": "Lamello Cabineo in Action",
+        "description": "Watch how the Cabineo connector system transforms cabinet assembly — invisible joints, tool-free assembly, professional results.",
+        "feature_1": "One-hand snap-in assembly",
+        "feature_2": "No tools required on-site",
+        "feature_3": "Invisible from outside",
+        "feature_4": "Demountable without damage"
+      }
+    },
+    "faq": {
+      "type": "brand-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "What is biscuit joinery and how does it work?",
+            "answer": "<p>Biscuit joinery uses a small, oval-shaped biscuit joiner to cut matching slots in two pieces of wood. A compressed beech biscuit is glued into the slots, swelling with moisture to create a strong, invisible joint. It's one of the fastest and most reliable joinery methods for edge-to-edge, mitre and T-joints.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "Which Lamello biscuit joiner should I buy as a professional?",
+            "answer": "<p>For professional use, we recommend the <strong>Lamello Zeta P2</strong> — it's the benchmark biscuit joiner with a powerful 780W motor, precision guided fence and integrated dust extraction. If you need the ultimate in versatility, the <strong>Zeta P2 with diamond blade</strong> handles mineral-bonded materials as well as wood.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the difference between Clamex and Cabineo?",
+            "answer": "<p><strong>Clamex</strong> is designed for flat-pack furniture and demountable joints — it uses a toggle mechanism that locks and unlocks by hand. <strong>Cabineo</strong> is specifically designed for cabinet carcass construction — it snaps together with one hand and delivers 800N pull-out strength. Both create completely invisible joints.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "Can Lamello connectors be disassembled and reused?",
+            "answer": "<p>Yes. Both Clamex and Cabineo connectors are fully demountable — they can be disassembled and reassembled without any damage to the connector or the workpiece. This makes them ideal for flat-pack furniture, exhibition stands and any project that needs to be transported or reconfigured.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "Are Lamello products covered by warranty?",
+            "answer": "<p>Yes. All Lamello power tools come with a <strong>3-year manufacturer warranty</strong> when purchased from an authorised dealer like Invicta Tools. We are an official Lamello UK stockist and can provide full after-sales support and warranty service.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you stock Lamello biscuits and replacement blades?",
+            "answer": "<p>Yes. We carry the full range of Lamello consumables including <strong>standard beech biscuits</strong> (sizes 0, 10, 20), <strong>Clamex and Cabineo connectors</strong>, <strong>diamond-tipped cutter blades</strong> and <strong>HW carbide blades</strong>. All available with free next-day delivery on orders over £30.</p>"
+          }
+        }
+      },
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5", "faq_6"],
+      "settings": {
+        "heading": "Lamello FAQs",
+        "subheading": "Common questions about Lamello biscuit joiners and connector systems"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Help Choosing the Right Lamello System?",
+        "subtitle": "Our team knows Lamello inside out — call us for expert advice",
+        "primary_text": "01843 210 459",
+        "primary_url": "tel:01843210459",
+        "primary_icon": "phone",
+        "secondary_text": "Send Enquiry",
+        "secondary_url": "/pages/contact",
+        "secondary_icon": "email"
+      }
+    },
+    "schema": {
+      "type": "brand-schema",
+      "settings": {
+        "brand_name": "Lamello",
+        "brand_description": "Lamello is a Swiss manufacturer of biscuit joiners and invisible connector systems for professional woodworking, cabinet making and furniture assembly. Founded in 1944, Lamello invented the biscuit joinery system.",
+        "brand_url": "https://www.lamello.com",
+        "brand_founding_year": "1944",
+        "brand_country": "Switzerland",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "hero",
+    "usp_strip",
+    "about",
+    "featured-products",
+    "brand_applications",
+    "brand_new_products",
+    "brand_why_choose",
+    "categories",
+    "video",
+    "faq",
+    "cta",
+    "schema"
+  ]
+}

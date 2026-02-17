@@ -75,14 +75,14 @@
                   {%- if block.settings.description != blank -%}
                     <p class="brand-applications__card-desc">{{ block.settings.description }}</p>
                   {%- endif -%}
-                  {%- if block.settings.connector_used != blank -%}
+                  {%- if block.settings.product_highlight != blank -%}
                     <span class="brand-applications__connector">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                         <path d="M12 2L2 7l10 5 10-5-10-5z"/>
                         <path d="M2 17l10 5 10-5"/>
                         <path d="M2 12l10 5 10-5"/>
                       </svg>
-                      {{ block.settings.connector_used }}
+                      {{ block.settings.product_highlight }}
                     </span>
                   {%- endif -%}
                 </div>
@@ -126,13 +126,13 @@
       "type": "text",
       "id": "title",
       "label": "Title",
-      "default": "Who Uses Lamello?"
+      "default": ""
     },
     {
       "type": "text",
       "id": "subtitle",
       "label": "Subtitle",
-      "default": "From bespoke furniture makers to large-scale commercial projects"
+      "default": ""
     },
     {
       "type": "header",
@@ -170,20 +170,19 @@
           "type": "text",
           "id": "title",
           "label": "Title",
-          "default": "Kitchen Fitting"
+          "default": ""
         },
         {
           "type": "textarea",
           "id": "description",
           "label": "Description",
-          "default": "Fast carcass assembly with invisible connections."
+          "default": ""
         },
         {
           "type": "text",
-          "id": "connector_used",
-          "label": "Connector Used",
-          "info": "Optional - shows which Lamello system was used",
-          "default": "Cabineo 12"
+          "id": "product_highlight",
+          "label": "Product Highlight",
+          "info": "Optional — shows which product or system was used"
         }
       ]
     }
@@ -196,41 +195,22 @@
           "type": "application",
           "settings": {
             "featured": true,
-            "title": "Commercial Furniture",
-            "description": "Hüba in Lucerne used over 30,000 Clamex connectors for their tubular metal furniture system — saving 25% assembly time.",
-            "connector_used": "Clamex P-14 Flexus"
+            "title": "",
+            "description": ""
           }
         },
         {
           "type": "application",
           "settings": {
-            "title": "Kitchen Fitting",
-            "description": "Fast carcass assembly with invisible connections.",
-            "connector_used": "Cabineo 12"
+            "title": "",
+            "description": ""
           }
         },
         {
           "type": "application",
           "settings": {
-            "title": "Bespoke Furniture",
-            "description": "STORY Design Amsterdam creates sustainable flat-pack furniture.",
-            "connector_used": "Clamex P-14"
-          }
-        },
-        {
-          "type": "application",
-          "settings": {
-            "title": "Shop Fitting",
-            "description": "Retail displays that can be assembled and reconfigured.",
-            "connector_used": "Clamex P-10"
-          }
-        },
-        {
-          "type": "application",
-          "settings": {
-            "title": "Cabinet Making",
-            "description": "Traditional joinery with modern efficiency.",
-            "connector_used": "Zeta P2"
+            "title": "",
+            "description": ""
           }
         }
       ]

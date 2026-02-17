@@ -29,18 +29,6 @@
               class="brand-hero__logo"
             >
           </div>
-        {%- else -%}
-          {%- comment -%} Fallback to Lamello SVG if no logo uploaded {%- endcomment -%}
-          <div class="brand-hero__logo-wrap">
-            <img
-              src="{{ 'lamello.svg' | asset_url }}"
-              alt="Lamello"
-              width="120"
-              height="auto"
-              loading="eager"
-              class="brand-hero__logo"
-            >
-          </div>
         {%- endif -%}
 
         {%- comment -%} Dealer Badge {%- endcomment -%}
@@ -165,19 +153,19 @@
       "type": "text",
       "id": "headline_line_1",
       "label": "Headline Line 1",
-      "default": "Swiss Precision."
+      "default": ""
     },
     {
       "type": "text",
       "id": "headline_line_2",
       "label": "Headline Line 2 (highlighted)",
-      "default": "Perfect Joints."
+      "default": ""
     },
     {
       "type": "textarea",
       "id": "subtitle",
       "label": "Subtitle",
-      "default": "The inventor of biscuit joinery. Lamello tools and connector systems are engineered in Switzerland and trusted by joiners, cabinet makers, and woodworkers worldwide."
+      "default": ""
     },
     {
       "type": "header",
@@ -187,37 +175,37 @@
       "type": "text",
       "id": "stat_1_value",
       "label": "Stat 1 Value",
-      "default": "1944"
+      "default": ""
     },
     {
       "type": "text",
       "id": "stat_1_label",
       "label": "Stat 1 Label",
-      "default": "Founded"
+      "default": ""
     },
     {
       "type": "text",
       "id": "stat_2_value",
       "label": "Stat 2 Value",
-      "default": "Swiss"
+      "default": ""
     },
     {
       "type": "text",
       "id": "stat_2_label",
       "label": "Stat 2 Label",
-      "default": "Engineered"
+      "default": ""
     },
     {
       "type": "text",
       "id": "stat_3_value",
       "label": "Stat 3 Value",
-      "default": "3 Year"
+      "default": ""
     },
     {
       "type": "text",
       "id": "stat_3_label",
       "label": "Stat 3 Label",
-      "default": "Warranty"
+      "default": ""
     },
     {
       "type": "header",
@@ -227,7 +215,7 @@
       "type": "text",
       "id": "primary_cta_text",
       "label": "Primary Button Text",
-      "default": "Shop All Lamello"
+      "default": "Shop All"
     },
     {
       "type": "url",

@@ -1,0 +1,434 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb-simple",
+      "settings": {
+        "current_page": "",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    },
+    "hero": {
+      "type": "brand-hero",
+      "settings": {
+        "brand_logo": "",
+        "dealer_badge": "Authorised Stockist",
+        "headline_line_1": "Reliable Tools.",
+        "headline_line_2": "Honest Value.",
+        "subtitle": "Quality hand tools, decorating tools and workshop essentials at genuine trade value. Faithfull tools deliver dependable performance without the premium price tag.",
+        "stat_1_value": "Trade",
+        "stat_1_label": "Value",
+        "stat_2_value": "2,000+",
+        "stat_2_label": "Tools",
+        "stat_3_value": "Quality",
+        "stat_3_label": "Assured",
+        "primary_cta_text": "Shop All Faithfull",
+        "primary_cta_url": "",
+        "secondary_cta_text": "Browse by Category",
+        "secondary_cta_url": "#categories",
+        "hero_image": ""
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £30"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Authorised Stockist",
+            "subtitle": "Full product range"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 210 459"
+          }
+        }
+      },
+      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#e41e25",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "about": {
+      "type": "brand-about",
+      "settings": {
+        "image": "",
+        "badge_label": "Range",
+        "badge_value": "2,000+",
+        "section_label": "The Faithfull Story",
+        "title": "Quality Tools at Genuine Trade Value",
+        "paragraph_1": "Faithfull Tools has built its reputation on a simple promise: dependable quality at an honest price. With a range of over 2,000 hand tools, decorating tools, gardening equipment and workshop essentials, Faithfull delivers the tools tradespeople need without the premium price tag.",
+        "paragraph_2": "Faithfull doesn't cut corners where it matters — their trowels, pliers, hammers and decorating tools are manufactured to consistent quality standards and backed by reliable customer service. For tradespeople who need tools that work hard without breaking the bank, Faithfull is the smart choice.",
+        "stat_1_value": "2,000+",
+        "stat_1_label": "Tools in Range",
+        "stat_2_value": "Trade",
+        "stat_2_label": "Value Pricing",
+        "stat_3_value": "QA",
+        "stat_3_label": "Quality Assured",
+        "feature_1": "Over 2,000 tools and accessories",
+        "feature_2": "Genuine trade value pricing",
+        "feature_3": "Consistent quality across the range",
+        "feature_4": "Replacement parts available",
+        "cta_text": "Learn More",
+        "cta_url": ""
+      }
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Featured Faithfull Products",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "brand_applications": {
+      "type": "brand-applications",
+      "blocks": {
+        "app_1": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": true,
+            "title": "Decorating",
+            "description": "Brushes, rollers, scrapers, filling knives and dust sheets — everything the professional decorator needs for a quality finish.",
+            "product_highlight": "Decorating Range"
+          }
+        },
+        "app_2": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "General Building",
+            "description": "Trowels, bricklaying tools, bolsters, cold chisels and general construction hand tools for the building trade.",
+            "product_highlight": "Trowel Range"
+          }
+        },
+        "app_3": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Gardening",
+            "description": "Spades, forks, rakes, secateurs and garden tools for professional landscapers and keen gardeners alike.",
+            "product_highlight": "Garden Range"
+          }
+        },
+        "app_4": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Workshop",
+            "description": "Vices, clamps, files, sanding tools and workbench essentials for workshop organisation and project work.",
+            "product_highlight": "Workshop Range"
+          }
+        },
+        "app_5": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "DIY",
+            "description": "Hammers, screwdrivers, pliers, spanners and complete tool sets for the practical homeowner.",
+            "product_highlight": "Hand Tool Range"
+          }
+        }
+      },
+      "block_order": ["app_1", "app_2", "app_3", "app_4", "app_5"],
+      "settings": {
+        "section_label": "Real World Applications",
+        "title": "Where Faithfull Delivers",
+        "subtitle": "From the decorator's van to the gardener's shed — tools that work hard",
+        "cta_text": "View All Faithfull Products",
+        "cta_url": ""
+      }
+    },
+    "brand_new_products": {
+      "type": "brand-new-products",
+      "blocks": {
+        "new_1": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "BESTSELLER",
+            "launch_date": "",
+            "title": "Prestige Plastering Trowel",
+            "description": "Faithfull's professional-grade plastering trowel. Stainless steel blade, hardwood handle and a balanced weight distribution that makes spreading a pleasure.",
+            "feature_1": "Stainless steel blade",
+            "feature_2": "Hardwood handle",
+            "feature_3": "Balanced weight",
+            "feature_4": "Multiple sizes available",
+            "cta_text": "Shop Trowels",
+            "cta_url": ""
+          }
+        },
+        "new_2": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "POPULAR",
+            "launch_date": "",
+            "title": "Trade Roller Set",
+            "description": "Complete decorating roller set with frame, sleeve, extension pole and tray. Everything you need for professional wall and ceiling painting.",
+            "feature_1": "9\" roller frame included",
+            "feature_2": "Medium pile sleeve",
+            "feature_3": "Extension pole",
+            "feature_4": "Heavy-duty paint tray",
+            "cta_text": "Shop Decorating",
+            "cta_url": ""
+          }
+        }
+      },
+      "block_order": ["new_1", "new_2"],
+      "settings": {
+        "section_label": "Popular Products",
+        "title": "Best Sellers from Faithfull",
+        "subtitle": "The tools tradespeople trust for dependable performance"
+      }
+    },
+    "brand_why_choose": {
+      "type": "brand-why-choose",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "£",
+            "title": "Genuine Trade Value",
+            "description": "Faithfull tools are priced for the working tradesperson — not inflated for a brand name, not cheapened to the point of failure. Honest value for honest work."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "2,000+",
+            "title": "Comprehensive Range",
+            "description": "Over 2,000 tools covering hand tools, decorating, gardening, workshop essentials and more. One brand, every need."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "QA",
+            "title": "Consistent Quality",
+            "description": "Every Faithfull tool is quality-checked against consistent standards. They won't win design awards, but they will do the job reliably, day after day."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "PARTS",
+            "title": "Replacement Parts",
+            "description": "Many Faithfull tools have replacement parts available — handles, blades, heads and accessories. Repair, don't replace."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "WIDE",
+            "title": "Sizes & Variants",
+            "description": "Faithfull offers a wide range of sizes and variants for each tool type — find exactly the right trowel, brush or spanner for your specific application."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "UK",
+            "title": "Available Nationwide",
+            "description": "Faithfull tools are stocked by trusted independent tool retailers across the UK. Buy from us in Ramsgate, Canterbury or online with free next-day delivery."
+          }
+        }
+      },
+      "block_order": ["benefit_1", "benefit_2", "benefit_3", "benefit_4", "benefit_5", "benefit_6"],
+      "settings": {
+        "section_label": "Why Faithfull",
+        "title": "Why Tradespeople Choose Faithfull",
+        "subtitle": "Dependable tools at a price that makes sense"
+      }
+    },
+    "categories": {
+      "type": "brand-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Hand Tools",
+            "description": "Hammers, screwdrivers, pliers, spanners, chisels and general-purpose hand tools for every trade.",
+            "url": ""
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Decorating Tools",
+            "description": "Brushes, rollers, scrapers, filling knives, dust sheets and all the decorating essentials.",
+            "url": ""
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Workshop & Storage",
+            "description": "Vices, clamps, files, tool storage and workshop essentials to keep your workspace organised.",
+            "url": ""
+          }
+        }
+      },
+      "block_order": ["cat_1", "cat_2", "cat_3"],
+      "settings": {
+        "section_label": "Shop By Category",
+        "title": "Explore the Faithfull Range",
+        "subtitle": "From hand tools to decorating essentials"
+      }
+    },
+    "video": {
+      "type": "brand-video",
+      "settings": {
+        "thumbnail": "",
+        "video_url": "",
+        "section_label": "See It In Action",
+        "title": "Faithfull Tools — Built for the Trade",
+        "description": "See why Faithfull tools are the go-to choice for tradespeople who want reliable performance at a sensible price.",
+        "feature_1": "Dependable quality",
+        "feature_2": "Genuine trade pricing",
+        "feature_3": "Comprehensive range",
+        "feature_4": "Replacement parts available"
+      }
+    },
+    "faq": {
+      "type": "brand-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "How does Faithfull compare to premium hand tool brands?",
+            "answer": "<p>Faithfull sits in the <strong>value-for-money tier</strong> — below premium brands like Stanley FatMax or Bahco, but significantly above budget tools. For occasional-to-regular use and for tools where top-tier performance isn't critical, Faithfull delivers excellent value. For heavy daily professional use, consider pairing Faithfull with premium tools where it matters most.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "Do Faithfull tools come with a guarantee?",
+            "answer": "<p>Faithfull tools are covered by a <strong>manufacturer's guarantee</strong> against defects in materials and workmanship. Contact our team on <strong>01843 210 459</strong> if you have any issues with a Faithfull product purchased from us — we'll help resolve it.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Which Faithfull trowels are best for plastering?",
+            "answer": "<p>For professional plastering, the <strong>Faithfull Prestige range</strong> offers stainless steel blades with hardwood handles. For everyday use, the standard Faithfull plastering trowel provides good performance at a lower price point. We stock a full range of sizes from 11\" to 16\" in both ranges.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I get replacement handles for Faithfull tools?",
+            "answer": "<p>Yes. Faithfull offers <strong>replacement handles</strong> for many of their tools including hammers, axes, picks and similar handled tools. This means you can extend the life of your tools rather than replacing them entirely. Check our accessories section or contact us for availability.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "What decorating tools does Faithfull make?",
+            "answer": "<p>Faithfull offers a comprehensive decorating range including <strong>paint brushes</strong> (synthetic and natural bristle), <strong>roller frames and sleeves</strong>, <strong>filling and stripping knives</strong>, <strong>scrapers</strong>, <strong>dust sheets</strong> and <strong>masking tape</strong>. It's everything a decorator needs at trade-friendly prices.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer trade pricing on Faithfull?",
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Faithfull range. Contact our trade team on <strong>01843 210 459</strong> for trade account enquiries. Free next-day delivery on all orders over £30.</p>"
+          }
+        }
+      },
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5", "faq_6"],
+      "settings": {
+        "heading": "Faithfull FAQs",
+        "subheading": "Common questions about Faithfull hand tools and decorating products"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Help Choosing the Right Tools?",
+        "subtitle": "Our team can help you find the best Faithfull products for your needs",
+        "primary_text": "01843 210 459",
+        "primary_url": "tel:01843210459",
+        "primary_icon": "phone",
+        "secondary_text": "Send Enquiry",
+        "secondary_url": "/pages/contact",
+        "secondary_icon": "email"
+      }
+    },
+    "schema": {
+      "type": "brand-schema",
+      "settings": {
+        "brand_name": "Faithfull",
+        "brand_description": "Faithfull Tools is a UK-based brand offering over 2,000 quality hand tools, decorating tools, gardening equipment and workshop essentials at genuine trade value.",
+        "brand_url": "",
+        "brand_founding_year": "",
+        "brand_country": "United Kingdom",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "hero",
+    "usp_strip",
+    "about",
+    "featured-products",
+    "brand_applications",
+    "brand_new_products",
+    "brand_why_choose",
+    "categories",
+    "video",
+    "faq",
+    "cta",
+    "schema"
+  ]
+}

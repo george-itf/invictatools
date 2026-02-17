@@ -1,0 +1,434 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb-simple",
+      "settings": {
+        "current_page": "",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    },
+    "hero": {
+      "type": "brand-hero",
+      "settings": {
+        "brand_logo": "",
+        "dealer_badge": "Authorised UK Dealer",
+        "headline_line_1": "Guaranteed Tough.",
+        "headline_line_2": "Built Without Compromise.",
+        "subtitle": "Professional-grade power tools, hand tools and accessories engineered for the toughest jobsites. Trusted by tradespeople across the UK since 1923.",
+        "stat_1_value": "1923",
+        "stat_1_label": "Founded",
+        "stat_2_value": "54V",
+        "stat_2_label": "FlexVolt",
+        "stat_3_value": "100+",
+        "stat_3_label": "Jobsite Tools",
+        "primary_cta_text": "Shop All DeWalt",
+        "primary_cta_url": "",
+        "secondary_cta_text": "Browse by Category",
+        "secondary_cta_url": "#categories",
+        "hero_image": ""
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £30"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Authorised Dealer",
+            "subtitle": "Full manufacturer warranty"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 210 459"
+          }
+        }
+      },
+      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#e41e25",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "about": {
+      "type": "brand-about",
+      "settings": {
+        "image": "",
+        "badge_label": "Since",
+        "badge_value": "1923",
+        "section_label": "The DeWalt Story",
+        "title": "Guaranteed Tough Since 1923",
+        "paragraph_1": "Raymond DeWalt invented the radial arm saw in 1923, transforming how carpenters and builders worked on-site. From that single innovation in a Pennsylvania machine shop, DeWalt has grown into one of the most trusted names in professional power tools and accessories worldwide.",
+        "paragraph_2": "Today, DeWalt's XR brushless range and revolutionary FlexVolt system — the world's first battery that automatically changes voltage — deliver corded power in a cordless format. Combined with the iconic TSTAK storage system and a no-nonsense 3-year guarantee, DeWalt is the brand that never lets the trade down.",
+        "stat_1_value": "100+",
+        "stat_1_label": "Years of Heritage",
+        "stat_2_value": "54V",
+        "stat_2_label": "FlexVolt Max",
+        "stat_3_value": "#1",
+        "stat_3_label": "On UK Jobsites",
+        "feature_1": "FlexVolt auto-switching voltage technology",
+        "feature_2": "XR brushless range across all trades",
+        "feature_3": "TSTAK modular storage system",
+        "feature_4": "3-year manufacturer guarantee",
+        "cta_text": "Learn More",
+        "cta_url": ""
+      }
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Featured DeWalt Products",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "brand_applications": {
+      "type": "brand-applications",
+      "blocks": {
+        "app_1": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": true,
+            "title": "Construction",
+            "description": "SDS-Plus and SDS-Max rotary hammers, circular saws and combi drills that power through concrete, steel and timber on the toughest sites.",
+            "product_highlight": "FlexVolt 54V Range"
+          }
+        },
+        "app_2": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Joinery",
+            "description": "Precision mitre saws, planers, routers and biscuit joiners for on-site and workshop joinery that demands accuracy.",
+            "product_highlight": "DWS780 Mitre Saw"
+          }
+        },
+        "app_3": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Renovation",
+            "description": "Multi-tools, reciprocating saws and demolition hammers for strip-out, first fix and second fix refurbishment work.",
+            "product_highlight": "XR Brushless Multi-Tool"
+          }
+        },
+        "app_4": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Electrical",
+            "description": "Compact 12V XR drills, cable cutters and inspection cameras designed for electrical first and second fix.",
+            "product_highlight": "12V XR Sub-Compact"
+          }
+        },
+        "app_5": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Plumbing",
+            "description": "Press tools, pipe cutters and compact right-angle drills engineered for tight spaces and professional plumbing installations.",
+            "product_highlight": "DCE089 Laser Level"
+          }
+        }
+      },
+      "block_order": ["app_1", "app_2", "app_3", "app_4", "app_5"],
+      "settings": {
+        "section_label": "Real World Applications",
+        "title": "Where DeWalt Delivers",
+        "subtitle": "Built for every trade, engineered for the toughest conditions",
+        "cta_text": "View All DeWalt Products",
+        "cta_url": ""
+      }
+    },
+    "brand_new_products": {
+      "type": "brand-new-products",
+      "blocks": {
+        "new_1": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "NEW",
+            "launch_date": "Available Now",
+            "title": "FlexVolt 54V SDS-Max Rotary Hammer",
+            "description": "The most powerful cordless rotary hammer in the DeWalt range. 54V FlexVolt brushless motor delivers 13.3J impact energy — true corded performance without the cable.",
+            "feature_1": "13.3J impact energy",
+            "feature_2": "54V FlexVolt brushless motor",
+            "feature_3": "Active vibration control",
+            "feature_4": "E-Clutch anti-rotation safety",
+            "cta_text": "Shop FlexVolt",
+            "cta_url": ""
+          }
+        },
+        "new_2": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "BESTSELLER",
+            "launch_date": "",
+            "title": "XR 18V Brushless Combi Drill Kit",
+            "description": "The definitive trade combi drill. XR brushless motor, 95Nm torque, 3-speed gearbox and a premium TSTAK case. Everything you need in one kit.",
+            "feature_1": "95Nm maximum torque",
+            "feature_2": "XR brushless technology",
+            "feature_3": "LED work light",
+            "feature_4": "TSTAK carry case included",
+            "cta_text": "Shop XR Drills",
+            "cta_url": ""
+          }
+        }
+      },
+      "block_order": ["new_1", "new_2"],
+      "settings": {
+        "section_label": "Latest Products",
+        "title": "What's New from DeWalt",
+        "subtitle": "The latest FlexVolt and XR tools for professional tradespeople"
+      }
+    },
+    "brand_why_choose": {
+      "type": "brand-why-choose",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "54V",
+            "title": "FlexVolt Technology",
+            "description": "The world's first battery that automatically changes voltage — running at 18V in 18V tools and 54V in FlexVolt tools. One battery, two platforms, maximum versatility."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "XR",
+            "title": "Brushless Performance",
+            "description": "DeWalt XR brushless motors deliver up to 57% more runtime, more power and longer tool life than brushed equivalents. The professional standard."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "3 Yr",
+            "title": "Guaranteed Tough",
+            "description": "Every DeWalt power tool comes with a 3-year guarantee and 1-year free service. If it breaks, it gets fixed or replaced. No arguments."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "TSTAK",
+            "title": "Modular Storage",
+            "description": "TSTAK storage cases interlock and stack securely — keep your tools, accessories and consumables organised from van to jobsite."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "TOUGH",
+            "title": "Jobsite Durability",
+            "description": "Engineered and tested to survive real jobsite conditions. Anti-slip grips, reinforced housings and IP-rated dust protection across the XR range."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "UK",
+            "title": "Support Network",
+            "description": "DeWalt has a nationwide network of authorised service centres across the UK. As an authorised dealer, we can handle warranty claims and repairs directly."
+          }
+        }
+      },
+      "block_order": ["benefit_1", "benefit_2", "benefit_3", "benefit_4", "benefit_5", "benefit_6"],
+      "settings": {
+        "section_label": "Why DeWalt",
+        "title": "Why Professionals Choose DeWalt",
+        "subtitle": "The yellow and black tools that built Britain's reputation on the jobsite"
+      }
+    },
+    "categories": {
+      "type": "brand-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Cordless Power Tools",
+            "description": "XR 18V and FlexVolt 54V drills, saws, grinders, impact drivers and more — built for the professional trade.",
+            "url": ""
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Hand Tools",
+            "description": "Knives, tape measures, levels, hammers and chisels — built to the same Guaranteed Tough standard as DeWalt power tools.",
+            "url": ""
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Accessories & Blades",
+            "description": "Drill bits, saw blades, sanding discs, batteries, chargers and TSTAK storage — everything to keep you working.",
+            "url": ""
+          }
+        }
+      },
+      "block_order": ["cat_1", "cat_2", "cat_3"],
+      "settings": {
+        "section_label": "Shop By Category",
+        "title": "Explore the DeWalt Range",
+        "subtitle": "From FlexVolt power tools to Guaranteed Tough hand tools"
+      }
+    },
+    "video": {
+      "type": "brand-video",
+      "settings": {
+        "thumbnail": "",
+        "video_url": "",
+        "section_label": "See It In Action",
+        "title": "DeWalt FlexVolt System Explained",
+        "description": "See how FlexVolt's auto-switching battery technology delivers corded power from a cordless platform.",
+        "feature_1": "Auto-switches 18V to 54V",
+        "feature_2": "Backwards compatible with XR",
+        "feature_3": "Up to 3x the power of 18V",
+        "feature_4": "Growing FlexVolt range"
+      }
+    },
+    "faq": {
+      "type": "brand-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "What is DeWalt FlexVolt and how does it work?",
+            "answer": "<p><strong>FlexVolt</strong> is DeWalt's unique battery technology — the world's first battery that automatically changes voltage. When you slot a FlexVolt battery into an 18V XR tool, it runs at 18V. When you slot it into a 54V FlexVolt tool, it switches to 54V automatically. This gives you corded-level power from a cordless battery.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the difference between DeWalt XR and standard DeWalt?",
+            "answer": "<p><strong>XR (Extreme Runtime)</strong> is DeWalt's professional-grade line featuring brushless motors, premium build quality and longer runtime. Standard DeWalt tools use brushed motors and are aimed at lighter-duty applications. For professional trade use, we always recommend the XR range.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "What guarantee do DeWalt tools come with?",
+            "answer": "<p>All DeWalt power tools come with a <strong>3-year guarantee</strong> and <strong>1-year free service</strong> when purchased from an authorised dealer. As an authorised DeWalt dealer, Invicta Tools can process all warranty and guarantee claims directly. Register your tools on the DeWalt website within 4 weeks of purchase.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "Are DeWalt 18V batteries compatible with FlexVolt tools?",
+            "answer": "<p>Standard 18V XR batteries can physically fit FlexVolt tools, but they will only power the tool at 18V — not the full 54V. For maximum performance from FlexVolt tools, use a <strong>FlexVolt 54V battery</strong> (DCB546/DCB547). FlexVolt batteries do work in all 18V XR tools at 18V.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "Which DeWalt combi drill is best for professional use?",
+            "answer": "<p>For most tradespeople, the <strong>DCD805 XR 18V brushless combi drill</strong> is the best all-round choice. It delivers 95Nm torque, has a 3-speed gearbox and fits in the TSTAK system. For heavy-duty drilling in masonry and concrete, step up to the <strong>FlexVolt 54V SDS-Plus</strong>.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer trade pricing on DeWalt?",
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full DeWalt range. Contact our trade team on <strong>01843 210 459</strong> for volume discounts and trade account enquiries. We also provide free next-day delivery on all orders over £30.</p>"
+          }
+        }
+      },
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5", "faq_6"],
+      "settings": {
+        "heading": "DeWalt FAQs",
+        "subheading": "Common questions about DeWalt power tools, FlexVolt and XR"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Help Choosing the Right DeWalt?",
+        "subtitle": "Our team can recommend the best tools for your trade and budget",
+        "primary_text": "01843 210 459",
+        "primary_url": "tel:01843210459",
+        "primary_icon": "phone",
+        "secondary_text": "Send Enquiry",
+        "secondary_url": "/pages/contact",
+        "secondary_icon": "email"
+      }
+    },
+    "schema": {
+      "type": "brand-schema",
+      "settings": {
+        "brand_name": "DeWalt",
+        "brand_description": "DeWalt is a global manufacturer of professional power tools, hand tools and accessories. Founded in 1923, DeWalt's FlexVolt and XR ranges are trusted by tradespeople on jobsites worldwide.",
+        "brand_url": "https://www.dewalt.co.uk",
+        "brand_founding_year": "1923",
+        "brand_country": "United States",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "hero",
+    "usp_strip",
+    "about",
+    "featured-products",
+    "brand_applications",
+    "brand_new_products",
+    "brand_why_choose",
+    "categories",
+    "video",
+    "faq",
+    "cta",
+    "schema"
+  ]
+}
