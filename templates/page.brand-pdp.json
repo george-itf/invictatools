@@ -27,7 +27,7 @@
         "primary_cta_url": "",
         "secondary_cta_text": "Browse by Category",
         "secondary_cta_url": "#categories",
-        "hero_image": "shopify://shop_images/about-header-fc26ff4b.jpg"
+        "hero_image": "shopify://shop_images/556496488_122224346894253560_5998235512807342077_n.jpg"
       }
     },
     "usp_strip": {
@@ -85,6 +85,7 @@
     "about": {
       "type": "brand-about",
       "settings": {
+        "image": "shopify://shop_images/600229224_122236516430253560_8285563997076327893_n.jpg",
         "badge_label": "Made in",
         "badge_value": "the UK",
         "section_label": "The PDP Story",
@@ -324,6 +325,7 @@
         "cat_1": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/01-p5-lmc-eefe8794_a1715186-526f-420f-a1da-09cd615151f0.webp",
             "title": "Diamond Blades",
             "description": "Segmented, turbo and continuous rim diamond blades for concrete, masonry, tile, asphalt and multi-material cutting.",
             "url": ""
@@ -332,6 +334,7 @@
         "cat_2": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/01-p5-eddc-ee1ac531_66e4b930-982e-4f9b-b0a9-ff986e0f88a6.webp",
             "title": "Core Drills",
             "description": "Diamond core drills for clean, precise holes in concrete, masonry, brick and reinforced materials.",
             "url": ""
@@ -340,6 +343,7 @@
         "cat_3": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/01-p6-pt-60eab977_d78e940c-0633-489a-8150-6f2d30cf3983.webp",
             "title": "Cutting Discs",
             "description": "Abrasive cutting and grinding discs for metal, stone and general-purpose construction applications.",
             "url": ""
@@ -360,7 +364,8 @@
     "video": {
       "type": "brand-video",
       "settings": {
-        "video_url": "",
+        "thumbnail": "shopify://shop_images/hqdefault_1.avif",
+        "video_url": "https://youtu.be/zkGvdIdmbWU?si=cR0s0FbYO08PC2s6",
         "section_label": "See It In Action",
         "title": "PDP Diamond Blades in Action",
         "description": "See how PDP diamond blades cut through concrete, masonry and ceramics with precision and speed.",
