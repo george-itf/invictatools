@@ -313,6 +313,7 @@
         "cat_1": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/DJR183_D1CK_s01.jpg",
             "title": "Cordless Power Tools",
             "description": "Drills, impact drivers, saws, grinders, planers and more — all powered by the LXT 18V or XGT 40V battery platform.",
             "url": ""
@@ -321,6 +322,7 @@
         "cat_2": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/MAK-DUA200-Makita-A4-18v-LXT-Cordless-Brushless-Pole-Saw.jpg",
             "title": "Outdoor Power Equipment",
             "description": "Chainsaws, hedge trimmers, blowers and lawnmowers — cordless outdoor tools with petrol-equivalent performance.",
             "url": ""
@@ -329,6 +331,7 @@
         "cat_3": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/99248-7.jpg",
             "title": "Accessories & Consumables",
             "description": "Batteries, chargers, drill bits, saw blades, sanding sheets and carrying cases to keep you working.",
             "url": ""
@@ -349,7 +352,7 @@
     "video": {
       "type": "brand-video",
       "settings": {
-        "video_url": "",
+        "video_url": "https://youtu.be/-g5sWeNPbM0",
         "section_label": "See It In Action",
         "title": "Makita XGT 40V Max System",
         "description": "Discover how the 40V XGT platform delivers corded power without the cord — from SDS hammers to mitre saws.",
