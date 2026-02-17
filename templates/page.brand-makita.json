@@ -9,14 +9,6 @@
  */
 {
   "sections": {
-    "breadcrumb": {
-      "type": "breadcrumb-simple",
-      "settings": {
-        "current_page": "",
-        "parent_url": "/pages/shop-by-brand",
-        "parent_title": "Brands"
-      }
-    },
     "hero": {
       "type": "brand-hero",
       "settings": {
@@ -447,7 +439,6 @@
     }
   },
   "order": [
-    "breadcrumb",
     "hero",
     "usp_strip",
     "about",
