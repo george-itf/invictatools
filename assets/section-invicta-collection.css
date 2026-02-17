@@ -123,7 +123,7 @@
 
 .inv-hero__title {
   font-size: clamp(1.75rem, 5vw, 2.5rem);
-  font-weight: 800;
+  font-weight: 80;
   color: #ffffff;
   margin: 0;
   line-height: 1.15;
