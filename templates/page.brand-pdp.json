@@ -12,7 +12,7 @@
     "hero": {
       "type": "brand-hero",
       "settings": {
-        "brand_logo": "",
+        "brand_logo": "shopify://shop_images/download.png",
         "dealer_badge": "Authorised Stockist",
         "headline_line_1": "Cut with Confidence.",
         "headline_line_2": "Precision Diamond Blades.",
@@ -26,8 +26,7 @@
         "primary_cta_text": "Shop All PDP",
         "primary_cta_url": "",
         "secondary_cta_text": "Browse by Category",
-        "secondary_cta_url": "#categories",
-        "hero_image": ""
+        "secondary_cta_url": "#categories"
       }
     },
     "usp_strip": {
@@ -85,7 +84,6 @@
     "about": {
       "type": "brand-about",
       "settings": {
-        "image": "",
         "badge_label": "Made in",
         "badge_value": "the UK",
         "section_label": "The PDP Story",
@@ -131,46 +129,46 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
             "featured": true,
             "title": "Concrete Cutting",
-            "description": "Segmented and turbo diamond blades engineered for reinforced concrete, cured concrete and lightweight blocks. Fast cutting with long blade life."
+            "description": "Segmented and turbo diamond blades engineered for reinforced concrete, cured concrete and lightweight blocks. Fast cutting with long blade life.",
+            "connector_used": "Cabineo 12"
           }
         },
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
             "featured": false,
             "title": "Tile & Ceramic",
-            "description": "Continuous rim blades for clean, chip-free cuts in porcelain, ceramic and natural stone tiles."
+            "description": "Continuous rim blades for clean, chip-free cuts in porcelain, ceramic and natural stone tiles.",
+            "connector_used": "Cabineo 12"
           }
         },
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
             "featured": false,
             "title": "Masonry",
-            "description": "General-purpose diamond blades for brick, block, paving and natural stone — the everyday blade for construction sites."
+            "description": "General-purpose diamond blades for brick, block, paving and natural stone — the everyday blade for construction sites.",
+            "connector_used": "Cabineo 12"
           }
         },
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
             "featured": false,
             "title": "Road Work",
-            "description": "Floor saw blades for asphalt and green concrete — designed for road repairs, utility trenching and pavement work."
+            "description": "Floor saw blades for asphalt and green concrete — designed for road repairs, utility trenching and pavement work.",
+            "connector_used": "Cabineo 12"
           }
         },
         "app_5": {
           "type": "application",
           "settings": {
-            "image": "",
             "featured": false,
             "title": "Demolition",
-            "description": "Rescue and demolition blades for cutting through reinforced concrete, steel pipe, cast iron and mixed materials."
+            "description": "Rescue and demolition blades for cutting through reinforced concrete, steel pipe, cast iron and mixed materials.",
+            "connector_used": "Cabineo 12"
           }
         }
       },
@@ -195,7 +193,6 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
@@ -212,7 +209,6 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
             "show_badge": true,
             "badge_text": "POPULAR",
             "launch_date": "",
@@ -309,7 +305,6 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
             "title": "Diamond Blades",
             "description": "Segmented, turbo and continuous rim diamond blades for concrete, masonry, tile, asphalt and multi-material cutting.",
             "url": ""
@@ -318,7 +313,6 @@
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
             "title": "Core Drills",
             "description": "Diamond core drills for clean, precise holes in concrete, masonry, brick and reinforced materials.",
             "url": ""
@@ -327,7 +321,6 @@
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
             "title": "Cutting Discs",
             "description": "Abrasive cutting and grinding discs for metal, stone and general-purpose construction applications.",
             "url": ""
@@ -348,7 +341,6 @@
     "video": {
       "type": "brand-video",
       "settings": {
-        "thumbnail": "",
         "video_url": "",
         "section_label": "See It In Action",
         "title": "PDP Diamond Blades in Action",
