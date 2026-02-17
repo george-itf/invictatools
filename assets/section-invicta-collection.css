@@ -164,10 +164,10 @@
 /* Description / subheading */
 .inv-hero__description {
   margin: 12px 0 0;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.85);
-  max-width: 640px;
+  max-width: 1240px;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
