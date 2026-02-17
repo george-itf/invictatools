@@ -15,7 +15,7 @@
   --inv-c-text: #1a1a1a;
   --inv-c-muted: #666;
   --inv-c-accent: var(--inv-accent, #e11d26);
-  --inv-c-dark: var(--inv-fg, #0f172a);
+  --inv-c-dark: var(--inv-fg, #f5f5f5);
   --inv-c-radius: 8px;
   --inv-c-transition: 0.15s ease;
 }
