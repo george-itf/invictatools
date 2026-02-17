@@ -85,6 +85,7 @@
     "about": {
       "type": "brand-about",
       "settings": {
+        "image": "shopify://shop_images/Schreinerei.webp",
         "badge_label": "Since",
         "badge_value": "1944",
         "section_label": "The Lamello Story",
@@ -108,7 +109,7 @@
     "featured-products": {
       "type": "featured-collection",
       "settings": {
-        "collection": "",
+        "collection": "lamello-featured",
         "products_to_show": 4,
         "header_style": "bar",
         "title": "Featured Lamello Products",
@@ -130,46 +131,51 @@
         "app_1": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/Schreinerei.webp",
             "featured": true,
             "title": "Commercial Furniture",
             "description": "Hüba in Lucerne used over 30,000 Clamex connectors for their tubular metal furniture system — saving 25% assembly time.",
-            "connector_used": "Cabineo 12"
+            "connector_used": ""
           }
         },
         "app_2": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/ANW_FOT_EAW_Schreinerei-Buechi-30__SALL__AIN__V1.webp",
             "featured": false,
             "title": "Kitchen Fitting",
             "description": "Fast carcass assembly with invisible connections that can be disassembled and reassembled without damage.",
-            "connector_used": "Cabineo 12"
+            "connector_used": ""
           }
         },
         "app_3": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/ANW_FOT_EAW_Kiefer-06__SALL__AIN__V1.webp",
             "featured": false,
             "title": "Bespoke Furniture",
             "description": "STORY Design Amsterdam creates sustainable flat-pack furniture with invisible Lamello joints.",
-            "connector_used": "Cabineo 12"
+            "connector_used": ""
           }
         },
         "app_4": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/ANW_FOT_EAW_Schreinerei-Kueng-12__SALL__AIN__V1.webp",
             "featured": false,
             "title": "Shop Fitting",
             "description": "Retail displays that can be assembled and reconfigured on-site without specialist tools.",
-            "connector_used": "Cabineo 12"
+            "connector_used": ""
           }
         },
         "app_5": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/ANW_FOT_EAW_Tischlerei-Setz-und-Fischer-067__SALL__AIN__V1.webp",
             "featured": false,
             "title": "Cabinet Making",
             "description": "Traditional joinery with modern efficiency — invisible joints that maintain the integrity of fine woodwork.",
-            "connector_used": "Cabineo 12"
+            "connector_used": ""
           }
         }
       },
@@ -194,6 +200,7 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
+            "image": "shopify://shop_images/Jede_Verbindung_zaehlt.webp",
             "show_badge": true,
             "badge_text": "NEW",
             "launch_date": "Available Now",
@@ -210,6 +217,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
+            "image": "shopify://shop_images/IMG_FOT_MAK_Zeta-P2-Anwendung-03__SALL__AIN__V1.webp",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
