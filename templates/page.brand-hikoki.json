@@ -26,7 +26,8 @@
         "primary_cta_text": "Shop All HiKOKI",
         "primary_cta_url": "",
         "secondary_cta_text": "Browse by Category",
-        "secondary_cta_url": "#categories"
+        "secondary_cta_url": "#categories",
+        "hero_image": "shopify://shop_images/HIKOKI.jpg"
       }
     },
     "usp_strip": {
@@ -130,46 +131,51 @@
         "app_1": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/81cGnD287QL._AC_UF894_1000_QL80.jpg",
             "featured": true,
             "title": "Construction",
             "description": "MultiVolt SDS rotary hammers, circular saws and combi drills that match corded performance on the most demanding construction sites.",
-            "connector_used": "Cabineo 12"
+            "connector_used": ""
           }
         },
         "app_2": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/hitp18dsl-l4.jpg",
             "featured": false,
             "title": "Woodworking",
             "description": "Precision mitre saws, planers and routers with MultiVolt power for workshop and on-site joinery applications.",
-            "connector_used": "Cabineo 12"
+            "connector_used": ""
           }
         },
         "app_3": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/hitgp18daj5z_2.jpg",
             "featured": false,
             "title": "Metalwork",
             "description": "Angle grinders, cut-off saws and band saws engineered for steel fabrication and metalworking professionals.",
-            "connector_used": "Cabineo 12"
+            "connector_used": ""
           }
         },
         "app_4": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/2000x2000-H3641DA3-1-510x510.jpg",
             "featured": false,
             "title": "Demolition",
             "description": "SDS-Max breakers and demolition hammers with anti-vibration technology for heavy-duty concrete and masonry demolition.",
-            "connector_used": "Cabineo 12"
+            "connector_used": ""
           }
         },
         "app_5": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/cr18da-202009301120421.webp",
             "featured": false,
             "title": "Renovation",
             "description": "Multi-tools, reciprocating saws and dust extractors for efficient strip-out and refurbishment projects.",
-            "connector_used": "Cabineo 12"
+            "connector_used": ""
           }
         }
       },
@@ -194,6 +200,7 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
+            "image": "shopify://shop_images/HIKC3606DBW2Z_B__45571.jpg",
             "show_badge": true,
             "badge_text": "NEW",
             "launch_date": "Available Now",
@@ -210,6 +217,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
+            "image": "shopify://shop_images/hitdv36dcw2z__1.jpg",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
@@ -306,6 +314,7 @@
         "cat_1": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/images_4_ad84d73e-6161-4824-9eab-6156dcde9549.jpg",
             "title": "MultiVolt 36V Tools",
             "description": "The flagship range — 36V brushless tools that deliver corded power without the cord. Drills, saws, grinders and more.",
             "url": ""
@@ -314,6 +323,7 @@
         "cat_2": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/CV18DA_2000x2000_App3__67181.jpg",
             "title": "18V Cordless Tools",
             "description": "The proven 18V platform with full MultiVolt battery compatibility. Compact, lightweight and ready for every day.",
             "url": ""
@@ -322,6 +332,7 @@
         "cat_3": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/HIKC3612DRA_A__61054.jpg",
             "title": "Woodworking Machines",
             "description": "Mitre saws, table saws and planers — MultiVolt-powered workshop machines for professional woodworkers.",
             "url": ""
@@ -342,7 +353,8 @@
     "video": {
       "type": "brand-video",
       "settings": {
-        "video_url": "",
+        "thumbnail": "shopify://shop_images/hqdefault.avif",
+        "video_url": "https://youtu.be/gaNxO1w8G2g?si=QbOVbdK_DB9Ns0ab",
         "section_label": "See It In Action",
         "title": "HiKOKI MultiVolt Explained",
         "description": "Discover how one battery powers both 36V and 18V tools — the MultiVolt system that's changing cordless power.",
