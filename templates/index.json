@@ -196,14 +196,14 @@
         "brand_1": {
           "type": "brand",
           "settings": {
-            "brand_collection": "makita",
+            "brand_collection": "",
             "brand_page": "makita"
           }
         },
         "brand_2": {
           "type": "brand",
           "settings": {
-            "brand_collection": "dewalt",
+            "brand_collection": "",
             "brand_page": "dewalt"
           }
         },

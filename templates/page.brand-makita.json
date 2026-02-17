@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "breadcrumb": {
@@ -65,7 +74,12 @@
           }
         }
       },
-      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
       "settings": {
         "background_color": "#fdfdfd",
         "accent_color": "#e41e25",
@@ -128,8 +142,7 @@
             "image": "",
             "featured": true,
             "title": "Construction",
-            "description": "From framing to finishing, Makita cordless tools power through the toughest construction projects with brushless efficiency and all-day battery life.",
-            "product_highlight": "LXT & XGT Platform"
+            "description": "From framing to finishing, Makita cordless tools power through the toughest construction projects with brushless efficiency and all-day battery life."
           }
         },
         "app_2": {
@@ -138,8 +151,7 @@
             "image": "",
             "featured": false,
             "title": "Woodworking",
-            "description": "Precision planers, routers and sanders with class-leading dust extraction for a cleaner, healthier workshop.",
-            "product_highlight": "DKP181Z Planer"
+            "description": "Precision planers, routers and sanders with class-leading dust extraction for a cleaner, healthier workshop."
           }
         },
         "app_3": {
@@ -148,8 +160,7 @@
             "image": "",
             "featured": false,
             "title": "Landscaping",
-            "description": "The XGT outdoor power equipment range delivers petrol-equivalent performance with zero emissions and lower noise.",
-            "product_highlight": "XGT Outdoor Range"
+            "description": "The XGT outdoor power equipment range delivers petrol-equivalent performance with zero emissions and lower noise."
           }
         },
         "app_4": {
@@ -158,8 +169,7 @@
             "image": "",
             "featured": false,
             "title": "Metalworking",
-            "description": "Angle grinders, cut-off saws and metal-cutting circular saws built to handle steel, aluminium and stainless.",
-            "product_highlight": "DGA519Z"
+            "description": "Angle grinders, cut-off saws and metal-cutting circular saws built to handle steel, aluminium and stainless."
           }
         },
         "app_5": {
@@ -168,12 +178,17 @@
             "image": "",
             "featured": false,
             "title": "Renovation",
-            "description": "Multi-tools, reciprocating saws and demolition hammers for strip-out, refit and refurbishment projects.",
-            "product_highlight": "DTM52Z Multi-Tool"
+            "description": "Multi-tools, reciprocating saws and demolition hammers for strip-out, refit and refurbishment projects."
           }
         }
       },
-      "block_order": ["app_1", "app_2", "app_3", "app_4", "app_5"],
+      "block_order": [
+        "app_1",
+        "app_2",
+        "app_3",
+        "app_4",
+        "app_5"
+      ],
       "settings": {
         "section_label": "Real World Applications",
         "title": "Where Makita Performs",
@@ -220,7 +235,10 @@
           }
         }
       },
-      "block_order": ["new_1", "new_2"],
+      "block_order": [
+        "new_1",
+        "new_2"
+      ],
       "settings": {
         "section_label": "Latest Products",
         "title": "What's New from Makita",
@@ -279,7 +297,14 @@
           }
         }
       },
-      "block_order": ["benefit_1", "benefit_2", "benefit_3", "benefit_4", "benefit_5", "benefit_6"],
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6"
+      ],
       "settings": {
         "section_label": "Why Makita",
         "title": "Why Professionals Choose Makita",
@@ -317,7 +342,11 @@
           }
         }
       },
-      "block_order": ["cat_1", "cat_2", "cat_3"],
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3"
+      ],
       "settings": {
         "section_label": "Shop By Category",
         "title": "Explore the Makita Range",
@@ -384,7 +413,14 @@
           }
         }
       },
-      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5", "faq_6"],
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6"
+      ],
       "settings": {
         "heading": "Makita FAQs",
         "subheading": "Common questions about Makita cordless tools and battery platforms"

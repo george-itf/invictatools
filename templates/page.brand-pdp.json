@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "breadcrumb": {
@@ -65,7 +74,12 @@
           }
         }
       },
-      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
       "settings": {
         "background_color": "#fdfdfd",
         "accent_color": "#e41e25",
@@ -128,8 +142,7 @@
             "image": "",
             "featured": true,
             "title": "Concrete Cutting",
-            "description": "Segmented and turbo diamond blades engineered for reinforced concrete, cured concrete and lightweight blocks. Fast cutting with long blade life.",
-            "product_highlight": "P5-C Concrete Blade"
+            "description": "Segmented and turbo diamond blades engineered for reinforced concrete, cured concrete and lightweight blocks. Fast cutting with long blade life."
           }
         },
         "app_2": {
@@ -138,8 +151,7 @@
             "image": "",
             "featured": false,
             "title": "Tile & Ceramic",
-            "description": "Continuous rim blades for clean, chip-free cuts in porcelain, ceramic and natural stone tiles.",
-            "product_highlight": "DP16 Tile Blade"
+            "description": "Continuous rim blades for clean, chip-free cuts in porcelain, ceramic and natural stone tiles."
           }
         },
         "app_3": {
@@ -148,8 +160,7 @@
             "image": "",
             "featured": false,
             "title": "Masonry",
-            "description": "General-purpose diamond blades for brick, block, paving and natural stone — the everyday blade for construction sites.",
-            "product_highlight": "P3-B Masonry Blade"
+            "description": "General-purpose diamond blades for brick, block, paving and natural stone — the everyday blade for construction sites."
           }
         },
         "app_4": {
@@ -158,8 +169,7 @@
             "image": "",
             "featured": false,
             "title": "Road Work",
-            "description": "Floor saw blades for asphalt and green concrete — designed for road repairs, utility trenching and pavement work.",
-            "product_highlight": "P5-A Asphalt Blade"
+            "description": "Floor saw blades for asphalt and green concrete — designed for road repairs, utility trenching and pavement work."
           }
         },
         "app_5": {
@@ -168,12 +178,17 @@
             "image": "",
             "featured": false,
             "title": "Demolition",
-            "description": "Rescue and demolition blades for cutting through reinforced concrete, steel pipe, cast iron and mixed materials.",
-            "product_highlight": "P5-MM Multi-Material"
+            "description": "Rescue and demolition blades for cutting through reinforced concrete, steel pipe, cast iron and mixed materials."
           }
         }
       },
-      "block_order": ["app_1", "app_2", "app_3", "app_4", "app_5"],
+      "block_order": [
+        "app_1",
+        "app_2",
+        "app_3",
+        "app_4",
+        "app_5"
+      ],
       "settings": {
         "section_label": "Real World Applications",
         "title": "Where PDP Blades Cut",
@@ -220,7 +235,10 @@
           }
         }
       },
-      "block_order": ["new_1", "new_2"],
+      "block_order": [
+        "new_1",
+        "new_2"
+      ],
       "settings": {
         "section_label": "Popular Products",
         "title": "Best Sellers from PDP",
@@ -279,7 +297,14 @@
           }
         }
       },
-      "block_order": ["benefit_1", "benefit_2", "benefit_3", "benefit_4", "benefit_5", "benefit_6"],
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6"
+      ],
       "settings": {
         "section_label": "Why PDP",
         "title": "Why Professionals Choose Premier Diamond Products",
@@ -317,7 +342,11 @@
           }
         }
       },
-      "block_order": ["cat_1", "cat_2", "cat_3"],
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3"
+      ],
       "settings": {
         "section_label": "Shop By Category",
         "title": "Explore the PDP Range",
@@ -384,7 +413,14 @@
           }
         }
       },
-      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5", "faq_6"],
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6"
+      ],
       "settings": {
         "heading": "Diamond Blade FAQs",
         "subheading": "Common questions about PDP diamond blades and cutting discs"

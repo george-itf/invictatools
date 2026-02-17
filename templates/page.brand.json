@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "breadcrumb": {
@@ -65,7 +74,12 @@
           }
         }
       },
-      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
       "settings": {
         "background_color": "#fdfdfd",
         "accent_color": "#e41e25",
@@ -128,8 +142,7 @@
             "image": "",
             "featured": true,
             "title": "",
-            "description": "",
-            "product_highlight": ""
+            "description": ""
           }
         },
         "app_2": {
@@ -138,8 +151,7 @@
             "image": "",
             "featured": false,
             "title": "",
-            "description": "",
-            "product_highlight": ""
+            "description": ""
           }
         },
         "app_3": {
@@ -148,8 +160,7 @@
             "image": "",
             "featured": false,
             "title": "",
-            "description": "",
-            "product_highlight": ""
+            "description": ""
           }
         },
         "app_4": {
@@ -158,8 +169,7 @@
             "image": "",
             "featured": false,
             "title": "",
-            "description": "",
-            "product_highlight": ""
+            "description": ""
           }
         },
         "app_5": {
@@ -168,12 +178,17 @@
             "image": "",
             "featured": false,
             "title": "",
-            "description": "",
-            "product_highlight": ""
+            "description": ""
           }
         }
       },
-      "block_order": ["app_1", "app_2", "app_3", "app_4", "app_5"],
+      "block_order": [
+        "app_1",
+        "app_2",
+        "app_3",
+        "app_4",
+        "app_5"
+      ],
       "settings": {
         "section_label": "Real World Applications",
         "title": "",
@@ -220,7 +235,10 @@
           }
         }
       },
-      "block_order": ["new_1", "new_2"],
+      "block_order": [
+        "new_1",
+        "new_2"
+      ],
       "settings": {
         "section_label": "Latest Products",
         "title": "",
@@ -279,7 +297,14 @@
           }
         }
       },
-      "block_order": ["benefit_1", "benefit_2", "benefit_3", "benefit_4", "benefit_5", "benefit_6"],
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6"
+      ],
       "settings": {
         "section_label": "",
         "title": "",
@@ -317,7 +342,11 @@
           }
         }
       },
-      "block_order": ["cat_1", "cat_2", "cat_3"],
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3"
+      ],
       "settings": {
         "section_label": "Shop By Category",
         "title": "",

@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "breadcrumb": {
@@ -65,7 +74,12 @@
           }
         }
       },
-      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
       "settings": {
         "background_color": "#fdfdfd",
         "accent_color": "#e41e25",
@@ -128,8 +142,7 @@
             "image": "",
             "featured": true,
             "title": "Carpentry",
-            "description": "Tape measures, spirit levels, chisels, planes and hand saws — the essential toolkit for every carpenter and joiner.",
-            "product_highlight": "FatMax Range"
+            "description": "Tape measures, spirit levels, chisels, planes and hand saws — the essential toolkit for every carpenter and joiner."
           }
         },
         "app_2": {
@@ -138,8 +151,7 @@
             "image": "",
             "featured": false,
             "title": "Decorating",
-            "description": "Utility knives, scrapers, filling knives and measuring tools for professional decorating and painting.",
-            "product_highlight": "FatMax Knife"
+            "description": "Utility knives, scrapers, filling knives and measuring tools for professional decorating and painting."
           }
         },
         "app_3": {
@@ -148,8 +160,7 @@
             "image": "",
             "featured": false,
             "title": "General DIY",
-            "description": "The complete Stanley toolkit — hammers, screwdrivers, pliers, wrenches and more for every household project.",
-            "product_highlight": "Classic Range"
+            "description": "The complete Stanley toolkit — hammers, screwdrivers, pliers, wrenches and more for every household project."
           }
         },
         "app_4": {
@@ -158,8 +169,7 @@
             "image": "",
             "featured": false,
             "title": "Electrical",
-            "description": "Insulated screwdrivers, wire strippers, cable knives and voltage detectors for electrical installation work.",
-            "product_highlight": "FatMax VDE Range"
+            "description": "Insulated screwdrivers, wire strippers, cable knives and voltage detectors for electrical installation work."
           }
         },
         "app_5": {
@@ -168,12 +178,17 @@
             "image": "",
             "featured": false,
             "title": "Plumbing",
-            "description": "Adjustable wrenches, pipe cutters, hacksaws and measuring tools for plumbing and heating installations.",
-            "product_highlight": "MaxSteel Pliers"
+            "description": "Adjustable wrenches, pipe cutters, hacksaws and measuring tools for plumbing and heating installations."
           }
         }
       },
-      "block_order": ["app_1", "app_2", "app_3", "app_4", "app_5"],
+      "block_order": [
+        "app_1",
+        "app_2",
+        "app_3",
+        "app_4",
+        "app_5"
+      ],
       "settings": {
         "section_label": "Real World Applications",
         "title": "Where Stanley Performs",
@@ -220,7 +235,10 @@
           }
         }
       },
-      "block_order": ["new_1", "new_2"],
+      "block_order": [
+        "new_1",
+        "new_2"
+      ],
       "settings": {
         "section_label": "Popular Products",
         "title": "Best Sellers from Stanley",
@@ -279,7 +297,14 @@
           }
         }
       },
-      "block_order": ["benefit_1", "benefit_2", "benefit_3", "benefit_4", "benefit_5", "benefit_6"],
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6"
+      ],
       "settings": {
         "section_label": "Why Stanley",
         "title": "Why Professionals Choose Stanley",
@@ -317,7 +342,11 @@
           }
         }
       },
-      "block_order": ["cat_1", "cat_2", "cat_3"],
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3"
+      ],
       "settings": {
         "section_label": "Shop By Category",
         "title": "Explore the Stanley Range",
@@ -384,7 +413,14 @@
           }
         }
       },
-      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5", "faq_6"],
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6"
+      ],
       "settings": {
         "heading": "Stanley FAQs",
         "subheading": "Common questions about Stanley hand tools and the FatMax range"

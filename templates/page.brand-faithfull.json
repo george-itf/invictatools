@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "breadcrumb": {
@@ -65,7 +74,12 @@
           }
         }
       },
-      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
       "settings": {
         "background_color": "#fdfdfd",
         "accent_color": "#e41e25",
@@ -128,8 +142,7 @@
             "image": "",
             "featured": true,
             "title": "Decorating",
-            "description": "Brushes, rollers, scrapers, filling knives and dust sheets — everything the professional decorator needs for a quality finish.",
-            "product_highlight": "Decorating Range"
+            "description": "Brushes, rollers, scrapers, filling knives and dust sheets — everything the professional decorator needs for a quality finish."
           }
         },
         "app_2": {
@@ -138,8 +151,7 @@
             "image": "",
             "featured": false,
             "title": "General Building",
-            "description": "Trowels, bricklaying tools, bolsters, cold chisels and general construction hand tools for the building trade.",
-            "product_highlight": "Trowel Range"
+            "description": "Trowels, bricklaying tools, bolsters, cold chisels and general construction hand tools for the building trade."
           }
         },
         "app_3": {
@@ -148,8 +160,7 @@
             "image": "",
             "featured": false,
             "title": "Gardening",
-            "description": "Spades, forks, rakes, secateurs and garden tools for professional landscapers and keen gardeners alike.",
-            "product_highlight": "Garden Range"
+            "description": "Spades, forks, rakes, secateurs and garden tools for professional landscapers and keen gardeners alike."
           }
         },
         "app_4": {
@@ -158,8 +169,7 @@
             "image": "",
             "featured": false,
             "title": "Workshop",
-            "description": "Vices, clamps, files, sanding tools and workbench essentials for workshop organisation and project work.",
-            "product_highlight": "Workshop Range"
+            "description": "Vices, clamps, files, sanding tools and workbench essentials for workshop organisation and project work."
           }
         },
         "app_5": {
@@ -168,12 +178,17 @@
             "image": "",
             "featured": false,
             "title": "DIY",
-            "description": "Hammers, screwdrivers, pliers, spanners and complete tool sets for the practical homeowner.",
-            "product_highlight": "Hand Tool Range"
+            "description": "Hammers, screwdrivers, pliers, spanners and complete tool sets for the practical homeowner."
           }
         }
       },
-      "block_order": ["app_1", "app_2", "app_3", "app_4", "app_5"],
+      "block_order": [
+        "app_1",
+        "app_2",
+        "app_3",
+        "app_4",
+        "app_5"
+      ],
       "settings": {
         "section_label": "Real World Applications",
         "title": "Where Faithfull Delivers",
@@ -220,7 +235,10 @@
           }
         }
       },
-      "block_order": ["new_1", "new_2"],
+      "block_order": [
+        "new_1",
+        "new_2"
+      ],
       "settings": {
         "section_label": "Popular Products",
         "title": "Best Sellers from Faithfull",
@@ -279,7 +297,14 @@
           }
         }
       },
-      "block_order": ["benefit_1", "benefit_2", "benefit_3", "benefit_4", "benefit_5", "benefit_6"],
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6"
+      ],
       "settings": {
         "section_label": "Why Faithfull",
         "title": "Why Tradespeople Choose Faithfull",
@@ -317,7 +342,11 @@
           }
         }
       },
-      "block_order": ["cat_1", "cat_2", "cat_3"],
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3"
+      ],
       "settings": {
         "section_label": "Shop By Category",
         "title": "Explore the Faithfull Range",
@@ -384,7 +413,14 @@
           }
         }
       },
-      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5", "faq_6"],
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6"
+      ],
       "settings": {
         "heading": "Faithfull FAQs",
         "subheading": "Common questions about Faithfull hand tools and decorating products"

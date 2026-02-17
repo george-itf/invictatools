@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "breadcrumb": {
@@ -65,7 +74,12 @@
           }
         }
       },
-      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
       "settings": {
         "background_color": "#fdfdfd",
         "accent_color": "#e41e25",
@@ -128,8 +142,7 @@
             "image": "",
             "featured": true,
             "title": "Construction",
-            "description": "MultiVolt SDS rotary hammers, circular saws and combi drills that match corded performance on the most demanding construction sites.",
-            "product_highlight": "MultiVolt 36V Range"
+            "description": "MultiVolt SDS rotary hammers, circular saws and combi drills that match corded performance on the most demanding construction sites."
           }
         },
         "app_2": {
@@ -138,8 +151,7 @@
             "image": "",
             "featured": false,
             "title": "Woodworking",
-            "description": "Precision mitre saws, planers and routers with MultiVolt power for workshop and on-site joinery applications.",
-            "product_highlight": "C3610DRA Mitre Saw"
+            "description": "Precision mitre saws, planers and routers with MultiVolt power for workshop and on-site joinery applications."
           }
         },
         "app_3": {
@@ -148,8 +160,7 @@
             "image": "",
             "featured": false,
             "title": "Metalwork",
-            "description": "Angle grinders, cut-off saws and band saws engineered for steel fabrication and metalworking professionals.",
-            "product_highlight": "G3613DB Grinder"
+            "description": "Angle grinders, cut-off saws and band saws engineered for steel fabrication and metalworking professionals."
           }
         },
         "app_4": {
@@ -158,8 +169,7 @@
             "image": "",
             "featured": false,
             "title": "Demolition",
-            "description": "SDS-Max breakers and demolition hammers with anti-vibration technology for heavy-duty concrete and masonry demolition.",
-            "product_highlight": "H60MEY Breaker"
+            "description": "SDS-Max breakers and demolition hammers with anti-vibration technology for heavy-duty concrete and masonry demolition."
           }
         },
         "app_5": {
@@ -168,12 +178,17 @@
             "image": "",
             "featured": false,
             "title": "Renovation",
-            "description": "Multi-tools, reciprocating saws and dust extractors for efficient strip-out and refurbishment projects.",
-            "product_highlight": "CV18DBL Multi-Tool"
+            "description": "Multi-tools, reciprocating saws and dust extractors for efficient strip-out and refurbishment projects."
           }
         }
       },
-      "block_order": ["app_1", "app_2", "app_3", "app_4", "app_5"],
+      "block_order": [
+        "app_1",
+        "app_2",
+        "app_3",
+        "app_4",
+        "app_5"
+      ],
       "settings": {
         "section_label": "Real World Applications",
         "title": "Where HiKOKI Performs",
@@ -220,7 +235,10 @@
           }
         }
       },
-      "block_order": ["new_1", "new_2"],
+      "block_order": [
+        "new_1",
+        "new_2"
+      ],
       "settings": {
         "section_label": "Latest Products",
         "title": "What's New from HiKOKI",
@@ -279,7 +297,14 @@
           }
         }
       },
-      "block_order": ["benefit_1", "benefit_2", "benefit_3", "benefit_4", "benefit_5", "benefit_6"],
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6"
+      ],
       "settings": {
         "section_label": "Why HiKOKI",
         "title": "Why Professionals Are Switching to HiKOKI",
@@ -317,7 +342,11 @@
           }
         }
       },
-      "block_order": ["cat_1", "cat_2", "cat_3"],
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3"
+      ],
       "settings": {
         "section_label": "Shop By Category",
         "title": "Explore the HiKOKI Range",
@@ -384,7 +413,14 @@
           }
         }
       },
-      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5", "faq_6"],
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6"
+      ],
       "settings": {
         "heading": "HiKOKI FAQs",
         "subheading": "Common questions about HiKOKI, MultiVolt and the Hitachi transition"
