@@ -9,14 +9,6 @@
  */
 {
   "sections": {
-    "breadcrumb": {
-      "type": "breadcrumb-simple",
-      "settings": {
-        "current_page": "",
-        "parent_url": "/pages/shop-by-brand",
-        "parent_title": "Brands"
-      }
-    },
     "hero": {
       "type": "brand-hero",
       "settings": {
@@ -241,7 +233,7 @@
       ],
       "settings": {
         "section_label": "Latest Products",
-        "title": "What's New from Lamello",
+        "title": "Top Products from Lamello",
         "subtitle": "The latest innovations in invisible joining technology"
       }
     },
@@ -453,7 +445,6 @@
     }
   },
   "order": [
-    "breadcrumb",
     "hero",
     "usp_strip",
     "about",
