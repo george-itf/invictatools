@@ -202,7 +202,7 @@
           "settings": {
             "image": "shopify://shop_images/DLS714NZ-6.jpg",
             "show_badge": true,
-            "badge_text": "NEW",
+            "badge_text": "HOT PRODUCT",
             "launch_date": "Available Now",
             "title": "DLS714NZ Twin 18V LXT Brushless Compound Mitre Saw",
             "description": "Built around a brushless motor for longer runtime, less maintenance and extended motor life, this saw is designed for site work where mains power isn't always an option.",
@@ -220,7 +220,7 @@
             "image": "shopify://shop_images/MAKDTD173Z_C__73906.jpg",
             "show_badge": true,
             "badge_text": "BESTSELLER",
-            "launch_date": "",
+            "launch_date": "Available Now",
             "title": "DTD173 LXT 18V Brushless Impact Driver",
             "description": "The go-to impact driver for UK tradespeople. Quick-Shift Mode reduces over-driving in timber, while the brushless motor extends runtime and tool life.",
             "feature_1": "180Nm fastening torque",
@@ -426,7 +426,7 @@
     "cta": {
       "type": "cta-bar",
       "settings": {
-        "title": "Need Help Choosing the Right Makita?",
+        "title": "Need Help Choosing the Right Makita Tool?",
         "subtitle": "Our team can help you pick the right tools for your trade",
         "primary_text": "01843 210 459",
         "primary_url": "tel:01843210459",
