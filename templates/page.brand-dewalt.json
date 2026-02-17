@@ -12,7 +12,7 @@
     "hero": {
       "type": "brand-hero",
       "settings": {
-        "brand_logo": "",
+        "brand_logo": "shopify://shop_images/dewalt2.svg",
         "dealer_badge": "Authorised UK Dealer",
         "headline_line_1": "Guaranteed Tough.",
         "headline_line_2": "Built Without Compromise.",
@@ -27,7 +27,7 @@
         "primary_cta_url": "",
         "secondary_cta_text": "Browse by Category",
         "secondary_cta_url": "#categories",
-        "hero_image": ""
+        "hero_image": "shopify://shop_images/Dewalt-drapanokatsavido-18V-DCD1007NT-1.jpg"
       }
     },
     "usp_strip": {
@@ -85,7 +85,7 @@
     "about": {
       "type": "brand-about",
       "settings": {
-        "image": "",
+        "image": "shopify://shop_images/CCI20102018_1-768x1000.jpg",
         "badge_label": "Since",
         "badge_value": "1923",
         "section_label": "The DeWalt Story",
@@ -109,7 +109,7 @@
     "featured-products": {
       "type": "featured-collection",
       "settings": {
-        "collection": "",
+        "collection": "dewalt",
         "products_to_show": 4,
         "header_style": "bar",
         "title": "Featured DeWalt Products",
@@ -131,46 +131,51 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/DCH911_6__68629.jpg",
             "featured": true,
             "title": "Construction",
-            "description": "SDS-Plus and SDS-Max rotary hammers, circular saws and combi drills that power through concrete, steel and timber on the toughest sites."
+            "description": "SDS-Plus and SDS-Max rotary hammers, circular saws and combi drills that power through concrete, steel and timber on the toughest sites.",
+            "connector_used": ""
           }
         },
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/R1138601-03.webp",
             "featured": false,
             "title": "Joinery",
-            "description": "Precision mitre saws, planers, routers and biscuit joiners for on-site and workshop joinery that demands accuracy."
+            "description": "Precision mitre saws, planers, routers and biscuit joiners for on-site and workshop joinery that demands accuracy.",
+            "connector_used": ""
           }
         },
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/dcs386n-flexvolt-advantage-reciprocating-saw-body-only-dewalt.jpg",
             "featured": false,
             "title": "Renovation",
-            "description": "Multi-tools, reciprocating saws and demolition hammers for strip-out, first fix and second fix refurbishment work."
+            "description": "Multi-tools, reciprocating saws and demolition hammers for strip-out, first fix and second fix refurbishment work.",
+            "connector_used": ""
           }
         },
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/DEWDCD701D2_4__34261.jpg",
             "featured": false,
             "title": "Electrical",
-            "description": "Compact 12V XR drills, cable cutters and inspection cameras designed for electrical first and second fix."
+            "description": "Compact 12V XR drills, cable cutters and inspection cameras designed for electrical first and second fix.",
+            "connector_used": ""
           }
         },
         "app_5": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/dewalt_right_angle_attachment.webp",
             "featured": false,
             "title": "Plumbing",
-            "description": "Press tools, pipe cutters and compact right-angle drills engineered for tight spaces and professional plumbing installations."
+            "description": "Press tools, pipe cutters and compact right-angle drills engineered for tight spaces and professional plumbing installations.",
+            "connector_used": ""
           }
         }
       },
@@ -195,7 +200,7 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/file-input-1613743466169__50402.1613743468.1280.1280__82092.jpg",
             "show_badge": true,
             "badge_text": "NEW",
             "launch_date": "Available Now",
@@ -212,7 +217,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/xm_3.jpg.pagespeed.ic.UmuKH-WboX.webp",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
@@ -309,7 +314,7 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/10006002-DeWalt-Power_Tools-Drilling_Screwing_-_Hero_9.webp",
             "title": "Cordless Power Tools",
             "description": "XR 18V and FlexVolt 54V drills, saws, grinders, impact drivers and more — built for the professional trade.",
             "url": ""
@@ -318,7 +323,7 @@
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/91VrrnLC70L._AC_SX679.jpg",
             "title": "Hand Tools",
             "description": "Knives, tape measures, levels, hammers and chisels — built to the same Guaranteed Tough standard as DeWalt power tools.",
             "url": ""
@@ -327,7 +332,7 @@
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/intro-1767390379.jpg",
             "title": "Accessories & Blades",
             "description": "Drill bits, saw blades, sanding discs, batteries, chargers and TSTAK storage — everything to keep you working.",
             "url": ""
@@ -348,8 +353,8 @@
     "video": {
       "type": "brand-video",
       "settings": {
-        "thumbnail": "",
-        "video_url": "",
+        "thumbnail": "shopify://shop_images/mqdefault_6s_1.webp",
+        "video_url": "https://youtu.be/NlJZL3ZrIwo?si=cCyTFFaG_mRlR-6V",
         "section_label": "See It In Action",
         "title": "DeWalt FlexVolt System Explained",
         "description": "See how FlexVolt's auto-switching battery technology delivers corded power from a cordless platform.",
