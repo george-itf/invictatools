@@ -12,7 +12,7 @@
     "hero": {
       "type": "brand-hero",
       "settings": {
-        "brand_logo": "shopify://shop_images/dewalt2.svg",
+        "brand_logo": "shopify://shop_images/DeWalt_Logo_svg.png",
         "dealer_badge": "Authorised UK Dealer",
         "headline_line_1": "Guaranteed Tough.",
         "headline_line_2": "Built Without Compromise.",
