@@ -352,10 +352,11 @@
     "video": {
       "type": "brand-video",
       "settings": {
+        "thumbnail": "shopify://shop_images/mqdefault_6s.webp",
         "video_url": "https://youtu.be/-g5sWeNPbM0",
         "section_label": "See It In Action",
         "title": "Makita XGT 40V Max System",
-        "description": "Discover how the 40V XGT platform delivers corded power without the cord — from SDS hammers to mitre saws.",
+        "description": "Discover how the 40V XGT platform delivers corded power without the cord, from SDS hammers to mitre saws.",
         "feature_1": "40V max brushless power",
         "feature_2": "Fast-charging 40V batteries",
         "feature_3": "Backwards compatible with adaptor",
