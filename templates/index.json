@@ -210,29 +210,29 @@
         "brand_3": {
           "type": "brand",
           "settings": {
-            "brand_collection": "hikoki",
-            "brand_page": ""
+            "brand_collection": "",
+            "brand_page": "hikoki"
           }
         },
         "brand_4": {
           "type": "brand",
           "settings": {
-            "brand_collection": "premier-diamond-products",
-            "brand_page": ""
+            "brand_collection": "",
+            "brand_page": "premier-diamond"
           }
         },
         "brand_5": {
           "type": "brand",
           "settings": {
-            "brand_collection": "timco",
+            "brand_collection": "",
             "brand_page": "timco"
           }
         },
         "brand_6": {
           "type": "brand",
           "settings": {
-            "brand_collection": "stanley",
-            "brand_page": ""
+            "brand_collection": "",
+            "brand_page": "stanley"
           }
         },
         "brand_7": {
@@ -245,8 +245,8 @@
         "brand_8": {
           "type": "brand",
           "settings": {
-            "brand_collection": "faithfull",
-            "brand_page": ""
+            "brand_collection": "",
+            "brand_page": "faithfull"
           }
         }
       },
