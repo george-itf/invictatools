@@ -26,7 +26,8 @@
         "primary_cta_text": "Shop All PDP",
         "primary_cta_url": "",
         "secondary_cta_text": "Browse by Category",
-        "secondary_cta_url": "#categories"
+        "secondary_cta_url": "#categories",
+        "hero_image": "shopify://shop_images/about-header-fc26ff4b.jpg"
       }
     },
     "usp_strip": {
@@ -107,7 +108,7 @@
     "featured-products": {
       "type": "featured-collection",
       "settings": {
-        "collection": "",
+        "collection": "premier-diamond-products",
         "products_to_show": 4,
         "header_style": "bar",
         "title": "Featured PDP Products",
