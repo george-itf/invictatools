@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero_split": {
@@ -106,8 +115,8 @@
         "cat_6": {
           "type": "category",
           "settings": {
-            "title": "Tool Storage",
-            "collection": "tool-storage",
+            "title": "Power Tool Kits",
+            "collection": "power-tools-kits",
             "custom_link": "",
             "icon": "storage"
           }
