@@ -9,14 +9,6 @@
  */
 {
   "sections": {
-    "breadcrumb": {
-      "type": "breadcrumb-simple",
-      "settings": {
-        "current_page": "",
-        "parent_url": "/pages/shop-by-brand",
-        "parent_title": "Brands"
-      }
-    },
     "hero": {
       "type": "brand-hero",
       "settings": {
@@ -241,7 +233,7 @@
       ],
       "settings": {
         "section_label": "Latest Products",
-        "title": "What's New from DeWalt",
+        "title": "Top Products from DeWalt",
         "subtitle": "The latest FlexVolt and XR tools for professional tradespeople"
       }
     },
@@ -429,7 +421,7 @@
     "cta": {
       "type": "cta-bar",
       "settings": {
-        "title": "Need Help Choosing the Right DeWalt?",
+        "title": "Need Help Choosing the Right DeWalt Tool?",
         "subtitle": "Our team can recommend the best tools for your trade and budget",
         "primary_text": "01843 210 459",
         "primary_url": "tel:01843210459",
@@ -453,7 +445,6 @@
     }
   },
   "order": [
-    "breadcrumb",
     "hero",
     "usp_strip",
     "about",

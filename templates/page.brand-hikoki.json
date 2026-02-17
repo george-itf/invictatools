@@ -9,14 +9,6 @@
  */
 {
   "sections": {
-    "breadcrumb": {
-      "type": "breadcrumb-simple",
-      "settings": {
-        "current_page": "",
-        "parent_url": "/pages/shop-by-brand",
-        "parent_title": "Brands"
-      }
-    },
     "hero": {
       "type": "brand-hero",
       "settings": {
@@ -241,7 +233,7 @@
       ],
       "settings": {
         "section_label": "Latest Products",
-        "title": "What's New from HiKOKI",
+        "title": "Top Products from HiKOKI",
         "subtitle": "The latest MultiVolt innovations for professional tradespeople"
       }
     },
@@ -429,7 +421,7 @@
     "cta": {
       "type": "cta-bar",
       "settings": {
-        "title": "Need Help Choosing the Right HiKOKI?",
+        "title": "Need Help Choosing the Right HiKOKI Tool?",
         "subtitle": "Our team can help you find the perfect MultiVolt setup for your trade",
         "primary_text": "01843 210 459",
         "primary_url": "tel:01843210459",
@@ -453,7 +445,6 @@
     }
   },
   "order": [
-    "breadcrumb",
     "hero",
     "usp_strip",
     "about",
