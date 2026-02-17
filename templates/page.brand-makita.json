@@ -200,6 +200,7 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
+            "image": "shopify://shop_images/DLS714NZ-6.jpg",
             "show_badge": true,
             "badge_text": "NEW",
             "launch_date": "Available Now",
