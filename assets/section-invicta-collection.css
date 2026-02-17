@@ -125,6 +125,7 @@
   font-size: clamp(1.75rem, 5vw, 2.5rem);
   font-weight: 800;
   color: #ffffff;
+  font-size: 30px;
   margin: 0;
   line-height: 1.15;
   letter-spacing: -0.025em;
