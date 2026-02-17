@@ -210,6 +210,7 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
+            "image": "shopify://shop_images/P6-TWC-Packaging-1.jpg",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
@@ -226,17 +227,18 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
+            "image": "shopify://shop_images/P5-WC-DC11455_a2ce5c70-670f-4f0f-b431-f25ff7cf8f95.jpg",
             "show_badge": true,
             "badge_text": "POPULAR",
             "launch_date": "",
-            "title": "DP16 Continuous Rim Tile Blade",
-            "description": "Clean, chip-free cuts in porcelain and ceramic tiles. Continuous rim design with thin kerf minimises material waste and delivers a professional finish.",
-            "feature_1": "Chip-free porcelain cuts",
-            "feature_2": "Thin kerf for precision",
-            "feature_3": "Wet cutting recommended",
-            "feature_4": "115mm to 250mm sizes",
-            "cta_text": "Shop Tile Blades",
-            "cta_url": ""
+            "title": "Wet Diamond Cores",
+            "description": "Premium wet diamond cores designed for drilling into concrete & reinforced concrete using suitable diamond drilling machines that run at appropriate speeds.",
+            "feature_1": "Easy start diamond crowns",
+            "feature_2": "Turret designed segments.",
+            "feature_3": "Can be used on hard natural stones.",
+            "feature_4": "200mm to 500mm sizes",
+            "cta_text": "Shop Wet Core Range",
+            "cta_url": "shopify://collections/premier-diamond-products"
           }
         }
       },
