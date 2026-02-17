@@ -20,7 +20,7 @@
     "hero": {
       "type": "brand-hero",
       "settings": {
-        "brand_logo": "",
+        "brand_logo": "shopify://shop_images/makita.svg",
         "dealer_badge": "Authorised UK Dealer",
         "headline_line_1": "Built for the Job.",
         "headline_line_2": "Trusted for Life.",
@@ -35,7 +35,7 @@
         "primary_cta_url": "",
         "secondary_cta_text": "Browse by Category",
         "secondary_cta_url": "#categories",
-        "hero_image": ""
+        "hero_image": "shopify://shop_images/a6b4da8b5b37033768376073ab71b7e914d4cb34.jpg"
       }
     },
     "usp_strip": {
@@ -93,7 +93,7 @@
     "about": {
       "type": "brand-about",
       "settings": {
-        "image": "",
+        "image": "shopify://shop_images/slide_07.jpg",
         "badge_label": "Since",
         "badge_value": "1915",
         "section_label": "The Makita Story",
@@ -139,46 +139,46 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
             "featured": true,
             "title": "Construction",
-            "description": "From framing to finishing, Makita cordless tools power through the toughest construction projects with brushless efficiency and all-day battery life."
+            "description": "From framing to finishing, Makita cordless tools power through the toughest construction projects with brushless efficiency and all-day battery life.",
+            "connector_used": ""
           }
         },
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
             "featured": false,
             "title": "Woodworking",
-            "description": "Precision planers, routers and sanders with class-leading dust extraction for a cleaner, healthier workshop."
+            "description": "Precision planers, routers and sanders with class-leading dust extraction for a cleaner, healthier workshop.",
+            "connector_used": ""
           }
         },
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
             "featured": false,
             "title": "Landscaping",
-            "description": "The XGT outdoor power equipment range delivers petrol-equivalent performance with zero emissions and lower noise."
+            "description": "The XGT outdoor power equipment range delivers petrol-equivalent performance with zero emissions and lower noise.",
+            "connector_used": ""
           }
         },
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
             "featured": false,
             "title": "Metalworking",
-            "description": "Angle grinders, cut-off saws and metal-cutting circular saws built to handle steel, aluminium and stainless."
+            "description": "Angle grinders, cut-off saws and metal-cutting circular saws built to handle steel, aluminium and stainless.",
+            "connector_used": ""
           }
         },
         "app_5": {
           "type": "application",
           "settings": {
-            "image": "",
             "featured": false,
             "title": "Renovation",
-            "description": "Multi-tools, reciprocating saws and demolition hammers for strip-out, refit and refurbishment projects."
+            "description": "Multi-tools, reciprocating saws and demolition hammers for strip-out, refit and refurbishment projects.",
+            "connector_used": ""
           }
         }
       },
@@ -203,7 +203,6 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
             "show_badge": true,
             "badge_text": "NEW",
             "launch_date": "Available Now",
@@ -220,7 +219,6 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
@@ -317,7 +315,6 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
             "title": "Cordless Power Tools",
             "description": "Drills, impact drivers, saws, grinders, planers and more — all powered by the LXT 18V or XGT 40V battery platform.",
             "url": ""
@@ -326,7 +323,6 @@
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
             "title": "Outdoor Power Equipment",
             "description": "Chainsaws, hedge trimmers, blowers and lawnmowers — cordless outdoor tools with petrol-equivalent performance.",
             "url": ""
@@ -335,7 +331,6 @@
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
             "title": "Accessories & Consumables",
             "description": "Batteries, chargers, drill bits, saw blades, sanding sheets and carrying cases to keep you working.",
             "url": ""
@@ -356,7 +351,6 @@
     "video": {
       "type": "brand-video",
       "settings": {
-        "thumbnail": "",
         "video_url": "",
         "section_label": "See It In Action",
         "title": "Makita XGT 40V Max System",
