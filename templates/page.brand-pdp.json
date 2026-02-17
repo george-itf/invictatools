@@ -130,46 +130,61 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "featured": true,
+            "image": "shopify://shop_images/01-p6-lmcm-7b6b038c_1548e1a2-a380-4ec1-83a0-e9ffc4530fe9.webp",
+            "featured": false,
             "title": "Concrete Cutting",
             "description": "Segmented and turbo diamond blades engineered for reinforced concrete, cured concrete and lightweight blocks. Fast cutting with long blade life.",
-            "connector_used": "Cabineo 12"
+            "connector_used": ""
           }
         },
         "app_2": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/p6-fdc-115mm-01-079f5d44_9d084d1a-9636-4262-9cde-a4215814a121.webp",
             "featured": false,
             "title": "Tile & Ceramic",
             "description": "Continuous rim blades for clean, chip-free cuts in porcelain, ceramic and natural stone tiles.",
-            "connector_used": "Cabineo 12"
+            "connector_used": ""
           }
         },
         "app_3": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/P6-TWC-aac5878e_ee85a54b-4739-4de2-ae71-a32a8aecdcb7.webp",
             "featured": false,
             "title": "Masonry",
             "description": "General-purpose diamond blades for brick, block, paving and natural stone — the everyday blade for construction sites.",
-            "connector_used": "Cabineo 12"
+            "connector_used": ""
           }
         },
         "app_4": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/p5-tcg-bf539cd4_6b765d7d-8f61-439a-add0-eab1a1b5759f.webp",
             "featured": false,
             "title": "Road Work",
             "description": "Floor saw blades for asphalt and green concrete — designed for road repairs, utility trenching and pavement work.",
-            "connector_used": "Cabineo 12"
+            "connector_used": ""
           }
         },
         "app_5": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/01-p6-ts-16b7f368.webp",
             "featured": false,
             "title": "Demolition",
             "description": "Rescue and demolition blades for cutting through reinforced concrete, steel pipe, cast iron and mixed materials.",
-            "connector_used": "Cabineo 12"
+            "connector_used": ""
+          }
+        },
+        "application_9dNKqf": {
+          "type": "application",
+          "settings": {
+            "image": "shopify://shop_images/stpt-8-pack-0b8ffb03.webp",
+            "featured": false,
+            "title": "SiteTuff",
+            "description": "The laser cut expansion slots eliminate blade ‘wobble’.The STPT-8 continuous rim blade for porcelain and ceramic tiles is ideal for most interior wall and floor tiles.",
+            "connector_used": ""
           }
         }
       },
@@ -178,7 +193,8 @@
         "app_2",
         "app_3",
         "app_4",
-        "app_5"
+        "app_5",
+        "application_9dNKqf"
       ],
       "settings": {
         "section_label": "Real World Applications",
@@ -197,12 +213,12 @@
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
-            "title": "P5-C Concrete Diamond Blade",
-            "description": "PDP's flagship concrete blade. Laser-welded turbo segments deliver fast, clean cuts through reinforced and cured concrete with exceptional blade life.",
-            "feature_1": "Laser-welded turbo segments",
-            "feature_2": "Reinforced concrete rated",
-            "feature_3": "115mm to 350mm sizes",
-            "feature_4": "EN 13236 compliant",
+            "title": "P6-TWC Triple-Disc Wall Chasing Blade",
+            "description": "Designed for fast, precise cutting of cable and pipe chases in concrete, block and masonry, the blades' offset triple-disc design produces a 30 mm-wide channel in a single pass, saving time and reducing the need to chisel out the centre of the chase manually.",
+            "feature_1": "Universal 22.23 mm Bore",
+            "feature_2": "Dust Control Compatible",
+            "feature_3": "High-Performance Segments",
+            "feature_4": "Triple-Disc Offset Design",
             "cta_text": "Shop Concrete Blades",
             "cta_url": ""
           }
