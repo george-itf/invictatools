@@ -140,6 +140,7 @@
         "app_2": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/dbo380-brushless-cordless-finishing-sander-makita.jpg",
             "featured": false,
             "title": "Woodworking",
             "description": "Precision planers, routers and sanders with class-leading dust extraction for a cleaner, healthier workshop.",
@@ -149,6 +150,7 @@
         "app_3": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/MAKDUC355Z_1__67797.jpg",
             "featured": false,
             "title": "Landscaping",
             "description": "The XGT outdoor power equipment range delivers petrol-equivalent performance with zero emissions and lower noise.",
@@ -158,6 +160,7 @@
         "app_4": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/makita-dga504z-18v-cordless-brushless-125mm-angle-grinder-bare-tool-flange-nut_5055995554828_02c_MP.webp",
             "featured": false,
             "title": "Metalworking",
             "description": "Angle grinders, cut-off saws and metal-cutting circular saws built to handle steel, aluminium and stainless.",
@@ -167,6 +170,7 @@
         "app_5": {
           "type": "application",
           "settings": {
+            "image": "shopify://shop_images/MKP-84137-7.avif",
             "featured": false,
             "title": "Renovation",
             "description": "Multi-tools, reciprocating saws and demolition hammers for strip-out, refit and refurbishment projects.",
