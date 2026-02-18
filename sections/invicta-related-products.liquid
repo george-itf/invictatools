@@ -47,7 +47,7 @@
       <ul class="inv-related__grid" role="list">
         {%- for product in recommendations.products limit: section.settings.products_to_show -%}
           <li class="inv-related__item">
-            {% render 'invicta-product-card', product: product, card_index: forloop.index, brand_pill_type: 'text-only' %}
+            {% render 'invicta-product-card', product: product, card_index: forloop.index %}
           </li>
         {%- endfor -%}
       </ul>

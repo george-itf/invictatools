@@ -188,6 +188,7 @@
   flex-direction: column;
   gap: var(--pdp-space-xs);
   flex-shrink: 0;
+  contain: layout style;
 }
 
 .inv-pdp__gallery-thumbs:focus {
@@ -233,6 +234,9 @@
 
 .inv-pdp__gallery-main {
   flex: 1;
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  max-height: 680px;
   background: #fff;
   border: 1px solid var(--pdp-grey-200);
   border-radius: var(--pdp-radius);
@@ -253,7 +257,9 @@
 
 .inv-pdp__gallery-image {
   display: block;
-  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
   height: auto;
   object-fit: contain;
 }
