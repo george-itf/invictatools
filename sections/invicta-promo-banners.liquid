@@ -190,6 +190,19 @@
     pointer-events: none;
   }
 
+  /* Bottom-edge gradient scrim — darkens only behind the text */
+  .inv-promos__card::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.35) 50%, transparent 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
   /* --- Content --- */
   .inv-promos__content {
     position: relative;
@@ -220,6 +233,7 @@
     margin: 0;
     text-transform: uppercase;
     letter-spacing: -0.01em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
   }
 
   .inv-promos__subtitle {
@@ -229,6 +243,7 @@
     margin: 0;
     line-height: 1.4;
     max-width: 320px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   }
 
   /* --- Arrow indicator --- */
