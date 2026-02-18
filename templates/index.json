@@ -580,23 +580,6 @@
         "review_10_avatar": "shopify://shop_images/unnamed.png"
       }
     },
-    "featured_blog": {
-      "type": "featured-blog",
-      "settings": {
-        "blog": "news",
-        "post_limit": 3,
-        "heading": "Expert Guides & News",
-        "heading_size": "h2",
-        "columns_desktop": 3,
-        "show_view_all": true,
-        "show_image": true,
-        "show_date": true,
-        "show_author": false,
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "recently_viewed": {
       "type": "invicta-recently-viewed",
       "blocks": {
@@ -718,7 +701,6 @@
     "trade_cta",
     "invicta_trust_bar_r98CbM",
     "review_carousel",
-    "featured_blog",
     "recently_viewed",
     "invicta_newsletter_t9TTnj"
   ]
