@@ -882,20 +882,6 @@
   </div>
 </div>
 
-{%- comment -%} ========== PRODUCT RECOMMENDATIONS ========== {%- endcomment -%}
-<div
-  class="inv-recs inv-pdp--hidden"
-  data-recommendations
-  data-product-id="{{ product.id }}"
-  data-limit="{{ section.settings.recs_limit | default: 4 }}"
->
-  <div class="inv-recs__container inv-container">
-    <div class="inv-recs__header">
-      <h2 class="inv-recs__title">{{ section.settings.recs_title | default: 'You May Also Like' }}</h2>
-    </div>
-    <div class="inv-recs__grid" data-recs-grid></div>
-  </div>
-</div>
 
 {%- comment -%} ========== VARIANT JSON ========== {%- endcomment -%}
 <script type="application/json" data-variants-json>
@@ -952,31 +938,6 @@
 })();
 </script>
 
-{%- comment -%} Recommendations AJAX loader {%- endcomment -%}
-<script>
-(function() {
-  var recsContainer = document.querySelector('[data-recommendations]');
-  if (!recsContainer) return;
-  var productId = recsContainer.dataset.productId;
-  var limit = recsContainer.dataset.limit || 8;
-  var grid = recsContainer.querySelector('[data-recs-grid]');
-  if (!productId || !grid) return;
-
-  var url = '/recommendations/products?section_id=invicta-recommendations-ajax&product_id=' + productId + '&limit=' + limit;
-  fetch(url)
-    .then(function(r) { return r.text(); })
-    .then(function(html) {
-      var temp = document.createElement('div');
-      temp.innerHTML = html;
-      var items = temp.querySelectorAll('.inv-recs__item');
-      if (items.length > 0) {
-        items.forEach(function(item) { grid.appendChild(item); });
-        recsContainer.classList.remove('inv-pdp--hidden');
-      }
-    })
-    .catch(function() {});
-})();
-</script>
 
 {%- comment -%} Inline VAT toggle controller {%- endcomment -%}
 <script>
@@ -1291,25 +1252,6 @@
       "id": "collect_text",
       "label": "In-store collection text",
       "default": "Call us on <a href=\"tel:01227 456789\">01227 456789</a> to check availability at Canterbury or Ramsgate"
-    },
-    {
-      "type": "header",
-      "content": "Recommendations"
-    },
-    {
-      "type": "text",
-      "id": "recs_title",
-      "label": "Recommendations heading",
-      "default": "You May Also Like"
-    },
-    {
-      "type": "range",
-      "id": "recs_limit",
-      "label": "Number of recommendations",
-      "min": 2,
-      "max": 8,
-      "step": 1,
-      "default": 4
     }
   ]
 }

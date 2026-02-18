@@ -1,0 +1,182 @@
+/* =======================================================================
+   Invicta Related Products v1.0
+   -----------------------------------------------------------------------
+   Standalone section CSS for product recommendations.
+   Uses invicta-product-card.css for card styling (loaded globally).
+
+   Breakpoints: 990px+ desktop, 750-989px tablet, ≤749px mobile
+   ======================================================================= */
+
+/* -----------------------------------------------------------------------
+   1. SECTION CONTAINER
+   ----------------------------------------------------------------------- */
+
+.inv-related {
+  padding: 48px 0;
+  border-top: 1px solid #e5e5e5;
+}
+
+.inv-related__container {
+  max-width: var(--inv-page-width, 1320px);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* -----------------------------------------------------------------------
+   2. HEADING
+   ----------------------------------------------------------------------- */
+
+.inv-related__header {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.inv-related__title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.inv-related__title::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--inv-accent, #e11d26);
+  margin: 12px auto 0;
+  border-radius: 2px;
+}
+
+/* -----------------------------------------------------------------------
+   3. PRODUCT GRID
+   ----------------------------------------------------------------------- */
+
+.inv-related__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.inv-related__item {
+  min-width: 0;
+}
+
+/* -----------------------------------------------------------------------
+   4. LOADING SKELETON
+   ----------------------------------------------------------------------- */
+
+.inv-related__skeleton {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.inv-related__skeleton-card {
+  border: 1px solid #e8e8e8;
+  overflow: hidden;
+}
+
+.inv-related__skeleton-img {
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: inv-related-shimmer 1.5s ease-in-out infinite;
+}
+
+.inv-related__skeleton-body {
+  padding: 12px;
+  background: #f5f5f5;
+}
+
+.inv-related__skeleton-line {
+  height: 12px;
+  background: linear-gradient(90deg, #e8e8e8 25%, #ddd 50%, #e8e8e8 75%);
+  background-size: 200% 100%;
+  animation: inv-related-shimmer 1.5s ease-in-out infinite;
+  margin-bottom: 8px;
+}
+
+.inv-related__skeleton-line:last-child {
+  width: 60%;
+  margin-bottom: 0;
+}
+
+.inv-related__skeleton-price {
+  height: 20px;
+  width: 40%;
+  margin-top: 12px;
+  background: linear-gradient(90deg, #e8e8e8 25%, #ddd 50%, #e8e8e8 75%);
+  background-size: 200% 100%;
+  animation: inv-related-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes inv-related-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* -----------------------------------------------------------------------
+   5. HIDDEN STATE
+   ----------------------------------------------------------------------- */
+
+.inv-related--hidden {
+  display: none;
+}
+
+/* -----------------------------------------------------------------------
+   6. RESPONSIVE
+   ----------------------------------------------------------------------- */
+
+@media (max-width: 989px) {
+  .inv-related__grid,
+  .inv-related__skeleton {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 749px) {
+  .inv-related {
+    padding: 32px 0;
+  }
+
+  .inv-related__container {
+    padding: 0 16px;
+  }
+
+  .inv-related__header {
+    margin-bottom: 20px;
+  }
+
+  .inv-related__title {
+    font-size: 20px;
+  }
+
+  .inv-related__title::after {
+    width: 36px;
+    margin-top: 8px;
+  }
+
+  .inv-related__grid,
+  .inv-related__skeleton {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+/* -----------------------------------------------------------------------
+   7. ACCESSIBILITY
+   ----------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .inv-related__skeleton-img,
+  .inv-related__skeleton-line,
+  .inv-related__skeleton-price {
+    animation: none;
+  }
+}
