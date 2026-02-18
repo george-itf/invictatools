@@ -25,7 +25,7 @@
             "icon": "clock",
             "title": "LATEST DEALS",
             "text": "Great prices on top trade brands",
-            "link": "shopify://collections/all"
+            "link": "shopify://collections/stocking-fillers"
           }
         },
         "promo_card_fDnDtM": {
@@ -51,9 +51,9 @@
       ],
       "settings": {
         "main_image": "shopify://shop_images/3713.webp",
-        "badge_text": "TRUSTED SINCE 1996",
-        "heading": "Professional Tools. Trade Prices. Next-Day Delivery.",
-        "subheading": "Authorised dealer for Makita, DeWalt & HiKOKI — with free delivery on orders over £30",
+        "badge_text": "",
+        "heading": "Kent's trusted tool supplier since 1996",
+        "subheading": "",
         "button_text": "SHOP POWER TOOLS",
         "button_link": "/collections/power-tools",
         "background_color": "#f5f5f5",
@@ -64,16 +64,23 @@
     "promo_banners": {
       "type": "invicta-promo-banners",
       "settings": {
+        "section_bg": "#f5f5f5",
+        "padding_top": 0,
+        "padding_bottom": 0,
         "banner_1_tag": "New Arrivals",
         "banner_1_title": "Latest Power Tools",
-        "banner_1_subtitle": "Browse the latest tools from top trade brands.",
+        "banner_1_subtitle": "",
         "banner_1_link": "",
+        "banner_1_overlay": "#000000",
+        "banner_1_overlay_opacity": 45,
         "banner_1_start": "",
         "banner_1_end": "",
-        "banner_2_tag": "Special Offers",
+        "banner_2_tag": "Deals",
         "banner_2_title": "Deals & Savings",
-        "banner_2_subtitle": "Great prices on Makita, DeWalt, HiKOKI and more.",
+        "banner_2_subtitle": "",
         "banner_2_link": "",
+        "banner_2_overlay": "#000000",
+        "banner_2_overlay_opacity": 45,
         "banner_2_start": "",
         "banner_2_end": ""
       }
