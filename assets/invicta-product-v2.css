@@ -235,8 +235,7 @@
 .inv-pdp__gallery-main {
   flex: 1;
   min-width: 0;
-  aspect-ratio: 1 / 1;
-  max-height: 680px;
+  height: 560px;
   background: #fff;
   border: 1px solid var(--pdp-grey-200);
   border-radius: var(--pdp-radius);
@@ -252,7 +251,9 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  height: 100%;
   padding: 16px;
+  box-sizing: border-box;
 }
 
 .inv-pdp__gallery-image {
