@@ -357,7 +357,7 @@
       "name": "Invicta Featured Collection 3",
       "settings": {
         "collection": "deals-and-sales",
-        "products_to_show": 4,
+        "products_to_show": 16,
         "header_style": "bar",
         "title": "DEALS AND SAVINGS",
         "description": "",
