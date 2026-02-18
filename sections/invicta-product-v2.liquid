@@ -253,10 +253,10 @@
                 aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
                 role="option"
               >
-                <img 
-                  src="{{ image | image_url: width: 150 }}" 
+                <img
+                  src="{{ image | image_url: width: 150 }}"
                   alt="{{ image.alt | escape | default: product.title }}"
-                  loading="lazy"
+                  loading="{% if forloop.index <= 6 %}eager{% else %}lazy{% endif %}"
                   width="64"
                   height="64"
                 >

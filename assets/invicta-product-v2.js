@@ -392,24 +392,31 @@
        THUMBNAIL GALLERY
        ======================================== */
 
+    var activeThumbIndex = 0;
+    var thumbArray = Array.prototype.slice.call(thumbs);
+
     function setActiveThumb(thumb) {
       if (!thumb || !mainImage) return;
 
-      thumbs.forEach(function(t) {
-        t.classList.remove('inv-pdp__gallery-thumb--active');
-        t.setAttribute('aria-selected', 'false');
-      });
+      var prevActive = thumbsContainer && thumbsContainer.querySelector('.inv-pdp__gallery-thumb--active');
+      if (prevActive && prevActive !== thumb) {
+        prevActive.classList.remove('inv-pdp__gallery-thumb--active');
+        prevActive.setAttribute('aria-selected', 'false');
+      }
 
       thumb.classList.add('inv-pdp__gallery-thumb--active');
       thumb.setAttribute('aria-selected', 'true');
+      activeThumbIndex = parseInt(thumb.dataset.index, 10) || 0;
 
-      if (thumb.dataset.imageSrc) {
-        mainImage.removeAttribute('srcset');
-        mainImage.src = thumb.dataset.imageSrc;
+      var newSrc = thumb.dataset.imageSrc;
+      if (newSrc && mainImage.src !== newSrc) {
+        var baseSrc = newSrc.replace(/width=\d+/, '');
+        mainImage.srcset = baseSrc + 'width=400 400w, ' + baseSrc + 'width=600 600w, ' + baseSrc + 'width=800 800w, ' + baseSrc + 'width=1200 1200w';
+        mainImage.src = newSrc;
       }
     }
 
-    thumbs.forEach(function(thumb) {
+    thumbArray.forEach(function(thumb) {
       thumb.addEventListener('click', function() {
         setActiveThumb(thumb);
       });
@@ -417,32 +424,24 @@
 
     if (thumbsContainer) {
       thumbsContainer.addEventListener('keydown', function(e) {
-        let currentIndex = -1;
-        const thumbArray = Array.prototype.slice.call(thumbs);
-
-        thumbArray.forEach(function(t, i) {
-          if (t.classList.contains('inv-pdp__gallery-thumb--active')) {
-            currentIndex = i;
-          }
-        });
-
-        let nextIndex = currentIndex;
+        var nextIndex = activeThumbIndex;
+        var len = thumbArray.length;
 
         if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
           e.preventDefault();
-          nextIndex = (currentIndex + 1) % thumbArray.length;
+          nextIndex = (activeThumbIndex + 1) % len;
         } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
           e.preventDefault();
-          nextIndex = (currentIndex - 1 + thumbArray.length) % thumbArray.length;
+          nextIndex = (activeThumbIndex - 1 + len) % len;
         } else if (e.key === 'Home') {
           e.preventDefault();
           nextIndex = 0;
         } else if (e.key === 'End') {
           e.preventDefault();
-          nextIndex = thumbArray.length - 1;
+          nextIndex = len - 1;
         }
 
-        if (nextIndex !== currentIndex && thumbArray[nextIndex]) {
+        if (nextIndex !== activeThumbIndex && thumbArray[nextIndex]) {
           setActiveThumb(thumbArray[nextIndex]);
           thumbArray[nextIndex].focus();
         }
