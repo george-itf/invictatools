@@ -82,7 +82,7 @@
         "banner_2_subtitle": "",
         "banner_2_link": "shopify://collections/deals-and-sales",
         "banner_2_overlay": "#f4f4f4",
-        "banner_2_overlay_opacity": 0,
+        "banner_2_overlay_opacity": 35,
         "banner_2_start": "",
         "banner_2_end": ""
       }
