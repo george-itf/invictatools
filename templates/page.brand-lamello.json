@@ -109,7 +109,7 @@
     "featured-products": {
       "type": "featured-collection",
       "settings": {
-        "collection": "lamello-featured",
+        "collection": "lamello",
         "products_to_show": 4,
         "header_style": "bar",
         "title": "Featured Lamello Products",
@@ -200,7 +200,7 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "shopify://shop_images/Jede_Verbindung_zaehlt.webp",
+            "image": "shopify://shop_images/IMG_FOT_MAK_Cabineo-CNC__SALL__AIN__V2.webp",
             "show_badge": true,
             "badge_text": "NEW",
             "launch_date": "Available Now",
@@ -314,6 +314,7 @@
         "cat_1": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/IMG_FOT_MAK_Zeta-P2-Anwendung-03__SALL__AIN__V1.webp",
             "title": "Biscuit Joiners",
             "description": "The original Lamello innovation — precision biscuit joiners for professional woodworking and joinery.",
             "url": ""
@@ -322,6 +323,7 @@
         "cat_2": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/Jede_Verbindung_zaehlt.webp",
             "title": "Connector Systems",
             "description": "Clamex, Cabineo and Tenso — invisible, demountable connector systems for furniture and cabinet assembly.",
             "url": ""
@@ -330,6 +332,7 @@
         "cat_3": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/P-System.webp",
             "title": "Accessories",
             "description": "Biscuits, blades, diamond cutters and spare parts to keep your Lamello tools performing at their best.",
             "url": ""
@@ -350,7 +353,8 @@
     "video": {
       "type": "brand-video",
       "settings": {
-        "video_url": "",
+        "thumbnail": "shopify://shop_images/mqdefault_6s_2.webp",
+        "video_url": "https://youtu.be/Z_gyKZOMN6o?si=ZvgeeNsl1V9F_8n_",
         "section_label": "See It In Action",
         "title": "Lamello Cabineo in Action",
         "description": "Watch how the Cabineo connector system transforms cabinet assembly — invisible joints, tool-free assembly, professional results.",
