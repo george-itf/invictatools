@@ -286,10 +286,10 @@
         "brand_8"
       ],
       "settings": {
-        "heading": "Brands We Stock",
-        "heading_size": 28,
+        "heading": "Our Brands",
+        "heading_size": 44,
         "heading_color": "#111827",
-        "heading_spacing": 24,
+        "heading_spacing": 16,
         "pill_height": 44,
         "logo_height": 28,
         "pill_padding": 20,
@@ -297,7 +297,7 @@
         "container_width": 1400,
         "container_padding": 20,
         "background_color": "#ffffff",
-        "padding_top": 24,
+        "padding_top": 0,
         "padding_bottom": 24
       }
     },
