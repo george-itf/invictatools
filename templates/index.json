@@ -167,7 +167,7 @@
         "cat_8"
       ],
       "settings": {
-        "columns_desktop": 8,
+        "columns_desktop": 6,
         "background_color": "#f9fafb",
         "padding_top": 36,
         "padding_bottom": 32
@@ -419,6 +419,7 @@
         "subheading": "Join hundreds of Kent tradespeople who trust Invicta Tools for their professional tool needs.",
         "form_title": "Request Trade Pricing",
         "form_subtitle": "We'll get back to you within 24 hours",
+        "form_action": "",
         "label_company": "Company Name",
         "placeholder_company": "Your company name",
         "label_email": "Email Address",
@@ -645,6 +646,7 @@
         "title_logged_in": "Recently Viewed",
         "empty_message": "You haven't viewed any products yet. Start browsing to see your history here.",
         "show_view_all": false,
+        "view_all_link": "",
         "max_products": 8,
         "title_logged_out": "See Your Recommendations",
         "description_logged_out": "Log in or create an account to see personalised product recommendations based on your browsing history.",
