@@ -300,16 +300,16 @@
     --inv-fc-text-muted: rgba(255, 255, 255, 0.65);
     
     /* Spacing */
-    --inv-fc-gap: 12px;
+    --inv-fc-gap: 16px;
     --inv-fc-cols: {{ columns_desktop_int }};
     --inv-fc-slide-width-desktop: calc((min(100vw - 40px, 1400px) - (var(--inv-fc-cols) - 1) * var(--inv-fc-gap)) / var(--inv-fc-cols));
     --inv-fc-slide-width-mobile: 156px;
-    --inv-fc-header-radius: 0;
+    --inv-fc-header-radius: 10px;
   }
 
   .inv-featured-collection {
     padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
-    background: var(--inv-fc-bg);
+    background: transparent;
   }
 
   /* ============================================
@@ -332,6 +332,7 @@
     position: relative;
     overflow: hidden;
     min-height: 56px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   }
 
   /* Red accent - thicker gradient stripe */
@@ -402,6 +403,7 @@
     text-decoration: none;
     transition: background 0.2s ease, gap 0.2s ease;
     position: relative;
+    border-radius: 0 var(--inv-fc-header-radius) var(--inv-fc-header-radius) 0;
   }
 
   .inv-fc-header__cta--bar::before {
@@ -653,7 +655,7 @@
     gap: var(--inv-fc-gap);
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 8px 4px 16px;
   }
 
   .inv-featured-collection__grid--2-col { grid-template-columns: repeat(2, 1fr); }
@@ -675,7 +677,7 @@
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
-    padding: 4px 20px 4px;
+    padding: 8px 20px 16px;
     align-items: stretch;
   }
 
@@ -709,10 +711,11 @@
     height: 44px;
     background: #fff;
     border: 1px solid var(--inv-fc-border);
-    border-radius: 0;
+    border-radius: 50%;
     color: var(--inv-fc-dark);
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
   }
 
   .inv-featured-collection__nav-btn:hover {
@@ -751,7 +754,7 @@
     text-transform: uppercase;
     letter-spacing: 0.04em;
     text-decoration: none;
-    border-radius: 0;
+    border-radius: 10px;
     transition: background 0.15s ease;
   }
 
@@ -879,12 +882,12 @@
     /* Grid mobile */
     .inv-featured-collection__grid {
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+      gap: 12px;
     }
 
     .inv-featured-collection__grid--slider {
       padding: 4px 16px 4px;
-      gap: 10px;
+      gap: 12px;
     }
 
     .inv-featured-collection__slide {
