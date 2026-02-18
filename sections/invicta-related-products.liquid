@@ -1,0 +1,163 @@
+{% comment %}
+  ============================================================================
+  INVICTA RELATED PRODUCTS v1.0
+  ============================================================================
+
+  Standalone section for product recommendations on product pages.
+  Uses Shopify's Product Recommendations API via AJAX.
+
+  - Loading skeleton while fetching
+  - Renders invicta-product-card for each recommendation
+  - Hides entirely if no recommendations returned
+  - Fully configurable via theme editor (title, limit, columns, padding)
+
+  Styles: assets/invicta-related-products.css
+  Cards:  snippets/invicta-product-card.liquid (loaded globally)
+  ============================================================================
+{% endcomment %}
+
+{{ 'invicta-related-products.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .inv-related {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .inv-related {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  class="inv-related inv-related--hidden"
+  data-related-products
+  data-product-id="{{ product.id }}"
+  data-limit="{{ section.settings.products_to_show }}"
+  data-section-id="{{ section.id }}"
+>
+  <div class="inv-related__container">
+
+    {%- comment -%} Section heading {%- endcomment -%}
+    <div class="inv-related__header">
+      <h2 class="inv-related__title">{{ section.settings.heading }}</h2>
+    </div>
+
+    {%- comment -%} Loading skeleton (shown during fetch, then removed) {%- endcomment -%}
+    <div class="inv-related__skeleton" data-related-skeleton>
+      {%- for i in (1..4) -%}
+        <div class="inv-related__skeleton-card">
+          <div class="inv-related__skeleton-img"></div>
+          <div class="inv-related__skeleton-body">
+            <div class="inv-related__skeleton-line"></div>
+            <div class="inv-related__skeleton-line"></div>
+            <div class="inv-related__skeleton-price"></div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} Product grid (populated via AJAX) {%- endcomment -%}
+    <ul class="inv-related__grid" role="list" data-related-grid></ul>
+
+  </div>
+</div>
+
+<script>
+(function() {
+  var section = document.querySelector('#shopify-section-{{ section.id }} [data-related-products]');
+  if (!section) return;
+
+  var productId = section.dataset.productId;
+  var limit = section.dataset.limit || {{ section.settings.products_to_show }};
+  var grid = section.querySelector('[data-related-grid]');
+  var skeleton = section.querySelector('[data-related-skeleton]');
+  if (!productId || !grid) return;
+
+  var url = '/recommendations/products?section_id=invicta-recommendations-ajax&product_id=' + productId + '&limit=' + limit;
+
+  fetch(url)
+    .then(function(response) { return response.text(); })
+    .then(function(html) {
+      var temp = document.createElement('div');
+      temp.innerHTML = html;
+      var items = temp.querySelectorAll('.inv-recs__item');
+
+      if (items.length > 0) {
+        items.forEach(function(item) {
+          var li = document.createElement('li');
+          li.className = 'inv-related__item';
+          while (item.firstChild) {
+            li.appendChild(item.firstChild);
+          }
+          grid.appendChild(li);
+        });
+        section.classList.remove('inv-related--hidden');
+      }
+
+      if (skeleton) skeleton.remove();
+    })
+    .catch(function() {
+      if (skeleton) skeleton.remove();
+    });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Related Products",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "You May Also Like"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4,
+      "label": "Products to show"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Related Products"
+    }
+  ]
+}
+{% endschema %}
