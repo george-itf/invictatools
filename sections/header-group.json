@@ -17,16 +17,40 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "FREE NEXT-DAY DELIVERY OVER £30",
-            "link": ""
+            "text": "FREE NEXT-DAY DELIVERY ON ORDERS OVER £30",
+            "link": "shopify://policies/shipping-policy"
+          }
+        },
+        "announcement-bar-1": {
+          "type": "announcement",
+          "settings": {
+            "text": "CLICK & COLLECT — READY IN 1 HOUR",
+            "link": "shopify://pages/about-us"
+          }
+        },
+        "announcement-bar-2": {
+          "type": "announcement",
+          "settings": {
+            "text": "AUTHORISED MAKITA, DEWALT & HIKOKI DEALER",
+            "link": "shopify://pages/shop-by-brand"
+          }
+        },
+        "announcement-bar-3": {
+          "type": "announcement",
+          "settings": {
+            "text": "TRADE ACCOUNTS — APPLY FOR 30-DAY TERMS",
+            "link": "shopify://pages/trade-landing"
           }
         }
       },
       "block_order": [
-        "announcement-bar-0"
+        "announcement-bar-0",
+        "announcement-bar-1",
+        "announcement-bar-2",
+        "announcement-bar-3"
       ],
       "settings": {
-        "auto_rotate": false,
+        "auto_rotate": true,
         "change_slides_speed": 5,
         "color_scheme": "scheme-4",
         "show_line_separator": false,
