@@ -25,7 +25,7 @@
             "icon": "clock",
             "title": "LATEST DEALS",
             "text": "Great prices on top trade brands",
-            "link": "shopify://collections/stocking-fillers"
+            "link": "shopify://collections/all"
           }
         },
         "promo_card_fDnDtM": {
@@ -51,14 +51,31 @@
       ],
       "settings": {
         "main_image": "shopify://shop_images/3713.webp",
-        "badge_text": "",
-        "heading": "Kent's trusted tool supplier since 1996",
-        "subheading": "",
+        "badge_text": "TRUSTED SINCE 1996",
+        "heading": "Professional Tools. Trade Prices. Next-Day Delivery.",
+        "subheading": "Authorised dealer for Makita, DeWalt & HiKOKI — with free delivery on orders over £30",
         "button_text": "SHOP POWER TOOLS",
         "button_link": "/collections/power-tools",
         "background_color": "#f5f5f5",
         "padding_top": 24,
         "padding_bottom": 24
+      }
+    },
+    "promo_banners": {
+      "type": "invicta-promo-banners",
+      "settings": {
+        "banner_1_tag": "New Arrivals",
+        "banner_1_title": "Latest Power Tools",
+        "banner_1_subtitle": "Browse the latest tools from top trade brands.",
+        "banner_1_link": "",
+        "banner_1_start": "",
+        "banner_1_end": "",
+        "banner_2_tag": "Special Offers",
+        "banner_2_title": "Deals & Savings",
+        "banner_2_subtitle": "Great prices on Makita, DeWalt, HiKOKI and more.",
+        "banner_2_link": "",
+        "banner_2_start": "",
+        "banner_2_end": ""
       }
     },
     "quick_cats": {
@@ -90,8 +107,7 @@
             "title": "Nailers",
             "collection": "nailing-fastening",
             "custom_link": "",
-            "icon": "grinder",
-            "custom_icon": "shopify://shop_images/s-l1600_2d2dbc92-a078-4cb6-a803-24f704a387e1.webp"
+            "icon": "impact"
           }
         },
         "cat_4": {
@@ -120,6 +136,24 @@
             "custom_link": "",
             "icon": "storage"
           }
+        },
+        "cat_7": {
+          "type": "category",
+          "settings": {
+            "title": "Hand Tools",
+            "collection": "hand-tools",
+            "custom_link": "",
+            "icon": "safety"
+          }
+        },
+        "cat_8": {
+          "type": "category",
+          "settings": {
+            "title": "Outdoor",
+            "collection": "outdoor-power-equipment",
+            "custom_link": "",
+            "icon": "outdoor"
+          }
         }
       },
       "block_order": [
@@ -128,10 +162,12 @@
         "cat_3",
         "cat_4",
         "cat_5",
-        "cat_6"
+        "cat_6",
+        "cat_7",
+        "cat_8"
       ],
       "settings": {
-        "columns_desktop": 6,
+        "columns_desktop": 8,
         "background_color": "#f9fafb",
         "padding_top": 36,
         "padding_bottom": 32
@@ -261,7 +297,7 @@
         "brand_8"
       ],
       "settings": {
-        "heading": "",
+        "heading": "Brands We Stock",
         "heading_size": 28,
         "heading_color": "#111827",
         "heading_spacing": 24,
@@ -314,6 +350,83 @@
         "swipe_on_mobile": false,
         "padding_top": 16,
         "padding_bottom": 36
+      }
+    },
+    "featured_collection_3": {
+      "type": "featured-collection",
+      "name": "Invicta Featured Collection 3",
+      "settings": {
+        "collection": "hand-tools",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Hand Tools & Site Equipment",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 16,
+        "padding_bottom": 36
+      }
+    },
+    "trade_cta": {
+      "type": "invicta-trade-cta",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "text": "Exclusive trade pricing on all brands"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "text": "30-day payment terms"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "text": "Dedicated account manager"
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "text": "Priority next-day delivery"
+          }
+        },
+        "feature_5": {
+          "type": "feature",
+          "settings": {
+            "text": "Click & collect from 2 Kent branches"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4",
+        "feature_5"
+      ],
+      "settings": {
+        "badge_text": "Trade Accounts",
+        "heading": "Open a Trade Account Today",
+        "subheading": "Join hundreds of Kent tradespeople who trust Invicta Tools for their professional tool needs.",
+        "form_title": "Request Trade Pricing",
+        "form_subtitle": "We'll get back to you within 24 hours",
+        "label_company": "Company Name",
+        "placeholder_company": "Your company name",
+        "label_email": "Email Address",
+        "placeholder_email": "you@company.com",
+        "label_phone": "Phone Number",
+        "placeholder_phone": "01234 567890",
+        "button_text": "Request Trade Account",
+        "disclaimer": "By submitting, you agree to our terms. We'll never share your details."
       }
     },
     "invicta_trust_bar_r98CbM": {
@@ -376,7 +489,7 @@
         "image": "shopify://shop_images/itf_front_old.jpg",
         "badge_text": "Authorised Dealer",
         "cta_text": "Visit Our Stores",
-        "cta_link": "",
+        "cta_link": "/pages/about-us",
         "background_color": "#f9fafb",
         "padding_top": 60,
         "padding_bottom": 16
@@ -477,6 +590,87 @@
         "review_10_avatar": "shopify://shop_images/unnamed.png"
       }
     },
+    "featured_blog": {
+      "type": "featured-blog",
+      "settings": {
+        "blog": "news",
+        "post_limit": 3,
+        "heading": "Expert Guides & News",
+        "heading_size": "h2",
+        "columns_desktop": 3,
+        "show_view_all": true,
+        "show_image": true,
+        "show_date": true,
+        "show_author": false,
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "recently_viewed": {
+      "type": "invicta-recently-viewed",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "text": "Track your orders"
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "text": "Save favourite products"
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "text": "Faster checkout"
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "text": "Exclusive trade pricing"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4"
+      ],
+      "settings": {
+        "title_logged_in": "Recently Viewed",
+        "empty_message": "You haven't viewed any products yet. Start browsing to see your history here.",
+        "show_view_all": false,
+        "max_products": 8,
+        "title_logged_out": "See Your Recommendations",
+        "description_logged_out": "Log in or create an account to see personalised product recommendations based on your browsing history.",
+        "cta_icon": "user",
+        "login_button_text": "Log In",
+        "register_button_text": "Create Account",
+        "show_benefits": true,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "card_width": 180,
+        "card_image_height": 140,
+        "card_radius": 8,
+        "title_size": 20,
+        "cta_title_size": 24,
+        "background_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "text_muted_color": "#666666",
+        "accent_color": "#e11d26",
+        "card_bg_color": "#ffffff",
+        "card_border_color": "#e5e5e5",
+        "cta_icon_bg": "#f5f5f5",
+        "cta_icon_color": "#1a1a1a",
+        "button_radius": 6,
+        "benefit_check_color": "#10b981"
+      }
+    },
     "invicta_newsletter_t9TTnj": {
       "type": "invicta-newsletter",
       "blocks": {
@@ -523,13 +717,18 @@
   },
   "order": [
     "hero_split",
+    "promo_banners",
     "quick_cats",
     "invicta_usp_strip_v2_eepGaQ",
     "brand_strip",
     "featured_collection_nePQBY",
     "featured_collection_handtools",
+    "featured_collection_3",
+    "trade_cta",
     "invicta_trust_bar_r98CbM",
     "review_carousel",
+    "featured_blog",
+    "recently_viewed",
     "invicta_newsletter_t9TTnj"
   ]
 }
