@@ -356,10 +356,10 @@
       "type": "featured-collection",
       "name": "Invicta Featured Collection 3",
       "settings": {
-        "collection": "hand-tools",
+        "collection": "deals-and-sales",
         "products_to_show": 4,
         "header_style": "bar",
-        "title": "Hand Tools & Site Equipment",
+        "title": "DEALS AND SAVINGS",
         "description": "",
         "show_description": false,
         "show_product_count": false,
