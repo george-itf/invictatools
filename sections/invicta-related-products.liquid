@@ -1,18 +1,24 @@
 {% comment %}
   ============================================================================
-  INVICTA RELATED PRODUCTS v1.0
+  INVICTA RELATED PRODUCTS v1.1
   ============================================================================
 
   Standalone section for product recommendations on product pages.
-  Uses Shopify's Product Recommendations API via AJAX.
+  Uses Shopify's Product Recommendations API with section rendering.
 
-  - Loading skeleton while fetching
-  - Renders invicta-product-card for each recommendation
-  - Hides entirely if no recommendations returned
-  - Fully configurable via theme editor (title, limit, columns, padding)
+  How it works:
+    1. Initial page load shows a loading skeleton
+    2. JS fetches /recommendations/products?section_id=<this-section>&product_id=X
+    3. Shopify re-renders THIS section with recommendations.products populated
+    4. JS swaps the skeleton for the rendered product cards
 
+  Cards:  snippets/invicta-product-card.liquid
   Styles: assets/invicta-related-products.css
-  Cards:  snippets/invicta-product-card.liquid (loaded globally)
+
+  Manual assignment:
+    Merchants assign related products via the Search & Discovery app
+    in Shopify admin. The API returns manual picks merged with
+    auto-generated recommendations (intent=related).
   ============================================================================
 {% endcomment %}
 
@@ -31,79 +37,81 @@
   }
 {%- endstyle -%}
 
-<div
-  class="inv-related inv-related--hidden"
-  data-related-products
-  data-product-id="{{ product.id }}"
-  data-limit="{{ section.settings.products_to_show }}"
-  data-section-id="{{ section.id }}"
->
-  <div class="inv-related__container">
-
-    {%- comment -%} Section heading {%- endcomment -%}
-    <div class="inv-related__header">
-      <h2 class="inv-related__title">{{ section.settings.heading }}</h2>
+{%- if recommendations.performed and recommendations.products_count > 0 -%}
+  {%- comment -%} === AJAX RE-RENDER: Shopify populated recommendations === {%- endcomment -%}
+  <div class="inv-related" data-related-products data-product-id="{{ product.id }}">
+    <div class="inv-related__container">
+      <div class="inv-related__header">
+        <h2 class="inv-related__title">{{ section.settings.heading }}</h2>
+      </div>
+      <ul class="inv-related__grid" role="list">
+        {%- for product in recommendations.products limit: section.settings.products_to_show -%}
+          <li class="inv-related__item">
+            {% render 'invicta-product-card', product: product, card_index: forloop.index, brand_pill_type: 'text-only' %}
+          </li>
+        {%- endfor -%}
+      </ul>
     </div>
-
-    {%- comment -%} Loading skeleton (shown during fetch, then removed) {%- endcomment -%}
-    <div class="inv-related__skeleton" data-related-skeleton>
-      {%- for i in (1..4) -%}
-        <div class="inv-related__skeleton-card">
-          <div class="inv-related__skeleton-img"></div>
-          <div class="inv-related__skeleton-body">
-            <div class="inv-related__skeleton-line"></div>
-            <div class="inv-related__skeleton-line"></div>
-            <div class="inv-related__skeleton-price"></div>
-          </div>
-        </div>
-      {%- endfor -%}
-    </div>
-
-    {%- comment -%} Product grid (populated via AJAX) {%- endcomment -%}
-    <ul class="inv-related__grid" role="list" data-related-grid></ul>
-
   </div>
-</div>
 
-<script>
-(function() {
-  var section = document.querySelector('#shopify-section-{{ section.id }} [data-related-products]');
-  if (!section) return;
+{%- else -%}
+  {%- comment -%} === INITIAL PAGE LOAD: Show skeleton, JS will fetch === {%- endcomment -%}
+  <div
+    class="inv-related inv-related--hidden"
+    data-related-products
+    data-product-id="{{ product.id }}"
+    data-limit="{{ section.settings.products_to_show }}"
+  >
+    <div class="inv-related__container">
+      <div class="inv-related__header">
+        <h2 class="inv-related__title">{{ section.settings.heading }}</h2>
+      </div>
+      <div class="inv-related__skeleton" data-related-skeleton>
+        {%- for i in (1..4) -%}
+          <div class="inv-related__skeleton-card">
+            <div class="inv-related__skeleton-img"></div>
+            <div class="inv-related__skeleton-body">
+              <div class="inv-related__skeleton-line"></div>
+              <div class="inv-related__skeleton-line"></div>
+              <div class="inv-related__skeleton-price"></div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
 
-  var productId = section.dataset.productId;
-  var limit = section.dataset.limit || {{ section.settings.products_to_show }};
-  var grid = section.querySelector('[data-related-grid]');
-  var skeleton = section.querySelector('[data-related-skeleton]');
-  if (!productId || !grid) return;
+  <script>
+  (function() {
+    var container = document.querySelector('#shopify-section-{{ section.id }} [data-related-products]');
+    if (!container) return;
 
-  var url = '/recommendations/products?section_id=invicta-recommendations-ajax&product_id=' + productId + '&limit=' + limit;
+    var productId = container.dataset.productId;
+    var limit = container.dataset.limit || {{ section.settings.products_to_show }};
+    if (!productId) return;
 
-  fetch(url)
-    .then(function(response) { return response.text(); })
-    .then(function(html) {
-      var temp = document.createElement('div');
-      temp.innerHTML = html;
-      var items = temp.querySelectorAll('.inv-recs__item');
+    var sectionId = '{{ section.id }}';
+    var url = '/recommendations/products?section_id=' + sectionId + '&product_id=' + productId + '&limit=' + limit + '&intent=related';
 
-      if (items.length > 0) {
-        items.forEach(function(item) {
-          var li = document.createElement('li');
-          li.className = 'inv-related__item';
-          while (item.firstChild) {
-            li.appendChild(item.firstChild);
-          }
-          grid.appendChild(li);
-        });
-        section.classList.remove('inv-related--hidden');
-      }
+    fetch(url)
+      .then(function(r) { return r.text(); })
+      .then(function(html) {
+        var temp = document.createElement('div');
+        temp.innerHTML = html;
+        var freshSection = temp.querySelector('[data-related-products]');
 
-      if (skeleton) skeleton.remove();
-    })
-    .catch(function() {
-      if (skeleton) skeleton.remove();
-    });
-})();
-</script>
+        if (freshSection && freshSection.querySelector('.inv-related__item')) {
+          container.parentNode.replaceChild(freshSection, container);
+        } else {
+          container.remove();
+        }
+      })
+      .catch(function() {
+        container.remove();
+      });
+  })();
+  </script>
+{%- endif -%}
 
 {% schema %}
 {
