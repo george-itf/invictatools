@@ -31,12 +31,13 @@ quantity-popover .quick-order-list-remove-button .button {
   --border-opacity: 0;
 }
 
+/* WCAG 2.5.5 — 44px minimum touch target for quantity popover button */
 .quantity-popover__info-button {
   display: flex;
   align-items: center;
   margin: 0 0.4rem 0 0;
-  min-width: 1.5rem;
-  min-height: 1.5rem;
+  min-width: 44px;
+  min-height: 44px;
   --shadow-opacity: 0;
   --border-opacity: 0;
 }
@@ -92,15 +93,19 @@ quantity-popover .quick-order-list-remove-button .button {
   font-size: 1.2rem;
 }
 
+/* WCAG 2.5.5 — 44px minimum touch target for close button */
 .quantity-popover__info .button {
-  width: 3.2rem;
-  height: 3.2rem;
+  width: 4.4rem;
+  height: 4.4rem;
+  min-width: 44px;
+  min-height: 44px;
   position: absolute;
-  top: 0.4rem;
+  top: 0;
   right: 0;
   padding: 0 1.2rem 0 0;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .quantity-popover__info .volume-pricing-label ~ .button {

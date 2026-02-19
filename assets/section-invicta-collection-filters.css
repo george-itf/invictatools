@@ -79,8 +79,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   background: #fff;
   border: 1px solid var(--inv-filter-btn-border);
@@ -89,9 +89,9 @@
   cursor: pointer;
   transition: all 0.15s ease;
 
-  /* Prevent oval/pill shape */
-  min-width: 32px;
-  min-height: 32px;
+  /* WCAG 2.5.5 — 44px minimum touch target */
+  min-width: 44px;
+  min-height: 44px;
   aspect-ratio: 1;
 }
 
@@ -316,6 +316,21 @@
   opacity: 0.8;
   cursor: pointer;
   transition: opacity 0.1s ease;
+
+  /* WCAG 2.5.5 — expand touch target to 44px without changing visual size */
+  position: relative;
+}
+
+.inv-filters__tag-remove::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .inv-filters__tag-remove:hover {
@@ -346,6 +361,10 @@
 
   /* Our styles */
   padding: 8px 14px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-family: inherit;
   font-size: 11px;
   font-weight: 600;
@@ -430,17 +449,18 @@
     font-size: 11px;
   }
 
+  /* WCAG 2.5.5 — maintain 44px minimum touch target on tablet */
   .inv-filters__scroll-btn {
-    width: 28px;
-    height: 28px;
+    width: 44px;
+    height: 44px;
   }
 
   .inv-filters__scroll-btn--left {
-    left: -12px;
+    left: -20px;
   }
 
   .inv-filters__scroll-btn--right {
-    right: -12px;
+    right: -20px;
   }
 }
 
@@ -453,27 +473,30 @@
     margin-bottom: 10px;
   }
 
+  /* WCAG 2.5.5 — maintain 44px minimum touch target on mobile */
   .inv-filters__btn {
     padding: 7px 10px;
     font-size: 10px;
+    min-height: 44px;
+    min-width: 44px;
   }
 
   .inv-filters__scroll-btn {
-    width: 24px;
-    height: 24px;
+    width: 44px;
+    height: 44px;
   }
 
   .inv-filters__scroll-btn--left {
-    left: -8px;
+    left: -16px;
   }
 
   .inv-filters__scroll-btn--right {
-    right: -8px;
+    right: -16px;
   }
 
   .inv-filters__scroll-btn svg {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
   }
 
   .inv-filters__active-content {
@@ -484,6 +507,7 @@
 
   .inv-filters__clear-all {
     align-self: flex-end;
+    min-height: 44px;
   }
 
   .inv-filters__tag {

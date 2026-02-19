@@ -13,10 +13,9 @@
  * ============================================
  */
 
-const DEBUG = false; // Set to true for development logging
-
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v1-20260219';
 const CACHE_NAME = `invicta-tools-${CACHE_VERSION}`;
+const MAX_CACHE_SIZE = 200;
 
 /**
  * Core assets to cache on install
@@ -63,18 +62,10 @@ const NEVER_CACHE = [
    ======================================== */
 
 self.addEventListener('install', (event) => {
-  DEBUG && console.log('[Invicta SW] Installing...');
-  
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then((cache) => {
-        DEBUG && console.log('[Invicta SW] Precaching core assets');
-        return cache.addAll(PRECACHE_ASSETS);
-      })
+      .then((cache) => cache.addAll(PRECACHE_ASSETS))
       .then(() => self.skipWaiting())
-      .catch((error) => {
-        DEBUG && console.error('[Invicta SW] Precache failed:', error);
-      })
   );
 });
 
@@ -84,18 +75,13 @@ self.addEventListener('install', (event) => {
    ======================================== */
 
 self.addEventListener('activate', (event) => {
-  DEBUG && console.log('[Invicta SW] Activating...');
-  
   event.waitUntil(
     caches.keys()
       .then((cacheNames) => {
         return Promise.all(
           cacheNames
             .filter((name) => name.startsWith('invicta-tools-') && name !== CACHE_NAME)
-            .map((name) => {
-              DEBUG && console.log('[Invicta SW] Deleting old cache:', name);
-              return caches.delete(name);
-            })
+            .map((name) => caches.delete(name))
         );
       })
       .then(() => self.clients.claim())
@@ -171,12 +157,12 @@ async function cacheFirst(request) {
     
     if (networkResponse.ok) {
       const cache = await caches.open(CACHE_NAME);
-      cache.put(request, networkResponse.clone());
+      await cache.put(request, networkResponse.clone());
+      trimCache();
     }
-    
+
     return networkResponse;
   } catch (error) {
-    DEBUG && console.error('[Invicta SW] Fetch failed:', error);
     return new Response('Offline', { status: 503 });
   }
 }
@@ -218,14 +204,34 @@ async function networkOnlyWithOfflineFallback(request) {
 async function updateCacheInBackground(request) {
   try {
     const networkResponse = await fetch(request);
-    
+
     if (networkResponse.ok) {
       const cache = await caches.open(CACHE_NAME);
-      cache.put(request, networkResponse);
+      await cache.put(request, networkResponse);
+      await trimCache();
     }
   } catch (error) {
     /* Silent fail - cached version exists */
   }
+}
+
+
+/**
+ * Trim cache to MAX_CACHE_SIZE entries
+ * Deletes the oldest entries (first in the keys list) when over the limit.
+ */
+async function trimCache() {
+  const cache = await caches.open(CACHE_NAME);
+  const keys = await cache.keys();
+
+  if (keys.length <= MAX_CACHE_SIZE) {
+    return;
+  }
+
+  const overage = keys.length - MAX_CACHE_SIZE;
+  const toDelete = keys.slice(0, overage);
+
+  await Promise.all(toDelete.map((key) => cache.delete(key)));
 }
 
 
@@ -328,8 +334,6 @@ self.addEventListener('message', (event) => {
   }
   
   if (event.data === 'clearCache') {
-    caches.delete(CACHE_NAME).then(() => {
-      DEBUG && console.log('[Invicta SW] Cache cleared');
-    });
+    caches.delete(CACHE_NAME);
   }
 });

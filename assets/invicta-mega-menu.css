@@ -1,0 +1,121 @@
+/* ==========================================================================
+   Invicta Mega Menu – External Stylesheet
+   ==========================================================================
+   Colors are driven by CSS custom properties set inline from Liquid settings.
+   Defaults are provided as fallbacks.
+   ========================================================================== */
+
+/* Wrapper must be full-width */
+#mega-menu-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* TOP LEVEL BAR */
+.mmenu-bar-mmenu {
+  width: 100%;
+  background: var(--inv-mega-bg, #ffffff);
+  border-bottom: 1px solid var(--inv-mega-border, #e5e5e5);
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  z-index: 3000;
+}
+
+.mmenu-link-mmenu {
+  padding: 16px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--inv-mega-text, #1a1a1a);
+  text-decoration: none;
+  background: transparent;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mmenu-link-mmenu:hover {
+  background: var(--inv-mega-hover-bg, #f5f5f5);
+  color: var(--inv-mega-hover-text, #000000);
+}
+
+/* DROPDOWN PANEL */
+.mmenu-drop-mmenu {
+  position: fixed !important;
+  top: var(--mega-menu-top, 130px);
+  left: 0;
+  width: 100vw;
+  padding: 28px 0;
+  background: var(--inv-mega-dropdown-bg, #ffffff);
+  border-top: 2px solid var(--inv-mega-border, #e5e5e5);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.10);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: all .25s ease;
+  z-index: 2500;
+}
+
+.mmenu-item-mmenu:hover .mmenu-drop-mmenu,
+.mmenu-item-mmenu .mmenu-drop-mmenu.mmenu-drop-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Focus styles for keyboard navigation */
+.mmenu-link-mmenu:focus-visible {
+  outline: 2px solid var(--inv-mega-accent, #1a1a1a);
+  outline-offset: -2px;
+}
+
+.mmenu-sublink-mmenu:focus-visible {
+  outline: 2px solid var(--inv-mega-accent, #1a1a1a);
+  outline-offset: 2px;
+  color: var(--inv-mega-link-hover, #000000);
+}
+
+/* INNER GRID */
+.mmenu-inner-mmenu {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 40px;
+  column-width: 240px;
+  column-gap: 56px;
+}
+
+.mmenu-col-mmenu {
+  display: inline-block;
+  break-inside: avoid-column;
+  margin-bottom: 24px;
+}
+
+.mmenu-col-title-mmenu {
+  font-size: 15px;
+  font-weight: 700;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid var(--inv-mega-accent, #1a1a1a);
+  color: var(--inv-mega-text, #1a1a1a);
+}
+
+.mmenu-sublink-mmenu {
+  display: block;
+  padding: 6px 0;
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--inv-mega-link, #333333);
+}
+
+.mmenu-sublink-mmenu:hover {
+  color: var(--inv-mega-link-hover, #000000);
+  transform: translateX(4px);
+}
+
+:root {
+  --mega-menu-top: 140px;
+}

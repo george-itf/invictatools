@@ -1641,8 +1641,12 @@
     align-items: center;
   }
 
+  /* PERF: content-visibility:hidden skips rendering of this desktop-only
+     image container on mobile/tablet, complementing loading="lazy" on the img */
   .brand-hero__image-wrap {
     display: none;
+    content-visibility: hidden;
+    contain-intrinsic-size: 0;
   }
 
   .brand-hero__headline {

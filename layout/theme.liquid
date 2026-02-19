@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <meta name="theme-color" content="">
     {%- liquid
       assign inv_canonical = canonical_url
@@ -34,9 +34,12 @@
     {%- comment -%} CX v1.0: Preconnect to search API for faster predictive search {%- endcomment -%}
     <link rel="dns-prefetch" href="{{ request.origin }}">
 
-    {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
-      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
-    {%- endunless -%}
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+
+    {%- if template contains 'page' or template contains 'product' -%}
+      <link rel="preconnect" href="https://www.youtube.com" crossorigin>
+      <link rel="preconnect" href="https://player.vimeo.com" crossorigin>
+    {%- endif -%}
 
     <title>
       {{ page_title }}
@@ -523,8 +526,10 @@
     {% render 'invicta-cart-handler' %}
 
     <!-- CX v1.0: Customer Experience Improvements — CSS deferred, not critical path -->
-    <script src="{{ 'invicta-cx-improvements.js' | asset_url }}" defer></script>
-    <link rel="stylesheet" href="{{ 'invicta-cx-improvements.css' | asset_url }}" media="print" onload="this.media='all'">
+    {%- unless template == 'password' or template == 'gift_card' -%}
+      <script src="{{ 'invicta-cx-improvements.js' | asset_url }}" defer></script>
+      <link rel="stylesheet" href="{{ 'invicta-cx-improvements.css' | asset_url }}" media="print" onload="this.media='all'">
+    {%- endunless -%}
 
     <!-- =============================================
          INVICTA JS — Clean Load Order

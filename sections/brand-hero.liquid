@@ -96,7 +96,11 @@
 
       </div>
 
-      {%- comment -%} Right Column - Image {%- endcomment -%}
+      {%- comment -%} Right Column - Image
+        PERF: This image is hidden below 992px (display:none in brand-page.css).
+        Use loading="lazy" so mobile/tablet browsers skip the download.
+        Desktop still loads it promptly since it's in the viewport.
+      {%- endcomment -%}
       <div class="brand-hero__image-wrap">
         {%- if section.settings.hero_image != blank -%}
           <img
@@ -108,7 +112,7 @@
             alt="{{ section.settings.hero_image.alt | default: 'Brand hero image' }}"
             width="{{ section.settings.hero_image.width | default: 800 }}"
             height="{{ section.settings.hero_image.height | default: 600 }}"
-            loading="eager"
+            loading="lazy"
             class="brand-hero__image"
           >
         {%- else -%}

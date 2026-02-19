@@ -539,7 +539,7 @@
   word-break: break-word;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 749px) {
   .inv-pdp__info-specs {
     grid-template-columns: 1fr;
   }

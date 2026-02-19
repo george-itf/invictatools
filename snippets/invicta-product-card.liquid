@@ -42,23 +42,44 @@
   assign compare_price_ex_vat = compare_price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor
   
   # -------------------------
-  # Stock status + supplier source
+  # Stock status + supplier source + brand (single tag loop)
   # -------------------------
   assign available = current_variant.available
   assign inventory_qty = current_variant.inventory_quantity | default: 0
   assign stock_status = 'in-stock'
   assign stock_label = 'invicta.product.stock_in_stock' | t
-  assign is_supplier_stock = false
+  assign stock_source = 'invicta'
+  assign supplier_key = ''
+  assign product_brand = ''
 
   for tag in product.tags
     assign tag_lower = tag | downcase | strip
     if tag_lower == 'invicta-stock'
-      assign is_supplier_stock = false
+      assign stock_source = 'invicta'
+      assign supplier_key = ''
       break
-    elsif tag_lower == 'trend-stock' or tag_lower == 'toolbank-stock' or tag_lower == 'timco-stock' or tag_lower == 'pdp-stock'
-      assign is_supplier_stock = true
+    elsif tag_lower == 'trend-stock'
+      assign stock_source = 'supplier'
+      assign supplier_key = 'trend'
+    elsif tag_lower == 'toolbank-stock'
+      assign stock_source = 'supplier'
+      assign supplier_key = 'toolbank'
+    elsif tag_lower == 'timco-stock'
+      assign stock_source = 'supplier'
+      assign supplier_key = 'timco'
+    elsif tag_lower == 'pdp-stock'
+      assign stock_source = 'supplier'
+      assign supplier_key = 'pdp'
+    endif
+    if tag_lower contains 'brand-'
+      assign product_brand = tag_lower | remove: 'brand-'
     endif
   endfor
+
+  assign is_supplier_stock = false
+  if stock_source == 'supplier'
+    assign is_supplier_stock = true
+  endif
 
   if available == false
     assign stock_status = 'out'
@@ -70,7 +91,7 @@
     assign stock_status = 'low'
     assign stock_label = 'invicta.product.stock_low' | t: quantity: inventory_qty
   endif
-  
+
   # -------------------------
   # Brand
   # -------------------------
@@ -100,11 +121,14 @@
     {%- comment -%} Image link {%- endcomment -%}
     <a href="{{ product_url }}" class="inv-card__img-link" aria-label="{{ product.title | escape }}">
       {%- if featured_image -%}
-        <img 
-          src="{{ featured_image | image_url: width: 400 }}"
-          srcset="{{ featured_image | image_url: width: 200 }} 200w,
-                  {{ featured_image | image_url: width: 400 }} 400w,
-                  {{ featured_image | image_url: width: 600 }} 600w"
+        {%- assign img_200 = featured_image | image_url: width: 200 -%}
+        {%- assign img_400 = featured_image | image_url: width: 400 -%}
+        {%- assign img_600 = featured_image | image_url: width: 600 -%}
+        <img
+          src="{{ img_400 }}"
+          srcset="{{ img_200 }} 200w,
+                  {{ img_400 }} 400w,
+                  {{ img_600 }} 600w"
           sizes="(max-width: 749px) 50vw, (max-width: 989px) 25vw, 20vw"
           alt="{{ featured_image.alt | escape | default: product.title }}"
           loading="{% if card_index <= 4 %}eager{% else %}lazy{% endif %}"

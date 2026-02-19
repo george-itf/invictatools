@@ -23,6 +23,7 @@
   margin-right: 1rem;
 }
 
+/* WCAG 2.5.5 — 44px minimum touch target for pagination links */
 .pagination__item {
   color: rgb(var(--color-foreground));
   display: inline-flex;
@@ -30,7 +31,9 @@
   align-items: center;
   position: relative;
   height: 4.4rem;
+  min-height: 44px;
   width: 100%;
+  min-width: 44px;
   padding: 0;
   text-decoration: none;
 }

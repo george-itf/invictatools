@@ -1,139 +1,49 @@
 {% assign id = 'mmenu' %}
 {% assign ms = section.settings %}
 
+{{ 'invicta-mega-menu.css' | asset_url | stylesheet_tag }}
 <style>
-  /* Wrapper must be full-width */
-  #mega-menu-wrapper {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  /* TOP LEVEL BAR */
-  .mmenu-bar-{{ id }} {
-    width: 100%;
-    background: {{ ms.mega_bg }};
-    border-bottom: 1px solid {{ ms.mega_border }};
-    display: flex;
-    justify-content: center;
-    gap: 0;
-    z-index: 3000;
-  }
-
-  .mmenu-link-{{ id }} {
-    padding: 16px 28px;
-    font-size: 15px;
-    font-weight: 600;
-    color: {{ ms.mega_text }};
-    text-decoration: none;
-    background: transparent;
-    cursor: pointer;
-    border: none;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .mmenu-link-{{ id }}:hover {
-    background: {{ ms.mega_hover_bg }};
-    color: {{ ms.mega_hover_text }};
-  }
-
-  /* DROPDOWN PANEL */
-  .mmenu-drop-{{ id }} {
-    position: fixed !important;
-    top: var(--mega-menu-top, 130px);
-    left: 0;
-    width: 100vw;
-    padding: 28px 0;
-    background: {{ ms.mega_dropdown_bg }};
-    border-top: 2px solid {{ ms.mega_border }};
-    box-shadow: 0 6px 16px rgba(0,0,0,0.10);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(8px);
-    transition: all .25s ease;
-    z-index: 2500;
-  }
-
-  .mmenu-item-{{ id }}:hover .mmenu-drop-{{ id }} {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-
-  /* INNER GRID */
-  .mmenu-inner-{{ id }} {
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 0 40px;
-    column-width: 240px;
-    column-gap: 56px;
-  }
-
-  .mmenu-col-{{ id }} {
-    display: inline-block;
-    break-inside: avoid-column;
-    margin-bottom: 24px;
-  }
-
-  .mmenu-col-title-{{ id }} {
-    font-size: 15px;
-    font-weight: 700;
-    padding-bottom: 6px;
-    margin-bottom: 10px;
-    border-bottom: 2px solid {{ ms.mega_accent }};
-    color: {{ ms.mega_text }};
-  }
-
-  .mmenu-sublink-{{ id }} {
-    display: block;
-    padding: 6px 0;
-    font-size: 14px;
-    text-decoration: none;
-    color: {{ ms.mega_link }};
-  }
-
-  .mmenu-sublink-{{ id }}:hover {
-    color: {{ ms.mega_link_hover }};
-    transform: translateX(4px);
-  }
-
   :root {
-    --mega-menu-top: 140px;
+    --inv-mega-bg: {{ ms.mega_bg }};
+    --inv-mega-border: {{ ms.mega_border }};
+    --inv-mega-text: {{ ms.mega_text }};
+    --inv-mega-hover-bg: {{ ms.mega_hover_bg }};
+    --inv-mega-hover-text: {{ ms.mega_hover_text }};
+    --inv-mega-dropdown-bg: {{ ms.mega_dropdown_bg }};
+    --inv-mega-accent: {{ ms.mega_accent }};
+    --inv-mega-link: {{ ms.mega_link }};
+    --inv-mega-link-hover: {{ ms.mega_link_hover }};
   }
-
 </style>
 
 <div id="mega-menu-wrapper">
   <nav class="mmenu-bar-{{ id }}" aria-label="Main categories">
     {% for link in ms.menu.links %}
-      <div class="mmenu-item-{{ id }}">
+      <div class="mmenu-item-{{ id }}" data-mega-menu-item>
 
         {% if link.links.size > 0 %}
-          <button class="mmenu-link-{{ id }}" aria-expanded="false" aria-haspopup="true" aria-controls="mmenu-drop-{{ forloop.index }}">
+          <button class="mmenu-link-{{ id }}" aria-expanded="false" aria-haspopup="true" aria-controls="mmenu-drop-{{ forloop.index }}" data-mega-menu-trigger>
             {{ link.title }}
             <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
               <polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="2"/>
             </svg>
           </button>
 
-          <div class="mmenu-drop-{{ id }}" id="mmenu-drop-{{ forloop.index }}">
+          <div class="mmenu-drop-{{ id }}" id="mmenu-drop-{{ forloop.index }}" role="region" aria-label="{{ link.title }} submenu" data-mega-menu-panel>
             <div class="mmenu-inner-{{ id }}">
               {% for child in link.links %}
                 <div class="mmenu-col-{{ id }}">
 
                   {% if child.links.size > 0 %}
                     <div class="mmenu-col-title-{{ id }}">
-                      <a href="{{ child.url }}" class="mmenu-sublink-{{ id }}">{{ child.title }}</a>
+                      <a href="{{ child.url }}" class="mmenu-sublink-{{ id }}" data-mega-menu-link>{{ child.title }}</a>
                     </div>
 
                     {% for gc in child.links %}
-                      <a href="{{ gc.url }}" class="mmenu-sublink-{{ id }}">{{ gc.title }}</a>
+                      <a href="{{ gc.url }}" class="mmenu-sublink-{{ id }}" data-mega-menu-link>{{ gc.title }}</a>
                     {% endfor %}
                   {% else %}
-                    <a href="{{ child.url }}" class="mmenu-sublink-{{ id }}">{{ child.title }}</a>
+                    <a href="{{ child.url }}" class="mmenu-sublink-{{ id }}" data-mega-menu-link>{{ child.title }}</a>
                   {% endif %}
 
                 </div>
@@ -142,7 +52,7 @@
           </div>
 
         {% else %}
-          <a class="mmenu-link-{{ id }}" href="{{ link.url }}">{{ link.title }}</a>
+          <a class="mmenu-link-{{ id }}" href="{{ link.url }}" data-mega-menu-trigger>{{ link.title }}</a>
         {% endif %}
 
       </div>
@@ -152,6 +62,7 @@
 
 <script>
 (function() {
+  /* ── Position helper (unchanged) ── */
   function updateMenuTop() {
     var header = document.querySelector('header.trade-header');
     var announce = document.querySelector('.announcement-bar-section');
@@ -164,5 +75,251 @@
     updateMenuTop();
   }
   window.addEventListener('resize', updateMenuTop, { passive: true });
+
+  /* ── Keyboard navigation for mega menu ── */
+  function initMegaMenuKeyboard() {
+    var wrapper = document.getElementById('mega-menu-wrapper');
+    if (!wrapper || wrapper.dataset.megaKeyboardInit) return;
+    wrapper.dataset.megaKeyboardInit = 'true';
+
+    var items = Array.prototype.slice.call(wrapper.querySelectorAll('[data-mega-menu-item]'));
+    var triggers = Array.prototype.slice.call(wrapper.querySelectorAll('[data-mega-menu-trigger]'));
+
+    /* ── Helpers ── */
+    function getTriggerIndex(el) {
+      return triggers.indexOf(el);
+    }
+
+    function getPanel(trigger) {
+      var controlsId = trigger.getAttribute('aria-controls');
+      return controlsId ? document.getElementById(controlsId) : null;
+    }
+
+    function getPanelLinks(panel) {
+      if (!panel) return [];
+      return Array.prototype.slice.call(panel.querySelectorAll('[data-mega-menu-link]'));
+    }
+
+    function isOpen(trigger) {
+      return trigger.getAttribute('aria-expanded') === 'true';
+    }
+
+    /* ── Open / Close ── */
+    function openPanel(trigger) {
+      var panel = getPanel(trigger);
+      if (!panel) return;
+      trigger.setAttribute('aria-expanded', 'true');
+      panel.classList.add('mmenu-drop-open');
+    }
+
+    function closePanel(trigger) {
+      var panel = getPanel(trigger);
+      if (!panel) return;
+      trigger.setAttribute('aria-expanded', 'false');
+      panel.classList.remove('mmenu-drop-open');
+    }
+
+    function closeAllPanels(exceptTrigger) {
+      triggers.forEach(function(t) {
+        if (t !== exceptTrigger && t.getAttribute('aria-haspopup') === 'true') {
+          closePanel(t);
+        }
+      });
+    }
+
+    /* ── Close panel on mouse leave ── */
+    items.forEach(function(item) {
+      item.addEventListener('mouseleave', function() {
+        var trigger = item.querySelector('[data-mega-menu-trigger]');
+        if (trigger && trigger.getAttribute('aria-haspopup') === 'true') {
+          closePanel(trigger);
+        }
+      });
+      /* Sync aria-expanded on mouse hover */
+      item.addEventListener('mouseenter', function() {
+        var trigger = item.querySelector('[data-mega-menu-trigger]');
+        if (trigger && trigger.getAttribute('aria-haspopup') === 'true') {
+          closeAllPanels(trigger);
+          openPanel(trigger);
+        }
+      });
+    });
+
+    /* ── Click handler for toggle on trigger buttons ── */
+    triggers.forEach(function(trigger) {
+      if (trigger.getAttribute('aria-haspopup') !== 'true') return;
+      trigger.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (isOpen(trigger)) {
+          closePanel(trigger);
+        } else {
+          closeAllPanels(trigger);
+          openPanel(trigger);
+        }
+      });
+    });
+
+    /* ── Keyboard handler on the whole wrapper ── */
+    wrapper.addEventListener('keydown', function(e) {
+      var active = document.activeElement;
+      var triggerIdx = getTriggerIndex(active);
+      var isOnTrigger = triggerIdx !== -1;
+
+      /* Determine if focus is inside a panel */
+      var parentItem = active.closest('[data-mega-menu-item]');
+      var parentTrigger = parentItem ? parentItem.querySelector('[data-mega-menu-trigger]') : null;
+      var parentPanel = parentTrigger ? getPanel(parentTrigger) : null;
+      var isInsidePanel = parentPanel ? parentPanel.contains(active) : false;
+
+      switch (e.key) {
+
+        /* ── Enter / Space on trigger: toggle panel ── */
+        case 'Enter':
+        case ' ':
+          if (isOnTrigger && active.getAttribute('aria-haspopup') === 'true') {
+            e.preventDefault();
+            if (isOpen(active)) {
+              closePanel(active);
+            } else {
+              closeAllPanels(active);
+              openPanel(active);
+              /* Move focus to first link in the panel */
+              var panelLinks = getPanelLinks(getPanel(active));
+              if (panelLinks.length > 0) {
+                panelLinks[0].focus();
+              }
+            }
+          }
+          /* If on a link inside the panel, let the default action (navigate) occur */
+          break;
+
+        /* ── Escape: close current panel, return focus to trigger ── */
+        case 'Escape':
+          if (isInsidePanel && parentTrigger) {
+            e.preventDefault();
+            closePanel(parentTrigger);
+            parentTrigger.focus();
+          } else if (isOnTrigger && isOpen(active)) {
+            e.preventDefault();
+            closePanel(active);
+          }
+          break;
+
+        /* ── Arrow Down ── */
+        case 'ArrowDown':
+          e.preventDefault();
+          if (isOnTrigger && active.getAttribute('aria-haspopup') === 'true') {
+            /* On trigger: open panel and focus first link */
+            if (!isOpen(active)) {
+              closeAllPanels(active);
+              openPanel(active);
+            }
+            var links = getPanelLinks(getPanel(active));
+            if (links.length > 0) {
+              links[0].focus();
+            }
+          } else if (isInsidePanel) {
+            /* Inside panel: move to next link */
+            var allLinks = getPanelLinks(parentPanel);
+            var idx = allLinks.indexOf(active);
+            if (idx < allLinks.length - 1) {
+              allLinks[idx + 1].focus();
+            }
+          }
+          break;
+
+        /* ── Arrow Up ── */
+        case 'ArrowUp':
+          e.preventDefault();
+          if (isInsidePanel) {
+            var allLinks = getPanelLinks(parentPanel);
+            var idx = allLinks.indexOf(active);
+            if (idx > 0) {
+              allLinks[idx - 1].focus();
+            } else {
+              /* At first item: go back up to the trigger */
+              closePanel(parentTrigger);
+              parentTrigger.focus();
+            }
+          }
+          break;
+
+        /* ── Arrow Right: move to next top-level trigger ── */
+        case 'ArrowRight':
+          if (isOnTrigger) {
+            e.preventDefault();
+            closeAllPanels();
+            var next = triggerIdx < triggers.length - 1 ? triggerIdx + 1 : 0;
+            triggers[next].focus();
+          } else if (isInsidePanel) {
+            e.preventDefault();
+            var tIdx = getTriggerIndex(parentTrigger);
+            closeAllPanels();
+            var nextTrig = tIdx < triggers.length - 1 ? tIdx + 1 : 0;
+            triggers[nextTrig].focus();
+          }
+          break;
+
+        /* ── Arrow Left: move to previous top-level trigger ── */
+        case 'ArrowLeft':
+          if (isOnTrigger) {
+            e.preventDefault();
+            closeAllPanels();
+            var prev = triggerIdx > 0 ? triggerIdx - 1 : triggers.length - 1;
+            triggers[prev].focus();
+          } else if (isInsidePanel) {
+            e.preventDefault();
+            var tIdx = getTriggerIndex(parentTrigger);
+            closeAllPanels();
+            var prevTrig = tIdx > 0 ? tIdx - 1 : triggers.length - 1;
+            triggers[prevTrig].focus();
+          }
+          break;
+
+        /* ── Home: focus first link in panel ── */
+        case 'Home':
+          if (isInsidePanel) {
+            e.preventDefault();
+            var allLinks = getPanelLinks(parentPanel);
+            if (allLinks.length > 0) allLinks[0].focus();
+          }
+          break;
+
+        /* ── End: focus last link in panel ── */
+        case 'End':
+          if (isInsidePanel) {
+            e.preventDefault();
+            var allLinks = getPanelLinks(parentPanel);
+            if (allLinks.length > 0) allLinks[allLinks.length - 1].focus();
+          }
+          break;
+
+        /* ── Tab: close all panels when leaving the menu ── */
+        case 'Tab':
+          closeAllPanels();
+          break;
+      }
+    });
+
+    /* ── Close all panels when clicking outside the mega menu ── */
+    document.addEventListener('click', function(e) {
+      if (!wrapper.contains(e.target)) {
+        closeAllPanels();
+      }
+    });
+
+    /* ── Close all panels when focus leaves the mega menu ── */
+    document.addEventListener('focusin', function(e) {
+      if (!wrapper.contains(e.target)) {
+        closeAllPanels();
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMegaMenuKeyboard);
+  } else {
+    initMegaMenuKeyboard();
+  }
 })();
 </script>

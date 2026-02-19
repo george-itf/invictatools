@@ -185,17 +185,62 @@ cart-drawer {
 }
 
 cart-drawer-items {
-  overflow: auto;
   flex: 1;
 }
 
+/* Scrollable body: wraps cart items + scrollable footer (cross-sell, delivery, notes) */
+.cart-drawer__scrollable-body {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sticky footer: subtotals, trust bar, checkout button - always visible at bottom */
+.drawer__footer--sticky {
+  flex-shrink: 0;
+  z-index: 2;
+  background-color: rgb(var(--color-background));
+  border-top: 0.1rem solid rgba(var(--color-foreground), 0.1);
+  box-shadow: 0 -4px 12px rgba(var(--color-foreground), 0.06);
+  padding: 1.5rem 0;
+}
+
+/* The scrollable footer section doesn't need a top border since it flows with items */
+.drawer__footer--scrollable {
+  border-top: 0.1rem solid rgba(var(--color-foreground), 0.2);
+  padding: 1.5rem 0;
+  flex-shrink: 0;
+}
+
+/* Hide scrollable footer and sticky footer when cart is empty */
+cart-drawer-items.is-empty ~ .drawer__footer--scrollable {
+  display: none;
+}
+
+.cart-drawer__scrollable-body:has(cart-drawer-items.is-empty) + .drawer__footer--sticky {
+  display: none;
+}
+
+/* Fallback for browsers without :has() support */
+cart-drawer.is-empty .drawer__footer--sticky,
+cart-drawer.is-empty .drawer__footer--scrollable,
+cart-drawer.is-empty .cart-drawer__scrollable-body {
+  display: none;
+}
+
 @media screen and (max-height: 650px) {
-  cart-drawer-items {
-    overflow: visible;
+  .cart-drawer__scrollable-body {
+    overflow-y: visible;
   }
 
   .drawer__inner {
     overflow: scroll;
+  }
+
+  .drawer__footer--sticky {
+    box-shadow: none;
   }
 }
 
@@ -373,16 +418,19 @@ cart-drawer-items {
   }
 }
 
-cart-drawer-items::-webkit-scrollbar {
+cart-drawer-items::-webkit-scrollbar,
+.cart-drawer__scrollable-body::-webkit-scrollbar {
   width: 3px;
 }
 
-cart-drawer-items::-webkit-scrollbar-thumb {
+cart-drawer-items::-webkit-scrollbar-thumb,
+.cart-drawer__scrollable-body::-webkit-scrollbar-thumb {
   background-color: rgba(var(--color-foreground), 0.7);
   border-radius: 100px;
 }
 
-cart-drawer-items::-webkit-scrollbar-track-piece {
+cart-drawer-items::-webkit-scrollbar-track-piece,
+.cart-drawer__scrollable-body::-webkit-scrollbar-track-piece {
   margin-top: 31px;
 }
 

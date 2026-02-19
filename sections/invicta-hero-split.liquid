@@ -349,7 +349,7 @@
      RESPONSIVE
      ============================================ */
   
-  @media (max-width: 1024px) {
+  @media (max-width: 989px) {
     .inv-hero-split__container {
       grid-template-columns: 1fr;
     }
@@ -401,8 +401,12 @@
       font-size: 14px;
     }
 
+    /* PERF: content-visibility:hidden skips rendering of this desktop-only
+       product image, complementing loading="lazy" on the img tag */
     .inv-hero-split__product-image {
       display: none;
+      content-visibility: hidden;
+      contain-intrinsic-size: 0;
     }
 
     .inv-hero-split__side {
@@ -495,12 +499,16 @@
       </div>
       
       {%- if section.settings.hero_product_image -%}
+        {%- comment -%}
+          PERF: This image is hidden on mobile (display:none at ≤749px).
+          Use loading="lazy" so mobile browsers skip the download entirely.
+          Desktop still loads it promptly since it's in the viewport.
+        {%- endcomment -%}
         <img
           src="{{ section.settings.hero_product_image | image_url: width: 500 }}"
           alt="{{ section.settings.heading | escape }}"
           class="inv-hero-split__product-image"
-          loading="eager"
-          fetchpriority="high"
+          loading="lazy"
           width="{{ section.settings.hero_product_image.width }}"
           height="{{ section.settings.hero_product_image.height }}"
         >

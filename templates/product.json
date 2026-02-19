@@ -24,18 +24,6 @@
         "supplier_stock_text": "In Stock with Supplier — Usually Dispatched within 2–3 Working Days",
         "supplier_dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 3–5 working days.",
         "supplier_delivery_estimate": "3–5 working days",
-        "trend_banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
-        "trend_dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
-        "trend_delivery_estimate": "2-3 working days",
-        "toolbank_banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
-        "toolbank_dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
-        "toolbank_delivery_estimate": "2-3 working days",
-        "timco_banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
-        "timco_dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
-        "timco_delivery_estimate": "2-3 working days",
-        "pdp_banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
-        "pdp_dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
-        "pdp_delivery_estimate": "2-3 working days",
         "atc_text": "Add to Cart",
         "oos_text": "Out of Stock",
         "buy_now_text": "Buy Now — Skip the Cart",
@@ -44,7 +32,51 @@
         "buy_now_price_threshold": 500,
         "show_click_collect": true,
         "collect_text": "Call us on 01227 456789 to check availability at Canterbury or Ramsgate"
-      }
+      },
+      "blocks": {
+        "supplier_trend": {
+          "type": "supplier_config",
+          "settings": {
+            "supplier_key": "trend",
+            "banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
+            "dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
+            "delivery_estimate": "2-3 working days"
+          }
+        },
+        "supplier_toolbank": {
+          "type": "supplier_config",
+          "settings": {
+            "supplier_key": "toolbank",
+            "banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
+            "dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
+            "delivery_estimate": "2-3 working days"
+          }
+        },
+        "supplier_timco": {
+          "type": "supplier_config",
+          "settings": {
+            "supplier_key": "timco",
+            "banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
+            "dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
+            "delivery_estimate": "2-3 working days"
+          }
+        },
+        "supplier_pdp": {
+          "type": "supplier_config",
+          "settings": {
+            "supplier_key": "pdp",
+            "banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
+            "dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
+            "delivery_estimate": "2-3 working days"
+          }
+        }
+      },
+      "block_order": [
+        "supplier_trend",
+        "supplier_toolbank",
+        "supplier_timco",
+        "supplier_pdp"
+      ]
     },
     "invicta_related_products": {
       "type": "invicta-related-products",
