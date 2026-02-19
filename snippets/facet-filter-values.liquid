@@ -88,8 +88,8 @@
           <input
             {% if input_extra_class != '' %}class="{{ input_extra_class }}"{% endif %}
             type="checkbox"
-            name="{{ value.param_name }}"
-            value="{{ value.value }}"
+            name="{{ value.param_name | escape }}"
+            value="{{ value.value | escape }}"
             id="{{ input_id }}"
             {% if value.active %}checked{% endif %}
             {% if is_disabled %}disabled{% endif %}
