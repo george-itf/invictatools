@@ -55,7 +55,7 @@
       {%- endif -%}
 
       {%- if product_count > 0 -%}
-        <span class="inv-sheader__badge inv-sheader__badge--count">{{ product_count }} {{ product_count | pluralize: 'Product', 'Products' }}</span>
+        <span class="inv-sheader__badge inv-sheader__badge--count">{{ 'invicta.section_header.product_count' | t: count: product_count }}</span>
       {%- endif -%}
     </div>
 

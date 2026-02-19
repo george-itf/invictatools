@@ -291,11 +291,11 @@
   }
 
   .inv-search-submit {
-    display: none !important;
+    display: none;
   }
 
   .inv-search-clear {
-    display: none !important;
+    display: none;
   }
 
   .inv-search-results {

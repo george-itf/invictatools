@@ -1456,7 +1456,7 @@ body.inv-drawer-open {
   .inv-drawer,
   .inv-drawer-overlay,
   .inv-active-filters {
-    display: none !important;
+    display: none;
   }
 
   .inv-layout__inner {
