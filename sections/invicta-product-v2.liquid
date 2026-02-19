@@ -32,7 +32,15 @@
   endcomment
   assign current_variant = product.selected_or_first_available_variant
   assign featured_image = current_variant.featured_image | default: product.featured_image
-  
+
+  comment
+    Cache metafield lookups — avoids repeated evaluation
+  endcomment
+  assign mf_voltage = product.metafields.custom.voltage
+  assign mf_max_torque = product.metafields.custom.max_torque
+  assign mf_motor_type = product.metafields.custom.motor_type
+  assign mf_features = product.metafields.custom.features
+
   comment
     Compare price logic
   endcomment
@@ -71,13 +79,15 @@
   endif
 
   comment
-    Fulfillment source detection — which stock tag does this product carry?
+    Fulfillment source + brand detection — single tag loop
     invicta-stock = held in our warehouse (ships same/next day)
     trend-stock / toolbank-stock / timco-stock / pdp-stock = held by supplier (longer lead)
+    brand-* tags = brand detected from tags
     Priority: invicta-stock wins if present (ships faster)
   endcomment
   assign stock_source = 'invicta'
   assign supplier_key = ''
+  assign product_brand = ''
   for tag in product.tags
     assign tag_lower = tag | downcase | strip
     if tag_lower == 'invicta-stock'
@@ -97,54 +107,34 @@
       assign stock_source = 'supplier'
       assign supplier_key = 'pdp'
     endif
+    if tag_lower contains 'brand-'
+      assign product_brand = tag_lower | remove: 'brand-'
+    endif
   endfor
 
   comment
-    Resolve per-supplier text from section settings (falls back to generic defaults)
+    Resolve per-supplier text from section blocks (falls back to generic defaults).
+    Each "supplier_config" block carries a supplier_key plus its 3 text fields.
+    If no block matches the current supplier_key the defaults below are used.
   endcomment
   assign supplier_banner_text = section.settings.supplier_stock_text | default: 'In Stock with Supplier — Usually Dispatched within 2–3 Working Days'
   assign supplier_dispatch_text = section.settings.supplier_dispatch_text | default: 'This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 3–5 working days.'
   assign supplier_delivery_est = section.settings.supplier_delivery_estimate | default: '3–5 working days'
 
-  if supplier_key == 'trend' and section.settings.trend_banner_text != blank
-    assign supplier_banner_text = section.settings.trend_banner_text
-  endif
-  if supplier_key == 'trend' and section.settings.trend_dispatch_text != blank
-    assign supplier_dispatch_text = section.settings.trend_dispatch_text
-  endif
-  if supplier_key == 'trend' and section.settings.trend_delivery_estimate != blank
-    assign supplier_delivery_est = section.settings.trend_delivery_estimate
-  endif
-
-  if supplier_key == 'toolbank' and section.settings.toolbank_banner_text != blank
-    assign supplier_banner_text = section.settings.toolbank_banner_text
-  endif
-  if supplier_key == 'toolbank' and section.settings.toolbank_dispatch_text != blank
-    assign supplier_dispatch_text = section.settings.toolbank_dispatch_text
-  endif
-  if supplier_key == 'toolbank' and section.settings.toolbank_delivery_estimate != blank
-    assign supplier_delivery_est = section.settings.toolbank_delivery_estimate
-  endif
-
-  if supplier_key == 'timco' and section.settings.timco_banner_text != blank
-    assign supplier_banner_text = section.settings.timco_banner_text
-  endif
-  if supplier_key == 'timco' and section.settings.timco_dispatch_text != blank
-    assign supplier_dispatch_text = section.settings.timco_dispatch_text
-  endif
-  if supplier_key == 'timco' and section.settings.timco_delivery_estimate != blank
-    assign supplier_delivery_est = section.settings.timco_delivery_estimate
-  endif
-
-  if supplier_key == 'pdp' and section.settings.pdp_banner_text != blank
-    assign supplier_banner_text = section.settings.pdp_banner_text
-  endif
-  if supplier_key == 'pdp' and section.settings.pdp_dispatch_text != blank
-    assign supplier_dispatch_text = section.settings.pdp_dispatch_text
-  endif
-  if supplier_key == 'pdp' and section.settings.pdp_delivery_estimate != blank
-    assign supplier_delivery_est = section.settings.pdp_delivery_estimate
-  endif
+  for block in section.blocks
+    if block.type == 'supplier_config' and block.settings.supplier_key == supplier_key
+      if block.settings.banner_text != blank
+        assign supplier_banner_text = block.settings.banner_text
+      endif
+      if block.settings.dispatch_text != blank
+        assign supplier_dispatch_text = block.settings.dispatch_text
+      endif
+      if block.settings.delivery_estimate != blank
+        assign supplier_delivery_est = block.settings.delivery_estimate
+      endif
+      break
+    endif
+  endfor
 
   comment
     Buy Now price threshold (in pounds, converted to pence)
@@ -243,18 +233,20 @@
             data-gallery-thumbs
           >
             {% for image in product.images %}
-              <button 
+              {%- assign thumb_img_150 = image | image_url: width: 150 -%}
+              {%- assign thumb_img_800 = image | image_url: width: 800 -%}
+              <button
                 type="button"
                 class="inv-pdp__gallery-thumb{% if forloop.first %} inv-pdp__gallery-thumb--active{% endif %}"
                 data-image-id="{{ image.id }}"
-                data-image-src="{{ image | image_url: width: 800 }}"
+                data-image-src="{{ thumb_img_800 }}"
                 data-index="{{ forloop.index0 }}"
                 aria-label="View image {{ forloop.index }} of {{ product.images.size }}"
                 aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
                 role="option"
               >
                 <img
-                  src="{{ image | image_url: width: 150 }}"
+                  src="{{ thumb_img_150 }}"
                   alt="{{ image.alt | escape | default: product.title }}"
                   loading="{% if forloop.index <= 6 %}eager{% else %}lazy{% endif %}"
                   width="64"
@@ -272,15 +264,19 @@
             </span>
           {% endif %}
           
+          {%- assign main_img_400 = featured_image | image_url: width: 400 -%}
+          {%- assign main_img_600 = featured_image | image_url: width: 600 -%}
+          {%- assign main_img_800 = featured_image | image_url: width: 800 -%}
+          {%- assign main_img_1200 = featured_image | image_url: width: 1200 -%}
           <div class="inv-pdp__gallery-image-wrap">
             <img
               id="inv-pdp-main-image-{{ section.id }}"
               class="inv-pdp__gallery-image"
-              src="{{ featured_image | image_url: width: 800 }}"
-              srcset="{{ featured_image | image_url: width: 400 }} 400w,
-                      {{ featured_image | image_url: width: 600 }} 600w,
-                      {{ featured_image | image_url: width: 800 }} 800w,
-                      {{ featured_image | image_url: width: 1200 }} 1200w"
+              src="{{ main_img_800 }}"
+              srcset="{{ main_img_400 }} 400w,
+                      {{ main_img_600 }} 600w,
+                      {{ main_img_800 }} 800w,
+                      {{ main_img_1200 }} 1200w"
               sizes="(max-width: 749px) 100vw, 50vw"
               alt="{{ featured_image.alt | escape | default: product.title }}"
               width="{{ featured_image.width | default: 800 }}"
@@ -311,35 +307,35 @@
       {% if show_key_specs %}
         {% liquid
           assign has_key_specs = false
-          if product.metafields.custom.voltage != blank or product.metafields.custom.max_torque != blank or product.metafields.custom.motor_type != blank
+          if mf_voltage != blank or mf_max_torque != blank or mf_motor_type != blank
             assign has_key_specs = true
           endif
         %}
         {% if has_key_specs %}
           <div class="inv-pdp__key-specs" role="list" aria-label="Key specifications">
-            {% if product.metafields.custom.voltage != blank %}
+            {% if mf_voltage != blank %}
               <span class="inv-pdp__key-spec" role="listitem">
                 <svg class="inv-pdp__key-spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
                 </svg>
-                {{ product.metafields.custom.voltage }}
+                {{ mf_voltage }}
               </span>
             {% endif %}
-            {% if product.metafields.custom.max_torque != blank %}
+            {% if mf_max_torque != blank %}
               <span class="inv-pdp__key-spec" role="listitem">
                 <svg class="inv-pdp__key-spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <circle cx="12" cy="12" r="10"/>
                   <path d="M12 6v6l4 2"/>
                 </svg>
-                {{ product.metafields.custom.max_torque }}
+                {{ mf_max_torque }}
               </span>
             {% endif %}
-            {% if product.metafields.custom.motor_type != blank %}
+            {% if mf_motor_type != blank %}
               <span class="inv-pdp__key-spec" role="listitem">
                 <svg class="inv-pdp__key-spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
                 </svg>
-                {{ product.metafields.custom.motor_type }}
+                {{ mf_motor_type }}
               </span>
             {% endif %}
           </div>
@@ -347,9 +343,9 @@
       {% endif %}
       
       {%- comment -%} FEATURE CHIPS {%- endcomment -%}
-      {% if product.metafields.custom.features != blank %}
+      {% if mf_features != blank %}
         <div class="inv-pdp__features" role="list" aria-label="Product features">
-          {% assign features = product.metafields.custom.features | split: ',' %}
+          {% assign features = mf_features | split: ',' %}
           {% for feature in features limit: 5 %}
             <span class="inv-pdp__feature-chip" role="listitem">
               <span class="inv-pdp__feature-chip-icon" aria-hidden="true">✓</span>
@@ -1071,7 +1067,7 @@
     },
     {
       "type": "paragraph",
-      "content": "Default text for products sourced from a supplier. Per-supplier overrides below."
+      "content": "Default text for products sourced from a supplier. Add Supplier Configuration blocks for per-supplier overrides."
     },
     {
       "type": "text",
@@ -1090,98 +1086,6 @@
       "id": "supplier_delivery_estimate",
       "label": "Supplier delivery estimate (delivery row)",
       "default": "3–5 working days"
-    },
-    {
-      "type": "header",
-      "content": "Trend — Overrides"
-    },
-    {
-      "type": "paragraph",
-      "content": "Leave blank to use the defaults above."
-    },
-    {
-      "type": "text",
-      "id": "trend_banner_text",
-      "label": "Trend — Banner text"
-    },
-    {
-      "type": "text",
-      "id": "trend_dispatch_text",
-      "label": "Trend — Dispatch disclaimer"
-    },
-    {
-      "type": "text",
-      "id": "trend_delivery_estimate",
-      "label": "Trend — Delivery estimate"
-    },
-    {
-      "type": "header",
-      "content": "Toolbank — Overrides"
-    },
-    {
-      "type": "paragraph",
-      "content": "Leave blank to use the defaults above."
-    },
-    {
-      "type": "text",
-      "id": "toolbank_banner_text",
-      "label": "Toolbank — Banner text"
-    },
-    {
-      "type": "text",
-      "id": "toolbank_dispatch_text",
-      "label": "Toolbank — Dispatch disclaimer"
-    },
-    {
-      "type": "text",
-      "id": "toolbank_delivery_estimate",
-      "label": "Toolbank — Delivery estimate"
-    },
-    {
-      "type": "header",
-      "content": "Timco — Overrides"
-    },
-    {
-      "type": "paragraph",
-      "content": "Leave blank to use the defaults above."
-    },
-    {
-      "type": "text",
-      "id": "timco_banner_text",
-      "label": "Timco — Banner text"
-    },
-    {
-      "type": "text",
-      "id": "timco_dispatch_text",
-      "label": "Timco — Dispatch disclaimer"
-    },
-    {
-      "type": "text",
-      "id": "timco_delivery_estimate",
-      "label": "Timco — Delivery estimate"
-    },
-    {
-      "type": "header",
-      "content": "PDP — Overrides"
-    },
-    {
-      "type": "paragraph",
-      "content": "Leave blank to use the defaults above."
-    },
-    {
-      "type": "text",
-      "id": "pdp_banner_text",
-      "label": "PDP — Banner text"
-    },
-    {
-      "type": "text",
-      "id": "pdp_dispatch_text",
-      "label": "PDP — Dispatch disclaimer"
-    },
-    {
-      "type": "text",
-      "id": "pdp_delivery_estimate",
-      "label": "PDP — Delivery estimate"
     },
     {
       "type": "header",
@@ -1254,6 +1158,81 @@
       "id": "collect_text",
       "label": "In-store collection text",
       "default": "Call us on <a href=\"tel:01227 456789\">01227 456789</a> to check availability at Canterbury or Ramsgate"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "supplier_config",
+      "name": "Supplier Configuration",
+      "settings": [
+        {
+          "type": "text",
+          "id": "supplier_key",
+          "label": "Supplier tag prefix",
+          "info": "Must match the product tag format, e.g. 'trend' for 'trend-stock'"
+        },
+        {
+          "type": "text",
+          "id": "banner_text",
+          "label": "Stock banner text",
+          "info": "Leave blank to use the default supplier stock text above"
+        },
+        {
+          "type": "text",
+          "id": "dispatch_text",
+          "label": "Dispatch info text",
+          "info": "Leave blank to use the default supplier dispatch text above"
+        },
+        {
+          "type": "text",
+          "id": "delivery_estimate",
+          "label": "Delivery estimate",
+          "info": "Leave blank to use the default supplier delivery estimate above"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Invicta Product V2",
+      "blocks": [
+        {
+          "type": "supplier_config",
+          "settings": {
+            "supplier_key": "trend",
+            "banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
+            "dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
+            "delivery_estimate": "2-3 working days"
+          }
+        },
+        {
+          "type": "supplier_config",
+          "settings": {
+            "supplier_key": "toolbank",
+            "banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
+            "dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
+            "delivery_estimate": "2-3 working days"
+          }
+        },
+        {
+          "type": "supplier_config",
+          "settings": {
+            "supplier_key": "timco",
+            "banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
+            "dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
+            "delivery_estimate": "2-3 working days"
+          }
+        },
+        {
+          "type": "supplier_config",
+          "settings": {
+            "supplier_key": "pdp",
+            "banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
+            "dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
+            "delivery_estimate": "2-3 working days"
+          }
+        }
+      ]
     }
   ]
 }

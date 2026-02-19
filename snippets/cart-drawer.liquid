@@ -74,6 +74,7 @@
           </span>
         </button>
       </div>
+      <div class="cart-drawer__scrollable-body">
       <cart-drawer-items
         {% if cart == empty %}
           class=" is-empty"
@@ -474,7 +475,11 @@
           <div id="CartDrawer-CartErrors" role="alert"></div>
         </form>
       </cart-drawer-items>
-      <div class="drawer__footer">
+      {%- comment -%}
+        Scrollable middle section: delivery bar, cross-sell, cart note.
+        These scroll with the cart items when the list is long.
+      {%- endcomment -%}
+      <div class="drawer__footer drawer__footer--scrollable">
         {%- comment -%} CX v1.0: Enhanced delivery bar with animation class {%- endcomment -%}
         {% render 'invicta-free-delivery-bar' %}
         {% render 'invicta-delivery-estimate', compact: true %}
@@ -532,10 +537,15 @@
             </cart-note>
           </details>
         {%- endif -%}
+      </div>
+      </div>{%- comment -%} End .cart-drawer__scrollable-body {%- endcomment -%}
 
-        <!-- Start blocks -->
+      {%- comment -%}
+        Sticky footer: subtotals, trust bar, and checkout button.
+        Always visible at the bottom of the cart drawer.
+      {%- endcomment -%}
+      <div class="drawer__footer drawer__footer--sticky">
         <!-- Subtotals -->
-
         <div class="cart-drawer__footer" {{ block.shopify_attributes }}>
           <div>
             {%- if cart.cart_level_discount_applications.size > 0 -%}
@@ -604,7 +614,6 @@
         {% render 'invicta-trust-bar', style: 'compact' %}
 
         <!-- CTAs -->
-
         <div class="cart__ctas" {{ block.shopify_attributes }}>
           <button
             type="submit"

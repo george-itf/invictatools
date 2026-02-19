@@ -54,6 +54,52 @@
 {{ 'section-invicta-collection.css' | asset_url | stylesheet_tag }}
 {{ 'invicta-product-card.css' | asset_url | stylesheet_tag }}
 
+<style>
+  .inv-empty__active-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 16px 0 20px;
+  }
+  .inv-empty__filter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: #f1f1f1;
+    border: 1px solid #ddd;
+    border-radius: 999px;
+    font-size: 13px;
+    line-height: 1;
+    color: #333;
+    text-decoration: none;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .inv-empty__filter-tag:hover {
+    background: #e4e4e4;
+    border-color: #bbb;
+    color: #111;
+  }
+  .inv-empty__filter-tag span {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .inv-empty__clear-all {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 14px;
+    color: #555;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.15s ease;
+  }
+  .inv-empty__clear-all:hover {
+    color: #000;
+  }
+</style>
+
 <div class="inv-collection" data-section-id="{{ section.id }}">
 
   {%- comment -%} ================================================================
@@ -61,13 +107,17 @@
   ================================================================ {%- endcomment -%}
   <section class="inv-hero{% if collection.image %} inv-hero--has-image{% endif %}">
     {%- if collection.image -%}
+      {%- assign hero_img_600 = collection.image | image_url: width: 600 -%}
+      {%- assign hero_img_900 = collection.image | image_url: width: 900 -%}
+      {%- assign hero_img_1200 = collection.image | image_url: width: 1200 -%}
+      {%- assign hero_img_1920 = collection.image | image_url: width: 1920 -%}
       <div class="inv-hero__image-wrap">
         <img
-          src="{{ collection.image | image_url: width: 1200 }}"
-          srcset="{{ collection.image | image_url: width: 600 }} 600w,
-                  {{ collection.image | image_url: width: 900 }} 900w,
-                  {{ collection.image | image_url: width: 1200 }} 1200w,
-                  {{ collection.image | image_url: width: 1920 }} 1920w"
+          src="{{ hero_img_1200 }}"
+          srcset="{{ hero_img_600 }} 600w,
+                  {{ hero_img_900 }} 900w,
+                  {{ hero_img_1200 }} 1200w,
+                  {{ hero_img_1920 }} 1920w"
           sizes="100vw"
           alt=""
           width="{{ collection.image.width | default: 1920 }}"
@@ -398,16 +448,45 @@
               {%- endif -%}
               
             {%- else -%}
-              
+
               {%- comment -%} Empty State {%- endcomment -%}
               <div class="inv-empty">
                 <svg class="inv-empty__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                   <circle cx="11" cy="11" r="8"/>
                   <path d="m21 21-4.35-4.35"/>
                 </svg>
-                <h2 class="inv-empty__title">No products found</h2>
-                <p class="inv-empty__text">Try adjusting your filters or browse all products.</p>
-                <a href="{{ collection.url }}" class="inv-empty__btn">Clear Filters</a>
+
+                {%- if has_active_filters -%}
+                  <h2 class="inv-empty__title">No products match your current filters</h2>
+                  <p class="inv-empty__text">Remove some filters to see more products.</p>
+
+                  <div class="inv-empty__active-filters">
+                    {%- for filter in collection.filters -%}
+                      {%- for value in filter.active_values -%}
+                        <a href="{{ value.url_to_remove }}" rel="nofollow" class="inv-empty__filter-tag">
+                          {{ value.label }}
+                          <span aria-hidden="true">&times;</span>
+                        </a>
+                      {%- endfor -%}
+                      {%- if filter.type == 'price_range' -%}
+                        {%- if filter.min_value.value != blank or filter.max_value.value != blank -%}
+                          <a href="{{ filter.url_to_remove }}" rel="nofollow" class="inv-empty__filter-tag">
+                            {%- if filter.min_value.value != blank -%}{{ filter.min_value.value | money_without_trailing_zeros }}{%- else -%}£0{%- endif -%}
+                            –
+                            {%- if filter.max_value.value != blank -%}{{ filter.max_value.value | money_without_trailing_zeros }}{%- else -%}{{ filter.range_max | money_without_trailing_zeros }}{%- endif -%}
+                            <span aria-hidden="true">&times;</span>
+                          </a>
+                        {%- endif -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+
+                  <a href="{{ collection.url }}" class="inv-empty__clear-all">Clear all filters</a>
+                {%- else -%}
+                  <h2 class="inv-empty__title">No products found</h2>
+                  <p class="inv-empty__text">Try adjusting your filters or browse all products.</p>
+                  <a href="{{ collection.url }}" class="inv-empty__btn">Clear Filters</a>
+                {%- endif -%}
               </div>
               
             {%- endif -%}

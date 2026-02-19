@@ -187,7 +187,9 @@ html.js .page-width:not(.inv-product .page-width) {
    3. HIDE MEGA MENU ON MOBILE (Desktop Only)
    ============================================================================ */
 
-/* Hide ALL mega menu elements */
+/* Hide ALL mega menu elements
+   PERF: content-visibility:hidden skips rendering entirely on mobile,
+   saving layout/paint cost for this heavy desktop-only DOM tree */
 html.js .mega-menu-bar,
 html.js [class*="mega-menu-bar"],
 html.js [class*="mega-dropdown"],
@@ -200,6 +202,8 @@ html.js [id*="mega-menu"],
 html.js [id*="mega_menu"],
 html.js div[id^="shopify-section-sections"][id*="mega"] {
   display: none;
+  content-visibility: hidden;
+  contain-intrinsic-size: 0;
   visibility: hidden;
   height: 0;
   overflow: hidden;
@@ -280,9 +284,10 @@ html.js .inv-search-form {
 }
 
 /* Input wrapper — white background, visible */
+/* Height accommodates 44px touch target for search submit button */
 html.js .inv-search-input-wrap {
-  height: 42px;
-  border-radius: 21px;
+  height: 48px;
+  border-radius: 24px;
   border: none;
   background: #ffffff;
   display: flex;
@@ -295,12 +300,12 @@ html.js .inv-search-input-wrap {
 html.js .inv-search-input {
   flex: 1;
   height: 100%;
-  padding: 0 46px 0 16px;
+  padding: 0 50px 0 16px;
   font-size: 14px;
   border: none;
   background: transparent;
   color: #1f2937;
-  border-radius: 21px;
+  border-radius: 24px;
 }
 
 /* Placeholder — visible and inviting */
@@ -311,13 +316,16 @@ html.js .inv-search-input::placeholder {
 }
 
 /* Submit button — small icon inside the bar */
+/* WCAG 2.5.5 — expanded to 44px minimum touch target */
 html.js .inv-search-submit {
   position: absolute;
-  right: 4px;
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 50%;
   background: #1f2937;
   border: none;
@@ -333,16 +341,28 @@ html.js .inv-search-submit svg {
   stroke: #fff;
 }
 
-/* Clear button */
+/* Clear button — WCAG 2.5.5 touch target via ::before pseudo-element */
 html.js .inv-search-clear {
   position: absolute;
-  right: 42px;
+  right: 48px;
   top: 50%;
   transform: translateY(-50%);
   width: 24px;
   height: 24px;
   background: transparent;
   border: none;
+}
+
+html.js .inv-search-clear::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 html.js .inv-search-clear svg {
@@ -358,9 +378,12 @@ html.js .invicta-header__icons {
   flex-shrink: 0;
 }
 
+/* WCAG 2.5.5 — 44px minimum touch target for header icons */
 html.js .invicta-header__icon {
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 html.js .invicta-header__icon svg {
@@ -1561,52 +1584,6 @@ html.js [class*="section-invicta-product"] {
   margin: 0;
 }
 
-/* Product page controls its own gutters */
-html.js .inv-product .page-width {
-  padding-left: 16px;
-  padding-right: 16px;
-}
-
-/* Product gallery dots — smaller than touch target minimum */
-html.js .inv-gallery__dot,
-html.js .inv-zoom-modal__dot {
-  min-height: auto;
-  height: 8px;
-}
-
-/* Sticky bar quantity buttons — custom sizing */
-html.js .inv-sticky-atc__qty-btn {
-  min-height: auto;
-  height: 100%;
-}
-
-/* Product page buttons have their own sizing */
-html.js .inv-product button,
-html.js .inv-product a,
-html.js .inv-product input,
-html.js .inv-product select {
-  min-height: auto;
-}
-
-/* Ensure sticky ATC bar has correct z-index above other elements */
-html.js .inv-sticky-atc {
-  z-index: 999;
-}
-
-/* Zoom modal above everything */
-html.js .inv-zoom-modal {
-  z-index: 9999;
-}
-
-/* Sticky bar safe area — ensure it's not cut off */
-html.js .inv-sticky-atc {
-  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
-}
-
-/* Product section bottom padding for sticky bar clearance */
-html.js .inv-product {
-  padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px));
-}
 
 
 /* ============================================================================
@@ -1695,12 +1672,16 @@ html.js .inv-product {
    ANNOUNCEMENT BAR — HIDE ON MOBILE
    ============================================================================ */
 
+  /* PERF: content-visibility:hidden prevents rendering of announcement bar
+     DOM on mobile (includes slideshow component + slider JS) */
   html.js .announcement-bar-section,
   html.js .shopify-section-announcement-bar,
   html.js #shopify-section-announcement-bar,
   html.js [class*="announcement-bar"],
   html.js .announcement-bar {
     display: none;
+    content-visibility: hidden;
+    contain-intrinsic-size: 0;
   }
 
 
@@ -1748,7 +1729,9 @@ html.js .inv-product {
    HOMEPAGE HERO — COLLAPSE WHITE SPACE
    ============================================================================ */
 
-  /* Hide button container AND collapse space */
+  /* Hide button container AND collapse space
+     PERF: content-visibility:hidden skips rendering of these desktop-only
+     text overlays (headings, buttons, content boxes) on mobile */
   html.js .banner__buttons,
   html.js .banner__button,
   html.js .banner .button,
@@ -1761,6 +1744,8 @@ html.js .inv-product {
   html.js .hero__text,
   html.js .hero__content {
     display: none;
+    content-visibility: hidden;
+    contain-intrinsic-size: 0;
     height: 0;
     min-height: 0;
     padding: 0;
@@ -1801,12 +1786,15 @@ html.js .inv-product {
     object-fit: contain;
   }
 
-  /* Kill any overlay/content wrapper */
+  /* Kill any overlay/content wrapper
+     PERF: content-visibility:hidden skips rendering of desktop overlay wrappers */
   html.js .banner__content-wrapper,
   html.js .banner__inner,
   html.js .slideshow__content,
   html.js .hero__inner {
     display: none;
+    content-visibility: hidden;
+    contain-intrinsic-size: 0;
   }
 
   /* Section wrapper — no extra padding */
@@ -1816,1247 +1804,6 @@ html.js .inv-product {
     padding: 0;
     margin: 0;
   }
-
-
-/* ============================================================================
-   SECTION 2: PRODUCT PAGE MOBILE
-   Source: invicta-product-mobile.css
-   ============================================================================ */
-
-/* ============================================================================
-   INVICTA PRODUCT PAGE — MOBILE APP DESIGN v3.0
-   ============================================================================
-
-   PURPOSE: Native app-like mobile shopping experience
-   SCOPE: Only affects screens ≤749px (mobile)
-
-   DESIGN PRINCIPLES:
-   • Edge-to-edge imagery (full bleed)
-   • Centered, card-based content
-   • Thumb-zone optimised buttons
-   • Clear visual hierarchy
-   • Generous touch targets
-
-   DEPENDENCIES: invicta-product.css (loads first)
-
-   ============================================================================ */
-
-
-/* ============================================================================
-   1. CSS VARIABLES
-   ============================================================================ */
-
-  .inv-product {
-    --inv-gutter: 16px;
-    --inv-radius: 12px;
-    --inv-radius-lg: 20px;
-    --inv-shadow: 0 -8px 30px rgba(0, 0, 0, 0.1);
-    --inv-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
-    --inv-transition: 0.2s ease;
-    --inv-red: #e11d26;
-    --inv-red-dark: #c91b22;
-    --inv-gray-50: #f9fafb;
-    --inv-gray-100: #f3f4f6;
-    --inv-gray-200: #e5e7eb;
-    --inv-gray-500: #6b7280;
-    --inv-gray-700: #374151;
-    --inv-gray-900: #111827;
-  }
-
-
-/* ============================================================================
-   2. SECTION CONTAINER — FULL WIDTH, NO SIDE PADDING
-   ============================================================================ */
-
-  html.js .inv-product {
-    padding: 0 0 130px 0;
-    margin: 0;
-    background: var(--inv-gray-50);
-    width: 100%;
-    max-width: 100vw;
-    overflow-x: hidden;
-  }
-
-  /* Remove page-width constraints for product page */
-  html.js .inv-product .page-width {
-    padding: 0;
-    max-width: 100%;
-    width: 100%;
-  }
-
-
-/* ============================================================================
-   3. MAIN GRID — VERTICAL STACK
-   ============================================================================ */
-
-  html.js .inv-product__grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    width: 100%;
-  }
-
-
-/* ============================================================================
-   4. IMAGE GALLERY — FULL BLEED, APP STYLE
-   ============================================================================ */
-
-
-  .inv-product__media {
-    position: relative;
-    width: 100%;
-    background: #ffffff;
-  }
-
-  .inv-gallery {
-    position: relative;
-    width: 100%;
-  }
-
-  /* Main image — full width, white background */
-  .inv-gallery__main {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    background: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border: none;
-    border-radius: 0;
-    margin: 0;
-  }
-
-  .inv-gallery__img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 0;
-  }
-
-  /* Image counter — top right pill */
-  .inv-gallery__counter {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: rgba(0, 0, 0, 0.6);
-    color: #ffffff;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 6px 12px;
-    border-radius: 20px;
-    z-index: 10;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-
-  /* Dot indicators — bottom center */
-  .inv-gallery__dots {
-    position: absolute;
-    bottom: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-    z-index: 10;
-    padding: 8px 12px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 20px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-
-  .inv-gallery__dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    transition: all var(--inv-transition);
-  }
-
-  .inv-gallery__dot.is-active {
-    background: #ffffff;
-    width: 24px;
-    border-radius: 4px;
-  }
-
-  /* Zoom button — bottom right pill */
-  .inv-gallery__zoom {
-    position: absolute;
-    bottom: 16px;
-    right: 12px;
-    height: 40px;
-    padding: 0 14px;
-    background: rgba(255, 255, 255, 0.95);
-    border: none;
-    border-radius: 10px;
-    box-shadow: var(--inv-shadow-sm);
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    cursor: pointer;
-  }
-
-  .inv-gallery__zoom:active {
-    transform: scale(0.98);
-  }
-
-  .inv-gallery__zoom svg {
-    width: 18px;
-    height: 18px;
-    stroke: var(--inv-gray-700);
-  }
-
-  .inv-gallery__zoom span {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--inv-gray-700);
-  }
-
-  /* Thumbnails — horizontal scroll below image */
-  .inv-gallery__thumbs {
-    display: flex;
-    gap: 8px;
-    padding: 12px 16px;
-    background: #ffffff;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    border-bottom: 1px solid var(--inv-gray-100);
-  }
-
-  .inv-gallery__thumbs::-webkit-scrollbar {
-    display: none;
-  }
-
-  .inv-gallery__thumbs {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .inv-gallery__thumb {
-    width: 56px;
-    height: 56px;
-    min-width: 56px;
-    flex-shrink: 0;
-    scroll-snap-align: start;
-    border-radius: 8px;
-    border: 2px solid var(--inv-gray-200);
-    overflow: hidden;
-    cursor: pointer;
-    background: #ffffff;
-    padding: 4px;
-    transition: border-color var(--inv-transition);
-  }
-
-  .inv-gallery__thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-
-  .inv-gallery__thumb.is-active {
-    border-color: var(--inv-red);
-  }
-
-
-/* ============================================================================
-   5. BUY BOX — CARD THAT OVERLAPS IMAGE
-   ============================================================================ */
-
-  .inv-product__info {
-    position: relative;
-    background: #ffffff;
-    border-radius: var(--inv-radius-lg) var(--inv-radius-lg) 0 0;
-    padding: 24px var(--inv-gutter) 32px;
-    margin-top: -20px;
-    width: 100%;
-    box-shadow: var(--inv-shadow);
-    z-index: 5;
-    border: none;
-  }
-
-
-/* ============================================================================
-   6C. HANDLING TIME NOTE (for non-stocked products)
-   ============================================================================ */
-
-  .inv-card__handling {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.7rem;
-    color: var(--inv-gray-500, #888);
-    margin-top: 2px;
-  }
-
-  .inv-card__handling svg {
-    flex-shrink: 0;
-    width: 12px;
-    height: 12px;
-    opacity: 0.7;
-  }
-
-
-/* ============================================================================
-   7. BRAND PILL — CENTERED OR LEFT ALIGNED
-   ============================================================================ */
-
-  .inv-product__brand-pill {
-    margin-bottom: 12px;
-  }
-
-  .inv-product__brand-pill .invicta-brand-pill {
-    height: 36px;
-    padding: 6px 16px;
-  }
-
-  .inv-product__brand-pill .invicta-brand-pill__logo,
-  .inv-product__brand-pill .invicta-brand-pill__logo-bg {
-    height: 20px;
-  }
-
-
-/* ============================================================================
-   8. PRODUCT TITLE — BOLD, READABLE
-   ============================================================================ */
-
-  .inv-product__title {
-    font-size: 1.5rem;
-    font-weight: 800;
-    line-height: 1.25;
-    color: var(--inv-gray-900);
-    margin: 0 0 16px 0;
-    letter-spacing: -0.02em;
-  }
-
-
-/* ============================================================================
-   9. PRICE BLOCK — HIGH IMPACT
-   ============================================================================ */
-
-  .inv-price {
-    margin-bottom: 16px;
-  }
-
-  .inv-price__row {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .inv-price__current {
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--inv-gray-900);
-    letter-spacing: -0.02em;
-  }
-
-  .inv-price__current--sale {
-    color: var(--inv-red);
-  }
-
-  .inv-price__was {
-    font-size: 1.1rem;
-    color: var(--inv-gray-500);
-    text-decoration: line-through;
-  }
-
-  /* Savings badge */
-  .inv-price__saving {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 8px;
-    padding: 8px 14px;
-    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #15803d;
-  }
-
-  .inv-price__saving svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  /* ============================================================================
-   10. STOCK BADGE — CLEAR STATUS
-   ============================================================================ */
-
-  .inv-stock {
-    margin-bottom: 20px;
-  }
-
-  .inv-stock__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 16px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    border-radius: 10px;
-  }
-
-  .inv-stock__badge svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  .inv-stock__badge--in {
-    background: #ecfdf5;
-    color: #047857;
-  }
-
-  .inv-stock__badge--out {
-    background: #fef2f2;
-    color: #e11d26;
-  }
-
-  .inv-stock__badge--low {
-    background: #fffbeb;
-    color: #b45309;
-  }
-
-
-/* ============================================================================
-   11. VARIANT PICKER — FULL WIDTH SELECT
-   ============================================================================ */
-
-  .inv-variants {
-    margin-bottom: 20px;
-  }
-
-  .inv-variant-group {
-    margin-bottom: 16px;
-  }
-
-  .inv-variant-group:last-child {
-    margin-bottom: 0;
-  }
-
-  .inv-variant-group__label {
-    display: block;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--inv-gray-700);
-    margin-bottom: 8px;
-    text-transform: lowercase;
-  }
-
-  .inv-variant-group__label::first-letter {
-    text-transform: uppercase;
-  }
-
-  .inv-variant-group__select-wrap {
-    position: relative;
-  }
-
-  .inv-variant-group__select {
-    width: 100%;
-    height: 54px;
-    padding: 0 48px 0 16px;
-    font-size: 16px; /* Prevents iOS zoom */
-    font-weight: 600;
-    color: var(--inv-gray-900);
-    background: var(--inv-gray-50);
-    border: 2px solid var(--inv-gray-200);
-    border-radius: var(--inv-radius);
-    appearance: none;
-    cursor: pointer;
-    transition: border-color var(--inv-transition);
-  }
-
-  .inv-variant-group__select:focus {
-    outline: none;
-    border-color: var(--inv-red);
-    background: #ffffff;
-  }
-
-  .inv-variant-group__chevron {
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    pointer-events: none;
-    stroke: var(--inv-gray-500);
-  }
-
-
-/* ============================================================================
-   12. QUANTITY + ADD TO CART — STACKED LAYOUT
-   ============================================================================ */
-
-  .inv-buy-row {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-
-  /* Quantity selector — full width */
-  .inv-qty {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 56px;
-    border: 2px solid var(--inv-gray-200);
-    border-radius: var(--inv-radius);
-    background: #ffffff;
-    overflow: hidden;
-  }
-
-  .inv-qty__btn {
-    width: 64px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: none;
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: var(--inv-gray-700);
-    cursor: pointer;
-    transition: background var(--inv-transition);
-  }
-
-  .inv-qty__btn:active {
-    background: var(--inv-gray-100);
-  }
-
-  .inv-qty__input {
-    flex: 1;
-    height: 100%;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--inv-gray-900);
-    border: none;
-    border-left: 1px solid var(--inv-gray-200);
-    border-right: 1px solid var(--inv-gray-200);
-    background: transparent;
-    max-width: 80px;
-    -moz-appearance: textfield;
-  }
-
-  .inv-qty__input::-webkit-outer-spin-button,
-  .inv-qty__input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  /* Add to Cart button — BIG and prominent */
-  .inv-atc-btn {
-    width: 100%;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: var(--inv-red, #e11d26); /* Solid colour - no gradient */
-    color: #ffffff;
-    border: none;
-    border-radius: var(--inv-radius);
-    cursor: pointer;
-    font-size: 1.15rem;
-    font-weight: 700;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12); /* Clean subtle shadow */
-    transition: all var(--inv-transition);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .inv-atc-btn:active:not(:disabled) {
-    transform: scale(0.98);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  }
-
-  .inv-atc-btn:disabled {
-    background: var(--inv-gray-200);
-    color: var(--inv-gray-500);
-    cursor: not-allowed;
-    box-shadow: none;
-  }
-
-  .inv-atc-btn__icon {
-    width: 22px;
-    height: 22px;
-  }
-
-  .inv-atc-btn__price {
-    display: none; /* Hide on mobile for cleaner look */
-  }
-
-
-/* ============================================================================
-   13. BUY NOW BUTTON
-   ============================================================================ */
-
-  .inv-buy-now {
-    width: 100%;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: transparent;
-    color: var(--inv-gray-900);
-    border: 2px solid var(--inv-gray-900);
-    border-radius: var(--inv-radius);
-    cursor: pointer;
-    font-size: 0.95rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    transition: all var(--inv-transition);
-  }
-
-  .inv-buy-now:active {
-    background: var(--inv-gray-900);
-    color: #ffffff;
-  }
-
-
-/* ============================================================================
-   14. TRUST BADGES — 2 COLUMN GRID
-   ============================================================================ */
-
-  .inv-trust {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-
-  .inv-trust__item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px;
-    background: var(--inv-gray-50);
-    border-radius: 10px;
-  }
-
-  .inv-trust__item svg {
-    width: 28px;
-    height: 28px;
-    stroke: var(--inv-red);
-    flex-shrink: 0;
-  }
-
-  .inv-trust__item span {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--inv-gray-700);
-    line-height: 1.3;
-  }
-
-
-/* ============================================================================
-   15. DELIVERY INFO — HIGHLIGHTED BOX
-   ============================================================================ */
-
-  .inv-delivery {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 16px;
-    background: #fffbeb;
-    border-radius: var(--inv-radius);
-    border: 1px solid #fef08a;
-  }
-
-  .inv-delivery__row {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: 0.85rem;
-    color: #92400e;
-    line-height: 1.4;
-  }
-
-  .inv-delivery__row svg {
-    width: 20px;
-    height: 20px;
-    min-width: 20px;
-    stroke: #d97706;
-    margin-top: 1px;
-  }
-
-
-/* ============================================================================
-   16. SHARE BUTTON
-   ============================================================================ */
-
-  .inv-share {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    height: 48px;
-    margin-top: 16px;
-    background: transparent;
-    border: 1px solid var(--inv-gray-200);
-    border-radius: 10px;
-    color: var(--inv-gray-500);
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all var(--inv-transition);
-  }
-
-  .inv-share:active {
-    background: var(--inv-gray-50);
-  }
-
-  .inv-share svg {
-    width: 18px;
-    height: 18px;
-  }
-
-
-/* ============================================================================
-   17. LOWER SECTION — DESCRIPTION + ACCORDIONS
-   ============================================================================ */
-
-  .inv-product__lower {
-    margin-top: 0;
-    padding: 24px var(--inv-gutter);
-    background: var(--inv-gray-50);
-  }
-
-
-/* ============================================================================
-   18. DESCRIPTION CARD
-   ============================================================================ */
-
-  .inv-description {
-    background: #ffffff;
-    border-radius: var(--inv-radius);
-    border: none;
-    box-shadow: var(--inv-shadow-sm);
-    padding: 0;
-    margin-bottom: 12px;
-    overflow: hidden;
-  }
-
-  .inv-description__header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px;
-    margin: 0;
-    border-bottom: 1px solid var(--inv-gray-100);
-  }
-
-  .inv-description__header svg {
-    width: 22px;
-    height: 22px;
-    stroke: var(--inv-red);
-    flex-shrink: 0;
-  }
-
-  .inv-description__header h2 {
-    flex: 1;
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--inv-gray-900);
-    margin: 0;
-  }
-
-  .inv-description__body {
-    padding: 16px;
-    font-size: 0.9rem;
-    line-height: 1.7;
-    color: var(--inv-gray-700);
-  }
-
-  .inv-description__body p {
-    margin-bottom: 1em;
-  }
-
-  .inv-description__body p:last-child {
-    margin-bottom: 0;
-  }
-
-
-/* ============================================================================
-   19. ACCORDION GRID
-   ============================================================================ */
-
-  .inv-accordions__grid {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-@media screen and (min-width: 750px) and (max-width: 999px) {
-  .inv-accordions__grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-}
-
-
-/* ============================================================================
-   20. INDIVIDUAL ACCORDIONS
-   ============================================================================ */
-
-  .inv-accordion {
-    background: #ffffff;
-    border: none;
-    border-radius: var(--inv-radius);
-    box-shadow: var(--inv-shadow-sm);
-    overflow: hidden;
-  }
-
-  .inv-accordion__header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 16px;
-    min-height: 56px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-  }
-
-  .inv-accordion__header:active {
-    background: var(--inv-gray-50);
-  }
-
-  .inv-accordion__title {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex: 1;
-  }
-
-  .inv-accordion__icon {
-    width: 22px;
-    height: 22px;
-    stroke: var(--inv-red);
-    flex-shrink: 0;
-  }
-
-  .inv-accordion__title span {
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--inv-gray-900);
-  }
-
-  .inv-accordion__chevron {
-    width: 20px;
-    height: 20px;
-    stroke: var(--inv-gray-500);
-    flex-shrink: 0;
-    transition: transform 0.2s ease;
-  }
-
-  .inv-accordion.is-open .inv-accordion__chevron {
-    transform: rotate(180deg);
-  }
-
-  .inv-accordion__content {
-    display: none;
-    padding: 0 16px 16px;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: var(--inv-gray-700);
-    border-top: 1px solid var(--inv-gray-100);
-  }
-
-  .inv-accordion.is-open .inv-accordion__content {
-    display: block;
-    padding-top: 16px;
-  }
-
-  .inv-accordion__content ul,
-  .inv-accordion__content ol {
-    margin: 0;
-    padding-left: 20px;
-  }
-
-  .inv-accordion__content li {
-    margin-bottom: 8px;
-    line-height: 1.5;
-  }
-
-  .inv-accordion__content li:last-child {
-    margin-bottom: 0;
-  }
-
-  /* Spec table */
-  .inv-spec-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .inv-spec-table tr:not(:last-child) {
-    border-bottom: 1px solid var(--inv-gray-100);
-  }
-
-  .inv-spec-table td {
-    padding: 10px 0;
-    font-size: 0.85rem;
-    vertical-align: top;
-  }
-
-  .inv-spec-table td:first-child {
-    font-weight: 600;
-    color: var(--inv-gray-900);
-    padding-right: 16px;
-    width: 40%;
-  }
-
-  .inv-spec-table td:last-child {
-    color: var(--inv-gray-700);
-  }
-
-
-  /* ============================================================================
-   22. STICKY MOBILE ATC BAR
-   ============================================================================ */
-
-  .inv-sticky-atc {
-    display: block;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #ffffff;
-    padding: 12px 16px;
-    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-    transform: translateY(100%);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 999;
-    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12);
-    border-top: 1px solid var(--inv-gray-200);
-  }
-
-  .inv-sticky-atc.is-visible {
-    transform: translateY(0);
-  }
-
-  .inv-sticky-atc__inner {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  /* Price */
-  .inv-sticky-atc__price {
-    font-size: 1.25rem;
-    font-weight: 900;
-    color: var(--inv-gray-900);
-    white-space: nowrap;
-    letter-spacing: -0.02em;
-  }
-
-  /* Mini quantity */
-  .inv-sticky-atc__qty {
-    display: flex;
-    align-items: center;
-    background: var(--inv-gray-100);
-    border-radius: 8px;
-    overflow: hidden;
-    height: 44px;
-  }
-
-  .inv-sticky-atc__qty-btn {
-    width: 36px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: none;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: var(--inv-gray-700);
-    cursor: pointer;
-  }
-
-  .inv-sticky-atc__qty-btn:active {
-    background: var(--inv-gray-200);
-  }
-
-  .inv-sticky-atc__qty-value {
-    width: 32px;
-    text-align: center;
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--inv-gray-900);
-  }
-
-  /* Add button */
-  .inv-sticky-atc__btn {
-    flex: 1;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: var(--inv-red, #e11d26); /* Solid colour - no gradient */
-    color: #ffffff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 700;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-    transition: all 0.15s ease;
-  }
-
-  .inv-sticky-atc__btn:active:not(:disabled) {
-    transform: scale(0.98);
-  }
-
-  .inv-sticky-atc__btn:disabled {
-    background: var(--inv-gray-200);
-    color: var(--inv-gray-500);
-    cursor: not-allowed;
-    box-shadow: none;
-  }
-
-  .inv-sticky-atc__btn svg {
-    width: 20px;
-    height: 20px;
-  }
-
-
-/* ============================================================================
-   23. LOADING & SUCCESS STATES
-   ============================================================================ */
-
-  .inv-atc-btn.is-loading,
-  .inv-sticky-atc__btn.is-loading {
-    position: relative;
-    pointer-events: none;
-  }
-
-  .inv-atc-btn.is-loading .inv-atc-btn__text,
-  .inv-atc-btn.is-loading .inv-atc-btn__icon,
-  .inv-sticky-atc__btn.is-loading span,
-  .inv-sticky-atc__btn.is-loading svg {
-    opacity: 0;
-  }
-
-  .inv-atc-btn.is-loading::after,
-  .inv-sticky-atc__btn.is-loading::after {
-    content: "";
-    position: absolute;
-    width: 22px;
-    height: 22px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top-color: #ffffff;
-    border-radius: 50%;
-    animation: inv-spin 0.6s linear infinite;
-  }
-
-  html.js .inv-atc-btn.is-success,
-  html.js .inv-sticky-atc__btn.is-success {
-    background: linear-gradient(135deg, #059669 0%, #047857 100%);
-    box-shadow: 0 2px 10px rgba(5, 150, 105, 0.35);
-  }
-
-@keyframes inv-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-
-/* ============================================================================
-   24. ZOOM MODAL
-   ============================================================================ */
-
-  html.js .inv-zoom-modal {
-    position: fixed;
-    inset: 0;
-    background: #000000;
-    z-index: 9999;
-    display: none;
-    flex-direction: column;
-  }
-
-  html.js .inv-zoom-modal.is-open {
-    display: flex;
-  }
-
-  .inv-zoom-modal__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px;
-    padding-top: calc(16px + env(safe-area-inset-top, 0px));
-    background: rgba(0, 0, 0, 0.8);
-  }
-
-  .inv-zoom-modal__counter {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #ffffff;
-  }
-
-  .inv-zoom-modal__close {
-    height: 40px;
-    padding: 0 16px;
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #ffffff;
-  }
-
-  .inv-zoom-modal__close svg {
-    width: 20px;
-    height: 20px;
-    stroke: #ffffff;
-  }
-
-  .inv-zoom-modal__body {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    touch-action: pinch-zoom;
-  }
-
-  .inv-zoom-modal__img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-  }
-
-  .inv-zoom-modal__nav {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    padding: 20px;
-    padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
-    background: rgba(0, 0, 0, 0.8);
-  }
-
-  .inv-zoom-modal__dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    border: none;
-    padding: 0;
-    cursor: pointer;
-  }
-
-  .inv-zoom-modal__dot.is-active {
-    background: #ffffff;
-  }
-
-
-/* ============================================================================
-   25. SAFE AREA INSETS
-   ============================================================================ */
-
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-    .inv-sticky-atc {
-      padding-bottom: calc(12px + env(safe-area-inset-bottom));
-    }
-
-    html.js .inv-product {
-      padding-bottom: calc(130px + env(safe-area-inset-bottom));
-    }
-}
-
-
-/* ============================================================================
-   26. iOS INPUT ZOOM PREVENTION
-   ============================================================================ */
-
-  html.js .inv-qty__input,
-  html.js .inv-variant-group__select,
-  html.js .inv-product input,
-  html.js .inv-product select {
-    font-size: 16px;
-  }
-
-
-/* ============================================================================
-   27. ACCESSIBILITY
-   ============================================================================ */
-
-@media (prefers-reduced-motion: reduce) {
-  .inv-sticky-atc,
-  .inv-accordion__chevron,
-  .inv-gallery__dot,
-  .inv-atc-btn,
-  .inv-sticky-atc__btn {
-    transition: none;
-  }
-
-  html.js .inv-atc-btn.is-loading::after,
-  html.js .inv-sticky-atc__btn.is-loading::after {
-    animation: none;
-  }
-}
-
-  .inv-atc-btn:focus-visible,
-  .inv-sticky-atc__btn:focus-visible,
-  .inv-buy-now:focus-visible,
-  .inv-accordion__header:focus-visible {
-    outline: 2px solid var(--inv-red);
-    outline-offset: 2px;
-  }
-
-  .inv-gallery__dot:focus-visible,
-  .inv-gallery__zoom:focus-visible {
-    outline: 2px solid #ffffff;
-    outline-offset: 2px;
-  }
-
-
-/* ============================================================================
-   28. PRINT
-   ============================================================================ */
-
-@media print {
-  html.js .inv-sticky-atc,
-  html.js .inv-gallery__dots,
-  html.js .inv-gallery__counter,
-  html.js .inv-gallery__zoom,
-  html.js .inv-zoom-modal,
-  html.js .inv-share {
-    display: none;
-  }
-}
-
 
 
 /* ============================================================================
@@ -3363,9 +2110,6 @@ html.js .inv-product {
 
 }
 
-/* --- Cart mobile: minimal --- */
-
-
 /* ============================================================================
    FIXES — Collection Page Bug Fixes (Nov 2024)
    ============================================================================ */
@@ -3433,82 +2177,6 @@ html.js body .inv-search-input::placeholder {
   text-overflow: ellipsis;
 }
 
-/* === FIX 2: Sticky ATC bar quantity controls ===
-   Ensure all quantity elements are visible and properly sized
-*/
-html.js body .inv-sticky-atc__qty {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  min-width: 104px;
-  background: #f3f4f6;
-  border-radius: 8px;
-  overflow: visible;
-  height: 44px;
-}
-
-html.js body .inv-sticky-atc__qty-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  min-width: 36px;
-  height: 100%;
-  background: transparent;
-  border: none;
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: #374151;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-html.js body .inv-sticky-atc__qty-value {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  min-width: 32px;
-  height: 100%;
-  font-size: 1rem;
-  font-weight: 700;
-  color: #111827;
-  flex-shrink: 0;
-}
-
-
-/* === STICKY BAR ADD BUTTON — Ensure proper fit === */
-html.js body .inv-sticky-atc__inner {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-}
-
-html.js body .inv-sticky-atc__btn {
-  flex: 1;
-  min-width: 0;
-  height: 48px;
-  padding: 0 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 0.95rem;
-  font-weight: 700;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-html.js body .inv-sticky-atc__btn span {
-  display: inline;
-}
-
-html.js body .inv-sticky-atc__btn svg {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
-}
 
 
 /* ==========================================================================
@@ -3577,91 +2245,6 @@ html.js .customer form button:not([type]) {
 html.js .customer a {
   display: inline-block;
   margin-top: 1rem;
-}
-
-/* ==========================================================================
-   PART 1: VAT TOGGLE, QUANTITY ENHANCER, CART BREAKDOWN (v2.7)
-   ========================================================================== */
-
-/* --------------------------------------------------------------------------
-   Quick Quantity Selector
-   -------------------------------------------------------------------------- */
-
-.invicta-quick-qty {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 12px;
-  flex-wrap: wrap;
-}
-
-.invicta-quick-qty__label {
-  font-size: 0.85rem;
-  color: #6b7280;
-  font-weight: 500;
-}
-
-.invicta-quick-qty__buttons {
-  display: flex;
-  gap: 6px;
-}
-
-.invicta-quick-qty__btn {
-  min-width: 44px;
-  height: 36px;
-  padding: 0 12px;
-  background: #f3f4f6;
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #374151;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.invicta-quick-qty__btn:hover {
-  background: #e5e7eb;
-  border-color: #d1d5db;
-}
-
-.invicta-quick-qty__btn:active,
-.invicta-quick-qty__btn--clicked {
-  transform: scale(0.95);
-}
-
-html.js .invicta-quick-qty__btn--active {
-  background: var(--inv-accent);
-  border-color: var(--inv-accent);
-  color: #fff;
-}
-
-/* --------------------------------------------------------------------------
-   Dynamic Quantity Total
-   -------------------------------------------------------------------------- */
-
-.invicta-qty-total {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 12px;
-  padding: 10px 14px;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
-  border-radius: 8px;
-}
-
-.invicta-qty-total__label {
-  font-size: 0.9rem;
-  color: #6b7280;
-  font-weight: 500;
-}
-
-.invicta-qty-total__value {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #e11d26;
 }
 
 /* --------------------------------------------------------------------------
@@ -3979,9 +2562,6 @@ html.js .inv-btn--sm {
   vertical-align: middle;
 }
 
-/* Cart quantity and footer: use Dawn defaults on mobile */
-
-
 /* --------------------------------------------------------------------------
    6. QUICK QTY BUTTONS - Product Page
    -------------------------------------------------------------------------- */
@@ -4026,16 +2606,3 @@ html.js .inv-btn--sm {
   color: #ffffff;
 }
 
-/* Dynamic total display */
-.invicta-dynamic-total {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-left: 12px;
-  padding: 6px 12px;
-  background: #fef2f2;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #e11d26;
-}

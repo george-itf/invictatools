@@ -124,12 +124,26 @@
   /* Legacy alias (retired → use --inv-page-gutter) */
   --inv-gutter: var(--inv-page-gutter);
 
+  /* ========================================
+     BREAKPOINTS (reference only — CSS custom properties cannot be used in media queries)
+     Mobile:   max-width: 749px
+     Tablet:   min-width: 750px  and  max-width: 989px
+     Desktop:  min-width: 990px
+     Wide:     min-width: 1200px
+     ======================================== */
+
   /* Mobile / Responsive */
   --inv-mobile-gutter: 12px;
   --inv-mobile-section-gap: 24px;
   --inv-mobile-card-gap: 10px;
   --inv-mobile-radius: 8px;
   --inv-touch-target-min: 44px;
+
+  /* Safe area insets (for notch/dynamic island devices) */
+  --inv-safe-area-top: env(safe-area-inset-top, 0px);
+  --inv-safe-area-right: env(safe-area-inset-right, 0px);
+  --inv-safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --inv-safe-area-left: env(safe-area-inset-left, 0px);
 
   /* ========================================
      DURATION (Animation/Transition)

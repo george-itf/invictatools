@@ -17,6 +17,9 @@
   width: 100%;
   background: var(--inv-accent);
   border-bottom: none;
+  padding-top: var(--inv-safe-area-top);
+  padding-left: var(--inv-safe-area-left);
+  padding-right: var(--inv-safe-area-right);
 }
 
 .invicta-header__inner {
@@ -152,9 +155,12 @@
   margin: 0;
 }
 
+/* WCAG 2.5.5 — 44px minimum touch target for close button */
 .invicta-drawer__close {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border: none;
   background: #f3f4f6;
   border-radius: 999px;

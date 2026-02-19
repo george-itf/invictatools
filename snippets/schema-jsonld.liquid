@@ -1,7 +1,25 @@
 {%- comment -%}
   Schema.org JSON-LD structured data — Invicta Tools
-  Renders sitewide Organization + page-specific Product, BreadcrumbList, LocalBusiness
+  Renders sitewide WebSite, Organization + page-specific Product, BreadcrumbList, LocalBusiness
 {%- endcomment -%}
+
+{%- comment -%} ===== WEBSITE SCHEMA with SearchAction (sitewide) ===== {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ shop.name | json }},
+  "url": {{ shop.url | json }},
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": {{ shop.url | append: '/search?q={search_term_string}' | json }}
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
 
 {%- comment -%} ===== ORGANIZATION SCHEMA (sitewide) ===== {%- endcomment -%}
 {%- liquid
@@ -202,6 +220,34 @@
     ]
   }
   </script>
+  {%- comment -%} ===== COLLECTION PAGE SCHEMA (ItemList of products) ===== {%- endcomment -%}
+  {%- if collection.products.size > 0 -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": {{ collection.title | json }},
+    "url": {{ shop.url | append: collection.url | json }}
+    {%- if collection.description != blank -%}
+      ,"description": {{ collection.description | strip_html | truncate: 5000 | json }}
+    {%- endif -%}
+    ,"mainEntity": {
+      "@type": "ItemList",
+      "numberOfItems": {{ collection.products.size }},
+      "itemListElement": [
+        {%- for product in collection.products limit: 12 -%}
+          {
+            "@type": "ListItem",
+            "position": {{ forloop.index }},
+            "url": {{ shop.url | append: product.url | json }},
+            "name": {{ product.title | json }}
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    }
+  }
+  </script>
+  {%- endif -%}
 {%- elsif request.page_type == 'article' -%}
   <script type="application/ld+json">
   {
