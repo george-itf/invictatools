@@ -692,7 +692,7 @@
         {%- assign faq_index = faq_index | plus: 1 -%}
         {
           "@type": "Question",
-          "name": {{ block.settings.question | escape | json }},
+          "name": {{ block.settings.question | json }},
           "acceptedAnswer": {
             "@type": "Answer",
             "text": {{ block.settings.answer | strip_html | strip | json }}

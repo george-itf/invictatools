@@ -301,15 +301,22 @@
     }
   }
 
+  /** @type {InvictaFilters|null} Track the active instance so we can destroy it before re-creating */
+  let activeInstance = null;
+
   function init() {
     const container = document.getElementById('invicta-collection-filters');
     if (container) {
-      new InvictaFilters(container);
+      // Destroy the previous instance to remove its window-level listeners (H7 fix)
+      if (activeInstance) {
+        activeInstance.destroy();
+      }
+      activeInstance = new InvictaFilters(container);
     }
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', init, { once: true });
   } else {
     init();
   }
