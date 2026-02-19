@@ -107,19 +107,19 @@
 </style>
 
 <div id="mega-menu-wrapper">
-  <nav class="mmenu-bar-{{ id }}">
+  <nav class="mmenu-bar-{{ id }}" aria-label="Main categories">
     {% for link in ms.menu.links %}
       <div class="mmenu-item-{{ id }}">
 
         {% if link.links.size > 0 %}
-          <button class="mmenu-link-{{ id }}">
+          <button class="mmenu-link-{{ id }}" aria-expanded="false" aria-haspopup="true" aria-controls="mmenu-drop-{{ forloop.index }}">
             {{ link.title }}
-            <svg width="14" height="14" viewBox="0 0 24 24">
+            <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
               <polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="2"/>
             </svg>
           </button>
 
-          <div class="mmenu-drop-{{ id }}">
+          <div class="mmenu-drop-{{ id }}" id="mmenu-drop-{{ forloop.index }}">
             <div class="mmenu-inner-{{ id }}">
               {% for child in link.links %}
                 <div class="mmenu-col-{{ id }}">

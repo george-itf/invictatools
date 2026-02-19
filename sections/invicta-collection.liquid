@@ -63,10 +63,15 @@
     {%- if collection.image -%}
       <div class="inv-hero__image-wrap">
         <img
-          src="{{ collection.image | image_url: width: 1920 }}"
+          src="{{ collection.image | image_url: width: 1200 }}"
+          srcset="{{ collection.image | image_url: width: 600 }} 600w,
+                  {{ collection.image | image_url: width: 900 }} 900w,
+                  {{ collection.image | image_url: width: 1200 }} 1200w,
+                  {{ collection.image | image_url: width: 1920 }} 1920w"
+          sizes="100vw"
           alt=""
-          width="1920"
-          height="400"
+          width="{{ collection.image.width | default: 1920 }}"
+          height="{{ collection.image.height | default: 400 }}"
           loading="eager"
           fetchpriority="high"
           class="inv-hero__image"
