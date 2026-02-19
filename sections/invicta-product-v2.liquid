@@ -285,6 +285,8 @@
               alt="{{ featured_image.alt | escape | default: product.title }}"
               width="{{ featured_image.width | default: 800 }}"
               height="{{ featured_image.height | default: 800 }}"
+              loading="eager"
+              fetchpriority="high"
               data-main-image
             >
           </div>

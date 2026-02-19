@@ -41,6 +41,8 @@
               sizes="(max-width: 749px) 100vw, 55vw"
               alt="{{ section.settings.thumbnail.alt | default: 'Video thumbnail' }}"
               loading="lazy"
+              width="{{ section.settings.thumbnail.width | default: 800 }}"
+              height="{{ section.settings.thumbnail.height | default: 450 }}"
               class="brand-video__thumbnail"
             >
           {%- else -%}

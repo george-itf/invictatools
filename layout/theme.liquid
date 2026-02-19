@@ -357,8 +357,8 @@
     <link rel="stylesheet" href="{{ 'mobile.css' | asset_url }}" media="screen and (max-width: 749px)">
     <link rel="stylesheet" href="{{ 'desktop.css' | asset_url }}" media="screen and (min-width: 750px)">
 
-    <!-- UX Improvements (accessibility, focus states, sticky ATC) -->
-    {{ 'invicta-ux-improvements.css' | asset_url | stylesheet_tag }}
+    <!-- UX Improvements (accessibility, focus states, sticky ATC) — deferred, not critical path -->
+    <link rel="stylesheet" href="{{ 'invicta-ux-improvements.css' | asset_url }}" media="print" onload="this.media='all'">
 
     <!-- Cart Components (lazy loaded) -->
     <link
@@ -443,7 +443,6 @@
     <main
       id="MainContent"
       class="content-for-layout focus-none"
-      role="main"
       tabindex="-1"
     >
       {{ content_for_layout }}
@@ -523,9 +522,9 @@
     <!-- Cart Handler (moved from <head> — needs DOM, not critical path) -->
     {% render 'invicta-cart-handler' %}
 
-    <!-- CX v1.0: Customer Experience Improvements -->
+    <!-- CX v1.0: Customer Experience Improvements — CSS deferred, not critical path -->
     <script src="{{ 'invicta-cx-improvements.js' | asset_url }}" defer></script>
-    {{ 'invicta-cx-improvements.css' | asset_url | stylesheet_tag }}
+    <link rel="stylesheet" href="{{ 'invicta-cx-improvements.css' | asset_url }}" media="print" onload="this.media='all'">
 
     <!-- =============================================
          INVICTA JS — Clean Load Order
