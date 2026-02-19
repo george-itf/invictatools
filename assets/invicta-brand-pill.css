@@ -134,12 +134,12 @@
    ========================================================================== */
 
 .invicta-brand-pill--text {
-  /* Override base font-size: 0 — !important required to beat any context */
+  /* Override base font-size: 0 — !important required */
   font-size: 0.72rem !important;
   font-weight: 800 !important;
   letter-spacing: 0.06em !important;
   text-transform: uppercase !important;
-
+  
   /* Slightly more horizontal padding for text */
   padding: 4px 16px;
 }
