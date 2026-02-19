@@ -205,8 +205,8 @@
       <a
         href="{{ pill_url }}"
         class="invicta-brand-pill invicta-brand-pill--{{ pill_size | default: 'md' }}{% if pill_compact %} invicta-brand-pill--compact{% endif %}"
-        aria-label="{{ 'invicta.brand_pill.shop_aria' | t: brand: brand_display | escape }}"
-        title="{{ 'invicta.brand_pill.shop_title' | t: brand: brand_display | escape }}"
+        aria-label="Shop {{ brand_display | escape }} products"
+        title="Shop {{ brand_display | escape }}"
         style="--pill-bg: {{ brand_bg }}; --pill-text: {{ brand_text }};"
       >
         <span class="invicta-brand-pill__inner">
@@ -221,7 +221,7 @@
           <!-- Hidden detector img: only used to trigger fallback if asset missing -->
           <img
             src="{{ brand_logo_url | escape }}"
-            alt="{{ 'invicta.brand_pill.logo_alt' | t: brand: brand_display | escape }}"
+            alt="{{ brand_display }} logo - Shop {{ brand_display }} tools at Invicta Tools"
             class="invicta-brand-pill__logo"
             loading="lazy"
             width="120"
