@@ -118,7 +118,7 @@
         "heading": "Power Tools",
         "description": "Professional power tools for trade and DIY.",
         "header_align": "center",
-        "columns_desktop": 5,
+        "columns_desktop": 4,
         "columns_tablet": 3,
         "columns_mobile": 2,
         "grid_gap": 20,
