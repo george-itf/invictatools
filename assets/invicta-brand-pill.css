@@ -133,12 +133,12 @@
    CRITICAL: These rules override the base font-size: 0 for text-only pills
    ========================================================================== */
 
-.invicta-brand-pill.invicta-brand-pill--text {
-  /* Override base font-size: 0 via doubled-class specificity (0,2,0 > 0,1,0) */
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+.invicta-brand-pill--text {
+  /* Override base font-size: 0 — !important required to beat any context */
+  font-size: 0.72rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
 
   /* Slightly more horizontal padding for text */
   padding: 4px 16px;
@@ -159,7 +159,7 @@
 
 /* Text pill in strip context — slightly larger */
 .invicta-brand-strip__item .invicta-brand-pill--text {
-  font-size: 0.82rem;
+  font-size: 0.82rem !important;
   padding: 4px 22px;
 }
 
@@ -169,7 +169,7 @@
 
 /* Text pill on cards — keep compact */
 .invicta-brand-pill-wrapper--card .invicta-brand-pill--text {
-  font-size: 0.68rem;
+  font-size: 0.68rem !important;
   padding: 4px 12px;
 }
 
@@ -191,7 +191,7 @@
 }
 
 .invicta-brand-pill--lg.invicta-brand-pill--text {
-  font-size: 0.78rem;
+  font-size: 0.78rem !important;
   padding: 4px 20px;
 }
 
@@ -206,7 +206,7 @@
 }
 
 .invicta-brand-pill--compact.invicta-brand-pill--text {
-  font-size: 0.65rem;
+  font-size: 0.65rem !important;
   padding: 4px 10px;
 }
 
@@ -225,8 +225,8 @@
     gap: 6px;
   }
   
-  .invicta-brand-pill.invicta-brand-pill--text {
-    font-size: 0.68rem;
+  .invicta-brand-pill--text {
+    font-size: 0.68rem !important;
     padding: 4px 14px;
   }
   
@@ -247,7 +247,7 @@
   }
   
   .invicta-brand-pill-wrapper--hero .invicta-brand-pill--text {
-    font-size: 0.82rem;
+    font-size: 0.82rem !important;
     padding: 4px 22px;
   }
   
