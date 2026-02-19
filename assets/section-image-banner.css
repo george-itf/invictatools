@@ -258,7 +258,7 @@
   }
 
   .banner::before {
-    display: none !important;
+    display: none;
   }
 
   .banner--stacked .banner__media-image-half {

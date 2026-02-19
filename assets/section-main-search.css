@@ -75,8 +75,8 @@
 .inv-search__input-wrapper predictive-search::after,
 .inv-search__input-wrapper .predictive-search::before,
 .inv-search__input-wrapper .predictive-search::after {
-  display: none !important;
-  content: none !important;
+  display: none;
+  content: none;
 }
 
 .inv-search__form {

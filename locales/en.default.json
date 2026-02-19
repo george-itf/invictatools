@@ -721,7 +721,16 @@
     },
     "section_header": {
       "home": "Home",
-      "official_dealer": "Official Dealer"
+      "official_dealer": "Official Dealer",
+      "product_count": {
+        "one": "{{ count }} Product",
+        "other": "{{ count }} Products"
+      }
+    },
+    "brand_pill": {
+      "shop_aria": "Shop {{ brand }} products",
+      "shop_title": "Shop {{ brand }}",
+      "logo_alt": "{{ brand }} logo - Shop {{ brand }} tools at Invicta Tools"
     },
     "sections": {
       "brand_categories": {

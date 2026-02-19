@@ -2237,27 +2237,27 @@ html.js body .slider-counter {
 }
 
 /* --- Kill Dawn's flex layout and width constraints on footer --- */
-.cart__footer {
-  display: block !important;
+html.js .cart__footer {
+  display: block;
 }
-.cart__footer > * {
-  width: 100% !important;
+html.js .cart__footer > * {
+  width: 100%;
 }
-.cart__footer > * + * {
+html.js .cart__footer > * + * {
   margin-top: 0;
   margin-left: 0;
 }
-.cart__footer > div:only-child {
+html.js .cart__footer > div:only-child {
   margin-left: 0;
 }
 .cart__items {
   padding-bottom: 0;
 }
 /* Force checkout CTA stack (Dawn sets flex-row at 750px+) */
-.cart__ctas {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 12px !important;
+html.js .cart__ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 /* --- Footer grid: two columns on desktop --- */

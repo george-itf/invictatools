@@ -1,0 +1,122 @@
+{%- comment -%}
+  Renders the filter value list (checkboxes, swatches, images) for a single filter.
+  Extracted to eliminate duplication between desktop and mobile in facets.liquid.
+
+  Accepts:
+  - filter: {Object} The filter object
+  - sorted_values: {Array} Pre-sorted filter values
+  - presentation: {String} 'text', 'swatch', or 'image'
+  - visual_layout_class: {String} CSS class for the layout grid/list
+  - context: {String} 'desktop' or 'mobile'
+  - form_id: {String} ID of the parent form
+  - filter_type: {String} 'vertical', 'horizontal', or 'drawer'
+  - show_more_number: {Number} Items before "show more" (desktop vertical only)
+{%- endcomment -%}
+
+{%- liquid
+  if context == 'mobile'
+    assign id_suffix = '-mobile-'
+    assign label_base = 'facets__label mobile-facets__label'
+    assign li_base = 'mobile-facets__item list-menu__item'
+    assign input_extra_class = 'mobile-facets__checkbox'
+    assign is_mobile = true
+  else
+    assign id_suffix = '-'
+    assign label_base = 'facets__label facet-checkbox'
+    assign li_base = 'list-menu__item facets__item'
+    assign input_extra_class = ''
+    assign is_mobile = false
+  endif
+
+  assign can_show_more = false
+  if is_mobile == false and filter_type == 'vertical'
+    assign can_show_more = true
+  endif
+-%}
+
+<ul
+  class="{{ visual_layout_class }}{% if is_mobile %} mobile-facets__list{% elsif filter_type == 'vertical' %} facets__list--vertical{% else %} facets__list{% endif %} list-unstyled"
+  role="list"
+>
+  {%- for value in sorted_values -%}
+    {%- liquid
+      assign input_id = 'Filter-' | append: filter.param_name | escape | append: id_suffix | append: forloop.index
+      assign is_disabled = false
+      if value.count == 0 and value.active == false
+        assign is_disabled = true
+      endif
+    -%}
+
+    {%- capture label_class -%}
+      {{ label_base }}{% if is_disabled %} disabled{% endif %}{% if value.active %} active{% endif %}
+    {%- endcapture -%}
+
+    {%- capture text_value -%}
+      <span class="facet-checkbox__text" aria-hidden="true">
+        <span class="facet-checkbox__text-label">{{- value.label | escape }}</span> ({{- value.count -}})
+      </span>
+      <span class="visually-hidden">
+        {{- value.label | escape }} (
+        {%- if value.count == 1 -%}
+          {{- 'products.facets.product_count_simple.one' | t: count: value.count -}}
+        {%- else -%}
+          {{- 'products.facets.product_count_simple.other' | t: count: value.count -}}
+        {%- endif -%}
+        )
+      </span>
+    {%- endcapture -%}
+
+    <li class="{{ li_base }}{% if can_show_more and forloop.index > show_more_number %} show-more-item hidden{% endif %}">
+      {%- if presentation == 'swatch' -%}
+        <div class="{{ label_class }}">
+          <div class="swatch-input-wrapper">
+            {% render 'swatch-input',
+              id: input_id,
+              type: 'checkbox',
+              name: value.param_name,
+              value: value.value,
+              product_form_id: form_id,
+              swatch: value.swatch,
+              checked: value.active,
+              disabled: is_disabled
+            %}
+          </div>
+          {{ text_value }}
+        </div>
+      {%- else -%}
+        <label for="{{ input_id }}" class="{{ label_class }}">
+          <input
+            {% if input_extra_class != '' %}class="{{ input_extra_class }}"{% endif %}
+            type="checkbox"
+            name="{{ value.param_name }}"
+            value="{{ value.value }}"
+            id="{{ input_id }}"
+            {% if value.active %}checked{% endif %}
+            {% if is_disabled %}disabled{% endif %}
+          >
+
+          {%- if presentation == 'image' -%}
+            <div class="facets__image-wrapper">
+              {%- if value.image -%}
+                {{ value.image | image_url: width: 300 | image_tag: class: 'facets__image', alt: value.alt }}
+              {%- endif -%}
+            </div>
+          {%- else -%}
+            {%- if is_mobile -%}
+              <span class="mobile-facets__highlight"></span>
+              {{- 'square.svg' | inline_asset_content -}}
+              {{- 'icon-checkmark.svg' | inline_asset_content -}}
+            {%- else -%}
+              {{- 'square.svg' | inline_asset_content -}}
+              <div class="svg-wrapper">
+                {{- 'icon-checkmark.svg' | inline_asset_content -}}
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+
+          {{ text_value }}
+        </label>
+      {%- endif -%}
+    </li>
+  {%- endfor -%}
+</ul>

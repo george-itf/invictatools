@@ -2252,22 +2252,22 @@ html.js .customer a {
    -------------------------------------------------------------------------- */
 
 /* Kill Dawn's spacing and flex constraints on mobile */
-.cart__footer {
-  display: block !important;
+html.js .cart__footer {
+  display: block;
 }
-.cart__footer > * {
-  width: 100% !important;
+html.js .cart__footer > * {
+  width: 100%;
 }
-.cart__footer > * + * {
+html.js .cart__footer > * + * {
   margin-top: 0;
 }
 .cart__items {
   padding-bottom: 0;
 }
-.cart__ctas {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 12px !important;
+html.js .cart__ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 /* Cart header: full width, compact */

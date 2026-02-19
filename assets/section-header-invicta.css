@@ -5,9 +5,9 @@
 
 /* Section wrapper — match header bg, prevent white gap */
 .section-header-invicta {
-  background: var(--inv-accent) !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  background: var(--inv-accent);
+  margin: 0;
+  padding: 0;
 }
 
 .invicta-header {
@@ -482,7 +482,7 @@
 /* Mobile: Hide VAT toggle — it lives in the hamburger menu instead */
 @media (max-width: 749px) {
   .invicta-header__vat-toggle {
-    display: none !important;
+    display: none;
   }
 }
 
