@@ -696,10 +696,8 @@
         }
 
         const formData = new FormData(productForm);
-        const variantId = parseInt(formData.get('id'), 10);
+        const variantId = formData.get('id');
         const quantity = parseInt(formData.get('quantity'), 10) || 1;
-
-        if (!variantId) return;
 
         atcBtn.classList.add('is-loading');
 
@@ -710,7 +708,7 @@
             'Accept': 'application/json'
           },
           body: JSON.stringify({
-            items: [{ id: variantId, quantity: quantity }]
+            items: [{ id: Number(variantId), quantity: quantity }]
           })
         })
         .then(function(response) {
@@ -783,10 +781,8 @@
       buyNowBtn.addEventListener('click', function() {
         if (buyNowBtn.disabled) return;
 
-        const variantId = parseInt(buyNowBtn.dataset.variantId, 10);
+        const variantId = buyNowBtn.dataset.variantId;
         const quantity = qtyInput ? parseInt(qtyInput.value, 10) || 1 : 1;
-
-        if (!variantId) return;
 
         buyNowBtn.classList.add('is-loading');
         buyNowBtn.disabled = true;
@@ -798,7 +794,7 @@
             'Accept': 'application/json'
           },
           body: JSON.stringify({
-            items: [{ id: variantId, quantity: quantity }]
+            items: [{ id: Number(variantId), quantity: quantity }]
           })
         })
         .then(function(response) {
