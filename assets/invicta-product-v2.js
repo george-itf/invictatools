@@ -684,7 +684,7 @@
     updateVatDisplay(getVatMode());
 
     /* ========================================
-       ADD TO CART — AJAX WITH CART DRAWER
+       ADD TO CART — Native FormData to /cart/add.js
        ======================================== */
 
     if (productForm && atcBtn) {
@@ -695,48 +695,34 @@
           return;
         }
 
-        const formData = new FormData(productForm);
-        const variantId = formData.get('id');
-        const quantity = parseInt(formData.get('quantity'), 10) || 1;
-
         atcBtn.classList.add('is-loading');
 
         fetch('/cart/add.js', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            items: [{ id: Number(variantId), quantity: quantity }]
-          })
+          body: new FormData(productForm)
         })
         .then(function(response) {
-          if (!response.ok) {
-            throw new Error('Failed to add to cart');
-          }
+          if (!response.ok) throw new Error('Cart error');
           return response.json();
         })
-        .then(function(data) {
-          var item = data.items ? data.items[0] : data;
+        .then(function(item) {
           atcBtn.classList.remove('is-loading');
           atcBtn.classList.add('is-success');
 
           openCartDrawer();
 
           document.dispatchEvent(new CustomEvent('cart:item-added', {
-            detail: { item: item, variantId: variantId, quantity: quantity }
+            detail: { item: item }
           }));
 
           setTimeout(function() {
             atcBtn.classList.remove('is-success');
           }, 2000);
         })
-        .catch(function(error) {
+        .catch(function() {
           atcBtn.classList.remove('is-loading');
           atcBtn.classList.add('is-error');
 
-          // Show error message to user
           var errorEl = section.querySelector('[data-atc-error]');
           if (errorEl) {
             errorEl.textContent = errorEl.dataset.errorText || 'Sorry, couldn\'t add to cart. Please try again.';
@@ -781,30 +767,18 @@
       buyNowBtn.addEventListener('click', function() {
         if (buyNowBtn.disabled) return;
 
-        const variantId = buyNowBtn.dataset.variantId;
-        const quantity = qtyInput ? parseInt(qtyInput.value, 10) || 1 : 1;
-
         buyNowBtn.classList.add('is-loading');
         buyNowBtn.disabled = true;
 
         fetch('/cart/add.js', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            items: [{ id: Number(variantId), quantity: quantity }]
-          })
+          body: new FormData(productForm)
         })
         .then(function(response) {
-          if (!response.ok) {
-            throw new Error('Failed to add to cart');
-          }
+          if (!response.ok) throw new Error('Cart error');
           window.location.href = '/checkout';
         })
-        .catch(function(error) {
-          console.error('[Invicta PDP] Buy now error:', error);
+        .catch(function() {
           buyNowBtn.classList.remove('is-loading');
           buyNowBtn.disabled = false;
         });
