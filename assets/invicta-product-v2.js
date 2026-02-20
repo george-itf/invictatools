@@ -523,6 +523,20 @@
         buyNowBtn.disabled = !matchingVariant.available;
       }
 
+      /* Keep sticky ATC button in sync with selected variant */
+      var stickyAtcBtn = document.querySelector('[data-sticky-atc-btn]');
+      if (stickyAtcBtn) {
+        stickyAtcBtn.setAttribute('data-variant-id', matchingVariant.id);
+        stickyAtcBtn.disabled = !matchingVariant.available;
+        stickyAtcBtn.textContent = matchingVariant.available ? 'Add to Cart' : 'Out of Stock';
+      }
+
+      /* Update sticky price display */
+      var stickyPrice = document.querySelector('[data-sticky-price]');
+      if (stickyPrice) {
+        stickyPrice.textContent = formatMoney(matchingVariant.price);
+      }
+
       const url = new URL(window.location);
       url.searchParams.set('variant', matchingVariant.id);
       window.history.replaceState({}, '', url);
