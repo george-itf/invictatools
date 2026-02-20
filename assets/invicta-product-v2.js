@@ -728,7 +728,7 @@
         formData.append('sections', 'cart-drawer,cart-icon-bubble');
         formData.append('sections_url', window.location.pathname);
 
-        var cartAddUrl = (window.routes && window.routes.cart_add_url) || '/cart/add.js';
+        var cartAddUrl = ((window.routes && window.routes.cart_add_url) || '/cart/add') + '.js';
 
         fetch(cartAddUrl, {
           method: 'POST',
@@ -839,7 +839,7 @@
         buyNowBtn.classList.add('is-loading');
         buyNowBtn.disabled = true;
 
-        var cartAddUrl = (window.routes && window.routes.cart_add_url) || '/cart/add.js';
+        var cartAddUrl = ((window.routes && window.routes.cart_add_url) || '/cart/add') + '.js';
 
         fetch(cartAddUrl, {
           method: 'POST',

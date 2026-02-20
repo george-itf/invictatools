@@ -73,7 +73,7 @@
       button.innerHTML = '<span>Adding...</span>';
       button.disabled = true;
 
-      var cartAddUrl = (window.routes && window.routes.cart_add_url) || '/cart/add.js';
+      var cartAddUrl = ((window.routes && window.routes.cart_add_url) || '/cart/add') + '.js';
 
       try {
         const response = await fetch(cartAddUrl, {

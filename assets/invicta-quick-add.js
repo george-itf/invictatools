@@ -65,7 +65,7 @@
     btn.classList.add('is-loading');
     btn.classList.remove('is-added');
 
-    var cartAddUrl = (window.routes && window.routes.cart_add_url) || '/cart/add.js';
+    var cartAddUrl = ((window.routes && window.routes.cart_add_url) || '/cart/add') + '.js';
 
     fetch(cartAddUrl, {
       method: 'POST',
