@@ -1,7 +1,11 @@
 /* ============================================================
-   INVICTA CART — Visual Overhaul
+   INVICTA CART — Visual Overhaul v2
    Cohesive, confident cart page styling
    Uses Invicta design system: #e11d26 (brand), #0f172a (text)
+
+   NOTE: Uses !important on color/font properties where needed
+   to override Shopify's rgba(var(--color-foreground), ...) rules
+   which have high specificity via theme CSS variables.
    ============================================================ */
 
 /* ────────────────────────────────────────────────────────────
@@ -20,45 +24,50 @@
 .inv-cart-header__left {
   display: flex;
   align-items: baseline;
-  gap: 0.8rem;
+  gap: 1rem;
 }
 
 .inv-cart-header__title {
-  font-size: 2.8rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: #0f172a;
-  margin: 0;
-  line-height: 1.1;
-  text-transform: none;
+  font-size: 2.8rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+  color: #0f172a !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.1 !important;
+  text-transform: none !important;
+  opacity: 1 !important;
 }
 
 .inv-cart-header__count {
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: #6b7280;
-  letter-spacing: 0;
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  color: #6b7280 !important;
+  letter-spacing: 0 !important;
+  opacity: 1 !important;
 }
 
 .inv-cart-header__continue {
-  display: inline-flex;
+  display: inline-flex !important;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #0f172a;
-  text-decoration: none;
+  gap: 0.6rem;
+  font-size: 1.4rem !important;
+  font-weight: 600 !important;
+  color: #0f172a !important;
+  text-decoration: none !important;
   padding: 0.8rem 1.6rem;
-  border: 1.5px solid #d1d5db;
+  border: 2px solid #0f172a !important;
   border-radius: 6px;
   transition: all 0.15s ease;
   white-space: nowrap;
+  background: transparent;
+  opacity: 1 !important;
 }
 
 .inv-cart-header__continue:hover {
-  border-color: #0f172a;
-  background: #0f172a;
-  color: #fff;
+  border-color: #0f172a !important;
+  background: #0f172a !important;
+  color: #fff !important;
 }
 
 .inv-cart-header__continue svg {
@@ -76,22 +85,29 @@
   }
 
   .inv-cart-header__title {
-    font-size: 2.2rem;
+    font-size: 2.2rem !important;
   }
 
   .inv-cart-header__continue {
-    font-size: 1.2rem;
+    font-size: 1.3rem !important;
     padding: 0.6rem 1.2rem;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .inv-cart-header__title {
+    font-size: 3.2rem !important;
   }
 }
 
 /* ────────────────────────────────────────────────────────────
    INFO STRIP (free delivery bar + delivery estimate)
+   Subtle, professional — light gray, not screaming yellow
    ──────────────────────────────────────────────────────────── */
 
 .inv-cart-info-strip {
-  background: #fef3c7;
-  border: 1px solid #fbbf24;
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
   border-radius: 8px;
   padding: 1.2rem 1.6rem;
   margin-bottom: 2.4rem;
@@ -99,6 +115,8 @@
   align-items: center;
   gap: 1.6rem;
   flex-wrap: wrap;
+  color: #374151 !important;
+  font-size: 1.3rem;
 }
 
 .inv-cart-info-strip > * {
@@ -106,28 +124,52 @@
   min-width: 200px;
 }
 
+.inv-cart-info-strip *,
+.inv-cart-info-strip span,
+.inv-cart-info-strip p,
+.inv-cart-info-strip strong {
+  color: #374151 !important;
+  opacity: 1 !important;
+}
+
+.inv-cart-info-strip strong {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+@media screen and (max-width: 749px) {
+  .inv-cart-info-strip {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .inv-cart-info-strip > * {
+    min-width: 0;
+  }
+}
+
 /* ────────────────────────────────────────────────────────────
    CART ITEMS TABLE
    ──────────────────────────────────────────────────────────── */
 
-/* Override default border and give the items section breathing room */
 .cart__items {
-  border-bottom: none;
+  border-bottom: none !important;
   padding-bottom: 0;
 }
 
-/* Table header */
-.cart-items thead th {
-  text-transform: uppercase;
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: #6b7280;
-  padding-bottom: 1.2rem;
-  border-bottom: 1px solid #e5e7eb;
+/* Table header — force readable */
+.cart-items thead th,
+.cart-items thead th.caption-with-letter-spacing {
+  text-transform: uppercase !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  color: #6b7280 !important;
+  opacity: 1 !important;
+  padding-bottom: 1.2rem !important;
+  border-bottom: 1px solid #d1d5db !important;
 }
 
-/* Each cart item row — card treatment */
 .cart-item {
   position: relative;
 }
@@ -197,93 +239,140 @@
 }
 
 /* ────────────────────────────────────────────────────────────
-   PRODUCT DETAILS
+   PRODUCT DETAILS — force readable text
    ──────────────────────────────────────────────────────────── */
 
-.cart-item__name {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #0f172a;
-  line-height: 1.35;
-  text-decoration: none;
+.cart-item__name,
+.cart-item__name.h4,
+a.cart-item__name,
+a.cart-item__name.h4,
+.cart-item__name.h4.break {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  line-height: 1.35 !important;
+  text-decoration: none !important;
+  opacity: 1 !important;
+  letter-spacing: -0.01em !important;
 }
 
-.cart-item__name:hover {
-  color: #e11d26;
-  text-decoration: none;
+a.cart-item__name:hover,
+a.cart-item__name.h4:hover {
+  color: #e11d26 !important;
+  text-decoration: none !important;
 }
 
-.cart-item__details .product-option {
-  font-size: 1.3rem;
-  color: #6b7280;
+.cart-item__details .product-option,
+.cart-item__details .product-option dt,
+.cart-item__details .product-option dd {
+  font-size: 1.3rem !important;
+  color: #6b7280 !important;
+  opacity: 1 !important;
+}
+
+/* Unit price display */
+.cart-item__details > .product-option:first-of-type {
+  color: #374151 !important;
+  font-weight: 600 !important;
+  font-size: 1.4rem !important;
 }
 
 .cart-item__discounted-prices .cart-item__old-price {
-  color: #9ca3af;
-  font-size: 1.3rem;
+  color: #9ca3af !important;
+  font-size: 1.3rem !important;
+  opacity: 1 !important;
 }
 
 .cart-item__discounted-prices .cart-item__final-price {
-  color: #e11d26;
-  font-weight: 700;
-  font-size: 1.5rem;
+  color: #e11d26 !important;
+  font-weight: 700 !important;
+  font-size: 1.5rem !important;
+  opacity: 1 !important;
 }
 
-/* Ex-VAT price */
-.inv-cart-item__ex-vat,
+.inv-cart-item__ex-vat {
+  font-size: 1.2rem !important;
+  color: #9ca3af !important;
+  margin-top: 0.3rem;
+  opacity: 1 !important;
+}
+
+/* Line totals */
+.cart-item__totals .price,
+.cart-item__totals .price.price--end {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  opacity: 1 !important;
+}
+
 .inv-cart-item__line-ex-vat {
-  font-size: 1.2rem;
-  color: #9ca3af;
-  margin-top: 0.2rem;
+  font-size: 1.2rem !important;
+  color: #9ca3af !important;
+  margin-top: 0.3rem;
+  opacity: 1 !important;
+  display: block;
 }
 
-/* Line total price */
-.cart-item__totals .price {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #0f172a;
+.cart-item__totals .cart-item__old-price,
+.cart-item__totals s.cart-item__old-price {
+  color: #9ca3af !important;
+  font-size: 1.3rem !important;
+  opacity: 1 !important;
 }
 
 /* ────────────────────────────────────────────────────────────
-   QUANTITY CONTROLS
+   QUANTITY CONTROLS — visible borders + clean styling
    ──────────────────────────────────────────────────────────── */
 
-.cart-quantity {
-  border: 1.5px solid #d1d5db;
-  border-radius: 8px;
+.cart-quantity,
+quantity-input.cart-quantity {
+  border: 1.5px solid #d1d5db !important;
+  border-radius: 8px !important;
   overflow: hidden;
-  display: inline-flex;
+  display: inline-flex !important;
   align-items: stretch;
+  background: #fff;
 }
 
 .cart-quantity .quantity__button {
-  background: #f9fafb;
-  border: none;
+  background: #f9fafb !important;
+  border: none !important;
   width: 3.6rem;
-  display: flex;
+  min-height: 3.6rem;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #374151;
+  color: #374151 !important;
   transition: background 0.1s ease;
+  padding: 0 !important;
 }
 
 .cart-quantity .quantity__button:hover {
-  background: #e5e7eb;
+  background: #e5e7eb !important;
+}
+
+.cart-quantity .quantity__button .svg-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #374151 !important;
 }
 
 .cart-quantity .quantity__input {
-  width: 4rem;
-  text-align: center;
-  border: none;
-  border-left: 1px solid #e5e7eb;
-  border-right: 1px solid #e5e7eb;
-  font-weight: 600;
-  font-size: 1.4rem;
-  color: #0f172a;
-  background: #fff;
-  padding: 0.6rem 0;
+  width: 4.2rem !important;
+  text-align: center !important;
+  border: none !important;
+  border-left: 1px solid #e5e7eb !important;
+  border-right: 1px solid #e5e7eb !important;
+  font-weight: 600 !important;
+  font-size: 1.4rem !important;
+  color: #0f172a !important;
+  background: #fff !important;
+  padding: 0.6rem 0 !important;
   -moz-appearance: textfield;
+  opacity: 1 !important;
 }
 
 .cart-quantity .quantity__input::-webkit-outer-spin-button,
@@ -292,20 +381,45 @@
   margin: 0;
 }
 
-/* Remove button */
-cart-remove-button .button {
-  color: #9ca3af;
+/* ────────────────────────────────────────────────────────────
+   REMOVE / DELETE BUTTON
+   Muted gray by default, red highlight on hover
+   NOT competing visually with the checkout button
+   ──────────────────────────────────────────────────────────── */
+
+cart-remove-button .button,
+cart-remove-button .button.button--tertiary,
+cart-remove-button a.button {
+  color: #9ca3af !important;
   min-height: 3.6rem;
   min-width: 3.6rem;
-  transition: color 0.15s ease;
+  transition: color 0.15s ease, background 0.15s ease;
+  background: transparent !important;
+  border: none !important;
+  padding: 0.4rem !important;
+  border-radius: 6px;
+  box-shadow: none !important;
 }
 
-cart-remove-button .button:hover {
-  color: #e11d26;
+cart-remove-button .button:hover,
+cart-remove-button .button.button--tertiary:hover,
+cart-remove-button a.button:hover {
+  color: #dc2626 !important;
+  background: #fef2f2 !important;
+}
+
+cart-remove-button .button::before,
+cart-remove-button .button::after {
+  content: none !important;
+}
+
+cart-remove-button .icon-remove {
+  height: 1.6rem !important;
+  width: 1.6rem !important;
 }
 
 /* ────────────────────────────────────────────────────────────
-   CART FOOTER GRID
+   CART FOOTER GRID — two-column card layout
    ──────────────────────────────────────────────────────────── */
 
 .inv-cart-footer-grid {
@@ -322,7 +436,6 @@ cart-remove-button .button:hover {
   }
 }
 
-/* Left column — breakdown */
 .inv-cart-footer-grid__breakdown {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -330,7 +443,6 @@ cart-remove-button .button:hover {
   padding: 2rem;
 }
 
-/* Right column — checkout */
 .inv-cart-footer-grid__checkout {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -338,6 +450,12 @@ cart-remove-button .button:hover {
   padding: 2rem;
   position: sticky;
   top: 2rem;
+}
+
+@media screen and (max-width: 749px) {
+  .inv-cart-footer-grid__checkout {
+    position: static;
+  }
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -354,46 +472,59 @@ cart-remove-button .button:hover {
 }
 
 .inv-cart-checkout-total__label {
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: #0f172a;
+  font-size: 1.8rem !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  opacity: 1 !important;
 }
 
 .inv-cart-checkout-total__price {
-  font-size: 2.4rem;
-  font-weight: 800;
-  color: #0f172a;
+  font-size: 2.4rem !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
   letter-spacing: -0.02em;
+  opacity: 1 !important;
+}
+
+@media screen and (max-width: 749px) {
+  .inv-cart-checkout-total__price {
+    font-size: 2rem !important;
+  }
 }
 
 /* ────────────────────────────────────────────────────────────
-   CHECKOUT BUTTON
+   CHECKOUT BUTTON — bold red, unmissable
    ──────────────────────────────────────────────────────────── */
 
-.inv-cart-footer-grid__checkout .cart__checkout-button {
-  background: #e11d26;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 1.6rem 2.4rem;
-  font-size: 1.6rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+.inv-cart-footer-grid__checkout .cart__checkout-button,
+.inv-cart-footer-grid__checkout .cart__checkout-button.button,
+.inv-cart-footer-grid__checkout button#checkout {
+  background: #e11d26 !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 1.6rem 2.4rem !important;
+  font-size: 1.6rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
   cursor: pointer;
   transition: background 0.15s ease, transform 0.1s ease;
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
   width: 100%;
-  min-height: 5.4rem;
+  min-height: 5.4rem !important;
+  box-shadow: 0 2px 8px rgba(225, 29, 38, 0.3);
 }
 
-.inv-cart-footer-grid__checkout .cart__checkout-button:hover {
-  background: #b91c1c;
+.inv-cart-footer-grid__checkout .cart__checkout-button:hover,
+.inv-cart-footer-grid__checkout .cart__checkout-button.button:hover {
+  background: #b91c1c !important;
+  box-shadow: 0 4px 12px rgba(225, 29, 38, 0.4);
 }
 
 .inv-cart-footer-grid__checkout .cart__checkout-button:active {
@@ -401,7 +532,8 @@ cart-remove-button .button:hover {
 }
 
 .inv-cart-footer-grid__checkout .cart__checkout-button:disabled {
-  background: #d1d5db;
+  background: #d1d5db !important;
+  box-shadow: none !important;
   cursor: not-allowed;
 }
 
@@ -413,15 +545,28 @@ cart-remove-button .button:hover {
   margin-top: 0.8rem;
 }
 
-/* Dynamic checkout buttons (PayPal, etc.) */
+/* Dynamic checkout buttons — "Or pay with" separator */
 .inv-cart-footer-grid__checkout .cart__dynamic-checkout-buttons {
   border-top: 1px solid #e5e7eb;
-  padding-top: 1.2rem;
+  padding-top: 1.6rem;
   margin-top: 1.2rem;
+  position: relative;
+}
+
+.inv-cart-footer-grid__checkout .cart__dynamic-checkout-buttons::before {
+  content: 'Or pay with';
+  display: block;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #9ca3af;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* ────────────────────────────────────────────────────────────
-   TRUST SIGNALS
+   TRUST SIGNALS — clear, confident
    ──────────────────────────────────────────────────────────── */
 
 .inv-cart-trust {
@@ -430,28 +575,34 @@ cart-remove-button .button:hover {
   gap: 0;
   margin-top: 1.6rem;
   border-top: 1px solid #e5e7eb;
-  padding-top: 1.6rem;
+  padding-top: 1.4rem;
 }
 
 .inv-cart-trust__item {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.8rem 0;
-  font-size: 1.3rem;
-  font-weight: 500;
-  color: #374151;
+  padding: 0.6rem 0;
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  color: #374151 !important;
+  opacity: 1 !important;
+}
+
+.inv-cart-trust__item span {
+  color: #374151 !important;
+  opacity: 1 !important;
 }
 
 .inv-cart-trust__item svg {
   flex-shrink: 0;
-  color: #16a34a;
+  color: #16a34a !important;
   width: 18px;
   height: 18px;
 }
 
 /* ────────────────────────────────────────────────────────────
-   CART BREAKDOWN (overrides component-cart-breakdown.css)
+   CART BREAKDOWN — readable, hierarchical
    ──────────────────────────────────────────────────────────── */
 
 .invicta-cart-breakdown {
@@ -459,85 +610,89 @@ cart-remove-button .button:hover {
 }
 
 .invicta-cart-breakdown__row {
-  padding: 0.6rem 0;
+  padding: 0.7rem 0;
   font-size: 1.4rem;
 }
 
 .invicta-cart-breakdown__label {
-  color: #374151;
-  font-weight: 500;
+  color: #374151 !important;
+  font-weight: 500 !important;
+  opacity: 1 !important;
 }
 
 .invicta-cart-breakdown__value {
-  font-weight: 600;
-  color: #0f172a;
+  font-weight: 600 !important;
+  color: #0f172a !important;
+  opacity: 1 !important;
 }
 
 .invicta-cart-breakdown__row--total {
-  border-top: 2px solid #0f172a;
-  padding-top: 1.2rem;
+  border-top: 2px solid #0f172a !important;
+  padding-top: 1.2rem !important;
   margin-top: 0.8rem;
-  font-size: 1.6rem;
-  font-weight: 800;
+  font-size: 1.6rem !important;
+  font-weight: 800 !important;
 }
 
 .invicta-cart-breakdown__row--total .invicta-cart-breakdown__label {
-  font-weight: 800;
-  color: #0f172a;
+  font-weight: 800 !important;
+  color: #0f172a !important;
 }
 
 .invicta-cart-breakdown__row--total .invicta-cart-breakdown__value {
-  font-weight: 800;
-  font-size: 1.8rem;
+  font-weight: 800 !important;
+  font-size: 1.8rem !important;
 }
 
 .invicta-cart-breakdown__value--negative {
-  color: #16a34a;
-  font-weight: 700;
+  color: #16a34a !important;
+  font-weight: 700 !important;
 }
 
 .invicta-cart-breakdown__free-label {
-  color: #16a34a;
-  font-weight: 700;
+  color: #16a34a !important;
+  font-weight: 700 !important;
   text-transform: uppercase;
   font-size: 1.3rem;
   letter-spacing: 0.04em;
 }
 
 .invicta-vat-indicator {
-  font-size: 1.2rem;
-  color: #6b7280;
+  font-size: 1.2rem !important;
+  color: #6b7280 !important;
   padding: 0.4rem 0 1rem;
   border-bottom: 1px solid #f3f4f6;
   margin-bottom: 0.4rem;
+  opacity: 1 !important;
 }
 
-/* Shipping progress bar */
+/* Shipping progress bar — subtle, professional */
 .invicta-cart-breakdown__shipping-progress {
-  background: #fffbeb;
-  border: 1px solid #fde68a;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 6px;
   padding: 1rem 1.2rem;
   margin: 0.8rem 0;
 }
 
 .invicta-cart-breakdown__shipping-text {
-  font-size: 1.2rem;
-  color: #92400e;
-  font-weight: 600;
+  font-size: 1.2rem !important;
+  color: #374151 !important;
+  font-weight: 600 !important;
   margin-bottom: 0.6rem;
+  opacity: 1 !important;
 }
 
 .invicta-cart-breakdown__shipping-bar {
   height: 6px;
-  background: #fde68a;
+  background: #e5e7eb;
   border-radius: 3px;
   overflow: hidden;
 }
 
 .invicta-cart-breakdown__shipping-fill {
   height: 100%;
-  background: #f59e0b;
+  background: #e11d26;
   border-radius: 3px;
   transition: width 0.3s ease;
 }
@@ -547,9 +702,10 @@ cart-remove-button .button:hover {
    ──────────────────────────────────────────────────────────── */
 
 .cart-note__label {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #374151;
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  color: #374151 !important;
+  opacity: 1 !important;
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -557,22 +713,23 @@ cart-remove-button .button:hover {
    ──────────────────────────────────────────────────────────── */
 
 .cart__empty-text {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #374151;
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: #374151 !important;
+  opacity: 1 !important;
 }
 
 .cart__warnings .button {
-  background: #e11d26;
-  color: #fff;
-  border-radius: 8px;
-  font-weight: 700;
+  background: #e11d26 !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
   text-transform: uppercase;
   letter-spacing: 0.02em;
 }
 
 .cart__warnings .button:hover {
-  background: #b91c1c;
+  background: #b91c1c !important;
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -580,84 +737,94 @@ cart-remove-button .button:hover {
    ──────────────────────────────────────────────────────────── */
 
 .discounts__discount {
-  color: #16a34a;
-  font-weight: 600;
-  font-size: 1.3rem;
+  color: #16a34a !important;
+  font-weight: 600 !important;
+  font-size: 1.3rem !important;
+  opacity: 1 !important;
 }
 
 .discounts__discount svg {
-  color: #16a34a;
+  color: #16a34a !important;
 }
 
 /* ────────────────────────────────────────────────────────────
    CART FOOTER GENERAL OVERRIDES
    ──────────────────────────────────────────────────────────── */
 
-/* Override default footer layout */
 .cart__footer {
-  border: none;
+  border: none !important;
 }
 
 @media screen and (min-width: 750px) {
+  .cart__footer {
+    display: block !important;
+  }
+
   .cart__footer > * {
-    width: 100%;
+    width: 100% !important;
   }
 
   .cart__footer > * + * {
-    margin-left: 0;
+    margin-left: 0 !important;
+    margin-top: 2rem;
   }
+}
+
+/* Tax note — hide since we have custom breakdown */
+.cart__footer .tax-note {
+  display: none !important;
 }
 
 /* ────────────────────────────────────────────────────────────
    CART DRAWER OVERHAUL
    ──────────────────────────────────────────────────────────── */
 
-/* Drawer panel */
 .drawer__inner {
   width: 44rem;
-  border: none;
+  border: none !important;
   box-shadow: -8px 0 30px rgba(0, 0, 0, 0.12);
 }
 
-/* Drawer header */
 .drawer__header {
   padding: 1.8rem 0;
   border-bottom: 2px solid #0f172a;
 }
 
 .drawer__heading {
-  font-size: 2rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: #0f172a;
-  margin: 0;
+  font-size: 2rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+  color: #0f172a !important;
+  margin: 0 !important;
+  opacity: 1 !important;
 }
 
 .drawer__close {
-  background: #f3f4f6;
-  border-radius: 50%;
+  background: #f3f4f6 !important;
+  border-radius: 50% !important;
   min-width: 3.6rem;
   min-height: 3.6rem;
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   transition: background 0.15s ease;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .drawer__close:hover {
-  background: #e5e7eb;
+  background: #e5e7eb !important;
 }
 
-/* Drawer cart items */
 .cart-drawer .cart-item {
   padding: 1.4rem 0;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid #f3f4f6 !important;
   gap: 1rem;
 }
 
 .cart-drawer .cart-item:last-child {
-  border-bottom: 1px solid #e5e7eb;
-  margin-bottom: 0;
+  border-bottom: 1px solid #e5e7eb !important;
+  margin-bottom: 0 !important;
 }
 
 .cart-drawer .cart-item__image-container {
@@ -667,56 +834,72 @@ cart-remove-button .button:hover {
   background: #f9fafb;
 }
 
-.cart-drawer .cart-item__name {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #0f172a;
-  line-height: 1.3;
+.cart-drawer .cart-item__name,
+.cart-drawer a.cart-item__name {
+  font-size: 1.4rem !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  line-height: 1.3 !important;
+  opacity: 1 !important;
 }
 
-.cart-drawer .cart-item__name:hover {
-  color: #e11d26;
-  text-decoration: none;
+.cart-drawer .cart-item__name:hover,
+.cart-drawer a.cart-item__name:hover {
+  color: #e11d26 !important;
+  text-decoration: none !important;
 }
 
-/* Drawer sticky footer */
+.cart-drawer .cart-item__totals .price {
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  opacity: 1 !important;
+}
+
+.cart-drawer .product-option {
+  color: #6b7280 !important;
+  opacity: 1 !important;
+}
+
 .drawer__footer--sticky {
-  border-top: 2px solid #0f172a;
+  border-top: 2px solid #0f172a !important;
   box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.08);
   padding: 1.8rem 0;
 }
 
-/* Drawer checkout button */
-.cart-drawer .cart__checkout-button {
-  background: #e11d26;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 1.4rem 2rem;
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  min-height: 5rem;
+.cart-drawer .cart__checkout-button,
+.cart-drawer .cart__checkout-button.button {
+  background: #e11d26 !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 1.4rem 2rem !important;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  min-height: 5rem !important;
   transition: background 0.15s ease;
+  box-shadow: 0 2px 8px rgba(225, 29, 38, 0.3);
 }
 
-.cart-drawer .cart__checkout-button:hover {
-  background: #b91c1c;
+.cart-drawer .cart__checkout-button:hover,
+.cart-drawer .cart__checkout-button.button:hover {
+  background: #b91c1c !important;
 }
 
-/* Drawer cross-sell section */
+/* Cross-sell section */
 .inv-cart-crosssell {
   padding: 1.4rem 0 0;
 }
 
 .inv-cart-crosssell__title {
-  font-size: 1.3rem;
-  font-weight: 700;
+  font-size: 1.3rem !important;
+  font-weight: 700 !important;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #374151;
+  color: #374151 !important;
   margin-bottom: 1rem;
+  opacity: 1 !important;
 }
 
 .inv-cart-crosssell__grid {
@@ -740,6 +923,7 @@ cart-remove-button .button:hover {
   border-radius: 8px;
   padding: 0.8rem;
   text-align: center;
+  text-decoration: none;
   transition: border-color 0.15s ease;
 }
 
@@ -753,9 +937,9 @@ cart-remove-button .button:hover {
 }
 
 .inv-cart-crosssell__item-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #0f172a;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  color: #0f172a !important;
   line-height: 1.3;
   margin-bottom: 0.3rem;
   display: -webkit-box;
@@ -765,56 +949,7 @@ cart-remove-button .button:hover {
 }
 
 .inv-cart-crosssell__item-price {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #e11d26;
-}
-
-/* Drawer trust bar */
-.drawer__footer--sticky .inv-cart-trust {
-  flex-direction: row;
-  gap: 0;
-  justify-content: space-between;
-  margin-top: 1.2rem;
-  padding-top: 1.2rem;
-}
-
-.drawer__footer--sticky .inv-cart-trust__item {
-  font-size: 1.1rem;
-  gap: 0.4rem;
-  padding: 0;
-}
-
-.drawer__footer--sticky .inv-cart-trust__item svg {
-  width: 14px;
-  height: 14px;
-}
-
-/* ────────────────────────────────────────────────────────────
-   RESPONSIVE ADJUSTMENTS
-   ──────────────────────────────────────────────────────────── */
-
-@media screen and (max-width: 749px) {
-  .inv-cart-footer-grid__checkout {
-    position: static;
-  }
-
-  .inv-cart-checkout-total__price {
-    font-size: 2rem;
-  }
-
-  .inv-cart-info-strip {
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  .inv-cart-info-strip > * {
-    min-width: 0;
-  }
-}
-
-@media screen and (min-width: 750px) {
-  .inv-cart-header__title {
-    font-size: 3.2rem;
-  }
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  color: #e11d26 !important;
 }
