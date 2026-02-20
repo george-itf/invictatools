@@ -895,19 +895,74 @@
 
   observer.observe(mainAtc);
 
+  var isStickyAdding = false;
+
   if (stickyBtn) {
     stickyBtn.addEventListener('click', function() {
-      if (stickyBtn.disabled) return;
+      if (stickyBtn.disabled || isStickyAdding) return;
+      isStickyAdding = true;
+
       var variantId = stickyBtn.getAttribute('data-variant-id');
-      fetch('/cart/add.js', {
+      var qtyInput = document.querySelector('[data-qty-input]');
+      var quantity = qtyInput ? parseInt(qtyInput.value, 10) || 1 : 1;
+      var originalText = stickyBtn.textContent;
+      stickyBtn.textContent = 'Adding...';
+
+      var cartAddUrl = (window.routes && window.routes.cart_add_url) || '/cart/add.js';
+
+      var formData = new FormData();
+      formData.append('id', variantId);
+      formData.append('quantity', quantity);
+      formData.append('sections', 'cart-drawer,cart-icon-bubble');
+      formData.append('sections_url', window.location.pathname);
+
+      fetch(cartAddUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items: [{ id: parseInt(variantId, 10), quantity: 1 }] })
-      }).then(function(r) { return r.json(); })
-      .then(function() {
+        body: formData
+      })
+      .then(function(response) {
+        if (!response.ok) return response.json().then(function(err) { throw err; });
+        return response.json();
+      })
+      .then(function(data) {
         stickyBtn.textContent = 'Added!';
-        setTimeout(function() { stickyBtn.textContent = 'Add to Cart'; }, 1500);
-        document.dispatchEvent(new CustomEvent('cart:refresh'));
+        setTimeout(function() { stickyBtn.textContent = originalText; }, 1500);
+
+        /* Refresh cart drawer with section rendering data */
+        var cartDrawer = document.querySelector('cart-drawer');
+        if (cartDrawer && data.sections && data.sections['cart-drawer']) {
+          var parser = new DOMParser();
+          var doc = parser.parseFromString(data.sections['cart-drawer'], 'text/html');
+          var newDrawer = doc.querySelector('#CartDrawer');
+          var existingDrawer = document.getElementById('CartDrawer');
+          if (newDrawer && existingDrawer) {
+            existingDrawer.innerHTML = newDrawer.innerHTML;
+          }
+          cartDrawer.classList.remove('is-empty');
+          setTimeout(function() { cartDrawer.open(); });
+        }
+
+        /* Update cart icon bubble */
+        if (data.sections && data.sections['cart-icon-bubble']) {
+          var bubbleEl = document.getElementById('cart-icon-bubble');
+          if (bubbleEl) {
+            var parser2 = new DOMParser();
+            var doc2 = parser2.parseFromString(data.sections['cart-icon-bubble'], 'text/html');
+            var newBubble = doc2.querySelector('.shopify-section');
+            if (newBubble) bubbleEl.innerHTML = newBubble.innerHTML;
+          }
+        }
+
+        document.dispatchEvent(new CustomEvent('cart:item-added', { detail: { item: data } }));
+        document.dispatchEvent(new CustomEvent('invicta:cart:updated', { detail: { source: 'sticky-atc', item: data } }));
+      })
+      .catch(function(error) {
+        var message = (error && (error.description || error.message)) || 'Error';
+        stickyBtn.textContent = message;
+        setTimeout(function() { stickyBtn.textContent = originalText; }, 2500);
+      })
+      .finally(function() {
+        isStickyAdding = false;
       });
     });
   }
