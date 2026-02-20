@@ -204,18 +204,21 @@
     {%- comment -%} Action button {%- endcomment -%}
     <div class="inv-card__action">
       {%- if available -%}
-        {% form 'product', product, class: 'inv-card__form' %}
-          <input type="hidden" name="id" value="{{ current_variant.id }}">
-          <input type="hidden" name="quantity" value="1">
-          <button type="submit" class="inv-card__btn inv-card__btn--add">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <circle cx="9" cy="21" r="1"/>
-              <circle cx="20" cy="21" r="1"/>
-              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-            </svg>
-            {{ 'invicta.product.add_to_cart' | t }}
-          </button>
-        {% endform %}
+        {%- comment -%} P1-3.3: Uses data-add-to-cart for AJAX interception by invicta-cart-handler.js {%- endcomment -%}
+        <button
+          type="button"
+          class="inv-card__btn inv-card__btn--add"
+          data-add-to-cart
+          data-variant-id="{{ current_variant.id }}"
+          data-quantity="1"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="9" cy="21" r="1"/>
+            <circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+          {{ 'invicta.product.add_to_cart' | t }}
+        </button>
       {%- else -%}
         <button type="button" class="inv-card__btn inv-card__btn--notify" data-product-id="{{ product.id }}">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">

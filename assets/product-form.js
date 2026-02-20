@@ -69,7 +69,7 @@ if (!customElements.get('product-form')) {
             }
 
             const startMarker = CartPerformance.createStartingMarker('add:wait-for-subscribers');
-            if (!this.error)
+            if (!this.error) {
               publish(PUB_SUB_EVENTS.cartUpdate, {
                 source: 'product-form',
                 productVariantId: formData.get('id'),
@@ -77,6 +77,11 @@ if (!customElements.get('product-form')) {
               }).then(() => {
                 CartPerformance.measureFromMarker('add:wait-for-subscribers', startMarker);
               });
+              // P1-3.1: Unified event dispatch for Invicta custom scripts
+              document.dispatchEvent(new CustomEvent('invicta:cart:updated', {
+                detail: { source: 'product-form', item: response }
+              }));
+            }
             this.error = false;
             const quickAddModal = this.closest('quick-add-modal');
             if (quickAddModal) {
