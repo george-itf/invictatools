@@ -1,5 +1,5 @@
 /* ============================================================
-   INVICTA CART — Visual Overhaul v2
+   INVICTA CART — Visual Overhaul v3
    Cohesive, confident cart page styling
    Uses Invicta design system: #e11d26 (brand), #0f172a (text)
 
@@ -9,6 +9,25 @@
    ============================================================ */
 
 /* ────────────────────────────────────────────────────────────
+   FORCE LIGHT BACKGROUND ON CART PAGE
+   The theme color scheme can apply a dark background via
+   .gradient.color-scheme-X — override to ensure readability.
+   ──────────────────────────────────────────────────────────── */
+
+cart-items.gradient,
+cart-items.gradient.color-scheme-1,
+cart-items.gradient.color-scheme-2,
+cart-items.gradient.color-scheme-3,
+cart-items.gradient.color-scheme-4,
+cart-items.gradient.color-scheme-5,
+cart-items.gradient[class*="color-"] {
+  background: #ffffff !important;
+  --color-background: 255, 255, 255 !important;
+  --color-foreground: 15, 23, 42 !important;
+  --gradient-background: #ffffff !important;
+}
+
+/* ────────────────────────────────────────────────────────────
    CART PAGE HEADER
    ──────────────────────────────────────────────────────────── */
 
@@ -16,9 +35,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0 2rem;
+  padding: 1.6rem 2rem 1.6rem 2rem;
   margin-bottom: 2rem;
   border-bottom: 2px solid #0f172a;
+  background: #ffffff;
 }
 
 .inv-cart-header__left {
@@ -53,20 +73,20 @@
   gap: 0.6rem;
   font-size: 1.4rem !important;
   font-weight: 600 !important;
-  color: #0f172a !important;
+  color: #e11d26 !important;
   text-decoration: none !important;
   padding: 0.8rem 1.6rem;
-  border: 2px solid #0f172a !important;
+  border: 2px solid #e11d26 !important;
   border-radius: 6px;
   transition: all 0.15s ease;
   white-space: nowrap;
-  background: transparent;
+  background: #ffffff !important;
   opacity: 1 !important;
 }
 
 .inv-cart-header__continue:hover {
-  border-color: #0f172a !important;
-  background: #0f172a !important;
+  border-color: #e11d26 !important;
+  background: #e11d26 !important;
   color: #fff !important;
 }
 
@@ -80,7 +100,7 @@
 
 @media screen and (max-width: 749px) {
   .inv-cart-header {
-    padding: 0 0 1.5rem;
+    padding: 1.4rem 1.6rem;
     margin-bottom: 1.5rem;
   }
 
@@ -161,7 +181,7 @@
 .cart-items thead th,
 .cart-items thead th.caption-with-letter-spacing {
   text-transform: uppercase !important;
-  font-size: 1.15rem !important;
+  font-size: 1.25rem !important;
   font-weight: 700 !important;
   letter-spacing: 0.1em !important;
   color: #6b7280 !important;
@@ -208,7 +228,7 @@
 }
 
 /* ────────────────────────────────────────────────────────────
-   PRODUCT IMAGE
+   PRODUCT IMAGE — compact, proportional to text
    ──────────────────────────────────────────────────────────── */
 
 .cart-item__image-container {
@@ -230,16 +250,30 @@
 
 @media screen and (min-width: 750px) {
   .cart-item__media {
-    width: 12rem;
+    width: 8.5rem !important;
+    max-width: 8.5rem !important;
+  }
+
+  .cart-item__image-container {
+    width: 8.5rem;
+    max-width: 8.5rem;
   }
 
   .cart-item__image {
     max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .cart-item__media {
+    width: 7rem !important;
+    max-width: 7rem !important;
   }
 }
 
 /* ────────────────────────────────────────────────────────────
-   PRODUCT DETAILS — force readable text
+   PRODUCT DETAILS — larger, bolder, readable text
    ──────────────────────────────────────────────────────────── */
 
 .cart-item__name,
@@ -247,7 +281,7 @@
 a.cart-item__name,
 a.cart-item__name.h4,
 .cart-item__name.h4.break {
-  font-size: 1.5rem !important;
+  font-size: 1.7rem !important;
   font-weight: 700 !important;
   color: #0f172a !important;
   line-height: 1.35 !important;
@@ -265,7 +299,7 @@ a.cart-item__name.h4:hover {
 .cart-item__details .product-option,
 .cart-item__details .product-option dt,
 .cart-item__details .product-option dd {
-  font-size: 1.3rem !important;
+  font-size: 1.4rem !important;
   color: #6b7280 !important;
   opacity: 1 !important;
 }
@@ -274,24 +308,24 @@ a.cart-item__name.h4:hover {
 .cart-item__details > .product-option:first-of-type {
   color: #374151 !important;
   font-weight: 600 !important;
-  font-size: 1.4rem !important;
+  font-size: 1.5rem !important;
 }
 
 .cart-item__discounted-prices .cart-item__old-price {
   color: #9ca3af !important;
-  font-size: 1.3rem !important;
+  font-size: 1.4rem !important;
   opacity: 1 !important;
 }
 
 .cart-item__discounted-prices .cart-item__final-price {
   color: #e11d26 !important;
   font-weight: 700 !important;
-  font-size: 1.5rem !important;
+  font-size: 1.6rem !important;
   opacity: 1 !important;
 }
 
 .inv-cart-item__ex-vat {
-  font-size: 1.2rem !important;
+  font-size: 1.3rem !important;
   color: #9ca3af !important;
   margin-top: 0.3rem;
   opacity: 1 !important;
@@ -300,14 +334,14 @@ a.cart-item__name.h4:hover {
 /* Line totals */
 .cart-item__totals .price,
 .cart-item__totals .price.price--end {
-  font-size: 1.5rem !important;
+  font-size: 1.7rem !important;
   font-weight: 700 !important;
   color: #0f172a !important;
   opacity: 1 !important;
 }
 
 .inv-cart-item__line-ex-vat {
-  font-size: 1.2rem !important;
+  font-size: 1.3rem !important;
   color: #9ca3af !important;
   margin-top: 0.3rem;
   opacity: 1 !important;
@@ -317,7 +351,7 @@ a.cart-item__name.h4:hover {
 .cart-item__totals .cart-item__old-price,
 .cart-item__totals s.cart-item__old-price {
   color: #9ca3af !important;
-  font-size: 1.3rem !important;
+  font-size: 1.4rem !important;
   opacity: 1 !important;
 }
 
@@ -338,8 +372,8 @@ quantity-input.cart-quantity {
 .cart-quantity .quantity__button {
   background: #f9fafb !important;
   border: none !important;
-  width: 3.6rem;
-  min-height: 3.6rem;
+  width: 4rem;
+  min-height: 4rem;
   display: flex !important;
   align-items: center;
   justify-content: center;
@@ -361,16 +395,16 @@ quantity-input.cart-quantity {
 }
 
 .cart-quantity .quantity__input {
-  width: 4.2rem !important;
+  width: 4.8rem !important;
   text-align: center !important;
   border: none !important;
   border-left: 1px solid #e5e7eb !important;
   border-right: 1px solid #e5e7eb !important;
   font-weight: 600 !important;
-  font-size: 1.4rem !important;
+  font-size: 1.5rem !important;
   color: #0f172a !important;
   background: #fff !important;
-  padding: 0.6rem 0 !important;
+  padding: 0.8rem 0 !important;
   -moz-appearance: textfield;
   opacity: 1 !important;
 }
@@ -518,13 +552,13 @@ cart-remove-button .icon-remove {
   gap: 0.8rem;
   width: 100%;
   min-height: 5.4rem !important;
-  box-shadow: 0 2px 8px rgba(225, 29, 38, 0.3);
+  box-shadow: none !important;
 }
 
 .inv-cart-footer-grid__checkout .cart__checkout-button:hover,
 .inv-cart-footer-grid__checkout .cart__checkout-button.button:hover {
   background: #b91c1c !important;
-  box-shadow: 0 4px 12px rgba(225, 29, 38, 0.4);
+  box-shadow: none !important;
 }
 
 .inv-cart-footer-grid__checkout .cart__checkout-button:active {
@@ -879,7 +913,7 @@ cart-remove-button .icon-remove {
   text-transform: uppercase !important;
   min-height: 5rem !important;
   transition: background 0.15s ease;
-  box-shadow: 0 2px 8px rgba(225, 29, 38, 0.3);
+  box-shadow: none !important;
 }
 
 .cart-drawer .cart__checkout-button:hover,
