@@ -1,20 +1,26 @@
 /**
  * Invicta Product V2 — Main Controller
- * @version 3.1.0 — Extracted from inline, DOM-driven (no Liquid dependencies)
+ * @version 3.2.0 — Fixed nested form, robust init
  */
 (function() {
   'use strict';
 
   /* ========================================
      FIND SECTION — DOM-driven, no Liquid needed
+     Tries immediately (works with defer), falls back
+     to DOMContentLoaded if sections aren't found yet.
      ======================================== */
 
-  const sections = document.querySelectorAll('.inv-pdp[data-section-id]');
-  if (!sections.length) return;
+  function boot() {
+    var sections = document.querySelectorAll('.inv-pdp[data-section-id]');
+    if (!sections.length) return false;
+    sections.forEach(function(section) { initSection(section); });
+    return true;
+  }
 
-  sections.forEach(function(section) {
-    initSection(section);
-  });
+  if (!boot()) {
+    document.addEventListener('DOMContentLoaded', boot);
+  }
 
   function initSection(section) {
     const sectionId = section.dataset.sectionId;
