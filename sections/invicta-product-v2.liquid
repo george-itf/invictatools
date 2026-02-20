@@ -627,10 +627,11 @@
           {% endif %}
 
           {%- comment -%} ADD TO CART FORM {%- endcomment -%}
-          <form 
-            class="inv-pdp__form" 
-            action="/cart/add" 
-            method="post" 
+          <form
+            class="inv-pdp__form"
+            action="/cart/add"
+            method="post"
+            novalidate
             data-product-form
             id="inv-pdp-form-{{ section.id }}"
           >
@@ -698,58 +699,64 @@
             
             {%- comment -%} CART ERROR FEEDBACK {%- endcomment -%}
             <div class="inv-pdp__atc-error inv-pdp--hidden" role="alert" aria-live="assertive" data-atc-error data-error-text="{{ section.settings.cart_error_text | escape }}"></div>
-
-            {%- comment -%} CX v1.1: BACK-IN-STOCK NOTIFICATION {%- endcomment -%}
-            <div class="inv-pdp__notify{% if is_in_stock %} inv-pdp--hidden{% endif %}" data-notify-wrap>
-              <div class="inv-pdp__notify-inner">
-                <p class="inv-pdp__notify-heading">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-                  Notify me when back in stock
-                </p>
-                <form class="inv-pdp__notify-form" data-notify-form data-product-title="{{ product.title | escape }}" data-product-handle="{{ product.handle }}">
-                  <div class="inv-pdp__notify-field">
-                    <input
-                      type="email"
-                      name="email"
-                      class="inv-pdp__notify-input"
-                      placeholder="Enter your email address"
-                      aria-label="Email address for back-in-stock notification"
-                      required
-                      data-notify-email
-                    >
-                    <button type="submit" class="inv-pdp__notify-btn" data-notify-submit>
-                      <span data-notify-btn-text>Notify Me</span>
-                      <span class="inv-pdp__notify-spinner inv-pdp--hidden" data-notify-spinner aria-hidden="true">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="12"/></svg>
-                      </span>
-                    </button>
-                  </div>
-                  <p class="inv-pdp__notify-success inv-pdp--hidden" data-notify-success role="status">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                    We'll email you when this item is available again.
-                  </p>
-                  <p class="inv-pdp__notify-error inv-pdp--hidden" data-notify-error role="alert"></p>
-                  <p class="inv-pdp__notify-privacy">We'll only use your email for this notification.</p>
-                </form>
-              </div>
-            </div>
-
-            {%- comment -%} BUY NOW — adds to cart & redirects to checkout (P2-4.4: clarified naming) {%- endcomment -%}
-            {% if show_buy_now_final %}
-              <div class="inv-pdp__buy-now">
-                <button
-                  type="button"
-                  class="inv-pdp__buy-now-btn"
-                  data-buy-now
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                  </svg>
-                  {{ section.settings.buy_now_text | default: 'Add & Checkout' }}
-                </button>
-              </div>
-            {% endif %}
           </form>
+
+          {%- comment -%}
+            CX v1.1: BACK-IN-STOCK NOTIFICATION
+            IMPORTANT: This MUST be outside the ATC form. HTML forbids nested forms.
+            A nested <form> tag is ignored by the parser, which causes the inner
+            form's <input type="email" required> to become part of the outer ATC form.
+            The hidden required field then silently blocks form submission.
+          {%- endcomment -%}
+          <div class="inv-pdp__notify{% if is_in_stock %} inv-pdp--hidden{% endif %}" data-notify-wrap>
+            <div class="inv-pdp__notify-inner">
+              <p class="inv-pdp__notify-heading">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                Notify me when back in stock
+              </p>
+              <form class="inv-pdp__notify-form" data-notify-form data-product-title="{{ product.title | escape }}" data-product-handle="{{ product.handle }}">
+                <div class="inv-pdp__notify-field">
+                  <input
+                    type="email"
+                    name="email"
+                    class="inv-pdp__notify-input"
+                    placeholder="Enter your email address"
+                    aria-label="Email address for back-in-stock notification"
+                    required
+                    data-notify-email
+                  >
+                  <button type="submit" class="inv-pdp__notify-btn" data-notify-submit>
+                    <span data-notify-btn-text>Notify Me</span>
+                    <span class="inv-pdp__notify-spinner inv-pdp--hidden" data-notify-spinner aria-hidden="true">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="12"/></svg>
+                    </span>
+                  </button>
+                </div>
+                <p class="inv-pdp__notify-success inv-pdp--hidden" data-notify-success role="status">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  We'll email you when this item is available again.
+                </p>
+                <p class="inv-pdp__notify-error inv-pdp--hidden" data-notify-error role="alert"></p>
+                <p class="inv-pdp__notify-privacy">We'll only use your email for this notification.</p>
+              </form>
+            </div>
+          </div>
+
+          {%- comment -%} BUY NOW — adds to cart & redirects to checkout {%- endcomment -%}
+          {% if show_buy_now_final %}
+            <div class="inv-pdp__buy-now">
+              <button
+                type="button"
+                class="inv-pdp__buy-now-btn"
+                data-buy-now
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+                {{ section.settings.buy_now_text | default: 'Add & Checkout' }}
+              </button>
+            </div>
+          {% endif %}
           
           {%- comment -%} CX v1.0: WISHLIST / SAVE FOR LATER {%- endcomment -%}
           <button
