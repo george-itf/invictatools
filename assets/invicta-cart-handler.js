@@ -2,9 +2,27 @@
  * Invicta Cart Handler
  * Manages add-to-cart actions from product cards
  * Extracted from inline script in snippets/invicta-cart-handler.liquid
+ *
+ * Fixes applied:
+ * - P0-2.1: Request-level dedup via in-flight tracking
+ * - P1-3.1: Unified event dispatch (invicta:cart:updated + cart:item-added)
+ * - P2-4.2: Uses window.routes for cart URLs
+ * - P3-5.5: Standardised cart count selectors
+ * - P3-5.6: DEBUG flag for production-safe logging
  */
 (function() {
   'use strict';
+
+  /** @type {boolean} Enable console logging (set false for production) */
+  var DEBUG = false;
+
+  /** @type {string[]} Canonical cart count selectors, shared across handlers */
+  var CART_COUNT_SELECTORS = [
+    '.cart-count-bubble span[aria-hidden="true"]',
+    '.header__cart-count',
+    '[data-cart-count]',
+    '.cart-count'
+  ];
 
   /**
    * Invicta Cart Handler
@@ -13,12 +31,8 @@
    */
   class InvictaCartHandler {
     constructor() {
-      this.cartCountSelectors = [
-        '.cart-count-bubble span[aria-hidden="true"]',
-        '.header__cart-count',
-        '[data-cart-count]',
-        '.cart-count'
-      ];
+      /** @type {Set<string>} Variant IDs currently being added (dedup guard) */
+      this._inFlight = new Set();
 
       this.init();
     }
@@ -45,9 +59,13 @@
       const quantity = parseInt(button.dataset.quantity || '1', 10);
 
       if (!variantId) {
-        console.error('No variant ID found');
+        DEBUG && console.error('No variant ID found');
         return;
       }
+
+      // P0-2.1: Request-level dedup — prevent double-add for same variant
+      if (this._inFlight.has(variantId)) return;
+      this._inFlight.add(variantId);
 
       // Set loading state
       button.classList.add('inv-card__btn--loading');
@@ -55,8 +73,10 @@
       button.innerHTML = '<span>Adding...</span>';
       button.disabled = true;
 
+      var cartAddUrl = (window.routes && window.routes.cart_add_url) || '/cart/add.js';
+
       try {
-        const response = await fetch('/cart/add.js', {
+        const response = await fetch(cartAddUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -82,10 +102,14 @@
         // Update cart count
         this.updateCartCount();
 
-        // Dispatch custom event for other scripts to hook into
-        document.dispatchEvent(new CustomEvent('invicta:cart:added', {
+        // P1-3.1: Dispatch unified events for all listeners
+        document.dispatchEvent(new CustomEvent('cart:item-added', {
           detail: { item, button }
         }));
+        document.dispatchEvent(new CustomEvent('invicta:cart:updated', {
+          detail: { source: 'card-handler', item, button }
+        }));
+        document.dispatchEvent(new CustomEvent('cart:refresh'));
 
         // Reset button after delay
         setTimeout(() => {
@@ -94,10 +118,11 @@
         }, 1500);
 
       } catch (error) {
-        console.error('Add to cart error:', error);
+        DEBUG && console.error('Add to cart error:', error);
 
-        // Error state
-        button.innerHTML = '<span>Error</span>';
+        // Error state — show Shopify's specific error message when available
+        var message = (error && error.message) || 'Error';
+        button.innerHTML = '<span>' + message + '</span>';
         button.classList.remove('inv-card__btn--loading');
 
         // Reset button after delay
@@ -105,6 +130,8 @@
           button.innerHTML = originalHtml;
           button.disabled = false;
         }, 2000);
+      } finally {
+        this._inFlight.delete(variantId);
       }
     }
 
@@ -113,7 +140,8 @@
      */
     async updateCartCount() {
       try {
-        const response = await fetch('/cart.js', {
+        var cartUrl = (window.routes && window.routes.cart_url) || '/cart';
+        const response = await fetch(cartUrl + '.js', {
           headers: { 'Accept': 'application/json' }
         });
 
@@ -122,8 +150,8 @@
         const cart = await response.json();
         const count = cart.item_count;
 
-        // Try multiple selectors to find cart count element
-        for (const selector of this.cartCountSelectors) {
+        // P3-5.5: Standardised selectors
+        for (const selector of CART_COUNT_SELECTORS) {
           const elements = document.querySelectorAll(selector);
           elements.forEach(el => {
             el.textContent = count;
@@ -137,12 +165,12 @@
         }
 
         // Dispatch event for custom cart count handlers
-        document.dispatchEvent(new CustomEvent('invicta:cart:updated', {
+        document.dispatchEvent(new CustomEvent('invicta:cart:count-updated', {
           detail: { cart }
         }));
 
       } catch (error) {
-        console.error('Failed to update cart count:', error);
+        DEBUG && console.error('Failed to update cart count:', error);
       }
     }
   }

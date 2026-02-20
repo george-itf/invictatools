@@ -648,13 +648,14 @@
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                   </svg>
                 </button>
-                <input 
-                  type="number" 
-                  name="quantity" 
-                  class="inv-pdp__qty-input" 
-                  value="1" 
-                  min="1" 
-                  max="99"
+                <input
+                  type="number"
+                  name="quantity"
+                  class="inv-pdp__qty-input"
+                  value="{{ current_variant.quantity_rule.min | default: 1 }}"
+                  min="{{ current_variant.quantity_rule.min | default: 1 }}"
+                  {% if current_variant.quantity_rule.max %}max="{{ current_variant.quantity_rule.max }}"{% else %}max="9999"{% endif %}
+                  {% if current_variant.quantity_rule.increment > 1 %}step="{{ current_variant.quantity_rule.increment }}"{% endif %}
                   aria-label="Quantity"
                   data-qty-input
                 >
@@ -733,19 +734,18 @@
               </div>
             </div>
 
-            {%- comment -%} BUY NOW — only when in stock AND below price threshold {%- endcomment -%}
+            {%- comment -%} BUY NOW — adds to cart & redirects to checkout (P2-4.4: clarified naming) {%- endcomment -%}
             {% if show_buy_now_final %}
               <div class="inv-pdp__buy-now">
                 <button
                   type="button"
                   class="inv-pdp__buy-now-btn"
                   data-buy-now
-                  data-variant-id="{{ current_variant.id }}"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
                   </svg>
-                  {{ section.settings.buy_now_text | default: 'Buy Now — Skip the Cart' }}
+                  {{ section.settings.buy_now_text | default: 'Add & Checkout' }}
                 </button>
               </div>
             {% endif %}

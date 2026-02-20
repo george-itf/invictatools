@@ -351,12 +351,9 @@
                               >
                                 <button
                                   type="button"
-                                  class="button button--tertiary cart-remove-button"
+                                  class="button button--tertiary cart-remove-button{% if item.instructions and item.instructions.can_remove == false %} hidden{% endif %}"
                                   aria-label="{{ 'sections.cart.remove_title' | t: title: item.title | escape }}"
                                   data-variant-id="{{ item.variant.id }}"
-                                  {% if item.instructions and item.instructions.can_remove == false %}
-                                    class="hidden"
-                                  {% endif %}
                                 >
                                   <span class="svg-wrapper">
                                     {{- 'icon-remove.svg' | inline_asset_content -}}
@@ -546,7 +543,7 @@
       {%- endcomment -%}
       <div class="drawer__footer drawer__footer--sticky">
         <!-- Subtotals -->
-        <div class="cart-drawer__footer" {{ block.shopify_attributes }}>
+        <div class="cart-drawer__footer">
           <div>
             {%- if cart.cart_level_discount_applications.size > 0 -%}
               <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
@@ -614,7 +611,7 @@
         {% render 'invicta-trust-bar', style: 'compact' %}
 
         <!-- CTAs -->
-        <div class="cart__ctas" {{ block.shopify_attributes }}>
+        <div class="cart__ctas">
           <button
             type="submit"
             id="CartDrawer-Checkout"
@@ -635,65 +632,25 @@
 
 <script>
 /**
- * Cart Drawer Accessibility Enhancements
- * ----------------------------------------
- * Ensures focus trap, Escape-to-close, and focus restoration
- * even if the external cart-drawer.js is delayed or overridden.
+ * Cart Drawer Accessibility — Escape-key safety net
+ * P3-5.4: Simplified from MutationObserver to lightweight keydown handler.
+ * The CartDrawer web component handles focus trap and Escape natively;
+ * this is a fallback only if the web component JS is delayed.
  */
 (function() {
   'use strict';
-
-  const drawerEl = document.querySelector('cart-drawer');
-  if (!drawerEl) return;
-
-  const drawerInner = drawerEl.querySelector('.drawer__inner');
-  if (drawerInner) {
-    /* Ensure ARIA attributes are present */
-    if (!drawerInner.hasAttribute('role')) drawerInner.setAttribute('role', 'dialog');
-    if (!drawerInner.hasAttribute('aria-modal')) drawerInner.setAttribute('aria-modal', 'true');
-  }
-
-  /* Track the element that triggered the drawer open */
-  let _triggerElement = null;
-
-  /* Observe when the drawer becomes active to engage focus trap */
-  const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(m) {
-      if (m.attributeName !== 'class') return;
-      const isActive = drawerEl.classList.contains('active');
-
-      if (isActive) {
-        /* Store the trigger element for focus return */
-        if (!_triggerElement) {
-          _triggerElement = document.activeElement;
-        }
-        /* Let the existing trapFocus in cart-drawer.js handle focus;
-           this is a safety net for Escape key */
-        document.addEventListener('keydown', handleDrawerEscape);
-      } else {
-        document.removeEventListener('keydown', handleDrawerEscape);
-        /* Return focus to trigger element */
-        if (_triggerElement && typeof _triggerElement.focus === 'function') {
-          _triggerElement.focus();
-          _triggerElement = null;
-        }
-      }
-    });
-  });
-
-  observer.observe(drawerEl, { attributes: true, attributeFilter: ['class'] });
-
-  function handleDrawerEscape(e) {
-    if (e.key === 'Escape') {
-      e.preventDefault();
-      if (typeof drawerEl.close === 'function') {
-        drawerEl.close();
-      } else {
-        drawerEl.classList.remove('active');
-        document.body.classList.remove('overflow-hidden');
-      }
+  document.addEventListener('keydown', function(e) {
+    if (e.key !== 'Escape') return;
+    var drawerEl = document.querySelector('cart-drawer.active');
+    if (!drawerEl) return;
+    e.preventDefault();
+    if (typeof drawerEl.close === 'function') {
+      drawerEl.close();
+    } else {
+      drawerEl.classList.remove('active');
+      document.body.classList.remove('overflow-hidden');
     }
-  }
+  });
 })();
 </script>
 

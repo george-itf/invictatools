@@ -85,9 +85,10 @@
   
   {%- if cart.total_price < free_shipping_threshold and cart.total_price > 0 -%}
     <!-- Free Shipping Progress -->
+    {%- assign shipping_remaining_formatted = shipping_remaining | money -%}
     <div class="invicta-cart-breakdown__shipping-progress">
       <div class="invicta-cart-breakdown__shipping-text">
-        {{ 'invicta.cart.shipping_progress_html' | t: amount: shipping_remaining | money }}
+        {{ 'invicta.cart.shipping_progress_html' | t: amount: shipping_remaining_formatted }}
       </div>
       <div class="invicta-cart-breakdown__shipping-bar">
         {%- assign progress_percent = cart.total_price | times: 100 | divided_by: free_shipping_threshold -%}

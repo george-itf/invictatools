@@ -520,7 +520,6 @@
       });
 
       if (buyNowBtn) {
-        buyNowBtn.dataset.variantId = matchingVariant.id;
         buyNowBtn.disabled = !matchingVariant.available;
       }
 
@@ -684,48 +683,67 @@
     updateVatDisplay(getVatMode());
 
     /* ========================================
-       ADD TO CART — Native FormData to /cart/add.js
+       ADD TO CART — Section Rendering API
+       P0-2.1: Request-level dedup (not just CSS class)
+       P1-3.2: Uses Section Rendering to refresh drawer
+       P1-3.5: Parses Shopify error descriptions
+       P2-4.1: No separate /cart.js fetch
+       P2-4.2: Uses window.routes
        ======================================== */
+
+    var isAddingToCart = false;
 
     if (productForm && atcBtn) {
       productForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        if (atcBtn.disabled || atcBtn.classList.contains('is-loading')) {
+        if (isAddingToCart || atcBtn.disabled) {
           return;
         }
 
+        isAddingToCart = true;
         atcBtn.classList.add('is-loading');
 
-        fetch('/cart/add.js', {
+        var formData = new FormData(productForm);
+        formData.append('sections', 'cart-drawer,cart-icon-bubble');
+        formData.append('sections_url', window.location.pathname);
+
+        var cartAddUrl = (window.routes && window.routes.cart_add_url) || '/cart/add.js';
+
+        fetch(cartAddUrl, {
           method: 'POST',
-          body: new FormData(productForm)
+          body: formData
         })
         .then(function(response) {
-          if (!response.ok) throw new Error('Cart error');
+          if (!response.ok) return response.json().then(function(err) { throw err; });
           return response.json();
         })
-        .then(function(item) {
+        .then(function(data) {
           atcBtn.classList.remove('is-loading');
           atcBtn.classList.add('is-success');
 
-          openCartDrawer();
+          refreshCartDrawer(data);
+          updateCartBubble(data);
 
           document.dispatchEvent(new CustomEvent('cart:item-added', {
-            detail: { item: item }
+            detail: { item: data }
+          }));
+          document.dispatchEvent(new CustomEvent('invicta:cart:updated', {
+            detail: { source: 'pdp', item: data }
           }));
 
           setTimeout(function() {
             atcBtn.classList.remove('is-success');
           }, 2000);
         })
-        .catch(function() {
+        .catch(function(error) {
           atcBtn.classList.remove('is-loading');
           atcBtn.classList.add('is-error');
 
+          var message = (error && (error.description || error.message)) || 'Sorry, couldn\'t add to cart. Please try again.';
           var errorEl = section.querySelector('[data-atc-error]');
           if (errorEl) {
-            errorEl.textContent = errorEl.dataset.errorText || 'Sorry, couldn\'t add to cart. Please try again.';
+            errorEl.textContent = message;
             errorEl.classList.remove('inv-pdp--hidden');
             setTimeout(function() { errorEl.classList.add('inv-pdp--hidden'); }, 5000);
           }
@@ -733,54 +751,95 @@
           setTimeout(function() {
             atcBtn.classList.remove('is-error');
           }, 2500);
+        })
+        .finally(function() {
+          isAddingToCart = false;
         });
       });
     }
 
-    function openCartDrawer() {
-      const cartDrawer = document.querySelector('cart-drawer');
-      if (cartDrawer && typeof cartDrawer.open === 'function') {
-        fetch('/cart.js')
-          .then(function(r) { return r.json(); })
-          .then(function(cart) {
-            document.dispatchEvent(new CustomEvent('cart:refresh', { detail: { cart: cart } }));
-            cartDrawer.open();
-          })
-          .catch(function() {});
+    /**
+     * Refresh the cart drawer using Section Rendering API HTML
+     * @param {Object} data - Response from /cart/add.js with sections
+     */
+    function refreshCartDrawer(data) {
+      var cartDrawer = document.querySelector('cart-drawer');
+      if (!cartDrawer) {
+        document.dispatchEvent(new CustomEvent('cart:open'));
         return;
       }
 
-      const cartIcon = document.querySelector('[data-cart-toggle], .header__icon--cart button, #cart-icon-bubble');
-      if (cartIcon) {
-        cartIcon.click();
-        return;
+      if (data.sections && data.sections['cart-drawer']) {
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(data.sections['cart-drawer'], 'text/html');
+        var newDrawer = doc.querySelector('#CartDrawer');
+        var existingDrawer = document.getElementById('CartDrawer');
+        if (newDrawer && existingDrawer) {
+          existingDrawer.innerHTML = newDrawer.innerHTML;
+        }
+        cartDrawer.classList.remove('is-empty');
+        var overlay = cartDrawer.querySelector('#CartDrawer-Overlay');
+        if (overlay) {
+          overlay.addEventListener('click', function() { cartDrawer.close(); });
+        }
       }
 
-      document.dispatchEvent(new CustomEvent('cart:open'));
+      setTimeout(function() { cartDrawer.open(); });
+    }
+
+    /**
+     * Update the header cart icon bubble using Section Rendering API HTML
+     * @param {Object} data - Response from /cart/add.js with sections
+     */
+    function updateCartBubble(data) {
+      if (data.sections && data.sections['cart-icon-bubble']) {
+        var bubbleEl = document.getElementById('cart-icon-bubble');
+        if (bubbleEl) {
+          var parser = new DOMParser();
+          var doc = parser.parseFromString(data.sections['cart-icon-bubble'], 'text/html');
+          var newBubble = doc.querySelector('.shopify-section');
+          if (newBubble) {
+            bubbleEl.innerHTML = newBubble.innerHTML;
+          }
+        }
+      }
     }
 
     /* ========================================
-       BUY NOW — DIRECT TO CHECKOUT
+       BUY NOW — ADD & CHECKOUT
+       P0-2.2: Null-safety for productForm
+       P1-3.5: Parses Shopify error descriptions
+       P2-4.2: Uses window.routes
        ======================================== */
 
     if (buyNowBtn) {
       buyNowBtn.addEventListener('click', function() {
-        if (buyNowBtn.disabled) return;
+        if (buyNowBtn.disabled || !productForm) return;
 
         buyNowBtn.classList.add('is-loading');
         buyNowBtn.disabled = true;
 
-        fetch('/cart/add.js', {
+        var cartAddUrl = (window.routes && window.routes.cart_add_url) || '/cart/add.js';
+
+        fetch(cartAddUrl, {
           method: 'POST',
           body: new FormData(productForm)
         })
         .then(function(response) {
-          if (!response.ok) throw new Error('Cart error');
+          if (!response.ok) return response.json().then(function(err) { throw err; });
           window.location.href = '/checkout';
         })
-        .catch(function() {
+        .catch(function(error) {
           buyNowBtn.classList.remove('is-loading');
           buyNowBtn.disabled = false;
+
+          var message = (error && (error.description || error.message)) || 'Sorry, couldn\'t proceed to checkout.';
+          var errorEl = section.querySelector('[data-atc-error]');
+          if (errorEl) {
+            errorEl.textContent = message;
+            errorEl.classList.remove('inv-pdp--hidden');
+            setTimeout(function() { errorEl.classList.add('inv-pdp--hidden'); }, 5000);
+          }
         });
       });
     }
