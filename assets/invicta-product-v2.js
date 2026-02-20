@@ -532,10 +532,8 @@
     function updatePrices(variant) {
       if (!priceWrapper) return;
 
-      const priceInc = priceWrapper.querySelector('[data-price-inc]');
-      const priceEx = priceWrapper.querySelector('[data-price-ex]');
-      const priceExAlt = priceWrapper.querySelector('[data-price-ex-alt]');
-      const priceIncAlt = priceWrapper.querySelector('[data-price-inc-alt]');
+      const priceIncEl = priceWrapper.querySelector('[data-price-inc-value]');
+      const priceExEl = priceWrapper.querySelector('[data-price-ex-value]');
       const compareInc = priceWrapper.querySelector('[data-compare-inc]');
       const compareEx = priceWrapper.querySelector('[data-compare-ex]');
       const savingsWrap = priceWrapper.querySelector('[data-savings-wrap]');
@@ -545,10 +543,8 @@
       const vatDivisor = 100 + vatRate;
       const exVat = Math.round(variant.price * 100 / vatDivisor);
 
-      if (priceInc) priceInc.textContent = formatMoney(variant.price);
-      if (priceEx) priceEx.textContent = formatMoney(exVat);
-      if (priceExAlt) priceExAlt.textContent = formatMoney(exVat);
-      if (priceIncAlt) priceIncAlt.textContent = formatMoney(variant.price);
+      if (priceIncEl) priceIncEl.textContent = formatMoney(variant.price);
+      if (priceExEl) priceExEl.textContent = formatMoney(exVat);
 
       const hasCompare = variant.compare_at_price && variant.compare_at_price > variant.price;
 
@@ -700,8 +696,10 @@
         }
 
         const formData = new FormData(productForm);
-        const variantId = formData.get('id');
+        const variantId = parseInt(formData.get('id'), 10);
         const quantity = parseInt(formData.get('quantity'), 10) || 1;
+
+        if (!variantId) return;
 
         atcBtn.classList.add('is-loading');
 
@@ -712,8 +710,7 @@
             'Accept': 'application/json'
           },
           body: JSON.stringify({
-            id: variantId,
-            quantity: quantity
+            items: [{ id: variantId, quantity: quantity }]
           })
         })
         .then(function(response) {
@@ -722,7 +719,8 @@
           }
           return response.json();
         })
-        .then(function(item) {
+        .then(function(data) {
+          var item = data.items ? data.items[0] : data;
           atcBtn.classList.remove('is-loading');
           atcBtn.classList.add('is-success');
 
@@ -785,8 +783,10 @@
       buyNowBtn.addEventListener('click', function() {
         if (buyNowBtn.disabled) return;
 
-        const variantId = buyNowBtn.dataset.variantId;
+        const variantId = parseInt(buyNowBtn.dataset.variantId, 10);
         const quantity = qtyInput ? parseInt(qtyInput.value, 10) || 1 : 1;
+
+        if (!variantId) return;
 
         buyNowBtn.classList.add('is-loading');
         buyNowBtn.disabled = true;
@@ -798,8 +798,7 @@
             'Accept': 'application/json'
           },
           body: JSON.stringify({
-            id: variantId,
-            quantity: quantity
+            items: [{ id: variantId, quantity: quantity }]
           })
         })
         .then(function(response) {

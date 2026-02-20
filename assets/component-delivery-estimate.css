@@ -23,6 +23,9 @@
     font-weight: 500;
     color: var(--inv-fg, #0f172a);
   }
+  .inv-del-est__text {
+    white-space: nowrap;
+  }
   .inv-del-est__icon {
     width: 22px;
     height: 22px;

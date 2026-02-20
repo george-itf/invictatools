@@ -644,21 +644,17 @@
 }
 
 /* ============================================
-   PRICE BLOCK
+   PRICE BLOCK — Inline dual-price layout
    ============================================ */
 .inv-pdp__price {
   padding-bottom: var(--pdp-space-lg);
   border-bottom: 1px solid var(--pdp-grey-200);
 }
 
-.inv-pdp__price-view--hidden {
-  display: none !important;
-}
-
-.inv-pdp__price-row {
+.inv-pdp__price-inline {
   display: flex;
   align-items: baseline;
-  gap: 10px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 
@@ -674,6 +670,21 @@
   font-size: 14px;
   font-weight: 600;
   color: var(--pdp-grey-500);
+  margin-right: 6px;
+}
+
+.inv-pdp__price-secondary {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--pdp-grey-400);
+  line-height: 1;
+}
+
+.inv-pdp__price-label--secondary {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--pdp-grey-400);
+  margin-right: 0;
 }
 
 .inv-pdp__price-was {
@@ -681,6 +692,11 @@
   font-weight: 500;
   color: var(--pdp-grey-400);
   text-decoration: line-through;
+  margin-right: 4px;
+}
+
+.inv-pdp__price-was--secondary {
+  font-size: 14px;
 }
 
 .inv-pdp__price-savings {
@@ -1514,6 +1530,14 @@
   
   .inv-pdp__price-current {
     font-size: 28px;
+  }
+
+  .inv-pdp__price-secondary {
+    font-size: 14px;
+  }
+
+  .inv-pdp__price-label--secondary {
+    font-size: 12px;
   }
   
   .inv-pdp__delivery {

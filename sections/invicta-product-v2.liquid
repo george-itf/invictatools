@@ -512,8 +512,9 @@
           </div>
           
           {%- comment -%}
-            PRICE BLOCK — Canonical VAT contract (Decision 6)
-            Uses [data-price-inc] / [data-price-ex] + .inv-vat--hidden
+            PRICE BLOCK — Inline dual-price layout
+            Shows both ex VAT (primary) and inc VAT (secondary) on one line.
+            No toggle needed — both prices always visible.
           {%- endcomment -%}
           <div
             class="inv-pdp__price"
@@ -521,43 +522,20 @@
             aria-live="polite"
             aria-atomic="true"
           >
-            {%- comment -%} Inc VAT price row {%- endcomment -%}
-            <div class="inv-pdp__price-row inv-vat inv-vat--inc" data-price-inc>
-              <span class="inv-pdp__price-current" data-price-inc-value>{{ current_variant.price | money }}</span>
-              <span class="inv-pdp__price-label">inc VAT</span>
-              {% if has_compare_price %}
-                <span class="inv-pdp__price-was" data-compare-inc>{{ current_variant.compare_at_price | money }}</span>
-              {% endif %}
-            </div>
-            {%- comment -%} Ex VAT price row (hidden by default via .inv-vat--hidden) {%- endcomment -%}
-            <div class="inv-pdp__price-row inv-vat inv-vat--ex inv-vat--hidden" data-price-ex>
+            <div class="inv-pdp__price-inline">
               <span class="inv-pdp__price-current" data-price-ex-value>{{ price_ex_vat | money }}</span>
               <span class="inv-pdp__price-label">ex VAT</span>
               {% if has_compare_price %}
                 <span class="inv-pdp__price-was" data-compare-ex>{{ compare_ex_vat | money }}</span>
               {% endif %}
-            </div>
-            {%- comment -%} CX v1.1: VAT toggle — improved UX for trade customers {%- endcomment -%}
-            <div class="inv-pdp__vat-toggle" data-vat-toggle-wrap>
-              <span class="inv-pdp__vat-toggle-label" data-vat-label-ex>EX VAT</span>
-              <button
-                type="button"
-                class="inv-pdp__vat-toggle-switch"
-                role="switch"
-                aria-checked="true"
-                aria-label="Show prices including or excluding VAT"
-                title="Switch between prices including and excluding VAT"
-                data-vat-toggle
-              >
-                <span class="inv-pdp__vat-toggle-thumb"></span>
-              </button>
-              <span class="inv-pdp__vat-toggle-label inv-pdp__vat-toggle-label--active" data-vat-label-inc>INC VAT</span>
-              {%- if customer and customer.tags contains 'trade' -%}
-                <span class="inv-pdp__vat-trade-hint">Trade prices shown ex VAT by default</span>
-              {%- endif -%}
+              <span class="inv-pdp__price-secondary" data-price-inc-value>{{ current_variant.price | money }}</span>
+              <span class="inv-pdp__price-label inv-pdp__price-label--secondary">inc VAT</span>
+              {% if has_compare_price %}
+                <span class="inv-pdp__price-was inv-pdp__price-was--secondary" data-compare-inc>{{ current_variant.compare_at_price | money }}</span>
+              {% endif %}
             </div>
 
-            {%- comment -%} SAVINGS (visible in both views) {%- endcomment -%}
+            {%- comment -%} SAVINGS {%- endcomment -%}
             {% if has_compare_price %}
               <div class="inv-pdp__price-savings" data-savings-wrap>
                 <span class="inv-pdp__price-save" data-savings>
@@ -937,48 +915,6 @@
 </script>
 
 
-{%- comment -%} Inline VAT toggle controller {%- endcomment -%}
-<script>
-(function() {
-  var toggle = document.querySelector('[data-vat-switch]');
-  if (!toggle) return;
-  var labelInc = document.querySelector('[data-vat-label-inc]');
-  var labelEx = document.querySelector('[data-vat-label-ex]');
-
-  function getMode() {
-    try { return localStorage.getItem('invicta-vat-mode') || 'inc'; } catch(e) { return 'inc'; }
-  }
-
-  function setMode(mode) {
-    try { localStorage.setItem('invicta-vat-mode', mode); } catch(e) {}
-    toggle.setAttribute('aria-checked', mode === 'inc' ? 'true' : 'false');
-    if (labelInc) labelInc.classList.toggle('inv-pdp__vat-toggle-label--active', mode === 'inc');
-    if (labelEx) labelEx.classList.toggle('inv-pdp__vat-toggle-label--active', mode === 'ex');
-    document.dispatchEvent(new CustomEvent('invicta:vat-toggle', { detail: { mode: mode } }));
-  }
-
-  // Init from stored state
-  var current = getMode();
-  toggle.setAttribute('aria-checked', current === 'inc' ? 'true' : 'false');
-  if (labelInc) labelInc.classList.toggle('inv-pdp__vat-toggle-label--active', current === 'inc');
-  if (labelEx) labelEx.classList.toggle('inv-pdp__vat-toggle-label--active', current === 'ex');
-
-  toggle.addEventListener('click', function() {
-    var now = getMode();
-    setMode(now === 'inc' ? 'ex' : 'inc');
-  });
-
-  // Sync with header toggle
-  document.addEventListener('invicta:vat-toggle', function(e) {
-    if (e.detail && e.detail.mode) {
-      var mode = e.detail.mode;
-      toggle.setAttribute('aria-checked', mode === 'inc' ? 'true' : 'false');
-      if (labelInc) labelInc.classList.toggle('inv-pdp__vat-toggle-label--active', mode === 'inc');
-      if (labelEx) labelEx.classList.toggle('inv-pdp__vat-toggle-label--active', mode === 'ex');
-    }
-  });
-})();
-</script>
 
 {% schema %}
 {
