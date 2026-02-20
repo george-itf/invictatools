@@ -28,9 +28,9 @@
    ====================================================================== */
 
 .invicta-brand-pill {
-  --pill-bg: #2d2d2d;
+  --pill-bg: #ffffff;
   --pill-border: var(--pill-bg);
-  --pill-text: #ffffff;
+  --pill-text: #2d2d2d;
 
   --pill-height: 30px;
   --pill-logo-height: 22px;
