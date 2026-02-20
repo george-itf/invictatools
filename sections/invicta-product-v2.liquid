@@ -915,7 +915,7 @@
       var originalText = stickyBtn.textContent;
       stickyBtn.textContent = 'Adding...';
 
-      var cartAddUrl = (window.routes && window.routes.cart_add_url) || '/cart/add.js';
+      var cartAddUrl = ((window.routes && window.routes.cart_add_url) || '/cart/add') + '.js';
 
       var formData = new FormData();
       formData.append('id', variantId);
