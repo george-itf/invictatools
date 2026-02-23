@@ -94,6 +94,11 @@
   .inv-hero-split__btn:hover {
     background: var(--inv-accent-hover);
     gap: 12px;
+    filter: brightness(0.9);
+  }
+
+  .inv-hero-split__btn-wrap {
+    width: 100%;
   }
 
   .inv-hero-split__btn:focus-visible {
@@ -489,12 +494,14 @@
         {%- endif -%}
         
         {%- if section.settings.button_text != blank -%}
-          <a href="{{ section.settings.button_link }}" class="inv-hero-split__btn">
-            {{ section.settings.button_text }}
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
+          <div class="inv-hero-split__btn-wrap" style="text-align: {{ section.settings.button_alignment }}; margin-top: {{ section.settings.button_margin_top }}px; margin-bottom: {{ section.settings.button_margin_bottom }}px;">
+            <a href="{{ section.settings.button_link }}" class="inv-hero-split__btn" style="font-size: {{ section.settings.button_font_size }}px; padding: {{ section.settings.button_padding_vertical }}px {{ section.settings.button_padding_horizontal }}px;{% if section.settings.button_bg_color != blank %} background: {{ section.settings.button_bg_color }};{% endif %}{% if section.settings.button_text_color != blank %} color: {{ section.settings.button_text_color }};{% endif %}">
+              {{ section.settings.button_text }}
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
         {%- endif -%}
       </div>
       
@@ -665,7 +672,84 @@
     },
     {
       "type": "header",
-      "content": "Styling"
+      "content": "Button styling"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "label": "Button vertical padding (height)",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "label": "Button horizontal padding (width)",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_margin_top",
+      "label": "Button top margin (position)",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_margin_bottom",
+      "label": "Button bottom margin",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "button_alignment",
+      "label": "Button alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background colour",
+      "info": "Leave blank to use default accent colour"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Section styling"
     },
     {
       "type": "color",
