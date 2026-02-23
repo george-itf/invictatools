@@ -49,7 +49,7 @@
     visibility: visible !important;
     background: #fff;
     border: 1px solid #d1d5db;
-    border-radius: 10px;
+    border-radius: var(--inv-radius-md, 8px);
     padding: 0;
     text-align: center;
     text-decoration: none;
@@ -91,7 +91,7 @@
     height: 56px;
     margin: 24px auto 16px;
     background: var(--color-foreground, #2d2d2d);
-    border-radius: 12px;
+    border-radius: var(--inv-radius-md, 8px);
     align-items: center;
     justify-content: center;
     transition: background 0.15s ease;
@@ -112,12 +112,12 @@
     width: 28px;
     height: 28px;
     object-fit: contain;
-    filter: brightness(0) invert(1);
+    /* Custom icons should be uploaded as white/light SVGs on transparent bg */
     display: block !important;
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__title {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 900;
     color: var(--color-foreground, #1a1a1a);
     margin: 0;
@@ -156,7 +156,7 @@
     #shopify-section-{{ section.id }} .inv-quick-cats__icon {
       width: 44px;
       height: 44px;
-      border-radius: 10px;
+      border-radius: var(--inv-radius-md, 8px);
       margin: 16px auto 10px;
     }
 

@@ -155,24 +155,10 @@
     outline-offset: 2px;
   }
 
-  /* Card style: Sale (Red with stripes) */
+  /* Card style: Sale (Red, solid) */
   .inv-hero-split__card--sale {
     background: #e11d26;
     color: #fff;
-  }
-
-  .inv-hero-split__card--sale::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      -45deg,
-      transparent,
-      transparent 10px,
-      rgba(0,0,0,0.06) 10px,
-      rgba(0,0,0,0.06) 20px
-    );
-    pointer-events: none;
   }
 
   .inv-hero-split__card--sale .inv-hero-split__card-icon {
@@ -795,7 +781,7 @@
           "label": "Card style",
           "default": "sale",
           "options": [
-            { "value": "sale", "label": "Sale (Red with stripes)" },
+            { "value": "sale", "label": "Sale (Red)" },
             { "value": "brand", "label": "Brand Red (Solid)" },
             { "value": "info", "label": "Info (Dark)" },
             { "value": "light", "label": "Light (Grey)" },
