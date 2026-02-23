@@ -23,8 +23,8 @@
             "custom_icon_color": "",
             "icon": "tag",
             "callout_text": "UP TO 30% OFF",
-            "title": "LATEST DEALS",
-            "text": "Top trade brands, limited time",
+            "title": "Top trade brands, limited time",
+            "text": "",
             "cta_text": "Shop Deals",
             "link": "shopify://collections/stocking-fillers",
             "ribbon_text": "HOT"
@@ -40,9 +40,9 @@
             "custom_icon_bg": "",
             "custom_icon_color": "",
             "icon": "store",
-            "callout_text": "READY IN 1HR",
-            "title": "CLICK & COLLECT",
-            "text": "2 Kent locations",
+            "callout_text": "READY IN 1 HOUR",
+            "title": "CLICK & COLLECT ACROSS KENT",
+            "text": "",
             "cta_text": "Find a Store",
             "link": "shopify://pages/about-us",
             "ribbon_text": ""
