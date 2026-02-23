@@ -335,15 +335,15 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   }
 
-  /* Red accent - thicker gradient stripe */
+  /* Red accent stripe */
   .inv-fc-header__bar::before {
     content: '';
     position: absolute;
     left: 0;
     top: 0;
     bottom: 0;
-    width: 5px;
-    background: linear-gradient(180deg, #ef4444 0%, var(--inv-fc-accent) 50%, #b91c1c 100%);
+    width: 4px;
+    background: var(--inv-fc-accent);
   }
 
   .inv-fc-header__bar-left {
@@ -544,33 +544,10 @@
      BOLD STYLE
      ---------------------------------------- */
   .inv-fc-header__bold {
-    background: linear-gradient(135deg, var(--inv-fc-dark) 0%, #2d2d2d 50%, var(--inv-fc-dark) 100%);
+    background: var(--inv-fc-dark);
     border-radius: var(--inv-fc-header-radius);
     position: relative;
     overflow: hidden;
-  }
-
-  /* Decorative accent corner */
-  .inv-fc-header__bold::before {
-    content: '';
-    position: absolute;
-    right: -40px;
-    top: -40px;
-    width: 120px;
-    height: 120px;
-    background: var(--inv-fc-accent);
-    opacity: 0.15;
-    border-radius: 50%;
-  }
-
-  .inv-fc-header__bold::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, var(--inv-fc-accent) 0%, transparent 70%);
   }
 
   .inv-fc-header__bold-content {
@@ -618,15 +595,12 @@
     letter-spacing: 0.05em;
     text-decoration: none;
     border-radius: 4px;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+    transition: background 0.15s ease, gap 0.15s ease;
   }
 
   .inv-fc-header__cta--bold:hover {
     background: var(--inv-fc-accent-hover);
     gap: 14px;
-    box-shadow: 0 6px 16px rgba(220, 38, 38, 0.4);
-    transform: translateY(-1px);
   }
 
   .inv-fc-header__cta--bold:focus-visible {
@@ -707,15 +681,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     background: #fff;
     border: 1px solid var(--inv-fc-border);
-    border-radius: 50%;
+    border-radius: var(--inv-radius-md, 8px);
     color: var(--inv-fc-dark);
     cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
   }
 
   .inv-featured-collection__nav-btn:hover {
