@@ -34,7 +34,7 @@
           "type": "promo_card",
           "settings": {
             "style": "info",
-            "custom_bg": "",
+            "custom_bg": "#282c31",
             "custom_title_color": "",
             "custom_subtitle_color": "",
             "custom_icon_bg": "",
