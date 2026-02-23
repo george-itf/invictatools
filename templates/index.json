@@ -15,33 +15,37 @@
         "promo_card_bAbLAQ": {
           "type": "promo_card",
           "settings": {
-            "style": "brand",
-            "custom_bg": "#cf2922",
-            "custom_title_color": "#ffffff",
-            "custom_subtitle_color": "#cccccc",
-            "custom_icon_bg": "#ffffff",
-            "custom_icon_color": "#e41e25",
-            "custom_arrow_color": "#ffffff",
-            "icon": "clock",
+            "style": "sale",
+            "custom_bg": "",
+            "custom_title_color": "",
+            "custom_subtitle_color": "",
+            "custom_icon_bg": "",
+            "custom_icon_color": "",
+            "icon": "tag",
+            "callout_text": "UP TO 30% OFF",
             "title": "LATEST DEALS",
-            "text": "Great prices on top trade brands",
-            "link": "shopify://collections/stocking-fillers"
+            "text": "Top trade brands, limited time",
+            "cta_text": "Shop Deals",
+            "link": "shopify://collections/stocking-fillers",
+            "ribbon_text": "HOT"
           }
         },
         "promo_card_fDnDtM": {
           "type": "promo_card",
           "settings": {
-            "style": "white",
-            "custom_bg": "#262626",
-            "custom_title_color": "#ffffff",
-            "custom_subtitle_color": "#cccccc",
-            "custom_icon_bg": "#212329",
-            "custom_icon_color": "#fdfdfd",
-            "custom_arrow_color": "#ffffff",
+            "style": "info",
+            "custom_bg": "",
+            "custom_title_color": "",
+            "custom_subtitle_color": "",
+            "custom_icon_bg": "",
+            "custom_icon_color": "",
             "icon": "store",
+            "callout_text": "READY IN 1HR",
             "title": "CLICK & COLLECT",
-            "text": "Pick up your orders within 1 hour",
-            "link": "shopify://pages/about-us"
+            "text": "2 Kent locations",
+            "cta_text": "Find a Store",
+            "link": "shopify://pages/about-us",
+            "ribbon_text": ""
           }
         }
       },
