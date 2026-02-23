@@ -113,8 +113,9 @@
   .inv-usp2__item {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 20px 24px;
+    justify-content: center;
+    gap: 14px;
+    padding: 20px 16px;
     position: relative;
   }
 
@@ -126,14 +127,15 @@
     top: 50%;
     transform: translateY(-50%);
     width: 1px;
-    height: 40px;
+    height: 36px;
     background: var(--inv-usp2-divider);
   }
 
-  /* Icon - square, no rounding */
+  /* Icon - circular */
   .inv-usp2__icon {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
     background: var(--inv-usp2-accent);
     display: flex;
     align-items: center;
@@ -142,8 +144,8 @@
   }
 
   .inv-usp2__icon svg {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     color: #fff;
   }
 
@@ -151,11 +153,11 @@
   .inv-usp2__text {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 1px;
   }
 
   .inv-usp2__title {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 800;
     color: var(--inv-usp2-text);
     line-height: 1.2;
@@ -202,8 +204,8 @@
     }
 
     .inv-usp2__icon {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
     }
 
     .inv-usp2__icon svg {
