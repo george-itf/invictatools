@@ -124,7 +124,14 @@
   }
 
   /* ============================================
-     SIDEBAR PROMO CARDS
+     SIDEBAR PROMO CARDS — "Industrial Poster" Design
+     Each card is a self-contained mini-banner with:
+     - Optional background image with gradient overlay
+     - Large "callout" stat text as visual anchor
+     - Diagonal shimmer sweep on hover
+     - Optional corner ribbon/flash
+     - Dedicated CTA button
+     - Icon with animated pulse ring
      ============================================ */
 
   .inv-hero-split__side {
@@ -133,214 +140,381 @@
     gap: 12px;
   }
 
+  /* --- Card Base --- */
   .inv-hero-split__card {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 14px;
-    padding: 28px 28px 24px;
+    justify-content: flex-end;
+    padding: 0;
     text-decoration: none;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
     position: relative;
     overflow: hidden;
-  }
-
-  .inv-hero-split__card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    isolation: isolate;
+    min-height: 160px;
   }
 
   .inv-hero-split__card:focus-visible {
-    outline: 2px solid #e11d26;
+    outline: 2px solid #fff;
     outline-offset: 2px;
   }
 
-  /* Card style: Sale (Red, solid) */
-  .inv-hero-split__card--sale {
-    background: linear-gradient(135deg, #e11d26 0%, #c41920 100%);
-    color: #fff;
+  /* --- Background image layer --- */
+  .inv-hero-split__card-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
   }
 
-  .inv-hero-split__card--sale .inv-hero-split__card-icon {
-    background: rgba(255, 255, 255, 0.18);
+  .inv-hero-split__card-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
   }
 
-  .inv-hero-split__card--sale .inv-hero-split__card-icon svg {
-    color: #fff;
+  .inv-hero-split__card:hover .inv-hero-split__card-bg img {
+    transform: scale(1.06);
   }
 
-  /* Card style: Info (Dark) */
-  .inv-hero-split__card--info {
-    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
-    color: #fff;
+  /* --- Gradient overlay (keeps text readable over images) --- */
+  .inv-hero-split__card-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    transition: opacity 0.3s ease;
   }
 
-  .inv-hero-split__card--info .inv-hero-split__card-icon {
-    background: rgba(255, 255, 255, 0.1);
+  /* Style-specific overlays */
+  .inv-hero-split__card--sale .inv-hero-split__card-overlay {
+    background: linear-gradient(160deg, rgba(225, 29, 38, 0.92) 0%, rgba(140, 15, 20, 0.98) 100%);
   }
 
-  .inv-hero-split__card--info .inv-hero-split__card-icon svg {
-    color: #fff;
+  .inv-hero-split__card--brand .inv-hero-split__card-overlay {
+    background: linear-gradient(160deg, rgba(225, 29, 38, 0.92) 0%, rgba(140, 15, 20, 0.98) 100%);
   }
 
-  /* Card style: Light (Grey) */
-  .inv-hero-split__card--light {
-    background: #f5f5f5;
-    color: #1a1a1a;
+  .inv-hero-split__card--info .inv-hero-split__card-overlay {
+    background: linear-gradient(160deg, rgba(45, 45, 45, 0.92) 0%, rgba(15, 15, 15, 0.98) 100%);
   }
 
-  .inv-hero-split__card--light .inv-hero-split__card-icon {
+  .inv-hero-split__card--light .inv-hero-split__card-overlay {
+    background: linear-gradient(160deg, rgba(245, 245, 245, 0.95) 0%, rgba(230, 230, 230, 0.98) 100%);
+  }
+
+  .inv-hero-split__card--warning .inv-hero-split__card-overlay {
+    background: linear-gradient(160deg, rgba(245, 158, 11, 0.92) 0%, rgba(180, 100, 0, 0.98) 100%);
+  }
+
+  .inv-hero-split__card--success .inv-hero-split__card-overlay {
+    background: linear-gradient(160deg, rgba(22, 163, 74, 0.92) 0%, rgba(15, 100, 50, 0.98) 100%);
+  }
+
+  .inv-hero-split__card--white .inv-hero-split__card-overlay {
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 245, 245, 0.98) 100%);
+  }
+
+  .inv-hero-split__card--outline .inv-hero-split__card-overlay {
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  .inv-hero-split__card--outline {
+    border: 2px solid #2d2d2d;
+  }
+
+  /* Without background image, overlay is fully opaque */
+  .inv-hero-split__card:not(.inv-hero-split__card--has-image) .inv-hero-split__card-overlay {
+    opacity: 1;
+  }
+
+  /* --- Shimmer sweep (diagonal light on hover) --- */
+  .inv-hero-split__card-shimmer {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .inv-hero-split__card-shimmer::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 40%;
+    height: 200%;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.15) 45%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0.15) 55%,
+      transparent 60%
+    );
+    transform: translateX(-100%) rotate(0deg);
+    transition: none;
+  }
+
+  .inv-hero-split__card:hover .inv-hero-split__card-shimmer::after {
+    animation: inv-card-shimmer 0.6s ease-out forwards;
+  }
+
+  /* Light cards get a darker shimmer */
+  .inv-hero-split__card--light .inv-hero-split__card-shimmer::after,
+  .inv-hero-split__card--white .inv-hero-split__card-shimmer::after,
+  .inv-hero-split__card--outline .inv-hero-split__card-shimmer::after {
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(0, 0, 0, 0.04) 45%,
+      rgba(0, 0, 0, 0.08) 50%,
+      rgba(0, 0, 0, 0.04) 55%,
+      transparent 60%
+    );
+  }
+
+  @keyframes inv-card-shimmer {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(350%); }
+  }
+
+  /* --- Corner ribbon / flash --- */
+  .inv-hero-split__card-ribbon {
+    position: absolute;
+    top: 14px;
+    right: -32px;
+    z-index: 6;
+    background: #fff;
+    color: #e11d26;
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 4px 40px;
+    transform: rotate(45deg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .inv-hero-split__card--info .inv-hero-split__card-ribbon,
+  .inv-hero-split__card--light .inv-hero-split__card-ribbon,
+  .inv-hero-split__card--white .inv-hero-split__card-ribbon,
+  .inv-hero-split__card--outline .inv-hero-split__card-ribbon {
     background: #e11d26;
-  }
-
-  .inv-hero-split__card--light .inv-hero-split__card-icon svg {
     color: #fff;
   }
 
-  .inv-hero-split__card--light .inv-hero-split__card-arrow {
-    color: #1a1a1a;
+  /* --- Card body (content layer) --- */
+  .inv-hero-split__card-body {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 24px 24px 0 24px;
+    flex: 1;
+    justify-content: center;
   }
 
-  /* Card style: Warning (Amber) */
-  .inv-hero-split__card--warning {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    color: #1a1a1a;
+  /* --- Icon with animated pulse ring --- */
+  .inv-hero-split__card-icon-wrap {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 14px;
   }
 
-  .inv-hero-split__card--warning .inv-hero-split__card-icon {
-    background: rgba(0, 0, 0, 0.12);
+  .inv-hero-split__card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
   }
 
-  .inv-hero-split__card--warning .inv-hero-split__card-icon svg {
-    color: #1a1a1a;
-  }
-
-  .inv-hero-split__card--warning .inv-hero-split__card-arrow {
-    color: #1a1a1a;
-  }
-
-  /* Card style: Success (Green) */
-  .inv-hero-split__card--success {
-    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
-    color: #fff;
-  }
-
-  .inv-hero-split__card--success .inv-hero-split__card-icon {
-    background: rgba(255, 255, 255, 0.18);
-  }
-
-  .inv-hero-split__card--success .inv-hero-split__card-icon svg {
-    color: #fff;
-  }
-
-  /* Card style: Invicta Red (Solid) */
-  .inv-hero-split__card--brand {
-    background: linear-gradient(135deg, #e11d26 0%, #c41920 100%);
-    color: #fff;
-  }
-
-  .inv-hero-split__card--brand .inv-hero-split__card-icon {
-    background: rgba(255, 255, 255, 0.18);
-  }
-
-  .inv-hero-split__card--brand .inv-hero-split__card-icon svg {
-    color: #fff;
-  }
-
-  /* Card style: White (Clean) */
-  .inv-hero-split__card--white {
-    background: #ffffff;
-    color: #1a1a1a;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  }
-
-  .inv-hero-split__card--white .inv-hero-split__card-icon {
+  .inv-hero-split__card--light .inv-hero-split__card-icon,
+  .inv-hero-split__card--white .inv-hero-split__card-icon,
+  .inv-hero-split__card--outline .inv-hero-split__card-icon {
     background: #e11d26;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 
+  .inv-hero-split__card-icon svg {
+    width: 24px;
+    height: 24px;
+    color: #fff;
+  }
+
+  .inv-hero-split__card--light .inv-hero-split__card-icon svg,
   .inv-hero-split__card--white .inv-hero-split__card-icon svg {
     color: #fff;
   }
 
-  .inv-hero-split__card--white .inv-hero-split__card-arrow {
-    color: #1a1a1a;
-  }
-
-  /* Card style: Outline (Border only) */
-  .inv-hero-split__card--outline {
-    background: transparent;
-    color: #1a1a1a;
-    border: 2px solid #2d2d2d;
-  }
-
-  .inv-hero-split__card--outline .inv-hero-split__card-icon {
-    background: #2d2d2d;
-  }
-
+  .inv-hero-split__card--warning .inv-hero-split__card-icon svg,
   .inv-hero-split__card--outline .inv-hero-split__card-icon svg {
     color: #fff;
   }
 
-  .inv-hero-split__card--outline .inv-hero-split__card-arrow {
+  /* Pulse ring behind icon */
+  .inv-hero-split__card-icon-wrap::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .inv-hero-split__card--light .inv-hero-split__card-icon-wrap::after,
+  .inv-hero-split__card--white .inv-hero-split__card-icon-wrap::after,
+  .inv-hero-split__card--outline .inv-hero-split__card-icon-wrap::after {
+    border-color: rgba(225, 29, 38, 0.3);
+  }
+
+  .inv-hero-split__card:hover .inv-hero-split__card-icon-wrap::after {
+    opacity: 1;
+    animation: inv-icon-ping 1s ease-out infinite;
+  }
+
+  @keyframes inv-icon-ping {
+    0%   { inset: -4px; opacity: 0.6; }
+    100% { inset: -14px; opacity: 0; }
+  }
+
+  /* --- Callout stat text (the big visual anchor) --- */
+  .inv-hero-split__card-callout {
+    font-size: clamp(26px, 3vw, 34px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 6px;
+    color: inherit;
+  }
+
+  .inv-hero-split__card--light .inv-hero-split__card-callout,
+  .inv-hero-split__card--white .inv-hero-split__card-callout,
+  .inv-hero-split__card--outline .inv-hero-split__card-callout {
     color: #1a1a1a;
   }
 
-  /* Card icon */
-  .inv-hero-split__card-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .inv-hero-split__card-icon svg {
-    width: 26px;
-    height: 26px;
-  }
-
-  /* Card content */
-  .inv-hero-split__card-content {
-    flex: 1;
-    min-width: 0;
-  }
-
+  /* --- Title & subtitle --- */
   .inv-hero-split__card-content h3 {
-    font-size: 17px;
-    font-weight: 800;
+    font-size: 13px;
+    font-weight: 700;
     line-height: 1.2;
-    margin: 0 0 4px 0;
+    margin: 0 0 3px 0;
     text-transform: uppercase;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.06em;
+    opacity: 0.85;
   }
 
   .inv-hero-split__card-content p {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
-    opacity: 0.8;
+    opacity: 0.7;
     margin: 0;
     line-height: 1.4;
   }
 
-  /* Card arrow */
-  .inv-hero-split__card-arrow {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
-    opacity: 0.4;
-    color: #fff;
-    transition: transform 0.15s ease, opacity 0.15s ease;
+  .inv-hero-split__card--light .inv-hero-split__card-content h3,
+  .inv-hero-split__card--white .inv-hero-split__card-content h3,
+  .inv-hero-split__card--outline .inv-hero-split__card-content h3 {
+    color: #1a1a1a;
   }
 
-  .inv-hero-split__card:hover .inv-hero-split__card-arrow {
+  .inv-hero-split__card--light .inv-hero-split__card-content p,
+  .inv-hero-split__card--white .inv-hero-split__card-content p,
+  .inv-hero-split__card--outline .inv-hero-split__card-content p {
+    color: #555;
+  }
+
+  /* --- CTA button --- */
+  .inv-hero-split__card-cta {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    margin-top: 16px;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: inherit;
+    background: rgba(255, 255, 255, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    transition: background 0.2s ease, gap 0.2s ease;
+  }
+
+  .inv-hero-split__card:hover .inv-hero-split__card-cta {
+    background: rgba(255, 255, 255, 0.25);
+    gap: 12px;
+  }
+
+  .inv-hero-split__card-cta svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s ease;
+  }
+
+  .inv-hero-split__card:hover .inv-hero-split__card-cta svg {
     transform: translateX(3px);
-    opacity: 0.8;
+  }
+
+  /* Light card CTA variants */
+  .inv-hero-split__card--light .inv-hero-split__card-cta,
+  .inv-hero-split__card--white .inv-hero-split__card-cta,
+  .inv-hero-split__card--outline .inv-hero-split__card-cta {
+    color: #fff;
+    background: #1a1a1a;
+    border-top: none;
+  }
+
+  .inv-hero-split__card--light:hover .inv-hero-split__card-cta,
+  .inv-hero-split__card--white:hover .inv-hero-split__card-cta,
+  .inv-hero-split__card--outline:hover .inv-hero-split__card-cta {
+    background: #e11d26;
+  }
+
+  /* Warning card CTA */
+  .inv-hero-split__card--warning .inv-hero-split__card-cta {
+    color: #1a1a1a;
+    background: rgba(0, 0, 0, 0.1);
+    border-top-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .inv-hero-split__card--warning:hover .inv-hero-split__card-cta {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  /* --- Decorative diagonal accent stripe (top-right corner) --- */
+  .inv-hero-split__card::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -20%;
+    width: 60%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.04);
+    transform: rotate(-25deg);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .inv-hero-split__card--light::before,
+  .inv-hero-split__card--white::before,
+  .inv-hero-split__card--outline::before {
+    background: rgba(0, 0, 0, 0.02);
   }
 
   /* ============================================
@@ -419,34 +593,55 @@
     }
 
     .inv-hero-split__card {
+      min-height: auto;
+    }
+
+    .inv-hero-split__card-body {
+      padding: 18px 18px 0;
       flex-direction: row;
       align-items: center;
-      padding: 20px 20px 20px 24px;
-      gap: 14px;
+      gap: 16px;
     }
 
-    .inv-hero-split__card-icon {
-      width: 44px;
-      height: 44px;
+    .inv-hero-split__card-icon-wrap {
+      display: none;
     }
 
-    .inv-hero-split__card-icon svg {
-      width: 22px;
-      height: 22px;
+    .inv-hero-split__card-callout {
+      font-size: 20px;
+      margin-bottom: 2px;
+      white-space: nowrap;
     }
 
     .inv-hero-split__card-content h3 {
-      font-size: 14px;
+      font-size: 11px;
     }
 
     .inv-hero-split__card-content p {
-      font-size: 12px;
+      font-size: 11px;
     }
 
-    .inv-hero-split__card-arrow {
-      position: static;
-      width: 20px;
-      height: 20px;
+    .inv-hero-split__card-cta {
+      padding: 10px 16px;
+      margin-top: 0;
+      font-size: 11px;
+    }
+
+    .inv-hero-split__card-ribbon {
+      top: 8px;
+      right: -36px;
+      font-size: 9px;
+      padding: 3px 40px;
+    }
+
+    /* Hide bg image on mobile for perf */
+    .inv-hero-split__card-bg img {
+      display: none;
+    }
+
+    /* Disable shimmer on mobile for perf */
+    .inv-hero-split__card-shimmer {
+      display: none;
     }
   }
 
@@ -454,11 +649,21 @@
   @media (prefers-reduced-motion: reduce) {
     .inv-hero-split__btn,
     .inv-hero-split__card,
-    .inv-hero-split__card-arrow {
+    .inv-hero-split__card-cta,
+    .inv-hero-split__card-cta svg,
+    .inv-hero-split__card-bg img {
       transition: none;
     }
 
-    .inv-hero-split__card:hover {
+    .inv-hero-split__card:hover .inv-hero-split__card-shimmer::after {
+      animation: none;
+    }
+
+    .inv-hero-split__card:hover .inv-hero-split__card-icon-wrap::after {
+      animation: none;
+    }
+
+    .inv-hero-split__card:hover .inv-hero-split__card-bg img {
       transform: none;
     }
   }
@@ -531,96 +736,137 @@
       {%- endif -%}
     </div>
     
-    {%- comment -%} SIDEBAR PROMO CARDS {%- endcomment -%}
+    {%- comment -%} SIDEBAR PROMO CARDS — Industrial Poster Design {%- endcomment -%}
     <div class="inv-hero-split__side">
       {%- for block in section.blocks -%}
         {%- if block.type == 'promo_card' -%}
+          {%- assign has_image = false -%}
+          {%- if block.settings.card_image != blank -%}
+            {%- assign has_image = true -%}
+          {%- endif -%}
+
           <a
             href="{{ block.settings.link }}"
-            class="inv-hero-split__card inv-hero-split__card--{{ block.settings.style }}"
+            class="inv-hero-split__card inv-hero-split__card--{{ block.settings.style }}{% if has_image %} inv-hero-split__card--has-image{% endif %}"
             {% if block.settings.custom_bg != blank %}style="background: {{ block.settings.custom_bg }};"{% endif %}
             {{ block.shopify_attributes }}
             aria-label="{{ block.settings.title | escape }}"
           >
-            <div
-              class="inv-hero-split__card-icon"
-              {% if block.settings.custom_icon_bg != blank %}style="background: {{ block.settings.custom_icon_bg }};"{% endif %}
-            >
-              {%- assign icon_style = '' -%}
-              {%- if block.settings.custom_icon_color != blank -%}
-                {%- assign icon_style = 'style="color: ' | append: block.settings.custom_icon_color | append: ';"' -%}
+
+            {%- comment -%} Background image layer {%- endcomment -%}
+            {%- if has_image -%}
+              <div class="inv-hero-split__card-bg">
+                <img
+                  src="{{ block.settings.card_image | image_url: width: 600 }}"
+                  alt=""
+                  loading="lazy"
+                  width="{{ block.settings.card_image.width }}"
+                  height="{{ block.settings.card_image.height }}"
+                >
+              </div>
+            {%- endif -%}
+
+            {%- comment -%} Gradient overlay {%- endcomment -%}
+            <div class="inv-hero-split__card-overlay"></div>
+
+            {%- comment -%} Shimmer sweep effect {%- endcomment -%}
+            <div class="inv-hero-split__card-shimmer"></div>
+
+            {%- comment -%} Corner ribbon {%- endcomment -%}
+            {%- if block.settings.ribbon_text != blank -%}
+              <span class="inv-hero-split__card-ribbon">{{ block.settings.ribbon_text }}</span>
+            {%- endif -%}
+
+            {%- comment -%} Card body {%- endcomment -%}
+            <div class="inv-hero-split__card-body">
+
+              {%- comment -%} Icon with pulse ring {%- endcomment -%}
+              <div class="inv-hero-split__card-icon-wrap">
+                <div
+                  class="inv-hero-split__card-icon"
+                  {% if block.settings.custom_icon_bg != blank %}style="background: {{ block.settings.custom_icon_bg }};"{% endif %}
+                >
+                  {%- assign icon_style = '' -%}
+                  {%- if block.settings.custom_icon_color != blank -%}
+                    {%- assign icon_style = 'style="color: ' | append: block.settings.custom_icon_color | append: ';"' -%}
+                  {%- endif -%}
+                  {%- case block.settings.icon -%}
+                    {%- when 'tag' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" {{ icon_style }}>
+                        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+                        <line x1="7" y1="7" x2="7.01" y2="7"/>
+                      </svg>
+                    {%- when 'store' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" {{ icon_style }}>
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                      </svg>
+                    {%- when 'truck' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" {{ icon_style }}>
+                        <rect x="1" y="3" width="15" height="13"/>
+                        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+                        <circle cx="5.5" cy="18.5" r="2.5"/>
+                        <circle cx="18.5" cy="18.5" r="2.5"/>
+                      </svg>
+                    {%- when 'percent' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" {{ icon_style }}>
+                        <line x1="19" y1="5" x2="5" y2="19"/>
+                        <circle cx="6.5" cy="6.5" r="2.5"/>
+                        <circle cx="17.5" cy="17.5" r="2.5"/>
+                      </svg>
+                    {%- when 'clock' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" {{ icon_style }}>
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                      </svg>
+                    {%- when 'gift' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" {{ icon_style }}>
+                        <polyline points="20 12 20 22 4 22 4 12"/>
+                        <rect x="2" y="7" width="20" height="5"/>
+                        <line x1="12" y1="22" x2="12" y2="7"/>
+                        <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/>
+                        <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+                      </svg>
+                    {%- when 'zap' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" {{ icon_style }}>
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                      </svg>
+                    {%- when 'tool' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" {{ icon_style }}>
+                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                      </svg>
+                    {%- when 'battery' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" {{ icon_style }}>
+                        <rect x="2" y="7" width="16" height="10" rx="1"/>
+                        <line x1="22" y1="11" x2="22" y2="13"/>
+                        <line x1="6" y1="11" x2="6" y2="13"/>
+                        <line x1="10" y1="11" x2="10" y2="13"/>
+                      </svg>
+                  {%- endcase -%}
+                </div>
+              </div>
+
+              {%- comment -%} Callout stat (the big visual anchor) {%- endcomment -%}
+              {%- if block.settings.callout_text != blank -%}
+                <div class="inv-hero-split__card-callout">{{ block.settings.callout_text }}</div>
               {%- endif -%}
-              {%- case block.settings.icon -%}
-                {%- when 'tag' -%}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" {{ icon_style }}>
-                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
-                    <line x1="7" y1="7" x2="7.01" y2="7"/>
-                  </svg>
-                {%- when 'store' -%}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" {{ icon_style }}>
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                    <polyline points="9 22 9 12 15 12 15 22"/>
-                  </svg>
-                {%- when 'truck' -%}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" {{ icon_style }}>
-                    <rect x="1" y="3" width="15" height="13"/>
-                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
-                    <circle cx="5.5" cy="18.5" r="2.5"/>
-                    <circle cx="18.5" cy="18.5" r="2.5"/>
-                  </svg>
-                {%- when 'percent' -%}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" {{ icon_style }}>
-                    <line x1="19" y1="5" x2="5" y2="19"/>
-                    <circle cx="6.5" cy="6.5" r="2.5"/>
-                    <circle cx="17.5" cy="17.5" r="2.5"/>
-                  </svg>
-                {%- when 'clock' -%}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" {{ icon_style }}>
-                    <circle cx="12" cy="12" r="10"/>
-                    <polyline points="12 6 12 12 16 14"/>
-                  </svg>
-                {%- when 'gift' -%}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" {{ icon_style }}>
-                    <polyline points="20 12 20 22 4 22 4 12"/>
-                    <rect x="2" y="7" width="20" height="5"/>
-                    <line x1="12" y1="22" x2="12" y2="7"/>
-                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/>
-                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
-                  </svg>
-                {%- when 'zap' -%}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" {{ icon_style }}>
-                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-                  </svg>
-                {%- when 'tool' -%}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" {{ icon_style }}>
-                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-                  </svg>
-                {%- when 'battery' -%}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" {{ icon_style }}>
-                    <rect x="2" y="7" width="16" height="10" rx="1"/>
-                    <line x1="22" y1="11" x2="22" y2="13"/>
-                    <line x1="6" y1="11" x2="6" y2="13"/>
-                    <line x1="10" y1="11" x2="10" y2="13"/>
-                  </svg>
-              {%- endcase -%}
+
+              {%- comment -%} Title & subtitle {%- endcomment -%}
+              <div class="inv-hero-split__card-content">
+                <h3 {% if block.settings.custom_title_color != blank %}style="color: {{ block.settings.custom_title_color }};"{% endif %}>{{ block.settings.title }}</h3>
+                {%- if block.settings.text != blank -%}
+                  <p {% if block.settings.custom_subtitle_color != blank %}style="color: {{ block.settings.custom_subtitle_color }}; opacity: 1;"{% endif %}>{{ block.settings.text }}</p>
+                {%- endif -%}
+              </div>
             </div>
-            
-            <div class="inv-hero-split__card-content">
-              <h3 {% if block.settings.custom_title_color != blank %}style="color: {{ block.settings.custom_title_color }};"{% endif %}>{{ block.settings.title }}</h3>
-              <p {% if block.settings.custom_subtitle_color != blank %}style="color: {{ block.settings.custom_subtitle_color }}; opacity: 1;"{% endif %}>{{ block.settings.text }}</p>
-            </div>
-            
-            <svg 
-              class="inv-hero-split__card-arrow" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              stroke-width="2.5" 
-              aria-hidden="true"
-              {% if block.settings.custom_arrow_color != blank %}style="color: {{ block.settings.custom_arrow_color }};"{% endif %}
-            >
-              <polyline points="9 18 15 12 9 6"/>
-            </svg>
+
+            {%- comment -%} CTA Button {%- endcomment -%}
+            <span class="inv-hero-split__card-cta">
+              {{ block.settings.cta_text | default: 'Shop Now' }}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </span>
           </a>
         {%- endif -%}
       {%- endfor -%}
@@ -836,11 +1082,6 @@
           "label": "Icon colour"
         },
         {
-          "type": "color",
-          "id": "custom_arrow_color",
-          "label": "Arrow colour"
-        },
-        {
           "type": "header",
           "content": "Content"
         },
@@ -863,20 +1104,50 @@
         },
         {
           "type": "text",
+          "id": "callout_text",
+          "label": "Callout (big stat)",
+          "info": "The big visual anchor, e.g. 'UP TO 30% OFF' or 'READY IN 1HR'. Leave blank to hide.",
+          "default": "UP TO 30% OFF"
+        },
+        {
+          "type": "text",
           "id": "title",
           "label": "Title",
-          "default": "January Sales"
+          "default": "Latest Deals"
         },
         {
           "type": "text",
           "id": "text",
           "label": "Subtitle",
-          "default": "Up to 30% off selected tools"
+          "info": "Optional short description",
+          "default": "On top trade brands"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "CTA button text",
+          "default": "Shop Now"
         },
         {
           "type": "url",
           "id": "link",
           "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Card visuals"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Background image (optional)",
+          "info": "Photo shows behind the gradient overlay. Recommended 600x400px."
+        },
+        {
+          "type": "text",
+          "id": "ribbon_text",
+          "label": "Corner ribbon text",
+          "info": "Small corner flash, e.g. 'HOT', 'NEW', 'LIVE'. Leave blank to hide."
         }
       ]
     }
@@ -890,8 +1161,11 @@
           "settings": {
             "style": "sale",
             "icon": "tag",
-            "title": "January Sales",
-            "text": "Up to 30% off selected tools"
+            "callout_text": "UP TO 30% OFF",
+            "title": "Latest Deals",
+            "text": "Top trade brands, limited time",
+            "cta_text": "Shop Deals",
+            "ribbon_text": "HOT"
           }
         },
         {
@@ -899,8 +1173,10 @@
           "settings": {
             "style": "info",
             "icon": "store",
+            "callout_text": "READY IN 1HR",
             "title": "Click & Collect",
-            "text": "Ready in 1 hour at our branches"
+            "text": "2 Kent locations",
+            "cta_text": "Find a Store"
           }
         }
       ]
