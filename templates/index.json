@@ -54,7 +54,7 @@
         "promo_card_fDnDtM"
       ],
       "settings": {
-        "main_image": "shopify://shop_images/PDPHOMEPAGE2.png",
+        "main_image": "shopify://shop_images/PDP_HOMEPAGE_2.png",
         "badge_text": "",
         "heading": "",
         "subheading": "",
@@ -63,7 +63,7 @@
         "button_font_size": 14,
         "button_padding_vertical": 14,
         "button_padding_horizontal": 28,
-        "button_position_y": 60,
+        "button_position_y": 50,
         "button_position_x": 3,
         "button_bg_color": "",
         "button_text_color": "#ffffff",
