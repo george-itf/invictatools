@@ -12,89 +12,28 @@
     "main": {
       "type": "invicta-category-grid",
       "blocks": {
-        "category_ymyg9Y": {
+        "category_wmrefB": {
           "type": "category",
           "settings": {
-            "collection": "abc-paints",
+            "collection": "silicone",
             "title": "",
-            "link": ""
+            "link": "",
+            "image": "shopify://shop_images/trade-evo-stik-uk-grabs-sticks-like-in-situ-3_jpg.png"
           }
         },
-        "category_nxMgak": {
+        "category_TVkgEq": {
           "type": "category",
           "settings": {
-            "collection": "abc-wood-finishes",
+            "collection": "glue",
             "title": "",
-            "link": ""
-          }
-        },
-        "category_qfyQxt": {
-          "type": "category",
-          "settings": {
-            "collection": "abc-sealants",
-            "title": "",
-            "link": ""
-          }
-        },
-        "category_xXNjfj": {
-          "type": "category",
-          "settings": {
-            "collection": "abc-fillers",
-            "title": "",
-            "link": ""
-          }
-        },
-        "category_MbL9m8": {
-          "type": "category",
-          "settings": {
-            "collection": "tapes",
-            "title": "",
-            "link": ""
-          }
-        },
-        "category_mwfCih": {
-          "type": "category",
-          "settings": {
-            "collection": "abc-wood-treatment",
-            "title": "",
-            "link": ""
-          }
-        },
-        "category_7hBLmL": {
-          "type": "category",
-          "settings": {
-            "collection": "abc-cleaners-chemicals",
-            "title": "",
-            "link": ""
-          }
-        },
-        "category_phynLC": {
-          "type": "category",
-          "settings": {
-            "collection": "abc-decorating-sundries",
-            "title": "",
-            "link": ""
-          }
-        },
-        "category_BGMLFc": {
-          "type": "category",
-          "settings": {
-            "collection": "abc-floor-tile",
-            "title": "",
-            "link": ""
+            "link": "",
+            "image": "shopify://shop_images/54593_A2.avif"
           }
         }
       },
       "block_order": [
-        "category_ymyg9Y",
-        "category_nxMgak",
-        "category_qfyQxt",
-        "category_xXNjfj",
-        "category_MbL9m8",
-        "category_mwfCih",
-        "category_7hBLmL",
-        "category_phynLC",
-        "category_BGMLFc"
+        "category_wmrefB",
+        "category_TVkgEq"
       ],
       "settings": {
         "heading": "Glues & Adhesives",
