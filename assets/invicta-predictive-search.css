@@ -1,4 +1,4 @@
-/* Invicta Predictive Search v7.4 — Extracted from inline */
+/* Invicta Predictive Search v7.5 — Focus & z-index fixes */
 
 .inv-search-wrapper {
   width: 100%;
@@ -28,14 +28,15 @@
   height: 54px;
   overflow: hidden;
   box-shadow: none;
-  transition: border-color 150ms ease;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
 .inv-search-input-wrap:focus-within {
   border-color: #e11d26;
+  box-shadow: 0 0 0 3px rgba(225, 29, 38, 0.15);
 }
 
-/* INPUT */
+/* INPUT — outline is on the WRAPPER via focus-within, not the input */
 .inv-search-input {
   flex: 1;
   height: 100%;
@@ -45,21 +46,33 @@
   font-size: 1.9rem;
   font-weight: 500;
   color: #111827;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
-.inv-search-input:focus {
-  outline: 2px solid var(--inv-accent, #e11d26);
-  outline-offset: 2px;
-}
-
+/* Remove ALL focus outlines/shadows from the input itself.
+   The parent wrapper handles focus indication via :focus-within. */
+.inv-search-input:focus,
+.inv-search-input:focus-visible,
 .inv-search-input:focus:not(:focus-visible) {
   outline: none;
+  box-shadow: none;
 }
 
 .inv-search-input::placeholder {
   color: #9ca3af;
   font-weight: 400;
   font-size: 1.4rem;
+}
+
+/* Kill WebKit search decoration that can cause visual artefacts */
+.inv-search-input::-webkit-search-decoration,
+.inv-search-input::-webkit-search-cancel-button,
+.inv-search-input::-webkit-search-results-button,
+.inv-search-input::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  display: none;
 }
 
 /* CLEAR BUTTON */
@@ -96,7 +109,7 @@
   color: #6b7280;
 }
 
-/* SUBMIT BUTTON */
+/* SUBMIT BUTTON — stays flush inside the wrapper at all times */
 .inv-search-submit {
   position: absolute;
   right: 0;
@@ -112,10 +125,20 @@
   justify-content: center;
   cursor: pointer;
   transition: background 150ms ease;
+  /* Prevent any outline/shadow leaking */
+  outline: none;
+  -webkit-appearance: none;
+  z-index: 1;
 }
 
 .inv-search-submit:hover {
   background: #000000;
+}
+
+.inv-search-submit:focus-visible {
+  background: #000000;
+  outline: 2px solid #fff;
+  outline-offset: -2px;
 }
 
 .inv-search-submit svg {
@@ -125,13 +148,13 @@
   stroke: #ffffff;
 }
 
-/* RESULTS DROPDOWN */
+/* RESULTS DROPDOWN — z-index must beat mega-menu and header elements */
 .inv-search-results {
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
   right: 0;
-  z-index: 1002;
+  z-index: 10000000;
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
@@ -276,6 +299,10 @@
     border: none;
     background: #ffffff;
     box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  }
+
+  .inv-search-input-wrap:focus-within {
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12), 0 0 0 3px rgba(225, 29, 38, 0.15);
   }
 
   .inv-search-input {
