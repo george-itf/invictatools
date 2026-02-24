@@ -224,7 +224,7 @@
             {{ 'invicta.search.all_products' | t }}
           {%- endif -%}
           {%- if search.results_count > 0 -%}
-            <span class="inv-search__result-count">({{ search.results_count }} {{ search.results_count | pluralize: 'product', 'products' }})</span>
+            <span class="inv-search__result-count">({{ search.results_count }} {% if search.results_count == 1 %}product{% else %}products{% endif %})</span>
           {%- endif -%}
         {%- else -%}
           {{ 'invicta.search.heading' | t }}
@@ -495,11 +495,11 @@
                   <strong>0</strong> {{ 'invicta.search.products' | t }}
                 {%- elsif paginate.pages > 1 -%}
                   <strong>{{ search.results_count }}</strong>
-                  {{ search.results_count | pluralize: 'product', 'products' }}
+                  {% if search.results_count == 1 %}product{% else %}products{% endif %}
                   <span class="inv-grid__count-range">({{ 'invicta.search.showing_range' | t: start: paginate.current_offset | plus: 1, end: paginate.current_offset | plus: paginate.items.size }})</span>
                 {%- else -%}
                   <strong>{{ search.results_count }}</strong>
-                  {{ search.results_count | pluralize: 'product', 'products' }}
+                  {% if search.results_count == 1 %}product{% else %}products{% endif %}
                 {%- endif -%}
               </p>
             </div>
