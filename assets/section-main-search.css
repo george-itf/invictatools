@@ -1,8 +1,8 @@
 /* ============================================
-   INVICTA SEARCH PAGE v1.3 — STYLES
+   INVICTA SEARCH PAGE v1.4 — STYLES
    ============================================
    Trade 15.4.0 Compatible
-   Fixed grid uniformity + search input shadows
+   Fixed grid uniformity + search input focus/shadow issues
    ============================================ */
 
 .inv-search {
@@ -59,7 +59,6 @@
 }
 
 .inv-search__form,
-.inv-search__field,
 .inv-search__input,
 .inv-search__input-wrapper predictive-search,
 .inv-search__input-wrapper .predictive-search,
@@ -87,9 +86,19 @@
   position: relative;
   display: flex;
   align-items: center;
+  border: 2px solid #e5e5e5;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-/* Restore only the border we actually want */
+.inv-search__field:focus-within {
+  border-color: var(--inv-btn-primary-bg);
+  box-shadow: 0 0 0 3px rgba(45, 45, 45, 0.1) !important;
+}
+
+/* Input — no border/outline on the input itself; wrapper handles focus */
 .inv-search__input.inv-search__input {
   width: 100%;
   height: 56px;
@@ -97,17 +106,20 @@
   font-size: 1rem;
   font-weight: 500;
   color: var(--inv-title-color);
-  background: #fff;
-  border: 2px solid #e5e5e5;
-  border-radius: 12px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
   box-shadow: none;
-  transition: border-color 0.15s ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
-.inv-search__input.inv-search__input:focus {
+.inv-search__input.inv-search__input:focus,
+.inv-search__input.inv-search__input:focus-visible {
   outline: none;
-  border-color: var(--inv-btn-primary-bg);
-  box-shadow: none;
+  border: none;
+  box-shadow: none !important;
 }
 
 .inv-search__input::placeholder {
@@ -115,7 +127,16 @@
   font-weight: 400;
 }
 
-/* Search submit button */
+/* Kill WebKit search decoration */
+.inv-search__input::-webkit-search-decoration,
+.inv-search__input::-webkit-search-cancel-button,
+.inv-search__input::-webkit-search-results-button,
+.inv-search__input::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  display: none;
+}
+
+/* Search submit button — flush inside field wrapper */
 .inv-search__submit.inv-search__submit {
   position: absolute;
   right: 4px;
@@ -134,10 +155,17 @@
   color: var(--inv-btn-primary-text);
   cursor: pointer;
   transition: opacity 0.15s ease;
+  outline: none;
+  z-index: 1;
 }
 
 .inv-search__submit:hover {
   opacity: 0.9;
+}
+
+.inv-search__submit:focus-visible {
+  outline: 2px solid var(--inv-btn-primary-bg);
+  outline-offset: 2px;
 }
 
 .inv-search__clear {
@@ -156,6 +184,7 @@
   border-radius: 50%;
   cursor: pointer;
   transition: background 0.15s ease;
+  z-index: 1;
 }
 
 .inv-search__clear:hover {
@@ -853,6 +882,11 @@
   .inv-search__input.inv-search__input {
     height: 50px;
     font-size: 0.9375rem;
+    border: none;
+  }
+
+  .inv-search__field {
+    border-width: 2px;
   }
 
   .inv-filters__row {
