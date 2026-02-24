@@ -186,7 +186,6 @@
   --inv-z-sticky: 500;
   --inv-z-header: 999;
   --inv-z-overlay: 1000;
-  --inv-z-mega-menu: 1500;
   --inv-z-drawer: 2000;
   --inv-z-search-dropdown: 9999;
   --inv-z-modal: 10000;
@@ -197,7 +196,6 @@
   --z-dropdown: var(--inv-z-dropdown);
   --z-sticky: var(--inv-z-sticky);
   --z-header: var(--inv-z-header);
-  --z-mega-menu: var(--inv-z-mega-menu);
   --z-search-dropdown: var(--inv-z-search-dropdown);
   --z-search-active: var(--inv-z-search-active);
   --z-modal: var(--inv-z-modal);

@@ -183,30 +183,6 @@ html.js .page-width:not(.inv-product .page-width) {
 }
 
 
-/* ============================================================================
-   3. HIDE MEGA MENU ON MOBILE (Desktop Only)
-   ============================================================================ */
-
-/* Hide ALL mega menu elements */
-html.js .mega-menu-bar,
-html.js [class*="mega-menu-bar"],
-html.js [class*="mega-dropdown"],
-html.js [class*="mega-item"],
-html.js nav[class*="mega"],
-html.js .section-mega-menu,
-html.js .shopify-section-mega-menu,
-html.js #shopify-section-mega-menu,
-html.js [id*="mega-menu"],
-html.js [id*="mega_menu"],
-html.js div[id^="shopify-section-sections"][id*="mega"] {
-  display: none;
-  visibility: hidden;
-  height: 0;
-  overflow: hidden;
-  pointer-events: none;
-  position: absolute;
-  left: -9999px;
-}
 
 /* Also hide Trade's default header drawer/hamburger */
 html.js .header__icon--menu,

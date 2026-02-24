@@ -1971,14 +1971,6 @@ a:not([href]) {
   z-index: var(--z-search-active, 99999);
 }
 
-/* Ensure mega menu is below search */
-.mega-menu,
-.mega-menu__content,
-.header__menu-item--has-submenu .mega-menu {
-  z-index: var(--z-mega-menu, 1500);
-}
-
-
 /* ============================================================
    20. HEADER SUPPORT
    ============================================================ */
@@ -2028,9 +2020,7 @@ a:not([href]) {
   margin: 0;
 }
 
-.header__inline-menu,
-.mega-menu-wrapper,
-[class*="mega-menu"] {
+.header__inline-menu {
   margin: 0;
 }
 
