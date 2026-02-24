@@ -3,11 +3,16 @@
    INVICTA HEADER v6.0 — RED BACKGROUND
    ======================================================= */
 
-/* Section wrapper — match header bg, prevent white gap */
+/* Section wrapper — match header bg, prevent white gap.
+   position:relative + z-index ensures the header stacking context
+   sits above sibling sections (e.g. simple-nav) so the search
+   dropdown can overflow without being hidden behind the nav bar. */
 .section-header-invicta {
   background: var(--inv-accent);
   margin: 0;
   padding: 0;
+  position: relative;
+  z-index: 100;
 }
 
 .invicta-header {
