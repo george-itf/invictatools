@@ -1,13 +1,14 @@
 /* ============================================
-   INVICTA SEARCH PAGE v1.4 — STYLES
+   INVICTA SEARCH PAGE v1.5 — STYLES
    ============================================
    Trade 15.4.0 Compatible
    Fixed grid uniformity + search input focus/shadow issues
+   Improved spacing and readability
    ============================================ */
 
 .inv-search {
   background: var(--inv-section-bg);
-  min-height: 60vh;
+  min-height: auto;
 }
 
 .inv-search__container {
@@ -21,23 +22,24 @@
    ---------------------------------------- */
 
 .inv-search__header {
-  padding: 32px 0 24px;
+  padding: 20px 0 16px;
   background: #fff;
   border-bottom: 1px solid #e5e5e5;
 }
 
 .inv-search__title {
-  margin: 0 0 20px;
-  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin: 0 0 14px;
+  font-size: clamp(1.25rem, 3vw, 1.625rem);
   font-weight: 700;
   color: var(--inv-title-color);
   text-align: center;
+  line-height: 1.3;
 }
 
 .inv-search__result-count {
-  font-size: 0.6em;
-  font-weight: 400;
-  color: #666;
+  font-size: 0.65em;
+  font-weight: 500;
+  color: #555;
   white-space: nowrap;
 }
 
@@ -520,9 +522,9 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 12px 24px;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
+  gap: 10px 20px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--inv-card-border);
 }
 
@@ -535,18 +537,19 @@
 
 .inv-grid__count {
   margin: 0;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   line-height: 1.5;
   color: var(--inv-title-color);
 }
 
 .inv-grid__count strong {
   font-weight: 700;
+  color: #111;
 }
 
 .inv-grid__count-range {
-  color: #666;
-  font-size: 0.8125rem;
+  color: #555;
+  font-size: 0.875rem;
 }
 
 /* Sort dropdown */
@@ -634,7 +637,7 @@
   grid-column: 1 / -1;
   display: flex;
   justify-content: center;
-  padding: 60px 20px;
+  padding: 40px 20px;
 }
 
 .inv-grid__empty-inner {
@@ -690,7 +693,7 @@
    ---------------------------------------- */
 
 .inv-grid__pagination {
-  margin-top: 48px;
+  margin-top: 32px;
   display: flex;
   justify-content: center;
 }
@@ -789,7 +792,7 @@
    ---------------------------------------- */
 
 .inv-search__placeholder {
-  padding: 80px 0;
+  padding: 48px 0;
 }
 
 .inv-search__placeholder-inner {
@@ -876,7 +879,7 @@
 
 @media screen and (max-width: 749px) {
   .inv-search__header {
-    padding: 24px 0 20px;
+    padding: 16px 0 14px;
   }
 
   .inv-search__input.inv-search__input {
