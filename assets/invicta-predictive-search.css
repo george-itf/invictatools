@@ -1,4 +1,4 @@
-/* Invicta Predictive Search v7.5 — Focus & z-index fixes */
+/* Invicta Predictive Search v7.6 — Portal + fixed positioning */
 
 .inv-search-wrapper {
   width: 100%;
@@ -157,12 +157,10 @@
   stroke: #ffffff;
 }
 
-/* RESULTS DROPDOWN — z-index must beat mega-menu and header elements */
+/* RESULTS DROPDOWN — portalled to #ps-root (body-level) so it escapes
+   all nested header stacking contexts. Positioned with JS via fixed. */
 .inv-search-results {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  right: 0;
+  position: fixed;
   z-index: 10000000;
   background: #ffffff;
   border: 1px solid #e5e7eb;

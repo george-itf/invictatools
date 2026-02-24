@@ -1,7 +1,11 @@
 /**
- * Invicta Predictive Search v7.5
+ * Invicta Predictive Search v7.6
  * Extracted from inline — no Liquid dependencies
  * Security: replaced innerHTML with programmatic DOM construction
+ *
+ * v7.6: Portal the results dropdown to #ps-root (body-level) so it
+ *       escapes all nested header stacking contexts and always appears
+ *       above the navigation bar.
  */
 (function() {
   'use strict';
@@ -16,6 +20,43 @@
   let debounceTimer = null;
   let currentQuery = '';
   let abortController = null;
+
+  /* ── Portal: move results to body-level so z-index beats the nav ── */
+  var portal = document.getElementById('ps-root') || document.body;
+  if (results) {
+    portal.appendChild(results);
+  }
+
+  /**
+   * Position the portal-ed dropdown directly below the search wrapper
+   * using viewport coordinates (position: fixed).
+   */
+  function positionResults() {
+    if (!results || results.style.display === 'none') return;
+    var rect = wrapper.getBoundingClientRect();
+    results.style.top = (rect.bottom + 8) + 'px';
+    results.style.left = rect.left + 'px';
+    results.style.width = rect.width + 'px';
+  }
+
+  /* Reposition on scroll / resize while visible */
+  window.addEventListener('scroll', positionResults, { passive: true });
+  window.addEventListener('resize', positionResults, { passive: true });
+
+  /**
+   * Show the dropdown and align it to the search bar.
+   */
+  function showResults() {
+    results.style.display = 'block';
+    positionResults();
+  }
+
+  /**
+   * Hide the dropdown.
+   */
+  function hideResults() {
+    results.style.display = 'none';
+  }
 
   /**
    * Remove all child nodes from an element (safe alternative to innerHTML = '')
@@ -32,7 +73,7 @@
       input.value = '';
       input.focus();
       clearElement(results);
-      results.style.display = 'none';
+      hideResults();
     });
   }
 
@@ -45,7 +86,7 @@
 
       if (query.length < 2) {
         clearElement(results);
-        results.style.display = 'none';
+        hideResults();
         return;
       }
 
@@ -57,7 +98,7 @@
       spinner.className = 'inv-search-results__spinner';
       loadingDiv.appendChild(spinner);
       results.appendChild(loadingDiv);
-      results.style.display = 'block';
+      showResults();
 
       debounceTimer = setTimeout(function() {
         if (query !== currentQuery) {
@@ -67,17 +108,19 @@
       }, 300);
     });
 
+    /* Hide on blur — but not if focus moved to a result link */
     input.addEventListener('blur', function() {
       setTimeout(function() {
-        if (!wrapper.contains(document.activeElement)) {
-          results.style.display = 'none';
+        if (!wrapper.contains(document.activeElement) &&
+            !results.contains(document.activeElement)) {
+          hideResults();
         }
       }, 200);
     });
 
     input.addEventListener('focus', function() {
       if (results.hasChildNodes() && this.value.length >= 2) {
-        results.style.display = 'block';
+        showResults();
       }
     });
   }
@@ -211,7 +254,7 @@
     viewAllLink.textContent = 'View all results \u2192';
     results.appendChild(viewAllLink);
 
-    results.style.display = 'block';
+    showResults();
   }
 
   function formatMoney(price) {
