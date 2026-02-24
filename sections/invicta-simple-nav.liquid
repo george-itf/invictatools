@@ -20,11 +20,14 @@
    INVICTA SIMPLE NAV — Desktop/Tablet Only
    ======================================================= */
 
-/* Section wrapper — prevent white gap */
+/* Section wrapper — explicit stacking context below header so the
+   search dropdown can overflow on top of the nav bar. */
 .section-invicta-simple-nav {
   margin: 0 !important;
   padding: 0 !important;
   background: {{ ss.bar_bg_color }};
+  position: relative;
+  z-index: 1;
 }
 
 /* Hide completely on mobile */
@@ -39,8 +42,6 @@
   background: {{ ss.bar_bg_color }};
   border-top: {{ ss.border_top_width }}px solid {{ ss.border_color }};
   border-bottom: {{ ss.border_bottom_width }}px solid {{ ss.border_color }};
-  position: relative;
-  z-index: 50;
 }
 
 .inv-simple-nav__list {
