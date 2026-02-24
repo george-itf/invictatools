@@ -4,15 +4,15 @@
    ======================================================= */
 
 /* Section wrapper — match header bg, prevent white gap.
-   position:relative + z-index ensures the header stacking context
-   sits above sibling sections (e.g. simple-nav) so the search
-   dropdown can overflow without being hidden behind the nav bar. */
+   position:relative + high z-index ensures the header stacking
+   context sits above sibling sections (simple-nav, etc.) so the
+   predictive-search dropdown can overflow without being hidden. */
 .section-header-invicta {
   background: var(--inv-accent);
   margin: 0;
   padding: 0;
   position: relative;
-  z-index: 100;
+  z-index: 1000;
 }
 
 .invicta-header {
