@@ -553,42 +553,6 @@ html.js body .predictive-search__view-all:hover {
 
 
 /* ============================================================================
-   7. MEGA MENU — RED UNDERLINE ON CATEGORY TITLES
-   ============================================================================ */
-
-/* Category headings inside mega menu dropdown */
-html.js body .mega-menu__content h3,
-html.js body .mega-menu__content h4,
-html.js body .mega-dropdown-menu h3,
-html.js body .mega-dropdown-menu h4,
-html.js body [class*="mega-menu"] h3,
-html.js body [class*="mega-menu"] h4,
-html.js body .mega-menu-column__title {
-  position: relative;
-  padding-bottom: 10px;
-  margin-bottom: 12px;
-  font-weight: 700;
-}
-
-html.js body .mega-menu__content h3::after,
-html.js body .mega-menu__content h4::after,
-html.js body .mega-dropdown-menu h3::after,
-html.js body .mega-dropdown-menu h4::after,
-html.js body [class*="mega-menu"] h3::after,
-html.js body [class*="mega-menu"] h4::after,
-html.js body .mega-menu-column__title::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 40px;
-  height: 3px;
-  background: var(--inv-accent);
-  border-radius: 2px ;
-}
-
-
-/* ============================================================================
    8. SECTION HEADERS — RED UNDERLINE
    ============================================================================ */
 
@@ -628,22 +592,15 @@ html.js body .center .title::after {
 }
 
 /* ============================================================================
-   9. MEGA MENU — RED BORDERS (not grey)
+   9. HEADER — RED BORDER
    ============================================================================ */
 
-
-/* Red border at bottom of header (above mega menu) */
+/* Red border at bottom of header */
 html.js body .invicta-header,
 html.js body header.invicta-header,
 html.js body .section-header-invicta,
 html.js body [id*="header_invicta"],
 html.js body #shopify-section-sections--26025140879733__header_invicta_eLmeMd {
-  border-bottom: 3px solid var(--inv-accent);
-}
-
-/* Red border under the red menu bar */
-html.js body .mega-menu-bar-sections--26025140879733__mega_menu_rPVa6N,
-html.js body [class*="mega-menu-bar-sections"] {
   border-bottom: 3px solid var(--inv-accent);
 }
 

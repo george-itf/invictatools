@@ -134,12 +134,9 @@ select,
   border-radius: var(--inv-radius-md) !important;
 }
 
-/* Mega menu & navigation dropdowns */
-.mega-menu,
-.mega-menu__content,
+/* Navigation dropdowns */
 .header__menu-item,
 .nav-dropdown,
-[class*="mega-menu"],
 [class*="nav-dropdown"] {
   border-radius: var(--inv-radius-md) !important;
 }
