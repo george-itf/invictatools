@@ -26,7 +26,7 @@
           "settings": {
             "collection": "recip-blades",
             "title": "",
-            "link": "shopify://pages/sds-bits"
+            "link": ""
           }
         },
         "category_GNaNri": {
@@ -34,43 +34,31 @@
           "settings": {
             "collection": "jigsaw-blades",
             "title": "",
-            "link": "shopify://pages/drill-bits"
+            "link": ""
           }
         },
         "category_BMABJD": {
           "type": "category",
           "settings": {
-            "collection": "",
-            "title": "Hole Cutters",
-            "link": "shopify://pages/hole-cutters",
-            "image": "shopify://shop_images/91TBopOYGNL._AC_UF350_350_QL80.jpg"
+            "collection": "bandsaw-blades",
+            "title": "",
+            "link": ""
           }
         },
         "category_T7P4bU": {
           "type": "category",
           "settings": {
-            "collection": "",
-            "title": "Angle Grinder Blades/Cutting Discs",
-            "link": "shopify://pages/angle-grinder-blades-cutting-discs",
-            "image": "shopify://shop_images/30229-7.jpg"
+            "collection": "multi-tool-blades",
+            "title": "",
+            "link": "shopify://pages/angle-grinder-blades-cutting-discs"
           }
         },
-        "category_zXNR9k": {
+        "category_a7gknH": {
           "type": "category",
           "settings": {
-            "collection": "",
-            "title": "Gun Nails & Accessories",
-            "link": "shopify://pages/gun-nails-accessories",
-            "image": "shopify://shop_images/57.jpg"
-          }
-        },
-        "category_gERc3h": {
-          "type": "category",
-          "settings": {
-            "collection": "",
-            "title": "Screwdriver Bits",
-            "link": "shopify://pages/screwdriver-bits",
-            "image": "shopify://shop_images/7045F_A1.avif"
+            "collection": "planer-blades",
+            "title": "",
+            "link": ""
           }
         }
       },
@@ -80,8 +68,7 @@
         "category_GNaNri",
         "category_BMABJD",
         "category_T7P4bU",
-        "category_zXNR9k",
-        "category_gERc3h"
+        "category_a7gknH"
       ],
       "settings": {
         "heading": "Power Tool Accessories",
