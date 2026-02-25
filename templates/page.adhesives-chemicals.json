@@ -21,6 +21,14 @@
             "image": "shopify://shop_images/trade-evo-stik-uk-grabs-sticks-like-in-situ-3_jpg.png"
           }
         },
+        "category_BQfBRf": {
+          "type": "category",
+          "settings": {
+            "collection": "foams",
+            "title": "",
+            "link": ""
+          }
+        },
         "category_TVkgEq": {
           "type": "category",
           "settings": {
@@ -33,6 +41,7 @@
       },
       "block_order": [
         "category_wmrefB",
+        "category_BQfBRf",
         "category_TVkgEq"
       ],
       "settings": {
