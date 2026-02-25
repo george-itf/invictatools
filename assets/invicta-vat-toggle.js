@@ -13,8 +13,11 @@
  *     <span data-price-ex  class="inv-vat inv-vat--ex">£29.99 ex VAT</span>
  *   </div>
  *
- *   <!-- Toggle button -->
- *   <button data-vat-toggle aria-pressed="true|false">Inc VAT / Ex VAT</button>
+ *   <!-- Toggle buttons (inside a data-vat-toggle container) -->
+ *   <div data-vat-toggle>
+ *     <button data-vat-btn="ex" aria-pressed="false">Ex VAT</button>
+ *     <button data-vat-btn="inc" aria-pressed="true">Inc VAT</button>
+ *   </div>
  *
  * HIDDEN STATE:
  *   .inv-vat--hidden { display: none; }
@@ -79,15 +82,19 @@
    * @param {string} mode - 'inc' or 'ex'
    */
   function updateToggleButtons(mode) {
-    document.querySelectorAll('[data-vat-toggle]').forEach(function(btn) {
-      var btnMode = btn.getAttribute('data-vat-toggle');
+    document.querySelectorAll('[data-vat-btn]').forEach(function(btn) {
+      var btnMode = btn.getAttribute('data-vat-btn');
 
-      // If the button has a mode value (e.g. data-vat-toggle="inc"),
-      // update aria-pressed and active class accordingly
       if (btnMode === 'inc' || btnMode === 'ex') {
         var isActive = btnMode === mode;
         btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-        btn.classList.toggle('inv-vat-toggle--active', isActive);
+
+        // Toggle the correct BEM active class for each button type
+        if (btn.classList.contains('invicta-header__vat-btn')) {
+          btn.classList.toggle('invicta-header__vat-btn--active', isActive);
+        } else if (btn.classList.contains('invicta-drawer__vat-pill')) {
+          btn.classList.toggle('invicta-drawer__vat-pill--active', isActive);
+        }
       }
     });
   }
@@ -141,10 +148,10 @@
    * @param {Event} e - Click event
    */
   function handleToggleClick(e) {
-    var btn = e.target.closest('[data-vat-toggle]');
+    var btn = e.target.closest('[data-vat-btn]');
     if (!btn) return;
 
-    var btnMode = btn.getAttribute('data-vat-toggle');
+    var btnMode = btn.getAttribute('data-vat-btn');
 
     if (btnMode === 'inc' || btnMode === 'ex') {
       // Button with explicit mode (e.g. header "Inc" / "Ex" buttons)
