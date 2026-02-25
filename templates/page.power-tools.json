@@ -100,6 +100,14 @@
             "link": "shopify://collections/tool-storage"
           }
         },
+        "category_AnG9gK": {
+          "type": "category",
+          "settings": {
+            "collection": "laser-levels",
+            "title": "",
+            "link": ""
+          }
+        },
         "category_aHx4EV": {
           "type": "category",
           "settings": {
@@ -121,13 +129,14 @@
         "category_GF7qx4",
         "category_4pjRRe",
         "category_jWb6Qh",
+        "category_AnG9gK",
         "category_aHx4EV"
       ],
       "settings": {
         "heading": "Power Tools",
         "description": "Professional power tools for trade and DIY.",
         "header_align": "center",
-        "columns_desktop": 4,
+        "columns_desktop": 5,
         "columns_tablet": 3,
         "columns_mobile": 2,
         "grid_gap": 20,
