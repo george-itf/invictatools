@@ -59,7 +59,7 @@
         "heading": "",
         "subheading": "",
         "button_text": "SHOP PREMIER DIAMOND",
-        "button_link": "/collections/power-tools",
+        "button_link": "shopify://products/p6-twc-125mm",
         "button_font_size": 14,
         "button_padding_vertical": 14,
         "button_padding_horizontal": 28,
