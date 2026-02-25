@@ -18,8 +18,10 @@
     return true;
   }
 
-  if (!boot()) {
+  if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
   }
 
   function initSection(section) {
@@ -668,39 +670,6 @@
     variantSelects.forEach(function(select) {
       select.addEventListener('change', updateVariant);
     });
-
-    /* ========================================
-       VAT TOGGLE INTEGRATION
-       ======================================== */
-
-    function updateVatDisplay(mode) {
-      if (!priceWrapper) return;
-
-      const incViews = priceWrapper.querySelectorAll('[data-vat-view="inc"]');
-      const exViews = priceWrapper.querySelectorAll('[data-vat-view="ex"]');
-
-      incViews.forEach(function(el) {
-        if (mode === 'ex') {
-          el.classList.add('inv-pdp__price-view--hidden');
-        } else {
-          el.classList.remove('inv-pdp__price-view--hidden');
-        }
-      });
-      exViews.forEach(function(el) {
-        if (mode === 'ex') {
-          el.classList.remove('inv-pdp__price-view--hidden');
-        } else {
-          el.classList.add('inv-pdp__price-view--hidden');
-        }
-      });
-    }
-
-    document.addEventListener('invicta:vat-toggle', function(e) {
-      const mode = e.detail && e.detail.mode ? e.detail.mode : 'inc';
-      updateVatDisplay(mode);
-    });
-
-    updateVatDisplay(getVatMode());
 
     /* ========================================
        ADD TO CART — Section Rendering API

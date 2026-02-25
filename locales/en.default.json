@@ -602,6 +602,7 @@
     "product": {
       "stock_in_stock": "In Stock",
       "stock_sold_out": "Sold Out",
+      "supplier_delivery": "3–5 Day Delivery",
       "stock_low": "Only {{ quantity }} Left",
       "add_to_cart": "Add to Cart",
       "notify_me": "Notify Me",
