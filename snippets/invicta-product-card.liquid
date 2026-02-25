@@ -86,7 +86,7 @@
     assign stock_label = 'invicta.product.stock_sold_out' | t
   elsif is_supplier_stock
     assign stock_status = 'supplier'
-    assign stock_label = '3–5 Day Delivery'
+    assign stock_label = 'invicta.product.supplier_delivery' | t
   elsif inventory_qty > 0 and inventory_qty <= 5
     assign stock_status = 'low'
     assign stock_label = 'invicta.product.stock_low' | t: quantity: inventory_qty
@@ -174,7 +174,7 @@
     <div class="inv-card__pricing">
       
       {%- comment -%} Inc VAT view (default) {%- endcomment -%}
-      <div class="inv-card__price-block" data-price-inc-container>
+      <div class="inv-card__price-block" data-price-inc>
         <div class="inv-card__price-row">
           <span class="inv-card__price{% if on_sale %} inv-card__price--sale{% endif %}">
             {{ price | money }}
@@ -187,7 +187,7 @@
       </div>
       
       {%- comment -%} Ex VAT view (JS controls visibility) {%- endcomment -%}
-      <div class="inv-card__price-block" data-price-ex-container style="display: none;">
+      <div class="inv-card__price-block inv-vat--hidden" data-price-ex>
         <div class="inv-card__price-row">
           <span class="inv-card__price{% if on_sale %} inv-card__price--sale{% endif %}">
             {{ price_ex_vat | money }}

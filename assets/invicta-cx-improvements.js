@@ -111,18 +111,13 @@
   }
 
   function updateSearchFocus(items) {
-    items.forEach(function(item, i) {
-      item.classList.toggle('inv-search-results__item--focused', i === arguments[1]);
-    }.bind(null, items));
-
-    // Use closure properly
     for (var i = 0; i < items.length; i++) {
-      if (i === arguments[0]) {
-        items[i].classList.add('inv-search-results__item--focused');
+      var isFocused = i === focusIndex;
+      items[i].classList.toggle('inv-search-results__item--focused', isFocused);
+      if (isFocused) {
         items[i].setAttribute('aria-selected', 'true');
         items[i].scrollIntoView({ block: 'nearest' });
       } else {
-        items[i].classList.remove('inv-search-results__item--focused');
         items[i].removeAttribute('aria-selected');
       }
     }

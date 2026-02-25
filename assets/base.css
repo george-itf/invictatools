@@ -1809,6 +1809,9 @@ a:not([href]) {
   overflow: hidden;
 }
 
+/* VAT toggle visibility — used by invicta-vat-toggle.js */
+.inv-vat--hidden { display: none !important; }
+
 /* Responsive Visibility */
 @media screen and (max-width: 749px) {
   .small-hide {
