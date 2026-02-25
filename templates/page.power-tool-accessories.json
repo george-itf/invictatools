@@ -12,89 +12,71 @@
     "main": {
       "type": "invicta-category-grid",
       "blocks": {
-        "category_8qbtdn": {
+        "category_FwcH79": {
           "type": "category",
           "settings": {
-            "collection": "pta-drill-bits",
-            "title": "",
-            "link": ""
+            "collection": "",
+            "title": "Saw Blades",
+            "link": "shopify://pages/circular-saw-blades"
           }
         },
-        "category_prqBRi": {
+        "category_Ndb8Ek": {
           "type": "category",
           "settings": {
-            "collection": "pta-holesaws-core-drills",
-            "title": "",
-            "link": ""
+            "collection": "",
+            "title": "SDS Bits",
+            "link": "shopify://pages/sds-bits"
           }
         },
-        "category_TWcmff": {
+        "category_GNaNri": {
           "type": "category",
           "settings": {
-            "collection": "pta-saw-blades",
-            "title": "",
-            "link": ""
+            "collection": "",
+            "title": "Drill Bits",
+            "link": "shopify://pages/drill-bits"
           }
         },
-        "category_tytbNj": {
+        "category_BMABJD": {
           "type": "category",
           "settings": {
-            "collection": "pta-diamond-blades",
-            "title": "",
-            "link": ""
+            "collection": "",
+            "title": "Hole Cutters",
+            "link": "shopify://pages/hole-cutters"
           }
         },
-        "category_KMV4xT": {
+        "category_T7P4bU": {
           "type": "category",
           "settings": {
-            "collection": "pta-screwdriver-bits",
-            "title": "",
-            "link": ""
+            "collection": "",
+            "title": "Angle Grinder Blades/Cutting Discs",
+            "link": "shopify://pages/angle-grinder-blades-cutting-discs"
           }
         },
-        "category_FRhVXM": {
+        "category_zXNR9k": {
           "type": "category",
           "settings": {
-            "collection": "pta-router-bits",
-            "title": "",
-            "link": ""
+            "collection": "",
+            "title": "Gun Nails & Accessories",
+            "link": "shopify://pages/gun-nails-accessories"
           }
         },
-        "category_UmbrBm": {
+        "category_gERc3h": {
           "type": "category",
           "settings": {
-            "collection": "pta-sds-chisels",
-            "title": "",
-            "link": ""
-          }
-        },
-        "category_abtGm9": {
-          "type": "category",
-          "settings": {
-            "collection": "pta-nails-staples",
-            "title": "",
-            "link": ""
-          }
-        },
-        "category_hXKJBh": {
-          "type": "category",
-          "settings": {
-            "collection": "pta-accessories",
-            "title": "",
-            "link": ""
+            "collection": "",
+            "title": "Screwdriver Bits",
+            "link": "shopify://pages/screwdriver-bits"
           }
         }
       },
       "block_order": [
-        "category_8qbtdn",
-        "category_prqBRi",
-        "category_TWcmff",
-        "category_tytbNj",
-        "category_KMV4xT",
-        "category_FRhVXM",
-        "category_UmbrBm",
-        "category_abtGm9",
-        "category_hXKJBh"
+        "category_FwcH79",
+        "category_Ndb8Ek",
+        "category_GNaNri",
+        "category_BMABJD",
+        "category_T7P4bU",
+        "category_zXNR9k",
+        "category_gERc3h"
       ],
       "settings": {
         "heading": "Power Tool Accessories",
