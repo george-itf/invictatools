@@ -89,7 +89,7 @@
         "heading": "Power Tool Accessories",
         "description": "Drill bits, saw blades, diamond blades and consumables for power tools.",
         "header_align": "center",
-        "columns_desktop": 5,
+        "columns_desktop": 4,
         "columns_tablet": 3,
         "columns_mobile": 2,
         "grid_gap": 20,
