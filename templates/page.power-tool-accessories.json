@@ -15,8 +15,8 @@
         "category_FwcH79": {
           "type": "category",
           "settings": {
-            "collection": "",
-            "title": "Saw Blades",
+            "collection": "circular-saw-blades",
+            "title": "Circular Saw Blades",
             "link": "shopify://pages/circular-saw-blades",
             "image": "shopify://shop_images/DW_Elite_Circular_Saw_Blades_a9fa.jpg"
           }
@@ -24,19 +24,17 @@
         "category_Ndb8Ek": {
           "type": "category",
           "settings": {
-            "collection": "",
-            "title": "SDS Bits",
-            "link": "shopify://pages/sds-bits",
-            "image": "shopify://shop_images/s-l1200_7308d9e1-78ec-4b26-9460-dced7aa2bc97.jpg"
+            "collection": "recip-blades",
+            "title": "",
+            "link": "shopify://pages/sds-bits"
           }
         },
         "category_GNaNri": {
           "type": "category",
           "settings": {
-            "collection": "",
-            "title": "Drill Bits",
-            "link": "shopify://pages/drill-bits",
-            "image": "shopify://shop_images/dewdt70784-qz_6.jpg"
+            "collection": "jigsaw-blades",
+            "title": "",
+            "link": "shopify://pages/drill-bits"
           }
         },
         "category_BMABJD": {
