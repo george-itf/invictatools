@@ -538,7 +538,7 @@
   function addMobileShortcuts() {
     if (window.innerWidth > 749) return;
 
-    var drawerNav = document.querySelector('.menu-drawer__navigation-container');
+    var drawerNav = document.querySelector('.invicta-drawer__nav') || document.querySelector('.menu-drawer__navigation-container');
     if (!drawerNav) return;
 
     // Check if shortcuts already exist

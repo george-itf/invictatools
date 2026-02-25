@@ -6,13 +6,17 @@
 /* Section wrapper — match header bg, prevent white gap.
    position:relative + high z-index ensures the header stacking
    context sits above sibling sections (simple-nav, etc.) so the
-   predictive-search dropdown can overflow without being hidden. */
+   predictive-search dropdown can overflow without being hidden.
+   overflow:visible prevents WebKit from clipping the fixed-position
+   mobile drawer (iOS Safari clips fixed children of overflow:hidden
+   ancestors in some scroll states). */
 .section-header-invicta {
   background: var(--inv-accent);
   margin: 0;
   padding: 0;
   position: relative;
   z-index: 1000;
+  overflow: visible;
 }
 
 .invicta-header {
@@ -98,19 +102,20 @@
    MOBILE DRAWER MENU
    ======================================================= */
 .invicta-drawer {
-  position: fixed;
+  position: fixed !important;
   top: 0;
   left: 0;
   width: 100%;
+  height: 100dvh;
   height: 100%;
-  z-index: 10000;
+  z-index: 10000 !important;
   pointer-events: none;
   visibility: hidden;
 }
 
 .invicta-drawer[open] {
-  pointer-events: auto;
-  visibility: visible;
+  pointer-events: auto !important;
+  visibility: visible !important;
 }
 
 .invicta-drawer__backdrop {
