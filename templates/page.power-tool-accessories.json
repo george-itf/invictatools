@@ -53,7 +53,8 @@
           "settings": {
             "collection": "",
             "title": "Angle Grinder Blades/Cutting Discs",
-            "link": "shopify://pages/angle-grinder-blades-cutting-discs"
+            "link": "shopify://pages/angle-grinder-blades-cutting-discs",
+            "image": "shopify://shop_images/30229-7.jpg"
           }
         },
         "category_zXNR9k": {
@@ -61,7 +62,8 @@
           "settings": {
             "collection": "",
             "title": "Gun Nails & Accessories",
-            "link": "shopify://pages/gun-nails-accessories"
+            "link": "shopify://pages/gun-nails-accessories",
+            "image": "shopify://shop_images/57.jpg"
           }
         },
         "category_gERc3h": {
@@ -69,7 +71,8 @@
           "settings": {
             "collection": "",
             "title": "Screwdriver Bits",
-            "link": "shopify://pages/screwdriver-bits"
+            "link": "shopify://pages/screwdriver-bits",
+            "image": "shopify://shop_images/7045F_A1.avif"
           }
         }
       },
