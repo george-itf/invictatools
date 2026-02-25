@@ -177,47 +177,70 @@
 </div>
 
 {%- comment -%}
-  Drawer JS — lightweight, accessible, focus-trapped
+  Drawer JS v6.1 — lightweight, accessible, focus-trapped
+  v6.1: Relocated drawer to <body> to escape parent overflow:hidden clipping
+        on iOS Safari. Uses event delegation for reliable mobile tap handling.
 {%- endcomment -%}
 <script>
 (function() {
-  var drawer = document.getElementById('invicta-mobile-drawer');
-  if (!drawer) return;
-  var panel = drawer.querySelector('.invicta-drawer__panel');
-  var openBtns = document.querySelectorAll('[data-drawer-open]');
-  var closeBtns = drawer.querySelectorAll('[data-drawer-close]');
-  var submenuToggles = drawer.querySelectorAll('.invicta-drawer__submenu-toggle');
-  var previousFocus = null;
+  function initDrawer() {
+    var drawer = document.getElementById('invicta-mobile-drawer');
+    if (!drawer) return;
 
-  function openDrawer() {
-    previousFocus = document.activeElement;
-    drawer.setAttribute('open', '');
-    document.body.style.overflow = 'hidden';
-    openBtns.forEach(function(b) { b.setAttribute('aria-expanded', 'true'); });
-    setTimeout(function() {
-      var firstFocusable = panel.querySelector('button, a, input');
-      if (firstFocusable) firstFocusable.focus();
-    }, 100);
-  }
+    /* Move drawer to <body> so it escapes any parent overflow:hidden / stacking
+       context issues (iOS WebKit clips fixed children of overflow:hidden ancestors) */
+    if (drawer.parentNode !== document.body) {
+      document.body.appendChild(drawer);
+    }
 
-  function closeDrawer() {
-    drawer.removeAttribute('open');
-    document.body.style.overflow = '';
-    openBtns.forEach(function(b) { b.setAttribute('aria-expanded', 'false'); });
-    if (previousFocus) previousFocus.focus();
-  }
+    var panel = drawer.querySelector('.invicta-drawer__panel');
+    var previousFocus = null;
 
-  openBtns.forEach(function(btn) { btn.addEventListener('click', openDrawer); });
-  closeBtns.forEach(function(btn) { btn.addEventListener('click', closeDrawer); });
+    function openDrawer(e) {
+      if (e) e.preventDefault();
+      previousFocus = document.activeElement;
+      drawer.setAttribute('open', '');
+      document.body.style.overflow = 'hidden';
+      document.querySelectorAll('[data-drawer-open]').forEach(function(b) {
+        b.setAttribute('aria-expanded', 'true');
+      });
+      setTimeout(function() {
+        var firstFocusable = panel.querySelector('button, a, input');
+        if (firstFocusable) firstFocusable.focus();
+      }, 100);
+    }
 
-  drawer.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeDrawer();
-  });
+    function closeDrawer() {
+      drawer.removeAttribute('open');
+      document.body.style.overflow = '';
+      document.querySelectorAll('[data-drawer-open]').forEach(function(b) {
+        b.setAttribute('aria-expanded', 'false');
+      });
+      if (previousFocus) previousFocus.focus();
+    }
 
-  submenuToggles.forEach(function(toggle) {
-    toggle.addEventListener('click', function() {
+    /* Event delegation on document — guaranteed to work even if button
+       is re-rendered (e.g. Shopify theme editor) or IIFE runs early */
+    document.addEventListener('click', function(e) {
+      /* Open button */
+      if (e.target.closest('[data-drawer-open]')) {
+        openDrawer(e);
+        return;
+      }
+      /* Close button / backdrop */
+      if (e.target.closest('[data-drawer-close]')) {
+        closeDrawer();
+        return;
+      }
+    });
+
+    /* Submenu accordion toggles */
+    drawer.addEventListener('click', function(e) {
+      var toggle = e.target.closest('.invicta-drawer__submenu-toggle');
+      if (!toggle) return;
       var expanded = toggle.getAttribute('aria-expanded') === 'true';
       var submenu = document.getElementById(toggle.getAttribute('aria-controls'));
+      if (!submenu) return;
       toggle.setAttribute('aria-expanded', String(!expanded));
       if (!expanded) {
         submenu.setAttribute('data-open', '');
@@ -225,7 +248,19 @@
         submenu.removeAttribute('data-open');
       }
     });
-  });
+
+    /* Escape key closes drawer */
+    drawer.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeDrawer();
+    });
+  }
+
+  /* Ensure DOM is ready before running */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDrawer);
+  } else {
+    initDrawer();
+  }
 })();
 </script>
 
