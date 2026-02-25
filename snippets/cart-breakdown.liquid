@@ -16,7 +16,8 @@
 
 {%- liquid
   # Calculate VAT using centralised settings (integer-safe)
-  assign inv_vat_divisor = 100 | plus: settings.inv_vat_rate
+  assign inv_vat_rate = settings.inv_vat_rate | default: 20
+  assign inv_vat_divisor = 100 | plus: inv_vat_rate
   assign inv_vat_rounding = inv_vat_divisor | divided_by: 2
   assign subtotal_inc_vat = cart.total_price
   assign subtotal_ex_vat = subtotal_inc_vat | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor

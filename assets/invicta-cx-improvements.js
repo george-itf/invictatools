@@ -254,44 +254,6 @@
   }
 
   /* ========================================
-     AREA 4: PRODUCT PAGE — Delivery Urgency
-     Add urgency class when countdown is active
-     ======================================== */
-
-  function enhanceDeliveryEstimate() {
-    var estimates = document.querySelectorAll('[data-inv-delivery-estimate]');
-    estimates.forEach(function(el) {
-      var countdown = el.querySelector('[data-inv-del-countdown]');
-      if (countdown && countdown.style.display !== 'none') {
-        el.classList.add('inv-del-est--urgent');
-      }
-
-      // Re-check periodically
-      var checkInterval = setInterval(function() {
-        if (countdown && countdown.style.display !== 'none' && countdown.textContent.trim()) {
-          el.classList.add('inv-del-est--urgent');
-
-          // Parse remaining time and increase urgency under 2 hours
-          var parts = countdown.textContent.split(':');
-          if (parts.length === 3) {
-            var hours = parseInt(parts[0], 10);
-            if (hours < 2) {
-              el.classList.add('inv-del-est--critical');
-            }
-          }
-        } else {
-          el.classList.remove('inv-del-est--urgent', 'inv-del-est--critical');
-        }
-      }, 30000); // Check every 30 seconds
-
-      // Clean up on page hide
-      document.addEventListener('visibilitychange', function() {
-        if (document.hidden) clearInterval(checkInterval);
-      });
-    });
-  }
-
-  /* ========================================
      AREA 6: COLLECTIONS — Load More Button
      Progressive loading as alternative to pagination
      ======================================== */
@@ -616,7 +578,6 @@
     enhanceSearch();
     InvictaWishlist.init();
     enhanceDeliveryBar();
-    enhanceDeliveryEstimate();
     initLoadMore();
     InvictaSocialProof.init();
     initTradeCTA();

@@ -883,7 +883,7 @@
       previouslyFocused = document.activeElement;
       var lightboxWidth = window.innerWidth <= 749 ? 800 : 1200;
       lightboxImg.src = mainImage.src.replace(/width=\d+/, 'width=' + lightboxWidth);
-      lightboxImg.alt = mainImage.alt;
+      lightboxImg.alt = mainImage.alt || productHandle;
       lightbox.hidden = false;
       document.body.style.overflow = 'hidden';
 
