@@ -17,8 +17,7 @@
           "settings": {
             "collection": "circular-saw-blades",
             "title": "Circular Saw Blades",
-            "link": "shopify://pages/circular-saw-blades",
-            "image": "shopify://shop_images/DW_Elite_Circular_Saw_Blades_a9fa.jpg"
+            "link": "shopify://pages/circular-saw-blades"
           }
         },
         "category_Ndb8Ek": {
@@ -50,7 +49,7 @@
           "settings": {
             "collection": "multi-tool-blades",
             "title": "",
-            "link": "shopify://pages/angle-grinder-blades-cutting-discs"
+            "link": ""
           }
         },
         "category_a7gknH": {
@@ -71,8 +70,8 @@
         "category_a7gknH"
       ],
       "settings": {
-        "heading": "Power Tool Accessories",
-        "description": "Drill bits, saw blades, diamond blades and consumables for power tools.",
+        "heading": "Saw Blades",
+        "description": "Saw blades for every cut. Circular, jigsaw, reciprocating, bandsaw, multi-tool and planer blades from top trade brands. Trade prices with UK delivery.",
         "header_align": "center",
         "columns_desktop": 4,
         "columns_tablet": 3,
