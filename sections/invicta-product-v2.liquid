@@ -777,15 +777,15 @@
           <div class="inv-pdp__trust-bar" role="region" aria-label="Trust and support information">
             <a href="/pages/delivery" class="inv-pdp__trust-item">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-              <span>Free Delivery</span>
+              <span>{{ 'invicta.product.trust_free_delivery' | t }}</span>
             </a>
             <a href="/pages/warranty" class="inv-pdp__trust-item">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span>Full Warranty</span>
+              <span>{{ 'invicta.product.trust_warranty' | t }}</span>
             </a>
             <a href="/pages/returns" class="inv-pdp__trust-item">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-              <span>30-Day Returns</span>
+              <span>{{ 'invicta.product.trust_returns' | t }}</span>
             </a>
           </div>
           
@@ -840,7 +840,7 @@
       data-variant-id="{{ current_variant.id }}"
       {% unless is_in_stock %}disabled{% endunless %}
     >
-      {% if is_in_stock %}Add to Cart{% else %}Out of Stock{% endif %}
+      {% if is_in_stock %}{{ section.settings.atc_text | default: 'Add to Cart' }}{% else %}{{ section.settings.oos_text | default: 'Out of Stock' }}{% endif %}
     </button>
   </div>
 </div>
@@ -977,6 +977,29 @@
 </script>
 
 
+
+{%- comment -%} Product structured data for rich search results {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "image": "{{ product.featured_image | image_url: width: 800 }}",
+  "description": {{ product.description | strip_html | truncate: 160 | json }},
+  "sku": {{ current_variant.sku | json }},
+  "brand": {
+    "@type": "Brand",
+    "name": {{ product.vendor | json }}
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ shop.url }}{{ product.url }}",
+    "priceCurrency": {{ cart.currency.iso_code | json }},
+    "price": "{{ current_variant.price | divided_by: 100.0 }}",
+    "availability": "https://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}"
+  }
+}
+</script>
 
 {% schema %}
 {

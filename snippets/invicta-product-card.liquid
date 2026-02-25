@@ -36,7 +36,8 @@
   # VAT calculations (prices include VAT)
   # Uses centralised VAT rate from theme settings (Invicta Trade Settings)
   # Integer-safe rounding: times: 100 | plus: rounding | divided_by: divisor
-  assign inv_vat_divisor = 100 | plus: settings.inv_vat_rate
+  assign inv_vat_rate = settings.inv_vat_rate | default: 20
+  assign inv_vat_divisor = 100 | plus: inv_vat_rate
   assign inv_vat_rounding = inv_vat_divisor | divided_by: 2
   assign price_ex_vat = price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor
   assign compare_price_ex_vat = compare_price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor
@@ -133,8 +134,8 @@
           alt="{{ featured_image.alt | escape | default: product.title }}"
           loading="{% if card_index <= 4 %}eager{% else %}lazy{% endif %}"
           {% if card_index <= 4 %}fetchpriority="high"{% endif %}
-          width="{{ featured_image.width }}"
-          height="{{ featured_image.height }}"
+          width="{{ featured_image.width | default: 400 }}"
+          height="{{ featured_image.height | default: 400 }}"
           class="inv-card__img{% unless available %} inv-card__img--faded{% endunless %}"
         >
       {%- else -%}

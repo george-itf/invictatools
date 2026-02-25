@@ -611,7 +611,10 @@
       "key_specs": "Key specifications",
       "product_features": "Product features",
       "decrease_quantity": "Decrease quantity",
-      "increase_quantity": "Increase quantity"
+      "increase_quantity": "Increase quantity",
+      "trust_free_delivery": "Free Delivery",
+      "trust_warranty": "Full Warranty",
+      "trust_returns": "30-Day Returns"
     },
     "header": {
       "vat_ex": "Ex VAT",

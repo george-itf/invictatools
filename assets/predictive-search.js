@@ -296,16 +296,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const observer = new MutationObserver(positionDropdown);
   observer.observe(results, { attributes: true, attributeFilter: ["class"], subtree: true });
 
+  var scrollRafId = null;
   window.addEventListener("scroll", () => {
-    if (results.classList.contains("ps-results--visible")) {
+    if (!results.classList.contains("ps-results--visible")) return;
+    if (scrollRafId) return;
+    scrollRafId = requestAnimationFrame(() => {
       positionDropdown();
-    }
+      scrollRafId = null;
+    });
   });
 
+  var resizeRafId = null;
   window.addEventListener("resize", () => {
-    if (results.classList.contains("ps-results--visible")) {
+    if (!results.classList.contains("ps-results--visible")) return;
+    if (resizeRafId) return;
+    resizeRafId = requestAnimationFrame(() => {
       positionDropdown();
-    }
+      resizeRafId = null;
+    });
   });
 
   document.addEventListener("click", (e) => {
