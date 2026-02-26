@@ -15,7 +15,7 @@
         "category_UdQjyy": {
           "type": "category",
           "settings": {
-            "collection": "hole-saws",
+            "collection": "sds-plus",
             "title": "",
             "link": ""
           }
@@ -23,7 +23,15 @@
         "category_gkUKDq": {
           "type": "category",
           "settings": {
-            "collection": "diamond-cores-sets",
+            "collection": "sds-max",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_8ANttH": {
+          "type": "category",
+          "settings": {
+            "collection": "kangoo-breaker-steels",
             "title": "",
             "link": ""
           }
@@ -31,10 +39,11 @@
       },
       "block_order": [
         "category_UdQjyy",
-        "category_gkUKDq"
+        "category_gkUKDq",
+        "category_8ANttH"
       ],
       "settings": {
-        "heading": "Hole Cutters",
+        "heading": "SDS Bits",
         "description": "Drill bits, saw blades, diamond blades and consumables for power tools.",
         "header_align": "center",
         "columns_desktop": 4,
