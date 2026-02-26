@@ -12,81 +12,38 @@
     "main": {
       "type": "invicta-category-grid",
       "blocks": {
-        "category_FwcH79": {
+        "category_mhBtEt": {
           "type": "category",
           "settings": {
-            "collection": "",
-            "title": "Saw Blades",
-            "link": "shopify://pages/circular-saw-blades",
-            "image": "shopify://shop_images/DW_Elite_Circular_Saw_Blades_a9fa.jpg"
+            "collection": "diamond-blades",
+            "title": "",
+            "link": ""
           }
         },
-        "category_Ndb8Ek": {
+        "category_dgUVFf": {
           "type": "category",
           "settings": {
-            "collection": "",
-            "title": "SDS Bits",
-            "link": "shopify://pages/sds-bits",
-            "image": "shopify://shop_images/s-l1200_7308d9e1-78ec-4b26-9460-dced7aa2bc97.jpg"
+            "collection": "flap-discs",
+            "title": "",
+            "link": ""
           }
         },
-        "category_GNaNri": {
+        "category_DQcGLG": {
           "type": "category",
           "settings": {
-            "collection": "",
-            "title": "Drill Bits",
-            "link": "shopify://pages/drill-bits",
-            "image": "shopify://shop_images/dewdt70784-qz_6.jpg"
-          }
-        },
-        "category_BMABJD": {
-          "type": "category",
-          "settings": {
-            "collection": "",
-            "title": "Hole Cutters",
-            "link": "shopify://pages/hole-cutters",
-            "image": "shopify://shop_images/91TBopOYGNL._AC_UF350_350_QL80.jpg"
-          }
-        },
-        "category_T7P4bU": {
-          "type": "category",
-          "settings": {
-            "collection": "",
-            "title": "Angle Grinder Blades/Cutting Discs",
-            "link": "shopify://pages/angle-grinder-blades-cutting-discs",
-            "image": "shopify://shop_images/30229-7.jpg"
-          }
-        },
-        "category_zXNR9k": {
-          "type": "category",
-          "settings": {
-            "collection": "",
-            "title": "Gun Nails & Accessories",
-            "link": "shopify://pages/gun-nails-accessories",
-            "image": "shopify://shop_images/57.jpg"
-          }
-        },
-        "category_gERc3h": {
-          "type": "category",
-          "settings": {
-            "collection": "",
-            "title": "Screwdriver Bits",
-            "link": "shopify://pages/screwdriver-bits",
-            "image": "shopify://shop_images/7045F_A1.avif"
+            "collection": "cutting-discs",
+            "title": "",
+            "link": ""
           }
         }
       },
       "block_order": [
-        "category_FwcH79",
-        "category_Ndb8Ek",
-        "category_GNaNri",
-        "category_BMABJD",
-        "category_T7P4bU",
-        "category_zXNR9k",
-        "category_gERc3h"
+        "category_mhBtEt",
+        "category_dgUVFf",
+        "category_DQcGLG"
       ],
       "settings": {
-        "heading": "Power Tool Accessories",
+        "heading": "Angle Grinder Blades/Cutting Discs",
         "description": "Drill bits, saw blades, diamond blades and consumables for power tools.",
         "header_align": "center",
         "columns_desktop": 4,
