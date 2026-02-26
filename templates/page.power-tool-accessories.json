@@ -74,6 +74,22 @@
             "link": "shopify://pages/screwdriver-bits",
             "image": "shopify://shop_images/7045F_A1.avif"
           }
+        },
+        "category_7pjgdN": {
+          "type": "category",
+          "settings": {
+            "collection": "pta-router-bits",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_zjBh8D": {
+          "type": "category",
+          "settings": {
+            "collection": "pta-nails-staples",
+            "title": "",
+            "link": ""
+          }
         }
       },
       "block_order": [
@@ -83,13 +99,15 @@
         "category_BMABJD",
         "category_T7P4bU",
         "category_zXNR9k",
-        "category_gERc3h"
+        "category_gERc3h",
+        "category_7pjgdN",
+        "category_zjBh8D"
       ],
       "settings": {
         "heading": "Power Tool Accessories",
         "description": "Drill bits, saw blades, diamond blades and consumables for power tools.",
         "header_align": "center",
-        "columns_desktop": 4,
+        "columns_desktop": 5,
         "columns_tablet": 3,
         "columns_mobile": 2,
         "grid_gap": 20,
