@@ -17,7 +17,7 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "FREE NEXT-DAY DELIVERY ON ORDERS OVER £30",
+            "text": "FREE NEXT-DAY DELIVERY ON ORDERS OVER £40",
             "link": "shopify://policies/shipping-policy"
           }
         },
@@ -62,7 +62,9 @@
     "header_invicta_eLmeMd": {
       "type": "header-invicta",
       "name": "Invicta Header",
-      "settings": {}
+      "settings": {
+        "menu": "main-menu"
+      }
     },
     "invicta_simple_nav": {
       "type": "invicta-simple-nav",
