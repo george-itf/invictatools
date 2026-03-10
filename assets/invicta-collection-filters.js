@@ -232,6 +232,12 @@
 
         this.announceResults();
 
+        // Re-apply VAT toggle state to new product cards
+        document.dispatchEvent(new CustomEvent('invicta:collection:updated'));
+        if (window.InvictaVAT && window.InvictaVAT.reapply) {
+          window.InvictaVAT.reapply();
+        }
+
       } catch (err) {
         if (err.name === 'AbortError') return;
         console.error('[Invicta Filters] Fetch error:', err);

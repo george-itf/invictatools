@@ -1812,6 +1812,12 @@ a:not([href]) {
 /* VAT toggle visibility — used by invicta-vat-toggle.js */
 .inv-vat--hidden { display: none !important; }
 
+/* Early VAT mode: applied via <html> class before JS loads to prevent FOUC */
+html.inv-vat-ex [data-price-inc]:not([data-price-ex]) { display: none !important; }
+html.inv-vat-ex [data-price-ex].inv-vat--hidden { display: revert !important; }
+html.inv-vat-ex [data-price-inc].inv-card__price-block:not([data-price-ex]) { display: none !important; }
+html.inv-vat-ex .inv-card__price-block[data-price-ex] { display: block !important; }
+
 /* Responsive Visibility */
 @media screen and (max-width: 749px) {
   .small-hide {

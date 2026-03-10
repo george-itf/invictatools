@@ -1,6 +1,10 @@
 <!doctype html>
 <html class="js" lang="en-GB">
   <head>
+    <script>
+      /* VAT mode: apply before first paint to prevent flash of wrong price */
+      (function(){try{var m=localStorage.getItem('invicta-vat-mode');if(m==='ex')document.documentElement.classList.add('inv-vat-ex');}catch(e){}})();
+    </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
