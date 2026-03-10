@@ -1,209 +1,88 @@
 /**
- * Invicta Cart Handler
- * Manages add-to-cart actions from product cards
- * Extracted from inline script in snippets/invicta-cart-handler.liquid
- *
- * Fixes applied:
- * - P0-2.1: Request-level dedup via in-flight tracking
- * - P1-3.1: Unified event dispatch (invicta:cart:updated + cart:item-added)
- * - P2-4.2: Uses window.routes for cart URLs
- * - P3-5.5: Standardised cart count selectors
- * - P3-5.6: DEBUG flag for production-safe logging
+ * Invicta Cart Handler v2.0
+ * Manages add-to-cart actions from product cards.
+ * Now delegates to shared InvictaCartAPI for the fetch call.
  */
 (function() {
   'use strict';
 
-  /** @type {boolean} Enable console logging (set false for production) */
-  var DEBUG = false;
+  function init() {
+    document.addEventListener('click', function(e) {
+      var addBtn = e.target.closest('[data-add-to-cart]');
+      if (!addBtn) return;
 
-  /** @type {string[]} Canonical cart count selectors, shared across handlers */
-  var CART_COUNT_SELECTORS = [
-    '.cart-count-bubble span[aria-hidden="true"]',
-    '.header__cart-count',
-    '[data-cart-count]',
-    '.cart-count'
-  ];
-
-  /**
-   * Invicta Cart Handler
-   * Manages add-to-cart actions from product cards
-   * @class
-   */
-  class InvictaCartHandler {
-    constructor() {
-      /** @type {Set<string>} Variant IDs currently being added (dedup guard) */
-      this._inFlight = new Set();
-
-      this.init();
-    }
-
-    /**
-     * Initialise event listeners
-     */
-    init() {
-      document.addEventListener('click', (e) => {
-        const addBtn = e.target.closest('[data-add-to-cart]');
-        if (addBtn) {
-          e.preventDefault();
-          this.handleAddToCart(addBtn);
-        }
-      });
-    }
-
-    /**
-     * Handle add to cart button click
-     * @param {HTMLElement} button - The clicked button
-     */
-    async handleAddToCart(button) {
-      const variantId = button.dataset.variantId;
-      const quantity = parseInt(button.dataset.quantity || '1', 10);
-
-      if (!variantId) {
-        DEBUG && console.error('No variant ID found');
-        return;
-      }
-
-      // P0-2.1: Request-level dedup — prevent double-add for same variant
-      if (this._inFlight.has(variantId)) return;
-      this._inFlight.add(variantId);
-
-      // Set loading state
-      button.classList.add('inv-card__btn--loading');
-      const originalChildren = Array.from(button.childNodes).map(n => n.cloneNode(true));
-      while (button.firstChild) button.removeChild(button.firstChild);
-      var loadingSpan = document.createElement('span');
-      loadingSpan.textContent = 'Adding\u2026';
-      button.appendChild(loadingSpan);
-      button.disabled = true;
-
-      var cartAddUrl = ((window.routes && window.routes.cart_add_url) || '/cart/add') + '.js';
-
-      try {
-        const response = await fetch(cartAddUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            id: parseInt(variantId, 10),
-            quantity: quantity
-          })
-        });
-
-        if (!response.ok) {
-          const error = await response.json();
-          throw new Error(error.description || 'Failed to add to cart');
-        }
-
-        const item = await response.json();
-
-        // Success state
-        while (button.firstChild) button.removeChild(button.firstChild);
-        var svgNS = 'http://www.w3.org/2000/svg';
-        var tick = document.createElementNS(svgNS, 'svg');
-        tick.setAttribute('width', '16');
-        tick.setAttribute('height', '16');
-        tick.setAttribute('viewBox', '0 0 24 24');
-        tick.setAttribute('fill', 'none');
-        tick.setAttribute('stroke', 'currentColor');
-        tick.setAttribute('stroke-width', '2.5');
-        tick.setAttribute('stroke-linecap', 'round');
-        tick.setAttribute('stroke-linejoin', 'round');
-        var polyline = document.createElementNS(svgNS, 'polyline');
-        polyline.setAttribute('points', '20 6 9 17 4 12');
-        tick.appendChild(polyline);
-        button.appendChild(tick);
-        var addedSpan = document.createElement('span');
-        addedSpan.textContent = 'Added!';
-        button.appendChild(addedSpan);
-        button.classList.remove('inv-card__btn--loading');
-
-        // Update cart count
-        this.updateCartCount();
-
-        // P1-3.1: Dispatch unified events for all listeners
-        document.dispatchEvent(new CustomEvent('cart:item-added', {
-          detail: { item, button }
-        }));
-        document.dispatchEvent(new CustomEvent('invicta:cart:updated', {
-          detail: { source: 'card-handler', item, button }
-        }));
-        document.dispatchEvent(new CustomEvent('cart:refresh'));
-
-        // Reset button after delay
-        setTimeout(() => {
-          while (button.firstChild) button.removeChild(button.firstChild);
-          originalChildren.forEach(n => button.appendChild(n.cloneNode(true)));
-          button.disabled = false;
-        }, 1500);
-
-      } catch (error) {
-        DEBUG && console.error('Add to cart error:', error);
-
-        // Error state — show Shopify's specific error message when available
-        var message = (error && error.message) || 'Error';
-        while (button.firstChild) button.removeChild(button.firstChild);
-        var errorSpan = document.createElement('span');
-        errorSpan.textContent = message;
-        button.appendChild(errorSpan);
-        button.classList.remove('inv-card__btn--loading');
-
-        // Reset button after delay
-        setTimeout(() => {
-          while (button.firstChild) button.removeChild(button.firstChild);
-          originalChildren.forEach(n => button.appendChild(n.cloneNode(true)));
-          button.disabled = false;
-        }, 2000);
-      } finally {
-        this._inFlight.delete(variantId);
-      }
-    }
-
-    /**
-     * Update cart count in header
-     */
-    async updateCartCount() {
-      try {
-        var cartUrl = (window.routes && window.routes.cart_url) || '/cart';
-        const response = await fetch(cartUrl + '.js', {
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (!response.ok) return;
-
-        const cart = await response.json();
-        const count = cart.item_count;
-
-        // P3-5.5: Standardised selectors
-        for (const selector of CART_COUNT_SELECTORS) {
-          const elements = document.querySelectorAll(selector);
-          elements.forEach(el => {
-            el.textContent = count;
-
-            // Show/hide based on count
-            const bubble = el.closest('.cart-count-bubble, [data-cart-bubble]');
-            if (bubble) {
-              bubble.style.display = count > 0 ? '' : 'none';
-            }
-          });
-        }
-
-        // Dispatch event for custom cart count handlers
-        document.dispatchEvent(new CustomEvent('invicta:cart:count-updated', {
-          detail: { cart }
-        }));
-
-      } catch (error) {
-        DEBUG && console.error('Failed to update cart count:', error);
-      }
-    }
+      e.preventDefault();
+      handleAddToCart(addBtn);
+    });
   }
 
-  // Initialise
+  function handleAddToCart(button) {
+    var variantId = button.dataset.variantId;
+    var quantity = parseInt(button.dataset.quantity || '1', 10);
+
+    if (!variantId) return;
+
+    // Dedup check via shared API
+    if (window.InvictaCartAPI && window.InvictaCartAPI.isInFlight(variantId)) return;
+
+    // Set loading state — store original children for restoration
+    button.classList.add('inv-card__btn--loading');
+    var originalChildren = Array.from(button.childNodes).map(function(n) { return n.cloneNode(true); });
+    while (button.firstChild) button.removeChild(button.firstChild);
+    var loadingSpan = document.createElement('span');
+    loadingSpan.textContent = 'Adding\u2026';
+    button.appendChild(loadingSpan);
+    button.disabled = true;
+
+    function restoreButton() {
+      while (button.firstChild) button.removeChild(button.firstChild);
+      originalChildren.forEach(function(n) { button.appendChild(n.cloneNode(true)); });
+      button.disabled = false;
+    }
+
+    window.InvictaCartAPI.add(
+      { id: variantId, quantity: quantity },
+      { source: 'card-handler' }
+    )
+    .then(function() {
+      // Success state
+      while (button.firstChild) button.removeChild(button.firstChild);
+      var svgNS = 'http://www.w3.org/2000/svg';
+      var tick = document.createElementNS(svgNS, 'svg');
+      tick.setAttribute('width', '16');
+      tick.setAttribute('height', '16');
+      tick.setAttribute('viewBox', '0 0 24 24');
+      tick.setAttribute('fill', 'none');
+      tick.setAttribute('stroke', 'currentColor');
+      tick.setAttribute('stroke-width', '2.5');
+      tick.setAttribute('stroke-linecap', 'round');
+      tick.setAttribute('stroke-linejoin', 'round');
+      var polyline = document.createElementNS(svgNS, 'polyline');
+      polyline.setAttribute('points', '20 6 9 17 4 12');
+      tick.appendChild(polyline);
+      button.appendChild(tick);
+      var addedSpan = document.createElement('span');
+      addedSpan.textContent = 'Added!';
+      button.appendChild(addedSpan);
+      button.classList.remove('inv-card__btn--loading');
+
+      setTimeout(restoreButton, 1500);
+    })
+    .catch(function(error) {
+      var message = (error && (error.description || error.message)) || 'Error';
+      while (button.firstChild) button.removeChild(button.firstChild);
+      var errorSpan = document.createElement('span');
+      errorSpan.textContent = message;
+      button.appendChild(errorSpan);
+      button.classList.remove('inv-card__btn--loading');
+
+      setTimeout(restoreButton, 2000);
+    });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => new InvictaCartHandler());
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    new InvictaCartHandler();
+    init();
   }
 })();

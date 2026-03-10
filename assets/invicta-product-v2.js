@@ -680,46 +680,38 @@
        P2-4.2: Uses window.routes
        ======================================== */
 
-    var isAddingToCart = false;
-
     if (productForm && atcBtn) {
       productForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        if (isAddingToCart || atcBtn.disabled) {
-          return;
-        }
+        if (atcBtn.disabled) return;
 
-        isAddingToCart = true;
+        var variantInput = productForm.querySelector('[name="id"]');
+        var variantId = variantInput ? variantInput.value : '';
+        if (!variantId) return;
+
+        // Dedup via shared API
+        if (window.InvictaCartAPI && window.InvictaCartAPI.isInFlight(variantId)) return;
+
         atcBtn.classList.add('is-loading');
 
         var formData = new FormData(productForm);
-        formData.append('sections', 'cart-drawer,cart-icon-bubble');
-        formData.append('sections_url', window.location.pathname);
 
-        var cartAddUrl = ((window.routes && window.routes.cart_add_url) || '/cart/add') + '.js';
-
-        fetch(cartAddUrl, {
-          method: 'POST',
-          body: formData
-        })
-        .then(function(response) {
-          if (!response.ok) return response.json().then(function(err) { throw err; });
-          return response.json();
-        })
+        window.InvictaCartAPI.add(
+          { id: variantId, quantity: parseInt(formData.get('quantity') || '1', 10) },
+          {
+            formData: formData,
+            sections: 'cart-drawer,cart-icon-bubble',
+            sections_url: window.location.pathname,
+            source: 'pdp'
+          }
+        )
         .then(function(data) {
           atcBtn.classList.remove('is-loading');
           atcBtn.classList.add('is-success');
 
           refreshCartDrawer(data);
           updateCartBubble(data);
-
-          document.dispatchEvent(new CustomEvent('cart:item-added', {
-            detail: { item: data }
-          }));
-          document.dispatchEvent(new CustomEvent('invicta:cart:updated', {
-            detail: { source: 'pdp', item: data }
-          }));
 
           setTimeout(function() {
             atcBtn.classList.remove('is-success');
@@ -740,9 +732,6 @@
           setTimeout(function() {
             atcBtn.classList.remove('is-error');
           }, 2500);
-        })
-        .finally(function() {
-          isAddingToCart = false;
         });
       });
     }
@@ -805,17 +794,20 @@
       buyNowBtn.addEventListener('click', function() {
         if (buyNowBtn.disabled || !productForm) return;
 
+        var variantInput = productForm.querySelector('[name="id"]');
+        var variantId = variantInput ? variantInput.value : '';
+        if (!variantId) return;
+
+        if (window.InvictaCartAPI && window.InvictaCartAPI.isInFlight(variantId)) return;
+
         buyNowBtn.classList.add('is-loading');
         buyNowBtn.disabled = true;
 
-        var cartAddUrl = ((window.routes && window.routes.cart_add_url) || '/cart/add') + '.js';
-
-        fetch(cartAddUrl, {
-          method: 'POST',
-          body: new FormData(productForm)
-        })
-        .then(function(response) {
-          if (!response.ok) return response.json().then(function(err) { throw err; });
+        window.InvictaCartAPI.add(
+          { id: variantId, quantity: parseInt(productForm.querySelector('[name="quantity"]')?.value || '1', 10) },
+          { formData: new FormData(productForm), source: 'buy-now' }
+        )
+        .then(function() {
           window.location.href = '/checkout';
         })
         .catch(function(error) {
