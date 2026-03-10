@@ -1,6 +1,6 @@
 /* Brand token consolidated into invicta-css-variables.css v3.0 (use --inv-accent) */
 /* =======================================================
-   INVICTA HEADER v6.0 — RED BACKGROUND
+   INVICTA HEADER v7.0 — WHITE BACKGROUND (Full Modern)
    ======================================================= */
 
 /* Section wrapper — match header bg, prevent white gap.
@@ -11,7 +11,7 @@
    mobile drawer (iOS Safari clips fixed children of overflow:hidden
    ancestors in some scroll states). */
 .section-header-invicta {
-  background: var(--inv-accent);
+  background: var(--inv-header-bg, #ffffff);
   margin: 0;
   padding: 0;
   position: relative;
@@ -24,11 +24,17 @@
   top: 0;
   z-index: 999;
   width: 100%;
-  background: var(--inv-accent);
-  border-bottom: none;
+  background: var(--inv-header-bg, #ffffff);
+  border-bottom: 1px solid var(--inv-header-border, #e5e7eb);
   padding-top: var(--inv-safe-area-top);
   padding-left: var(--inv-safe-area-left);
   padding-right: var(--inv-safe-area-right);
+  transition: box-shadow 0.2s ease;
+}
+
+/* Scroll shadow — applied via JS when scrollY > 10 */
+.invicta-header--scrolled {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
 .invicta-header__inner {
@@ -67,7 +73,7 @@
   border-radius: 999px;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--inv-header-icon-bg, #f3f4f6);
   cursor: pointer;
   border: none;
   flex-shrink: 0;
@@ -76,18 +82,18 @@
 
 .invicta-header__menu-btn:hover,
 .invicta-header__menu-btn:focus-visible {
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--inv-header-icon-hover-bg, #e5e7eb);
 }
 
 .invicta-header__menu-btn:focus-visible {
-  outline: 2px solid #fff;
+  outline: 2px solid var(--inv-accent);
   outline-offset: 2px;
 }
 
 .invicta-header__menu-btn svg {
   width: 20px;
   height: 20px;
-  stroke: #fff;
+  stroke: var(--inv-header-icon-fg, #0f172a);
   stroke-width: 2;
   fill: none;
 }
@@ -433,11 +439,11 @@
 }
 
 .invicta-header__logo a:focus-visible {
-  outline: 2px solid #fff;
+  outline: 2px solid var(--inv-accent);
   outline-offset: 2px;
 }
 
-.invicta-header__logo-text { color: #fff; font-weight: 800; }
+.invicta-header__logo-text { color: var(--inv-header-fg, #0f172a); font-weight: 800; }
 
 .invicta-header__logo img,
 .invicta-header__logo .header__heading-logo {
@@ -486,7 +492,7 @@
 }
 
 /* =======================================================
-   VAT TOGGLE — Button Style (Matches Nav)
+   VAT TOGGLE — Light Pill (Full Modern)
    ======================================================= */
 
 /* Mobile: Hide VAT toggle — it lives in the hamburger menu instead */
@@ -501,22 +507,22 @@
   .invicta-header__vat-toggle {
     display: flex;
     gap: 0;
-    background-color: #2d2d2d;
-    border-radius: 4px;
+    background-color: var(--inv-bg-soft, #f0f0f0);
+    border-radius: 8px;
     padding: 2px;
     margin-right: 6px;
   }
 
   .invicta-header__vat-btn {
-    padding: 4px 6px;
+    padding: 4px 8px;
     font-size: 9px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.02em;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--inv-fg-muted, #6b7280);
     background-color: transparent;
     border: none;
-    border-radius: 2px;
+    border-radius: 6px;
     cursor: pointer;
     transition: color 0.15s ease, background-color 0.15s ease;
     white-space: nowrap;
@@ -524,12 +530,13 @@
   }
 
   .invicta-header__vat-btn:hover:not(.invicta-header__vat-btn--active) {
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--inv-fg, #0f172a);
   }
 
   .invicta-header__vat-btn--active {
     color: #ffffff;
-    background-color: #444444;
+    background-color: var(--inv-fg, #1a1a1a);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   }
 }
 
@@ -538,22 +545,22 @@
   .invicta-header__vat-toggle {
     display: flex;
     gap: 0;
-    background-color: #2d2d2d;
-    border-radius: 4px;
+    background-color: var(--inv-bg-soft, #f0f0f0);
+    border-radius: 10px;
     padding: 3px;
     margin-right: 8px;
   }
 
   .invicta-header__vat-btn {
-    padding: 5px 8px;
-    font-size: 10px;
+    padding: 6px 14px;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.02em;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--inv-fg-muted, #6b7280);
     background-color: transparent;
     border: none;
-    border-radius: 3px;
+    border-radius: 8px;
     cursor: pointer;
     transition: color 0.15s ease, background-color 0.15s ease;
     white-space: nowrap;
@@ -561,17 +568,18 @@
   }
 
   .invicta-header__vat-btn:hover:not(.invicta-header__vat-btn--active) {
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--inv-fg, #0f172a);
   }
 
   .invicta-header__vat-btn--active {
     color: #ffffff;
-    background-color: #444444;
+    background-color: var(--inv-fg, #1a1a1a);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   }
 }
 
 .invicta-header__vat-btn:focus-visible {
-  outline: 2px solid #fff;
+  outline: 2px solid var(--inv-accent);
   outline-offset: 1px;
 }
 
@@ -583,7 +591,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--inv-header-icon-bg, #f5f5f5);
   cursor: pointer;
   transition: background 0.16s ease, transform 0.12s ease;
   border: none;
@@ -591,19 +599,19 @@
 }
 
 .invicta-header__icon:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--inv-header-icon-hover-bg, #e5e7eb);
   transform: translateY(-1px);
 }
 
 .invicta-header__icon:focus-visible {
-  outline: 2px solid #fff;
+  outline: 2px solid var(--inv-accent);
   outline-offset: 2px;
 }
 
 .invicta-header__icon svg {
   width: 22px;
   height: 22px;
-  stroke: #ffffff;
+  stroke: var(--inv-header-icon-fg, #333333);
   stroke-width: 2;
   fill: none;
 }
@@ -616,7 +624,7 @@
 }
 
 /* =======================================================
-   CART BADGE — WHITE BG, RED TEXT
+   CART BADGE — RED BG, WHITE TEXT (Full Modern)
    ======================================================= */
 .invicta-header__badge {
   position: absolute;
@@ -626,8 +634,9 @@
   height: 20px;
   padding: 0 6px;
   border-radius: 999px;
-  background: #ffffff;
-  color: var(--inv-accent);
+  background: var(--inv-accent);
+  color: #ffffff;
+  border: 2px solid #ffffff;
   font-size: 11px;
   font-weight: 700;
   display: inline-flex;
