@@ -2669,6 +2669,7 @@ html.js body .slider-counter {
 .customer.register .field input:focus {
   outline: none;
   border-color: var(--inv-accent);
+  box-shadow: 0 0 0 2px rgba(45, 45, 45, 0.2);
 }
 
 .customer.login .field label,

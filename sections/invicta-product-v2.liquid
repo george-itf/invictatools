@@ -978,30 +978,7 @@
 
 
 
-{%- comment -%} Product structured data for rich search results {%- endcomment -%}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org/",
-  "@type": "Product",
-  "name": {{ product.title | json }},
-  "image": "https:{{ product.featured_image | image_url: width: 800 }}",
-  "description": {{ product.description | strip_html | truncate: 160 | json }},
-  "sku": {{ current_variant.sku | json }},
-  "brand": {
-    "@type": "Brand",
-    "name": {{ product.vendor | json }}
-  },
-  "offers": {
-    "@type": "Offer",
-    "url": "{{ shop.url }}{{ product.url }}",
-    "priceCurrency": {{ cart.currency.iso_code | json }},
-    "price": {{ current_variant.price | divided_by: 100.0 }},
-    "priceValidUntil": "{{ 'now' | date: '%Y' | plus: 1 }}-12-31",
-    "itemCondition": "https://schema.org/NewCondition",
-    "availability": "https://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}"
-  }
-}
-</script>
+{%- comment -%} Product structured data rendered via snippets/schema-jsonld.liquid (avoids duplicate) {%- endcomment -%}
 
 {% schema %}
 {

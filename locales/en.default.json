@@ -764,6 +764,7 @@
       "email": "Email",
       "phone": "Phone",
       "quantity_required": "Quantity Required",
+      "additional_details": "Additional Details",
       "cancel": "Cancel",
       "submit": "Submit Quote Request"
     }
