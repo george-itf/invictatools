@@ -2,11 +2,15 @@
 {{ 'component-slider.css' | asset_url | stylesheet_tag }}
 
 <style>
-/* Full Modern override — dark announcement strip */
-.utility-bar.color-{{ section.settings.color_scheme }} {
+/* Dark Grey Hybrid — announcement bar matches header #1a1a1a
+   Override Shopify's color scheme + gradient system with scoped !important rules.
+   This survives customizer saves since we don't touch header-group.json. */
+.utility-bar.color-{{ section.settings.color_scheme }},
+.utility-bar.color-{{ section.settings.color_scheme }}.gradient {
   background: #1a1a1a !important;
-  color: #aaaaaa;
-  --color-foreground: 170, 170, 170;
+  background-image: none !important;
+  color: rgba(255, 255, 255, 0.6);
+  --color-foreground: 255, 255, 255;
   --color-background: 26, 26, 26;
 }
 
@@ -15,7 +19,12 @@
   color: #ffffff;
 }
 
-/* Slim announcement bar */
+.utility-bar.color-{{ section.settings.color_scheme }} a:hover {
+  color: #ffffff;
+  opacity: 1;
+}
+
+/* Slim announcement strip */
 .utility-bar {
   padding-block: 5px;
 }

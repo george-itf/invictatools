@@ -451,6 +451,8 @@
   max-height: 70px;
   width: auto;
   object-fit: contain;
+  /* Invert dark logo to white for dark header background */
+  filter: brightness(0) invert(1);
 }
 
 @media (min-width: 990px) {
