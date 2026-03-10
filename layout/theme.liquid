@@ -551,6 +551,23 @@
     <script src="{{ 'invicta-vat-toggle.js' | asset_url }}" defer></script>
     <script src="{{ 'invicta-quantity-enhancer.js' | asset_url }}" defer></script>
 
+    {%- comment -%}
+      Delegated action handlers — replaces inline onclick= attributes
+      extracted from Dawn snippets for CSP compliance.
+    {%- endcomment -%}
+    <script>
+      document.addEventListener('click',function(e){
+        var t=e.target.closest('[data-action]');if(!t)return;
+        var a=t.getAttribute('data-action');
+        if(a==='close-drawer'){var d=t.closest('cart-drawer');if(d&&d.close)d.close();}
+        else if(a==='close-facet'){var w=t.closest('.mobile-facets__wrapper');if(w){var s=w.querySelector('summary');if(s)s.click();}}
+        else if(a==='select-all'){t.select();}
+      });
+      document.addEventListener('click',function(e){
+        var t=e.target.closest('[data-action="select-all"]');if(t&&t.select)t.select();
+      });
+    </script>
+
     {%- comment -%} Structured data: Organization, Product, BreadcrumbList, LocalBusiness {%- endcomment -%}
     {% render 'schema-jsonld' %}
   </body>

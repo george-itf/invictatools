@@ -24,13 +24,69 @@
         bar.classList.remove('inv-delivery-bar--almost');
       }
 
+      var svgNS = 'http://www.w3.org/2000/svg';
+      while (msgContainer.firstChild) msgContainer.removeChild(msgContainer.firstChild);
+
       if (qualified) {
         msgContainer.className = 'inv-delivery-bar__message inv-delivery-bar__message--qualified';
-        msgContainer.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>You qualify for <strong>FREE next-day delivery!</strong></span>';
+        var checkSvg = document.createElementNS(svgNS, 'svg');
+        checkSvg.setAttribute('width', '18');
+        checkSvg.setAttribute('height', '18');
+        checkSvg.setAttribute('viewBox', '0 0 24 24');
+        checkSvg.setAttribute('fill', 'none');
+        checkSvg.setAttribute('stroke', 'currentColor');
+        checkSvg.setAttribute('stroke-width', '2.5');
+        checkSvg.setAttribute('stroke-linecap', 'round');
+        checkSvg.setAttribute('stroke-linejoin', 'round');
+        var cPath = document.createElementNS(svgNS, 'path');
+        cPath.setAttribute('d', 'M22 11.08V12a10 10 0 1 1-5.93-9.14');
+        checkSvg.appendChild(cPath);
+        var cPoly = document.createElementNS(svgNS, 'polyline');
+        cPoly.setAttribute('points', '22 4 12 14.01 9 11.01');
+        checkSvg.appendChild(cPoly);
+        msgContainer.appendChild(checkSvg);
+        var qualSpan = document.createElement('span');
+        qualSpan.textContent = 'You qualify for ';
+        var qualStrong = document.createElement('strong');
+        qualStrong.textContent = 'FREE next-day delivery!';
+        qualSpan.appendChild(qualStrong);
+        msgContainer.appendChild(qualSpan);
       } else {
         var remaining = ((threshold - totalPence) / 100).toFixed(2);
         msgContainer.className = 'inv-delivery-bar__message';
-        msgContainer.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><span>You\u2019re <strong>\u00a3' + remaining + '</strong> away from <strong>FREE delivery!</strong></span>';
+        var truckSvg = document.createElementNS(svgNS, 'svg');
+        truckSvg.setAttribute('width', '16');
+        truckSvg.setAttribute('height', '16');
+        truckSvg.setAttribute('viewBox', '0 0 24 24');
+        truckSvg.setAttribute('fill', 'none');
+        truckSvg.setAttribute('stroke', 'currentColor');
+        truckSvg.setAttribute('stroke-width', '2');
+        truckSvg.setAttribute('stroke-linecap', 'round');
+        truckSvg.setAttribute('stroke-linejoin', 'round');
+        var tRect = document.createElementNS(svgNS, 'rect');
+        tRect.setAttribute('x', '1'); tRect.setAttribute('y', '3');
+        tRect.setAttribute('width', '15'); tRect.setAttribute('height', '13');
+        truckSvg.appendChild(tRect);
+        var tPoly = document.createElementNS(svgNS, 'polygon');
+        tPoly.setAttribute('points', '16 8 20 8 23 11 23 16 16 16 16 8');
+        truckSvg.appendChild(tPoly);
+        var tC1 = document.createElementNS(svgNS, 'circle');
+        tC1.setAttribute('cx', '5.5'); tC1.setAttribute('cy', '18.5'); tC1.setAttribute('r', '2.5');
+        truckSvg.appendChild(tC1);
+        var tC2 = document.createElementNS(svgNS, 'circle');
+        tC2.setAttribute('cx', '18.5'); tC2.setAttribute('cy', '18.5'); tC2.setAttribute('r', '2.5');
+        truckSvg.appendChild(tC2);
+        msgContainer.appendChild(truckSvg);
+        var awaySpan = document.createElement('span');
+        awaySpan.appendChild(document.createTextNode('You\u2019re '));
+        var amountStrong = document.createElement('strong');
+        amountStrong.textContent = '\u00a3' + remaining;
+        awaySpan.appendChild(amountStrong);
+        awaySpan.appendChild(document.createTextNode(' away from '));
+        var freeStrong = document.createElement('strong');
+        freeStrong.textContent = 'FREE delivery!';
+        awaySpan.appendChild(freeStrong);
+        msgContainer.appendChild(awaySpan);
       }
     }
 

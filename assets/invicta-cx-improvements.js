@@ -363,7 +363,18 @@
       var closeBtn = document.createElement('button');
       closeBtn.className = 'inv-social-proof__close';
       closeBtn.setAttribute('aria-label', 'Dismiss notification');
-      closeBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>';
+      var svgNS = 'http://www.w3.org/2000/svg';
+      var closeSvg = document.createElementNS(svgNS, 'svg');
+      closeSvg.setAttribute('width', '14');
+      closeSvg.setAttribute('height', '14');
+      closeSvg.setAttribute('viewBox', '0 0 24 24');
+      closeSvg.setAttribute('fill', 'none');
+      closeSvg.setAttribute('stroke', 'currentColor');
+      closeSvg.setAttribute('stroke-width', '2');
+      var closePath = document.createElementNS(svgNS, 'path');
+      closePath.setAttribute('d', 'M18 6L6 18M6 6l12 12');
+      closeSvg.appendChild(closePath);
+      closeBtn.appendChild(closeSvg);
 
       var self = this;
       closeBtn.addEventListener('click', function() {
@@ -460,7 +471,27 @@
 
     var icon = document.createElement('div');
     icon.className = 'inv-trade-cta__icon';
-    icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>';
+    var svgNS2 = 'http://www.w3.org/2000/svg';
+    var tradeSvg = document.createElementNS(svgNS2, 'svg');
+    tradeSvg.setAttribute('viewBox', '0 0 24 24');
+    tradeSvg.setAttribute('fill', 'none');
+    tradeSvg.setAttribute('stroke', 'currentColor');
+    tradeSvg.setAttribute('stroke-width', '2');
+    tradeSvg.setAttribute('stroke-linecap', 'round');
+    tradeSvg.setAttribute('stroke-linejoin', 'round');
+    var tp1 = document.createElementNS(svgNS2, 'path');
+    tp1.setAttribute('d', 'M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2');
+    tradeSvg.appendChild(tp1);
+    var tc1 = document.createElementNS(svgNS2, 'circle');
+    tc1.setAttribute('cx', '8.5'); tc1.setAttribute('cy', '7'); tc1.setAttribute('r', '4');
+    tradeSvg.appendChild(tc1);
+    var tl1 = document.createElementNS(svgNS2, 'line');
+    tl1.setAttribute('x1', '20'); tl1.setAttribute('y1', '8'); tl1.setAttribute('x2', '20'); tl1.setAttribute('y2', '14');
+    tradeSvg.appendChild(tl1);
+    var tl2 = document.createElementNS(svgNS2, 'line');
+    tl2.setAttribute('x1', '23'); tl2.setAttribute('y1', '11'); tl2.setAttribute('x2', '17'); tl2.setAttribute('y2', '11');
+    tradeSvg.appendChild(tl2);
+    icon.appendChild(tradeSvg);
 
     var body = document.createElement('div');
     body.className = 'inv-trade-cta__body';
@@ -493,6 +524,21 @@
      Shows trust signals directly below ATC button
      ======================================== */
 
+  /**
+   * Build an SVG element from a path-definition string.
+   * Supports path, polyline, rect, circle, polygon, and line elements.
+   * @param {string} markup - Simplified SVG inner markup (parsed via DOMParser for safety)
+   * @returns {SVGElement}
+   */
+  function safeSvgIcon(markup) {
+    var svgNS = 'http://www.w3.org/2000/svg';
+    var doc = new DOMParser().parseFromString(
+      '<svg xmlns="' + svgNS + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' + markup + '</svg>',
+      'image/svg+xml'
+    );
+    return document.importNode(doc.documentElement, true);
+  }
+
   function initPDPTrustStrip() {
     var productPage = document.querySelector('.inv-pdp[data-section-id]');
     if (!productPage) return;
@@ -509,16 +555,16 @@
     trustStrip.setAttribute('aria-label', 'Trust information');
 
     var trustItems = [
-      { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>', text: 'Free next-day delivery' },
-      { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>', text: 'Authorised dealer' },
-      { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>', text: 'Full warranty' },
-      { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>', text: 'Secure checkout' }
+      { paths: '<rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>', text: 'Free next-day delivery' },
+      { paths: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>', text: 'Authorised dealer' },
+      { paths: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', text: 'Full warranty' },
+      { paths: '<polyline points="20 6 9 17 4 12"/>', text: 'Secure checkout' }
     ];
 
     trustItems.forEach(function(item) {
       var el = document.createElement('div');
       el.className = 'inv-pdp-trust__item';
-      el.innerHTML = item.icon;
+      el.appendChild(safeSvgIcon(item.paths));
 
       var text = document.createElement('span');
       text.textContent = item.text;
@@ -548,17 +594,17 @@
     shortcuts.className = 'inv-mobile-shortcuts';
 
     var shortcutData = [
-      { href: '/collections/all', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>', label: 'Shop All' },
-      { href: '/pages/trade-account', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>', label: 'Trade' },
-      { href: '/collections', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>', label: 'Categories' },
-      { href: '/pages/contact', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>', label: 'Contact' }
+      { href: '/collections/all', paths: '<path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>', label: 'Shop All' },
+      { href: '/pages/trade-account', paths: '<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>', label: 'Trade' },
+      { href: '/collections', paths: '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>', label: 'Categories' },
+      { href: '/pages/contact', paths: '<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>', label: 'Contact' }
     ];
 
     shortcutData.forEach(function(item) {
       var link = document.createElement('a');
       link.className = 'inv-mobile-shortcut';
       link.href = item.href;
-      link.innerHTML = item.icon;
+      link.appendChild(safeSvgIcon(item.paths));
 
       var label = document.createElement('span');
       label.textContent = item.label;
@@ -665,7 +711,13 @@
           if (field) field.style.display = 'none';
           if (success) {
             success.classList.remove('inv-pdp--hidden');
-            success.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> You\u2019re signed up \u2014 we\u2019ll email you when it\u2019s back.';
+            while (success.firstChild) success.removeChild(success.firstChild);
+            var notifySvg = safeSvgIcon('<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>');
+            notifySvg.setAttribute('width', '16');
+            notifySvg.setAttribute('height', '16');
+            notifySvg.setAttribute('stroke-width', '2.5');
+            success.appendChild(notifySvg);
+            success.appendChild(document.createTextNode(' You\u2019re signed up \u2014 we\u2019ll email you when it\u2019s back.'));
           }
         }
       });

@@ -76,21 +76,24 @@
 
       const quickQtyContainer = document.createElement('div');
       quickQtyContainer.className = 'invicta-quick-qty';
-      quickQtyContainer.innerHTML = `
-        <span class="invicta-quick-qty__label">Quick add:</span>
-        <div class="invicta-quick-qty__buttons">
-          ${this.quickQtys.map(qty => `
-            <button 
-              type="button" 
-              class="invicta-quick-qty__btn" 
-              data-quick-qty="${qty}"
-              aria-label="Set quantity to ${qty}"
-            >
-              ${qty}
-            </button>
-          `).join('')}
-        </div>
-      `;
+
+      var qqLabel = document.createElement('span');
+      qqLabel.className = 'invicta-quick-qty__label';
+      qqLabel.textContent = 'Quick add:';
+      quickQtyContainer.appendChild(qqLabel);
+
+      var qqButtons = document.createElement('div');
+      qqButtons.className = 'invicta-quick-qty__buttons';
+      this.quickQtys.forEach(function(qty) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'invicta-quick-qty__btn';
+        btn.setAttribute('data-quick-qty', String(qty));
+        btn.setAttribute('aria-label', 'Set quantity to ' + qty);
+        btn.textContent = String(qty);
+        qqButtons.appendChild(btn);
+      });
+      quickQtyContainer.appendChild(qqButtons);
 
       // Insert after quantity wrapper
       wrapper.parentElement.insertBefore(quickQtyContainer, wrapper.nextSibling);
@@ -128,10 +131,15 @@
       // Create total display
       const totalDisplay = document.createElement('div');
       totalDisplay.className = 'invicta-qty-total';
-      totalDisplay.innerHTML = `
-        <span class="invicta-qty-total__label">Total:</span>
-        <span class="invicta-qty-total__value" data-qty-total>£${basePrice.toFixed(2)}</span>
-      `;
+      var totalLabel = document.createElement('span');
+      totalLabel.className = 'invicta-qty-total__label';
+      totalLabel.textContent = 'Total:';
+      totalDisplay.appendChild(totalLabel);
+      var totalValue = document.createElement('span');
+      totalValue.className = 'invicta-qty-total__value';
+      totalValue.setAttribute('data-qty-total', '');
+      totalValue.textContent = '\u00a3' + basePrice.toFixed(2);
+      totalDisplay.appendChild(totalValue);
 
       // Insert after quantity
       const quantityWrapper = input.closest('.quantity, quantity-input');

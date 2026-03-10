@@ -69,8 +69,11 @@
 
       // Set loading state
       button.classList.add('inv-card__btn--loading');
-      const originalHtml = button.innerHTML;
-      button.innerHTML = '<span>Adding...</span>';
+      const originalChildren = Array.from(button.childNodes).map(n => n.cloneNode(true));
+      while (button.firstChild) button.removeChild(button.firstChild);
+      var loadingSpan = document.createElement('span');
+      loadingSpan.textContent = 'Adding\u2026';
+      button.appendChild(loadingSpan);
       button.disabled = true;
 
       var cartAddUrl = ((window.routes && window.routes.cart_add_url) || '/cart/add') + '.js';
@@ -96,7 +99,24 @@
         const item = await response.json();
 
         // Success state
-        button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Added!</span>';
+        while (button.firstChild) button.removeChild(button.firstChild);
+        var svgNS = 'http://www.w3.org/2000/svg';
+        var tick = document.createElementNS(svgNS, 'svg');
+        tick.setAttribute('width', '16');
+        tick.setAttribute('height', '16');
+        tick.setAttribute('viewBox', '0 0 24 24');
+        tick.setAttribute('fill', 'none');
+        tick.setAttribute('stroke', 'currentColor');
+        tick.setAttribute('stroke-width', '2.5');
+        tick.setAttribute('stroke-linecap', 'round');
+        tick.setAttribute('stroke-linejoin', 'round');
+        var polyline = document.createElementNS(svgNS, 'polyline');
+        polyline.setAttribute('points', '20 6 9 17 4 12');
+        tick.appendChild(polyline);
+        button.appendChild(tick);
+        var addedSpan = document.createElement('span');
+        addedSpan.textContent = 'Added!';
+        button.appendChild(addedSpan);
         button.classList.remove('inv-card__btn--loading');
 
         // Update cart count
@@ -113,7 +133,8 @@
 
         // Reset button after delay
         setTimeout(() => {
-          button.innerHTML = originalHtml;
+          while (button.firstChild) button.removeChild(button.firstChild);
+          originalChildren.forEach(n => button.appendChild(n.cloneNode(true)));
           button.disabled = false;
         }, 1500);
 
@@ -122,12 +143,16 @@
 
         // Error state — show Shopify's specific error message when available
         var message = (error && error.message) || 'Error';
-        button.innerHTML = '<span>' + message + '</span>';
+        while (button.firstChild) button.removeChild(button.firstChild);
+        var errorSpan = document.createElement('span');
+        errorSpan.textContent = message;
+        button.appendChild(errorSpan);
         button.classList.remove('inv-card__btn--loading');
 
         // Reset button after delay
         setTimeout(() => {
-          button.innerHTML = originalHtml;
+          while (button.firstChild) button.removeChild(button.firstChild);
+          originalChildren.forEach(n => button.appendChild(n.cloneNode(true)));
           button.disabled = false;
         }, 2000);
       } finally {
