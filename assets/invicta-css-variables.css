@@ -115,8 +115,8 @@
   --inv-space-3xl: 4rem;    /* 64px */
 
   /* Page Layout */
-  --inv-page-width: 1320px;
-  --inv-container: 1400px;
+  --inv-page-width: 1320px;              /* Narrower content width (text blocks, trust bars) */
+  --inv-container: var(--page-width, 1400px);  /* Primary layout container — synced to Shopify page_width setting */
   --inv-page-gutter: 1.5rem;
   --inv-page-gutter-desktop: 3rem;
   --inv-section-gap: 0px;

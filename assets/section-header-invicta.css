@@ -32,7 +32,7 @@
 }
 
 .invicta-header__inner {
-  max-width: 1400px;
+  max-width: var(--inv-container, 1400px);
   margin-inline: auto;
   padding: 12px 24px;
   display: flex;
