@@ -17,7 +17,7 @@
 
 <style>
 /* =======================================================
-   INVICTA SIMPLE NAV — Desktop/Tablet Only
+   INVICTA SIMPLE NAV v2.0 — Full Modern (White + Underlines)
    ======================================================= */
 
 /* Section wrapper — explicit stacking context below header so the
@@ -25,7 +25,7 @@
 .section-invicta-simple-nav {
   margin: 0 !important;
   padding: 0 !important;
-  background: {{ ss.bar_bg_color }};
+  background: var(--inv-nav-bg, #ffffff);
   position: relative;
   z-index: 1;
 }
@@ -39,14 +39,14 @@
 
 .inv-simple-nav {
   width: 100%;
-  background: {{ ss.bar_bg_color }};
-  border-top: {{ ss.border_top_width }}px solid {{ ss.border_color }};
-  border-bottom: {{ ss.border_bottom_width }}px solid {{ ss.border_color }};
+  background: var(--inv-nav-bg, #ffffff);
+  border-top: 1px solid var(--inv-nav-border, #eeeeee);
+  border-bottom: 2px solid var(--inv-nav-border, #eeeeee);
 }
 
 .inv-simple-nav__list {
   display: flex;
-  justify-content: {{ ss.alignment }};
+  justify-content: center;
   align-items: stretch;
   list-style: none;
   margin: 0 auto;
@@ -57,24 +57,17 @@
 }
 
 /* =======================================================
-   NAVIGATION ITEM — Square Column Style
+   NAVIGATION ITEM — Auto-width with Underline Indicators
    ======================================================= */
 .inv-simple-nav__item {
-  flex: {{ ss.item_flex }};
+  flex: 0 1 auto;
   display: flex;
   position: relative;
 }
 
-/* Divider between items */
+/* Dividers removed — underline-based nav doesn't need them */
 .inv-simple-nav__item:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: {{ ss.divider_width }}px;
-  height: {{ ss.divider_height }}%;
-  background: {{ ss.divider_color }};
+  display: none;
 }
 
 /* =======================================================
@@ -86,8 +79,8 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: {{ ss.padding_vertical }}px {{ ss.padding_horizontal }}px;
-  color: {{ ss.text_color }};
+  padding: 11px 20px;
+  color: var(--inv-nav-fg, #444444);
   text-decoration: none;
   font-size: {{ ss.font_size }}px;
   font-weight: {{ ss.font_weight }};
@@ -97,60 +90,50 @@
   text-align: center;
   background: transparent;
   border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: color 0.15s ease, border-color 0.15s ease;
   position: relative;
 }
 
-/* Hover state */
+/* Hover state — red text + red underline */
 .inv-simple-nav__link:hover {
-  background: {{ ss.hover_bg_color }};
-  color: {{ ss.hover_text_color }};
+  background: transparent;
+  color: var(--inv-nav-hover-fg, var(--inv-accent));
+  border-bottom-color: var(--inv-nav-indicator, var(--inv-accent));
 }
 
-/* Active/current page indicator */
+/* Active/current page indicator — red text + red underline */
 .inv-simple-nav__link[aria-current="page"],
 .inv-simple-nav__link.is-active {
-  background: {{ ss.active_bg_color }};
-  color: {{ ss.active_text_color }};
+  background: transparent;
+  color: var(--inv-nav-active-fg, var(--inv-accent));
+  border-bottom-color: var(--inv-nav-indicator, var(--inv-accent));
 }
 
-/* Underline on hover (optional) */
-{%- if ss.show_underline -%}
+/* Remove the old ::after pseudo-element underline — using border-bottom instead */
 .inv-simple-nav__link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%) scaleX(0);
-  width: 80%;
-  height: {{ ss.underline_height }}px;
-  background: {{ ss.underline_color }};
-  transition: transform 0.2s ease;
+  display: none;
 }
-
-.inv-simple-nav__link:hover::after,
-.inv-simple-nav__link[aria-current="page"]::after {
-  transform: translateX(-50%) scaleX(1);
-}
-{%- endif -%}
 
 /* =======================================================
-   HIGHLIGHT ITEM — Make last item stand out
+   HIGHLIGHT ITEM — Red CTA Pill (Full Modern)
    ======================================================= */
 {%- if ss.highlight_last_item -%}
 .inv-simple-nav__item--highlight .inv-simple-nav__link {
-  background: {{ ss.highlight_bg_color }};
-  color: {{ ss.highlight_text_color }};
-  font-weight: {{ ss.highlight_font_weight }};
-  border-radius: {{ ss.highlight_border_radius }}px;
-  margin: 4px;
-  padding: {{ ss.padding_vertical | minus: 4 }}px {{ ss.padding_horizontal }}px;
+  background: var(--inv-accent);
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 6px;
+  margin: 4px 0 4px 8px;
+  padding: 8px 18px;
+  border-bottom: none;
 }
 
 .inv-simple-nav__item--highlight .inv-simple-nav__link:hover {
-  background: {{ ss.highlight_hover_bg_color }};
-  color: {{ ss.highlight_hover_text_color }};
+  background: var(--inv-accent-hover, #c9181f);
+  color: #ffffff;
 }
 
 /* Remove divider before highlight item */
@@ -178,7 +161,7 @@
    ======================================================= */
 @media (min-width: 750px) and (max-width: 989px) {
   .inv-simple-nav__link {
-    padding: {{ ss.padding_vertical | times: 0.8 | round }}px {{ ss.padding_horizontal | times: 0.6 | round }}px;
+    padding: 9px 12px;
     font-size: {{ ss.font_size | times: 0.9 | round }}px;
   }
 }
@@ -501,7 +484,7 @@
       "type": "color",
       "id": "highlight_bg_color",
       "label": "Highlight background",
-      "default": "#1a1a1a"
+      "default": "#e11d26"
     },
     {
       "type": "color",
@@ -513,7 +496,7 @@
       "type": "color",
       "id": "highlight_hover_bg_color",
       "label": "Highlight hover background",
-      "default": "#333333"
+      "default": "#c9181f"
     },
     {
       "type": "color",

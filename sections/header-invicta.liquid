@@ -262,6 +262,21 @@
     initDrawer();
   }
 })();
+
+// Sticky scroll shadow
+(function() {
+  var header = document.querySelector('.invicta-header');
+  if (!header) return;
+  var cls = 'invicta-header--scrolled';
+  var last = false;
+  window.addEventListener('scroll', function() {
+    var scrolled = window.scrollY > 10;
+    if (scrolled !== last) {
+      header.classList.toggle(cls, scrolled);
+      last = scrolled;
+    }
+  }, { passive: true });
+})();
 </script>
 
 {% schema %}
