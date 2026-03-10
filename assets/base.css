@@ -1812,6 +1812,12 @@ a:not([href]) {
 /* VAT toggle visibility — used by invicta-vat-toggle.js */
 .inv-vat--hidden { display: none !important; }
 
+/* Early VAT mode: applied via <html> class before JS loads to prevent FOUC */
+html.inv-vat-ex [data-price-inc]:not([data-price-ex]) { display: none !important; }
+html.inv-vat-ex [data-price-ex].inv-vat--hidden { display: revert !important; }
+html.inv-vat-ex [data-price-inc].inv-card__price-block:not([data-price-ex]) { display: none !important; }
+html.inv-vat-ex .inv-card__price-block[data-price-ex] { display: block !important; }
+
 /* Responsive Visibility */
 @media screen and (max-width: 749px) {
   .small-hide {
@@ -2593,6 +2599,7 @@ h1.product__title,
 .inv-qty__input:focus {
   outline: none;
   background: #fafafa;
+  box-shadow: 0 0 0 2px rgba(45, 45, 45, 0.3);
 }
 
 

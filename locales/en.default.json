@@ -743,6 +743,29 @@
       "quick_cats": {
         "empty_state": "Add category blocks using the section settings below."
       }
+    },
+    "collection": {
+      "showing_curated": "Showing curated selection",
+      "see_all": "See all",
+      "no_products_match": "No products match your current filters",
+      "remove_filters_hint": "Remove some filters to see more products.",
+      "no_products_found": "No products found",
+      "adjust_filters_hint": "Try adjusting your filters or browse all products.",
+      "clear_filters": "Clear Filters",
+      "clear_all_filters": "Clear all filters"
+    },
+    "breadcrumbs": {
+      "home": "Home"
+    },
+    "quote_request": {
+      "title": "Request a Quote",
+      "your_name": "Your Name",
+      "company_name": "Company Name",
+      "email": "Email",
+      "phone": "Phone",
+      "quantity_required": "Quantity Required",
+      "cancel": "Cancel",
+      "submit": "Submit Quote Request"
     }
   }
 }

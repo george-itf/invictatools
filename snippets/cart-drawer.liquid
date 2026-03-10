@@ -36,7 +36,7 @@
               <button
                 class="drawer__close"
                 type="button"
-                onclick="this.closest('cart-drawer').close()"
+                data-action="close-drawer"
                 aria-label="{{ 'accessibility.close' | t }}"
               >
                 <span class="svg-wrapper">
@@ -67,7 +67,7 @@
         <button
           class="drawer__close"
           type="button"
-          onclick="this.closest('cart-drawer').close()"
+          data-action="close-drawer"
           aria-label="{{ 'accessibility.close' | t }}"
         >
           <span class="svg-wrapper">

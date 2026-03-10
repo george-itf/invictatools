@@ -126,8 +126,9 @@
         this.loadingEl.classList.add('hidden');
       }
 
-      const html = products.map(product => this.createCard(product)).join('');
-      this.container.insertAdjacentHTML('afterbegin', html);
+      products.forEach(product => {
+        this.container.appendChild(this.createCardNode(product));
+      });
     }
 
     showEmpty() {
@@ -139,50 +140,98 @@
       }
     }
 
-    createCard(product) {
+    createCardNode(product) {
       const price = parseFloat(product.price) || 0;
       const comparePrice = parseFloat(product.comparePrice) || 0;
       const onSale = comparePrice > price;
-
       const priceFormatted = this.formatMoney(price * 100);
-      const comparePriceFormatted = onSale ? this.formatMoney(comparePrice * 100) : '';
+      const svgNS = 'http://www.w3.org/2000/svg';
 
-      let imageHtml = '';
-      if (product.image) {
-        const imageUrl = this.getOptimizedImageUrl(product.image, 400);
-        imageHtml = '<img src="' + imageUrl + '" alt="' + this.escapeHtml(product.title) + '" loading="lazy" width="400" height="400">';
-      } else {
-        imageHtml =
-          '<div class="inv-recent__card-placeholder">' +
-            '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">' +
-              '<rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>' +
-              '<circle cx="8.5" cy="8.5" r="1.5"/>' +
-              '<polyline points="21 15 16 10 5 21"/>' +
-            '</svg>' +
-          '</div>';
+      var anchor = document.createElement('a');
+      anchor.href = product.url || '';
+      anchor.className = 'inv-recent__card';
+      anchor.setAttribute('aria-label', product.title || '');
+
+      var imageDiv = document.createElement('div');
+      imageDiv.className = 'inv-recent__card-image';
+
+      if (onSale) {
+        var badge = document.createElement('span');
+        badge.className = 'inv-recent__card-badge';
+        badge.textContent = 'Sale';
+        imageDiv.appendChild(badge);
       }
 
-      const badgeHtml = onSale ? '<span class="inv-recent__card-badge">Sale</span>' : '';
+      if (product.image) {
+        var img = document.createElement('img');
+        img.src = this.getOptimizedImageUrl(product.image, 400);
+        img.alt = product.title || '';
+        img.loading = 'lazy';
+        img.width = 400;
+        img.height = 400;
+        imageDiv.appendChild(img);
+      } else {
+        var placeholder = document.createElement('div');
+        placeholder.className = 'inv-recent__card-placeholder';
+        var svg = document.createElementNS(svgNS, 'svg');
+        svg.setAttribute('width', '48');
+        svg.setAttribute('height', '48');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('fill', 'none');
+        svg.setAttribute('stroke', 'currentColor');
+        svg.setAttribute('stroke-width', '1');
+        var rect = document.createElementNS(svgNS, 'rect');
+        rect.setAttribute('x', '3'); rect.setAttribute('y', '3');
+        rect.setAttribute('width', '18'); rect.setAttribute('height', '18');
+        rect.setAttribute('rx', '2'); rect.setAttribute('ry', '2');
+        svg.appendChild(rect);
+        var circle = document.createElementNS(svgNS, 'circle');
+        circle.setAttribute('cx', '8.5'); circle.setAttribute('cy', '8.5'); circle.setAttribute('r', '1.5');
+        svg.appendChild(circle);
+        var polyline = document.createElementNS(svgNS, 'polyline');
+        polyline.setAttribute('points', '21 15 16 10 5 21');
+        svg.appendChild(polyline);
+        placeholder.appendChild(svg);
+        imageDiv.appendChild(placeholder);
+      }
 
-      const vendorHtml = product.vendor ?
-        '<span class="inv-recent__card-vendor">' + this.escapeHtml(product.vendor) + '</span>' : '';
+      anchor.appendChild(imageDiv);
 
-      const priceClass = onSale ? 'inv-recent__card-price-current inv-recent__card-price-current--sale' : 'inv-recent__card-price-current';
+      var bodyDiv = document.createElement('div');
+      bodyDiv.className = 'inv-recent__card-body';
 
-      return '<a href="' + product.url + '" class="inv-recent__card" aria-label="' + this.escapeHtml(product.title) + '">' +
-          '<div class="inv-recent__card-image">' +
-            badgeHtml +
-            imageHtml +
-          '</div>' +
-          '<div class="inv-recent__card-body">' +
-            vendorHtml +
-            '<h3 class="inv-recent__card-title">' + this.escapeHtml(product.title) + '</h3>' +
-            '<div class="inv-recent__card-price">' +
-              '<span class="' + priceClass + '">' + priceFormatted + '</span>' +
-              (onSale ? '<span class="inv-recent__card-price-compare">' + comparePriceFormatted + '</span>' : '') +
-            '</div>' +
-          '</div>' +
-        '</a>';
+      if (product.vendor) {
+        var vendorSpan = document.createElement('span');
+        vendorSpan.className = 'inv-recent__card-vendor';
+        vendorSpan.textContent = product.vendor;
+        bodyDiv.appendChild(vendorSpan);
+      }
+
+      var titleH3 = document.createElement('h3');
+      titleH3.className = 'inv-recent__card-title';
+      titleH3.textContent = product.title || '';
+      bodyDiv.appendChild(titleH3);
+
+      var priceDiv = document.createElement('div');
+      priceDiv.className = 'inv-recent__card-price';
+      var priceSpan = document.createElement('span');
+      priceSpan.className = onSale
+        ? 'inv-recent__card-price-current inv-recent__card-price-current--sale'
+        : 'inv-recent__card-price-current';
+      priceSpan.textContent = priceFormatted;
+      priceDiv.appendChild(priceSpan);
+
+      if (onSale) {
+        var compareSpan = document.createElement('span');
+        compareSpan.className = 'inv-recent__card-price-compare';
+        compareSpan.textContent = this.formatMoney(comparePrice * 100);
+        priceDiv.appendChild(compareSpan);
+      }
+
+      bodyDiv.appendChild(priceDiv);
+      anchor.appendChild(bodyDiv);
+
+      return anchor;
     }
 
     getOptimizedImageUrl(src, width) {
@@ -205,12 +254,7 @@
         .replace('{{amount_with_comma_separator}}', amount.replace('.', ','));
     }
 
-    escapeHtml(text) {
-      if (!text) return '';
-      const div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
-    }
+    /* escapeHtml removed — no longer needed after DOM-construction refactor */
   }
 
   function init() {

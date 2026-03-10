@@ -2,10 +2,32 @@
 {{ 'section-footer.css' | asset_url | stylesheet_tag }}
 {{ 'component-newsletter.css' | asset_url | stylesheet_tag }}
 {{ 'component-list-menu.css' | asset_url | stylesheet_tag }}
-{{ 'component-list-payment.css' | asset_url | stylesheet_tag }}
 {{ 'component-list-social.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
+  .list-payment {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: -0.5rem 0;
+    padding-top: 1rem;
+    padding-left: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .list-payment {
+      justify-content: flex-end;
+      margin: -0.5rem;
+      padding-top: 0;
+    }
+  }
+
+  .list-payment__item {
+    align-items: center;
+    display: flex;
+    padding: 0.5rem;
+  }
+
   .footer {
     margin-top: {{ section.settings.margin_top | times: 0.75 | round: 0 }}px;
   }

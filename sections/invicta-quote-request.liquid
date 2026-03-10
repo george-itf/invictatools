@@ -64,7 +64,7 @@
   
   <div class="invicta-quote-modal__content">
     <div class="invicta-quote-modal__header">
-      <h2 id="QuoteModalTitle" class="invicta-quote-modal__title">Request a Quote</h2>
+      <h2 id="QuoteModalTitle" class="invicta-quote-modal__title">{{ 'invicta.quote_request.title' | t }}</h2>
       <button 
         type="button" 
         class="invicta-quote-modal__close" 
@@ -101,7 +101,7 @@
         
         <div class="invicta-quote-form__row">
           <div class="invicta-quote-form__field">
-            <label for="QuoteName">Your Name <span class="required">*</span></label>
+            <label for="QuoteName">{{ 'invicta.quote_request.your_name' | t }} <span class="required">*</span></label>
             <input 
               type="text" 
               id="QuoteName" 
@@ -113,7 +113,7 @@
           </div>
           
           <div class="invicta-quote-form__field">
-            <label for="QuoteCompany">Company Name</label>
+            <label for="QuoteCompany">{{ 'invicta.quote_request.company_name' | t }}</label>
             <input 
               type="text" 
               id="QuoteCompany" 
@@ -126,7 +126,7 @@
         
         <div class="invicta-quote-form__row">
           <div class="invicta-quote-form__field">
-            <label for="QuoteEmail">Email <span class="required">*</span></label>
+            <label for="QuoteEmail">{{ 'invicta.quote_request.email' | t }} <span class="required">*</span></label>
             <input 
               type="email" 
               id="QuoteEmail" 
@@ -138,7 +138,7 @@
           </div>
           
           <div class="invicta-quote-form__field">
-            <label for="QuotePhone">Phone</label>
+            <label for="QuotePhone">{{ 'invicta.quote_request.phone' | t }}</label>
             <input 
               type="tel" 
               id="QuotePhone" 
@@ -150,7 +150,7 @@
         </div>
         
         <div class="invicta-quote-form__field">
-          <label for="QuoteQty">Quantity Required <span class="required">*</span></label>
+          <label for="QuoteQty">{{ 'invicta.quote_request.quantity_required' | t }} <span class="required">*</span></label>
           <input 
             type="number" 
             id="QuoteQty" 
@@ -174,10 +174,10 @@
         
         <div class="invicta-quote-form__actions">
           <button type="button" class="invicta-quote-form__cancel" data-quote-close>
-            Cancel
+            {{ 'invicta.quote_request.cancel' | t }}
           </button>
           <button type="submit" class="invicta-quote-form__submit">
-            <span>Submit Quote Request</span>
+            <span>{{ 'invicta.quote_request.submit' | t }}</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="22" y1="2" x2="11" y2="13"></line>
               <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>

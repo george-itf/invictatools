@@ -345,27 +345,7 @@
 
 {%- endif -%}
 
-<script>
-/* Brand pill logo fallback — delegated error handler (replaces inline onerror) */
-(function() {
-  if (window.__invictaBrandPillErrorBound) return;
-  window.__invictaBrandPillErrorBound = true;
-
-  document.addEventListener('error', function(e) {
-    var img = e.target;
-    if (!img || img.tagName !== 'IMG' || !img.hasAttribute('data-brand-pill-detector')) return;
-
-    var wrap = img.closest('.invicta-brand-pill__inner');
-    if (!wrap) return;
-
-    var bg = wrap.querySelector('.invicta-brand-pill__logo-bg');
-    var label = wrap.querySelector('.invicta-brand-pill__label');
-
-    if (bg) bg.style.display = 'none';
-    if (label) label.style.display = 'inline-block';
-
-    var pill = img.closest('.invicta-brand-pill');
-    if (pill) pill.classList.add('invicta-brand-pill--text');
-  }, true);
-})();
-</script>
+{%- comment -%}
+  Brand pill error handler moved to assets/invicta-brand-pill.js
+  (loaded via theme.liquid) for CSP compliance.
+{%- endcomment -%}

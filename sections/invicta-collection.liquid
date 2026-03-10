@@ -199,11 +199,11 @@
       <div class="page-width">
         <div class="inv-full-catalogue-banner__inner">
           <div class="inv-full-catalogue-banner__text">
-            <span class="inv-full-catalogue-banner__label">Showing curated selection</span>
+            <span class="inv-full-catalogue-banner__label">{{ 'invicta.collection.showing_curated' | t }}</span>
             <span class="inv-full-catalogue-banner__count">{{ collection.products_count }} of {{ full_catalogue_count }} products</span>
           </div>
           <a href="{{ full_catalogue_collection }}" class="inv-full-catalogue-banner__link">
-            <span>See all {{ full_catalogue_count }} products</span>
+            <span>{{ 'invicta.collection.see_all' | t }} {{ full_catalogue_count }} products</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M5 12h14"/>
               <path d="m12 5 7 7-7 7"/>
@@ -457,8 +457,8 @@
                 </svg>
 
                 {%- if has_active_filters -%}
-                  <h2 class="inv-empty__title">No products match your current filters</h2>
-                  <p class="inv-empty__text">Remove some filters to see more products.</p>
+                  <h2 class="inv-empty__title">{{ 'invicta.collection.no_products_match' | t }}</h2>
+                  <p class="inv-empty__text">{{ 'invicta.collection.remove_filters_hint' | t }}</p>
 
                   <div class="inv-empty__active-filters">
                     {%- for filter in collection.filters -%}
@@ -481,11 +481,11 @@
                     {%- endfor -%}
                   </div>
 
-                  <a href="{{ collection.url }}" class="inv-empty__clear-all">Clear all filters</a>
+                  <a href="{{ collection.url }}" class="inv-empty__clear-all">{{ 'invicta.collection.clear_all_filters' | t }}</a>
                 {%- else -%}
-                  <h2 class="inv-empty__title">No products found</h2>
-                  <p class="inv-empty__text">Try adjusting your filters or browse all products.</p>
-                  <a href="{{ collection.url }}" class="inv-empty__btn">Clear Filters</a>
+                  <h2 class="inv-empty__title">{{ 'invicta.collection.no_products_found' | t }}</h2>
+                  <p class="inv-empty__text">{{ 'invicta.collection.adjust_filters_hint' | t }}</p>
+                  <a href="{{ collection.url }}" class="inv-empty__btn">{{ 'invicta.collection.clear_filters' | t }}</a>
                 {%- endif -%}
               </div>
               

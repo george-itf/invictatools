@@ -133,11 +133,24 @@
   }
 
   /**
-   * Apply VAT mode: update buttons, prices, and persist
+   * Update the <html> element class for CSS-only early paint
+   * @param {string} mode - 'inc' or 'ex'
+   */
+  function updateHtmlClass(mode) {
+    if (mode === 'ex') {
+      document.documentElement.classList.add('inv-vat-ex');
+    } else {
+      document.documentElement.classList.remove('inv-vat-ex');
+    }
+  }
+
+  /**
+   * Apply VAT mode: update buttons, prices, html class, and persist
    * @param {string} mode - 'inc' or 'ex'
    */
   function applyVatMode(mode) {
     setVatMode(mode);
+    updateHtmlClass(mode);
     updateToggleButtons(mode);
     updatePriceDisplays(mode);
     dispatchVatEvent(mode);
@@ -170,12 +183,27 @@
   function init() {
     var mode = getVatMode();
 
-    // Set initial state
+    // Set initial state (html class, buttons, prices)
+    updateHtmlClass(mode);
     updateToggleButtons(mode);
     updatePriceDisplays(mode);
 
     // Attach click listener (delegated)
     document.addEventListener('click', handleToggleClick);
+
+    // Re-apply VAT mode when collection filters update the DOM via AJAX
+    document.addEventListener('invicta:collection:updated', function() {
+      var currentMode = getVatMode();
+      updatePriceDisplays(currentMode);
+      updateToggleButtons(currentMode);
+    });
+
+    // Also re-apply on generic cart refresh / section render
+    document.addEventListener('shopify:section:load', function() {
+      var currentMode = getVatMode();
+      updatePriceDisplays(currentMode);
+      updateToggleButtons(currentMode);
+    });
 
     // Dispatch initial event for any listeners
     dispatchVatEvent(mode);
@@ -188,12 +216,17 @@
     init();
   }
 
-  // Expose API for external use
+  // Expose API for external use (including reapply for AJAX contexts)
   window.InvictaVAT = {
     getMode: getVatMode,
     setMode: function(mode) {
       if (mode !== 'inc' && mode !== 'ex') return;
       applyVatMode(mode);
+    },
+    reapply: function() {
+      var mode = getVatMode();
+      updatePriceDisplays(mode);
+      updateToggleButtons(mode);
     }
   };
 
