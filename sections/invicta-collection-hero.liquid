@@ -32,7 +32,7 @@
         
         {%- if show_breadcrumb -%}
           <nav class="inv-col-hero__breadcrumb" aria-label="Breadcrumb">
-            <a href="{{ routes.root_url }}">Home</a>
+            <a href="{{ routes.root_url }}">{{ 'invicta.breadcrumbs.home' | t }}</a>
             <span class="inv-col-hero__sep">/</span>
             {%- if collection.metafields.custom.parent_collection != blank -%}
               {%- assign parent = collection.metafields.custom.parent_collection.value -%}

@@ -67,7 +67,7 @@
   <nav class="inv-breadcrumb" aria-label="Breadcrumb">
     <div class="page-width">
       <ol class="inv-breadcrumb__list">
-        <li><a href="{{ routes.root_url }}" class="inv-breadcrumb__link">Home</a></li>
+        <li><a href="{{ routes.root_url }}" class="inv-breadcrumb__link">{{ 'invicta.breadcrumbs.home' | t }}</a></li>
         <li><span class="inv-breadcrumb__sep">›</span></li>
         <li><span class="inv-breadcrumb__current" aria-current="page">{{ collection.title }}</span></li>
       </ol>
@@ -84,11 +84,11 @@
       <div class="page-width">
         <div class="inv-full-catalogue-banner__inner">
           <div class="inv-full-catalogue-banner__text">
-            <span class="inv-full-catalogue-banner__label">Showing curated selection</span>
+            <span class="inv-full-catalogue-banner__label">{{ 'invicta.collection.showing_curated' | t }}</span>
             <span class="inv-full-catalogue-banner__count">{{ collection.products_count }} of {{ full_catalogue_count }} products</span>
           </div>
           <a href="{{ full_catalogue_collection }}" class="inv-full-catalogue-banner__link">
-            <span>See all {{ full_catalogue_count }} products</span>
+            <span>{{ 'invicta.collection.see_all' | t }} {{ full_catalogue_count }} products</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M5 12h14"/>
               <path d="m12 5 7 7-7 7"/>
@@ -340,9 +340,9 @@
                   <circle cx="11" cy="11" r="8"/>
                   <path d="m21 21-4.35-4.35"/>
                 </svg>
-                <h2 class="inv-empty__title">No products found</h2>
-                <p class="inv-empty__text">Try adjusting your filters or browse all products.</p>
-                <a href="{{ collection.url }}" class="inv-empty__btn">Clear Filters</a>
+                <h2 class="inv-empty__title">{{ 'invicta.collection.no_products_found' | t }}</h2>
+                <p class="inv-empty__text">{{ 'invicta.collection.adjust_filters_hint' | t }}</p>
+                <a href="{{ collection.url }}" class="inv-empty__btn">{{ 'invicta.collection.clear_filters' | t }}</a>
               </div>
 
             {%- endif -%}

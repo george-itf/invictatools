@@ -2599,6 +2599,7 @@ h1.product__title,
 .inv-qty__input:focus {
   outline: none;
   background: #fafafa;
+  box-shadow: 0 0 0 2px rgba(45, 45, 45, 0.3);
 }
 
 
