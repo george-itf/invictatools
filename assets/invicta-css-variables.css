@@ -201,14 +201,14 @@
   --z-modal: var(--inv-z-modal);
 
   /* ========================================
-     HEADER (Dark Grey Hybrid)
+     HEADER (White — Clean Modern)
      ======================================== */
-  --inv-header-bg: #1a1a1a;
-  --inv-header-fg: #ffffff;
-  --inv-header-border: none;
-  --inv-header-icon-bg: rgba(255, 255, 255, 0.1);
-  --inv-header-icon-fg: #ffffff;
-  --inv-header-icon-hover-bg: rgba(255, 255, 255, 0.2);
+  --inv-header-bg: #ffffff;
+  --inv-header-fg: var(--inv-fg);
+  --inv-header-border: var(--inv-border);
+  --inv-header-icon-bg: var(--inv-bg-soft);
+  --inv-header-icon-fg: var(--inv-fg);
+  --inv-header-icon-hover-bg: var(--inv-border);
 
   /* NAV */
   --inv-nav-bg: #ffffff;
