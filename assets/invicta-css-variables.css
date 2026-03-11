@@ -201,14 +201,14 @@
   --z-modal: var(--inv-z-modal);
 
   /* ========================================
-     HEADER (White — Clean Modern)
+     HEADER (Invicta Red)
      ======================================== */
-  --inv-header-bg: #ffffff;
-  --inv-header-fg: var(--inv-fg);
-  --inv-header-border: var(--inv-border);
-  --inv-header-icon-bg: var(--inv-bg-soft);
-  --inv-header-icon-fg: var(--inv-fg);
-  --inv-header-icon-hover-bg: var(--inv-border);
+  --inv-header-bg: var(--inv-accent, #e11d26);
+  --inv-header-fg: #ffffff;
+  --inv-header-border: none;
+  --inv-header-icon-bg: rgba(255, 255, 255, 0.15);
+  --inv-header-icon-fg: #ffffff;
+  --inv-header-icon-hover-bg: rgba(255, 255, 255, 0.25);
 
   /* NAV */
   --inv-nav-bg: #ffffff;
