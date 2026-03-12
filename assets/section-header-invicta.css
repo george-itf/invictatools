@@ -687,9 +687,11 @@
     max-height: 40px;
   }
 
-  /* Search — hidden in top bar on mobile, use drawer or search icon */
+  /* Search — full-width second row on mobile */
   .invicta-header__search {
-    display: none;
+    grid-column: 1 / -1;
+    max-width: none;
+    padding-bottom: 4px;
   }
 
   /* Icons — right, only cart */
