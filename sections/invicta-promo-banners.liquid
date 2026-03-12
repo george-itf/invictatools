@@ -102,55 +102,67 @@
     background: {{ section.settings.section_bg }};
   }
 
-  .inv-promos__grid {
+  #promos-{{ section.id }} .inv-promos__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
   }
 
-  .inv-promos__grid--single {
+  #promos-{{ section.id }} .inv-promos__grid--single {
     grid-template-columns: 1fr;
   }
 
   /* --- Card --- */
-  .inv-promos__card {
+  #promos-{{ section.id }} .inv-promos__card {
     display: block;
     overflow: hidden;
     text-decoration: none;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
 
-  .inv-promos__card:hover {
+  #promos-{{ section.id }} .inv-promos__card::after,
+  #promos-{{ section.id }} .inv-promos__card::before {
+    content: none;
+    display: none;
+  }
+
+  #promos-{{ section.id }} .inv-promos__card .inv-promos__overlay {
+    display: none;
+  }
+
+  #promos-{{ section.id }} .inv-promos__card:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   }
 
-  .inv-promos__card:focus-visible {
+  #promos-{{ section.id }} .inv-promos__card:focus-visible {
     outline: 2px solid #e11d26;
     outline-offset: 2px;
   }
 
   /* --- Banner image --- */
-  .inv-promos__bg {
+  #promos-{{ section.id }} .inv-promos__bg {
+    position: static;
     width: 100%;
     height: auto;
     display: block;
+    object-fit: initial;
   }
 
   /* --- Responsive --- */
   @media (max-width: 749px) {
-    .inv-promos__grid {
+    #promos-{{ section.id }} .inv-promos__grid {
       grid-template-columns: 1fr;
       gap: 12px;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .inv-promos__card {
+    #promos-{{ section.id }} .inv-promos__card {
       transition: none;
     }
 
-    .inv-promos__card:hover {
+    #promos-{{ section.id }} .inv-promos__card:hover {
       transform: none;
     }
   }
