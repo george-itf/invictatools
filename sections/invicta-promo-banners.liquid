@@ -1,15 +1,12 @@
 {% comment %}
   ============================================
-  INVICTA PROMO BANNERS v7.0
+  INVICTA PROMO BANNERS v8.0
   ============================================
-  Two image-backed banner cards matching the
-  Invicta trade theme: sharp edges, bold type,
-  dark overlays, no-nonsense industrial style.
+  Two image-only clickable banner cards.
 
   Supports:
-  • Background images via image_picker
+  • Banner images via image_picker
   • Date-windowed visibility per banner
-  • Configurable overlay colour/opacity
   • Fully responsive (stacks on mobile)
   ============================================
 {% endcomment %}
@@ -60,30 +57,13 @@
                     {{ section.settings.banner_1_image | image_url: width: 600 }} 600w,
                     {{ section.settings.banner_1_image | image_url: width: 800 }} 800w"
             sizes="(max-width: 749px) 100vw, 50vw"
-            alt="{{ section.settings.banner_1_title | escape }}"
+            alt="{{ section.settings.banner_1_image.alt | escape }}"
             loading="lazy"
             width="{{ section.settings.banner_1_image.width }}"
             height="{{ section.settings.banner_1_image.height }}"
             class="inv-promos__bg"
           >
         {%- endif -%}
-        <div class="inv-promos__overlay" style="background: {{ section.settings.banner_1_overlay }}; opacity: {{ section.settings.banner_1_overlay_opacity | divided_by: 100.0 }};"></div>
-        <div class="inv-promos__content">
-          {%- if section.settings.banner_1_tag != blank -%}
-            <span class="inv-promos__tag">{{ section.settings.banner_1_tag }}</span>
-          {%- endif -%}
-          {%- if section.settings.banner_1_title != blank -%}
-            <h2 class="inv-promos__title">{{ section.settings.banner_1_title }}</h2>
-          {%- endif -%}
-          {%- if section.settings.banner_1_subtitle != blank -%}
-            <p class="inv-promos__subtitle">{{ section.settings.banner_1_subtitle }}</p>
-          {%- endif -%}
-        </div>
-        <div class="inv-promos__arrow">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-            <polyline points="9 18 15 12 9 6"/>
-          </svg>
-        </div>
       </a>
       {%- endif -%}
 
@@ -96,30 +76,13 @@
                     {{ section.settings.banner_2_image | image_url: width: 600 }} 600w,
                     {{ section.settings.banner_2_image | image_url: width: 800 }} 800w"
             sizes="(max-width: 749px) 100vw, 50vw"
-            alt="{{ section.settings.banner_2_title | escape }}"
+            alt="{{ section.settings.banner_2_image.alt | escape }}"
             loading="lazy"
             width="{{ section.settings.banner_2_image.width }}"
             height="{{ section.settings.banner_2_image.height }}"
             class="inv-promos__bg"
           >
         {%- endif -%}
-        <div class="inv-promos__overlay" style="background: {{ section.settings.banner_2_overlay }}; opacity: {{ section.settings.banner_2_overlay_opacity | divided_by: 100.0 }};"></div>
-        <div class="inv-promos__content">
-          {%- if section.settings.banner_2_tag != blank -%}
-            <span class="inv-promos__tag">{{ section.settings.banner_2_tag }}</span>
-          {%- endif -%}
-          {%- if section.settings.banner_2_title != blank -%}
-            <h2 class="inv-promos__title">{{ section.settings.banner_2_title }}</h2>
-          {%- endif -%}
-          {%- if section.settings.banner_2_subtitle != blank -%}
-            <p class="inv-promos__subtitle">{{ section.settings.banner_2_subtitle }}</p>
-          {%- endif -%}
-        </div>
-        <div class="inv-promos__arrow">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-            <polyline points="9 18 15 12 9 6"/>
-          </svg>
-        </div>
       </a>
       {%- endif -%}
 
@@ -130,8 +93,8 @@
 
 <style>
   /* ============================================
-     INVICTA PROMO BANNERS v7.0
-     Sharp, industrial, image-backed
+     INVICTA PROMO BANNERS v8.0
+     Image-only clickable cards
      ============================================ */
 
   #promos-{{ section.id }} {
@@ -139,150 +102,67 @@
     background: {{ section.settings.section_bg }};
   }
 
-  .inv-promos__grid {
+  #promos-{{ section.id }} .inv-promos__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
   }
 
-  .inv-promos__grid--single {
+  #promos-{{ section.id }} .inv-promos__grid--single {
     grid-template-columns: 1fr;
   }
 
   /* --- Card --- */
-  .inv-promos__card {
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    min-height: 220px;
+  #promos-{{ section.id }} .inv-promos__card {
+    display: block;
     overflow: hidden;
     text-decoration: none;
-    color: #fff;
-    background: #2d2d2d;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
 
-  .inv-promos__card:hover {
+  #promos-{{ section.id }} .inv-promos__card::after,
+  #promos-{{ section.id }} .inv-promos__card::before {
+    content: none;
+    display: none;
+  }
+
+  #promos-{{ section.id }} .inv-promos__card .inv-promos__overlay {
+    display: none;
+  }
+
+  #promos-{{ section.id }} .inv-promos__card:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   }
 
-  .inv-promos__card:focus-visible {
+  #promos-{{ section.id }} .inv-promos__card:focus-visible {
     outline: 2px solid #e11d26;
     outline-offset: 2px;
   }
 
-  /* --- Background image --- */
-  .inv-promos__bg {
-    position: absolute;
-    inset: 0;
+  /* --- Banner image --- */
+  #promos-{{ section.id }} .inv-promos__bg {
+    position: static;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-  }
-
-  /* --- Dark overlay --- */
-  .inv-promos__overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  /* Bottom-edge gradient scrim — darkens only behind the text */
-  .inv-promos__card::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 70%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.35) 50%, transparent 100%);
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  /* --- Content --- */
-  .inv-promos__content {
-    position: relative;
-    z-index: 2;
-    padding: 28px 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .inv-promos__tag {
-    display: inline-block;
-    background: #e11d26;
-    color: #fff;
-    padding: 5px 10px;
-    font-size: 11px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    width: fit-content;
-  }
-
-  .inv-promos__title {
-    font-size: clamp(20px, 2.5vw, 28px);
-    font-weight: 800;
-    color: #ffffff;
-    line-height: 1.1;
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: -0.01em;
-  }
-
-  .inv-promos__subtitle {
-    font-size: 14px;
-    font-weight: 500;
-    opacity: 0.85;
-    margin: 0;
-    line-height: 1.4;
-    max-width: 320px;
-  }
-
-  /* --- Arrow indicator --- */
-  .inv-promos__arrow {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index: 2;
-    opacity: 0.5;
-    transition: transform 0.15s ease, opacity 0.15s ease;
-    color: #fff;
-  }
-
-  .inv-promos__card:hover .inv-promos__arrow {
-    transform: translateX(3px);
-    opacity: 1;
+    height: auto;
+    display: block;
+    object-fit: initial;
   }
 
   /* --- Responsive --- */
   @media (max-width: 749px) {
-    .inv-promos__grid {
+    #promos-{{ section.id }} .inv-promos__grid {
       grid-template-columns: 1fr;
       gap: 12px;
-    }
-
-    .inv-promos__card {
-      min-height: 180px;
-    }
-
-    .inv-promos__content {
-      padding: 20px 24px;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .inv-promos__card,
-    .inv-promos__arrow {
+    #promos-{{ section.id }} .inv-promos__card {
       transition: none;
     }
 
-    .inv-promos__card:hover {
+    #promos-{{ section.id }} .inv-promos__card:hover {
       transform: none;
     }
   }
@@ -329,46 +209,12 @@
     {
       "type": "image_picker",
       "id": "banner_1_image",
-      "label": "Background image",
-      "info": "Recommended: 800x400px. Falls back to dark grey."
-    },
-    {
-      "type": "text",
-      "id": "banner_1_tag",
-      "label": "Tag text",
-      "default": "New Arrivals"
-    },
-    {
-      "type": "text",
-      "id": "banner_1_title",
-      "label": "Title",
-      "default": "Latest Power Tools"
-    },
-    {
-      "type": "text",
-      "id": "banner_1_subtitle",
-      "label": "Subtitle"
+      "label": "Banner image"
     },
     {
       "type": "url",
       "id": "banner_1_link",
       "label": "Link"
-    },
-    {
-      "type": "color",
-      "id": "banner_1_overlay",
-      "label": "Overlay colour",
-      "default": "#000000"
-    },
-    {
-      "type": "range",
-      "id": "banner_1_overlay_opacity",
-      "label": "Overlay opacity",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "%",
-      "default": 35
     },
     {
       "type": "text",
@@ -389,46 +235,12 @@
     {
       "type": "image_picker",
       "id": "banner_2_image",
-      "label": "Background image",
-      "info": "Recommended: 800x400px. Falls back to dark grey."
-    },
-    {
-      "type": "text",
-      "id": "banner_2_tag",
-      "label": "Tag text",
-      "default": "Deals"
-    },
-    {
-      "type": "text",
-      "id": "banner_2_title",
-      "label": "Title",
-      "default": "Deals & Savings"
-    },
-    {
-      "type": "text",
-      "id": "banner_2_subtitle",
-      "label": "Subtitle"
+      "label": "Banner image"
     },
     {
       "type": "url",
       "id": "banner_2_link",
       "label": "Link"
-    },
-    {
-      "type": "color",
-      "id": "banner_2_overlay",
-      "label": "Overlay colour",
-      "default": "#000000"
-    },
-    {
-      "type": "range",
-      "id": "banner_2_overlay_opacity",
-      "label": "Overlay opacity",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "%",
-      "default": 35
     },
     {
       "type": "text",
