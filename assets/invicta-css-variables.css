@@ -96,9 +96,9 @@
   --inv-radius-pill: 999px;
 
   /* Component-specific radii (enforced site-wide) */
-  --inv-radius-button: var(--inv-radius-md);
-  --inv-radius-card: var(--inv-radius-md);
-  --inv-radius-input: var(--inv-radius-md);
+  --inv-radius-button: 0;
+  --inv-radius-card: 0;
+  --inv-radius-input: 0;
   --inv-radius-modal: var(--inv-radius-lg);
   --inv-radius-toggle-outer: var(--inv-radius-md);
   --inv-radius-toggle-inner: var(--inv-radius-sm);

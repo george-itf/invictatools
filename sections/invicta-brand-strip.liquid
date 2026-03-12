@@ -152,28 +152,29 @@
   /* MOBILE */
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} .invicta-brand-strip__grid {
-      gap: clamp(8px, 2.5vw, 14px);
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      justify-content: flex-start;
+      gap: 10px;
+      padding-bottom: 4px;
+      scrollbar-width: none;
     }
-    
+
+    #shopify-section-{{ section.id }} .invicta-brand-strip__grid::-webkit-scrollbar {
+      display: none;
+    }
+
     #shopify-section-{{ section.id }} .invicta-brand-strip__item {
-      flex: 0 1 calc(33.333% - 10px);
-      min-width: 100px;
-      max-width: 140px;
+      flex: 0 0 auto;
+      min-width: 0;
+      max-width: none;
     }
-    
+
     #shopify-section-{{ section.id }} .invicta-brand-strip__item .invicta-brand-pill {
       --pill-height: clamp(38px, 10vw, 52px);
       --pill-logo-height: clamp(24px, 6vw, 34px);
       padding-inline: clamp(12px, 4vw, 20px);
-    }
-  }
-  
-  /* VERY SMALL SCREENS */
-  @media (max-width: 420px) {
-    #shopify-section-{{ section.id }} .invicta-brand-strip__item {
-      flex: 0 1 calc(50% - 6px);
-      min-width: 0;
-      max-width: none;
     }
   }
 </style>
