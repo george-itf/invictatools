@@ -275,7 +275,16 @@
           "page.workwear-safety.json"
         ],
         "shared_sections": ["invicta-category-grid"],
-        "differences": "Single section only."
+        "differences": "Single section only. These 3 lack the invicta-recently-viewed section that the other 15 category pages have — this may be an inconsistency rather than intentional."
+      },
+      {
+        "group": "Default page templates",
+        "templates": [
+          "page.json",
+          "page.category-landing.json"
+        ],
+        "shared_sections": ["main-page"],
+        "differences": "Structurally identical — both use only main-page. page.category-landing.json appears redundant but may be used by specific admin pages."
       },
       {
         "group": "Local SEO pages",
@@ -321,7 +330,12 @@
       {"template": "page.thank-you-trade.json", "sections": ["trade-thank-you"]},
       {"template": "page.trade-landing.json", "sections": ["trade-landing"]}
     ],
-    "recommendation": "The 8 brand-specific templates and 15+ category templates are structurally identical with different settings. The theme owner could consider whether some admin pages should be migrated to use a single template with dynamic content, but this is a Shopify admin decision, not a theme file change."
+    "observations": [
+      "page.category-landing.json is structurally identical to page.json — both use only main-page. The owner should check if any admin pages use it; if not, it could be removed.",
+      "page.brand.json (generic brand template) has drifted from the 8 specific brand templates: it is missing brand-faq and brand-schema sections, and has breadcrumb-simple which the others lack. Consider aligning it if it is still in active use.",
+      "3 category pages (accessories-consumables, shop-by-brand, workwear-safety) lack the invicta-recently-viewed section that the other 15 category pages have. This may be an oversight."
+    ],
+    "recommendation": "The 8 brand-specific templates and 18 category templates are structurally identical with different settings. The theme owner could consider whether some admin pages should be migrated to use a single template with dynamic content, but this is a Shopify admin decision, not a theme file change."
   },
   "naming_convention_established": {
     "document": "ARCHITECTURE.md",
