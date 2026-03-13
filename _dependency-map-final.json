@@ -1,0 +1,3226 @@
+{
+  "metadata": {
+    "generated": "2026-03-13",
+    "phase": "5-verification",
+    "total_files": 367,
+    "method": "fresh-scan",
+    "fixes_applied": 2
+  },
+  "dependencies": {
+    "json_template_to_section": [
+      {
+        "source": "./templates/page.brand-faithfull.json",
+        "target": "./sections/brand-hero.liquid",
+        "section_type": "brand-hero"
+      },
+      {
+        "source": "./templates/page.brand-faithfull.json",
+        "target": "./sections/invicta-usp-strip-v2.liquid",
+        "section_type": "invicta-usp-strip-v2"
+      },
+      {
+        "source": "./templates/page.brand-faithfull.json",
+        "target": "./sections/brand-about.liquid",
+        "section_type": "brand-about"
+      },
+      {
+        "source": "./templates/page.brand-faithfull.json",
+        "target": "./sections/featured-collection.liquid",
+        "section_type": "featured-collection"
+      },
+      {
+        "source": "./templates/page.brand-faithfull.json",
+        "target": "./sections/brand-applications.liquid",
+        "section_type": "brand-applications"
+      },
+      {
+        "source": "./templates/page.brand-faithfull.json",
+        "target": "./sections/brand-new-products.liquid",
+        "section_type": "brand-new-products"
+      },
+      {
+        "source": "./templates/page.brand-faithfull.json",
+        "target": "./sections/brand-why-choose.liquid",
+        "section_type": "brand-why-choose"
+      },
+      {
+        "source": "./templates/page.brand-faithfull.json",
+        "target": "./sections/brand-categories.liquid",
+        "section_type": "brand-categories"
+      },
+      {
+        "source": "./templates/page.brand-faithfull.json",
+        "target": "./sections/brand-video.liquid",
+        "section_type": "brand-video"
+      },
+      {
+        "source": "./templates/page.brand-faithfull.json",
+        "target": "./sections/brand-faq.liquid",
+        "section_type": "brand-faq"
+      },
+      {
+        "source": "./templates/page.brand-faithfull.json",
+        "target": "./sections/cta-bar.liquid",
+        "section_type": "cta-bar"
+      },
+      {
+        "source": "./templates/page.brand-faithfull.json",
+        "target": "./sections/brand-schema.liquid",
+        "section_type": "brand-schema"
+      },
+      {
+        "source": "./templates/page.brand-stanley.json",
+        "target": "./sections/brand-hero.liquid",
+        "section_type": "brand-hero"
+      },
+      {
+        "source": "./templates/page.brand-stanley.json",
+        "target": "./sections/invicta-usp-strip-v2.liquid",
+        "section_type": "invicta-usp-strip-v2"
+      },
+      {
+        "source": "./templates/page.brand-stanley.json",
+        "target": "./sections/brand-about.liquid",
+        "section_type": "brand-about"
+      },
+      {
+        "source": "./templates/page.brand-stanley.json",
+        "target": "./sections/featured-collection.liquid",
+        "section_type": "featured-collection"
+      },
+      {
+        "source": "./templates/page.brand-stanley.json",
+        "target": "./sections/brand-applications.liquid",
+        "section_type": "brand-applications"
+      },
+      {
+        "source": "./templates/page.brand-stanley.json",
+        "target": "./sections/brand-new-products.liquid",
+        "section_type": "brand-new-products"
+      },
+      {
+        "source": "./templates/page.brand-stanley.json",
+        "target": "./sections/brand-why-choose.liquid",
+        "section_type": "brand-why-choose"
+      },
+      {
+        "source": "./templates/page.brand-stanley.json",
+        "target": "./sections/brand-categories.liquid",
+        "section_type": "brand-categories"
+      },
+      {
+        "source": "./templates/page.brand-stanley.json",
+        "target": "./sections/brand-video.liquid",
+        "section_type": "brand-video"
+      },
+      {
+        "source": "./templates/page.brand-stanley.json",
+        "target": "./sections/brand-faq.liquid",
+        "section_type": "brand-faq"
+      },
+      {
+        "source": "./templates/page.brand-stanley.json",
+        "target": "./sections/cta-bar.liquid",
+        "section_type": "cta-bar"
+      },
+      {
+        "source": "./templates/page.brand-stanley.json",
+        "target": "./sections/brand-schema.liquid",
+        "section_type": "brand-schema"
+      },
+      {
+        "source": "./templates/collection.brand.json",
+        "target": "./sections/invicta-brand-collection.liquid",
+        "section_type": "invicta-brand-collection"
+      },
+      {
+        "source": "./templates/page.brand-lamello.json",
+        "target": "./sections/brand-hero.liquid",
+        "section_type": "brand-hero"
+      },
+      {
+        "source": "./templates/page.brand-lamello.json",
+        "target": "./sections/invicta-usp-strip-v2.liquid",
+        "section_type": "invicta-usp-strip-v2"
+      },
+      {
+        "source": "./templates/page.brand-lamello.json",
+        "target": "./sections/brand-about.liquid",
+        "section_type": "brand-about"
+      },
+      {
+        "source": "./templates/page.brand-lamello.json",
+        "target": "./sections/featured-collection.liquid",
+        "section_type": "featured-collection"
+      },
+      {
+        "source": "./templates/page.brand-lamello.json",
+        "target": "./sections/brand-applications.liquid",
+        "section_type": "brand-applications"
+      },
+      {
+        "source": "./templates/page.brand-lamello.json",
+        "target": "./sections/brand-new-products.liquid",
+        "section_type": "brand-new-products"
+      },
+      {
+        "source": "./templates/page.brand-lamello.json",
+        "target": "./sections/brand-why-choose.liquid",
+        "section_type": "brand-why-choose"
+      },
+      {
+        "source": "./templates/page.brand-lamello.json",
+        "target": "./sections/brand-categories.liquid",
+        "section_type": "brand-categories"
+      },
+      {
+        "source": "./templates/page.brand-lamello.json",
+        "target": "./sections/brand-video.liquid",
+        "section_type": "brand-video"
+      },
+      {
+        "source": "./templates/page.brand-lamello.json",
+        "target": "./sections/brand-faq.liquid",
+        "section_type": "brand-faq"
+      },
+      {
+        "source": "./templates/page.brand-lamello.json",
+        "target": "./sections/cta-bar.liquid",
+        "section_type": "cta-bar"
+      },
+      {
+        "source": "./templates/page.brand-lamello.json",
+        "target": "./sections/brand-schema.liquid",
+        "section_type": "brand-schema"
+      },
+      {
+        "source": "./templates/page.gun-nails.json",
+        "target": "./sections/invicta-category-grid.liquid",
+        "section_type": "invicta-category-grid"
+      },
+      {
+        "source": "./templates/page.gun-nails.json",
+        "target": "./sections/invicta-recently-viewed.liquid",
+        "section_type": "invicta-recently-viewed"
+      },
+      {
+        "source": "./templates/article.json",
+        "target": "./sections/main-article.liquid",
+        "section_type": "main-article"
+      },
+      {
+        "source": "./templates/page.adhesives-chemicals.json",
+        "target": "./sections/invicta-category-grid.liquid",
+        "section_type": "invicta-category-grid"
+      },
+      {
+        "source": "./templates/page.adhesives-chemicals.json",
+        "target": "./sections/invicta-recently-viewed.liquid",
+        "section_type": "invicta-recently-viewed"
+      },
+      {
+        "source": "./templates/page.faq.json",
+        "target": "./sections/invicta-faq.liquid",
+        "section_type": "invicta-faq"
+      },
+      {
+        "source": "./templates/page.cutting-discs.json",
+        "target": "./sections/invicta-category-grid.liquid",
+        "section_type": "invicta-category-grid"
+      },
+      {
+        "source": "./templates/page.cutting-discs.json",
+        "target": "./sections/invicta-recently-viewed.liquid",
+        "section_type": "invicta-recently-viewed"
+      },
+      {
+        "source": "./templates/page.sds-bits.json",
+        "target": "./sections/invicta-category-grid.liquid",
+        "section_type": "invicta-category-grid"
+      },
+      {
+        "source": "./templates/page.sds-bits.json",
+        "target": "./sections/invicta-recently-viewed.liquid",
+        "section_type": "invicta-recently-viewed"
+      },
+      {
+        "source": "./templates/page.brand-makita.json",
+        "target": "./sections/brand-hero.liquid",
+        "section_type": "brand-hero"
+      },
+      {
+        "source": "./templates/page.brand-makita.json",
+        "target": "./sections/invicta-usp-strip-v2.liquid",
+        "section_type": "invicta-usp-strip-v2"
+      },
+      {
+        "source": "./templates/page.brand-makita.json",
+        "target": "./sections/brand-about.liquid",
+        "section_type": "brand-about"
+      },
+      {
+        "source": "./templates/page.brand-makita.json",
+        "target": "./sections/featured-collection.liquid",
+        "section_type": "featured-collection"
+      },
+      {
+        "source": "./templates/page.brand-makita.json",
+        "target": "./sections/brand-applications.liquid",
+        "section_type": "brand-applications"
+      },
+      {
+        "source": "./templates/page.brand-makita.json",
+        "target": "./sections/brand-new-products.liquid",
+        "section_type": "brand-new-products"
+      },
+      {
+        "source": "./templates/page.brand-makita.json",
+        "target": "./sections/brand-why-choose.liquid",
+        "section_type": "brand-why-choose"
+      },
+      {
+        "source": "./templates/page.brand-makita.json",
+        "target": "./sections/brand-categories.liquid",
+        "section_type": "brand-categories"
+      },
+      {
+        "source": "./templates/page.brand-makita.json",
+        "target": "./sections/brand-video.liquid",
+        "section_type": "brand-video"
+      },
+      {
+        "source": "./templates/page.brand-makita.json",
+        "target": "./sections/brand-faq.liquid",
+        "section_type": "brand-faq"
+      },
+      {
+        "source": "./templates/page.brand-makita.json",
+        "target": "./sections/cta-bar.liquid",
+        "section_type": "cta-bar"
+      },
+      {
+        "source": "./templates/page.brand-makita.json",
+        "target": "./sections/brand-schema.liquid",
+        "section_type": "brand-schema"
+      },
+      {
+        "source": "./templates/page.saw-blades.json",
+        "target": "./sections/invicta-category-grid.liquid",
+        "section_type": "invicta-category-grid"
+      },
+      {
+        "source": "./templates/page.saw-blades.json",
+        "target": "./sections/invicta-recently-viewed.liquid",
+        "section_type": "invicta-recently-viewed"
+      },
+      {
+        "source": "./templates/page.shop-by-brand.json",
+        "target": "./sections/invicta-category-grid.liquid",
+        "section_type": "invicta-category-grid"
+      },
+      {
+        "source": "./templates/page.abrasives.json",
+        "target": "./sections/invicta-category-grid.liquid",
+        "section_type": "invicta-category-grid"
+      },
+      {
+        "source": "./templates/page.abrasives.json",
+        "target": "./sections/invicta-recently-viewed.liquid",
+        "section_type": "invicta-recently-viewed"
+      },
+      {
+        "source": "./templates/page.contact.json",
+        "target": "./sections/main-page.liquid",
+        "section_type": "main-page"
+      },
+      {
+        "source": "./templates/page.contact.json",
+        "target": "./sections/image-banner.liquid",
+        "section_type": "image-banner"
+      },
+      {
+        "source": "./templates/page.contact.json",
+        "target": "./sections/contact-form.liquid",
+        "section_type": "contact-form"
+      },
+      {
+        "source": "./templates/password.json",
+        "target": "./sections/email-signup-banner.liquid",
+        "section_type": "email-signup-banner"
+      },
+      {
+        "source": "./templates/page.power-tool-accessories.json",
+        "target": "./sections/invicta-category-grid.liquid",
+        "section_type": "invicta-category-grid"
+      },
+      {
+        "source": "./templates/page.power-tool-accessories.json",
+        "target": "./sections/invicta-recently-viewed.liquid",
+        "section_type": "invicta-recently-viewed"
+      },
+      {
+        "source": "./templates/page.accessories-consumables.json",
+        "target": "./sections/invicta-category-grid.liquid",
+        "section_type": "invicta-category-grid"
+      },
+      {
+        "source": "./templates/page.local-seo.json",
+        "target": "./sections/breadcrumb-simple.liquid",
+        "section_type": "breadcrumb-simple"
+      },
+      {
+        "source": "./templates/page.local-seo.json",
+        "target": "./sections/local-hero.liquid",
+        "section_type": "local-hero"
+      },
+      {
+        "source": "./templates/page.local-seo.json",
+        "target": "./sections/invicta-usp-strip-v2.liquid",
+        "section_type": "invicta-usp-strip-v2"
+      },
+      {
+        "source": "./templates/page.local-seo.json",
+        "target": "./sections/local-content.liquid",
+        "section_type": "local-content"
+      },
+      {
+        "source": "./templates/page.local-seo.json",
+        "target": "./sections/cta-bar.liquid",
+        "section_type": "cta-bar"
+      },
+      {
+        "source": "./templates/blog.json",
+        "target": "./sections/main-blog.liquid",
+        "section_type": "main-blog"
+      },
+      {
+        "source": "./templates/page.screwdriver-bits.json",
+        "target": "./sections/invicta-category-grid.liquid",
+        "section_type": "invicta-category-grid"
+      },
+      {
+        "source": "./templates/page.screwdriver-bits.json",
+        "target": "./sections/invicta-recently-viewed.liquid",
+        "section_type": "invicta-recently-viewed"
+      },
+      {
+        "source": "./templates/page.fixings-fasteners.json",
+        "target": "./sections/invicta-category-grid.liquid",
+        "section_type": "invicta-category-grid"
+      },
+      {
+        "source": "./templates/page.fixings-fasteners.json",
+        "target": "./sections/invicta-recently-viewed.liquid",
+        "section_type": "invicta-recently-viewed"
+      },
+      {
+        "source": "./templates/page.workwear-safety.json",
+        "target": "./sections/invicta-category-grid.liquid",
+        "section_type": "invicta-category-grid"
+      },
+      {
+        "source": "./templates/page.hand-tools.json",
+        "target": "./sections/invicta-category-grid.liquid",
+        "section_type": "invicta-category-grid"
+      },
+      {
+        "source": "./templates/page.hand-tools.json",
+        "target": "./sections/invicta-recently-viewed.liquid",
+        "section_type": "invicta-recently-viewed"
+      },
+      {
+        "source": "./templates/page.power-tools.json",
+        "target": "./sections/invicta-category-grid.liquid",
+        "section_type": "invicta-category-grid"
+      },
+      {
+        "source": "./templates/page.power-tools.json",
+        "target": "./sections/invicta-recently-viewed.liquid",
+        "section_type": "invicta-recently-viewed"
+      },
+      {
+        "source": "./templates/404.json",
+        "target": "./sections/main-404.liquid",
+        "section_type": "main-404"
+      },
+      {
+        "source": "./templates/page.kent-hub.json",
+        "target": "./sections/breadcrumb-simple.liquid",
+        "section_type": "breadcrumb-simple"
+      },
+      {
+        "source": "./templates/page.kent-hub.json",
+        "target": "./sections/local-hero.liquid",
+        "section_type": "local-hero"
+      },
+      {
+        "source": "./templates/page.kent-hub.json",
+        "target": "./sections/invicta-usp-strip-v2.liquid",
+        "section_type": "invicta-usp-strip-v2"
+      },
+      {
+        "source": "./templates/page.kent-hub.json",
+        "target": "./sections/local-hub.liquid",
+        "section_type": "local-hub"
+      },
+      {
+        "source": "./templates/page.kent-hub.json",
+        "target": "./sections/cta-bar.liquid",
+        "section_type": "cta-bar"
+      },
+      {
+        "source": "./templates/page.site-equipment.json",
+        "target": "./sections/invicta-category-grid.liquid",
+        "section_type": "invicta-category-grid"
+      },
+      {
+        "source": "./templates/page.site-equipment.json",
+        "target": "./sections/invicta-recently-viewed.liquid",
+        "section_type": "invicta-recently-viewed"
+      },
+      {
+        "source": "./templates/cart.json",
+        "target": "./sections/main-cart-items.liquid",
+        "section_type": "main-cart-items"
+      },
+      {
+        "source": "./templates/cart.json",
+        "target": "./sections/main-cart-footer.liquid",
+        "section_type": "main-cart-footer"
+      },
+      {
+        "source": "./templates/cart.json",
+        "target": "./sections/featured-collection.liquid",
+        "section_type": "featured-collection"
+      },
+      {
+        "source": "./templates/list-collections.json",
+        "target": "./sections/main-list-collections.liquid",
+        "section_type": "main-list-collections"
+      },
+      {
+        "source": "./templates/page.returns.json",
+        "target": "./sections/invicta-returns.liquid",
+        "section_type": "invicta-returns"
+      },
+      {
+        "source": "./templates/product.json",
+        "target": "./sections/invicta-product-v2.liquid",
+        "section_type": "invicta-product-v2"
+      },
+      {
+        "source": "./templates/product.json",
+        "target": "./sections/invicta-related-products.liquid",
+        "section_type": "invicta-related-products"
+      },
+      {
+        "source": "./templates/product.json",
+        "target": "./sections/invicta-recently-viewed.liquid",
+        "section_type": "invicta-recently-viewed"
+      },
+      {
+        "source": "./templates/page.brand.json",
+        "target": "./sections/breadcrumb-simple.liquid",
+        "section_type": "breadcrumb-simple"
+      },
+      {
+        "source": "./templates/page.brand.json",
+        "target": "./sections/brand-hero.liquid",
+        "section_type": "brand-hero"
+      },
+      {
+        "source": "./templates/page.brand.json",
+        "target": "./sections/invicta-usp-strip-v2.liquid",
+        "section_type": "invicta-usp-strip-v2"
+      },
+      {
+        "source": "./templates/page.brand.json",
+        "target": "./sections/brand-about.liquid",
+        "section_type": "brand-about"
+      },
+      {
+        "source": "./templates/page.brand.json",
+        "target": "./sections/featured-collection.liquid",
+        "section_type": "featured-collection"
+      },
+      {
+        "source": "./templates/page.brand.json",
+        "target": "./sections/brand-applications.liquid",
+        "section_type": "brand-applications"
+      },
+      {
+        "source": "./templates/page.brand.json",
+        "target": "./sections/brand-new-products.liquid",
+        "section_type": "brand-new-products"
+      },
+      {
+        "source": "./templates/page.brand.json",
+        "target": "./sections/brand-why-choose.liquid",
+        "section_type": "brand-why-choose"
+      },
+      {
+        "source": "./templates/page.brand.json",
+        "target": "./sections/brand-categories.liquid",
+        "section_type": "brand-categories"
+      },
+      {
+        "source": "./templates/page.brand.json",
+        "target": "./sections/brand-video.liquid",
+        "section_type": "brand-video"
+      },
+      {
+        "source": "./templates/page.brand.json",
+        "target": "./sections/cta-bar.liquid",
+        "section_type": "cta-bar"
+      },
+      {
+        "source": "./templates/index.json",
+        "target": "./sections/invicta-hero-split.liquid",
+        "section_type": "invicta-hero-split"
+      },
+      {
+        "source": "./templates/index.json",
+        "target": "./sections/invicta-promo-banners.liquid",
+        "section_type": "invicta-promo-banners"
+      },
+      {
+        "source": "./templates/index.json",
+        "target": "./sections/invicta-quick-cats.liquid",
+        "section_type": "invicta-quick-cats"
+      },
+      {
+        "source": "./templates/index.json",
+        "target": "./sections/invicta-usp-strip-v2.liquid",
+        "section_type": "invicta-usp-strip-v2"
+      },
+      {
+        "source": "./templates/index.json",
+        "target": "./sections/invicta-brand-strip.liquid",
+        "section_type": "invicta-brand-strip"
+      },
+      {
+        "source": "./templates/index.json",
+        "target": "./sections/featured-collection.liquid",
+        "section_type": "featured-collection"
+      },
+      {
+        "source": "./templates/index.json",
+        "target": "./sections/featured-collection.liquid",
+        "section_type": "featured-collection"
+      },
+      {
+        "source": "./templates/index.json",
+        "target": "./sections/featured-collection.liquid",
+        "section_type": "featured-collection"
+      },
+      {
+        "source": "./templates/index.json",
+        "target": "./sections/invicta-trade-cta.liquid",
+        "section_type": "invicta-trade-cta"
+      },
+      {
+        "source": "./templates/index.json",
+        "target": "./sections/invicta-trust-bar.liquid",
+        "section_type": "invicta-trust-bar"
+      },
+      {
+        "source": "./templates/index.json",
+        "target": "./sections/review-carousel.liquid",
+        "section_type": "review-carousel"
+      },
+      {
+        "source": "./templates/index.json",
+        "target": "./sections/invicta-recently-viewed.liquid",
+        "section_type": "invicta-recently-viewed"
+      },
+      {
+        "source": "./templates/index.json",
+        "target": "./sections/invicta-newsletter.liquid",
+        "section_type": "invicta-newsletter"
+      },
+      {
+        "source": "./templates/page.thank-you-trade.json",
+        "target": "./sections/trade-thank-you.liquid",
+        "section_type": "trade-thank-you"
+      },
+      {
+        "source": "./templates/page.brand-pdp.json",
+        "target": "./sections/brand-hero.liquid",
+        "section_type": "brand-hero"
+      },
+      {
+        "source": "./templates/page.brand-pdp.json",
+        "target": "./sections/invicta-usp-strip-v2.liquid",
+        "section_type": "invicta-usp-strip-v2"
+      },
+      {
+        "source": "./templates/page.brand-pdp.json",
+        "target": "./sections/brand-about.liquid",
+        "section_type": "brand-about"
+      },
+      {
+        "source": "./templates/page.brand-pdp.json",
+        "target": "./sections/featured-collection.liquid",
+        "section_type": "featured-collection"
+      },
+      {
+        "source": "./templates/page.brand-pdp.json",
+        "target": "./sections/brand-applications.liquid",
+        "section_type": "brand-applications"
+      },
+      {
+        "source": "./templates/page.brand-pdp.json",
+        "target": "./sections/brand-new-products.liquid",
+        "section_type": "brand-new-products"
+      },
+      {
+        "source": "./templates/page.brand-pdp.json",
+        "target": "./sections/brand-why-choose.liquid",
+        "section_type": "brand-why-choose"
+      },
+      {
+        "source": "./templates/page.brand-pdp.json",
+        "target": "./sections/brand-categories.liquid",
+        "section_type": "brand-categories"
+      },
+      {
+        "source": "./templates/page.brand-pdp.json",
+        "target": "./sections/brand-video.liquid",
+        "section_type": "brand-video"
+      },
+      {
+        "source": "./templates/page.brand-pdp.json",
+        "target": "./sections/brand-faq.liquid",
+        "section_type": "brand-faq"
+      },
+      {
+        "source": "./templates/page.brand-pdp.json",
+        "target": "./sections/cta-bar.liquid",
+        "section_type": "cta-bar"
+      },
+      {
+        "source": "./templates/page.brand-pdp.json",
+        "target": "./sections/brand-schema.liquid",
+        "section_type": "brand-schema"
+      },
+      {
+        "source": "./templates/page.category-landing.json",
+        "target": "./sections/main-page.liquid",
+        "section_type": "main-page"
+      },
+      {
+        "source": "./templates/page.delivery-info.json",
+        "target": "./sections/invicta-delivery-info.liquid",
+        "section_type": "invicta-delivery-info"
+      },
+      {
+        "source": "./templates/page.brand-timco.json",
+        "target": "./sections/brand-hero.liquid",
+        "section_type": "brand-hero"
+      },
+      {
+        "source": "./templates/page.brand-timco.json",
+        "target": "./sections/invicta-usp-strip-v2.liquid",
+        "section_type": "invicta-usp-strip-v2"
+      },
+      {
+        "source": "./templates/page.brand-timco.json",
+        "target": "./sections/brand-about.liquid",
+        "section_type": "brand-about"
+      },
+      {
+        "source": "./templates/page.brand-timco.json",
+        "target": "./sections/featured-collection.liquid",
+        "section_type": "featured-collection"
+      },
+      {
+        "source": "./templates/page.brand-timco.json",
+        "target": "./sections/brand-applications.liquid",
+        "section_type": "brand-applications"
+      },
+      {
+        "source": "./templates/page.brand-timco.json",
+        "target": "./sections/brand-new-products.liquid",
+        "section_type": "brand-new-products"
+      },
+      {
+        "source": "./templates/page.brand-timco.json",
+        "target": "./sections/brand-why-choose.liquid",
+        "section_type": "brand-why-choose"
+      },
+      {
+        "source": "./templates/page.brand-timco.json",
+        "target": "./sections/brand-categories.liquid",
+        "section_type": "brand-categories"
+      },
+      {
+        "source": "./templates/page.brand-timco.json",
+        "target": "./sections/brand-video.liquid",
+        "section_type": "brand-video"
+      },
+      {
+        "source": "./templates/page.brand-timco.json",
+        "target": "./sections/brand-faq.liquid",
+        "section_type": "brand-faq"
+      },
+      {
+        "source": "./templates/page.brand-timco.json",
+        "target": "./sections/cta-bar.liquid",
+        "section_type": "cta-bar"
+      },
+      {
+        "source": "./templates/page.brand-timco.json",
+        "target": "./sections/brand-schema.liquid",
+        "section_type": "brand-schema"
+      },
+      {
+        "source": "./templates/page.brand-hikoki.json",
+        "target": "./sections/brand-hero.liquid",
+        "section_type": "brand-hero"
+      },
+      {
+        "source": "./templates/page.brand-hikoki.json",
+        "target": "./sections/invicta-usp-strip-v2.liquid",
+        "section_type": "invicta-usp-strip-v2"
+      },
+      {
+        "source": "./templates/page.brand-hikoki.json",
+        "target": "./sections/brand-about.liquid",
+        "section_type": "brand-about"
+      },
+      {
+        "source": "./templates/page.brand-hikoki.json",
+        "target": "./sections/featured-collection.liquid",
+        "section_type": "featured-collection"
+      },
+      {
+        "source": "./templates/page.brand-hikoki.json",
+        "target": "./sections/brand-applications.liquid",
+        "section_type": "brand-applications"
+      },
+      {
+        "source": "./templates/page.brand-hikoki.json",
+        "target": "./sections/brand-new-products.liquid",
+        "section_type": "brand-new-products"
+      },
+      {
+        "source": "./templates/page.brand-hikoki.json",
+        "target": "./sections/brand-why-choose.liquid",
+        "section_type": "brand-why-choose"
+      },
+      {
+        "source": "./templates/page.brand-hikoki.json",
+        "target": "./sections/brand-categories.liquid",
+        "section_type": "brand-categories"
+      },
+      {
+        "source": "./templates/page.brand-hikoki.json",
+        "target": "./sections/brand-video.liquid",
+        "section_type": "brand-video"
+      },
+      {
+        "source": "./templates/page.brand-hikoki.json",
+        "target": "./sections/brand-faq.liquid",
+        "section_type": "brand-faq"
+      },
+      {
+        "source": "./templates/page.brand-hikoki.json",
+        "target": "./sections/cta-bar.liquid",
+        "section_type": "cta-bar"
+      },
+      {
+        "source": "./templates/page.brand-hikoki.json",
+        "target": "./sections/brand-schema.liquid",
+        "section_type": "brand-schema"
+      },
+      {
+        "source": "./templates/collection.json",
+        "target": "./sections/invicta-collection.liquid",
+        "section_type": "invicta-collection"
+      },
+      {
+        "source": "./templates/page.trade-landing.json",
+        "target": "./sections/trade-landing.liquid",
+        "section_type": "trade-landing"
+      },
+      {
+        "source": "./templates/page.hole-cutters.json",
+        "target": "./sections/invicta-category-grid.liquid",
+        "section_type": "invicta-category-grid"
+      },
+      {
+        "source": "./templates/page.hole-cutters.json",
+        "target": "./sections/invicta-recently-viewed.liquid",
+        "section_type": "invicta-recently-viewed"
+      },
+      {
+        "source": "./templates/search.json",
+        "target": "./sections/main-search.liquid",
+        "section_type": "main-search"
+      },
+      {
+        "source": "./templates/page.silicone.json",
+        "target": "./sections/invicta-category-grid.liquid",
+        "section_type": "invicta-category-grid"
+      },
+      {
+        "source": "./templates/page.silicone.json",
+        "target": "./sections/invicta-recently-viewed.liquid",
+        "section_type": "invicta-recently-viewed"
+      },
+      {
+        "source": "./templates/page.brand-dewalt.json",
+        "target": "./sections/brand-hero.liquid",
+        "section_type": "brand-hero"
+      },
+      {
+        "source": "./templates/page.brand-dewalt.json",
+        "target": "./sections/invicta-usp-strip-v2.liquid",
+        "section_type": "invicta-usp-strip-v2"
+      },
+      {
+        "source": "./templates/page.brand-dewalt.json",
+        "target": "./sections/brand-about.liquid",
+        "section_type": "brand-about"
+      },
+      {
+        "source": "./templates/page.brand-dewalt.json",
+        "target": "./sections/featured-collection.liquid",
+        "section_type": "featured-collection"
+      },
+      {
+        "source": "./templates/page.brand-dewalt.json",
+        "target": "./sections/brand-applications.liquid",
+        "section_type": "brand-applications"
+      },
+      {
+        "source": "./templates/page.brand-dewalt.json",
+        "target": "./sections/brand-new-products.liquid",
+        "section_type": "brand-new-products"
+      },
+      {
+        "source": "./templates/page.brand-dewalt.json",
+        "target": "./sections/brand-why-choose.liquid",
+        "section_type": "brand-why-choose"
+      },
+      {
+        "source": "./templates/page.brand-dewalt.json",
+        "target": "./sections/brand-categories.liquid",
+        "section_type": "brand-categories"
+      },
+      {
+        "source": "./templates/page.brand-dewalt.json",
+        "target": "./sections/brand-video.liquid",
+        "section_type": "brand-video"
+      },
+      {
+        "source": "./templates/page.brand-dewalt.json",
+        "target": "./sections/brand-faq.liquid",
+        "section_type": "brand-faq"
+      },
+      {
+        "source": "./templates/page.brand-dewalt.json",
+        "target": "./sections/cta-bar.liquid",
+        "section_type": "cta-bar"
+      },
+      {
+        "source": "./templates/page.brand-dewalt.json",
+        "target": "./sections/brand-schema.liquid",
+        "section_type": "brand-schema"
+      },
+      {
+        "source": "./templates/page.json",
+        "target": "./sections/main-page.liquid",
+        "section_type": "main-page"
+      },
+      {
+        "source": "./templates/page.drill-bits.json",
+        "target": "./sections/invicta-category-grid.liquid",
+        "section_type": "invicta-category-grid"
+      },
+      {
+        "source": "./templates/page.drill-bits.json",
+        "target": "./sections/invicta-recently-viewed.liquid",
+        "section_type": "invicta-recently-viewed"
+      },
+      {
+        "source": "./templates/customers/order.json",
+        "target": "./sections/main-order.liquid",
+        "section_type": "main-order"
+      },
+      {
+        "source": "./templates/customers/activate_account.json",
+        "target": "./sections/main-activate-account.liquid",
+        "section_type": "main-activate-account"
+      },
+      {
+        "source": "./templates/customers/register.json",
+        "target": "./sections/main-register.liquid",
+        "section_type": "main-register"
+      },
+      {
+        "source": "./templates/customers/reset_password.json",
+        "target": "./sections/main-reset-password.liquid",
+        "section_type": "main-reset-password"
+      },
+      {
+        "source": "./templates/customers/account.json",
+        "target": "./sections/main-account.liquid",
+        "section_type": "main-account"
+      },
+      {
+        "source": "./templates/customers/addresses.json",
+        "target": "./sections/main-addresses.liquid",
+        "section_type": "main-addresses"
+      },
+      {
+        "source": "./templates/customers/login.json",
+        "target": "./sections/main-login.liquid",
+        "section_type": "main-login"
+      },
+      {
+        "source": "./sections/header-group.json",
+        "target": "./sections/announcement-bar.liquid",
+        "section_type": "announcement-bar"
+      },
+      {
+        "source": "./sections/header-group.json",
+        "target": "./sections/header-invicta.liquid",
+        "section_type": "header-invicta"
+      },
+      {
+        "source": "./sections/header-group.json",
+        "target": "./sections/invicta-simple-nav.liquid",
+        "section_type": "invicta-simple-nav"
+      },
+      {
+        "source": "./sections/footer-group.json",
+        "target": "./sections/invicta-footer.liquid",
+        "section_type": "invicta-footer"
+      },
+      {
+        "source": "./sections/footer-group.json",
+        "target": "./sections/footer.liquid",
+        "section_type": "footer"
+      }
+    ],
+    "liquid_to_snippet": [
+      {
+        "source": "./sections/main-blog.liquid",
+        "target": "./snippets/article-card.liquid",
+        "snippet": "article-card",
+        "line": 34
+      },
+      {
+        "source": "./sections/main-blog.liquid",
+        "target": "./snippets/pagination.liquid",
+        "snippet": "pagination",
+        "line": 48
+      },
+      {
+        "source": "./sections/invicta-brand-strip.liquid",
+        "target": "./snippets/invicta-brand-pill.liquid",
+        "snippet": "invicta-brand-pill",
+        "line": 246
+      },
+      {
+        "source": "./sections/invicta-product-grid.liquid",
+        "target": "./snippets/invicta-section-header.liquid",
+        "snippet": "invicta-section-header",
+        "line": 101
+      },
+      {
+        "source": "./sections/invicta-product-grid.liquid",
+        "target": "./snippets/invicta-product-card.liquid",
+        "snippet": "invicta-product-card",
+        "line": 231
+      },
+      {
+        "source": "./sections/invicta-product-grid.liquid",
+        "target": "./snippets/invicta-trust-bar.liquid",
+        "snippet": "invicta-trust-bar",
+        "line": 371
+      },
+      {
+        "source": "./sections/invicta-product-grid.liquid",
+        "target": "./snippets/invicta-cta-banner.liquid",
+        "snippet": "invicta-cta-banner",
+        "line": 382
+      },
+      {
+        "source": "./sections/featured-collection.liquid",
+        "target": "./snippets/invicta-product-card.liquid",
+        "snippet": "invicta-product-card",
+        "line": 199
+      },
+      {
+        "source": "./sections/featured-collection.liquid",
+        "target": "./snippets/invicta-product-card.liquid",
+        "snippet": "invicta-product-card",
+        "line": 209
+      },
+      {
+        "source": "./sections/invicta-collection.liquid",
+        "target": "./snippets/invicta-product-card.liquid",
+        "snippet": "invicta-product-card",
+        "line": 411
+      },
+      {
+        "source": "./sections/main-order.liquid",
+        "target": "./snippets/unit-price.liquid",
+        "snippet": "unit-price",
+        "line": 169
+      },
+      {
+        "source": "./sections/cart-drawer.liquid",
+        "target": "./snippets/cart-drawer.liquid",
+        "snippet": "cart-drawer",
+        "line": 1
+      },
+      {
+        "source": "./sections/trade-landing.liquid",
+        "target": "./snippets/invicta-brand-pill.liquid",
+        "snippet": "invicta-brand-pill",
+        "line": 134
+      },
+      {
+        "source": "./sections/main-cart-footer.liquid",
+        "target": "./snippets/cart-breakdown.liquid",
+        "snippet": "cart-breakdown",
+        "line": 65
+      },
+      {
+        "source": "./sections/invicta-related-products.liquid",
+        "target": "./snippets/invicta-product-card.liquid",
+        "snippet": "invicta-product-card",
+        "line": 50
+      },
+      {
+        "source": "./sections/quick-order-list.liquid",
+        "target": "./snippets/quick-order-list.liquid",
+        "snippet": "quick-order-list",
+        "line": 23
+      },
+      {
+        "source": "./sections/announcement-bar.liquid",
+        "target": "./snippets/social-icons.liquid",
+        "snippet": "social-icons",
+        "line": 60
+      },
+      {
+        "source": "./sections/announcement-bar.liquid",
+        "target": "./snippets/country-localization.liquid",
+        "snippet": "country-localization",
+        "line": 179
+      },
+      {
+        "source": "./sections/announcement-bar.liquid",
+        "target": "./snippets/language-localization.liquid",
+        "snippet": "language-localization",
+        "line": 190
+      },
+      {
+        "source": "./sections/invicta-product-v2.liquid",
+        "target": "./snippets/invicta-brand-pill.liquid",
+        "snippet": "invicta-brand-pill",
+        "line": 511
+      },
+      {
+        "source": "./sections/invicta-product-v2.liquid",
+        "target": "./snippets/invicta-delivery-estimate.liquid",
+        "snippet": "invicta-delivery-estimate",
+        "line": 614
+      },
+      {
+        "source": "./sections/main-search.liquid",
+        "target": "./snippets/invicta-product-card.liquid",
+        "snippet": "invicta-product-card",
+        "line": 528
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./snippets/invicta-free-delivery-bar.liquid",
+        "snippet": "invicta-free-delivery-bar",
+        "line": 66
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./snippets/invicta-delivery-estimate.liquid",
+        "snippet": "invicta-delivery-estimate",
+        "line": 69
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./snippets/loading-spinner.liquid",
+        "snippet": "loading-spinner",
+        "line": 181
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./snippets/unit-price.liquid",
+        "snippet": "unit-price",
+        "line": 194
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./snippets/loading-spinner.liquid",
+        "snippet": "loading-spinner",
+        "line": 329
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./snippets/unit-price.liquid",
+        "snippet": "unit-price",
+        "line": 342
+      },
+      {
+        "source": "./sections/main-list-collections.liquid",
+        "target": "./snippets/card-collection.liquid",
+        "snippet": "card-collection",
+        "line": 39
+      },
+      {
+        "source": "./sections/main-list-collections.liquid",
+        "target": "./snippets/pagination.liquid",
+        "snippet": "pagination",
+        "line": 47
+      },
+      {
+        "source": "./sections/footer.liquid",
+        "target": "./snippets/social-icons.liquid",
+        "snippet": "social-icons",
+        "line": 154
+      },
+      {
+        "source": "./sections/footer.liquid",
+        "target": "./snippets/social-icons.liquid",
+        "snippet": "social-icons",
+        "line": 268
+      },
+      {
+        "source": "./sections/footer.liquid",
+        "target": "./snippets/country-localization.liquid",
+        "snippet": "country-localization",
+        "line": 288
+      },
+      {
+        "source": "./sections/footer.liquid",
+        "target": "./snippets/language-localization.liquid",
+        "snippet": "language-localization",
+        "line": 301
+      },
+      {
+        "source": "./sections/main-article.liquid",
+        "target": "./snippets/share-button.liquid",
+        "snippet": "share-button",
+        "line": 80
+      },
+      {
+        "source": "./sections/main-article.liquid",
+        "target": "./snippets/pagination.liquid",
+        "snippet": "pagination",
+        "line": 129
+      },
+      {
+        "source": "./sections/bulk-quick-order-list.liquid",
+        "target": "./snippets/quick-order-list.liquid",
+        "snippet": "quick-order-list",
+        "line": 5
+      },
+      {
+        "source": "./sections/header-invicta.liquid",
+        "target": "./snippets/predictive-search-inline.liquid",
+        "snippet": "predictive-search-inline",
+        "line": 51
+      },
+      {
+        "source": "./sections/invicta-brand-collection.liquid",
+        "target": "./snippets/invicta-brand-hero.liquid",
+        "snippet": "invicta-brand-hero",
+        "line": 61
+      },
+      {
+        "source": "./sections/invicta-brand-collection.liquid",
+        "target": "./snippets/invicta-product-card.liquid",
+        "snippet": "invicta-product-card",
+        "line": 296
+      },
+      {
+        "source": "./layout/password.liquid",
+        "target": "./snippets/meta-tags.liquid",
+        "snippet": "meta-tags",
+        "line": 22
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./snippets/meta-tags.liquid",
+        "snippet": "meta-tags",
+        "line": 59
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./snippets/invicta-css-variables.liquid",
+        "snippet": "invicta-css-variables",
+        "line": 60
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./snippets/cart-drawer.liquid",
+        "snippet": "cart-drawer",
+        "line": 444
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./snippets/invicta-cart-handler.liquid",
+        "snippet": "invicta-cart-handler",
+        "line": 532
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./snippets/schema-jsonld.liquid",
+        "snippet": "schema-jsonld",
+        "line": 579
+      },
+      {
+        "source": "./snippets/share-button.liquid",
+        "target": "./snippets/share-button.liquid",
+        "snippet": "share-button",
+        "line": 8
+      },
+      {
+        "source": "./snippets/invicta-section-header.liquid",
+        "target": "./snippets/invicta-section-header.liquid",
+        "snippet": "invicta-section-header",
+        "line": 15
+      },
+      {
+        "source": "./snippets/invicta-cta-banner.liquid",
+        "target": "./snippets/invicta-cta-banner.liquid",
+        "snippet": "invicta-cta-banner",
+        "line": 15
+      },
+      {
+        "source": "./snippets/cart-breakdown.liquid",
+        "target": "./snippets/cart-breakdown.liquid",
+        "snippet": "cart-breakdown",
+        "line": 11
+      },
+      {
+        "source": "./snippets/loading-spinner.liquid",
+        "target": "./snippets/loading-spinner.liquid",
+        "snippet": "loading-spinner",
+        "line": 7
+      },
+      {
+        "source": "./snippets/invicta-brand-hero.liquid",
+        "target": "./snippets/invicta-brand-hero.liquid",
+        "snippet": "invicta-brand-hero",
+        "line": 15
+      },
+      {
+        "source": "./snippets/invicta-trust-bar.liquid",
+        "target": "./snippets/invicta-trust-bar.liquid",
+        "snippet": "invicta-trust-bar",
+        "line": 13
+      },
+      {
+        "source": "./snippets/invicta-trust-bar.liquid",
+        "target": "./snippets/invicta-trust-bar.liquid",
+        "snippet": "invicta-trust-bar",
+        "line": 14
+      },
+      {
+        "source": "./snippets/article-card.liquid",
+        "target": "./snippets/article-card.liquid",
+        "snippet": "article-card",
+        "line": 16
+      },
+      {
+        "source": "./snippets/invicta-brand-pill.liquid",
+        "target": "./snippets/invicta-brand-pill.liquid",
+        "snippet": "invicta-brand-pill",
+        "line": 15
+      },
+      {
+        "source": "./snippets/invicta-brand-pill.liquid",
+        "target": "./snippets/invicta-brand-pill.liquid",
+        "snippet": "invicta-brand-pill",
+        "line": 16
+      },
+      {
+        "source": "./snippets/invicta-brand-pill.liquid",
+        "target": "./snippets/invicta-brand-pill.liquid",
+        "snippet": "invicta-brand-pill",
+        "line": 17
+      },
+      {
+        "source": "./snippets/invicta-brand-pill.liquid",
+        "target": "./snippets/invicta-brand-pill.liquid",
+        "snippet": "invicta-brand-pill",
+        "line": 18
+      },
+      {
+        "source": "./snippets/invicta-brand-pill.liquid",
+        "target": "./snippets/invicta-brand-pill.liquid",
+        "snippet": "invicta-brand-pill",
+        "line": 19
+      },
+      {
+        "source": "./snippets/quick-order-list-row.liquid",
+        "target": "./snippets/quick-order-list-row.liquid",
+        "snippet": "quick-order-list-row",
+        "line": 9
+      },
+      {
+        "source": "./snippets/quick-order-list-row.liquid",
+        "target": "./snippets/unit-price.liquid",
+        "snippet": "unit-price",
+        "line": 148
+      },
+      {
+        "source": "./snippets/quick-order-list-row.liquid",
+        "target": "./snippets/loading-spinner.liquid",
+        "snippet": "loading-spinner",
+        "line": 153
+      },
+      {
+        "source": "./snippets/quick-order-list-row.liquid",
+        "target": "./snippets/quantity-input.liquid",
+        "snippet": "quantity-input",
+        "line": 274
+      },
+      {
+        "source": "./snippets/quick-order-list-row.liquid",
+        "target": "./snippets/unit-price.liquid",
+        "snippet": "unit-price",
+        "line": 411
+      },
+      {
+        "source": "./snippets/quick-order-list-row.liquid",
+        "target": "./snippets/loading-spinner.liquid",
+        "snippet": "loading-spinner",
+        "line": 415
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./snippets/cart-drawer.liquid",
+        "snippet": "cart-drawer",
+        "line": 5
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./snippets/card-collection.liquid",
+        "snippet": "card-collection",
+        "line": 60
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./snippets/loading-spinner.liquid",
+        "snippet": "loading-spinner",
+        "line": 239
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./snippets/unit-price.liquid",
+        "snippet": "unit-price",
+        "line": 263
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./snippets/invicta-free-delivery-bar.liquid",
+        "snippet": "invicta-free-delivery-bar",
+        "line": 482
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./snippets/invicta-delivery-estimate.liquid",
+        "snippet": "invicta-delivery-estimate",
+        "line": 483
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./snippets/cart-breakdown.liquid",
+        "snippet": "cart-breakdown",
+        "line": 563
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./snippets/invicta-trust-bar.liquid",
+        "snippet": "invicta-trust-bar",
+        "line": 612
+      },
+      {
+        "source": "./snippets/invicta-css-variables.liquid",
+        "target": "./snippets/invicta-css-variables.liquid",
+        "snippet": "invicta-css-variables",
+        "line": 7
+      },
+      {
+        "source": "./snippets/card-collection.liquid",
+        "target": "./snippets/card-collection.liquid",
+        "snippet": "card-collection",
+        "line": 18
+      },
+      {
+        "source": "./snippets/unit-price.liquid",
+        "target": "./snippets/unit-price.liquid",
+        "snippet": "unit-price",
+        "line": 9
+      },
+      {
+        "source": "./snippets/unit-price.liquid",
+        "target": "./snippets/unit-price.liquid",
+        "snippet": "unit-price",
+        "line": 12
+      },
+      {
+        "source": "./snippets/quick-order-list.liquid",
+        "target": "./snippets/quick-order-list.liquid",
+        "snippet": "quick-order-list",
+        "line": 10
+      },
+      {
+        "source": "./snippets/quick-order-list.liquid",
+        "target": "./snippets/quick-order-list-row.liquid",
+        "snippet": "quick-order-list-row",
+        "line": 77
+      },
+      {
+        "source": "./snippets/quick-order-list.liquid",
+        "target": "./snippets/quick-order-list-row.liquid",
+        "snippet": "quick-order-list-row",
+        "line": 88
+      },
+      {
+        "source": "./snippets/quick-order-list.liquid",
+        "target": "./snippets/pagination.liquid",
+        "snippet": "pagination",
+        "line": 103
+      },
+      {
+        "source": "./snippets/quick-order-list.liquid",
+        "target": "./snippets/loading-spinner.liquid",
+        "snippet": "loading-spinner",
+        "line": 143
+      },
+      {
+        "source": "./snippets/quick-order-list.liquid",
+        "target": "./snippets/loading-spinner.liquid",
+        "snippet": "loading-spinner",
+        "line": 234
+      },
+      {
+        "source": "./snippets/invicta-delivery-estimate.liquid",
+        "target": "./snippets/invicta-delivery-estimate.liquid",
+        "snippet": "invicta-delivery-estimate",
+        "line": 8
+      },
+      {
+        "source": "./snippets/invicta-delivery-estimate.liquid",
+        "target": "./snippets/invicta-delivery-estimate.liquid",
+        "snippet": "invicta-delivery-estimate",
+        "line": 9
+      },
+      {
+        "source": "./snippets/invicta-delivery-estimate.liquid",
+        "target": "./snippets/invicta-delivery-estimate.liquid",
+        "snippet": "invicta-delivery-estimate",
+        "line": 10
+      },
+      {
+        "source": "./snippets/invicta-cart-handler.liquid",
+        "target": "./snippets/invicta-cart-handler.liquid",
+        "snippet": "invicta-cart-handler",
+        "line": 8
+      },
+      {
+        "source": "./snippets/social-icons.liquid",
+        "target": "./snippets/social-icons.liquid",
+        "snippet": "social-icons",
+        "line": 7
+      },
+      {
+        "source": "./snippets/quantity-input.liquid",
+        "target": "./snippets/quantity-input.liquid",
+        "snippet": "quantity-input",
+        "line": 10
+      },
+      {
+        "source": "./snippets/quantity-input.liquid",
+        "target": "./snippets/progress-bar.liquid",
+        "snippet": "progress-bar",
+        "line": 46
+      },
+      {
+        "source": "./snippets/invicta-free-delivery-bar.liquid",
+        "target": "./snippets/invicta-free-delivery-bar.liquid",
+        "snippet": "invicta-free-delivery-bar",
+        "line": 9
+      },
+      {
+        "source": "./snippets/pagination.liquid",
+        "target": "./snippets/pagination.liquid",
+        "snippet": "pagination",
+        "line": 6
+      },
+      {
+        "source": "./snippets/invicta-product-card.liquid",
+        "target": "./snippets/invicta-product-card.liquid",
+        "snippet": "invicta-product-card",
+        "line": 14
+      },
+      {
+        "source": "./snippets/invicta-product-card.liquid",
+        "target": "./snippets/invicta-brand-pill.liquid",
+        "snippet": "invicta-brand-pill",
+        "line": 163
+      }
+    ],
+    "liquid_to_css_asset": [
+      {
+        "source": "./sections/main-blog.liquid",
+        "target": "./assets/component-article-card.css",
+        "asset": "component-article-card.css",
+        "line": 1
+      },
+      {
+        "source": "./sections/main-blog.liquid",
+        "target": "./assets/component-card.css",
+        "asset": "component-card.css",
+        "line": 2
+      },
+      {
+        "source": "./sections/main-blog.liquid",
+        "target": "./assets/section-main-blog.css",
+        "asset": "section-main-blog.css",
+        "line": 3
+      },
+      {
+        "source": "./sections/invicta-brand-strip.liquid",
+        "target": "./assets/invicta-brand-pill.css",
+        "asset": "invicta-brand-pill.css",
+        "line": 8
+      },
+      {
+        "source": "./sections/brand-video.liquid",
+        "target": "./assets/brand-page.css",
+        "asset": "brand-page.css",
+        "line": 11
+      },
+      {
+        "source": "./sections/invicta-collection.liquid",
+        "target": "./assets/section-invicta-collection.css",
+        "asset": "section-invicta-collection.css",
+        "line": 54
+      },
+      {
+        "source": "./sections/invicta-collection.liquid",
+        "target": "./assets/invicta-product-card.css",
+        "asset": "invicta-product-card.css",
+        "line": 55
+      },
+      {
+        "source": "./sections/main-order.liquid",
+        "target": "./assets/customer.css",
+        "asset": "customer.css",
+        "line": 1
+      },
+      {
+        "source": "./sections/trade-landing.liquid",
+        "target": "./assets/section-trade-landing.css",
+        "asset": "section-trade-landing.css",
+        "line": 6
+      },
+      {
+        "source": "./sections/main-cart-footer.liquid",
+        "target": "./assets/component-cart.css",
+        "asset": "component-cart.css",
+        "line": 1
+      },
+      {
+        "source": "./sections/main-cart-footer.liquid",
+        "target": "./assets/component-totals.css",
+        "asset": "component-totals.css",
+        "line": 2
+      },
+      {
+        "source": "./sections/main-cart-footer.liquid",
+        "target": "./assets/component-price.css",
+        "asset": "component-price.css",
+        "line": 3
+      },
+      {
+        "source": "./sections/main-cart-footer.liquid",
+        "target": "./assets/component-discounts.css",
+        "asset": "component-discounts.css",
+        "line": 4
+      },
+      {
+        "source": "./sections/main-cart-footer.liquid",
+        "target": "./assets/invicta-cart.css",
+        "asset": "invicta-cart.css",
+        "line": 5
+      },
+      {
+        "source": "./sections/invicta-related-products.liquid",
+        "target": "./assets/invicta-related-products.css",
+        "asset": "invicta-related-products.css",
+        "line": 25
+      },
+      {
+        "source": "./sections/main-activate-account.liquid",
+        "target": "./assets/customer.css",
+        "asset": "customer.css",
+        "line": 1
+      },
+      {
+        "source": "./sections/image-banner.liquid",
+        "target": "./assets/section-image-banner.css",
+        "asset": "section-image-banner.css",
+        "line": 1
+      },
+      {
+        "source": "./sections/contact-form.liquid",
+        "target": "./assets/section-contact-form.css",
+        "asset": "section-contact-form.css",
+        "line": 1
+      },
+      {
+        "source": "./sections/brand-why-choose.liquid",
+        "target": "./assets/brand-page.css",
+        "asset": "brand-page.css",
+        "line": 11
+      },
+      {
+        "source": "./sections/brand-faq.liquid",
+        "target": "./assets/brand-page.css",
+        "asset": "brand-page.css",
+        "line": 11
+      },
+      {
+        "source": "./sections/brand-categories.liquid",
+        "target": "./assets/brand-page.css",
+        "asset": "brand-page.css",
+        "line": 11
+      },
+      {
+        "source": "./sections/brand-about.liquid",
+        "target": "./assets/brand-page.css",
+        "asset": "brand-page.css",
+        "line": 12
+      },
+      {
+        "source": "./sections/quick-order-list.liquid",
+        "target": "./assets/component-price.css",
+        "asset": "component-price.css",
+        "line": 1
+      },
+      {
+        "source": "./sections/quick-order-list.liquid",
+        "target": "./assets/quick-order-list.css",
+        "asset": "quick-order-list.css",
+        "line": 2
+      },
+      {
+        "source": "./sections/quick-order-list.liquid",
+        "target": "./assets/quantity-popover.css",
+        "asset": "quantity-popover.css",
+        "line": 3
+      },
+      {
+        "source": "./sections/main-login.liquid",
+        "target": "./assets/customer.css",
+        "asset": "customer.css",
+        "line": 1
+      },
+      {
+        "source": "./sections/main-reset-password.liquid",
+        "target": "./assets/customer.css",
+        "asset": "customer.css",
+        "line": 1
+      },
+      {
+        "source": "./sections/announcement-bar.liquid",
+        "target": "./assets/component-slideshow.css",
+        "asset": "component-slideshow.css",
+        "line": 1
+      },
+      {
+        "source": "./sections/announcement-bar.liquid",
+        "target": "./assets/component-slider.css",
+        "asset": "component-slider.css",
+        "line": 2
+      },
+      {
+        "source": "./sections/announcement-bar.liquid",
+        "target": "./assets/component-list-social.css",
+        "asset": "component-list-social.css",
+        "line": 52
+      },
+      {
+        "source": "./sections/breadcrumb-simple.liquid",
+        "target": "./assets/brand-page.css",
+        "asset": "brand-page.css",
+        "line": 10
+      },
+      {
+        "source": "./sections/brand-applications.liquid",
+        "target": "./assets/brand-page.css",
+        "asset": "brand-page.css",
+        "line": 11
+      },
+      {
+        "source": "./sections/invicta-product-v2.liquid",
+        "target": "./assets/invicta-product-v2.css",
+        "asset": "invicta-product-v2.css",
+        "line": 23
+      },
+      {
+        "source": "./sections/invicta-product-v2.liquid",
+        "target": "./assets/invicta-product-v2-trust.css",
+        "asset": "invicta-product-v2-trust.css",
+        "line": 24
+      },
+      {
+        "source": "./sections/invicta-product-v2.liquid",
+        "target": "./assets/section-invicta-product-v2.css",
+        "asset": "section-invicta-product-v2.css",
+        "line": 25
+      },
+      {
+        "source": "./sections/invicta-product-v2.liquid",
+        "target": "./assets/component-tiered-pricing.css",
+        "asset": "component-tiered-pricing.css",
+        "line": 609
+      },
+      {
+        "source": "./sections/main-register.liquid",
+        "target": "./assets/customer.css",
+        "asset": "customer.css",
+        "line": 1
+      },
+      {
+        "source": "./sections/main-search.liquid",
+        "target": "./assets/section-main-search.css",
+        "asset": "section-main-search.css",
+        "line": 626
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./assets/component-cart.css",
+        "asset": "component-cart.css",
+        "line": 1
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./assets/component-cart-items.css",
+        "asset": "component-cart-items.css",
+        "line": 2
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./assets/component-totals.css",
+        "asset": "component-totals.css",
+        "line": 3
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./assets/component-price.css",
+        "asset": "component-price.css",
+        "line": 4
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./assets/component-discounts.css",
+        "asset": "component-discounts.css",
+        "line": 5
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./assets/quantity-popover.css",
+        "asset": "quantity-popover.css",
+        "line": 6
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./assets/invicta-cart.css",
+        "asset": "invicta-cart.css",
+        "line": 7
+      },
+      {
+        "source": "./sections/main-list-collections.liquid",
+        "target": "./assets/component-card.css",
+        "asset": "component-card.css",
+        "line": 1
+      },
+      {
+        "source": "./sections/main-list-collections.liquid",
+        "target": "./assets/section-collection-list.css",
+        "asset": "section-collection-list.css",
+        "line": 2
+      },
+      {
+        "source": "./sections/main-addresses.liquid",
+        "target": "./assets/customer.css",
+        "asset": "customer.css",
+        "line": 1
+      },
+      {
+        "source": "./sections/footer.liquid",
+        "target": "./assets/section-footer.css",
+        "asset": "section-footer.css",
+        "line": 2
+      },
+      {
+        "source": "./sections/footer.liquid",
+        "target": "./assets/component-newsletter.css",
+        "asset": "component-newsletter.css",
+        "line": 3
+      },
+      {
+        "source": "./sections/footer.liquid",
+        "target": "./assets/component-list-menu.css",
+        "asset": "component-list-menu.css",
+        "line": 4
+      },
+      {
+        "source": "./sections/footer.liquid",
+        "target": "./assets/component-list-social.css",
+        "asset": "component-list-social.css",
+        "line": 5
+      },
+      {
+        "source": "./sections/main-page.liquid",
+        "target": "./assets/section-main-page.css",
+        "asset": "section-main-page.css",
+        "line": 1
+      },
+      {
+        "source": "./sections/email-signup-banner.liquid",
+        "target": "./assets/section-image-banner.css",
+        "asset": "section-image-banner.css",
+        "line": 1
+      },
+      {
+        "source": "./sections/email-signup-banner.liquid",
+        "target": "./assets/component-newsletter.css",
+        "asset": "component-newsletter.css",
+        "line": 2
+      },
+      {
+        "source": "./sections/email-signup-banner.liquid",
+        "target": "./assets/newsletter-section.css",
+        "asset": "newsletter-section.css",
+        "line": 3
+      },
+      {
+        "source": "./sections/email-signup-banner.liquid",
+        "target": "./assets/section-email-signup-banner.css",
+        "asset": "section-email-signup-banner.css",
+        "line": 4
+      },
+      {
+        "source": "./sections/main-article.liquid",
+        "target": "./assets/section-blog-post.css",
+        "asset": "section-blog-post.css",
+        "line": 1
+      },
+      {
+        "source": "./sections/brand-hero.liquid",
+        "target": "./assets/brand-page.css",
+        "asset": "brand-page.css",
+        "line": 11
+      },
+      {
+        "source": "./sections/brand-new-products.liquid",
+        "target": "./assets/brand-page.css",
+        "asset": "brand-page.css",
+        "line": 11
+      },
+      {
+        "source": "./sections/bulk-quick-order-list.liquid",
+        "target": "./assets/quick-order-list.css",
+        "asset": "quick-order-list.css",
+        "line": 1
+      },
+      {
+        "source": "./sections/header-invicta.liquid",
+        "target": "./assets/section-header-invicta.css",
+        "asset": "section-header-invicta.css",
+        "line": 17
+      },
+      {
+        "source": "./sections/main-account.liquid",
+        "target": "./assets/customer.css",
+        "asset": "customer.css",
+        "line": 17
+      },
+      {
+        "source": "./sections/local-hero.liquid",
+        "target": "./assets/brand-page.css",
+        "asset": "brand-page.css",
+        "line": 12
+      },
+      {
+        "source": "./sections/cta-bar.liquid",
+        "target": "./assets/brand-page.css",
+        "asset": "brand-page.css",
+        "line": 11
+      },
+      {
+        "source": "./sections/invicta-brand-collection.liquid",
+        "target": "./assets/section-invicta-collection.css",
+        "asset": "section-invicta-collection.css",
+        "line": 53
+      },
+      {
+        "source": "./sections/invicta-brand-collection.liquid",
+        "target": "./assets/invicta-product-card.css",
+        "asset": "invicta-product-card.css",
+        "line": 54
+      },
+      {
+        "source": "./templates/gift_card.liquid",
+        "target": "./assets/template-giftcard.css",
+        "asset": "template-giftcard.css",
+        "line": 105
+      },
+      {
+        "source": "./layout/password.liquid",
+        "target": "./assets/section-password.css",
+        "asset": "section-password.css",
+        "line": 188
+      },
+      {
+        "source": "./layout/password.liquid",
+        "target": "./assets/base.css",
+        "asset": "base.css",
+        "line": 189
+      },
+      {
+        "source": "./layout/password.liquid",
+        "target": "./assets/component-list-social.css",
+        "asset": "component-list-social.css",
+        "line": 190
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/base.css",
+        "asset": "base.css",
+        "line": 347
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/invicta-brand-pill.css",
+        "asset": "invicta-brand-pill.css",
+        "line": 350
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/invicta-product-card.css",
+        "asset": "invicta-product-card.css",
+        "line": 351
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/invicta-radius-reset.css",
+        "asset": "invicta-radius-reset.css",
+        "line": 352
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/mobile.css",
+        "asset": "mobile.css",
+        "line": 362
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/desktop.css",
+        "asset": "desktop.css",
+        "line": 363
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/mobile.css",
+        "asset": "mobile.css",
+        "line": 364
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/desktop.css",
+        "asset": "desktop.css",
+        "line": 365
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/invicta-ux-improvements.css",
+        "asset": "invicta-ux-improvements.css",
+        "line": 368
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/component-cart-items.css",
+        "asset": "component-cart-items.css",
+        "line": 373
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/component-cart-drawer.css",
+        "asset": "component-cart-drawer.css",
+        "line": 380
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/component-cart.css",
+        "asset": "component-cart.css",
+        "line": 381
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/component-totals.css",
+        "asset": "component-totals.css",
+        "line": 382
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/component-price.css",
+        "asset": "component-price.css",
+        "line": 383
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/component-discounts.css",
+        "asset": "component-discounts.css",
+        "line": 384
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/component-localization-form.css",
+        "asset": "component-localization-form.css",
+        "line": 412
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/component-predictive-search.css",
+        "asset": "component-predictive-search.css",
+        "line": 419
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/invicta-cx-improvements.css",
+        "asset": "invicta-cx-improvements.css",
+        "line": 537
+      },
+      {
+        "source": "./snippets/invicta-section-header.liquid",
+        "target": "./assets/component-section-header.css",
+        "asset": "component-section-header.css",
+        "line": 68
+      },
+      {
+        "source": "./snippets/invicta-cta-banner.liquid",
+        "target": "./assets/component-cta-banner.css",
+        "asset": "component-cta-banner.css",
+        "line": 46
+      },
+      {
+        "source": "./snippets/cart-breakdown.liquid",
+        "target": "./assets/component-cart-breakdown.css",
+        "asset": "component-cart-breakdown.css",
+        "line": 111
+      },
+      {
+        "source": "./snippets/invicta-brand-hero.liquid",
+        "target": "./assets/section-invicta-brand-hero.css",
+        "asset": "section-invicta-brand-hero.css",
+        "line": 43
+      },
+      {
+        "source": "./snippets/invicta-trust-bar.liquid",
+        "target": "./assets/component-trust-bar.css",
+        "asset": "component-trust-bar.css",
+        "line": 65
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./assets/quantity-popover.css",
+        "asset": "quantity-popover.css",
+        "line": 8
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./assets/component-card.css",
+        "asset": "component-card.css",
+        "line": 9
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./assets/invicta-cart.css",
+        "asset": "invicta-cart.css",
+        "line": 10
+      },
+      {
+        "source": "./snippets/invicta-css-variables.liquid",
+        "target": "./assets/invicta-css-variables.css",
+        "asset": "invicta-css-variables.css",
+        "line": 18
+      },
+      {
+        "source": "./snippets/invicta-delivery-estimate.liquid",
+        "target": "./assets/component-delivery-estimate.css",
+        "asset": "component-delivery-estimate.css",
+        "line": 51
+      },
+      {
+        "source": "./snippets/predictive-search-inline.liquid",
+        "target": "./assets/invicta-predictive-search.css",
+        "asset": "invicta-predictive-search.css",
+        "line": 9
+      },
+      {
+        "source": "./snippets/invicta-free-delivery-bar.liquid",
+        "target": "./assets/component-free-delivery-bar.css",
+        "asset": "component-free-delivery-bar.css",
+        "line": 49
+      },
+      {
+        "source": "./snippets/pagination.liquid",
+        "target": "./assets/component-pagination.css",
+        "asset": "component-pagination.css",
+        "line": 14
+      }
+    ],
+    "liquid_to_js_asset": [
+      {
+        "source": "./sections/quick-order-list.liquid",
+        "target": "./assets/quantity-popover.js",
+        "asset": "quantity-popover.js",
+        "line": 5
+      },
+      {
+        "source": "./sections/quick-order-list.liquid",
+        "target": "./assets/price-per-item.js",
+        "asset": "price-per-item.js",
+        "line": 6
+      },
+      {
+        "source": "./sections/quick-order-list.liquid",
+        "target": "./assets/quick-order-list.js",
+        "asset": "quick-order-list.js",
+        "line": 7
+      },
+      {
+        "source": "./sections/announcement-bar.liquid",
+        "target": "./assets/theme-editor.js",
+        "asset": "theme-editor.js",
+        "line": 164
+      },
+      {
+        "source": "./sections/invicta-product-v2.liquid",
+        "target": "./assets/component-tiered-pricing.js",
+        "asset": "component-tiered-pricing.js",
+        "line": 610
+      },
+      {
+        "source": "./sections/invicta-product-v2.liquid",
+        "target": "./assets/invicta-product-v2.js",
+        "asset": "invicta-product-v2.js",
+        "line": 883
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./assets/cart.js",
+        "asset": "cart.js",
+        "line": 23
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./assets/quantity-popover.js",
+        "asset": "quantity-popover.js",
+        "line": 26
+      },
+      {
+        "source": "./sections/main-addresses.liquid",
+        "target": "./assets/customer.js",
+        "asset": "customer.js",
+        "line": 3
+      },
+      {
+        "source": "./sections/bulk-quick-order-list.liquid",
+        "target": "./assets/quick-order-list.js",
+        "asset": "quick-order-list.js",
+        "line": 3
+      },
+      {
+        "source": "./sections/invicta-recently-viewed.liquid",
+        "target": "./assets/invicta-recently-viewed.js",
+        "asset": "invicta-recently-viewed.js",
+        "line": 639
+      },
+      {
+        "source": "./layout/password.liquid",
+        "target": "./assets/global.js",
+        "asset": "global.js",
+        "line": 192
+      },
+      {
+        "source": "./layout/password.liquid",
+        "target": "./assets/details-modal.js",
+        "asset": "details-modal.js",
+        "line": 193
+      },
+      {
+        "source": "./layout/password.liquid",
+        "target": "./assets/password-modal.js",
+        "asset": "password-modal.js",
+        "line": 194
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/constants.js",
+        "asset": "constants.js",
+        "line": 70
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/pubsub.js",
+        "asset": "pubsub.js",
+        "line": 71
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/global.js",
+        "asset": "global.js",
+        "line": 72
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/details-disclosure.js",
+        "asset": "details-disclosure.js",
+        "line": 73
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/details-modal.js",
+        "asset": "details-modal.js",
+        "line": 74
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/search-form.js",
+        "asset": "search-form.js",
+        "line": 75
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/animations.js",
+        "asset": "animations.js",
+        "line": 78
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/localization-form.js",
+        "asset": "localization-form.js",
+        "line": 413
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/invicta-cart-api.js",
+        "asset": "invicta-cart-api.js",
+        "line": 529
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/invicta-cx-improvements.js",
+        "asset": "invicta-cx-improvements.js",
+        "line": 536
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/invicta-brand-pill.js",
+        "asset": "invicta-brand-pill.js",
+        "line": 545
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/predictive-search.js",
+        "asset": "predictive-search.js",
+        "line": 548
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/cart-drawer.js",
+        "asset": "cart-drawer.js",
+        "line": 552
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/invicta-quick-add.js",
+        "asset": "invicta-quick-add.js",
+        "line": 555
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/invicta-vat-toggle.js",
+        "asset": "invicta-vat-toggle.js",
+        "line": 558
+      },
+      {
+        "source": "./layout/theme.liquid",
+        "target": "./assets/invicta-quantity-enhancer.js",
+        "asset": "invicta-quantity-enhancer.js",
+        "line": 559
+      },
+      {
+        "source": "./snippets/share-button.liquid",
+        "target": "./assets/share.js",
+        "asset": "share.js",
+        "line": 13
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./assets/cart.js",
+        "asset": "cart.js",
+        "line": 12
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./assets/quantity-popover.js",
+        "asset": "quantity-popover.js",
+        "line": 13
+      },
+      {
+        "source": "./snippets/invicta-delivery-estimate.liquid",
+        "target": "./assets/component-delivery-estimate.js",
+        "asset": "component-delivery-estimate.js",
+        "line": 53
+      },
+      {
+        "source": "./snippets/invicta-cart-handler.liquid",
+        "target": "./assets/invicta-cart-handler.js",
+        "asset": "invicta-cart-handler.js",
+        "line": 14
+      },
+      {
+        "source": "./snippets/predictive-search-inline.liquid",
+        "target": "./assets/invicta-predictive-search.js",
+        "asset": "invicta-predictive-search.js",
+        "line": 49
+      },
+      {
+        "source": "./snippets/invicta-free-delivery-bar.liquid",
+        "target": "./assets/component-free-delivery-bar.js",
+        "asset": "component-free-delivery-bar.js",
+        "line": 51
+      }
+    ],
+    "liquid_to_svg_image_asset": [
+      {
+        "source": "./sections/cart-icon-bubble.liquid",
+        "target": "./assets/icon-cart-empty.svg",
+        "asset": "icon-cart-empty.svg",
+        "line": 2
+      },
+      {
+        "source": "./sections/cart-icon-bubble.liquid",
+        "target": "./assets/icon-cart.svg",
+        "asset": "icon-cart.svg",
+        "line": 4
+      },
+      {
+        "source": "./sections/main-order.liquid",
+        "target": "./assets/icon-discount.svg",
+        "asset": "icon-discount.svg",
+        "line": 99
+      },
+      {
+        "source": "./sections/main-order.liquid",
+        "target": "./assets/icon-discount.svg",
+        "asset": "icon-discount.svg",
+        "line": 227
+      },
+      {
+        "source": "./sections/main-order.liquid",
+        "target": "./assets/icon-discount.svg",
+        "asset": "icon-discount.svg",
+        "line": 237
+      },
+      {
+        "source": "./sections/main-cart-footer.liquid",
+        "target": "./assets/icon-discount.svg",
+        "asset": "icon-discount.svg",
+        "line": 56
+      },
+      {
+        "source": "./sections/main-activate-account.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 28
+      },
+      {
+        "source": "./sections/main-activate-account.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 66
+      },
+      {
+        "source": "./sections/main-activate-account.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 92
+      },
+      {
+        "source": "./sections/contact-form.liquid",
+        "target": "./assets/icon-success.svg",
+        "asset": "icon-success.svg",
+        "line": 35
+      },
+      {
+        "source": "./sections/contact-form.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 41
+      },
+      {
+        "source": "./sections/contact-form.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 93
+      },
+      {
+        "source": "./sections/main-login.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 55
+      },
+      {
+        "source": "./sections/main-login.liquid",
+        "target": "./assets/icon-success.svg",
+        "asset": "icon-success.svg",
+        "line": 78
+      },
+      {
+        "source": "./sections/main-login.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 88
+      },
+      {
+        "source": "./sections/pickup-availability.liquid",
+        "target": "./assets/icon-tick.svg",
+        "asset": "icon-tick.svg",
+        "line": 9
+      },
+      {
+        "source": "./sections/pickup-availability.liquid",
+        "target": "./assets/icon-close.svg",
+        "asset": "icon-close.svg",
+        "line": 64
+      },
+      {
+        "source": "./sections/pickup-availability.liquid",
+        "target": "./assets/icon-tick.svg",
+        "asset": "icon-tick.svg",
+        "line": 89
+      },
+      {
+        "source": "./sections/main-reset-password.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 29
+      },
+      {
+        "source": "./sections/main-reset-password.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 67
+      },
+      {
+        "source": "./sections/main-reset-password.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 93
+      },
+      {
+        "source": "./sections/announcement-bar.liquid",
+        "target": "./assets/icon-arrow.svg",
+        "asset": "icon-arrow.svg",
+        "line": 79
+      },
+      {
+        "source": "./sections/announcement-bar.liquid",
+        "target": "./assets/icon-caret.svg",
+        "asset": "icon-caret.svg",
+        "line": 103
+      },
+      {
+        "source": "./sections/announcement-bar.liquid",
+        "target": "./assets/icon-arrow.svg",
+        "asset": "icon-arrow.svg",
+        "line": 139
+      },
+      {
+        "source": "./sections/announcement-bar.liquid",
+        "target": "./assets/icon-caret.svg",
+        "asset": "icon-caret.svg",
+        "line": 158
+      },
+      {
+        "source": "./sections/main-register.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 25
+      },
+      {
+        "source": "./sections/main-register.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 99
+      },
+      {
+        "source": "./sections/main-register.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 124
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./assets/icon-discount.svg",
+        "asset": "icon-discount.svg",
+        "line": 173
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./assets/icon-info.svg",
+        "asset": "icon-info.svg",
+        "line": 222
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./assets/icon-minus.svg",
+        "asset": "icon-minus.svg",
+        "line": 229
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./assets/icon-plus.svg",
+        "asset": "icon-plus.svg",
+        "line": 253
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./assets/icon-remove.svg",
+        "asset": "icon-remove.svg",
+        "line": 266
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./assets/icon-info.svg",
+        "asset": "icon-info.svg",
+        "line": 272
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./assets/icon-close.svg",
+        "asset": "icon-close.svg",
+        "line": 299
+      },
+      {
+        "source": "./sections/main-cart-items.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 323
+      },
+      {
+        "source": "./sections/main-addresses.liquid",
+        "target": "./assets/icon-caret.svg",
+        "asset": "icon-caret.svg",
+        "line": 115
+      },
+      {
+        "source": "./sections/main-addresses.liquid",
+        "target": "./assets/icon-caret.svg",
+        "asset": "icon-caret.svg",
+        "line": 129
+      },
+      {
+        "source": "./sections/main-addresses.liquid",
+        "target": "./assets/icon-caret.svg",
+        "asset": "icon-caret.svg",
+        "line": 278
+      },
+      {
+        "source": "./sections/main-addresses.liquid",
+        "target": "./assets/icon-caret.svg",
+        "asset": "icon-caret.svg",
+        "line": 294
+      },
+      {
+        "source": "./sections/main-addresses.liquid",
+        "target": "./assets/icon-caret.svg",
+        "asset": "icon-caret.svg",
+        "line": 345
+      },
+      {
+        "source": "./sections/main-addresses.liquid",
+        "target": "./assets/icon-caret.svg",
+        "asset": "icon-caret.svg",
+        "line": 373
+      },
+      {
+        "source": "./sections/footer.liquid",
+        "target": "./assets/icon-arrow.svg",
+        "asset": "icon-arrow.svg",
+        "line": 230
+      },
+      {
+        "source": "./sections/footer.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 237
+      },
+      {
+        "source": "./sections/footer.liquid",
+        "target": "./assets/icon-success.svg",
+        "asset": "icon-success.svg",
+        "line": 252
+      },
+      {
+        "source": "./sections/email-signup-banner.liquid",
+        "target": "./assets/email-signup-banner-background.svg",
+        "asset": "email-signup-banner-background.svg",
+        "line": 56
+      },
+      {
+        "source": "./sections/email-signup-banner.liquid",
+        "target": "./assets/email-signup-banner-background-mobile.svg",
+        "asset": "email-signup-banner-background-mobile.svg",
+        "line": 57
+      },
+      {
+        "source": "./sections/email-signup-banner.liquid",
+        "target": "./assets/icon-arrow.svg",
+        "asset": "icon-arrow.svg",
+        "line": 110
+      },
+      {
+        "source": "./sections/email-signup-banner.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 117
+      },
+      {
+        "source": "./sections/email-signup-banner.liquid",
+        "target": "./assets/icon-success.svg",
+        "asset": "icon-success.svg",
+        "line": 132
+      },
+      {
+        "source": "./sections/main-article.liquid",
+        "target": "./assets/icon-arrow.svg",
+        "asset": "icon-arrow.svg",
+        "line": 89
+      },
+      {
+        "source": "./sections/main-article.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 145
+      },
+      {
+        "source": "./sections/main-article.liquid",
+        "target": "./assets/icon-success.svg",
+        "asset": "icon-success.svg",
+        "line": 170
+      },
+      {
+        "source": "./sections/main-article.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 207
+      },
+      {
+        "source": "./sections/main-article.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 241
+      },
+      {
+        "source": "./sections/main-article.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 273
+      },
+      {
+        "source": "./sections/main-password-footer.liquid",
+        "target": "./assets/icon-twitter.svg",
+        "asset": "icon-twitter.svg",
+        "line": 9
+      },
+      {
+        "source": "./sections/main-password-footer.liquid",
+        "target": "./assets/icon-facebook.svg",
+        "asset": "icon-facebook.svg",
+        "line": 19
+      },
+      {
+        "source": "./sections/main-password-footer.liquid",
+        "target": "./assets/icon-pinterest.svg",
+        "asset": "icon-pinterest.svg",
+        "line": 29
+      },
+      {
+        "source": "./sections/main-password-footer.liquid",
+        "target": "./assets/icon-instagram.svg",
+        "asset": "icon-instagram.svg",
+        "line": 39
+      },
+      {
+        "source": "./sections/main-password-footer.liquid",
+        "target": "./assets/icon-tiktok.svg",
+        "asset": "icon-tiktok.svg",
+        "line": 49
+      },
+      {
+        "source": "./sections/main-password-footer.liquid",
+        "target": "./assets/icon-tumblr.svg",
+        "asset": "icon-tumblr.svg",
+        "line": 59
+      },
+      {
+        "source": "./sections/main-password-footer.liquid",
+        "target": "./assets/icon-snapchat.svg",
+        "asset": "icon-snapchat.svg",
+        "line": 69
+      },
+      {
+        "source": "./sections/main-password-footer.liquid",
+        "target": "./assets/icon-youtube.svg",
+        "asset": "icon-youtube.svg",
+        "line": 79
+      },
+      {
+        "source": "./sections/main-password-footer.liquid",
+        "target": "./assets/icon-vimeo.svg",
+        "asset": "icon-vimeo.svg",
+        "line": 89
+      },
+      {
+        "source": "./sections/main-password-footer.liquid",
+        "target": "./assets/icon-shopify.svg",
+        "asset": "icon-shopify.svg",
+        "line": 105
+      },
+      {
+        "source": "./sections/main-password-header.liquid",
+        "target": "./assets/icon-padlock.svg",
+        "asset": "icon-padlock.svg",
+        "line": 37
+      },
+      {
+        "source": "./sections/main-password-header.liquid",
+        "target": "./assets/icon-close.svg",
+        "asset": "icon-close.svg",
+        "line": 43
+      },
+      {
+        "source": "./sections/main-password-header.liquid",
+        "target": "./assets/icon-close.svg",
+        "asset": "icon-close.svg",
+        "line": 56
+      },
+      {
+        "source": "./templates/gift_card.liquid",
+        "target": "./assets/icon-success.svg",
+        "asset": "icon-success.svg",
+        "line": 167
+      },
+      {
+        "source": "./snippets/share-button.liquid",
+        "target": "./assets/icon-share.svg",
+        "asset": "icon-share.svg",
+        "line": 17
+      },
+      {
+        "source": "./snippets/share-button.liquid",
+        "target": "./assets/icon-share.svg",
+        "asset": "icon-share.svg",
+        "line": 22
+      },
+      {
+        "source": "./snippets/share-button.liquid",
+        "target": "./assets/icon-close.svg",
+        "asset": "icon-close.svg",
+        "line": 41
+      },
+      {
+        "source": "./snippets/share-button.liquid",
+        "target": "./assets/icon-copy.svg",
+        "asset": "icon-copy.svg",
+        "line": 47
+      },
+      {
+        "source": "./snippets/loading-spinner.liquid",
+        "target": "./assets/loading-spinner.svg",
+        "asset": "loading-spinner.svg",
+        "line": 11
+      },
+      {
+        "source": "./snippets/country-localization.liquid",
+        "target": "./assets/icon-caret.svg",
+        "asset": "icon-caret.svg",
+        "line": 41
+      },
+      {
+        "source": "./snippets/country-localization.liquid",
+        "target": "./assets/icon-reset.svg",
+        "asset": "icon-reset.svg",
+        "line": 70
+      },
+      {
+        "source": "./snippets/country-localization.liquid",
+        "target": "./assets/icon-search.svg",
+        "asset": "icon-search.svg",
+        "line": 73
+      },
+      {
+        "source": "./snippets/country-localization.liquid",
+        "target": "./assets/icon-close.svg",
+        "asset": "icon-close.svg",
+        "line": 82
+      },
+      {
+        "source": "./snippets/country-localization.liquid",
+        "target": "./assets/icon-checkmark.svg",
+        "asset": "icon-checkmark.svg",
+        "line": 112
+      },
+      {
+        "source": "./snippets/country-localization.liquid",
+        "target": "./assets/icon-checkmark.svg",
+        "asset": "icon-checkmark.svg",
+        "line": 141
+      },
+      {
+        "source": "./snippets/language-localization.liquid",
+        "target": "./assets/icon-caret.svg",
+        "asset": "icon-caret.svg",
+        "line": 17
+      },
+      {
+        "source": "./snippets/language-localization.liquid",
+        "target": "./assets/icon-checkmark.svg",
+        "asset": "icon-checkmark.svg",
+        "line": 38
+      },
+      {
+        "source": "./snippets/quick-order-list-row.liquid",
+        "target": "./assets/icon-info.svg",
+        "asset": "icon-info.svg",
+        "line": 209
+      },
+      {
+        "source": "./snippets/quick-order-list-row.liquid",
+        "target": "./assets/icon-close.svg",
+        "asset": "icon-close.svg",
+        "line": 242
+      },
+      {
+        "source": "./snippets/quick-order-list-row.liquid",
+        "target": "./assets/icon-remove.svg",
+        "asset": "icon-remove.svg",
+        "line": 289
+      },
+      {
+        "source": "./snippets/quick-order-list-row.liquid",
+        "target": "./assets/icon-info.svg",
+        "asset": "icon-info.svg",
+        "line": 301
+      },
+      {
+        "source": "./snippets/quick-order-list-row.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 318
+      },
+      {
+        "source": "./snippets/quick-order-list-row.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 427
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./assets/icon-close.svg",
+        "asset": "icon-close.svg",
+        "line": 43
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./assets/icon-close.svg",
+        "asset": "icon-close.svg",
+        "line": 74
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./assets/icon-discount.svg",
+        "asset": "icon-discount.svg",
+        "line": 231
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./assets/icon-minus.svg",
+        "asset": "icon-minus.svg",
+        "line": 303
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./assets/icon-plus.svg",
+        "asset": "icon-plus.svg",
+        "line": 344
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./assets/icon-remove.svg",
+        "asset": "icon-remove.svg",
+        "line": 360
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./assets/icon-info.svg",
+        "asset": "icon-info.svg",
+        "line": 372
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./assets/icon-close.svg",
+        "asset": "icon-close.svg",
+        "line": 426
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 457
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./assets/icon-caret.svg",
+        "asset": "icon-caret.svg",
+        "line": 524
+      },
+      {
+        "source": "./snippets/cart-drawer.liquid",
+        "target": "./assets/icon-discount.svg",
+        "asset": "icon-discount.svg",
+        "line": 553
+      },
+      {
+        "source": "./snippets/quick-order-list.liquid",
+        "target": "./assets/icon-remove.svg",
+        "asset": "icon-remove.svg",
+        "line": 150
+      },
+      {
+        "source": "./snippets/quick-order-list.liquid",
+        "target": "./assets/icon-checkmark.svg",
+        "asset": "icon-checkmark.svg",
+        "line": 160
+      },
+      {
+        "source": "./snippets/quick-order-list.liquid",
+        "target": "./assets/icon-remove.svg",
+        "asset": "icon-remove.svg",
+        "line": 241
+      },
+      {
+        "source": "./snippets/quick-order-list.liquid",
+        "target": "./assets/icon-checkmark.svg",
+        "asset": "icon-checkmark.svg",
+        "line": 252
+      },
+      {
+        "source": "./snippets/quick-order-list.liquid",
+        "target": "./assets/icon-error.svg",
+        "asset": "icon-error.svg",
+        "line": 296
+      },
+      {
+        "source": "./snippets/social-icons.liquid",
+        "target": "./assets/icon-facebook.svg",
+        "asset": "icon-facebook.svg",
+        "line": 17
+      },
+      {
+        "source": "./snippets/social-icons.liquid",
+        "target": "./assets/icon-instagram.svg",
+        "asset": "icon-instagram.svg",
+        "line": 27
+      },
+      {
+        "source": "./snippets/social-icons.liquid",
+        "target": "./assets/icon-youtube.svg",
+        "asset": "icon-youtube.svg",
+        "line": 37
+      },
+      {
+        "source": "./snippets/social-icons.liquid",
+        "target": "./assets/icon-tiktok.svg",
+        "asset": "icon-tiktok.svg",
+        "line": 47
+      },
+      {
+        "source": "./snippets/social-icons.liquid",
+        "target": "./assets/icon-twitter.svg",
+        "asset": "icon-twitter.svg",
+        "line": 57
+      },
+      {
+        "source": "./snippets/social-icons.liquid",
+        "target": "./assets/icon-pinterest.svg",
+        "asset": "icon-pinterest.svg",
+        "line": 67
+      },
+      {
+        "source": "./snippets/social-icons.liquid",
+        "target": "./assets/icon-snapchat.svg",
+        "asset": "icon-snapchat.svg",
+        "line": 77
+      },
+      {
+        "source": "./snippets/social-icons.liquid",
+        "target": "./assets/icon-tumblr.svg",
+        "asset": "icon-tumblr.svg",
+        "line": 87
+      },
+      {
+        "source": "./snippets/social-icons.liquid",
+        "target": "./assets/icon-vimeo.svg",
+        "asset": "icon-vimeo.svg",
+        "line": 97
+      },
+      {
+        "source": "./snippets/quantity-input.liquid",
+        "target": "./assets/icon-minus.svg",
+        "asset": "icon-minus.svg",
+        "line": 18
+      },
+      {
+        "source": "./snippets/quantity-input.liquid",
+        "target": "./assets/icon-plus.svg",
+        "asset": "icon-plus.svg",
+        "line": 44
+      },
+      {
+        "source": "./snippets/pagination.liquid",
+        "target": "./assets/icon-caret.svg",
+        "asset": "icon-caret.svg",
+        "line": 28
+      },
+      {
+        "source": "./snippets/pagination.liquid",
+        "target": "./assets/icon-caret.svg",
+        "asset": "icon-caret.svg",
+        "line": 70
+      },
+      {
+        "source": "./snippets/country-localization.liquid",
+        "target": "./assets/icon-search.svg",
+        "asset": "icon-search.svg",
+        "line": 73
+      }
+    ],
+    "js_to_section": [
+      {
+        "source": "./assets/cart-drawer.js",
+        "target": "./sections/cart-drawer.liquid",
+        "section": "cart-drawer"
+      },
+      {
+        "source": "./assets/cart-drawer.js",
+        "target": "./sections/cart-icon-bubble.liquid",
+        "section": "cart-icon-bubble"
+      },
+      {
+        "source": "./assets/cart.js",
+        "target": "./sections/cart-drawer.liquid",
+        "section": "cart-drawer"
+      },
+      {
+        "source": "./assets/cart.js",
+        "target": "./sections/cart-icon-bubble.liquid",
+        "section": "cart-icon-bubble"
+      },
+      {
+        "source": "./assets/cart.js",
+        "target": "./sections/cart-live-region-text.liquid",
+        "section": "cart-live-region-text"
+      },
+      {
+        "source": "./assets/cart.js",
+        "target": "./sections/main-cart-items.liquid",
+        "section": "main-cart-items"
+      },
+      {
+        "source": "./assets/global.js",
+        "target": "./sections/bulk-quick-order-list.liquid",
+        "section": "bulk-quick-order-list"
+      },
+      {
+        "source": "./assets/predictive-search.js",
+        "target": "./sections/predictive-search.liquid",
+        "section": "predictive-search"
+      },
+      {
+        "source": "./assets/quick-order-list.js",
+        "target": "./sections/cart-drawer.liquid",
+        "section": "cart-drawer"
+      },
+      {
+        "source": "./assets/quick-order-list.js",
+        "target": "./sections/cart-icon-bubble.liquid",
+        "section": "cart-icon-bubble"
+      },
+      {
+        "source": "./assets/quick-order-list.js",
+        "target": "./sections/cart-live-region-text.liquid",
+        "section": "cart-live-region-text"
+      }
+    ],
+    "css_to_asset": [],
+    "liquid_section_tag": [
+      {
+        "source": "./layout/password.liquid",
+        "target": "./sections/main-password-header.liquid",
+        "section_type": "main-password-header",
+        "method": "section_tag"
+      },
+      {
+        "source": "./layout/password.liquid",
+        "target": "./sections/main-password-footer.liquid",
+        "section_type": "main-password-footer",
+        "method": "section_tag"
+      }
+    ]
+  },
+  "broken_references": [],
+  "orphaned_files": {},
+  "broken_references_fixed": [
+    {
+      "type": "liquid_to_svg_image_asset",
+      "source": "snippets/country-localization.liquid",
+      "target": "assets/icon-search.svg",
+      "line": 73,
+      "issue": "Asset 'icon-search.svg' was missing",
+      "fix": "Created assets/icon-search.svg with standard magnifying glass SVG"
+    },
+    {
+      "type": "liquid_to_svg_image_asset",
+      "source": "sections/main-password-header.liquid",
+      "target": "assets/icon-error.svg",
+      "line": 84,
+      "issue": "Reference used 'icon-error' without .svg extension",
+      "fix": "Changed to 'icon-error.svg' to match inline_asset_content requirements"
+    }
+  ]
+}
