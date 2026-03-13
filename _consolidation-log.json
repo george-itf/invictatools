@@ -107,7 +107,12 @@
     ]
   },
   "js_analysis": {
-    "conclusion": "No JS files were removed or merged. All JS files serve distinct purposes with no duplication.",
+    "conclusion": "No JS files were removed or merged. 31 JS files analysed (6,929 lines total; 3,247 global, 3,682 conditional). Architecture is sound with no true duplication. One benign overlap found (free delivery bar).",
+    "total_files": 31,
+    "total_lines": 6929,
+    "global_lines": 3247,
+    "conditional_lines": 3682,
+    "custom_elements_defined": 27,
     "findings": [
       {
         "finding": "Cart-related JS files appear similar but are complementary",
@@ -154,6 +159,23 @@
         ],
         "action": "No change. Global scripts are all small utility files or core components needed on every page. Larger feature scripts are conditionally loaded.",
         "reason": "Loading strategy is already well-optimized."
+      },
+      {
+        "finding": "Free delivery bar has benign logic overlap between component-free-delivery-bar.js and invicta-cx-improvements.js",
+        "details": "Both files listen to cart:updated events and modify the same [data-delivery-bar] element. Both independently add/remove inv-delivery-bar--almost class. The cx-improvements version also adds InvictaAnnouncer screen-reader announcements.",
+        "action": "No change. The duplication is benign — both add/remove the same class based on the same threshold. The cx-improvements file adds accessibility announcements that the component file lacks, making them complementary rather than conflicting.",
+        "reason": "Fixing this would require moving accessibility logic between files, which risks breaking the announcement flow. Low reward, moderate risk."
+      },
+      {
+        "finding": "11 custom elements defined in global.js have no direct Liquid template references",
+        "elements": ["menu-drawer", "header-drawer", "modal-dialog", "bulk-modal", "modal-opener", "deferred-media", "slider-component", "variant-selects", "product-recommendations", "account-icon", "bulk-add"],
+        "action": "No change. These are Dawn core custom elements. They may be used by Shopify apps, the theme editor, content_for_header, or serve as base classes (bulk-add is parent of quick-order-list). The if (!customElements.get(...)) guards mean they cause no harm.",
+        "reason": "Removing Dawn core elements from global.js risks breaking Shopify internals, apps, and theme editor functionality."
+      },
+      {
+        "finding": "invicta-quantity-enhancer.js (316 lines) loaded globally but only relevant on PDP pages",
+        "action": "No change. The script uses MutationObserver to detect dynamically-added product forms, which may appear in quick-add modals on any page. Moving to conditional loading requires verifying quick-add modal behavior first — flagged as future optimisation.",
+        "reason": "Risk of breaking quick-add quantity enhancement on collection pages outweighs the performance gain of conditional loading."
       }
     ]
   },
