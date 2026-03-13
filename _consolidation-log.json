@@ -12,10 +12,11 @@
     "config_files_modified": 0,
     "locale_files_modified": 0,
     "files_created": 3,
-    "notes": "Analysis found the theme's CSS/JS architecture is already well-organized after Phase 3. No consolidation changes were needed — the remaining naming inconsistencies are cosmetic, not functional. The primary deliverable is ARCHITECTURE.md and the documentation of SVG removal candidates."
+    "css_deduplication_changes": 1,
+    "notes": "CSS/JS architecture is well-organized after Phase 3. One CSS deduplication performed: @keyframes inv-spin was defined 4 times across 3 files — consolidated to a single canonical definition in base.css. Dead code referencing deleted invicta-collection-filters.liquid was also cleaned up."
   },
   "css_analysis": {
-    "conclusion": "No CSS files were removed or merged. Analysis found no true override conflicts or redundant files.",
+    "conclusion": "No CSS files were removed or merged. One deduplication performed: @keyframes inv-spin consolidated from 4 definitions (3 files) to 1 canonical definition in base.css. No override conflicts or redundant files found.",
     "findings": [
       {
         "finding": "component-* CSS files used by invicta snippets use inv-* class prefixes despite the component-* filename",
@@ -92,6 +93,16 @@
         ],
         "action": "No change. Loading strategy is already optimized with appropriate use of lazy loading (print→all pattern), media queries, and conditional loading.",
         "reason": "Current global loading is already minimal and well-optimized."
+      },
+      {
+        "finding": "@keyframes inv-spin was defined 4 times across 3 CSS files",
+        "files": [
+          "assets/invicta-cx-improvements.css (2 definitions — lines 402 and 803)",
+          "assets/mobile.css (1 definition — line 2932)",
+          "assets/invicta-predictive-search.css (1 definition — line 333)"
+        ],
+        "action": "FIXED. Removed all 4 duplicate definitions. Added single canonical @keyframes inv-spin to assets/base.css (loaded synchronously on every page, before any lazy-loaded CSS that references the animation).",
+        "reason": "All definitions were functionally identical (rotate 0→360deg). base.css is the foundation file loaded first, making the animation available everywhere. No animation references needed updating — only the @keyframes declarations were deduplicated."
       }
     ]
   },
@@ -355,6 +366,18 @@
       "files_modified": ["sections/invicta-product-grid.liquid"],
       "files_removed": [],
       "reason": "invicta-collection-filters.liquid was deleted in Phase 3. The product grid had a stale comment mentioning it and two dead JS code blocks that checked for a DOM element (getElementById('invicta-collection-filters')) that will never exist. Code was safely guarded with null checks so it wasn't breaking, but it was dead weight."
+    },
+    {
+      "type": "css_deduplication",
+      "action": "Consolidated @keyframes inv-spin to single canonical definition in base.css",
+      "files_modified": [
+        "assets/base.css",
+        "assets/invicta-cx-improvements.css",
+        "assets/mobile.css",
+        "assets/invicta-predictive-search.css"
+      ],
+      "files_removed": [],
+      "reason": "@keyframes inv-spin was defined 4 times across 3 files (2 in invicta-cx-improvements.css, 1 in mobile.css, 1 in invicta-predictive-search.css). All definitions were identical (rotate 0→360deg). Consolidated to base.css which loads synchronously on every page, ensuring the animation is available before any lazy-loaded CSS that references it. No animation references were changed — only the @keyframes definitions were deduplicated."
     }
   ]
 }

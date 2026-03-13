@@ -330,10 +330,6 @@
   animation: inv-spin 0.8s linear infinite;
 }
 
-@keyframes inv-spin {
-  to { transform: rotate(360deg); }
-}
-
 /* VIEW ALL LINK */
 .inv-search-results__view-all {
   display: block;

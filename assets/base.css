@@ -3037,6 +3037,10 @@ details li {
    23.12 SKELETON LOADING
    ---------------------------------------- */
 
+@keyframes inv-spin {
+  to { transform: rotate(360deg); }
+}
+
 @keyframes inv-skeleton-shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
