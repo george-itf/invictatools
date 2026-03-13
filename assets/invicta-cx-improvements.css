@@ -399,10 +399,6 @@
   animation: inv-spin 0.6s linear infinite;
 }
 
-@keyframes inv-spin {
-  to { transform: rotate(360deg); }
-}
-
 /* Active filter indicator with count */
 .inv-filters__active-indicator {
   display: inline-flex;
@@ -798,11 +794,6 @@ button:focus-visible,
 
 .inv-pdp__notify-spinner svg {
   animation: inv-spin 0.8s linear infinite;
-}
-
-@keyframes inv-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
 
 .inv-pdp__notify-success {
