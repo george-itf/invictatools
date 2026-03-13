@@ -11,28 +11,6 @@
   "sections": {
     "main": {
       "type": "invicta-product-v2",
-      "settings": {
-        "show_breadcrumb": true,
-        "show_sku": true,
-        "show_key_specs": true,
-        "show_buy_now": true,
-        "show_trust_badges": false,
-        "delivery_title": "FREE Next Day Delivery",
-        "delivery_text": "Order before 2pm for next working day delivery",
-        "in_stock_text": "In Stock — Ready to Ship",
-        "dispatch_text": "Typically dispatches within 1-2 working days",
-        "supplier_stock_text": "In Stock with Supplier — Usually Dispatched within 2–3 Working Days",
-        "supplier_dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 3–5 working days.",
-        "supplier_delivery_estimate": "3–5 working days",
-        "atc_text": "Add to Cart",
-        "oos_text": "Out of Stock",
-        "buy_now_text": "Buy Now — Skip the Cart",
-        "cart_error_text": "Sorry, couldn't add to cart. Please try again.",
-        "low_stock_threshold": 3,
-        "buy_now_price_threshold": 500,
-        "show_click_collect": true,
-        "collect_text": "Call us on 01227 456789 to check availability at Canterbury or Ramsgate"
-      },
       "blocks": {
         "supplier_trend": {
           "type": "supplier_config",
@@ -76,7 +54,29 @@
         "supplier_toolbank",
         "supplier_timco",
         "supplier_pdp"
-      ]
+      ],
+      "settings": {
+        "show_breadcrumb": true,
+        "show_sku": true,
+        "show_key_specs": true,
+        "show_buy_now": true,
+        "show_trust_badges": true,
+        "delivery_title": "FREE Next Day Delivery",
+        "delivery_text": "Order before 2pm for next working day delivery",
+        "in_stock_text": "In Stock — Ready to Ship",
+        "dispatch_text": "Typically dispatches within 1-2 working days",
+        "supplier_stock_text": "In Stock with Supplier — Usually Dispatched within 2–3 Working Days",
+        "supplier_dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 3–5 working days.",
+        "supplier_delivery_estimate": "3–5 working days",
+        "atc_text": "Add to Cart",
+        "oos_text": "Out of Stock",
+        "buy_now_text": "Buy Now — Skip the Cart",
+        "cart_error_text": "Sorry, couldn't add to cart. Please try again.",
+        "low_stock_threshold": 3,
+        "buy_now_price_threshold": 500,
+        "show_click_collect": true,
+        "collect_text": "Call us on 01227 456789 to check availability at Canterbury or Ramsgate"
+      }
     },
     "invicta_related_products": {
       "type": "invicta-related-products",
