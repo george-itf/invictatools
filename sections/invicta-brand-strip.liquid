@@ -51,8 +51,8 @@
   #shopify-section-{{ section.id }} .invicta-brand-strip {
     display: block !important;
     visibility: visible !important;
-    padding-top: clamp(20px, 3vw, {{ pad_top }}px);
-    padding-bottom: clamp(16px, 2.5vw, {{ pad_bottom }}px);
+    padding-top: {% if pad_top > 20 %}clamp(20px, 3vw, {{ pad_top }}px){% elsif pad_top > 0 %}{{ pad_top }}px{% else %}0px{% endif %};
+    padding-bottom: {% if pad_bottom > 16 %}clamp(16px, 2.5vw, {{ pad_bottom }}px){% elsif pad_bottom > 0 %}{{ pad_bottom }}px{% else %}0px{% endif %};
     background-color: {{ bg_color }};
     width: 100%;
   }
@@ -151,6 +151,15 @@
   
   /* MOBILE */
   @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .invicta-brand-strip {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .invicta-brand-strip__heading {
+      margin-bottom: 10px;
+    }
+
     #shopify-section-{{ section.id }} .invicta-brand-strip__grid {
       flex-wrap: nowrap;
       overflow-x: auto;
