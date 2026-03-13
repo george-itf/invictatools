@@ -6,7 +6,7 @@
     "css_files_merged": 0,
     "js_files_removed": 0,
     "js_files_merged": 0,
-    "svg_removal_candidates": 30,
+    "svg_removal_candidates": 45,
     "section_files_renamed": 0,
     "json_templates_modified": 0,
     "config_files_modified": 0,
@@ -148,245 +148,70 @@
   },
   "svg_audit": {
     "total_svgs": 103,
-    "referenced": 73,
-    "unreferenced_removal_candidates": 30,
+    "referenced_in_theme": 31,
+    "brand_logos_dynamically_loaded": 25,
+    "brand_logos_likely_orphaned": 2,
+    "unreferenced_removal_candidates": 45,
     "note": "Unreferenced SVGs may be used in Shopify admin content (metafields, rich text, page content) that is not visible in theme files. Do NOT auto-delete — flag for manual review by theme owner.",
-    "unreferenced_svgs": [
+    "brand_logo_loading_mechanism": "Brand logos are loaded dynamically in snippets/invicta-brand-pill.liquid and snippets/invicta-brand-hero.liquid using the pattern: brand_key | append: '.svg' | asset_url. The brand key is derived from the product vendor name or a hardcoded brand database.",
+    "orphaned_brand_logos": [
       {
         "file": "assets/dormer.svg",
         "category": "brand_logo",
-        "note": "Brand logo — may be dynamically loaded via Shopify admin or brand pill component"
-      },
-      {
-        "file": "assets/icon-account.svg",
-        "category": "icon",
-        "note": "Dawn icon — not referenced by any remaining section"
-      },
-      {
-        "file": "assets/icon-apple.svg",
-        "category": "icon",
-        "note": "Dawn icon — likely for Apple Wallet / Apple Pay"
-      },
-      {
-        "file": "assets/icon-banana.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — not used by this tools-industry theme"
-      },
-      {
-        "file": "assets/icon-bottle.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — not used"
-      },
-      {
-        "file": "assets/icon-box.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — not used"
-      },
-      {
-        "file": "assets/icon-carrot.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — not used by this tools-industry theme"
-      },
-      {
-        "file": "assets/icon-chat-bubble.svg",
-        "category": "icon",
-        "note": "Dawn icon — not referenced"
-      },
-      {
-        "file": "assets/icon-check-mark.svg",
-        "category": "icon",
-        "note": "Dawn icon — theme uses icon-checkmark.svg (different filename) instead"
-      },
-      {
-        "file": "assets/icon-clipboard.svg",
-        "category": "icon",
-        "note": "Dawn icon — not referenced"
-      },
-      {
-        "file": "assets/icon-dairy-free.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — food industry, not relevant"
-      },
-      {
-        "file": "assets/icon-dairy.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — food industry, not relevant"
-      },
-      {
-        "file": "assets/icon-dryer.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — laundry/care, not relevant"
-      },
-      {
-        "file": "assets/icon-eye.svg",
-        "category": "icon",
-        "note": "Dawn icon — not referenced"
-      },
-      {
-        "file": "assets/icon-fire.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — not used"
-      },
-      {
-        "file": "assets/icon-gluten-free.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — food industry, not relevant"
-      },
-      {
-        "file": "assets/icon-heart.svg",
-        "category": "icon",
-        "note": "Dawn icon — wishlist feature not implemented"
-      },
-      {
-        "file": "assets/icon-iron.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — laundry/care, not relevant"
-      },
-      {
-        "file": "assets/icon-leaf.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — not used"
-      },
-      {
-        "file": "assets/icon-leather.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — fashion, not relevant"
-      },
-      {
-        "file": "assets/icon-lightning-bolt.svg",
-        "category": "icon",
-        "note": "Dawn icon — not referenced"
-      },
-      {
-        "file": "assets/icon-lipstick.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — cosmetics, not relevant"
-      },
-      {
-        "file": "assets/icon-lock.svg",
-        "category": "icon",
-        "note": "Dawn icon — not referenced"
-      },
-      {
-        "file": "assets/icon-map-pin.svg",
-        "category": "icon",
-        "note": "Dawn icon — not referenced"
-      },
-      {
-        "file": "assets/icon-nut-free.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — food allergy, not relevant"
-      },
-      {
-        "file": "assets/icon-pants.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — fashion, not relevant"
-      },
-      {
-        "file": "assets/icon-paw-print.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — pet industry, not relevant"
-      },
-      {
-        "file": "assets/icon-pepper.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — food, not relevant"
-      },
-      {
-        "file": "assets/icon-perfume.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — cosmetics, not relevant"
-      },
-      {
-        "file": "assets/icon-plane.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — travel, not relevant"
-      },
-      {
-        "file": "assets/icon-plant.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — not used"
-      },
-      {
-        "file": "assets/icon-price-tag.svg",
-        "category": "icon",
-        "note": "Dawn icon — not referenced"
-      },
-      {
-        "file": "assets/icon-question-mark.svg",
-        "category": "icon",
-        "note": "Dawn icon — not referenced"
-      },
-      {
-        "file": "assets/icon-recycle.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — not used"
-      },
-      {
-        "file": "assets/icon-return.svg",
-        "category": "icon",
-        "note": "Dawn icon — not referenced (theme uses inline SVG for returns)"
-      },
-      {
-        "file": "assets/icon-ruler.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — not used"
-      },
-      {
-        "file": "assets/icon-serving-dish.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — food/hospitality, not relevant"
-      },
-      {
-        "file": "assets/icon-shirt.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — fashion, not relevant"
-      },
-      {
-        "file": "assets/icon-shoe.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — fashion, not relevant"
-      },
-      {
-        "file": "assets/icon-silhouette.svg",
-        "category": "icon",
-        "note": "Dawn icon — not referenced"
-      },
-      {
-        "file": "assets/icon-snowflake.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — not used"
-      },
-      {
-        "file": "assets/icon-star.svg",
-        "category": "icon",
-        "note": "Dawn icon — theme uses inline SVG for stars"
-      },
-      {
-        "file": "assets/icon-stopwatch.svg",
-        "category": "icon",
-        "note": "Dawn icon — not referenced"
-      },
-      {
-        "file": "assets/icon-truck.svg",
-        "category": "icon",
-        "note": "Dawn icon — theme uses inline SVG for delivery icons"
-      },
-      {
-        "file": "assets/icon-washing.svg",
-        "category": "icon",
-        "note": "Dawn industry icon — laundry, not relevant"
-      },
-      {
-        "file": "assets/placeholder-image.svg",
-        "category": "placeholder",
-        "note": "Dawn placeholder — may be used by Shopify admin internally"
+        "note": "Not in the brand database and not referenced anywhere in theme files. Likely orphaned."
       },
       {
         "file": "assets/tengtools.svg",
         "category": "brand_logo",
-        "note": "Brand logo — may be dynamically loaded via Shopify admin or brand pill component"
+        "note": "Brand DB uses key 'teng' not 'tengtools', so the dynamic loader would look for 'teng.svg', not 'tengtools.svg'. This SVG filename does not match the dynamic loading pattern. Likely orphaned."
       }
+    ],
+    "unreferenced_svgs": [
+      {"file": "assets/icon-account.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-apple.svg", "category": "icon", "note": "Dawn default icon (food/lifestyle). No references found."},
+      {"file": "assets/icon-banana.svg", "category": "icon", "note": "Dawn default icon (food/lifestyle). No references found."},
+      {"file": "assets/icon-bottle.svg", "category": "icon", "note": "Dawn default icon (food/lifestyle). No references found."},
+      {"file": "assets/icon-box.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-carrot.svg", "category": "icon", "note": "Dawn default icon (food/lifestyle). No references found."},
+      {"file": "assets/icon-chat-bubble.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-check-mark.svg", "category": "icon", "note": "Dawn default icon. Note: icon-checkmark.svg (no hyphen) IS used. This variant is not."},
+      {"file": "assets/icon-clipboard.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-dairy-free.svg", "category": "icon", "note": "Dawn default icon (food/lifestyle). No references found."},
+      {"file": "assets/icon-dairy.svg", "category": "icon", "note": "Dawn default icon (food/lifestyle). No references found."},
+      {"file": "assets/icon-dryer.svg", "category": "icon", "note": "Dawn default icon (laundry). No references found."},
+      {"file": "assets/icon-eye.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-fire.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-gluten-free.svg", "category": "icon", "note": "Dawn default icon (food/lifestyle). No references found."},
+      {"file": "assets/icon-heart.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-iron.svg", "category": "icon", "note": "Dawn default icon (laundry). No references found."},
+      {"file": "assets/icon-leaf.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-leather.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-lightning-bolt.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-lipstick.svg", "category": "icon", "note": "Dawn default icon (cosmetics). No references found."},
+      {"file": "assets/icon-lock.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-map-pin.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-nut-free.svg", "category": "icon", "note": "Dawn default icon (food/lifestyle). No references found."},
+      {"file": "assets/icon-pants.svg", "category": "icon", "note": "Dawn default icon (fashion). No references found."},
+      {"file": "assets/icon-paw-print.svg", "category": "icon", "note": "Dawn default icon (pets). No references found."},
+      {"file": "assets/icon-pepper.svg", "category": "icon", "note": "Dawn default icon (food/lifestyle). No references found."},
+      {"file": "assets/icon-perfume.svg", "category": "icon", "note": "Dawn default icon (cosmetics). No references found."},
+      {"file": "assets/icon-plane.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-plant.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-price-tag.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-question-mark.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-recycle.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-return.svg", "category": "icon", "note": "Dawn default icon. Theme uses inline SVG for returns instead."},
+      {"file": "assets/icon-ruler.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-serving-dish.svg", "category": "icon", "note": "Dawn default icon (food/hospitality). No references found."},
+      {"file": "assets/icon-shirt.svg", "category": "icon", "note": "Dawn default icon (fashion). No references found."},
+      {"file": "assets/icon-shoe.svg", "category": "icon", "note": "Dawn default icon (fashion). No references found."},
+      {"file": "assets/icon-silhouette.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-snowflake.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-star.svg", "category": "icon", "note": "Dawn default icon. Theme uses inline SVG for stars."},
+      {"file": "assets/icon-stopwatch.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-truck.svg", "category": "icon", "note": "Dawn default icon. Theme uses inline SVG for delivery icons."},
+      {"file": "assets/icon-washing.svg", "category": "icon", "note": "Dawn default icon (laundry). No references found."},
+      {"file": "assets/placeholder-image.svg", "category": "placeholder", "note": "No theme-level references but could be used by Shopify platform-level fallback rendering."}
     ]
   },
   "template_analysis": {
