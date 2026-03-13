@@ -135,8 +135,10 @@
       if (this.loadingEl) {
         this.loadingEl.classList.add('hidden');
       }
-      if (this.emptyEl) {
-        this.emptyEl.classList.remove('hidden');
+      // Hide the entire section when empty to avoid wasting vertical space
+      var section = document.querySelector('.inv-recent[data-section-id]');
+      if (section) {
+        section.style.display = 'none';
       }
     }
 

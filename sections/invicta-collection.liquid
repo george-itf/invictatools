@@ -21,6 +21,9 @@
   assign show_sort = section.settings.show_sort
   assign show_brand_filters = section.settings.show_brand_filters
 
+  # Filters to hide from customers (labels, case-insensitive check via downcase)
+  assign hidden_filter_labels = 'product rating count'
+
   assign has_active_filters = false
   assign active_filter_count = 0
   for filter in collection.filters
@@ -326,6 +329,12 @@
             </div>
             
             {%- for filter in collection.filters -%}
+              {%- liquid
+                assign _fl = filter.label | downcase
+                if hidden_filter_labels contains _fl
+                  continue
+                endif
+              -%}
               <details class="inv-facet" open>
                 <summary class="inv-facet__header">
                   <span class="inv-facet__name">{{ filter.label }}</span>
@@ -334,16 +343,16 @@
                   </svg>
                 </summary>
                 <div class="inv-facet__body">
-                  
+
                   {%- case filter.type -%}
                     {%- when 'list' or 'boolean' -%}
                       <ul class="inv-facet__list">
                         {%- for value in filter.values -%}
                           <li class="inv-facet__item">
                             <label class="inv-facet__label-wrap">
-                              <input 
-                                type="checkbox" 
-                                name="{{ value.param_name }}" 
+                              <input
+                                type="checkbox"
+                                name="{{ value.param_name }}"
                                 value="{{ value.value }}"
                                 class="inv-facet__checkbox"
                                 {% if value.active %}checked{% endif %}
@@ -355,14 +364,14 @@
                           </li>
                         {%- endfor -%}
                       </ul>
-                      
+
                     {%- when 'price_range' -%}
                       <div class="inv-facet__price-row">
                         <div class="inv-facet__price-field">
                           <span class="inv-facet__price-symbol">£</span>
-                          <input 
-                            type="number" 
-                            name="{{ filter.min_value.param_name }}" 
+                          <input
+                            type="number"
+                            name="{{ filter.min_value.param_name }}"
                             class="inv-facet__price-input"
                             placeholder="Min"
                             min="0"
@@ -373,9 +382,9 @@
                         <span class="inv-facet__price-sep">–</span>
                         <div class="inv-facet__price-field">
                           <span class="inv-facet__price-symbol">£</span>
-                          <input 
-                            type="number" 
-                            name="{{ filter.max_value.param_name }}" 
+                          <input
+                            type="number"
+                            name="{{ filter.max_value.param_name }}"
                             class="inv-facet__price-input"
                             placeholder="Max"
                             min="0"
@@ -385,11 +394,11 @@
                         </div>
                       </div>
                   {%- endcase -%}
-                  
+
                 </div>
               </details>
             {%- endfor -%}
-            
+
             <button type="submit" class="inv-sidebar__apply">
               {{ section.settings.apply_text | default: 'Apply Filters' }}
             </button>
@@ -522,6 +531,12 @@
       {%- comment -%} Filters rendered inline {%- endcomment -%}
       <form id="InvDrawerForm" class="inv-drawer-form">
         {%- for filter in collection.filters -%}
+          {%- liquid
+            assign _fl = filter.label | downcase
+            if hidden_filter_labels contains _fl
+              continue
+            endif
+          -%}
           <details class="inv-facet" open>
             <summary class="inv-facet__header">
               <span class="inv-facet__name">{{ filter.label }}</span>
