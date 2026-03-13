@@ -1,0 +1,610 @@
+{
+  "generated": "2026-03-13T10:30:00.000Z",
+  "phase": "Phase 2 — Identify Dead Weight",
+  "source": "_dependency-map.json (Phase 1 output, 2026-03-13T09:51:47.269Z)",
+  "theme": "Trade 15.4.0 (Invicta Tools customisation)",
+  "total_theme_files": 435,
+  "summary": {
+    "confirmed_dead": 34,
+    "likely_dead_verify": 40,
+    "redundant_duplicates": 3,
+    "conditional_keep": 13,
+    "templates_to_verify": 4,
+    "markdown_housekeeping": 9,
+    "total_removal_candidates": 46,
+    "total_verify_candidates": 44,
+    "total_safe_keep": 13
+  },
+  "notes": {
+    "dependency_map_overrides": [
+      "sections/pickup-availability.liquid — Phase 1 missed indirect reference via quick-add.js custom element. NOT dead.",
+      "sections/apps.liquid — Loaded by Shopify platform, not theme code. NOT dead.",
+      "sections/header-group.json — Loaded via {% sections 'header-group' %} in theme.liquid. NOT dead.",
+      "sections/footer-group.json — Loaded via {% sections 'footer-group' %} in theme.liquid. NOT dead."
+    ],
+    "duplicate_systems_both_active": [
+      {
+        "system": "Predictive Search",
+        "files": ["assets/predictive-search.js", "assets/invicta-predictive-search.js", "assets/component-predictive-search.css", "assets/invicta-predictive-search.css"],
+        "note": "Both Dawn and Invicta predictive search systems are loaded simultaneously. predictive-search.js is loaded conditionally (settings.predictive_search_enabled) from theme.liquid. invicta-predictive-search.js is loaded via snippets/predictive-search-inline.liquid. Neither is dead — this is an optimisation opportunity, not a removal candidate."
+      }
+    ],
+    "duplicate_css_loading": [
+      "component-cart.css, component-totals.css, component-price.css, component-discounts.css are loaded BOTH globally in theme.liquid AND by individual cart sections. Not dead, but could be deduplicated."
+    ]
+  },
+  "confirmed_dead": [
+    {
+      "file": "sections/collage.liquid",
+      "reason": "Dawn default section with zero inbound references. Not used by any template. Not in dynamic loading exceptions.",
+      "category": "section"
+    },
+    {
+      "file": "sections/collapsible-content.liquid",
+      "reason": "Dawn default section with zero inbound references. Not used by any template. Not in dynamic loading exceptions.",
+      "category": "section"
+    },
+    {
+      "file": "sections/collection-list.liquid",
+      "reason": "Dawn default section with zero inbound references. Not used by any template. main-list-collections.liquid serves this role.",
+      "category": "section"
+    },
+    {
+      "file": "sections/custom-liquid.liquid",
+      "reason": "Dawn default section with zero inbound references and zero outbound references. No template uses it.",
+      "category": "section"
+    },
+    {
+      "file": "sections/featured-blog.liquid",
+      "reason": "Dawn default section with zero inbound references. Not used by any template. main-blog.liquid serves blog display.",
+      "category": "section"
+    },
+    {
+      "file": "sections/image-with-text.liquid",
+      "reason": "Dawn default section with zero inbound references. Not used by any template.",
+      "category": "section"
+    },
+    {
+      "file": "sections/multicolumn.liquid",
+      "reason": "Dawn default section with zero inbound references. Not used by any template.",
+      "category": "section"
+    },
+    {
+      "file": "sections/multirow.liquid",
+      "reason": "Dawn default section with zero inbound references. Not used by any template.",
+      "category": "section"
+    },
+    {
+      "file": "sections/page.liquid",
+      "reason": "Dawn default section with zero inbound references. sections/main-page.liquid is the active page section (referenced by 4 templates).",
+      "category": "section"
+    },
+    {
+      "file": "sections/rich-text.liquid",
+      "reason": "Dawn default section with zero inbound references. Not used by any template.",
+      "category": "section"
+    },
+    {
+      "file": "sections/slideshow.liquid",
+      "reason": "Dawn default section with zero inbound references. Not used by any template. Theme uses invicta-hero-split for homepage hero.",
+      "category": "section"
+    },
+    {
+      "file": "sections/video.liquid",
+      "reason": "Dawn default section with zero inbound references. Not used by any template. Brand pages use brand-video.liquid instead.",
+      "category": "section"
+    },
+    {
+      "file": "assets/component-collection-hero.css",
+      "reason": "Zero inbound references. No section or template loads this CSS. Likely a leftover from a removed Dawn collection hero section.",
+      "category": "css"
+    },
+    {
+      "file": "assets/component-facets.css",
+      "reason": "Zero inbound references. The original Dawn facets system was replaced by invicta-collection.liquid's inline filter UI.",
+      "category": "css"
+    },
+    {
+      "file": "assets/quick-add.css",
+      "reason": "Zero inbound references. Associated with the removed Dawn quick-add system. invicta-quick-add.js is the active replacement.",
+      "category": "css"
+    },
+    {
+      "file": "assets/template-collection.css",
+      "reason": "Zero inbound references. Dawn collection template CSS replaced by invicta-collection section styling.",
+      "category": "css"
+    },
+    {
+      "file": "assets/recipient-form.js",
+      "reason": "Zero inbound references. Dawn gift card recipient form JS. No section or template loads it.",
+      "category": "js"
+    },
+    {
+      "file": "assets/show-more.js",
+      "reason": "Zero inbound references. Dawn 'show more' button JS. No section or template loads it.",
+      "category": "js"
+    },
+    {
+      "file": "assets/icon-3d-model.svg",
+      "reason": "Zero inbound references. Not loaded by icon-accordion.liquid dynamic system or any section. Dawn 3D model viewer icon — feature not used.",
+      "category": "svg"
+    },
+    {
+      "file": "assets/icon-close-small.svg",
+      "reason": "Zero inbound references. Theme uses icon-close.svg (8 inbound refs) instead. This small variant is unused.",
+      "category": "svg"
+    },
+    {
+      "file": "assets/icon-filter.svg",
+      "reason": "Zero inbound references. Dawn facets filter icon. The invicta-collection section uses its own filter UI without this icon.",
+      "category": "svg"
+    },
+    {
+      "file": "assets/icon-hamburger.svg",
+      "reason": "Zero inbound references. Dawn mobile menu icon. The invicta header (header-invicta.liquid) uses a different navigation pattern.",
+      "category": "svg"
+    },
+    {
+      "file": "assets/icon-inventory-status.svg",
+      "reason": "Zero inbound references. Not loaded by any section or dynamic system.",
+      "category": "svg"
+    },
+    {
+      "file": "assets/icon-unavailable.svg",
+      "reason": "Zero inbound references. Not loaded by any section or dynamic system.",
+      "category": "svg"
+    },
+    {
+      "file": "assets/icon-zoom.svg",
+      "reason": "Zero inbound references. Dawn product image zoom icon. invicta-product-v2 uses a different zoom implementation.",
+      "category": "svg"
+    },
+    {
+      "file": "assets/pdp.svg",
+      "reason": "Zero inbound references. Unclear purpose — filename suggests product detail page but nothing loads it.",
+      "category": "svg"
+    },
+    {
+      "file": "assets/square.svg",
+      "reason": "Zero inbound references. No section or template loads this SVG.",
+      "category": "svg"
+    },
+    {
+      "file": "assets/tools-icons.svg",
+      "reason": "Zero inbound references. Sprite sheet that nothing loads. Individual icon SVGs are used instead.",
+      "category": "svg"
+    },
+    {
+      "file": "assets/pwa-icon-167.png",
+      "reason": "Zero inbound references. Not listed in manifest.webmanifest. Orphaned PWA icon for Apple Touch (167px).",
+      "category": "png"
+    },
+    {
+      "file": "assets/pwa-icon-180.png",
+      "reason": "Zero inbound references. Not listed in manifest.webmanifest. Orphaned PWA icon for Apple Touch (180px).",
+      "category": "png"
+    },
+    {
+      "file": "assets/splash-1170x2532.png",
+      "reason": "Zero inbound references. PWA splash screen — the pwa-head snippet that loaded these was removed.",
+      "category": "png"
+    },
+    {
+      "file": "assets/splash-1179x2556.png",
+      "reason": "Zero inbound references. PWA splash screen — the pwa-head snippet that loaded these was removed.",
+      "category": "png"
+    },
+    {
+      "file": "assets/splash-2048x2732.png",
+      "reason": "Zero inbound references. PWA splash screen — the pwa-head snippet that loaded these was removed.",
+      "category": "png"
+    },
+    {
+      "file": "assets/splash-750x1334.png",
+      "reason": "Zero inbound references. PWA splash screen — the pwa-head snippet that loaded these was removed.",
+      "category": "png"
+    }
+  ],
+  "likely_dead_verify": [
+    {
+      "file": "sections/brand-connectors.liquid",
+      "reason": "Custom section with zero inbound references. Only outbound dependency is brand-page.css. May have been built for future use or removed from templates. Verify with store owner.",
+      "depends_on": "Store owner confirmation — section may be available in theme editor",
+      "category": "section"
+    },
+    {
+      "file": "sections/brand-logos.liquid",
+      "reason": "Custom section with zero inbound references. References snippets/brand-logo-item.liquid and section-brand-logos.css. Not used by any template currently.",
+      "depends_on": "Store owner confirmation — section may be available in theme editor",
+      "category": "section"
+    },
+    {
+      "file": "sections/category-icons.liquid",
+      "reason": "Custom section with zero inbound references. References snippets/icon-category.liquid and section-category-icons.css. Not used by any template currently.",
+      "depends_on": "Store owner confirmation — section may be available in theme editor",
+      "category": "section"
+    },
+    {
+      "file": "sections/invicta-collection-hero.liquid",
+      "reason": "Custom section with zero inbound references and zero outbound references. Appears to be an abandoned prototype — no CSS, JS, or snippet dependencies.",
+      "depends_on": "Store owner confirmation",
+      "category": "section"
+    },
+    {
+      "file": "sections/invicta-hero-promos.liquid",
+      "reason": "Custom section with zero inbound references and zero outbound references. May have been built for a promotional campaign that ended.",
+      "depends_on": "Store owner confirmation",
+      "category": "section"
+    },
+    {
+      "file": "sections/invicta-product-qa.liquid",
+      "reason": "Custom section with zero inbound references and zero outbound references. Q&A feature not integrated into product template.",
+      "depends_on": "Store owner confirmation — may be planned for future use",
+      "category": "section"
+    },
+    {
+      "file": "sections/invicta-product-reviews.liquid",
+      "reason": "Custom section with zero inbound references and zero outbound references. Reviews feature not integrated into product template.",
+      "depends_on": "Store owner confirmation — may be planned for future use",
+      "category": "section"
+    },
+    {
+      "file": "sections/invicta-quote-request.liquid",
+      "reason": "Custom section with zero inbound references and zero outbound references. Quote request feature not integrated into any template.",
+      "depends_on": "Store owner confirmation — B2B feature that may be planned",
+      "category": "section"
+    },
+    {
+      "file": "snippets/brand-logo-item.liquid",
+      "reason": "Only referenced by sections/brand-logos.liquid which itself has zero inbound references.",
+      "depends_on": "sections/brand-logos.liquid removal",
+      "category": "snippet"
+    },
+    {
+      "file": "snippets/icon-category.liquid",
+      "reason": "Only referenced by sections/category-icons.liquid which itself has zero inbound references.",
+      "depends_on": "sections/category-icons.liquid removal",
+      "category": "snippet"
+    },
+    {
+      "file": "assets/collage.css",
+      "reason": "Only referenced by sections/collage.liquid (confirmed dead). Becomes orphaned when collage section is removed.",
+      "depends_on": "sections/collage.liquid removal",
+      "category": "css"
+    },
+    {
+      "file": "assets/component-accordion.css",
+      "reason": "Only referenced by sections/collapsible-content.liquid (confirmed dead). Becomes orphaned when section is removed.",
+      "depends_on": "sections/collapsible-content.liquid removal",
+      "category": "css"
+    },
+    {
+      "file": "assets/collapsible-content.css",
+      "reason": "Only referenced by sections/collapsible-content.liquid (confirmed dead). Becomes orphaned when section is removed.",
+      "depends_on": "sections/collapsible-content.liquid removal",
+      "category": "css"
+    },
+    {
+      "file": "assets/section-featured-blog.css",
+      "reason": "Only referenced by sections/featured-blog.liquid (confirmed dead). Becomes orphaned when section is removed.",
+      "depends_on": "sections/featured-blog.liquid removal",
+      "category": "css"
+    },
+    {
+      "file": "assets/section-multicolumn.css",
+      "reason": "Only referenced by sections/multicolumn.liquid (confirmed dead). Becomes orphaned when section is removed.",
+      "depends_on": "sections/multicolumn.liquid removal",
+      "category": "css"
+    },
+    {
+      "file": "assets/mask-blobs.css",
+      "reason": "Only referenced by sections/related-products.liquid (redundant duplicate). Becomes orphaned when section is removed.",
+      "depends_on": "sections/related-products.liquid removal",
+      "category": "css"
+    },
+    {
+      "file": "assets/section-rich-text.css",
+      "reason": "Only referenced by sections/rich-text.liquid (confirmed dead). Becomes orphaned when section is removed.",
+      "depends_on": "sections/rich-text.liquid removal",
+      "category": "css"
+    },
+    {
+      "file": "assets/video-section.css",
+      "reason": "Only referenced by sections/video.liquid (confirmed dead). Becomes orphaned when section is removed.",
+      "depends_on": "sections/video.liquid removal",
+      "category": "css"
+    },
+    {
+      "file": "assets/component-image-with-text.css",
+      "reason": "Referenced only by sections/image-with-text.liquid and sections/multirow.liquid — both confirmed dead. Becomes orphaned when both are removed.",
+      "depends_on": "sections/image-with-text.liquid AND sections/multirow.liquid removal",
+      "category": "css"
+    },
+    {
+      "file": "assets/component-deferred-media.css",
+      "reason": "Referenced only by sections/collage.liquid and sections/video.liquid — both confirmed dead. Becomes orphaned when both are removed.",
+      "depends_on": "sections/collage.liquid AND sections/video.liquid removal",
+      "category": "css"
+    },
+    {
+      "file": "assets/component-modal-video.css",
+      "reason": "Only referenced by sections/collage.liquid (confirmed dead). Becomes orphaned when collage section is removed.",
+      "depends_on": "sections/collage.liquid removal",
+      "category": "css"
+    },
+    {
+      "file": "assets/section-brand-logos.css",
+      "reason": "Only referenced by sections/brand-logos.liquid (likely dead — verify). Becomes orphaned if section is removed.",
+      "depends_on": "sections/brand-logos.liquid removal",
+      "category": "css"
+    },
+    {
+      "file": "assets/section-category-icons.css",
+      "reason": "Only referenced by sections/category-icons.liquid (likely dead — verify). Becomes orphaned if section is removed.",
+      "depends_on": "sections/category-icons.liquid removal",
+      "category": "css"
+    },
+    {
+      "file": "assets/section-invicta-collection-filters.css",
+      "reason": "Only referenced by sections/invicta-collection-filters.liquid (redundant duplicate). Becomes orphaned when section is removed.",
+      "depends_on": "sections/invicta-collection-filters.liquid removal",
+      "category": "css"
+    },
+    {
+      "file": "assets/invicta-collection-filters.js",
+      "reason": "Only referenced by sections/invicta-collection-filters.liquid (redundant duplicate). Also the only thing referencing sections/invicta-product-grid.liquid via JS section render — but invicta-product-grid is primarily rendered by templates/collection.json through invicta-collection.liquid.",
+      "depends_on": "sections/invicta-collection-filters.liquid removal",
+      "category": "js"
+    },
+    {
+      "file": "assets/icon-pause.svg",
+      "reason": "Only referenced by sections/slideshow.liquid (confirmed dead). Becomes orphaned when slideshow is removed.",
+      "depends_on": "sections/slideshow.liquid removal",
+      "category": "svg"
+    },
+    {
+      "file": "assets/mask-arch.svg",
+      "reason": "Only referenced by sections/related-products.liquid (redundant duplicate). Becomes orphaned when section is removed.",
+      "depends_on": "sections/related-products.liquid removal",
+      "category": "svg"
+    },
+    {
+      "file": "assets/icon-play.svg",
+      "reason": "Referenced only by sections/collage.liquid, sections/slideshow.liquid, and sections/video.liquid — all confirmed dead. Becomes orphaned when all three are removed.",
+      "depends_on": "sections/collage.liquid AND sections/slideshow.liquid AND sections/video.liquid removal",
+      "category": "svg"
+    },
+    {
+      "file": "assets/icon-account.svg",
+      "reason": "Zero inbound references in dependency map. However, Shopify may use this icon internally for customer account links. Verify it's not used by the header or customer account pages before removing.",
+      "depends_on": "Manual verification — may be loaded by Shopify platform",
+      "category": "svg"
+    },
+    {
+      "file": "assets/placeholder-image.svg",
+      "reason": "Zero inbound references in dependency map. However, Shopify uses placeholder-image.svg as a fallback for missing product/collection images via the placeholder_svg_tag filter. May be used by Shopify internals.",
+      "depends_on": "Manual verification — Shopify convention file",
+      "category": "svg"
+    },
+    {
+      "file": "assets/favicon.ico",
+      "reason": "Zero inbound references. Shopify handles favicons through theme settings (settings_data.json), not via static assets. However, browsers request /favicon.ico by convention.",
+      "depends_on": "Verify Shopify serves favicon from settings, not this file",
+      "category": "other"
+    },
+    {
+      "file": "assets/pwa-icon-72.png",
+      "reason": "Referenced only by manifest.webmanifest. The entire PWA system is orphaned (pwa-head snippet removed), but manifest.webmanifest is in the 'never remove' exceptions list.",
+      "depends_on": "Decision on PWA system — manifest.webmanifest is exception-listed",
+      "category": "png"
+    },
+    {
+      "file": "assets/pwa-icon-96.png",
+      "reason": "Referenced only by manifest.webmanifest. The entire PWA system is orphaned (pwa-head snippet removed).",
+      "depends_on": "Decision on PWA system",
+      "category": "png"
+    },
+    {
+      "file": "assets/pwa-icon-128.png",
+      "reason": "Referenced only by manifest.webmanifest. The entire PWA system is orphaned (pwa-head snippet removed).",
+      "depends_on": "Decision on PWA system",
+      "category": "png"
+    },
+    {
+      "file": "assets/pwa-icon-144.png",
+      "reason": "Referenced only by manifest.webmanifest. The entire PWA system is orphaned (pwa-head snippet removed).",
+      "depends_on": "Decision on PWA system",
+      "category": "png"
+    },
+    {
+      "file": "assets/pwa-icon-192.png",
+      "reason": "Referenced only by manifest.webmanifest. The entire PWA system is orphaned (pwa-head snippet removed).",
+      "depends_on": "Decision on PWA system",
+      "category": "png"
+    },
+    {
+      "file": "assets/pwa-icon-192-maskable.png",
+      "reason": "Referenced only by manifest.webmanifest. The entire PWA system is orphaned (pwa-head snippet removed).",
+      "depends_on": "Decision on PWA system",
+      "category": "png"
+    },
+    {
+      "file": "assets/pwa-icon-384-maskable.png",
+      "reason": "Referenced only by manifest.webmanifest. The entire PWA system is orphaned (pwa-head snippet removed).",
+      "depends_on": "Decision on PWA system",
+      "category": "png"
+    },
+    {
+      "file": "assets/pwa-icon-512.png",
+      "reason": "Referenced only by manifest.webmanifest. The entire PWA system is orphaned (pwa-head snippet removed).",
+      "depends_on": "Decision on PWA system",
+      "category": "png"
+    },
+    {
+      "file": "assets/pwa-icon-512-maskable.png",
+      "reason": "Referenced only by manifest.webmanifest. The entire PWA system is orphaned (pwa-head snippet removed).",
+      "depends_on": "Decision on PWA system",
+      "category": "png"
+    }
+  ],
+  "redundant_duplicates": [
+    {
+      "file": "assets/quick-add.js",
+      "active_replacement": "assets/invicta-quick-add.js",
+      "reason": "Dawn quick-add JS with zero inbound references. assets/invicta-quick-add.js (loaded by theme.liquid) is the active replacement.",
+      "category": "js"
+    },
+    {
+      "file": "sections/related-products.liquid",
+      "active_replacement": "sections/invicta-related-products.liquid",
+      "reason": "Dawn related products section with zero inbound references. sections/invicta-related-products.liquid is referenced by templates/product.json.",
+      "category": "section"
+    },
+    {
+      "file": "sections/invicta-collection-filters.liquid",
+      "active_replacement": "sections/invicta-collection.liquid (inline filter UI)",
+      "reason": "Standalone AJAX filter section that was never integrated into collection.json. Verified: invicta-collection.liquid (v9.0+) has its own complete inline filter UI with desktop sidebar and mobile bottom-sheet. This section, its CSS (section-invicta-collection-filters.css), and its JS (invicta-collection-filters.js) are all redundant.",
+      "category": "section"
+    }
+  ],
+  "conditional_keep": [
+    {
+      "file": "assets/component-cart-drawer.css",
+      "reason": "Loaded conditionally in theme.liquid when settings.cart_type == 'drawer'. Valid inbound reference. Do not remove.",
+      "condition": "settings.cart_type == 'drawer'",
+      "category": "css"
+    },
+    {
+      "file": "assets/component-cart.css",
+      "reason": "Loaded conditionally in theme.liquid when settings.cart_type == 'drawer'. Also loaded by cart sections (main-cart-footer, main-cart-items). Do not remove.",
+      "condition": "settings.cart_type == 'drawer' + cart sections",
+      "category": "css"
+    },
+    {
+      "file": "assets/component-totals.css",
+      "reason": "Loaded conditionally in theme.liquid when settings.cart_type == 'drawer'. Also loaded by cart sections. Do not remove.",
+      "condition": "settings.cart_type == 'drawer' + cart sections",
+      "category": "css"
+    },
+    {
+      "file": "assets/component-price.css",
+      "reason": "Loaded conditionally in theme.liquid when settings.cart_type == 'drawer'. Also loaded by multiple cart and product sections (6 total inbound refs). Do not remove.",
+      "condition": "settings.cart_type == 'drawer' + multiple sections",
+      "category": "css"
+    },
+    {
+      "file": "assets/component-discounts.css",
+      "reason": "Loaded conditionally in theme.liquid when settings.cart_type == 'drawer'. Also loaded by cart sections. Do not remove.",
+      "condition": "settings.cart_type == 'drawer' + cart sections",
+      "category": "css"
+    },
+    {
+      "file": "assets/cart-drawer.js",
+      "reason": "Loaded conditionally in theme.liquid when settings.cart_type == 'drawer'. Required for drawer cart functionality.",
+      "condition": "settings.cart_type == 'drawer'",
+      "category": "js"
+    },
+    {
+      "file": "assets/animations.js",
+      "reason": "Loaded conditionally in theme.liquid when settings.animations_reveal_on_scroll is enabled.",
+      "condition": "settings.animations_reveal_on_scroll",
+      "category": "js"
+    },
+    {
+      "file": "assets/component-predictive-search.css",
+      "reason": "Loaded conditionally in theme.liquid when settings.predictive_search_enabled. Note: invicta-predictive-search.css is also loaded via a separate system — both are active (duplicate system, not dead).",
+      "condition": "settings.predictive_search_enabled",
+      "category": "css"
+    },
+    {
+      "file": "assets/predictive-search.js",
+      "reason": "Loaded conditionally in theme.liquid when settings.predictive_search_enabled. Note: invicta-predictive-search.js is also loaded via a separate system — both are active (duplicate system, not dead).",
+      "condition": "settings.predictive_search_enabled",
+      "category": "js"
+    },
+    {
+      "file": "assets/component-localization-form.css",
+      "reason": "Loaded conditionally when multiple countries or languages are available (localization.available_countries.size > 1 or localization.available_languages.size > 1).",
+      "condition": "Multiple locales available",
+      "category": "css"
+    },
+    {
+      "file": "assets/localization-form.js",
+      "reason": "Loaded conditionally when multiple countries or languages are available.",
+      "condition": "Multiple locales available",
+      "category": "js"
+    },
+    {
+      "file": "assets/invicta-cx-improvements.css",
+      "reason": "Loaded on all pages EXCEPT password and gift_card templates. Conditional but broadly active.",
+      "condition": "template != 'password' and template != 'gift_card'",
+      "category": "css"
+    },
+    {
+      "file": "assets/invicta-cx-improvements.js",
+      "reason": "Loaded on all pages EXCEPT password and gift_card templates. Conditional but broadly active.",
+      "condition": "template != 'password' and template != 'gift_card'",
+      "category": "js"
+    }
+  ],
+  "templates_to_verify": [
+    {
+      "file": "templates/page.workwear-2.json",
+      "reason": "Versioned template name suggests this is a second version of a workwear page. May have been replaced by page.workwear-safety.json or another template. Verify if the corresponding page still exists in Shopify admin.",
+      "category": "template"
+    },
+    {
+      "file": "templates/page.brand.json",
+      "reason": "Generic brand page template. The theme has 11 specific brand templates (page.bahco.json, page.bosch.json, etc.). This generic template may be a fallback or unused. Verify if any page in Shopify admin uses this template.",
+      "category": "template"
+    },
+    {
+      "file": "templates/page.category-landing.json",
+      "reason": "Generic category landing template. The theme has 30+ specific category templates. This may be a fallback or unused. Verify if any page in Shopify admin uses this template.",
+      "category": "template"
+    },
+    {
+      "file": "templates/page.manifest-json.json",
+      "reason": "Unusual template — appears to serve a JSON manifest via a Shopify page. Only references main-page section. May be an alternative to the assets/manifest.webmanifest approach. Verify if a corresponding page exists in Shopify admin.",
+      "category": "template"
+    }
+  ],
+  "markdown_housekeeping": [
+    {
+      "file": "AUDIT.md",
+      "reason": "Previous AI audit document. Not part of Shopify theme (Shopify ignores .md files). Safe to remove for cleanliness."
+    },
+    {
+      "file": "AUDIT-2.md",
+      "reason": "Second AI audit document. Not part of Shopify theme. Safe to remove for cleanliness."
+    },
+    {
+      "file": "AUDIT-CHECKOUT-BASKET.md",
+      "reason": "AI audit of checkout/basket. Not part of Shopify theme. Safe to remove for cleanliness."
+    },
+    {
+      "file": "PLAN.md",
+      "reason": "AI planning document. Not part of Shopify theme. Safe to remove for cleanliness."
+    },
+    {
+      "file": "THEME-GUIDE.md",
+      "reason": "Theme guide document. Not part of Shopify theme. Safe to remove for cleanliness."
+    },
+    {
+      "file": "UX AUDIT.md",
+      "reason": "UX audit document. Not part of Shopify theme. Safe to remove for cleanliness."
+    },
+    {
+      "file": "README.md",
+      "reason": "README file. Not part of Shopify theme. May be useful for developer documentation — consider keeping if the team references it."
+    },
+    {
+      "file": "ai-performance-change-log.md",
+      "reason": "AI performance change log. Not part of Shopify theme. Safe to remove for cleanliness."
+    },
+    {
+      "file": "performance-ux-audit-review.md",
+      "reason": "Performance/UX audit review. Not part of Shopify theme. Safe to remove for cleanliness."
+    }
+  ]
+}
