@@ -123,99 +123,6 @@
     }
   }
 
-  /* ========================================
-     AREA 3: CART — Wishlist (localStorage)
-     Save products for later via localStorage
-     ======================================== */
-
-  var InvictaWishlist = {
-    STORAGE_KEY: 'invicta_wishlist_v1',
-
-    getItems: function() {
-      try {
-        var data = localStorage.getItem(this.STORAGE_KEY);
-        return data ? JSON.parse(data) : [];
-      } catch (e) {
-        return [];
-      }
-    },
-
-    saveItems: function(items) {
-      try {
-        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(items));
-      } catch (e) {
-        // Silent fail
-      }
-    },
-
-    toggle: function(productHandle, productTitle, productImage, productPrice) {
-      var items = this.getItems();
-      var index = items.findIndex(function(item) { return item.handle === productHandle; });
-
-      if (index > -1) {
-        items.splice(index, 1);
-        InvictaAnnouncer.announce(productTitle + ' removed from saved items');
-        return false;
-      } else {
-        items.unshift({
-          handle: productHandle,
-          title: productTitle,
-          image: productImage,
-          price: productPrice,
-          savedAt: Date.now()
-        });
-        // Keep max 20 items
-        if (items.length > 20) items = items.slice(0, 20);
-        InvictaAnnouncer.announce(productTitle + ' saved for later');
-      }
-
-      this.saveItems(items);
-      return true;
-    },
-
-    isSaved: function(productHandle) {
-      return this.getItems().some(function(item) { return item.handle === productHandle; });
-    },
-
-    init: function() {
-      var self = this;
-
-      // Find all wishlist buttons and set initial state
-      document.querySelectorAll('[data-wishlist-toggle]').forEach(function(btn) {
-        var handle = btn.dataset.productHandle;
-        if (!handle) return;
-
-        if (self.isSaved(handle)) {
-          btn.classList.add('inv-wishlist-btn--saved');
-          btn.setAttribute('aria-pressed', 'true');
-          btn.querySelector('.inv-wishlist-btn__text').textContent = 'Saved';
-        }
-
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          var title = btn.dataset.productTitle || '';
-          var image = btn.dataset.productImage || '';
-          var price = btn.dataset.productPrice || '';
-
-          var isSaved = self.toggle(handle, title, image, price);
-
-          btn.classList.toggle('inv-wishlist-btn--saved', isSaved);
-          btn.setAttribute('aria-pressed', isSaved ? 'true' : 'false');
-
-          var textEl = btn.querySelector('.inv-wishlist-btn__text');
-          if (textEl) {
-            textEl.textContent = isSaved ? 'Saved' : 'Save for Later';
-          }
-
-          // Brief animation
-          btn.style.transform = 'scale(1.05)';
-          setTimeout(function() {
-            btn.style.transform = '';
-          }, 200);
-        });
-      });
-    }
-  };
 
   /* ========================================
      AREA 3: CART — Free Delivery Bar Animation
@@ -622,7 +529,6 @@
 
   function init() {
     enhanceSearch();
-    InvictaWishlist.init();
     enhanceDeliveryBar();
     initLoadMore();
     InvictaSocialProof.init();
@@ -730,7 +636,5 @@
     init();
   }
 
-  // Expose wishlist API for use by other scripts
-  window.InvictaWishlist = InvictaWishlist;
   window.InvictaAnnouncer = InvictaAnnouncer;
 })();
