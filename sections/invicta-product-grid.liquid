@@ -14,7 +14,6 @@
   ✓ Reduced motion support
   
   Requirements:
-  - Pair with invicta-collection-filters.liquid for AJAX filtering
   - Uses invicta-product-card.liquid snippet
   
   Trade 15.4.0 Compatible
@@ -1016,18 +1015,8 @@
       
       try {
         // Build sections to fetch
-        let sections = 'invicta-product-grid';
-        if (updateFilters) {
-          // Get filter section ID from the page
-          const filterSection = document.getElementById('invicta-collection-filters');
-          if (filterSection) {
-            const filterSectionId = filterSection.dataset.sectionId;
-            if (filterSectionId) {
-              sections += `,${filterSectionId}`;
-            }
-          }
-        }
-        
+        const sections = 'invicta-product-grid';
+
         const fetchUrl = `${url}${url.includes('?') ? '&' : '?'}sections=${sections}`;
         
         const response = await fetch(fetchUrl, {
@@ -1046,17 +1035,6 @@
         // Update grid section
         if (data['invicta-product-grid']) {
           this.updateSection(this.container, data['invicta-product-grid']);
-        }
-        
-        // Update filters section if needed
-        if (updateFilters) {
-          const filterSection = document.getElementById('invicta-collection-filters');
-          if (filterSection) {
-            const filterSectionId = filterSection.dataset.sectionId;
-            if (data[filterSectionId]) {
-              this.updateSection(filterSection, data[filterSectionId]);
-            }
-          }
         }
         
         // Announce to screen readers
