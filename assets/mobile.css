@@ -106,19 +106,19 @@ html.js .section-header-invicta {
    2B. REMOVE EXCESS WHITESPACE — TIGHT SECTIONS
    ============================================================================ */
 
-/* All Shopify sections — consistent mobile internal padding */
+/* All Shopify sections — tight mobile internal padding (app-like feel) */
 /* EXCLUDES product page and collection page (handled separately) */
 html.js .shopify-section:not(.section-invicta-product):not(:has(.inv-product)):not(.section-invicta-collection):not(:has(.inv-collection)) {
-  padding-top: 20px !important;
-  padding-bottom: 16px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
   margin: 0;
 }
 
 /* Section padding classes — override inline Liquid padding (except product/collection) */
 html.js [class*="-padding"]:not(.inv-product *):not(.inv-collection *),
 html.js [class*="section-"][class*="-padding"]:not(.inv-product *):not(.inv-collection *) {
-  padding-top: 20px !important;
-  padding-bottom: 16px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
 }
 
 /* ========== HERO BANNER — ZERO WHITESPACE ========== */
@@ -135,9 +135,9 @@ html.js .shopify-section:has(.inv-promos) {
   margin: 0;
 }
 
-/* Quick categories — minimal top padding */
+/* Quick categories — tight padding */
 html.js .shopify-section:has(.inv-quick-cats) {
-  padding: 8px 0 0 !important;
+  padding: 4px 0 4px !important;
   margin: 0;
 }
 
@@ -173,24 +173,43 @@ html.js .shopify-section:first-of-type + .shopify-section {
   margin-top: 0;
 }
 
+/* USP strip — prevent invisible whitespace if collapsed */
+html.js .shopify-section:has(.inv-usp2),
+html.js .shopify-section:has([class*="usp-strip"]) {
+  padding: 0 !important;
+  margin: 0;
+}
+
 /* Review carousel — consistent padding */
 html.js [class^="review-carousel-"],
 html.js [class*="review-carousel"] {
-  padding: 20px 0 16px;
+  padding: 8px 0 8px;
   margin: 0;
 }
 
-/* Brand strip — consistent padding */
+/* Brand strip — compact padding */
 html.js .invicta-brand-strip,
 html.js [class*="brand-strip"] {
-  padding: 20px 0 16px;
+  padding: 8px 0 8px;
   margin: 0;
 }
 
-/* Featured collections — consistent padding */
+/* Brand strip shopify-section wrapper */
+html.js .shopify-section:has(.invicta-brand-strip) {
+  padding: 4px 0 4px !important;
+  margin: 0;
+}
+
+/* Featured collections — tight padding */
 html.js .featured-collection,
 html.js [class*="featured-collection"] {
-  padding: 20px 0 16px;
+  padding: 8px 0 4px;
+  margin: 0;
+}
+
+/* Featured collections shopify-section wrapper */
+html.js .shopify-section:has(.inv-featured-collection) {
+  padding: 4px 0 4px !important;
   margin: 0;
 }
 
