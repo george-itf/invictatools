@@ -536,6 +536,15 @@
   }
   
   @media (max-width: 749px) {
+    .inv-hero-split {
+      padding: 0;
+    }
+
+    .inv-hero-split__container {
+      padding: 0;
+      gap: 0;
+    }
+
     .inv-hero-split__main {
       display: flex;
       flex-direction: column;
@@ -556,14 +565,19 @@
     .inv-hero-split__content {
       display: block;
       max-width: 100%;
-      padding: 24px 20px;
+      padding: 16px 16px 12px;
       text-align: center;
     }
 
     .inv-hero-split__btn-wrap {
       position: static;
       text-align: center;
-      padding: 0 20px 24px;
+      padding: 0;
+    }
+
+    .inv-hero-split__btn {
+      width: 100%;
+      justify-content: center;
     }
 
     .inv-hero-split__heading {

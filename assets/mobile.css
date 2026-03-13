@@ -123,6 +123,24 @@ html.js [class*="section-"][class*="-padding"]:not(.inv-product *):not(.inv-coll
 
 /* ========== HERO BANNER — ZERO WHITESPACE ========== */
 
+/* Hero split — zero padding so it sits flush against header */
+html.js .shopify-section:has(.inv-hero-split) {
+  padding: 0;
+  margin: 0;
+}
+
+/* Promo banners — zero vertical padding */
+html.js .shopify-section:has(.inv-promos) {
+  padding: 0;
+  margin: 0;
+}
+
+/* Quick categories — minimal top padding */
+html.js .shopify-section:has(.inv-quick-cats) {
+  padding: 8px 0 0;
+  margin: 0;
+}
+
 /* The banner section itself */
 html.js [id*="image-banner"],
 html.js [id*="image_banner"],
@@ -198,6 +216,12 @@ html.js .inv-promos > .inv-container {
 
 /* Inv-container — tighter gutters on mobile */
 html.js .inv-container {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* Quick-cats container — tighter gutters on mobile */
+html.js .inv-quick-cats__container {
   padding-left: 12px;
   padding-right: 12px;
 }
