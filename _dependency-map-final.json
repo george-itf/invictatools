@@ -3185,6 +3185,31 @@
         "source": "./assets/quick-order-list.js",
         "target": "./sections/cart-live-region-text.liquid",
         "section": "cart-live-region-text"
+      },
+      {
+        "source": "./assets/cart.js",
+        "target": "./sections/main-cart-footer.liquid",
+        "section": "main-cart-footer"
+      },
+      {
+        "source": "./assets/invicta-product-v2.js",
+        "target": "./sections/cart-drawer.liquid",
+        "section": "cart-drawer"
+      },
+      {
+        "source": "./assets/invicta-product-v2.js",
+        "target": "./sections/cart-icon-bubble.liquid",
+        "section": "cart-icon-bubble"
+      },
+      {
+        "source": "./assets/invicta-cart-api.js",
+        "target": "./sections/cart-drawer.liquid",
+        "section": "cart-drawer"
+      },
+      {
+        "source": "./assets/invicta-cart-api.js",
+        "target": "./sections/cart-icon-bubble.liquid",
+        "section": "cart-icon-bubble"
       }
     ],
     "css_to_asset": [],
