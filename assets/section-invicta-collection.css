@@ -1298,6 +1298,8 @@ body.inv-drawer-open {
   .inv-product-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
+    /* Clear the fixed floating filter button so last row isn't obscured */
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
   }
 
   /* Active filters */

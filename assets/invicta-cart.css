@@ -415,6 +415,21 @@ quantity-input.cart-quantity {
   margin: 0;
 }
 
+/* Mobile: ensure quantity buttons match desktop outlined style */
+@media screen and (max-width: 749px) {
+  .cart-quantity .quantity__button {
+    background: #f9fafb !important;
+    color: #374151 !important;
+    border: none !important;
+  }
+
+  .cart-quantity,
+  quantity-input.cart-quantity {
+    border: 1.5px solid #d1d5db !important;
+    background: #fff !important;
+  }
+}
+
 /* ────────────────────────────────────────────────────────────
    REMOVE / DELETE BUTTON
    Muted gray by default, red highlight on hover
