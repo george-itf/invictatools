@@ -622,6 +622,7 @@
 
   .inv-featured-collection__grid-wrapper {
     position: relative;
+    overflow: hidden;
   }
 
   .inv-featured-collection__grid {
@@ -681,11 +682,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     background: #fff;
     border: 1px solid var(--inv-fc-border);
-    border-radius: var(--inv-radius-md, 8px);
+    border-radius: 0;
     color: var(--inv-fc-dark);
     cursor: pointer;
     transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
