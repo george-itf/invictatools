@@ -20,6 +20,9 @@
   assign show_sort = section.settings.show_sort
   assign show_brand_filters = section.settings.show_brand_filters
 
+  # Filters to hide from customers (labels, case-insensitive check via downcase)
+  assign hidden_filter_labels = 'product rating count'
+
   assign has_active_filters = false
   assign active_filter_count = 0
   for filter in collection.filters
@@ -211,6 +214,12 @@
             </div>
 
             {%- for filter in collection.filters -%}
+              {%- liquid
+                assign _fl = filter.label | downcase
+                if hidden_filter_labels contains _fl
+                  continue
+                endif
+              -%}
               <details class="inv-facet" open>
                 <summary class="inv-facet__header">
                   <span class="inv-facet__name">{{ filter.label }}</span>
@@ -375,6 +384,12 @@
       {%- comment -%} Filters rendered inline {%- endcomment -%}
       <form id="InvDrawerForm" class="inv-drawer-form">
         {%- for filter in collection.filters -%}
+          {%- liquid
+            assign _fl = filter.label | downcase
+            if hidden_filter_labels contains _fl
+              continue
+            endif
+          -%}
           <details class="inv-facet" open>
             <summary class="inv-facet__header">
               <span class="inv-facet__name">{{ filter.label }}</span>
