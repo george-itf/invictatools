@@ -189,6 +189,9 @@
   gap: var(--pdp-space-xs);
   flex-shrink: 0;
   contain: layout style;
+  max-height: 560px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .inv-pdp__gallery-thumbs:focus {

@@ -473,10 +473,6 @@ button:focus-visible,
     border: 2px solid ButtonText;
   }
 
-  .inv-wishlist-btn--saved {
-    border: 2px solid Highlight;
-  }
-
   .inv-search-results__stock {
     border: 1px solid ButtonText;
   }

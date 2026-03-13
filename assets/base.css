@@ -3551,8 +3551,7 @@ body.inv-zoom-open {
 .inv-pdp .inv-pdp__gallery-thumb,
 .inv-pdp .inv-pdp__gallery-zoom,
 .inv-pdp .inv-pdp__kit-toggle,
-.inv-pdp .inv-pdp__lightbox-close,
-.inv-pdp .inv-pdp__trust-item {
+.inv-pdp .inv-pdp__lightbox-close {
   min-width: unset;
   min-height: unset;
   padding: 0;
