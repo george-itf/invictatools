@@ -106,48 +106,48 @@ html.js .section-header-invicta {
    2B. REMOVE EXCESS WHITESPACE — TIGHT SECTIONS
    ============================================================================ */
 
-/* All Shopify sections — minimal spacing */
+/* All Shopify sections — consistent mobile internal padding */
 /* EXCLUDES product page and collection page (handled separately) */
 html.js .shopify-section:not(.section-invicta-product):not(:has(.inv-product)):not(.section-invicta-collection):not(:has(.inv-collection)) {
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 20px !important;
+  padding-bottom: 16px !important;
   margin: 0;
 }
 
-/* Section padding classes — override them ALL (except product/collection) */
+/* Section padding classes — override inline Liquid padding (except product/collection) */
 html.js [class*="-padding"]:not(.inv-product *):not(.inv-collection *),
 html.js [class*="section-"][class*="-padding"]:not(.inv-product *):not(.inv-collection *) {
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 20px !important;
+  padding-bottom: 16px !important;
 }
 
 /* ========== HERO BANNER — ZERO WHITESPACE ========== */
 
 /* Hero split — zero padding so it sits flush against header */
 html.js .shopify-section:has(.inv-hero-split) {
-  padding: 0;
+  padding: 0 !important;
   margin: 0;
 }
 
 /* Promo banners — zero vertical padding */
 html.js .shopify-section:has(.inv-promos) {
-  padding: 0;
+  padding: 0 !important;
   margin: 0;
 }
 
 /* Quick categories — minimal top padding */
 html.js .shopify-section:has(.inv-quick-cats) {
-  padding: 8px 0 0;
+  padding: 8px 0 0 !important;
   margin: 0;
 }
 
-/* The banner section itself */
+/* The banner section itself — full-bleed, zero padding */
 html.js [id*="image-banner"],
 html.js [id*="image_banner"],
 html.js .shopify-section--image-banner,
 html.js .shopify-section:has(.banner),
 html.js .shopify-section:has(.image-banner) {
-  padding: 0;
+  padding: 0 !important;
   margin: 0;
 }
 
@@ -168,30 +168,29 @@ html.js .banner__content {
   margin: 0;
 }
 
-/* Section AFTER the first section (banner) */
+/* Section AFTER the first section (banner) — handled by base.css flush-stack rules */
 html.js .shopify-section:first-of-type + .shopify-section {
-  padding-top: 4px;
   margin-top: 0;
 }
 
-/* Review carousel — tight */
+/* Review carousel — consistent padding */
 html.js [class^="review-carousel-"],
 html.js [class*="review-carousel"] {
-  padding: 4px 0;
+  padding: 20px 0 16px;
   margin: 0;
 }
 
-/* Brand strip — tight */
+/* Brand strip — consistent padding */
 html.js .invicta-brand-strip,
 html.js [class*="brand-strip"] {
-  padding: 8px 0;
+  padding: 20px 0 16px;
   margin: 0;
 }
 
-/* Featured collections — tight */
+/* Featured collections — consistent padding */
 html.js .featured-collection,
 html.js [class*="featured-collection"] {
-  padding: 12px 0;
+  padding: 20px 0 16px;
   margin: 0;
 }
 
@@ -433,7 +432,7 @@ html.js .collection-list-title {
   padding: 0 12px;
 }
 
-/* Title wrapper padding */
+/* Title wrapper padding — tight gap between heading and content */
 html.js .title-wrapper,
 html.js .title-wrapper-with-link,
 html.js .title-wrapper--self-padded-mobile,
@@ -442,6 +441,7 @@ html.js .title-wrapper--self-padded-tablet-down {
   padding-right: 12px;
   box-sizing: border-box;
   margin-bottom: 12px;
+  margin-top: 0;
 }
 
 
@@ -924,7 +924,7 @@ html.js .add-to-cart-button {
 
 html.js .featured-collection,
 html.js [class*="featured-collection"] {
-  padding: var(--inv-mobile-section-gap) 0;
+  padding: 20px 0 16px;
 }
 
 html.js .featured-collection .title,
@@ -932,13 +932,36 @@ html.js .collection-title,
 html.js .section-header__title {
   font-size: 20px;
   padding-inline: var(--inv-mobile-gutter);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 html.js .featured-collection .view-all,
 html.js .collection__view-all {
   font-size: 13px;
   padding-inline: var(--inv-mobile-gutter);
+  margin-top: 16px;
+}
+
+
+/* ========== FEATURED COLLECTION: TIGHTEN INTERNALS ========== */
+
+/* Reduce gap between section title bar and first product row */
+html.js .featured-collection .title-wrapper,
+html.js .featured-collection .title-wrapper-with-link {
+  margin-bottom: 12px;
+}
+
+/* Reduce gap between last product card row and "VIEW ALL" button */
+html.js .featured-collection .collection__view-all,
+html.js .featured-collection .view-all {
+  margin-top: 16px;
+}
+
+/* Product grid row-gap and column-gap explicitly set */
+html.js .featured-collection .grid,
+html.js .featured-collection ul.contains-card {
+  row-gap: 10px;
+  column-gap: 10px;
 }
 
 
@@ -1076,8 +1099,8 @@ html.js .invicta-brand-strip__container {
 }
 
 html.js .invicta-brand-strip {
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 20px;
+  padding-bottom: 16px;
 }
 
 /* Pill wrapper in strip */
@@ -1139,10 +1162,10 @@ html.js .invicta-brand-strip__item .invicta-brand-pill__logo {
    13. REVIEW CAROUSEL — COMPACT CARDS
    ============================================================================ */
 
-/* Section padding reduced */
+/* Section padding — consistent with other content sections */
 html.js [class*="review-carousel-"] {
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 20px;
+  padding-bottom: 16px;
 }
 
 /* Track — tighter gap */
