@@ -170,46 +170,6 @@
   50% { opacity: 0.7; }
 }
 
-/* Wishlist / Save for Later button */
-.inv-wishlist-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  background: transparent;
-  border: 1px solid #d1d5db;
-  border-radius: var(--buttons-radius, 4px);
-  font-size: 13px;
-  font-weight: 500;
-  color: #374151;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.inv-wishlist-btn:hover {
-  border-color: var(--inv-accent, #e11d26);
-  color: var(--inv-accent, #e11d26);
-}
-
-.inv-wishlist-btn--saved {
-  background: #fef2f2;
-  border-color: var(--inv-accent, #e11d26);
-  color: var(--inv-accent, #e11d26);
-}
-
-.inv-wishlist-btn svg {
-  width: 16px;
-  height: 16px;
-  transition: transform 0.2s ease;
-}
-
-.inv-wishlist-btn:hover svg {
-  transform: scale(1.15);
-}
-
-.inv-wishlist-btn--saved svg {
-  fill: var(--inv-accent, #e11d26);
-}
 
 /* =======================================================
    AREA 4: PRODUCT PAGE — Enhanced Zoom & Delivery

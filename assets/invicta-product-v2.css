@@ -1253,15 +1253,21 @@
   
   .inv-pdp__gallery-thumbs {
     flex-direction: row;
+    flex-wrap: nowrap;
     overflow-x: auto;
-    padding-bottom: 4px;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding: 8px 0;
+    gap: 8px;
+    max-height: 80px;
   }
-  
+
   .inv-pdp__gallery-thumb {
     width: 64px;
     height: 64px;
     flex-shrink: 0;
+    scroll-snap-align: start;
   }
   
   .inv-pdp__gallery-main {
