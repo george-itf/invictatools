@@ -151,9 +151,13 @@
 
   /* --- Responsive --- */
   @media (max-width: 749px) {
+    #promos-{{ section.id }} {
+      padding: 0;
+    }
+
     #promos-{{ section.id }} .inv-promos__grid {
       grid-template-columns: 1fr;
-      gap: 12px;
+      gap: 4px;
     }
   }
 
