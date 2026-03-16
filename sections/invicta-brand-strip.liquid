@@ -110,8 +110,22 @@
     justify-content: center;
   }
   
+  #shopify-section-{{ section.id }} .invicta-brand-strip__subheading {
+    text-align: center;
+    font-size: 15px;
+    color: #6b7280;
+    max-width: 600px;
+    margin: 0 auto 8px;
+    line-height: 1.5;
+  }
+
   #shopify-section-{{ section.id }} .invicta-brand-strip__item .invicta-brand-pill:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  #shopify-section-{{ section.id }} .invicta-brand-strip__item .invicta-brand-pill {
+    transition: transform 200ms ease, box-shadow 200ms ease;
   }
   
   /* DESKTOP — Grid layout */
@@ -189,11 +203,15 @@
 </style>
 
 
-<section class="invicta-brand-strip" data-section-id="{{ section.id }}">
+<section class="invicta-brand-strip" data-section-id="{{ section.id }}" style="border-top: 1px solid #e5e7eb;">
   <div class="invicta-brand-strip__container">
-    
+
     {%- if heading_text != blank -%}
       <h2 class="invicta-brand-strip__heading">{{ heading_text }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subheading != blank -%}
+      <div class="invicta-brand-strip__subheading">{{ section.settings.subheading }}</div>
     {%- endif -%}
     
     {%- if valid_block_count > 0 -%}
@@ -288,6 +306,12 @@
       "label": "Heading",
       "info": "Leave blank for no heading",
       "default": "Shop by Brand"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": ""
     },
     {
       "type": "range",
