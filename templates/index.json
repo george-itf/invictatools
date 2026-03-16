@@ -224,13 +224,55 @@
     },
     "product_wall": {
       "type": "invicta-product-wall",
+      "blocks": {
+        "brand_makita": {
+          "type": "brand_tab",
+          "settings": {
+            "brand_name": "Makita",
+            "collection": "makita"
+          }
+        },
+        "brand_dewalt": {
+          "type": "brand_tab",
+          "settings": {
+            "brand_name": "DeWalt",
+            "collection": "dewalt"
+          }
+        },
+        "brand_timco": {
+          "type": "brand_tab",
+          "settings": {
+            "brand_name": "TIMCO",
+            "collection": "timco"
+          }
+        },
+        "brand_pdp": {
+          "type": "brand_tab",
+          "settings": {
+            "brand_name": "Premier Diamond",
+            "collection": "premier-diamond"
+          }
+        },
+        "brand_viper": {
+          "type": "brand_tab",
+          "settings": {
+            "brand_name": "Viper",
+            "collection": "viper-1"
+          }
+        }
+      },
+      "block_order": [
+        "brand_makita",
+        "brand_dewalt",
+        "brand_timco",
+        "brand_pdp",
+        "brand_viper"
+      ],
       "settings": {
-        "collection": "featured-powertools",
-        "products_to_show": 15,
         "title": "Popular Power Tools",
-        "show_brand_filter": true,
         "show_view_all": true,
-        "columns_desktop": 5,
+        "max_products": 8,
+        "columns_desktop": 4,
         "padding_top": 40,
         "padding_bottom": 40
       }
@@ -359,8 +401,8 @@
         "review_10_text": "A nice little tool shop with friendly informative staff, good prices too!",
         "review_10_author": "Richard H.",
         "review_10_source": "trustpilot",
-        "padding_top": 0,
-        "padding_bottom": 0
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     },
     "recently_viewed": {

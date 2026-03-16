@@ -1,11 +1,9 @@
 {% comment %}
   ============================================
-  INVICTA PRODUCT WALL v2.0
+  INVICTA PRODUCT WALL v3.0
   ============================================
-  Combined brand filter row + compact product grid
-  under a single dark header bar.
-
-  Replaces: two featured-collection instances + invicta-brand-strip
+  Brand-tabbed product grid. Each brand pill
+  switches to that brand's top offers (max 8).
 
   Uses:
   - snippets/invicta-product-card.liquid (cards)
@@ -18,22 +16,10 @@
 {% endcomment %}
 
 {%- liquid
-  assign pw_collection = section.settings.collection
-  assign products_to_show = section.settings.products_to_show | default: 15
-  assign columns_desktop = section.settings.columns_desktop | default: 5
-  assign show_brand_filter = section.settings.show_brand_filter
+  assign columns_desktop = section.settings.columns_desktop | default: 4
   assign show_view_all = section.settings.show_view_all
   assign title_text = section.settings.title | default: 'Popular Power Tools'
-
-  # Extract unique vendors from collection products
-  assign vendors_rendered = ''
-  assign product_count = 0
-
-  if pw_collection != blank
-    for product in pw_collection.products limit: products_to_show
-      assign product_count = product_count | plus: 1
-    endfor
-  endif
+  assign max_products = section.settings.max_products | default: 8
 -%}
 
 <div
@@ -48,15 +34,16 @@
     {%- comment -%} ================================
         HEADER BAR
         ================================ {%- endcomment -%}
-    {%- if title_text != blank or show_view_all -%}
+    {%- if title_text != blank -%}
       <div class="inv-pw-header">
         <div class="inv-pw-header__left">
           <h2 class="inv-pw-header__title" data-pw-title>{{ title_text }}</h2>
         </div>
-        {%- if show_view_all and pw_collection != blank -%}
-          <a href="{{ pw_collection.url }}" class="inv-pw-header__cta" data-pw-cta>
+        {%- if show_view_all -%}
+          {%- comment -%} View All links to the active brand's collection — JS updates href {%- endcomment -%}
+          <a href="#" class="inv-pw-header__cta" data-pw-cta style="display:none;">
             <span>View All</span>
-            <span class="inv-pw-header__count" data-pw-count>{{ product_count }}</span>
+            <span class="inv-pw-header__count" data-pw-count></span>
             <span aria-hidden="true">&rarr;</span>
           </a>
         {%- endif -%}
@@ -64,53 +51,61 @@
     {%- endif -%}
 
     {%- comment -%} ================================
-        BRAND FILTER ROW
+        BRAND PILLS
         ================================ {%- endcomment -%}
-    {%- if show_brand_filter and pw_collection != blank -%}
+    {%- if section.blocks.size > 0 -%}
       <div class="inv-pw-brands" data-pw-brands>
         <div class="inv-pw-brands__scroll">
-
-          {%- comment -%} ALL BRANDS button (manual, no snippet) {%- endcomment -%}
-          <button class="inv-pw-brand-btn active"
-                  data-brand="all"
-                  aria-pressed="true">
-            <span class="inv-pw-all-pill">All Brands</span>
-          </button>
-
-          {%- comment -%} Brand pills from collection vendors using invicta-brand-pill snippet {%- endcomment -%}
-          {%- assign vendors_rendered = '' -%}
-          {%- for product in pw_collection.products limit: products_to_show -%}
-            {%- assign vendor_handle = product.vendor | handleize -%}
-            {%- assign vendor_name = product.vendor -%}
-            {%- assign vendor_check = '|' | append: vendor_handle | append: '|' -%}
-
-            {%- unless vendors_rendered contains vendor_check -%}
-              <button class="inv-pw-brand-btn"
-                      data-brand="{{ vendor_handle }}"
-                      aria-pressed="false">
-                {% render 'invicta-brand-pill', vendor: vendor_name, type: 'text-only' %}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'brand_tab' -%}
+              {%- assign brand_handle = block.settings.brand_name | handleize -%}
+              <button
+                class="inv-pw-brand-btn{% if forloop.first %} active{% endif %}"
+                data-brand="{{ brand_handle }}"
+                aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+                {{ block.shopify_attributes }}
+              >
+                {% render 'invicta-brand-pill', vendor: block.settings.brand_name, type: 'text-only' %}
               </button>
-              {%- assign vendors_rendered = vendors_rendered | append: vendor_check -%}
-            {%- endunless -%}
+            {%- endif -%}
           {%- endfor -%}
-
         </div>
       </div>
-    {%- endif -%}
 
-    {%- comment -%} ================================
-        PRODUCT GRID
-        ================================ {%- endcomment -%}
-    {%- if pw_collection != blank and pw_collection.products.size > 0 -%}
-      <ul class="inv-pw-grid" role="list" data-pw-grid>
-        {%- for product in pw_collection.products limit: products_to_show -%}
-          <li class="inv-pw-grid__item" data-brand="{{ product.vendor | handleize }}">
-            {% render 'invicta-product-card', product: product, card_index: forloop.index %}
-          </li>
-        {%- endfor -%}
-      </ul>
+      {%- comment -%} ================================
+          PRODUCT GRIDS — one per brand, only first visible
+          ================================ {%- endcomment -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'brand_tab' -%}
+          {%- assign brand_handle = block.settings.brand_name | handleize -%}
+          {%- assign brand_collection = block.settings.collection -%}
+          {%- assign brand_count = 0 -%}
+
+          <ul
+            class="inv-pw-grid{% unless forloop.first %} inv-pw-grid--hidden{% endunless %}"
+            role="list"
+            data-pw-grid="{{ brand_handle }}"
+            {% if brand_collection != blank %}data-collection-url="{{ brand_collection.url }}"{% endif %}
+            data-total-count="{{ brand_collection.products_count | default: 0 }}"
+          >
+            {%- if brand_collection != blank and brand_collection.products.size > 0 -%}
+              {%- for product in brand_collection.products limit: max_products -%}
+                {%- assign brand_count = brand_count | plus: 1 -%}
+                <li class="inv-pw-grid__item">
+                  {% render 'invicta-product-card', product: product, card_index: forloop.index %}
+                </li>
+              {%- endfor -%}
+            {%- else -%}
+              <li class="inv-pw-grid__empty">
+                <p>No products found for this brand.</p>
+              </li>
+            {%- endif -%}
+          </ul>
+        {%- endif -%}
+      {%- endfor -%}
+
     {%- else -%}
-      {%- comment -%} Placeholder grid {%- endcomment -%}
+      {%- comment -%} No blocks — show placeholder {%- endcomment -%}
       <ul class="inv-pw-grid" role="list">
         {%- for i in (1..columns_desktop) -%}
           <li class="inv-pw-grid__item">
@@ -137,7 +132,7 @@
 
 <style>
   /* ============================================
-     INVICTA PRODUCT WALL v2.0
+     INVICTA PRODUCT WALL v3.0
      ============================================ */
 
   #shopify-section-{{ section.id }} .inv-product-wall {
@@ -225,7 +220,7 @@
   }
 
   /* ----------------------------------------
-     BRAND FILTER ROW
+     BRAND PILLS
      ---------------------------------------- */
   #shopify-section-{{ section.id }} .inv-pw-brands {
     margin-bottom: 20px;
@@ -254,7 +249,6 @@
     border-radius: 3px;
   }
 
-  /* Brand button wrappers — minimal styling, snippet handles pill appearance */
   #shopify-section-{{ section.id }} .inv-pw-brand-btn {
     background: none;
     border: none;
@@ -266,7 +260,7 @@
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
 
-  /* Match text-only brand pills to "All Brands" button height */
+  /* Size text-only pills consistently */
   #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill--text {
     min-height: 36px;
     padding: 8px 18px;
@@ -283,30 +277,13 @@
   }
 
   #shopify-section-{{ section.id }} .inv-pw-brand-btn.active {
-    transform: scale(1.03);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   }
 
   #shopify-section-{{ section.id }} .inv-pw-brand-btn:focus-visible {
     outline: 2px solid var(--inv-accent, #e11d26);
     outline-offset: 2px;
-  }
-
-  /* ALL BRANDS pill (manually styled, not using snippet) */
-  #shopify-section-{{ section.id }} .inv-pw-all-pill {
-    display: inline-flex;
-    align-items: center;
-    padding: 8px 18px;
-    background: var(--inv-dark, #2d2d2d);
-    color: #fff;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    border-radius: 24px;
-    white-space: nowrap;
-    min-height: 36px;
   }
 
   /* ----------------------------------------
@@ -319,11 +296,15 @@
     list-style: none;
     margin: 0;
     padding: 4px 2px 8px;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-grid--hidden {
+    display: none;
   }
 
   #shopify-section-{{ section.id }} .inv-pw-grid.inv-pw-fade {
-    opacity: 0.3;
+    opacity: 0;
   }
 
   #shopify-section-{{ section.id }} .inv-pw-grid__item {
@@ -331,14 +312,17 @@
     width: 100%;
   }
 
-  #shopify-section-{{ section.id }} .inv-pw-grid__item.inv-pw-hidden {
-    display: none;
+  #shopify-section-{{ section.id }} .inv-pw-grid__empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 48px 16px;
+    color: #999;
+    font-size: 14px;
+    list-style: none;
   }
 
   /* ----------------------------------------
      COMPACT CARD OVERRIDES (product wall only)
-     Scoped to this section so cards elsewhere
-     are unaffected.
      ---------------------------------------- */
   #shopify-section-{{ section.id }} .inv-card__body {
     padding: 10px 12px 12px;
@@ -444,7 +428,7 @@
   }
 
   /* ----------------------------------------
-     RESPONSIVE — Tablet (max-width: 1024px)
+     RESPONSIVE — Tablet
      ---------------------------------------- */
   @media (max-width: 1024px) {
     #shopify-section-{{ section.id }} .inv-pw-grid {
@@ -454,7 +438,7 @@
   }
 
   /* ----------------------------------------
-     RESPONSIVE — Mobile (max-width: 768px)
+     RESPONSIVE — Mobile
      ---------------------------------------- */
   @media (max-width: 768px) {
     #shopify-section-{{ section.id }} .inv-pw-grid {
@@ -483,12 +467,6 @@
 
     #shopify-section-{{ section.id }} .inv-pw-brands__scroll {
       gap: 8px;
-    }
-
-    #shopify-section-{{ section.id }} .inv-pw-all-pill {
-      font-size: 12px;
-      padding: 6px 14px;
-      min-height: 32px;
     }
 
     #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill--text {
@@ -546,23 +524,18 @@
     #shopify-section-{{ section.id }} .inv-pw-brand-btn.active {
       transform: none;
     }
-
-    #shopify-section-{{ section.id }} .inv-pw-grid.inv-pw-fade {
-      opacity: 1;
-    }
   }
 </style>
 
 <script>
   /**
-   * Invicta Product Wall v2.0
-   * Client-side brand filtering with fade animation
+   * Invicta Product Wall v3.0
+   * Brand-tabbed grid switching with fade animation
    */
   (function() {
     'use strict';
 
     var SECTION_ID = {{ section.id | json }};
-    var BASE_TITLE = {{ title_text | json }};
 
     function prefersReducedMotion() {
       return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -572,23 +545,22 @@
       var root = document.getElementById('inv-pw-' + SECTION_ID);
       if (!root) return;
 
-      var grid = root.querySelector('[data-pw-grid]');
-      var brandRow = root.querySelector('[data-pw-brands]');
-      var titleEl = root.querySelector('[data-pw-title]');
+      var brandBtns = root.querySelectorAll('.inv-pw-brand-btn');
+      var grids = root.querySelectorAll('[data-pw-grid]');
+      var ctaEl = root.querySelector('[data-pw-cta]');
       var countEl = root.querySelector('[data-pw-count]');
+      var titleEl = root.querySelector('[data-pw-title]');
 
-      if (!grid) return;
+      if (brandBtns.length === 0 || grids.length === 0) return;
 
-      var brandBtns = brandRow ? brandRow.querySelectorAll('.inv-pw-brand-btn') : [];
-      var items = grid.querySelectorAll('.inv-pw-grid__item');
-
-      if (!brandRow || brandBtns.length === 0) return;
+      /* Show CTA for first active grid */
+      updateCta(root.querySelector('[data-pw-grid]:not(.inv-pw-grid--hidden)'));
 
       for (var b = 0; b < brandBtns.length; b++) {
         brandBtns[b].addEventListener('click', function() {
           var brand = this.getAttribute('data-brand');
 
-          /* Update active states and aria-pressed */
+          /* Update active pill */
           for (var j = 0; j < brandBtns.length; j++) {
             brandBtns[j].classList.remove('active');
             brandBtns[j].setAttribute('aria-pressed', 'false');
@@ -596,65 +568,49 @@
           this.classList.add('active');
           this.setAttribute('aria-pressed', 'true');
 
-          /* Fade animation */
           var reduced = prefersReducedMotion();
-          if (!reduced) {
-            grid.classList.add('inv-pw-fade');
+          var activeGrid = root.querySelector('[data-pw-grid]:not(.inv-pw-grid--hidden)');
+
+          if (!reduced && activeGrid) {
+            activeGrid.classList.add('inv-pw-fade');
           }
 
-          var applyFilter = function() {
-            var visibleCount = 0;
-
-            for (var i = 0; i < items.length; i++) {
-              var itemBrand = items[i].getAttribute('data-brand');
-              if (brand === 'all' || itemBrand === brand) {
-                items[i].classList.remove('inv-pw-hidden');
-                visibleCount++;
-              } else {
-                items[i].classList.add('inv-pw-hidden');
-              }
+          var swap = function() {
+            /* Hide all grids */
+            for (var g = 0; g < grids.length; g++) {
+              grids[g].classList.add('inv-pw-grid--hidden');
+              grids[g].classList.remove('inv-pw-fade');
             }
 
-            /* Update header title */
-            if (titleEl) {
-              if (brand === 'all') {
-                titleEl.innerHTML = BASE_TITLE;
-              } else {
-                /* Find the display name from the active button's pill text */
-                var activeBtn = brandRow.querySelector('.inv-pw-brand-btn[data-brand="' + brand + '"]');
-                var brandName = activeBtn ? (activeBtn.textContent || '').trim() : brand;
-
-                /* Pattern: "Popular Power Tools" -> "Popular {Brand} Tools" */
-                var plainTitle = BASE_TITLE.replace(/<[^>]*>/g, '');
-                var words = plainTitle.trim().split(/\s+/);
-                if (words.length >= 3) {
-                  words[words.length - 2] = brandName;
-                  titleEl.textContent = words.join(' ');
-                } else if (words.length === 2) {
-                  titleEl.textContent = words[0] + ' ' + brandName;
-                } else {
-                  titleEl.textContent = brandName + ' Tools';
-                }
-              }
-            }
-
-            /* Update count */
-            if (countEl) {
-              countEl.textContent = visibleCount;
-            }
-
-            /* Remove fade */
-            if (!reduced) {
-              grid.classList.remove('inv-pw-fade');
+            /* Show target grid */
+            var target = root.querySelector('[data-pw-grid="' + brand + '"]');
+            if (target) {
+              target.classList.remove('inv-pw-grid--hidden');
+              updateCta(target);
             }
           };
 
           if (!reduced) {
-            setTimeout(applyFilter, 150);
+            setTimeout(swap, 150);
           } else {
-            applyFilter();
+            swap();
           }
         });
+      }
+
+      function updateCta(grid) {
+        if (!ctaEl || !grid) return;
+        var url = grid.getAttribute('data-collection-url');
+        var total = grid.getAttribute('data-total-count');
+        if (url) {
+          ctaEl.href = url;
+          ctaEl.style.display = '';
+          if (countEl && total) {
+            countEl.textContent = total;
+          }
+        } else {
+          ctaEl.style.display = 'none';
+        }
       }
     }
 
@@ -685,30 +641,10 @@
   },
   "settings": [
     {
-      "type": "collection",
-      "id": "collection",
-      "label": "Collection"
-    },
-    {
-      "type": "range",
-      "id": "products_to_show",
-      "min": 5,
-      "max": 30,
-      "step": 1,
-      "default": 15,
-      "label": "Products to show"
-    },
-    {
       "type": "inline_richtext",
       "id": "title",
       "default": "Popular Power Tools",
       "label": "Heading"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_brand_filter",
-      "label": "Show brand filter",
-      "default": true
     },
     {
       "type": "checkbox",
@@ -718,11 +654,20 @@
     },
     {
       "type": "range",
+      "id": "max_products",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8,
+      "label": "Products per brand"
+    },
+    {
+      "type": "range",
       "id": "columns_desktop",
       "min": 3,
       "max": 6,
       "step": 1,
-      "default": 5,
+      "default": 4,
       "label": "Desktop columns"
     },
     {
@@ -750,9 +695,51 @@
       "default": 40
     }
   ],
+  "blocks": [
+    {
+      "type": "brand_tab",
+      "name": "Brand Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "brand_name",
+          "label": "Brand name",
+          "info": "Used for the pill label and colour lookup"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection",
+          "info": "The collection to pull this brand's products from"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Invicta Product Wall"
+      "name": "Invicta Product Wall",
+      "blocks": [
+        {
+          "type": "brand_tab",
+          "settings": { "brand_name": "Makita" }
+        },
+        {
+          "type": "brand_tab",
+          "settings": { "brand_name": "DeWalt" }
+        },
+        {
+          "type": "brand_tab",
+          "settings": { "brand_name": "Timco" }
+        },
+        {
+          "type": "brand_tab",
+          "settings": { "brand_name": "Premier Diamond" }
+        },
+        {
+          "type": "brand_tab",
+          "settings": { "brand_name": "Viper" }
+        }
+      ]
     }
   ]
 }

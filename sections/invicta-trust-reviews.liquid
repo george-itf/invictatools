@@ -319,8 +319,8 @@
   .inv-tr__trust-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    align-items: center;
+    gap: 40px;
+    align-items: start;
   }
 
   /* Media: Two stacked landscape images */
@@ -403,18 +403,18 @@
 
   .inv-tr__heading {
     font-family: 'DM Sans', sans-serif;
-    font-size: clamp(28px, 5vw, 36px);
+    font-size: clamp(24px, 4vw, 32px);
     font-weight: 900;
     color: var(--inv-tr-fg);
-    line-height: 1.1;
-    margin: 0 0 20px;
+    line-height: 1.15;
+    margin: 0 0 14px;
   }
 
   .inv-tr__text {
-    font-size: 16px;
+    font-size: 15px;
     color: #555;
     line-height: 1.6;
-    margin-bottom: 24px;
+    margin-bottom: 18px;
   }
 
   .inv-tr__text p {
@@ -428,11 +428,11 @@
   /* Proof points */
   .inv-tr__points {
     list-style: none;
-    margin: 0 0 24px;
+    margin: 0 0 18px;
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
   }
 
   .inv-tr__point {
@@ -452,22 +452,21 @@
   /* Rating badges */
   .inv-tr__ratings {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
   }
 
   .inv-tr__rating {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 14px 20px;
+    padding: 10px 16px;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     text-decoration: none;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    align-self: flex-start;
   }
 
   .inv-tr__rating:hover {

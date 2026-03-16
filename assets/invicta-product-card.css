@@ -47,7 +47,7 @@
 .inv-card__media {
   position: relative;
   aspect-ratio: 1 / 1;
-  background: linear-gradient(180deg, #fafbfc 0%, #f3f4f6 100%);
+  background: #ffffff;
   overflow: hidden;
 }
 
@@ -153,8 +153,8 @@
   flex-direction: column;
   flex: 1;
   padding: 14px 16px 16px;
-  background: #fff;
-  border-top: 1px solid #f0f0f0;
+  background: #f7f7f8;
+  border-top: 1px solid #ececec;
 }
 
 /* -----------------------------------------------------------------------
