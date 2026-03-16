@@ -56,7 +56,7 @@
             "title": "CLICK & COLLECT ACROSS KENT",
             "text": "",
             "cta_text": "Find a Store",
-            "link": "shopify://pages/about-us",
+            "link": "shopify://pages/kent-hub",
             "ribbon_text": ""
           }
         }
@@ -325,7 +325,7 @@
         "image_2_caption": "Ramsgate",
         "badge_text": "Authorised Dealer",
         "cta_text": "Visit Our Stores",
-        "cta_link": "/pages/about-us",
+        "cta_link": "/pages/kent-hub",
         "review_heading": "What Kent Tradespeople Say",
         "review_1_enabled": true,
         "review_1_text": "You want tools and fixings? This is the place. Top notch products & service",

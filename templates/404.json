@@ -5,7 +5,7 @@
       "settings": {
         "show_help_section": true,
         "contact_url": "/pages/contact",
-        "phone_number": "01227 456789"
+        "phone_number": "01843 210 459"
       },
       "blocks": {
         "cat_1": { "type": "category", "settings": { "title": "Power Tools" } },
