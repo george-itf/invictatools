@@ -249,14 +249,15 @@
 
   #inv-tr5-{{ section.id }} {
     --itr5-accent: var(--inv-accent, #e11d26);
-    --itr5-dark: #1e2125;
-    --itr5-fg: #fff;
-    --itr5-fg-muted: rgba(255, 255, 255, 0.6);
-    --itr5-border: rgba(255, 255, 255, 0.1);
+    --itr5-bg: #f5f5f6;
+    --itr5-fg: #0f172a;
+    --itr5-fg-muted: #6b7280;
+    --itr5-border: #e5e7eb;
+    --itr5-card-bg: #fff;
   }
 
   .inv-tr5 {
-    background: var(--itr5-dark);
+    background: var(--itr5-bg);
     border-top: 4px solid var(--itr5-accent);
   }
 
@@ -413,18 +414,19 @@
     align-items: center;
     gap: 10px;
     padding: 10px 14px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--itr5-card-bg);
     border: 1px solid var(--itr5-border);
     border-radius: 4px;
     text-decoration: none;
     color: inherit;
     transition: background 0.15s ease, border-color 0.15s ease;
     min-width: 190px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   }
 
   .inv-tr5__rating:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: #d1d5db;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   }
 
   .inv-tr5__rating:focus-visible {
@@ -560,12 +562,13 @@
     flex-shrink: 0;
     width: 260px;
     padding: 14px 16px;
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--itr5-card-bg);
     border: 1px solid var(--itr5-border);
     border-radius: 4px;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   }
 
   .inv-tr5__review-stars {
@@ -578,7 +581,7 @@
 
   .inv-tr5__review-text {
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--itr5-fg-muted);
     line-height: 1.5;
     margin: 0;
     font-style: italic;
@@ -600,7 +603,7 @@
     height: 28px;
     min-width: 28px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: #e5e7eb;
     display: flex;
     align-items: center;
     justify-content: center;
