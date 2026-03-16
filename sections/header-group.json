@@ -17,7 +17,7 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "FREE NEXT-DAY DELIVERY ON ORDERS OVER £40",
+            "text": "FREE NEXT-DAY DELIVERY ON ORDERS OVER £30",
             "link": "shopify://policies/shipping-policy"
           }
         },
@@ -25,7 +25,7 @@
           "type": "announcement",
           "settings": {
             "text": "CLICK & COLLECT — READY IN 1 HOUR",
-            "link": "shopify://pages/about-us"
+            "link": "shopify://pages/kent-hub"
           }
         },
         "announcement-bar-2": {
