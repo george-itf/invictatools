@@ -605,6 +605,7 @@
       "supplier_delivery": "3–5 Day Delivery",
       "stock_low": "Only {{ quantity }} Left",
       "add_to_cart": "Add to Cart",
+      "select_options": "Select Options",
       "notify_me": "Notify Me",
       "images_label": "Product images",
       "zoom_image": "Zoom image",
