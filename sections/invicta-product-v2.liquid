@@ -140,6 +140,7 @@
     Buy Now price threshold (in pounds, converted to pence)
   endcomment
   assign buy_now_threshold_pence = section.settings.buy_now_price_threshold | default: 500 | times: 100
+  assign show_buy_now = section.settings.show_buy_now
   assign show_buy_now_final = false
   if show_buy_now and is_in_stock and current_variant.price <= buy_now_threshold_pence and stock_source == 'invicta'
     assign show_buy_now_final = true
@@ -160,7 +161,6 @@
   assign show_sku = section.settings.show_sku
   assign show_trust_badges = section.settings.show_trust_badges
   assign show_key_specs = section.settings.show_key_specs
-  assign show_buy_now = section.settings.show_buy_now
   assign delivery_title = section.settings.delivery_title
   assign delivery_text = section.settings.delivery_text
 %}
