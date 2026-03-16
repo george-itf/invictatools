@@ -55,6 +55,7 @@
     text-decoration: none;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
     overflow: hidden;
+    contain: content;
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__card:hover {
@@ -261,7 +262,8 @@
                   alt="{{ cat_title | escape }}"
                   width="{{ cat_image.width }}"
                   height="{{ cat_image.height }}"
-                  loading="lazy"
+                  loading="eager"
+                  fetchpriority="high"
                 >
               </div>
             {%- else -%}

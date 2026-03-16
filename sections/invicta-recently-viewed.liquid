@@ -27,7 +27,7 @@
 -%}
 
 <div 
-  class="inv-recent"
+  class="inv-recent inv-recent--loading"
   data-section-id="{{ section.id }}"
   data-logged-in="{{ is_logged_in }}"
   data-max-products="{{ section.settings.max_products }}"
@@ -110,7 +110,12 @@
   /* ============================================
      INVICTA RECENTLY VIEWED v3.0 — STYLES
      ============================================ */
-  
+
+  /* Start hidden to prevent CLS — JS reveals when products are loaded */
+  .inv-recent--loading {
+    display: none;
+  }
+
   .inv-recent {
     background-color: var(--inv-recent-bg);
     padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
