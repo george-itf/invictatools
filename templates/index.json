@@ -224,55 +224,21 @@
     },
     "product_wall": {
       "type": "invicta-product-wall",
-      "blocks": {
-        "brand_makita": {
-          "type": "brand_tab",
-          "settings": {
-            "brand_name": "Makita",
-            "collection": "makita"
-          }
-        },
-        "brand_dewalt": {
-          "type": "brand_tab",
-          "settings": {
-            "brand_name": "DeWalt",
-            "collection": "dewalt"
-          }
-        },
-        "brand_timco": {
-          "type": "brand_tab",
-          "settings": {
-            "brand_name": "TIMCO",
-            "collection": "timco"
-          }
-        },
-        "brand_pdp": {
-          "type": "brand_tab",
-          "settings": {
-            "brand_name": "Premier Diamond",
-            "collection": "premier-diamond"
-          }
-        },
-        "brand_viper": {
-          "type": "brand_tab",
-          "settings": {
-            "brand_name": "Viper",
-            "collection": "viper-1"
-          }
-        }
-      },
-      "block_order": [
-        "brand_makita",
-        "brand_dewalt",
-        "brand_timco",
-        "brand_pdp",
-        "brand_viper"
-      ],
       "settings": {
         "title": "Popular Power Tools",
         "show_view_all": true,
         "max_products": 8,
         "columns_desktop": 4,
+        "brand_1_name": "Makita",
+        "brand_1_collection": "makita",
+        "brand_2_name": "DeWalt",
+        "brand_2_collection": "dewalt",
+        "brand_3_name": "TIMCO",
+        "brand_3_collection": "timco",
+        "brand_4_name": "Premier Diamond",
+        "brand_4_collection": "premier-diamond",
+        "brand_5_name": "Viper",
+        "brand_5_collection": "viper-1",
         "padding_top": 40,
         "padding_bottom": 40
       }

@@ -1,15 +1,18 @@
 {% comment %}
   ============================================
-  INVICTA PRODUCT WALL v3.0
+  INVICTA PRODUCT WALL v3.1
   ============================================
   Brand-tabbed product grid. Each brand pill
   switches to that brand's top offers (max 8).
+
+  Five brand slots configured via section settings
+  (no blocks dependency). Each slot has a brand
+  name + collection picker.
 
   Uses:
   - snippets/invicta-product-card.liquid (cards)
   - snippets/invicta-brand-pill.liquid (brand filter pills, type: 'text-only')
   - assets/invicta-product-card.css (loaded globally)
-  - assets/invicta-css-variables.css (design tokens)
 
   Trade 15.4.0 Compatible
   ============================================
@@ -20,7 +23,35 @@
   assign show_view_all = section.settings.show_view_all
   assign title_text = section.settings.title | default: 'Popular Power Tools'
   assign max_products = section.settings.max_products | default: 8
+
+  # Build brand array from settings (up to 5 slots)
+  assign brand_names = '' | split: ','
+  assign brand_handles = '' | split: ','
+  assign brand_collections_arr = '' | split: ','
+
+  if section.settings.brand_1_name != blank and section.settings.brand_1_collection != blank
+    assign brand_names = brand_names | concat: section.settings.brand_1_name | split: '|||'
+    assign b1h = section.settings.brand_1_name | handleize
+  endif
+  if section.settings.brand_2_name != blank and section.settings.brand_2_collection != blank
+    assign brand_names = brand_names | concat: section.settings.brand_2_name | split: '|||'
+  endif
+  if section.settings.brand_3_name != blank and section.settings.brand_3_collection != blank
+    assign brand_names = brand_names | concat: section.settings.brand_3_name | split: '|||'
+  endif
+  if section.settings.brand_4_name != blank and section.settings.brand_4_collection != blank
+    assign brand_names = brand_names | concat: section.settings.brand_4_name | split: '|||'
+  endif
+  if section.settings.brand_5_name != blank and section.settings.brand_5_collection != blank
+    assign brand_names = brand_names | concat: section.settings.brand_5_name | split: '|||'
+  endif
 -%}
+
+{%- comment -%}
+  Build simple arrays we can iterate.
+  Liquid doesn't have real arrays from settings, so we use a numbered
+  approach with 5 explicit slots rendered in order.
+{%- endcomment -%}
 
 <div
   class="inv-product-wall"
@@ -40,7 +71,6 @@
           <h2 class="inv-pw-header__title" data-pw-title>{{ title_text }}</h2>
         </div>
         {%- if show_view_all -%}
-          {%- comment -%} View All links to the active brand's collection — JS updates href {%- endcomment -%}
           <a href="#" class="inv-pw-header__cta" data-pw-cta style="display:none;">
             <span>View All</span>
             <span class="inv-pw-header__count" data-pw-count></span>
@@ -51,80 +81,174 @@
     {%- endif -%}
 
     {%- comment -%} ================================
-        BRAND PILLS
+        BRAND PILLS + GRIDS
+        We render 5 explicit slots. Each slot only
+        renders if brand_N_name and brand_N_collection
+        are both set.
         ================================ {%- endcomment -%}
-    {%- if section.blocks.size > 0 -%}
+
+    {%- assign has_brands = false -%}
+    {%- assign slot_index = 0 -%}
+
+    {%- comment -%} Check if we have at least one brand {%- endcomment -%}
+    {%- if section.settings.brand_1_name != blank and section.settings.brand_1_collection != blank -%}
+      {%- assign has_brands = true -%}
+    {%- endif -%}
+
+    {%- if has_brands -%}
       <div class="inv-pw-brands" data-pw-brands>
         <div class="inv-pw-brands__scroll">
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'brand_tab' -%}
-              {%- assign brand_handle = block.settings.brand_name | handleize -%}
-              <button
-                class="inv-pw-brand-btn{% if forloop.first %} active{% endif %}"
-                data-brand="{{ brand_handle }}"
-                aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
-                {{ block.shopify_attributes }}
-              >
-                {% render 'invicta-brand-pill', vendor: block.settings.brand_name, type: 'text-only' %}
-              </button>
-            {%- endif -%}
-          {%- endfor -%}
+          {%- comment -%} Slot 1 {%- endcomment -%}
+          {%- if section.settings.brand_1_name != blank and section.settings.brand_1_collection != blank -%}
+            {%- assign slot_index = slot_index | plus: 1 -%}
+            <button class="inv-pw-brand-btn{% if slot_index == 1 %} active{% endif %}"
+                    data-brand="{{ section.settings.brand_1_name | handleize }}"
+                    aria-pressed="{% if slot_index == 1 %}true{% else %}false{% endif %}">
+              {% render 'invicta-brand-pill', vendor: section.settings.brand_1_name, type: 'text-only' %}
+            </button>
+          {%- endif -%}
+          {%- comment -%} Slot 2 {%- endcomment -%}
+          {%- if section.settings.brand_2_name != blank and section.settings.brand_2_collection != blank -%}
+            {%- assign slot_index = slot_index | plus: 1 -%}
+            <button class="inv-pw-brand-btn"
+                    data-brand="{{ section.settings.brand_2_name | handleize }}"
+                    aria-pressed="false">
+              {% render 'invicta-brand-pill', vendor: section.settings.brand_2_name, type: 'text-only' %}
+            </button>
+          {%- endif -%}
+          {%- comment -%} Slot 3 {%- endcomment -%}
+          {%- if section.settings.brand_3_name != blank and section.settings.brand_3_collection != blank -%}
+            {%- assign slot_index = slot_index | plus: 1 -%}
+            <button class="inv-pw-brand-btn"
+                    data-brand="{{ section.settings.brand_3_name | handleize }}"
+                    aria-pressed="false">
+              {% render 'invicta-brand-pill', vendor: section.settings.brand_3_name, type: 'text-only' %}
+            </button>
+          {%- endif -%}
+          {%- comment -%} Slot 4 {%- endcomment -%}
+          {%- if section.settings.brand_4_name != blank and section.settings.brand_4_collection != blank -%}
+            {%- assign slot_index = slot_index | plus: 1 -%}
+            <button class="inv-pw-brand-btn"
+                    data-brand="{{ section.settings.brand_4_name | handleize }}"
+                    aria-pressed="false">
+              {% render 'invicta-brand-pill', vendor: section.settings.brand_4_name, type: 'text-only' %}
+            </button>
+          {%- endif -%}
+          {%- comment -%} Slot 5 {%- endcomment -%}
+          {%- if section.settings.brand_5_name != blank and section.settings.brand_5_collection != blank -%}
+            {%- assign slot_index = slot_index | plus: 1 -%}
+            <button class="inv-pw-brand-btn"
+                    data-brand="{{ section.settings.brand_5_name | handleize }}"
+                    aria-pressed="false">
+              {% render 'invicta-brand-pill', vendor: section.settings.brand_5_name, type: 'text-only' %}
+            </button>
+          {%- endif -%}
         </div>
       </div>
 
       {%- comment -%} ================================
-          PRODUCT GRIDS — one per brand, only first visible
+          PRODUCT GRIDS — one per brand slot
           ================================ {%- endcomment -%}
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'brand_tab' -%}
-          {%- assign brand_handle = block.settings.brand_name | handleize -%}
-          {%- assign brand_collection = block.settings.collection -%}
-          {%- assign brand_count = 0 -%}
+      {%- assign grid_index = 0 -%}
 
-          <ul
-            class="inv-pw-grid{% unless forloop.first %} inv-pw-grid--hidden{% endunless %}"
-            role="list"
-            data-pw-grid="{{ brand_handle }}"
-            {% if brand_collection != blank %}data-collection-url="{{ brand_collection.url }}"{% endif %}
-            data-total-count="{{ brand_collection.products_count | default: 0 }}"
-          >
-            {%- if brand_collection != blank and brand_collection.products.size > 0 -%}
-              {%- for product in brand_collection.products limit: max_products -%}
-                {%- assign brand_count = brand_count | plus: 1 -%}
-                <li class="inv-pw-grid__item">
-                  {% render 'invicta-product-card', product: product, card_index: forloop.index %}
-                </li>
-              {%- endfor -%}
-            {%- else -%}
-              <li class="inv-pw-grid__empty">
-                <p>No products found for this brand.</p>
+      {%- if section.settings.brand_1_name != blank and section.settings.brand_1_collection != blank -%}
+        {%- assign grid_index = grid_index | plus: 1 -%}
+        {%- assign brand_col = section.settings.brand_1_collection -%}
+        <ul class="inv-pw-grid" role="list"
+            data-pw-grid="{{ section.settings.brand_1_name | handleize }}"
+            data-collection-url="{{ brand_col.url }}"
+            data-total-count="{{ brand_col.products_count | default: 0 }}">
+          {%- if brand_col.products.size > 0 -%}
+            {%- for product in brand_col.products limit: max_products -%}
+              <li class="inv-pw-grid__item">
+                {% render 'invicta-product-card', product: product, card_index: forloop.index %}
               </li>
-            {%- endif -%}
-          </ul>
-        {%- endif -%}
-      {%- endfor -%}
+            {%- endfor -%}
+          {%- else -%}
+            <li class="inv-pw-grid__empty"><p>No products found.</p></li>
+          {%- endif -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if section.settings.brand_2_name != blank and section.settings.brand_2_collection != blank -%}
+        {%- assign grid_index = grid_index | plus: 1 -%}
+        {%- assign brand_col = section.settings.brand_2_collection -%}
+        <ul class="inv-pw-grid inv-pw-grid--hidden" role="list"
+            data-pw-grid="{{ section.settings.brand_2_name | handleize }}"
+            data-collection-url="{{ brand_col.url }}"
+            data-total-count="{{ brand_col.products_count | default: 0 }}">
+          {%- if brand_col.products.size > 0 -%}
+            {%- for product in brand_col.products limit: max_products -%}
+              <li class="inv-pw-grid__item">
+                {% render 'invicta-product-card', product: product, card_index: forloop.index %}
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li class="inv-pw-grid__empty"><p>No products found.</p></li>
+          {%- endif -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if section.settings.brand_3_name != blank and section.settings.brand_3_collection != blank -%}
+        {%- assign grid_index = grid_index | plus: 1 -%}
+        {%- assign brand_col = section.settings.brand_3_collection -%}
+        <ul class="inv-pw-grid inv-pw-grid--hidden" role="list"
+            data-pw-grid="{{ section.settings.brand_3_name | handleize }}"
+            data-collection-url="{{ brand_col.url }}"
+            data-total-count="{{ brand_col.products_count | default: 0 }}">
+          {%- if brand_col.products.size > 0 -%}
+            {%- for product in brand_col.products limit: max_products -%}
+              <li class="inv-pw-grid__item">
+                {% render 'invicta-product-card', product: product, card_index: forloop.index %}
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li class="inv-pw-grid__empty"><p>No products found.</p></li>
+          {%- endif -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if section.settings.brand_4_name != blank and section.settings.brand_4_collection != blank -%}
+        {%- assign grid_index = grid_index | plus: 1 -%}
+        {%- assign brand_col = section.settings.brand_4_collection -%}
+        <ul class="inv-pw-grid inv-pw-grid--hidden" role="list"
+            data-pw-grid="{{ section.settings.brand_4_name | handleize }}"
+            data-collection-url="{{ brand_col.url }}"
+            data-total-count="{{ brand_col.products_count | default: 0 }}">
+          {%- if brand_col.products.size > 0 -%}
+            {%- for product in brand_col.products limit: max_products -%}
+              <li class="inv-pw-grid__item">
+                {% render 'invicta-product-card', product: product, card_index: forloop.index %}
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li class="inv-pw-grid__empty"><p>No products found.</p></li>
+          {%- endif -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if section.settings.brand_5_name != blank and section.settings.brand_5_collection != blank -%}
+        {%- assign grid_index = grid_index | plus: 1 -%}
+        {%- assign brand_col = section.settings.brand_5_collection -%}
+        <ul class="inv-pw-grid inv-pw-grid--hidden" role="list"
+            data-pw-grid="{{ section.settings.brand_5_name | handleize }}"
+            data-collection-url="{{ brand_col.url }}"
+            data-total-count="{{ brand_col.products_count | default: 0 }}">
+          {%- if brand_col.products.size > 0 -%}
+            {%- for product in brand_col.products limit: max_products -%}
+              <li class="inv-pw-grid__item">
+                {% render 'invicta-product-card', product: product, card_index: forloop.index %}
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li class="inv-pw-grid__empty"><p>No products found.</p></li>
+          {%- endif -%}
+        </ul>
+      {%- endif -%}
 
     {%- else -%}
-      {%- comment -%} No blocks — show placeholder {%- endcomment -%}
-      <ul class="inv-pw-grid" role="list">
-        {%- for i in (1..columns_desktop) -%}
-          <li class="inv-pw-grid__item">
-            <div class="inv-pw-placeholder">
-              <div class="inv-pw-placeholder__img">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
-                  <rect x="3" y="3" width="18" height="18" rx="2"/>
-                  <circle cx="8.5" cy="8.5" r="1.5"/>
-                  <polyline points="21 15 16 10 5 21"/>
-                </svg>
-              </div>
-              <div class="inv-pw-placeholder__body">
-                <div class="inv-pw-placeholder__title"></div>
-                <div class="inv-pw-placeholder__price"></div>
-              </div>
-            </div>
-          </li>
-        {%- endfor -%}
-      </ul>
+      {%- comment -%} No brands configured — placeholder {%- endcomment -%}
+      <p style="text-align:center;padding:40px 0;color:#999;">Configure brand tabs in the theme editor to display products.</p>
     {%- endif -%}
 
   </div>
@@ -132,7 +256,7 @@
 
 <style>
   /* ============================================
-     INVICTA PRODUCT WALL v3.0
+     INVICTA PRODUCT WALL v3.1
      ============================================ */
 
   #shopify-section-{{ section.id }} .inv-product-wall {
@@ -260,7 +384,6 @@
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
 
-  /* Size text-only pills consistently */
   #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill--text {
     min-height: 36px;
     padding: 8px 18px;
@@ -388,46 +511,6 @@
   }
 
   /* ----------------------------------------
-     PLACEHOLDER
-     ---------------------------------------- */
-  #shopify-section-{{ section.id }} .inv-pw-placeholder {
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    border: 1px solid var(--inv-border, #e5e7eb);
-    border-radius: 12px;
-    overflow: hidden;
-    width: 100%;
-  }
-
-  #shopify-section-{{ section.id }} .inv-pw-placeholder__img {
-    aspect-ratio: 1 / 1;
-    background: #fafafa;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ddd;
-  }
-
-  #shopify-section-{{ section.id }} .inv-pw-placeholder__body {
-    padding: 12px;
-  }
-
-  #shopify-section-{{ section.id }} .inv-pw-placeholder__title {
-    height: 12px;
-    background: #eee;
-    border-radius: 4px;
-    margin-bottom: 8px;
-  }
-
-  #shopify-section-{{ section.id }} .inv-pw-placeholder__price {
-    height: 16px;
-    width: 60%;
-    background: #eee;
-    border-radius: 4px;
-  }
-
-  /* ----------------------------------------
      RESPONSIVE — Tablet
      ---------------------------------------- */
   @media (max-width: 1024px) {
@@ -479,7 +562,6 @@
       font-size: 12px;
     }
 
-    /* Tighter compact overrides on mobile */
     #shopify-section-{{ section.id }} .inv-card__body {
       padding: 8px 10px 10px;
     }
@@ -529,7 +611,7 @@
 
 <script>
   /**
-   * Invicta Product Wall v3.0
+   * Invicta Product Wall v3.1
    * Brand-tabbed grid switching with fade animation
    */
   (function() {
@@ -549,7 +631,6 @@
       var grids = root.querySelectorAll('[data-pw-grid]');
       var ctaEl = root.querySelector('[data-pw-cta]');
       var countEl = root.querySelector('[data-pw-count]');
-      var titleEl = root.querySelector('[data-pw-title]');
 
       if (brandBtns.length === 0 || grids.length === 0) return;
 
@@ -560,7 +641,6 @@
         brandBtns[b].addEventListener('click', function() {
           var brand = this.getAttribute('data-brand');
 
-          /* Update active pill */
           for (var j = 0; j < brandBtns.length; j++) {
             brandBtns[j].classList.remove('active');
             brandBtns[j].setAttribute('aria-pressed', 'false');
@@ -576,13 +656,10 @@
           }
 
           var swap = function() {
-            /* Hide all grids */
             for (var g = 0; g < grids.length; g++) {
               grids[g].classList.add('inv-pw-grid--hidden');
               grids[g].classList.remove('inv-pw-fade');
             }
-
-            /* Show target grid */
             var target = root.querySelector('[data-pw-grid="' + brand + '"]');
             if (target) {
               target.classList.remove('inv-pw-grid--hidden');
@@ -605,9 +682,7 @@
         if (url) {
           ctaEl.href = url;
           ctaEl.style.display = '';
-          if (countEl && total) {
-            countEl.textContent = total;
-          }
+          if (countEl && total) countEl.textContent = total;
         } else {
           ctaEl.style.display = 'none';
         }
@@ -615,9 +690,7 @@
     }
 
     function handleSectionEvent(event) {
-      if (event.detail && event.detail.sectionId === SECTION_ID) {
-        init();
-      }
+      if (event.detail && event.detail.sectionId === SECTION_ID) init();
     }
 
     if (document.readyState === 'loading') {
@@ -672,6 +745,81 @@
     },
     {
       "type": "header",
+      "content": "Brand 1"
+    },
+    {
+      "type": "text",
+      "id": "brand_1_name",
+      "label": "Brand name",
+      "default": "Makita"
+    },
+    {
+      "type": "collection",
+      "id": "brand_1_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Brand 2"
+    },
+    {
+      "type": "text",
+      "id": "brand_2_name",
+      "label": "Brand name",
+      "default": "DeWalt"
+    },
+    {
+      "type": "collection",
+      "id": "brand_2_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Brand 3"
+    },
+    {
+      "type": "text",
+      "id": "brand_3_name",
+      "label": "Brand name",
+      "default": "TIMCO"
+    },
+    {
+      "type": "collection",
+      "id": "brand_3_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Brand 4"
+    },
+    {
+      "type": "text",
+      "id": "brand_4_name",
+      "label": "Brand name",
+      "default": "Premier Diamond"
+    },
+    {
+      "type": "collection",
+      "id": "brand_4_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Brand 5"
+    },
+    {
+      "type": "text",
+      "id": "brand_5_name",
+      "label": "Brand name",
+      "default": "Viper"
+    },
+    {
+      "type": "collection",
+      "id": "brand_5_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
       "content": "Padding"
     },
     {
@@ -695,51 +843,16 @@
       "default": 40
     }
   ],
-  "blocks": [
-    {
-      "type": "brand_tab",
-      "name": "Brand Tab",
-      "settings": [
-        {
-          "type": "text",
-          "id": "brand_name",
-          "label": "Brand name",
-          "info": "Used for the pill label and colour lookup"
-        },
-        {
-          "type": "collection",
-          "id": "collection",
-          "label": "Collection",
-          "info": "The collection to pull this brand's products from"
-        }
-      ]
-    }
-  ],
   "presets": [
     {
       "name": "Invicta Product Wall",
-      "blocks": [
-        {
-          "type": "brand_tab",
-          "settings": { "brand_name": "Makita" }
-        },
-        {
-          "type": "brand_tab",
-          "settings": { "brand_name": "DeWalt" }
-        },
-        {
-          "type": "brand_tab",
-          "settings": { "brand_name": "Timco" }
-        },
-        {
-          "type": "brand_tab",
-          "settings": { "brand_name": "Premier Diamond" }
-        },
-        {
-          "type": "brand_tab",
-          "settings": { "brand_name": "Viper" }
-        }
-      ]
+      "settings": {
+        "brand_1_name": "Makita",
+        "brand_2_name": "DeWalt",
+        "brand_3_name": "TIMCO",
+        "brand_4_name": "Premier Diamond",
+        "brand_5_name": "Viper"
+      }
     }
   ]
 }
