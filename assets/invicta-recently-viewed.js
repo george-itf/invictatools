@@ -129,6 +129,12 @@
       products.forEach(product => {
         this.container.appendChild(this.createCardNode(product));
       });
+
+      // Reveal the section now that content is ready (prevents CLS)
+      var section = document.querySelector('.inv-recent[data-section-id]');
+      if (section) {
+        section.classList.remove('inv-recent--loading');
+      }
     }
 
     showEmpty() {
