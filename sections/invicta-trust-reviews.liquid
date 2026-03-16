@@ -1,77 +1,113 @@
 {% comment %}
   ============================================
-  INVICTA TRUST & REVIEWS v1.0
+  INVICTA TRUST & REVIEWS v2.0
   ============================================
   Unified social proof section: Stats + Trust Content + Review Ticker
   Replaces invicta-trust-bar + review-carousel
+
+  Three zones stacked vertically:
+  1. Stats Counter Bar (dark, animated counters)
+  2. Trust Content (2 stacked landscape branch images + copy + badges)
+  3. Review Ticker (Judge.me live + hardcoded fallback)
 
   Trade 15.4.0 Compatible
   ============================================
 {% endcomment %}
 
+{%- liquid
+  assign stat_blocks = section.blocks | where: 'type', 'stat'
+  assign point_blocks = section.blocks | where: 'type', 'point'
+  assign rating_blocks = section.blocks | where: 'type', 'rating'
+-%}
+
 <section class="inv-tr" id="inv-tr-{{ section.id }}">
 
-  {%- comment -%} ZONE 1: Stats Counter Bar {%- endcomment -%}
+  {%- comment -%} ═══ ZONE 1: Stats Counter Bar ═══ {%- endcomment -%}
   <div class="inv-tr__stats" aria-label="Company statistics">
     <div class="inv-tr__stats-container">
       <div class="inv-tr__stats-grid">
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'stat' -%}
-            {%- assign raw = block.settings.number -%}
-            {%- comment -%} Parse numeric value and suffix from the stat number {%- endcomment -%}
-            {%- assign has_decimal = false -%}
-            {%- if raw contains '.' -%}
-              {%- assign has_decimal = true -%}
-            {%- endif -%}
-            <div class="inv-tr__stat" {{ block.shopify_attributes }}>
-              <div class="inv-tr__stat-number-wrap">
-                <span class="inv-tr__stat-number" data-target="{{ raw }}">{{ raw }}</span>
-              </div>
-              <span class="inv-tr__stat-label">{{ block.settings.label }}</span>
-            </div>
-          {%- endif -%}
+        {%- for block in stat_blocks -%}
+          <div class="inv-tr__stat" {{ block.shopify_attributes }}>
+            <span class="inv-tr__stat-number" data-itr-counter="{{ block.settings.number }}">{{ block.settings.number }}</span>
+            <span class="inv-tr__stat-label">{{ block.settings.label }}</span>
+          </div>
         {%- endfor -%}
       </div>
     </div>
   </div>
 
-  {%- comment -%} ZONE 2: Trust Content Section {%- endcomment -%}
+  {%- comment -%} ═══ ZONE 2: Trust Content ═══ {%- endcomment -%}
   <div class="inv-tr__trust">
     <div class="inv-tr__container">
       <div class="inv-tr__trust-grid">
 
-        {%- comment -%} Left column: Image {%- endcomment -%}
+        {%- comment -%} Left: Two stacked landscape branch images {%- endcomment -%}
         <div class="inv-tr__media">
-          {%- if section.settings.image != blank -%}
-            <img
-              src="{{ section.settings.image | image_url: width: 800 }}"
-              srcset="{{ section.settings.image | image_url: width: 400 }} 400w,
-                      {{ section.settings.image | image_url: width: 600 }} 600w,
-                      {{ section.settings.image | image_url: width: 800 }} 800w"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              alt="{{ section.settings.image.alt | default: 'Invicta Tools shop front' }}"
-              loading="lazy"
-              width="{{ section.settings.image.width }}"
-              height="{{ section.settings.image.height }}"
-              class="inv-tr__image"
-            >
-          {%- else -%}
-            <div class="inv-tr__image-placeholder">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" aria-hidden="true">
-                <rect x="3" y="3" width="18" height="18" rx="2"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <path d="M21 15l-5-5L5 21"/>
-              </svg>
-              <span class="inv-tr__placeholder-text">SHOP FRONT PHOTO</span>
-            </div>
-          {%- endif -%}
+          {%- comment -%} Image 1 (Canterbury) {%- endcomment -%}
+          <div class="inv-tr__media-slot">
+            {%- if section.settings.image_1 != blank -%}
+              <img
+                src="{{ section.settings.image_1 | image_url: width: 800 }}"
+                srcset="{{ section.settings.image_1 | image_url: width: 400 }} 400w,
+                        {{ section.settings.image_1 | image_url: width: 600 }} 600w,
+                        {{ section.settings.image_1 | image_url: width: 800 }} 800w"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                alt="{{ section.settings.image_1.alt | default: section.settings.image_1_caption }}"
+                loading="lazy"
+                width="{{ section.settings.image_1.width }}"
+                height="{{ section.settings.image_1.height }}"
+                class="inv-tr__image"
+              >
+            {%- else -%}
+              <div class="inv-tr__placeholder">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <path d="M21 15l-5-5L5 21"/>
+                </svg>
+                <span>BRANCH PHOTO</span>
+              </div>
+            {%- endif -%}
+            {%- if section.settings.image_1_caption != blank -%}
+              <span class="inv-tr__caption">{{ section.settings.image_1_caption }}</span>
+            {%- endif -%}
+            {%- if section.settings.badge_text != blank -%}
+              <span class="inv-tr__dealer-badge">{{ section.settings.badge_text }}</span>
+            {%- endif -%}
+          </div>
 
-          {%- if section.settings.badge_text != blank -%}
-            <div class="inv-tr__badge">{{ section.settings.badge_text }}</div>
-          {%- endif -%}
+          {%- comment -%} Image 2 (Ramsgate) {%- endcomment -%}
+          <div class="inv-tr__media-slot">
+            {%- if section.settings.image_2 != blank -%}
+              <img
+                src="{{ section.settings.image_2 | image_url: width: 800 }}"
+                srcset="{{ section.settings.image_2 | image_url: width: 400 }} 400w,
+                        {{ section.settings.image_2 | image_url: width: 600 }} 600w,
+                        {{ section.settings.image_2 | image_url: width: 800 }} 800w"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                alt="{{ section.settings.image_2.alt | default: section.settings.image_2_caption }}"
+                loading="lazy"
+                width="{{ section.settings.image_2.width }}"
+                height="{{ section.settings.image_2.height }}"
+                class="inv-tr__image"
+              >
+            {%- else -%}
+              <div class="inv-tr__placeholder">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <path d="M21 15l-5-5L5 21"/>
+                </svg>
+                <span>BRANCH PHOTO</span>
+              </div>
+            {%- endif -%}
+            {%- if section.settings.image_2_caption != blank -%}
+              <span class="inv-tr__caption">{{ section.settings.image_2_caption }}</span>
+            {%- endif -%}
+          </div>
         </div>
 
-        {%- comment -%} Right column: Content {%- endcomment -%}
+        {%- comment -%} Right: Content {%- endcomment -%}
         <div class="inv-tr__content">
           {%- if section.settings.eyebrow != blank -%}
             <span class="inv-tr__eyebrow">{{ section.settings.eyebrow }}</span>
@@ -86,25 +122,23 @@
           {%- endif -%}
 
           {%- comment -%} Proof points {%- endcomment -%}
-          {%- assign point_blocks = section.blocks | where: 'type', 'point' -%}
           {%- if point_blocks.size > 0 -%}
-            <div class="inv-tr__points">
+            <ul class="inv-tr__points">
               {%- for block in point_blocks -%}
                 {%- if block.settings.text != blank -%}
-                  <div class="inv-tr__point" {{ block.shopify_attributes }}>
+                  <li class="inv-tr__point" {{ block.shopify_attributes }}>
                     <svg class="inv-tr__point-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <circle cx="12" cy="12" r="12" fill="#22c55e"/>
+                      <circle cx="12" cy="12" r="12" fill="#16a34a"/>
                       <path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <span>{{ block.settings.text }}</span>
-                  </div>
+                  </li>
                 {%- endif -%}
               {%- endfor -%}
-            </div>
+            </ul>
           {%- endif -%}
 
           {%- comment -%} Rating badges {%- endcomment -%}
-          {%- assign rating_blocks = section.blocks | where: 'type', 'rating' -%}
           {%- if rating_blocks.size > 0 -%}
             <div class="inv-tr__ratings">
               {%- for block in rating_blocks -%}
@@ -140,7 +174,7 @@
             </div>
           {%- endif -%}
 
-          {%- comment -%} CTA button {%- endcomment -%}
+          {%- comment -%} CTA {%- endcomment -%}
           {%- if section.settings.cta_text != blank and section.settings.cta_link != blank -%}
             <a href="{{ section.settings.cta_link }}" class="inv-tr__cta">
               {{ section.settings.cta_text }}
@@ -152,25 +186,25 @@
     </div>
   </div>
 
-  {%- comment -%} ZONE 3: Review Ticker {%- endcomment -%}
+  {%- comment -%} ═══ ZONE 3: Review Ticker ═══ {%- endcomment -%}
   <div class="inv-tr__ticker" aria-label="Customer reviews">
     {%- if section.settings.review_heading != blank -%}
       <h2 class="inv-tr__ticker-heading">{{ section.settings.review_heading }}</h2>
     {%- endif -%}
 
-    <div class="inv-tr__ticker-track" data-ticker-track>
-      <div class="inv-tr__ticker-inner" data-ticker-inner>
+    <div class="inv-tr__ticker-track" data-itr-ticker>
+      {%- comment -%} Render hardcoded reviews (duplicated for seamless loop) {%- endcomment -%}
+      {%- for pass in (1..2) -%}
         {%- for i in (1..10) -%}
           {%- assign enabled_key = 'review_' | append: i | append: '_enabled' -%}
           {%- assign text_key = 'review_' | append: i | append: '_text' -%}
           {%- assign author_key = 'review_' | append: i | append: '_author' -%}
           {%- assign source_key = 'review_' | append: i | append: '_source' -%}
-
           {%- if section.settings[enabled_key] and section.settings[text_key] != blank -%}
             {%- assign review_author = section.settings[author_key] -%}
             {%- assign review_source = section.settings[source_key] -%}
-            {%- assign initials = '' -%}
             {%- assign name_parts = review_author | split: ' ' -%}
+            {%- assign initials = '' -%}
             {%- if name_parts.size > 1 -%}
               {%- assign first_initial = name_parts[0] | slice: 0 -%}
               {%- assign last_initial = name_parts[1] | slice: 0 -%}
@@ -178,23 +212,28 @@
             {%- elsif name_parts.size == 1 -%}
               {%- assign initials = name_parts[0] | slice: 0 -%}
             {%- endif -%}
-
-            <div class="inv-tr__review-card">
+            <div class="inv-tr__review-card" aria-hidden="{% if pass == 2 %}true{% else %}false{% endif %}">
               <div class="inv-tr__review-avatar">
-                <span>{{ initials }}</span>
+                <span class="inv-tr__review-initials">{{ initials }}</span>
               </div>
               <div class="inv-tr__review-body">
-                <div class="inv-tr__review-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <div class="inv-tr__review-stars" aria-label="5 out of 5 stars">
+                  {%- for s in (1..5) -%}
+                    <span class="inv-tr__star inv-tr__star--filled">&#9733;</span>
+                  {%- endfor -%}
+                </div>
                 <p class="inv-tr__review-text">{{ section.settings[text_key] }}</p>
-                <div class="inv-tr__review-footer">
+                <div class="inv-tr__review-meta">
                   <span class="inv-tr__review-author">{{ review_author }}</span>
-                  <span class="inv-tr__review-source inv-tr__review-source--{{ review_source }}">{{ review_source }}</span>
+                  {%- if review_source != blank -%}
+                    <span class="inv-tr__review-source inv-tr__review-source--{{ review_source }}">{{ review_source }}</span>
+                  {%- endif -%}
                 </div>
               </div>
             </div>
           {%- endif -%}
         {%- endfor -%}
-      </div>
+      {%- endfor -%}
     </div>
   </div>
 
@@ -202,22 +241,17 @@
 
 <style>
   /* ============================================
-     INVICTA TRUST & REVIEWS v1.0
+     INVICTA TRUST & REVIEWS v2.0
      ============================================ */
 
   #inv-tr-{{ section.id }} {
     --inv-tr-accent: var(--inv-accent, #e11d26);
     --inv-tr-dark: var(--inv-dark, #2d2d2d);
-    --inv-tr-fg: var(--inv-fg, #1a1a1a);
+    --inv-tr-fg: var(--inv-fg, #0f172a);
     --inv-tr-fg-muted: var(--inv-fg-muted, #555);
     --inv-tr-bg-muted: var(--inv-bg-muted, #f9fafb);
     --inv-tr-border: var(--inv-border, #e5e7eb);
-    --inv-tr-shadow-card: var(--inv-shadow-card, 0 1px 3px rgba(0,0,0,0.1));
-    --inv-tr-shadow-elevated: var(--inv-shadow-elevated, 0 10px 25px rgba(0,0,0,0.15));
-  }
-
-  .inv-tr {
-    font-family: 'DM Sans', sans-serif;
+    --inv-tr-shadow-elevated: var(--inv-shadow-elevated, 0 4px 12px rgba(0,0,0,0.1));
   }
 
   .inv-tr__container {
@@ -235,7 +269,7 @@
   }
 
   .inv-tr__stats-container {
-    max-width: var(--inv-container, 1400px);
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 var(--inv-gutter, 24px);
   }
@@ -255,13 +289,8 @@
     border-right: none;
   }
 
-  .inv-tr__stat-number-wrap {
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-  }
-
   .inv-tr__stat-number {
+    display: block;
     font-family: 'DM Sans', sans-serif;
     font-size: clamp(28px, 6vw, 48px);
     font-weight: 900;
@@ -271,9 +300,9 @@
 
   .inv-tr__stat-label {
     display: block;
+    color: rgba(255, 255, 255, 0.6);
     font-size: 12px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.6);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-top: 8px;
@@ -284,7 +313,7 @@
      ---------------------------------------- */
   .inv-tr__trust {
     background: var(--inv-tr-bg-muted);
-    padding: 80px 0;
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
   }
 
   .inv-tr__trust-grid {
@@ -294,57 +323,76 @@
     align-items: center;
   }
 
-  /* Image */
+  /* Media: Two stacked landscape images */
   .inv-tr__media {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .inv-tr__media-slot {
     position: relative;
+    overflow: hidden;
+    border-radius: 12px;
   }
 
   .inv-tr__image {
     width: 100%;
-    height: auto;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 16 / 9;
     object-fit: cover;
-    border-radius: 12px;
     display: block;
+    border-radius: 12px;
   }
 
-  .inv-tr__image-placeholder {
-    aspect-ratio: 1 / 1;
-    border-radius: 12px;
+  .inv-tr__placeholder {
+    aspect-ratio: 16 / 9;
     background: #d1d5db;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 8px;
+    border-radius: 12px;
   }
 
-  .inv-tr__placeholder-text {
-    font-size: 14px;
+  .inv-tr__placeholder span {
+    font-size: 11px;
     font-weight: 600;
-    color: rgba(0, 0, 0, 0.3);
-    text-transform: uppercase;
+    color: #6b7280;
     letter-spacing: 0.05em;
   }
 
-  .inv-tr__badge {
+  .inv-tr__caption {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  .inv-tr__dealer-badge {
     position: absolute;
     bottom: 16px;
-    left: 16px;
+    right: 16px;
     background: var(--inv-tr-accent);
     color: #fff;
-    padding: 8px 14px;
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+    padding: 6px 12px;
     border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
 
-  /* Content */
+  /* Content side */
   .inv-tr__eyebrow {
-    display: block;
+    display: inline-block;
     font-size: 12px;
     font-weight: 700;
     color: var(--inv-tr-accent);
@@ -379,10 +427,12 @@
 
   /* Proof points */
   .inv-tr__points {
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-bottom: 24px;
   }
 
   .inv-tr__point {
@@ -392,6 +442,7 @@
     font-size: 15px;
     font-weight: 600;
     color: var(--inv-tr-fg);
+    line-height: 1.4;
   }
 
   .inv-tr__point-icon {
@@ -416,7 +467,7 @@
     font-weight: 600;
     text-decoration: none;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    width: fit-content;
+    align-self: flex-start;
   }
 
   .inv-tr__rating:hover {
@@ -467,7 +518,6 @@
     text-decoration: none;
     border-radius: 0;
     transition: background 0.2s ease;
-    margin-top: 8px;
   }
 
   .inv-tr__cta:hover {
@@ -489,40 +539,31 @@
   }
 
   .inv-tr__ticker-heading {
+    color: #fff;
     font-family: 'DM Sans', sans-serif;
     font-size: clamp(24px, 4vw, 32px);
     font-weight: 700;
-    color: #fff;
     text-align: center;
     margin: 0 0 48px;
   }
 
   .inv-tr__ticker-track {
-    overflow: hidden;
-    width: 100%;
-  }
-
-  .inv-tr__ticker-inner {
     display: flex;
     gap: 20px;
     animation: inv-tr-scroll 40s linear infinite;
     width: max-content;
   }
 
-  .inv-tr__ticker-inner:hover {
+  .inv-tr__ticker-track:hover {
     animation-play-state: paused;
   }
 
   @keyframes inv-tr-scroll {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(calc(-50% - 10px));
-    }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 10px)); }
   }
 
-  /* Review cards */
+  /* Review card */
   .inv-tr__review-card {
     flex-shrink: 0;
     width: 340px;
@@ -530,31 +571,45 @@
     border-radius: 12px;
     padding: 24px;
     display: flex;
+    flex-direction: row;
     gap: 16px;
   }
 
   .inv-tr__review-avatar {
     width: 48px;
     height: 48px;
+    min-width: 48px;
     border-radius: 50%;
     background: #d1d5db;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
   }
 
-  .inv-tr__review-avatar span {
+  .inv-tr__review-initials {
     font-size: 14px;
     font-weight: 600;
     color: #6b7280;
+    text-transform: uppercase;
+  }
+
+  .inv-tr__review-body {
+    flex: 1;
+    min-width: 0;
   }
 
   .inv-tr__review-stars {
     font-size: 14px;
-    color: #fbbf24;
     letter-spacing: 1px;
     margin-bottom: 6px;
+  }
+
+  .inv-tr__star--filled {
+    color: #fbbf24;
+  }
+
+  .inv-tr__star--empty {
+    color: #555;
   }
 
   .inv-tr__review-text {
@@ -568,7 +623,7 @@
     overflow: hidden;
   }
 
-  .inv-tr__review-footer {
+  .inv-tr__review-meta {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -601,6 +656,10 @@
     background: #00b67a;
   }
 
+  .inv-tr__review-source--judgeme {
+    background: #2d2d2d;
+  }
+
   /* ----------------------------------------
      RESPONSIVE
      ---------------------------------------- */
@@ -610,16 +669,21 @@
       gap: 32px;
     }
 
+    .inv-tr__media {
+      order: -1;
+    }
+
+    .inv-tr__stat {
+      border-right: none;
+      padding: 20px 12px;
+    }
+
     .inv-tr__stats-grid {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    .inv-tr__stat {
-      padding: 20px 16px;
-    }
-
-    .inv-tr__stat:nth-child(2n) {
-      border-right: none;
+    .inv-tr__stat:nth-child(odd) {
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .inv-tr__stat:nth-child(n+3) {
@@ -627,15 +691,24 @@
     }
 
     .inv-tr__trust {
-      padding: 48px 0;
+      padding: 40px 0;
     }
 
     .inv-tr__ticker {
       padding: 48px 0;
     }
 
-    .inv-tr__rating {
+    .inv-tr__stats {
+      padding: 24px 0;
+    }
+
+    .inv-tr__cta {
       width: 100%;
+      text-align: center;
+    }
+
+    .inv-tr__rating {
+      align-self: stretch;
     }
   }
 
@@ -643,7 +716,7 @@
      REDUCED MOTION
      ---------------------------------------- */
   @media (prefers-reduced-motion: reduce) {
-    .inv-tr__ticker-inner {
+    .inv-tr__ticker-track {
       animation: none;
     }
 
@@ -659,117 +732,204 @@
   var section = document.getElementById('inv-tr-{{ section.id }}');
   if (!section) return;
 
-  /* ----------------------------------------
-     COUNTER ANIMATION
-     ---------------------------------------- */
+  /* =========================================
+     COUNTER ANIMATION (Zone 1)
+     ========================================= */
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   function easeOutQuart(t) {
     return 1 - Math.pow(1 - t, 4);
   }
 
-  function parseStatValue(raw) {
-    /* Extract numeric part, suffix, and whether it has decimals */
+  function parseStatNumber(raw) {
     var match = raw.match(/^([\d,]+\.?\d*)\s*(.*)$/);
     if (!match) return null;
     var numStr = match[1].replace(/,/g, '');
     var num = parseFloat(numStr);
     var suffix = match[2] || '';
     var hasDecimal = numStr.indexOf('.') !== -1;
-    var decimalPlaces = hasDecimal ? (numStr.split('.')[1] || '').length : 0;
+    var decimals = hasDecimal ? (numStr.split('.')[1] || '').length : 0;
     var isLarge = num >= 1000;
-    return { target: num, suffix: suffix, hasDecimal: hasDecimal, decimalPlaces: decimalPlaces, isLarge: isLarge };
+    return { target: num, suffix: suffix, decimals: decimals, isLarge: isLarge };
   }
 
   function formatNumber(val, parsed) {
-    if (parsed.hasDecimal) {
-      var formatted = val.toFixed(parsed.decimalPlaces);
-      return parsed.isLarge ? parseFloat(formatted).toLocaleString() : formatted;
+    if (parsed.decimals > 0) {
+      return val.toFixed(parsed.decimals);
     }
     var rounded = Math.round(val);
     return parsed.isLarge ? rounded.toLocaleString() : rounded.toString();
   }
 
-  function animateCounters() {
-    var statEls = section.querySelectorAll('.inv-tr__stat-number');
-    statEls.forEach(function(el) {
-      if (el.dataset.animated) return;
-      el.dataset.animated = 'true';
+  function animateCounter(el) {
+    if (el.dataset.animated) return;
+    el.dataset.animated = 'true';
 
-      var raw = el.dataset.target;
-      var parsed = parseStatValue(raw);
-      if (!parsed) return;
+    var raw = el.dataset.itrCounter;
+    var parsed = parseStatNumber(raw);
+    if (!parsed) return;
 
-      /* Respect reduced motion preference */
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        el.textContent = formatNumber(parsed.target, parsed) + parsed.suffix;
-        return;
+    if (reducedMotion) {
+      el.textContent = formatNumber(parsed.target, parsed) + parsed.suffix;
+      return;
+    }
+
+    var duration = 2000;
+    var start = null;
+
+    function step(ts) {
+      if (!start) start = ts;
+      var elapsed = ts - start;
+      var progress = Math.min(elapsed / duration, 1);
+      var eased = easeOutQuart(progress);
+      var current = eased * parsed.target;
+      el.textContent = formatNumber(current, parsed) + parsed.suffix;
+      if (progress < 1) {
+        requestAnimationFrame(step);
       }
+    }
 
-      var duration = 2000;
-      var startTime = null;
-
-      function step(timestamp) {
-        if (!startTime) startTime = timestamp;
-        var progress = Math.min((timestamp - startTime) / duration, 1);
-        var eased = easeOutQuart(progress);
-        var current = eased * parsed.target;
-        el.textContent = formatNumber(current, parsed) + parsed.suffix;
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        }
-      }
-
-      el.textContent = '0' + parsed.suffix;
-      requestAnimationFrame(step);
-    });
+    el.textContent = '0' + parsed.suffix;
+    requestAnimationFrame(step);
   }
 
-  var statsEl = section.querySelector('.inv-tr__stats');
-  if (statsEl) {
-    var observer = new IntersectionObserver(function(entries) {
+  var statsSection = section.querySelector('.inv-tr__stats');
+  if (statsSection) {
+    var counters = statsSection.querySelectorAll('[data-itr-counter]');
+    var counterObserver = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
-          animateCounters();
-          observer.unobserve(entry.target);
+          counters.forEach(function(el) { animateCounter(el); });
+          counterObserver.disconnect();
         }
       });
     }, { threshold: 0.5 });
-    observer.observe(statsEl);
+    counterObserver.observe(statsSection);
   }
 
-  /* ----------------------------------------
-     REVIEW TICKER: DOM DUPLICATION
-     ---------------------------------------- */
-  var tickerInner = section.querySelector('[data-ticker-inner]');
-  if (tickerInner) {
-    var original = tickerInner.innerHTML;
-    tickerInner.insertAdjacentHTML('beforeend', original);
+  /* =========================================
+     JUDGE.ME REVIEW FETCH (Zone 3)
+     ========================================= */
+  function getJudgeMeToken() {
+    if (window.jdgm && window.jdgm.publicToken) {
+      return window.jdgm.publicToken;
+    }
+    var scripts = document.querySelectorAll('script[src*="judge.me"]');
+    for (var i = 0; i < scripts.length; i++) {
+      var src = scripts[i].getAttribute('src') || '';
+      var tokenMatch = src.match(/api_token=([^&]+)/);
+      if (tokenMatch) return tokenMatch[1];
+    }
+    return null;
   }
 
-  /* ----------------------------------------
-     SHOPIFY EDITOR EVENTS
-     ---------------------------------------- */
-  document.addEventListener('shopify:section:load', function(e) {
-    if (e.detail.sectionId !== '{{ section.id }}') return;
-    /* Re-run counter animation */
-    var els = section.querySelectorAll('.inv-tr__stat-number');
-    els.forEach(function(el) { delete el.dataset.animated; });
-    animateCounters();
-    /* Re-duplicate ticker */
-    var inner = section.querySelector('[data-ticker-inner]');
-    if (inner) {
-      /* Remove duplicated content first */
-      var cards = inner.querySelectorAll('.inv-tr__review-card');
-      var half = cards.length / 2;
-      for (var i = cards.length - 1; i >= half; i--) {
-        cards[i].remove();
+  function getInitials(name) {
+    if (!name) return '?';
+    var parts = name.trim().split(/\s+/);
+    var initials = parts[0].charAt(0);
+    if (parts.length > 1) initials += parts[parts.length - 1].charAt(0);
+    return initials.toUpperCase();
+  }
+
+  function getSourceClass(source) {
+    if (!source) return 'judgeme';
+    var s = source.toLowerCase();
+    if (s.indexOf('google') !== -1) return 'google';
+    if (s.indexOf('facebook') !== -1) return 'facebook';
+    if (s.indexOf('trustpilot') !== -1) return 'trustpilot';
+    return 'judgeme';
+  }
+
+  function renderStars(rating) {
+    var html = '';
+    for (var i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        html += '<span class="inv-tr__star inv-tr__star--filled">&#9733;</span>';
+      } else {
+        html += '<span class="inv-tr__star inv-tr__star--empty">&#9733;</span>';
       }
-      inner.insertAdjacentHTML('beforeend', inner.innerHTML);
+    }
+    return html;
+  }
+
+  function buildReviewCard(review, ariaHidden) {
+    var name = (review.reviewer && review.reviewer.name) ? review.reviewer.name : (review.author || 'Customer');
+    var rating = review.rating || 5;
+    var text = review.body || review.text || '';
+    var source = review.source || 'Judge.me';
+    var srcClass = getSourceClass(source);
+    var srcLabel = srcClass === 'judgeme' ? 'Judge.me' : source;
+
+    return '<div class="inv-tr__review-card" aria-hidden="' + (ariaHidden ? 'true' : 'false') + '">' +
+      '<div class="inv-tr__review-avatar"><span class="inv-tr__review-initials">' + getInitials(name) + '</span></div>' +
+      '<div class="inv-tr__review-body">' +
+        '<div class="inv-tr__review-stars" aria-label="' + rating + ' out of 5 stars">' + renderStars(rating) + '</div>' +
+        '<p class="inv-tr__review-text">' + text.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</p>' +
+        '<div class="inv-tr__review-meta">' +
+          '<span class="inv-tr__review-author">' + name.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</span>' +
+          '<span class="inv-tr__review-source inv-tr__review-source--' + srcClass + '">' + srcLabel + '</span>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function replaceTickerWithLiveReviews(reviews) {
+    var ticker = section.querySelector('[data-itr-ticker]');
+    if (!ticker || reviews.length === 0) return;
+
+    var html = '';
+    reviews.forEach(function(r) { html += buildReviewCard(r, false); });
+    reviews.forEach(function(r) { html += buildReviewCard(r, true); });
+
+    ticker.innerHTML = html;
+    /* Restart animation */
+    ticker.style.animation = 'none';
+    ticker.offsetHeight;
+    ticker.style.animation = '';
+  }
+
+  function fetchJudgeMeReviews() {
+    var token = getJudgeMeToken();
+    if (!token) return;
+
+    var shopDomain = (window.Shopify && window.Shopify.shop) ? window.Shopify.shop : 'invictatools.co.uk';
+    var url = 'https://judge.me/api/v1/reviews?shop_domain=' + encodeURIComponent(shopDomain) +
+              '&api_token=' + encodeURIComponent(token) +
+              '&per_page=15&sort_by=most_helpful';
+
+    fetch(url)
+      .then(function(res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function(data) {
+        var reviews = data.reviews || data.data || [];
+        if (reviews.length > 0) {
+          replaceTickerWithLiveReviews(reviews);
+        }
+      })
+      .catch(function() {
+        /* Silent fallback — keep hardcoded reviews */
+      });
+  }
+
+  fetchJudgeMeReviews();
+
+  /* =========================================
+     SHOPIFY EDITOR EVENTS
+     ========================================= */
+  document.addEventListener('shopify:section:load', function(e) {
+    if (e.detail && e.detail.sectionId === '{{ section.id }}') {
+      var els = section.querySelectorAll('[data-itr-counter]');
+      els.forEach(function(el) { el.dataset.animated = ''; animateCounter(el); });
     }
   });
 
   document.addEventListener('shopify:section:select', function(e) {
-    if (e.detail.sectionId !== '{{ section.id }}') return;
-    animateCounters();
+    if (e.detail && e.detail.sectionId === '{{ section.id }}') {
+      var ticker = section.querySelector('[data-itr-ticker]');
+      if (ticker) ticker.style.animationPlayState = 'paused';
+    }
   });
 })();
 </script>
@@ -803,24 +963,42 @@
       "type": "richtext",
       "id": "text",
       "label": "Body text",
-      "default": "<p>Family-run from Ramsgate with a second branch in Canterbury. We stock what tradespeople actually need \u2013 not warehouse clearance or grey imports.</p>"
+      "default": "<p>Family-run from Ramsgate with a second branch in Canterbury. We stock what tradespeople actually need — not warehouse clearance or grey imports.</p>"
     },
     {
       "type": "header",
-      "content": "Media"
+      "content": "Branch Images"
     },
     {
       "type": "image_picker",
-      "id": "image",
-      "label": "Image",
-      "info": "Shop front, team photo, or product display. 800x800px recommended."
+      "id": "image_1",
+      "label": "Image 1 (Canterbury branch)",
+      "info": "Landscape 16:9 recommended"
+    },
+    {
+      "type": "text",
+      "id": "image_1_caption",
+      "label": "Image 1 caption",
+      "default": "Canterbury"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2 (Ramsgate branch)",
+      "info": "Landscape 16:9 recommended"
+    },
+    {
+      "type": "text",
+      "id": "image_2_caption",
+      "label": "Image 2 caption",
+      "default": "Ramsgate"
     },
     {
       "type": "text",
       "id": "badge_text",
-      "label": "Image badge",
+      "label": "Authorised dealer badge",
       "default": "Authorised Dealer",
-      "info": "Overlays bottom-left of image"
+      "info": "Overlays bottom-right of first image"
     },
     {
       "type": "header",
@@ -844,50 +1022,8 @@
     {
       "type": "text",
       "id": "review_heading",
-      "label": "Ticker heading",
+      "label": "Review heading",
       "default": "See Why Local Trades Trust Invicta Tools"
-    },
-    {
-      "type": "header",
-      "content": "Styling"
-    },
-    {
-      "type": "color",
-      "id": "stats_bg",
-      "label": "Stats bar background",
-      "default": "#282c31"
-    },
-    {
-      "type": "color",
-      "id": "trust_bg",
-      "label": "Trust section background",
-      "default": "#f9fafb"
-    },
-    {
-      "type": "color",
-      "id": "ticker_bg",
-      "label": "Ticker background",
-      "default": "#2d2d2d"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Top padding",
-      "default": 48
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Bottom padding",
-      "default": 80
     },
     {
       "type": "header",
@@ -1218,6 +1354,30 @@
         { "value": "trustpilot", "label": "Trustpilot" }
       ],
       "default": "trustpilot"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Trust section top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Trust section bottom padding",
+      "default": 80
     }
   ],
   "blocks": [
@@ -1230,7 +1390,7 @@
           "id": "number",
           "label": "Number",
           "default": "30+",
-          "info": "Include suffix like +, \u2605 etc."
+          "info": "Include suffix like +, ★ etc."
         },
         {
           "type": "text",
@@ -1276,7 +1436,7 @@
         {
           "type": "url",
           "id": "url",
-          "label": "Link URL"
+          "label": "Link"
         }
       ]
     }
@@ -1284,13 +1444,6 @@
   "presets": [
     {
       "name": "Invicta Trust & Reviews",
-      "settings": {
-        "eyebrow": "Since 1985",
-        "heading": "Kent\u2019s Trade Tool Specialists",
-        "badge_text": "Authorised Dealer",
-        "cta_text": "Visit Our Stores",
-        "review_heading": "See Why Local Trades Trust Invicta Tools"
-      },
       "blocks": [
         {
           "type": "stat",
@@ -1316,7 +1469,7 @@
         {
           "type": "stat",
           "settings": {
-            "number": "4.7\u2605",
+            "number": "4.7★",
             "label": "Average Rating"
           }
         },
