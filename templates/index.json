@@ -225,54 +225,46 @@
     "product_wall": {
       "type": "invicta-product-wall",
       "blocks": {
-        "brand_makita": {
+        "brand_tab_yW68WB": {
           "type": "brand_tab",
           "settings": {
             "brand_name": "Makita",
             "collection": "makita"
           }
         },
-        "brand_dewalt": {
+        "brand_tab_yNbGjj": {
           "type": "brand_tab",
           "settings": {
             "brand_name": "DeWalt",
             "collection": "dewalt"
           }
         },
-        "brand_timco": {
+        "brand_tab_KhH39f": {
           "type": "brand_tab",
           "settings": {
-            "brand_name": "TIMCO",
+            "brand_name": "Timco",
             "collection": "timco"
           }
         },
-        "brand_pdp": {
-          "type": "brand_tab",
-          "settings": {
-            "brand_name": "Premier Diamond",
-            "collection": "premier-diamond"
-          }
-        },
-        "brand_viper": {
+        "brand_tab_kYkiEM": {
           "type": "brand_tab",
           "settings": {
             "brand_name": "Viper",
-            "collection": "viper-1"
+            "collection": "viper"
           }
         }
       },
       "block_order": [
-        "brand_makita",
-        "brand_dewalt",
-        "brand_timco",
-        "brand_pdp",
-        "brand_viper"
+        "brand_tab_yW68WB",
+        "brand_tab_yNbGjj",
+        "brand_tab_KhH39f",
+        "brand_tab_kYkiEM"
       ],
       "settings": {
         "title": "Popular Power Tools",
         "show_view_all": true,
-        "max_products": 8,
-        "columns_desktop": 4,
+        "max_products": 10,
+        "columns_desktop": 5,
         "padding_top": 40,
         "padding_bottom": 40
       }
@@ -401,8 +393,8 @@
         "review_10_text": "A nice little tool shop with friendly informative staff, good prices too!",
         "review_10_author": "Richard H.",
         "review_10_source": "trustpilot",
-        "padding_top": 40,
-        "padding_bottom": 40
+        "padding_top": 24,
+        "padding_bottom": 24
       }
     },
     "recently_viewed": {
