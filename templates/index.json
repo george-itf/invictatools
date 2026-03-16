@@ -225,7 +225,7 @@
     "product_wall": {
       "type": "invicta-product-wall",
       "settings": {
-        "title": "Popular Power Tools",
+        "title": "Top Products by Brand",
         "show_view_all": true,
         "max_products": 8,
         "columns_desktop": 4,
