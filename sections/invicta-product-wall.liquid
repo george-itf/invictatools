@@ -1,0 +1,621 @@
+{% comment %}
+  ============================================
+  INVICTA PRODUCT WALL v1.0
+  ============================================
+  Combined brand filter + product grid section.
+  Replaces dual featured-collection + brand-strip.
+
+  Uses invicta-product-card snippet for cards.
+  Client-side brand filtering via vendor data attrs.
+
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+{%- liquid
+  assign col = section.settings.collection
+  assign products_limit = section.settings.products_to_show | default: 12
+  assign columns_desktop = section.settings.columns_desktop | default: 4
+  assign show_brand_filter = section.settings.show_brand_filter
+  assign show_view_all = section.settings.show_view_all
+  assign section_title = section.settings.title | default: 'Popular Power Tools'
+
+  # -------------------------------------------------------
+  # Extract unique vendors from the collection's products
+  # -------------------------------------------------------
+  assign vendor_list = ''
+  assign vendor_count = 0
+  for product in col.products limit: products_limit
+    assign v = product.vendor | strip
+    if v == blank
+      continue
+    endif
+    assign v_check = '|' | append: v | append: '|'
+    assign v_haystack = '|' | append: vendor_list | append: '|'
+    unless v_haystack contains v_check
+      if vendor_list != ''
+        assign vendor_list = vendor_list | append: '|'
+      endif
+      assign vendor_list = vendor_list | append: v
+      assign vendor_count = vendor_count | plus: 1
+    endunless
+  endfor
+  assign vendors = vendor_list | split: '|'
+
+  # -------------------------------------------------------
+  # Brand colour lookup database (mirrored from invicta-brand-pill)
+  # Format: key|bg|text|display  separated by |||
+  # -------------------------------------------------------
+  assign brand_db = 'dewalt|#fecc00|#1a1a1a|DeWalt|||makita|#e11d26|#ffffff|Makita|||milwaukee|#d5001a|#ffffff|Milwaukee|||hikoki|#00a651|#ffffff|HiKOKI|||stanley|#ffcc00|#1a1a1a|Stanley|||faithfull|#00539b|#ffffff|Faithfull|||irwin|#003da5|#ffffff|Irwin|||bosch|#005eb8|#ffffff|Bosch|||metabo|#00843d|#ffffff|Metabo|||einhell|#0065bd|#ffffff|Einhell|||panasonic|#2d2d2d|#ffffff|Panasonic|||paslode|#ffffff|#ffffff|Paslode|||soudal|#ffffff|#ffffff|Soudal|||sealey|#003c71|#ffffff|Sealey|||ox|#0057b8|#ffffff|OX Tools|||evostik|#FFFFFF|#ffffff|Evo-Stik|||ob1|#0055a5|#ffffff|OB1|||ct1|#004999|#ffffff|CT1|||everbuild|#ffffff|#ffffff|Everbuild|||siroflex|#00843d|#ffffff|Siroflex|||timco|#da291b|#ffffff|TIMCO|||bahco|#ff6600|#ffffff|Bahco|||wera|#00539b|#ffffff|Wera|||knipex|#003087|#ffffff|Knipex|||trend|#005ca9|#ffffff|Trend|||lamello|#a71d35|#ffffff|Lamello|||kamtec|#2d2d2d|#ffffff|Kamtec|||pdp|#1e3a8a|#ffffff|Premier Diamond|||sitetuff|#2d2d2d|#ffffff|SiteTuff|||roughneck|#00539b|#ffffff|Roughneck|||estwing|#0054a6|#ffffff|Estwing|||starrett|#2d2d2d|#ffffff|Starrett|||stabila|#009639|#ffffff|Stabila|||hultafors|#009639|#ffffff|Hultafors|||draper|#004990|#ffffff|Draper|||silverline|#003087|#ffffff|Silverline|||bluespot|#0066cc|#ffffff|BlueSpot|||forgefix|#1a1a1a|#ffffff|ForgeFix|||rawlplug|#e30613|#ffffff|Rawlplug|||fischer|#e30613|#ffffff|Fischer|||gorilla|#ff6600|#ffffff|Gorilla Glue|||loctite|#cc0000|#ffffff|Loctite|||bostik|#003087|#ffffff|Bostik|||bostitch|#cc0000|#ffffff|Bostitch|||senco|#003087|#ffffff|Senco|||tacwise|#cc0000|#ffffff|Tacwise|||ridgid|#f26522|#ffffff|RIDGID|||recordpower|#003366|#ffffff|Record Power|||flex|#ff6600|#ffffff|Flex|||evolution|#cc0000|#ffffff|Evolution|||blackdecker|#ff6600|#ffffff|Black+Decker|||karcher|#cc0000|#ffffff|Kärcher|||nilfisk|#003c71|#ffffff|Nilfisk|||wd40|#2d2d2d|#ffffff|WD-40|||yale|#003087|#ffffff|Yale|||bessey|#2d2d2d|#ffffff|Bessey|||marshalltown|#2d2d2d|#ffffff|Marshalltown|||monument|#2d2d2d|#ffffff|Monument|||kapro|#009639|#ffffff|Kapro|||ledlenser|#2d2d2d|#ffffff|Ledlenser|||brennenstuhl|#2d2d2d|#ffffff|Brennenstuhl|||scan|#2d2d2d|#ffffff|Scan|||dickies|#1a1a1a|#ffffff|Dickies|||teng|#2d2d2d|#ffffff|Teng Tools|||facom|#2d2d2d|#ffffff|Facom|||wiha|#2d2d2d|#ffffff|Wiha|||fiskars|#f86202|#ffffff|Fiskars|||rubi|#e30613|#ffffff|Rubi|||purdy|#2d2d2d|#ffffff|Purdy|||ronseal|#cc0000|#ffffff|Ronseal|||cuprinol|#cc0000|#ffffff|Cuprinol|||zinsser|#cc0000|#ffffff|Zinsser|||hammerite|#2d2d2d|#ffffff|Hammerite|||geocel|#2d2d2d|#ffffff|Geocel|||unibond|#00843d|#ffffff|UniBond|||araldite|#00843d|#ffffff|Araldite|||norton|#2d2d2d|#ffffff|Norton|||flexovit|#2d2d2d|#ffffff|Flexovit|||marcrist|#c8102e|#ffffff|Marcrist|||abracs|#2d2d2d|#ffffff|Abracs|||mexco|#c8102e|#ffffff|Mexco|||freud|#e30613|#ffffff|Freud|||lenox|#2d2d2d|#ffffff|Lenox|||olympia|#1a1a1a|#ffffff|Olympia Tools|||rst|#2d2d2d|#ffffff|R.S.T|||gripit|#e30613|#ffffff|GripIt|||jubilee|#2d2d2d|#ffffff|Jubilee|||rapid|#c8102e|#ffffff|Rapid|||arrow|#c8102e|#ffffff|Arrow|||abus|#c8102e|#ffffff|ABUS|||squire|#2d2d2d|#ffffff|Squire|||masterlock|#2d2d2d|#ffffff|Master Lock|||armorgard|#ff6600|#ffffff|Armorgard|||spit|#fa4d03|#ffffff|Spit|||bondit|#ffffff|#1a1a1a|Bond It|||tuskbond|#f11417|#1a1a1a|Tuskbond'
+  assign brand_entries = brand_db | split: '|||'
+-%}
+
+<div
+  class="inv-product-wall"
+  id="pw-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="invicta-product-wall"
+  style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="inv-container">
+
+    {%- comment -%} ================================
+        HEADER BAR
+        ================================ {%- endcomment -%}
+    {%- if section_title != blank or show_view_all -%}
+      <div class="inv-pw-header">
+        <h2 class="inv-pw-header__title" data-pw-title>{{ section_title }}</h2>
+
+        {%- if show_view_all and col != blank -%}
+          <a href="{{ col.url }}" class="inv-pw-header__cta" data-pw-cta>
+            <span>View All</span>
+            <span class="inv-pw-header__count" data-pw-count>{{ col.all_products_count }}</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} ================================
+        BRAND FILTER ROW
+        ================================ {%- endcomment -%}
+    {%- if show_brand_filter and vendor_count > 1 -%}
+      <div class="inv-pw-filters" data-pw-filters>
+        <button
+          type="button"
+          class="inv-pw-pill active"
+          data-pw-filter="all"
+          aria-pressed="true"
+          style="background: var(--inv-dark); color: #fff;"
+        >All Brands</button>
+
+        {%- for vendor in vendors -%}
+          {%- liquid
+            assign v_lower = vendor | downcase | strip
+            assign pill_bg = '#2d2d2d'
+            assign pill_text = '#ffffff'
+            for entry in brand_entries
+              assign fields = entry | split: '|'
+              if v_lower contains fields[0]
+                assign pill_bg = fields[1]
+                assign pill_text = fields[2]
+                break
+              endif
+            endfor
+          -%}
+          <button
+            type="button"
+            class="inv-pw-pill"
+            data-pw-filter="{{ vendor | escape }}"
+            aria-pressed="false"
+            style="background: {{ pill_bg }}; color: {{ pill_text }};"
+          >{{ vendor | escape }}</button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} ================================
+        PRODUCT GRID
+        ================================ {%- endcomment -%}
+    {%- if col.products.size > 0 -%}
+      <ul class="inv-pw-grid" id="pw-grid-{{ section.id }}" role="list" data-pw-grid>
+        {%- for product in col.products limit: products_limit -%}
+          <li class="inv-pw-item" data-pw-vendor="{{ product.vendor | escape }}">
+            {% render 'invicta-product-card', product: product, card_index: forloop.index %}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- else -%}
+      <ul class="inv-pw-grid" role="list">
+        {%- for i in (1..columns_desktop) -%}
+          <li class="inv-pw-item">
+            <div class="inv-pw-placeholder">
+              <div class="inv-pw-placeholder__img">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <polyline points="21 15 16 10 5 21"/>
+                </svg>
+              </div>
+              <div class="inv-pw-placeholder__body">
+                <div class="inv-pw-placeholder__title"></div>
+                <div class="inv-pw-placeholder__price"></div>
+              </div>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<style>
+  /* ============================================
+     INVICTA PRODUCT WALL v1.0
+     ============================================ */
+
+  #pw-{{ section.id }} {
+    --inv-pw-cols: {{ columns_desktop }};
+    --inv-pw-gap: 24px;
+  }
+
+  .inv-product-wall {
+    background: transparent;
+  }
+
+  /* ----------------------------------------
+     HEADER BAR
+     ---------------------------------------- */
+  .inv-pw-header {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    background: var(--inv-dark, #2d2d2d);
+    border-radius: 8px;
+    overflow: hidden;
+    min-height: 56px;
+    margin-bottom: 20px;
+  }
+
+  .inv-pw-header__title {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 14px 20px 14px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+  }
+
+  .inv-pw-header__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 24px;
+    background: var(--inv-accent, #e11d26);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    border-radius: 0 8px 8px 0;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 44px;
+    white-space: nowrap;
+  }
+
+  .inv-pw-header__cta:hover {
+    background: var(--inv-accent-hover, #b91c1c);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(225, 29, 38, 0.35);
+  }
+
+  .inv-pw-header__cta:focus-visible {
+    outline: 2px solid var(--inv-accent, #e11d26);
+    outline-offset: 2px;
+  }
+
+  .inv-pw-header__count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  /* ----------------------------------------
+     BRAND FILTER ROW
+     ---------------------------------------- */
+  .inv-pw-filters {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 4px 0 16px;
+    margin-bottom: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--inv-border, #e5e7eb) transparent;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .inv-pw-filters::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .inv-pw-filters::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .inv-pw-filters::-webkit-scrollbar-thumb {
+    background: var(--inv-border, #e5e7eb);
+    border-radius: 3px;
+  }
+
+  .inv-pw-pill {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    white-space: nowrap;
+    min-height: 44px;
+    line-height: 1;
+  }
+
+  .inv-pw-pill:hover {
+    transform: translateY(-2px);
+  }
+
+  .inv-pw-pill:focus-visible {
+    outline: 2px solid var(--inv-accent, #e11d26);
+    outline-offset: 2px;
+  }
+
+  .inv-pw-pill.active {
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+
+  /* ----------------------------------------
+     PRODUCT GRID
+     ---------------------------------------- */
+  .inv-pw-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--inv-pw-cols, 4), 1fr);
+    gap: var(--inv-pw-gap, 24px);
+    list-style: none;
+    margin: 0;
+    padding: 8px 0 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .inv-pw-grid.inv-pw-fade {
+    opacity: 0;
+  }
+
+  .inv-pw-item {
+    display: flex;
+    width: 100%;
+  }
+
+  .inv-pw-item.inv-pw-hidden {
+    display: none;
+  }
+
+  /* ----------------------------------------
+     PLACEHOLDERS
+     ---------------------------------------- */
+  .inv-pw-placeholder {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid var(--inv-border, #e5e7eb);
+    width: 100%;
+  }
+
+  .inv-pw-placeholder__img {
+    aspect-ratio: 4/3;
+    background: #fafafa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ddd;
+  }
+
+  .inv-pw-placeholder__body {
+    padding: 12px;
+  }
+
+  .inv-pw-placeholder__title {
+    height: 14px;
+    background: #eee;
+    margin-bottom: 8px;
+  }
+
+  .inv-pw-placeholder__price {
+    height: 20px;
+    width: 60%;
+    background: #eee;
+  }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    #pw-{{ section.id }} {
+      --inv-pw-cols: 3;
+      --inv-pw-gap: 20px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    #pw-{{ section.id }} {
+      --inv-pw-cols: 2;
+      --inv-pw-gap: 16px;
+    }
+
+    .inv-pw-header {
+      flex-direction: column;
+      border-radius: 8px;
+    }
+
+    .inv-pw-header__title {
+      padding: 12px 16px;
+      font-size: 14px;
+      justify-content: center;
+    }
+
+    .inv-pw-header__cta {
+      border-radius: 0 0 8px 8px;
+      justify-content: center;
+      padding: 12px 20px;
+      width: 100%;
+    }
+
+    .inv-pw-grid {
+      gap: 12px 16px;
+    }
+  }
+
+  /* ----------------------------------------
+     ACCESSIBILITY: Reduced Motion
+     ---------------------------------------- */
+  @media (prefers-reduced-motion: reduce) {
+    .inv-pw-header__cta,
+    .inv-pw-pill,
+    .inv-pw-grid {
+      transition: none !important;
+    }
+
+    .inv-pw-pill:hover {
+      transform: none;
+    }
+
+    .inv-pw-pill.active {
+      transform: none;
+    }
+
+    .inv-pw-header__cta:hover {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  /**
+   * Invicta Product Wall v1.0
+   * Client-side brand filtering with fade animation
+   */
+  (function() {
+    'use strict';
+
+    var SECTION_ID = '{{ section.id }}';
+    var BASE_TITLE = {{ section_title | json }};
+
+    function prefersReducedMotion() {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+
+    function init() {
+      var section = document.getElementById('pw-' + SECTION_ID);
+      if (!section) return;
+
+      var filterWrap = section.querySelector('[data-pw-filters]');
+      var grid = section.querySelector('[data-pw-grid]');
+      var titleEl = section.querySelector('[data-pw-title]');
+      var countEl = section.querySelector('[data-pw-count]');
+
+      if (!grid) return;
+
+      var items = grid.querySelectorAll('[data-pw-vendor]');
+      if (!filterWrap) return;
+
+      var pills = filterWrap.querySelectorAll('[data-pw-filter]');
+
+      pills.forEach(function(pill) {
+        pill.addEventListener('click', function() {
+          var brand = pill.getAttribute('data-pw-filter');
+
+          /* Update active pill */
+          pills.forEach(function(p) {
+            p.classList.remove('active');
+            p.setAttribute('aria-pressed', 'false');
+          });
+          pill.classList.add('active');
+          pill.setAttribute('aria-pressed', 'true');
+
+          /* Fade animation */
+          if (!prefersReducedMotion()) {
+            grid.classList.add('inv-pw-fade');
+          }
+
+          var delay = prefersReducedMotion() ? 0 : 150;
+
+          setTimeout(function() {
+            var visibleCount = 0;
+
+            items.forEach(function(item) {
+              if (brand === 'all') {
+                item.classList.remove('inv-pw-hidden');
+                visibleCount++;
+              } else {
+                if (item.getAttribute('data-pw-vendor') === brand) {
+                  item.classList.remove('inv-pw-hidden');
+                  visibleCount++;
+                } else {
+                  item.classList.add('inv-pw-hidden');
+                }
+              }
+            });
+
+            /* Update header title */
+            if (titleEl) {
+              if (brand === 'all') {
+                titleEl.innerHTML = BASE_TITLE;
+              } else {
+                /* Replace last word of base title with "{brand} TOOLS" pattern */
+                var titleText = BASE_TITLE.replace(/<[^>]*>/g, '');
+                var words = titleText.trim().split(/\s+/);
+                if (words.length > 1) {
+                  words[words.length - 1] = brand;
+                  titleEl.textContent = words.join(' ');
+                } else {
+                  titleEl.textContent = brand + ' Tools';
+                }
+              }
+            }
+
+            /* Update count */
+            if (countEl) {
+              countEl.textContent = visibleCount;
+            }
+
+            /* Fade in */
+            if (!prefersReducedMotion()) {
+              grid.classList.remove('inv-pw-fade');
+            }
+          }, delay);
+        });
+      });
+    }
+
+    function handleSectionEvent(event) {
+      if (event.detail && event.detail.sectionId === SECTION_ID) {
+        init();
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+    document.addEventListener('shopify:section:load', handleSectionEvent);
+    document.addEventListener('shopify:section:select', handleSectionEvent);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Invicta Product Wall",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "default": 12,
+      "label": "Products to show"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Popular Power Tools",
+      "label": "Heading"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_brand_filter",
+      "label": "Show brand filter",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "Show 'View All' button"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 3,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "Desktop columns"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Invicta Product Wall"
+    }
+  ]
+}
+{% endschema %}
