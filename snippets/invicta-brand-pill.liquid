@@ -198,6 +198,45 @@
       </span>
     </span>
 
+  {%- elsif render_type == 'filter' -%}
+    {%- comment -%} FILTER MODE: Logo pill rendered as span (safe inside <button>) {%- endcomment -%}
+    <span
+      class="invicta-brand-pill invicta-brand-pill--{{ pill_size | default: 'md' }}{% if pill_compact %} invicta-brand-pill--compact{% endif %}"
+      aria-label="{{ brand_display | escape }}"
+      style="--pill-bg: {{ brand_bg }}; --pill-text: {{ brand_text }};{% if pill_needs_border %} border: 1.5px solid #c5c5c5;{% endif %}"
+    >
+      <span class="invicta-brand-pill__inner">
+
+        <!-- Visible logo (mobile-safe) -->
+        <span
+          class="invicta-brand-pill__logo-bg"
+          style="background-image:url('{{ brand_logo_url | escape }}');"
+          aria-hidden="true"
+        ></span>
+
+        <!-- Hidden detector img: only used to trigger fallback if asset missing -->
+        <img
+          src="{{ brand_logo_url | escape }}"
+          alt="{{ brand_display }} logo"
+          class="invicta-brand-pill__logo"
+          loading="eager"
+          width="120"
+          height="40"
+          style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;"
+          data-brand-pill-detector
+        >
+
+        <!-- Text fallback: hard-hidden until onerror fires -->
+        <span
+          class="invicta-brand-pill__label"
+          style="display:none;"
+        >
+          {{ brand_display }}
+        </span>
+
+      </span>
+    </span>
+
   {%- else -%}
     {%- comment -%} FULL PILL MODE: Logo with fallback to text {%- endcomment -%}
     <div class="invicta-brand-pill-wrapper invicta-brand-pill-wrapper--{{ pill_context | default: 'card' }}">

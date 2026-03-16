@@ -11,7 +11,7 @@
 
   Uses:
   - snippets/invicta-product-card.liquid (cards)
-  - snippets/invicta-brand-pill.liquid (brand filter pills, type: 'text-only')
+  - snippets/invicta-brand-pill.liquid (brand filter pills, type: 'filter')
   - assets/invicta-product-card.css (loaded globally)
 
   Trade 15.4.0 Compatible
@@ -104,7 +104,7 @@
             <button class="inv-pw-brand-btn{% if slot_index == 1 %} active{% endif %}"
                     data-brand="{{ section.settings.brand_1_name | handleize }}"
                     aria-pressed="{% if slot_index == 1 %}true{% else %}false{% endif %}">
-              {% render 'invicta-brand-pill', vendor: section.settings.brand_1_name, type: 'text-only' %}
+              {% render 'invicta-brand-pill', vendor: section.settings.brand_1_name, type: 'filter' %}
             </button>
           {%- endif -%}
           {%- comment -%} Slot 2 {%- endcomment -%}
@@ -113,7 +113,7 @@
             <button class="inv-pw-brand-btn"
                     data-brand="{{ section.settings.brand_2_name | handleize }}"
                     aria-pressed="false">
-              {% render 'invicta-brand-pill', vendor: section.settings.brand_2_name, type: 'text-only' %}
+              {% render 'invicta-brand-pill', vendor: section.settings.brand_2_name, type: 'filter' %}
             </button>
           {%- endif -%}
           {%- comment -%} Slot 3 {%- endcomment -%}
@@ -122,7 +122,7 @@
             <button class="inv-pw-brand-btn"
                     data-brand="{{ section.settings.brand_3_name | handleize }}"
                     aria-pressed="false">
-              {% render 'invicta-brand-pill', vendor: section.settings.brand_3_name, type: 'text-only' %}
+              {% render 'invicta-brand-pill', vendor: section.settings.brand_3_name, type: 'filter' %}
             </button>
           {%- endif -%}
           {%- comment -%} Slot 4 {%- endcomment -%}
@@ -131,7 +131,7 @@
             <button class="inv-pw-brand-btn"
                     data-brand="{{ section.settings.brand_4_name | handleize }}"
                     aria-pressed="false">
-              {% render 'invicta-brand-pill', vendor: section.settings.brand_4_name, type: 'text-only' %}
+              {% render 'invicta-brand-pill', vendor: section.settings.brand_4_name, type: 'filter' %}
             </button>
           {%- endif -%}
           {%- comment -%} Slot 5 {%- endcomment -%}
@@ -140,7 +140,7 @@
             <button class="inv-pw-brand-btn"
                     data-brand="{{ section.settings.brand_5_name | handleize }}"
                     aria-pressed="false">
-              {% render 'invicta-brand-pill', vendor: section.settings.brand_5_name, type: 'text-only' %}
+              {% render 'invicta-brand-pill', vendor: section.settings.brand_5_name, type: 'filter' %}
             </button>
           {%- endif -%}
         </div>
@@ -384,6 +384,17 @@
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
 
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill {
+    min-height: 36px;
+    padding: 6px 14px;
+    --pill-logo-height: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill .invicta-brand-pill__logo-bg {
+    width: 70px;
+    height: 24px;
+  }
+
   #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill--text {
     min-height: 36px;
     padding: 8px 18px;
@@ -550,6 +561,17 @@
 
     #shopify-section-{{ section.id }} .inv-pw-brands__scroll {
       gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill {
+      min-height: 32px;
+      padding: 5px 12px;
+      --pill-logo-height: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill .invicta-brand-pill__logo-bg {
+      width: 58px;
+      height: 20px;
     }
 
     #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill--text {
