@@ -56,8 +56,11 @@
   .inv-hero-split__slide {
     position: absolute;
     inset: 0;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -74,11 +77,11 @@
     z-index: 2;
   }
 
-  /* Single slide — no transition needed */
+  /* Single slide — keep absolute positioning (fills parent), just skip transition */
   .inv-hero-split__slides--single .inv-hero-split__slide {
-    position: relative;
     opacity: 1;
     pointer-events: auto;
+    transition: none;
   }
 
   .inv-hero-split__content {
@@ -679,6 +682,9 @@
 
     .inv-hero-split__slide {
       position: relative;
+      inset: auto;
+      width: 100%;
+      height: auto;
       display: flex;
       flex-direction: column;
       text-align: center;
@@ -689,8 +695,12 @@
       background: #2d2d2d;
     }
 
+    /* Hide inactive slides on mobile — keep them out of flow */
     .inv-hero-split__slide:not(.inv-hero-split__slide--active) {
       position: absolute;
+      inset: 0;
+      height: 0;
+      overflow: hidden;
     }
 
     .inv-hero-split__main {
