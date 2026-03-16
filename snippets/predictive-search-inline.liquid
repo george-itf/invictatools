@@ -10,6 +10,8 @@
 
 <div class="inv-search-wrapper">
   <form action="{{ routes.search_url }}" method="get" role="search" class="inv-search-form">
+    <input type="hidden" name="type" value="product">
+    <input type="hidden" name="options[prefix]" value="last">
     <div class="inv-search-input-wrap">
 
       <!-- INPUT -->

@@ -249,7 +249,7 @@
     });
 
     var viewAllLink = document.createElement('a');
-    viewAllLink.setAttribute('href', '/search?q=' + encodeURIComponent(query));
+    viewAllLink.setAttribute('href', '/search?type=product&options%5Bprefix%5D=last&q=' + encodeURIComponent(query));
     viewAllLink.className = 'inv-search-results__view-all';
     viewAllLink.textContent = 'View all results \u2192';
     results.appendChild(viewAllLink);
