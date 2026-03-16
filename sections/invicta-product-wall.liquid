@@ -266,6 +266,18 @@
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
 
+  /* Match text-only brand pills to "All Brands" button height */
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill--text {
+    min-height: 36px;
+    padding: 8px 18px;
+    font-size: 13px !important;
+    letter-spacing: 0.3px !important;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill--text .invicta-brand-pill__label {
+    font-size: 13px;
+  }
+
   #shopify-section-{{ section.id }} .inv-pw-brand-btn:hover {
     transform: translateY(-2px);
   }
@@ -476,6 +488,17 @@
     #shopify-section-{{ section.id }} .inv-pw-all-pill {
       font-size: 12px;
       padding: 6px 14px;
+      min-height: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill--text {
+      min-height: 32px;
+      padding: 6px 14px;
+      font-size: 12px !important;
+    }
+
+    #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill--text .invicta-brand-pill__label {
+      font-size: 12px;
     }
 
     /* Tighter compact overrides on mobile */
