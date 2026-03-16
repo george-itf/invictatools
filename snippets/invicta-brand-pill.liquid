@@ -50,6 +50,7 @@
   =========================================================================
 {% endcomment %}
 
+{%- if render_type == 'pill' -%}
 <script type="application/json" data-invicta-brand-data>
 {
   "dewalt":       { "bg": "#fecc00", "text": "#1a1a1a", "display": "DeWalt" },
@@ -150,6 +151,7 @@
   "bondit":       { "bg": "#ffffff", "text": "#1a1a1a", "display": "Bond It" }
 }
 </script>
+{%- endif -%}
 
 {%- liquid
   # =========================================================================
