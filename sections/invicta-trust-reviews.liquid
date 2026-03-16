@@ -1,0 +1,1354 @@
+{% comment %}
+  ============================================
+  INVICTA TRUST & REVIEWS v1.0
+  ============================================
+  Unified social proof section: Stats + Trust Content + Review Ticker
+  Replaces invicta-trust-bar + review-carousel
+
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+<section class="inv-tr" id="inv-tr-{{ section.id }}">
+
+  {%- comment -%} ZONE 1: Stats Counter Bar {%- endcomment -%}
+  <div class="inv-tr__stats" aria-label="Company statistics">
+    <div class="inv-tr__stats-container">
+      <div class="inv-tr__stats-grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'stat' -%}
+            {%- assign raw = block.settings.number -%}
+            {%- comment -%} Parse numeric value and suffix from the stat number {%- endcomment -%}
+            {%- assign has_decimal = false -%}
+            {%- if raw contains '.' -%}
+              {%- assign has_decimal = true -%}
+            {%- endif -%}
+            <div class="inv-tr__stat" {{ block.shopify_attributes }}>
+              <div class="inv-tr__stat-number-wrap">
+                <span class="inv-tr__stat-number" data-target="{{ raw }}">{{ raw }}</span>
+              </div>
+              <span class="inv-tr__stat-label">{{ block.settings.label }}</span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ZONE 2: Trust Content Section {%- endcomment -%}
+  <div class="inv-tr__trust">
+    <div class="inv-tr__container">
+      <div class="inv-tr__trust-grid">
+
+        {%- comment -%} Left column: Image {%- endcomment -%}
+        <div class="inv-tr__media">
+          {%- if section.settings.image != blank -%}
+            <img
+              src="{{ section.settings.image | image_url: width: 800 }}"
+              srcset="{{ section.settings.image | image_url: width: 400 }} 400w,
+                      {{ section.settings.image | image_url: width: 600 }} 600w,
+                      {{ section.settings.image | image_url: width: 800 }} 800w"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              alt="{{ section.settings.image.alt | default: 'Invicta Tools shop front' }}"
+              loading="lazy"
+              width="{{ section.settings.image.width }}"
+              height="{{ section.settings.image.height }}"
+              class="inv-tr__image"
+            >
+          {%- else -%}
+            <div class="inv-tr__image-placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+              <span class="inv-tr__placeholder-text">SHOP FRONT PHOTO</span>
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.badge_text != blank -%}
+            <div class="inv-tr__badge">{{ section.settings.badge_text }}</div>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} Right column: Content {%- endcomment -%}
+        <div class="inv-tr__content">
+          {%- if section.settings.eyebrow != blank -%}
+            <span class="inv-tr__eyebrow">{{ section.settings.eyebrow }}</span>
+          {%- endif -%}
+
+          {%- if section.settings.heading != blank -%}
+            <h2 class="inv-tr__heading">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+
+          {%- if section.settings.text != blank -%}
+            <div class="inv-tr__text">{{ section.settings.text }}</div>
+          {%- endif -%}
+
+          {%- comment -%} Proof points {%- endcomment -%}
+          {%- assign point_blocks = section.blocks | where: 'type', 'point' -%}
+          {%- if point_blocks.size > 0 -%}
+            <div class="inv-tr__points">
+              {%- for block in point_blocks -%}
+                {%- if block.settings.text != blank -%}
+                  <div class="inv-tr__point" {{ block.shopify_attributes }}>
+                    <svg class="inv-tr__point-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <circle cx="12" cy="12" r="12" fill="#22c55e"/>
+                      <path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>{{ block.settings.text }}</span>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          {%- comment -%} Rating badges {%- endcomment -%}
+          {%- assign rating_blocks = section.blocks | where: 'type', 'rating' -%}
+          {%- if rating_blocks.size > 0 -%}
+            <div class="inv-tr__ratings">
+              {%- for block in rating_blocks -%}
+                <a
+                  href="{{ block.settings.url }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inv-tr__rating inv-tr__rating--{{ block.settings.platform }}"
+                  aria-label="{{ block.settings.text }} - opens in new tab"
+                  {{ block.shopify_attributes }}
+                >
+                  {%- case block.settings.platform -%}
+                    {%- when 'google' -%}
+                      <svg class="inv-tr__rating-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                      </svg>
+                    {%- when 'facebook' -%}
+                      <svg class="inv-tr__rating-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                      </svg>
+                    {%- when 'trustpilot' -%}
+                      <svg class="inv-tr__rating-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M12 0l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 0z"/>
+                      </svg>
+                  {%- endcase -%}
+                  <span>{{ block.settings.text }}</span>
+                  <span class="inv-tr__rating-arrow" aria-hidden="true">&rarr;</span>
+                </a>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          {%- comment -%} CTA button {%- endcomment -%}
+          {%- if section.settings.cta_text != blank and section.settings.cta_link != blank -%}
+            <a href="{{ section.settings.cta_link }}" class="inv-tr__cta">
+              {{ section.settings.cta_text }}
+            </a>
+          {%- endif -%}
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ZONE 3: Review Ticker {%- endcomment -%}
+  <div class="inv-tr__ticker" aria-label="Customer reviews">
+    {%- if section.settings.review_heading != blank -%}
+      <h2 class="inv-tr__ticker-heading">{{ section.settings.review_heading }}</h2>
+    {%- endif -%}
+
+    <div class="inv-tr__ticker-track" data-ticker-track>
+      <div class="inv-tr__ticker-inner" data-ticker-inner>
+        {%- for i in (1..10) -%}
+          {%- assign enabled_key = 'review_' | append: i | append: '_enabled' -%}
+          {%- assign text_key = 'review_' | append: i | append: '_text' -%}
+          {%- assign author_key = 'review_' | append: i | append: '_author' -%}
+          {%- assign source_key = 'review_' | append: i | append: '_source' -%}
+
+          {%- if section.settings[enabled_key] and section.settings[text_key] != blank -%}
+            {%- assign review_author = section.settings[author_key] -%}
+            {%- assign review_source = section.settings[source_key] -%}
+            {%- assign initials = '' -%}
+            {%- assign name_parts = review_author | split: ' ' -%}
+            {%- if name_parts.size > 1 -%}
+              {%- assign first_initial = name_parts[0] | slice: 0 -%}
+              {%- assign last_initial = name_parts[1] | slice: 0 -%}
+              {%- assign initials = first_initial | append: last_initial -%}
+            {%- elsif name_parts.size == 1 -%}
+              {%- assign initials = name_parts[0] | slice: 0 -%}
+            {%- endif -%}
+
+            <div class="inv-tr__review-card">
+              <div class="inv-tr__review-avatar">
+                <span>{{ initials }}</span>
+              </div>
+              <div class="inv-tr__review-body">
+                <div class="inv-tr__review-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="inv-tr__review-text">{{ section.settings[text_key] }}</p>
+                <div class="inv-tr__review-footer">
+                  <span class="inv-tr__review-author">{{ review_author }}</span>
+                  <span class="inv-tr__review-source inv-tr__review-source--{{ review_source }}">{{ review_source }}</span>
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<style>
+  /* ============================================
+     INVICTA TRUST & REVIEWS v1.0
+     ============================================ */
+
+  #inv-tr-{{ section.id }} {
+    --inv-tr-accent: var(--inv-accent, #e11d26);
+    --inv-tr-dark: var(--inv-dark, #2d2d2d);
+    --inv-tr-fg: var(--inv-fg, #1a1a1a);
+    --inv-tr-fg-muted: var(--inv-fg-muted, #555);
+    --inv-tr-bg-muted: var(--inv-bg-muted, #f9fafb);
+    --inv-tr-border: var(--inv-border, #e5e7eb);
+    --inv-tr-shadow-card: var(--inv-shadow-card, 0 1px 3px rgba(0,0,0,0.1));
+    --inv-tr-shadow-elevated: var(--inv-shadow-elevated, 0 10px 25px rgba(0,0,0,0.15));
+  }
+
+  .inv-tr {
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .inv-tr__container {
+    max-width: var(--inv-container, 1400px);
+    margin: 0 auto;
+    padding: 0 var(--inv-gutter, 24px);
+  }
+
+  /* ----------------------------------------
+     ZONE 1: STATS COUNTER BAR
+     ---------------------------------------- */
+  .inv-tr__stats {
+    background: #282c31;
+    padding: 48px 0;
+  }
+
+  .inv-tr__stats-container {
+    max-width: var(--inv-container, 1400px);
+    margin: 0 auto;
+    padding: 0 var(--inv-gutter, 24px);
+  }
+
+  .inv-tr__stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .inv-tr__stat {
+    text-align: center;
+    padding: 32px 24px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .inv-tr__stat:last-child {
+    border-right: none;
+  }
+
+  .inv-tr__stat-number-wrap {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+  }
+
+  .inv-tr__stat-number {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(28px, 6vw, 48px);
+    font-weight: 900;
+    color: var(--inv-tr-accent);
+    line-height: 1;
+  }
+
+  .inv-tr__stat-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 8px;
+  }
+
+  /* ----------------------------------------
+     ZONE 2: TRUST CONTENT
+     ---------------------------------------- */
+  .inv-tr__trust {
+    background: var(--inv-tr-bg-muted);
+    padding: 80px 0;
+  }
+
+  .inv-tr__trust-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  /* Image */
+  .inv-tr__media {
+    position: relative;
+  }
+
+  .inv-tr__image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+  }
+
+  .inv-tr__image-placeholder {
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    background: #d1d5db;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .inv-tr__placeholder-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .inv-tr__badge {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    background: var(--inv-tr-accent);
+    color: #fff;
+    padding: 8px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Content */
+  .inv-tr__eyebrow {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--inv-tr-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+
+  .inv-tr__heading {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(28px, 5vw, 36px);
+    font-weight: 900;
+    color: var(--inv-tr-fg);
+    line-height: 1.1;
+    margin: 0 0 20px;
+  }
+
+  .inv-tr__text {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .inv-tr__text p {
+    margin: 0 0 12px;
+  }
+
+  .inv-tr__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Proof points */
+  .inv-tr__points {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .inv-tr__point {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--inv-tr-fg);
+  }
+
+  .inv-tr__point-icon {
+    flex-shrink: 0;
+  }
+
+  /* Rating badges */
+  .inv-tr__ratings {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .inv-tr__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: fit-content;
+  }
+
+  .inv-tr__rating:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--inv-tr-shadow-elevated);
+  }
+
+  .inv-tr__rating:focus-visible {
+    outline: 2px solid var(--inv-tr-accent);
+    outline-offset: 2px;
+  }
+
+  .inv-tr__rating--google {
+    background: #fff;
+    color: var(--inv-tr-fg);
+    border: 1px solid var(--inv-tr-border);
+  }
+
+  .inv-tr__rating--facebook {
+    background: #1877F2;
+    color: #fff;
+  }
+
+  .inv-tr__rating--trustpilot {
+    background: #00b67a;
+    color: #fff;
+  }
+
+  .inv-tr__rating-icon {
+    flex-shrink: 0;
+  }
+
+  .inv-tr__rating-arrow {
+    margin-left: auto;
+    opacity: 0.7;
+  }
+
+  /* CTA */
+  .inv-tr__cta {
+    display: inline-block;
+    padding: 16px 32px;
+    background: var(--inv-tr-dark);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    border-radius: 0;
+    transition: background 0.2s ease;
+    margin-top: 8px;
+  }
+
+  .inv-tr__cta:hover {
+    background: #1a1a1a;
+  }
+
+  .inv-tr__cta:focus-visible {
+    outline: 2px solid var(--inv-tr-accent);
+    outline-offset: 2px;
+  }
+
+  /* ----------------------------------------
+     ZONE 3: REVIEW TICKER
+     ---------------------------------------- */
+  .inv-tr__ticker {
+    background: var(--inv-tr-dark);
+    padding: 80px 0;
+    overflow: hidden;
+  }
+
+  .inv-tr__ticker-heading {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(24px, 4vw, 32px);
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    margin: 0 0 48px;
+  }
+
+  .inv-tr__ticker-track {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .inv-tr__ticker-inner {
+    display: flex;
+    gap: 20px;
+    animation: inv-tr-scroll 40s linear infinite;
+    width: max-content;
+  }
+
+  .inv-tr__ticker-inner:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes inv-tr-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-50% - 10px));
+    }
+  }
+
+  /* Review cards */
+  .inv-tr__review-card {
+    flex-shrink: 0;
+    width: 340px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+  }
+
+  .inv-tr__review-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .inv-tr__review-avatar span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #6b7280;
+  }
+
+  .inv-tr__review-stars {
+    font-size: 14px;
+    color: #fbbf24;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .inv-tr__review-text {
+    font-size: 14px;
+    color: var(--inv-tr-fg);
+    line-height: 1.5;
+    margin: 0 0 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .inv-tr__review-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .inv-tr__review-author {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--inv-tr-fg);
+  }
+
+  .inv-tr__review-source {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .inv-tr__review-source--google {
+    background: #9ca3af;
+  }
+
+  .inv-tr__review-source--facebook {
+    background: #1877F2;
+  }
+
+  .inv-tr__review-source--trustpilot {
+    background: #00b67a;
+  }
+
+  /* ----------------------------------------
+     RESPONSIVE
+     ---------------------------------------- */
+  @media (max-width: 768px) {
+    .inv-tr__trust-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .inv-tr__stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .inv-tr__stat {
+      padding: 20px 16px;
+    }
+
+    .inv-tr__stat:nth-child(2n) {
+      border-right: none;
+    }
+
+    .inv-tr__stat:nth-child(n+3) {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .inv-tr__trust {
+      padding: 48px 0;
+    }
+
+    .inv-tr__ticker {
+      padding: 48px 0;
+    }
+
+    .inv-tr__rating {
+      width: 100%;
+    }
+  }
+
+  /* ----------------------------------------
+     REDUCED MOTION
+     ---------------------------------------- */
+  @media (prefers-reduced-motion: reduce) {
+    .inv-tr__ticker-inner {
+      animation: none;
+    }
+
+    .inv-tr__rating,
+    .inv-tr__cta {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+(function() {
+  var section = document.getElementById('inv-tr-{{ section.id }}');
+  if (!section) return;
+
+  /* ----------------------------------------
+     COUNTER ANIMATION
+     ---------------------------------------- */
+  function easeOutQuart(t) {
+    return 1 - Math.pow(1 - t, 4);
+  }
+
+  function parseStatValue(raw) {
+    /* Extract numeric part, suffix, and whether it has decimals */
+    var match = raw.match(/^([\d,]+\.?\d*)\s*(.*)$/);
+    if (!match) return null;
+    var numStr = match[1].replace(/,/g, '');
+    var num = parseFloat(numStr);
+    var suffix = match[2] || '';
+    var hasDecimal = numStr.indexOf('.') !== -1;
+    var decimalPlaces = hasDecimal ? (numStr.split('.')[1] || '').length : 0;
+    var isLarge = num >= 1000;
+    return { target: num, suffix: suffix, hasDecimal: hasDecimal, decimalPlaces: decimalPlaces, isLarge: isLarge };
+  }
+
+  function formatNumber(val, parsed) {
+    if (parsed.hasDecimal) {
+      var formatted = val.toFixed(parsed.decimalPlaces);
+      return parsed.isLarge ? parseFloat(formatted).toLocaleString() : formatted;
+    }
+    var rounded = Math.round(val);
+    return parsed.isLarge ? rounded.toLocaleString() : rounded.toString();
+  }
+
+  function animateCounters() {
+    var statEls = section.querySelectorAll('.inv-tr__stat-number');
+    statEls.forEach(function(el) {
+      if (el.dataset.animated) return;
+      el.dataset.animated = 'true';
+
+      var raw = el.dataset.target;
+      var parsed = parseStatValue(raw);
+      if (!parsed) return;
+
+      /* Respect reduced motion preference */
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        el.textContent = formatNumber(parsed.target, parsed) + parsed.suffix;
+        return;
+      }
+
+      var duration = 2000;
+      var startTime = null;
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        var progress = Math.min((timestamp - startTime) / duration, 1);
+        var eased = easeOutQuart(progress);
+        var current = eased * parsed.target;
+        el.textContent = formatNumber(current, parsed) + parsed.suffix;
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        }
+      }
+
+      el.textContent = '0' + parsed.suffix;
+      requestAnimationFrame(step);
+    });
+  }
+
+  var statsEl = section.querySelector('.inv-tr__stats');
+  if (statsEl) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          animateCounters();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    observer.observe(statsEl);
+  }
+
+  /* ----------------------------------------
+     REVIEW TICKER: DOM DUPLICATION
+     ---------------------------------------- */
+  var tickerInner = section.querySelector('[data-ticker-inner]');
+  if (tickerInner) {
+    var original = tickerInner.innerHTML;
+    tickerInner.insertAdjacentHTML('beforeend', original);
+  }
+
+  /* ----------------------------------------
+     SHOPIFY EDITOR EVENTS
+     ---------------------------------------- */
+  document.addEventListener('shopify:section:load', function(e) {
+    if (e.detail.sectionId !== '{{ section.id }}') return;
+    /* Re-run counter animation */
+    var els = section.querySelectorAll('.inv-tr__stat-number');
+    els.forEach(function(el) { delete el.dataset.animated; });
+    animateCounters();
+    /* Re-duplicate ticker */
+    var inner = section.querySelector('[data-ticker-inner]');
+    if (inner) {
+      /* Remove duplicated content first */
+      var cards = inner.querySelectorAll('.inv-tr__review-card');
+      var half = cards.length / 2;
+      for (var i = cards.length - 1; i >= half; i--) {
+        cards[i].remove();
+      }
+      inner.insertAdjacentHTML('beforeend', inner.innerHTML);
+    }
+  });
+
+  document.addEventListener('shopify:section:select', function(e) {
+    if (e.detail.sectionId !== '{{ section.id }}') return;
+    animateCounters();
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Invicta Trust & Reviews",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Trust Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Since 1985"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Kent's Trade Tool Specialists"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Body text",
+      "default": "<p>Family-run from Ramsgate with a second branch in Canterbury. We stock what tradespeople actually need \u2013 not warehouse clearance or grey imports.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Shop front, team photo, or product display. 800x800px recommended."
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Image badge",
+      "default": "Authorised Dealer",
+      "info": "Overlays bottom-left of image"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "Visit Our Stores"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Review Ticker"
+    },
+    {
+      "type": "text",
+      "id": "review_heading",
+      "label": "Ticker heading",
+      "default": "See Why Local Trades Trust Invicta Tools"
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "color",
+      "id": "stats_bg",
+      "label": "Stats bar background",
+      "default": "#282c31"
+    },
+    {
+      "type": "color",
+      "id": "trust_bg",
+      "label": "Trust section background",
+      "default": "#f9fafb"
+    },
+    {
+      "type": "color",
+      "id": "ticker_bg",
+      "label": "Ticker background",
+      "default": "#2d2d2d"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Review 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_1_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_1_text",
+      "label": "Review text",
+      "default": "You want tools and fixings? This is the place. Top notch products & service"
+    },
+    {
+      "type": "text",
+      "id": "review_1_author",
+      "label": "Author",
+      "default": "Anthony F."
+    },
+    {
+      "type": "select",
+      "id": "review_1_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "google"
+    },
+    {
+      "type": "header",
+      "content": "Review 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_2_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_2_text",
+      "label": "Review text",
+      "default": "Fantastic firm, great service, range of tools and competitively priced!"
+    },
+    {
+      "type": "text",
+      "id": "review_2_author",
+      "label": "Author",
+      "default": "Neil B."
+    },
+    {
+      "type": "select",
+      "id": "review_2_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "google"
+    },
+    {
+      "type": "header",
+      "content": "Review 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_3_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_3_text",
+      "label": "Review text",
+      "default": "Ultra helpful. Extremely good value for money. Massive selection of stock"
+    },
+    {
+      "type": "text",
+      "id": "review_3_author",
+      "label": "Author",
+      "default": "A W."
+    },
+    {
+      "type": "select",
+      "id": "review_3_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "google"
+    },
+    {
+      "type": "header",
+      "content": "Review 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_4_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_4_text",
+      "label": "Review text",
+      "default": "The best professional tools for trade but also for DIY"
+    },
+    {
+      "type": "text",
+      "id": "review_4_author",
+      "label": "Author",
+      "default": "Marcin P."
+    },
+    {
+      "type": "select",
+      "id": "review_4_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "facebook"
+    },
+    {
+      "type": "header",
+      "content": "Review 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_5_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_5_text",
+      "label": "Review text",
+      "default": "The place looks small on the outside but it's like a TARDIS on the inside."
+    },
+    {
+      "type": "text",
+      "id": "review_5_author",
+      "label": "Author",
+      "default": "Steven J."
+    },
+    {
+      "type": "select",
+      "id": "review_5_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "google"
+    },
+    {
+      "type": "header",
+      "content": "Review 6"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_6_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_6_text",
+      "label": "Review text",
+      "default": "Amazing service!! Delivery on time! Great price 5*!"
+    },
+    {
+      "type": "text",
+      "id": "review_6_author",
+      "label": "Author",
+      "default": "Daniel M."
+    },
+    {
+      "type": "select",
+      "id": "review_6_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "trustpilot"
+    },
+    {
+      "type": "header",
+      "content": "Review 7"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_7_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_7_text",
+      "label": "Review text",
+      "default": "If you're in need of anything come to these guys, they will get you what you need!"
+    },
+    {
+      "type": "text",
+      "id": "review_7_author",
+      "label": "Author",
+      "default": "Billy W."
+    },
+    {
+      "type": "select",
+      "id": "review_7_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "facebook"
+    },
+    {
+      "type": "header",
+      "content": "Review 8"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_8_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_8_text",
+      "label": "Review text",
+      "default": "Always willing to give you a good deal. Excellent amount of Makita tools!"
+    },
+    {
+      "type": "text",
+      "id": "review_8_author",
+      "label": "Author",
+      "default": "Alan G."
+    },
+    {
+      "type": "select",
+      "id": "review_8_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "google"
+    },
+    {
+      "type": "header",
+      "content": "Review 9"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_9_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_9_text",
+      "label": "Review text",
+      "default": "Brilliant choice of tools and always seem to have what I want in stock."
+    },
+    {
+      "type": "text",
+      "id": "review_9_author",
+      "label": "Author",
+      "default": "Kieran W."
+    },
+    {
+      "type": "select",
+      "id": "review_9_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "google"
+    },
+    {
+      "type": "header",
+      "content": "Review 10"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_10_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_10_text",
+      "label": "Review text",
+      "default": "A nice little tool shop with friendly informative staff, good prices too!"
+    },
+    {
+      "type": "text",
+      "id": "review_10_author",
+      "label": "Author",
+      "default": "Richard H."
+    },
+    {
+      "type": "select",
+      "id": "review_10_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "trustpilot"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "30+",
+          "info": "Include suffix like +, \u2605 etc."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Years Trading"
+        }
+      ]
+    },
+    {
+      "type": "point",
+      "name": "Proof Point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Authorised Makita, DeWalt & HiKOKI Dealer"
+        }
+      ]
+    },
+    {
+      "type": "rating",
+      "name": "Rating Badge",
+      "settings": [
+        {
+          "type": "select",
+          "id": "platform",
+          "label": "Platform",
+          "options": [
+            { "value": "google", "label": "Google" },
+            { "value": "facebook", "label": "Facebook" },
+            { "value": "trustpilot", "label": "Trustpilot" }
+          ],
+          "default": "google"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Button text",
+          "default": "See reviews on Google"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Invicta Trust & Reviews",
+      "settings": {
+        "eyebrow": "Since 1985",
+        "heading": "Kent\u2019s Trade Tool Specialists",
+        "badge_text": "Authorised Dealer",
+        "cta_text": "Visit Our Stores",
+        "review_heading": "See Why Local Trades Trust Invicta Tools"
+      },
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "number": "30+",
+            "label": "Years Trading"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "15,000+",
+            "label": "Products"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "2",
+            "label": "Kent Branches"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "4.7\u2605",
+            "label": "Average Rating"
+          }
+        },
+        {
+          "type": "point",
+          "settings": {
+            "text": "Authorised Makita, DeWalt & HiKOKI Dealer"
+          }
+        },
+        {
+          "type": "rating",
+          "settings": {
+            "platform": "google",
+            "text": "See reviews on Google"
+          }
+        },
+        {
+          "type": "rating",
+          "settings": {
+            "platform": "facebook",
+            "text": "See reviews on Facebook"
+          }
+        },
+        {
+          "type": "rating",
+          "settings": {
+            "platform": "trustpilot",
+            "text": "See reviews on Trustpilot"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
