@@ -293,6 +293,20 @@
   box-shadow: 0 4px 12px rgba(225, 29, 38, 0.25);
 }
 
+.inv-card__btn--options {
+  background: #fff;
+  color: var(--inv-accent, #e11d26);
+  border: 1.5px solid var(--inv-accent, #e11d26);
+  text-decoration: none;
+  text-align: center;
+}
+
+.inv-card__btn--options:hover {
+  background: var(--inv-accent, #e11d26);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(225, 29, 38, 0.25);
+}
+
 .inv-card__btn--notify {
   background: #fff;
   color: #1a1a1a;

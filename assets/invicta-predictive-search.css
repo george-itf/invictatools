@@ -292,6 +292,18 @@
   color: #6b7280;
 }
 
+.inv-search-results__stock--supplier {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+/* Ex-VAT price in search results */
+.inv-search-results__price-ex-vat {
+  font-size: 11px;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
 /* NO RESULTS */
 .inv-search-results__empty {
   padding: 32px 24px;

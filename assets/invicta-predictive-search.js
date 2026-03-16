@@ -198,6 +198,42 @@
       var vendor = product.vendor || '';
       var available = product.available !== false;
 
+      /* Fix 2: Parse stock source from product tags */
+      var rawTags = product.tags || '';
+      var tagsArray = Array.isArray(rawTags)
+        ? rawTags.map(function(t) { return t.toLowerCase().trim(); })
+        : rawTags.split(',').map(function(t) { return t.toLowerCase().trim(); });
+
+      var stockSource = 'invicta'; // default
+      for (var i = 0; i < tagsArray.length; i++) {
+        var tag = tagsArray[i];
+        if (tag === 'invicta-stock') {
+          stockSource = 'invicta';
+          break; // invicta-stock wins, stop checking
+        } else if (tag === 'trend-stock' || tag === 'toolbank-stock' || tag === 'timco-stock' || tag === 'pdp-stock') {
+          stockSource = 'supplier';
+          // don't break — invicta-stock might appear later and should win
+        }
+      }
+
+      var stockLabel, stockClass;
+      if (!available) {
+        stockLabel = 'Out of Stock';
+        stockClass = 'out-of-stock';
+      } else if (stockSource === 'supplier') {
+        stockLabel = 'Available from Supplier';
+        stockClass = 'supplier';
+      } else {
+        stockLabel = 'In Stock';
+        stockClass = 'in-stock';
+      }
+
+      /* Fix 4: Calculate ex-VAT price */
+      var vatRate = (window.invictaConfig && window.invictaConfig.vatRate) || 20;
+      var vatDivisor = 100 + vatRate;
+      var priceExVatPence = Math.round((product.price * 100) / vatDivisor);
+      var priceExVat = (priceExVatPence / 100).toFixed(2);
+
       var anchor = document.createElement('a');
       anchor.setAttribute('href', url);
       anchor.className = 'inv-search-results__item';
@@ -236,10 +272,16 @@
       priceP.textContent = price;
       metaDiv.appendChild(priceP);
 
-      /* CX v1.0: Stock status badge */
+      /* Fix 4: Ex-VAT price line */
+      var exVatEl = document.createElement('span');
+      exVatEl.className = 'inv-search-results__price-ex-vat';
+      exVatEl.textContent = '\u00a3' + priceExVat + ' ex. VAT';
+      metaDiv.appendChild(exVatEl);
+
+      /* CX v1.0 + Fix 2: Stock status badge with supplier support */
       var stockBadge = document.createElement('span');
-      stockBadge.className = 'inv-search-results__stock inv-search-results__stock--' + (available ? 'in-stock' : 'out-of-stock');
-      stockBadge.textContent = available ? 'In Stock' : 'Out of Stock';
+      stockBadge.className = 'inv-search-results__stock inv-search-results__stock--' + stockClass;
+      stockBadge.textContent = stockLabel;
       metaDiv.appendChild(stockBadge);
 
       infoDiv.appendChild(metaDiv);
@@ -258,7 +300,7 @@
   }
 
   function formatMoney(price) {
-    var amount = (price / 1).toFixed(2);
+    var amount = (price / 100).toFixed(2);
     return '\u00a3' + amount;
   }
 })();

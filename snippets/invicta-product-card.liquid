@@ -18,6 +18,10 @@
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
   assign featured_image = product.featured_image
+  assign has_multiple_variants = false
+  if product.has_only_default_variant == false and product.variants.size > 1
+    assign has_multiple_variants = true
+  endif
   assign product_url = product.url | within: collection
   
   # -------------------------
@@ -205,21 +209,36 @@
     {%- comment -%} Action button {%- endcomment -%}
     <div class="inv-card__action">
       {%- if available -%}
-        {%- comment -%} P1-3.3: Uses data-add-to-cart for AJAX interception by invicta-cart-handler.js {%- endcomment -%}
-        <button
-          type="button"
-          class="inv-card__btn inv-card__btn--add"
-          data-add-to-cart
-          data-variant-id="{{ current_variant.id }}"
-          data-quantity="1"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <circle cx="9" cy="21" r="1"/>
-            <circle cx="20" cy="21" r="1"/>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-          </svg>
-          {{ 'invicta.product.add_to_cart' | t }}
-        </button>
+        {%- if has_multiple_variants -%}
+          {%- comment -%} Multi-variant: link to PDP so customer can choose {%- endcomment -%}
+          <a
+            href="{{ product_url }}"
+            class="inv-card__btn inv-card__btn--options"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+            {{ 'invicta.product.select_options' | t | default: 'Select Options' }}
+          </a>
+        {%- else -%}
+          {%- comment -%} Single-variant: direct add-to-cart is safe {%- endcomment -%}
+          <button
+            type="button"
+            class="inv-card__btn inv-card__btn--add"
+            data-add-to-cart
+            data-variant-id="{{ current_variant.id }}"
+            data-quantity="1"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+            {{ 'invicta.product.add_to_cart' | t }}
+          </button>
+        {%- endif -%}
       {%- else -%}
         <button type="button" class="inv-card__btn inv-card__btn--notify" data-product-id="{{ product.id }}">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
