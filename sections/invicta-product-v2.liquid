@@ -497,9 +497,9 @@
           </div>
           
           {%- comment -%}
-            PRICE BLOCK — Inline dual-price layout
-            Shows both ex VAT (primary) and inc VAT (secondary) on one line.
-            No toggle needed — both prices always visible.
+            PRICE BLOCK — Single price controlled by VAT toggle
+            Shows either ex VAT or inc VAT based on header toggle selection.
+            Uses data-price-ex / data-price-inc for invicta-vat-toggle.js control.
           {%- endcomment -%}
           <div
             class="inv-pdp__price"
@@ -508,18 +508,18 @@
             aria-atomic="true"
           >
             <div class="inv-pdp__price-inline">
-              <div class="inv-pdp__price-line">
+              <div class="inv-pdp__price-line inv-vat--hidden" data-price-ex>
                 <span class="inv-pdp__price-current" data-price-ex-value>{{ price_ex_vat | money }}</span>
                 <span class="inv-pdp__price-label">ex VAT</span>
                 {% if has_compare_price %}
                   <span class="inv-pdp__price-was" data-compare-ex>{{ compare_ex_vat | money }}</span>
                 {% endif %}
               </div>
-              <div class="inv-pdp__price-line inv-pdp__price-line--secondary">
-                <span class="inv-pdp__price-secondary" data-price-inc-value>{{ current_variant.price | money }}</span>
-                <span class="inv-pdp__price-label inv-pdp__price-label--secondary">inc VAT</span>
+              <div class="inv-pdp__price-line" data-price-inc>
+                <span class="inv-pdp__price-current" data-price-inc-value>{{ current_variant.price | money }}</span>
+                <span class="inv-pdp__price-label">inc VAT</span>
                 {% if has_compare_price %}
-                  <span class="inv-pdp__price-was inv-pdp__price-was--secondary" data-compare-inc>{{ current_variant.compare_at_price | money }}</span>
+                  <span class="inv-pdp__price-was" data-compare-inc>{{ current_variant.compare_at_price | money }}</span>
                 {% endif %}
               </div>
             </div>
