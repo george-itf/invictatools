@@ -599,25 +599,8 @@
             <script src="{{ 'component-tiered-pricing.js' | asset_url }}" defer></script>
           {%- endif -%}
 
-          {%- comment -%} TRUST STRIP — 2x2 grid above ATC for conversion confidence {%- endcomment -%}
-          <div class="inv-pdp__trust-strip">
-            <span class="inv-pdp__trust-link">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              <span>Free UK Delivery</span>
-            </span>
-            <span class="inv-pdp__trust-link">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span>Authorised Dealer</span>
-            </span>
-            <span class="inv-pdp__trust-link">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-              <span>Full Warranty</span>
-            </span>
-            <span class="inv-pdp__trust-link">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              <span>Secure Checkout</span>
-            </span>
-          </div>
+          {%- comment -%} DELIVERY ESTIMATE (reusable snippet) {%- endcomment -%}
+          {% render 'invicta-delivery-estimate', stock_source: stock_source, supplier_delivery_est: supplier_delivery_est %}
 
           {%- comment -%} ADD TO CART FORM {%- endcomment -%}
           <form
@@ -751,8 +734,25 @@
             </div>
           {% endif %}
 
-          {%- comment -%} DELIVERY ESTIMATE (reusable snippet) {%- endcomment -%}
-          {% render 'invicta-delivery-estimate', stock_source: stock_source, supplier_delivery_est: supplier_delivery_est %}
+          {%- comment -%} TRUST STRIP — 2x2 grid below Buy Now {%- endcomment -%}
+          <div class="inv-pdp__trust-strip">
+            <span class="inv-pdp__trust-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>Free UK Delivery</span>
+            </span>
+            <span class="inv-pdp__trust-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Authorised Dealer</span>
+            </span>
+            <span class="inv-pdp__trust-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              <span>Full Warranty</span>
+            </span>
+            <span class="inv-pdp__trust-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>Secure Checkout</span>
+            </span>
+          </div>
 
         </div>
       </div>

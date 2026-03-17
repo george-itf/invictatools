@@ -1037,11 +1037,11 @@
    ============================================ */
 .inv-pdp__trust-strip {
   display: grid;
-  grid-template-columns: auto auto;
-  gap: 10px 32px;
-  justify-content: center;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 16px;
   padding: var(--inv-space-sm-plus) 0;
   border-top: 1px solid var(--inv-grey-200);
+  border-bottom: 1px solid var(--inv-grey-200);
   background: transparent;
   border-radius: 0;
   font-size: 13px;
