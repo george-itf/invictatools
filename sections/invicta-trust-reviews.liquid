@@ -1,6 +1,6 @@
 {% comment %}
   ============================================
-  INVICTA TRUST & REVIEWS v6.0
+  INVICTA TRUST & REVIEWS v7.0
   ============================================
   Rebuilt section. Sharp corners, red accent on white,
   DM Sans, clean and structural.
@@ -9,7 +9,7 @@
   1. Hero row: heading + text left, rating badges right
   2. Stats row: full-width below hero grid, CTA pushed right
   3. Branch strip: wide images with overlay text
-  4. Reviews: static 3-column grid on white
+  4. Reviews: scrolling ticker on dark background
 
   Trade 15.4.0 Compatible
   ============================================
@@ -179,9 +179,8 @@
     </div>
   {%- endif -%}
 
-  {%- comment -%} ═══ PART 3: Reviews — static 3-column grid ═══ {%- endcomment -%}
+  {%- comment -%} ═══ PART 3: Reviews — scrolling ticker on dark background ═══ {%- endcomment -%}
   {%- assign has_reviews = false -%}
-  {%- assign review_count = 0 -%}
   {%- for i in (1..10) -%}
     {%- assign enabled_key = 'review_' | append: i | append: '_enabled' -%}
     {%- assign text_key = 'review_' | append: i | append: '_text' -%}
@@ -203,10 +202,11 @@
             </a>
           {%- endif -%}
         </div>
-        <div class="inv-tr5__reviews-grid">
-          {%- assign review_count = 0 -%}
+      </div>
+
+      <div class="inv-tr5__ticker" data-itr5-ticker>
+        <div class="inv-tr5__ticker-track" data-itr5-track>
           {%- for i in (1..10) -%}
-            {%- if review_count >= 3 -%}{%- break -%}{%- endif -%}
             {%- assign enabled_key = 'review_' | append: i | append: '_enabled' -%}
             {%- assign text_key = 'review_' | append: i | append: '_text' -%}
             {%- assign author_key = 'review_' | append: i | append: '_author' -%}
@@ -214,7 +214,7 @@
             {%- if section.settings[enabled_key] and section.settings[text_key] != blank -%}
               {%- assign review_author = section.settings[author_key] -%}
               {%- assign review_source = section.settings[source_key] -%}
-              <div class="inv-tr5__review">
+              <div class="inv-tr5__review" aria-label="Review by {{ review_author }}">
                 <div class="inv-tr5__review-stars" aria-label="5 out of 5 stars">
                   {%- for s in (1..5) -%}
                     <span class="inv-tr5__star--filled">&#9733;</span>
@@ -226,18 +226,18 @@
                   <span class="inv-tr5__review-source">
                     {%- case review_source -%}
                       {%- when 'google' -%}
-                        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                        <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
                           <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                           <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
                           <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
                           <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
                         </svg>
                       {%- when 'facebook' -%}
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true">
                           <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                         </svg>
                       {%- when 'trustpilot' -%}
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" aria-hidden="true">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#00b67a" aria-hidden="true">
                           <path d="M12 0l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 0z"/>
                         </svg>
                     {%- endcase -%}
@@ -245,7 +245,6 @@
                   </span>
                 </div>
               </div>
-              {%- assign review_count = review_count | plus: 1 -%}
             {%- endif -%}
           {%- endfor -%}
         </div>
@@ -257,8 +256,9 @@
 
 <style>
   /* ============================================
-     INVICTA TRUST & REVIEWS v6.0
+     INVICTA TRUST & REVIEWS v7.0
      Trade shop feel. Sharp corners, clean, structural.
+     Scrolling review ticker on dark background.
      ============================================ */
 
   #inv-tr5-{{ section.id }} {
@@ -269,12 +269,12 @@
     --itr5-fg-muted: var(--inv-fg-muted, #6b7280);
     --itr5-border: var(--inv-border, #e5e7eb);
     --itr5-card-bg: #f8f9fa;
+    --itr5-reviews-bg: #111318;
   }
 
   .inv-tr5 {
     background: var(--itr5-bg);
     border-top: 4px solid var(--itr5-accent);
-    border-bottom: 1px solid var(--itr5-border);
   }
 
   .inv-tr5__wrap {
@@ -348,12 +348,14 @@
 
   .inv-tr5__point-icon { flex-shrink: 0; }
 
-  /* Stats + CTA row — full width below hero grid */
+  /* ----------------------------------------
+     Stats + CTA row — full width below hero grid
+     ---------------------------------------- */
   .inv-tr5__stats-row {
     display: flex;
     align-items: center;
     gap: 24px;
-    margin-top: 20px;
+    margin-top: 28px;
     padding-top: 20px;
     border-top: 1px solid var(--itr5-border);
   }
@@ -364,8 +366,8 @@
   }
 
   .inv-tr5__stat {
-    padding-right: 28px;
-    margin-right: 28px;
+    padding-right: 36px;
+    margin-right: 36px;
     border-right: 1px solid var(--itr5-border);
   }
 
@@ -378,7 +380,7 @@
   .inv-tr5__stat-num {
     display: block;
     font-family: 'DM Sans', sans-serif;
-    font-size: 26px;
+    font-size: clamp(28px, 3vw, 36px);
     font-weight: 900;
     color: var(--itr5-accent);
     line-height: 1;
@@ -386,7 +388,7 @@
 
   .inv-tr5__stat-label {
     display: block;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
     color: var(--itr5-fg-muted);
     text-transform: uppercase;
@@ -534,24 +536,25 @@
   }
 
   /* ----------------------------------------
-     PART 3: REVIEWS — static grid on white
+     PART 3: REVIEWS — scrolling ticker on dark
      ---------------------------------------- */
   .inv-tr5__reviews {
-    background: var(--itr5-bg);
-    padding: 24px 0 {{ section.settings.padding_bottom | default: 48 }}px;
+    background: var(--itr5-reviews-bg);
+    padding: 32px 0 {{ section.settings.padding_bottom | default: 48 }}px;
+    overflow: hidden;
   }
 
   .inv-tr5__reviews-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
 
   .inv-tr5__reviews-label {
     font-size: 13px;
     font-weight: 700;
-    color: var(--itr5-fg-muted);
+    color: rgba(255, 255, 255, 0.7);
     text-transform: uppercase;
     letter-spacing: 0.1em;
   }
@@ -569,20 +572,43 @@
     color: var(--itr5-accent-hover);
   }
 
-  .inv-tr5__reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+  /* Ticker container */
+  .inv-tr5__ticker {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
   }
 
+  .inv-tr5__ticker-track {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    animation: itr5-scroll 45s linear infinite;
+  }
+
+  .inv-tr5__ticker:hover .inv-tr5__ticker-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes itr5-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Review cards */
   .inv-tr5__review {
-    background: var(--itr5-card-bg);
-    border: 1px solid var(--itr5-border);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.10);
     border-radius: 0;
     padding: 24px;
     display: flex;
     flex-direction: column;
     gap: 12px;
+    width: 340px;
+    min-width: 340px;
+    flex-shrink: 0;
   }
 
   .inv-tr5__review-stars {
@@ -595,7 +621,7 @@
 
   .inv-tr5__review-text {
     font-size: 14px;
-    color: var(--itr5-fg);
+    color: rgba(255, 255, 255, 0.85);
     line-height: 1.6;
     margin: 0;
     font-style: italic;
@@ -607,27 +633,28 @@
     align-items: center;
     justify-content: space-between;
     padding-top: 12px;
-    border-top: 1px solid var(--itr5-border);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     margin-top: auto;
   }
 
   .inv-tr5__review-author {
     font-size: 13px;
     font-weight: 700;
-    color: var(--itr5-fg);
+    color: rgba(255, 255, 255, 0.9);
   }
 
   .inv-tr5__review-source {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     font-size: 12px;
     font-weight: 500;
-    color: var(--itr5-fg-muted);
+    color: rgba(255, 255, 255, 0.45);
   }
 
   .inv-tr5__review-source svg {
     flex-shrink: 0;
+    opacity: 0.7;
   }
 
   /* ----------------------------------------
@@ -652,11 +679,6 @@
   }
 
   @media (max-width: 768px) {
-    .inv-tr5__reviews-grid {
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-
     .inv-tr5__branches-grid {
       grid-template-columns: 1fr;
       gap: 10px;
@@ -697,6 +719,12 @@
     .inv-tr5__branches {
       padding: 18px 0 16px;
     }
+
+    .inv-tr5__review {
+      width: 290px;
+      min-width: 290px;
+      padding: 20px;
+    }
   }
 
   @media (max-width: 420px) {
@@ -709,10 +737,16 @@
     .inv-tr5__heading {
       font-size: 22px;
     }
+
+    .inv-tr5__review {
+      width: 260px;
+      min-width: 260px;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .inv-tr5__cta, .inv-tr5__rating, .inv-tr5__reviews-link { transition: none; }
+    .inv-tr5__ticker-track { animation: none; }
   }
 </style>
 
@@ -782,6 +816,25 @@
   }
 
   /* =========================================
+     TICKER: duplicate track for seamless loop
+     ========================================= */
+  var ticker = section.querySelector('[data-itr5-ticker]');
+  var track = section.querySelector('[data-itr5-track]');
+  if (ticker && track) {
+    var cards = track.querySelectorAll('.inv-tr5__review');
+    if (cards.length > 0) {
+      /* Clone all cards and append for seamless loop */
+      var fragment = document.createDocumentFragment();
+      for (var c = 0; c < cards.length; c++) {
+        var clone = cards[c].cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        fragment.appendChild(clone);
+      }
+      track.appendChild(fragment);
+    }
+  }
+
+  /* =========================================
      JUDGE.ME REVIEW FETCH
      ========================================= */
   function getJudgeMeToken() {
@@ -799,13 +852,13 @@
     if (!source) return '';
     var s = source.toLowerCase();
     if (s.indexOf('google') !== -1) {
-      return '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>';
+      return '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>';
     }
     if (s.indexOf('facebook') !== -1) {
-      return '<svg width="16" height="16" viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>';
+      return '<svg width="14" height="14" viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>';
     }
     if (s.indexOf('trustpilot') !== -1) {
-      return '<svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a" aria-hidden="true"><path d="M12 0l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 0z"/></svg>';
+      return '<svg width="14" height="14" viewBox="0 0 24 24" fill="#00b67a" aria-hidden="true"><path d="M12 0l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 0z"/></svg>';
     }
     return '';
   }
@@ -833,7 +886,7 @@
     var text = review.body || review.text || '';
     var source = review.source || 'Judge.me';
 
-    return '<div class="inv-tr5__review">' +
+    return '<div class="inv-tr5__review" aria-hidden="true">' +
       '<div class="inv-tr5__review-stars" aria-label="' + rating + ' out of 5 stars">' + renderStars(rating) + '</div>' +
       '<p class="inv-tr5__review-text">&ldquo;' + text.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '&rdquo;</p>' +
       '<div class="inv-tr5__review-footer">' +
@@ -843,15 +896,16 @@
     '</div>';
   }
 
-  function replaceGridWithLiveReviews(reviews) {
-    var grid = section.querySelector('.inv-tr5__reviews-grid');
-    if (!grid || reviews.length === 0) return;
+  function replaceTickerWithLiveReviews(reviews) {
+    var trackEl = section.querySelector('[data-itr5-track]');
+    if (!trackEl || reviews.length === 0) return;
     var html = '';
-    var count = Math.min(reviews.length, 3);
+    var count = Math.min(reviews.length, 10);
     for (var i = 0; i < count; i++) {
       html += buildReviewCard(reviews[i]);
     }
-    grid.innerHTML = html;
+    /* Duplicate for seamless loop */
+    trackEl.innerHTML = html + html;
   }
 
   function fetchJudgeMeReviews() {
@@ -864,7 +918,7 @@
       .then(function(res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
       .then(function(data) {
         var reviews = data.reviews || data.data || [];
-        if (reviews.length > 0) replaceGridWithLiveReviews(reviews);
+        if (reviews.length > 0) replaceTickerWithLiveReviews(reviews);
       })
       .catch(function() { /* keep hardcoded fallbacks */ });
   }
