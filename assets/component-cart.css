@@ -132,16 +132,11 @@ cart-items {
     grid-column: 2;
   }
 
-  /* Base styles - overridden in invicta-cart.css */
-  .cart__footer {
-    justify-content: space-between;
-  }
+  /* Removed: justify-content: space-between — fully overridden by invicta-cart.css which sets display: block */
 
   .cart__footer-wrapper:last-child {
     padding-top: 0;
   }
-
-  /* Overridden in invicta-cart.css */
 }
 
 .cart__ctas button {

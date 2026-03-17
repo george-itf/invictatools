@@ -244,16 +244,15 @@ cart-drawer.is-empty .cart-drawer__scrollable-body {
   }
 }
 
+/* Base styles - extended in invicta-cart.css */
 .cart-drawer .cart-item {
   display: grid;
   grid-template: repeat(2, auto) / repeat(4, 1fr);
-  gap: 1rem;
   margin-bottom: 0;
+  /* gap set in invicta-cart.css */
 }
 
-.cart-drawer .cart-item:last-child {
-  margin-bottom: 1rem;
-}
+/* Removed: .cart-drawer .cart-item:last-child margin-bottom: 1rem — overridden by invicta-cart.css margin-bottom: 0 !important */
 
 .cart-drawer .cart-item__media {
   grid-row: 1 / 3;
@@ -292,9 +291,7 @@ cart-drawer.is-empty .cart-drawer__scrollable-body {
   border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
 }
 
-.cart-drawer .cart-item:last-child {
-  margin-bottom: 1.5rem;
-}
+/* Removed: .cart-drawer .cart-item:last-child margin-bottom: 1.5rem — overridden by invicta-cart.css margin-bottom: 0 !important */
 
 .cart-drawer .cart-item .loading__spinner {
   right: 5px;
@@ -375,6 +372,7 @@ cart-drawer.is-empty .cart-drawer__scrollable-body {
   transform: rotate(180deg);
 }
 
+/* Base styles - extended in invicta-cart.css */
 .cart-drawer .cart__checkout-button {
   max-width: none;
 }
