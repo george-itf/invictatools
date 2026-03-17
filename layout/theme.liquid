@@ -346,10 +346,10 @@
     <!-- 1. Base Theme CSS (foundations — high priority) -->
     <link rel="stylesheet" href="{{ 'base.css' | asset_url }}" fetchpriority="high">
     
-    <!-- 2. Shared Components (lazy-loaded — only needed on product listing pages) -->
-    <link rel="stylesheet" href="{{ 'invicta-brand-pill.css' | asset_url }}" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="{{ 'invicta-product-card.css' | asset_url }}" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="{{ 'invicta-radius-reset.css' | asset_url }}" media="print" onload="this.media='all'">
+    <!-- 2. Shared Components (synchronous — layout-critical, prevents CLS on product cards/pills) -->
+    <link rel="stylesheet" href="{{ 'invicta-brand-pill.css' | asset_url }}">
+    <link rel="stylesheet" href="{{ 'invicta-product-card.css' | asset_url }}">
+    <link rel="stylesheet" href="{{ 'invicta-radius-reset.css' | asset_url }}">
     
 
     <!-- 3. Device-Specific Styles (PWA optimised) -->
