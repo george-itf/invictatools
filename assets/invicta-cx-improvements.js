@@ -450,43 +450,6 @@
     return document.importNode(doc.documentElement, true);
   }
 
-  function initPDPTrustStrip() {
-    var productPage = document.querySelector('.inv-pdp[data-section-id]');
-    if (!productPage) return;
-
-    var atcArea = productPage.querySelector('[data-product-form]');
-    if (!atcArea) return;
-
-    // Check if already exists
-    if (productPage.querySelector('.inv-pdp-trust')) return;
-
-    var trustStrip = document.createElement('div');
-    trustStrip.className = 'inv-pdp-trust';
-    trustStrip.setAttribute('role', 'complementary');
-    trustStrip.setAttribute('aria-label', 'Trust information');
-
-    var trustItems = [
-      { paths: '<rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>', text: 'Free next-day delivery' },
-      { paths: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>', text: 'Authorised dealer' },
-      { paths: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', text: 'Full warranty' },
-      { paths: '<polyline points="20 6 9 17 4 12"/>', text: 'Secure checkout' }
-    ];
-
-    trustItems.forEach(function(item) {
-      var el = document.createElement('div');
-      el.className = 'inv-pdp-trust__item';
-      el.appendChild(safeSvgIcon(item.paths));
-
-      var text = document.createElement('span');
-      text.textContent = item.text;
-      el.appendChild(text);
-
-      trustStrip.appendChild(el);
-    });
-
-    atcArea.parentNode.insertBefore(trustStrip, atcArea.nextSibling);
-  }
-
   /* ========================================
      AREA 5: MOBILE — Quick Shortcuts in Drawer
      Add recently viewed & quick access to mobile menu
@@ -537,7 +500,6 @@
     initLoadMore();
     InvictaSocialProof.init();
     initTradeCTA();
-    initPDPTrustStrip();
     addMobileShortcuts();
     initBackInStockNotify();
   }
