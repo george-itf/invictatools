@@ -662,8 +662,8 @@
   }
 
   /* DROPDOWN — full width, taller on mobile
-     !important needed: JS positions the dropdown with inline style attributes
-     (left, right, width) — only !important can override inline styles. */
+     Force-override needed: JS positions the dropdown with inline style attributes
+     (left, right, width) — CSS cannot override inline styles without it. */
   .inv-search-results {
     max-height: calc(100vh - 120px);
     padding: 0;

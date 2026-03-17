@@ -426,7 +426,7 @@ button:focus-visible,
 }
 
 /* Enhanced reduced motion support
-   !important is required here per WCAG / accessibility best practice:
+   Force-override is required here per WCAG / accessibility best practice:
    these must override ALL animations and transitions site-wide,
    including those set with high specificity or inline styles. */
 @media (prefers-reduced-motion: reduce) {

@@ -4,7 +4,7 @@
    Version: 1.1
    Purpose: Enforce consistent border-radius site-wide
    Usage:   All components must use these custom properties
-   NOTE: v1.1 — Removed !important by doubling selectors.
+   NOTE: v1.1 — Removed force-override flags by doubling selectors.
          This file loads after base.css so equal specificity
          wins by source order; doubled selectors add safety.
    ======================================================= */

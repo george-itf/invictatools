@@ -6,8 +6,8 @@
    All styles are root-level — no @media queries needed
 
    REFACTORED: 2025-01-12
-   - Removed !important declarations by using proper CSS specificity
-   - Uses html.js prefix for higher specificity without !important
+   - Removed force-override declarations by using proper CSS specificity
+   - Uses html.js prefix for higher specificity without force-overrides
    - Maintains same visual output with cleaner, more maintainable code
 
    CONTENTS:
@@ -38,7 +38,7 @@
    CONSTRAINT: Desktop layout remains 100% unchanged
 
    REFACTORING NOTES:
-   - Replaced !important with increased CSS specificity
+   - Replaced force-overrides with increased CSS specificity
    - Uses html.js prefix to win specificity battles
    - Functional behavior is identical to v5.2
 
@@ -52,7 +52,7 @@
    - assets/invicta-collection-mobile.css (v1.0) — collection mobile styles
 
    CHANGELOG:
-   v6.0 — 2025-01-12 — Removed !important, increased specificity instead
+   v6.0 — 2025-01-12 — Removed force-overrides, increased specificity instead
    v5.2 — 2025-11-28 — Added collection page exclusions (section 26)
    v5.1 — 2025-11-28 — Added product page exclusions (section 25)
    v5.0 — 2025-11-28 — Requires updated Liquid files for search/whitespace fixes
@@ -68,7 +68,7 @@
 
 /* ============================================================================
    2. PREVENT HORIZONTAL OVERFLOW — GLOBAL
-   High specificity selectors to override base styles without !important
+   High specificity selectors to override base styles without force-overrides
    ============================================================================ */
 
 html.js,

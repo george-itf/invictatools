@@ -3,10 +3,10 @@
    Cohesive, confident cart page styling
    Uses Invicta design system: var(--inv-accent) (brand), var(--inv-fg) (text)
 
-   NOTE: v3.1 — Removed !important by increasing selector specificity.
+   NOTE: v3.1 — Removed force-override flags by increasing selector specificity.
    Uses parent wrappers (cart-items, .cart-drawer, .inv-cart-footer-grid)
    and doubled classes to beat Shopify's rgba(var(--color-foreground), ...)
-   specificity without brute-force !important.
+   specificity without brute-force overrides.
    ============================================================ */
 
 /* ────────────────────────────────────────────────────────────
