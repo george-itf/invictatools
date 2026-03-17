@@ -1,10 +1,13 @@
 /**
- * Invicta Predictive Search — Consolidated v1.0
+ * Invicta Predictive Search — Consolidated v2.0
  *
  * Merges the best of both the Invicta custom search (JSON endpoint, stock
  * badges, ex-VAT pricing, portal positioning) and the Shopify default
  * predictive search (result caching, keyboard navigation, ARIA attributes,
  * AbortController pattern, debounced input).
+ *
+ * v2.0 adds: search-term highlighting, recent searches, skeleton loading,
+ *            no-results state, enhanced "view all" with count.
  *
  * Single entry point — replaces:
  *   - search-form.js
@@ -19,9 +22,29 @@
    * ================================================================ */
   const DEBOUNCE_MS = 250;
   const MIN_QUERY_LENGTH = 2;
-  const RESULTS_LIMIT = 10;
+  const RESULTS_LIMIT = 12;
   const CACHE_MAX = 20;
-  const FETCH_FIELDS = 'title,product_type,vendor,variants.sku,variants.barcode,tag';
+  const FETCH_FIELDS = 'title,body,product_type,vendor,variants.sku,variants.barcode,tag';
+  const RECENT_SEARCHES_KEY = 'invicta-recent-searches';
+  const RECENT_SEARCHES_MAX = 8;
+
+  /* Strings — hardcoded English, grouped for easy future i18n */
+  const STRINGS = {
+    recent_searches: 'Recent searches',
+    clear_recent: 'Clear recent searches',
+    no_results: 'No products found for "\u0071\u0075\u0065\u0072\u0079"',
+    no_results_hint: 'Try checking your spelling or using more general terms',
+    browse_all: 'Browse all products',
+    view_all_results: 'View all \u0063\u006f\u0075\u006e\u0074 results for "\u0071\u0075\u0065\u0072\u0079"',
+  };
+
+  /** Replace {{ query }} and {{ count }} placeholders in a template string */
+  function tpl(str, vars) {
+    let out = str;
+    if (vars.query !== undefined) out = out.replace('query', vars.query);
+    if (vars.count !== undefined) out = out.replace('count', String(vars.count));
+    return out;
+  }
 
   /* ================================================================
    * InvictaPredictiveSearch
@@ -43,6 +66,7 @@
       this.isOpen = false;
       this.selectedIndex = -1;
       this.resultItems = [];
+      this.lastTotalCount = 0;
 
       /* Portal the dropdown to body-level so it escapes stacking contexts */
       this.portal = document.getElementById('ps-root') || document.body;
@@ -62,6 +86,10 @@
 
         if (query.length < MIN_QUERY_LENGTH) {
           this._close(true);
+          /* Show recent searches when input is cleared back below threshold */
+          if (query.length === 0) {
+            this._showRecentSearches();
+          }
           return;
         }
 
@@ -78,14 +106,17 @@
           this.input.value = '';
           this.input.focus();
           this._close(true);
+          this._showRecentSearches();
         });
       }
 
-      /* Focus — reopen if results exist */
+      /* Focus — reopen if results exist, or show recent searches */
       this.input.addEventListener('focus', () => {
         const query = this._getQuery();
         if (query.length >= MIN_QUERY_LENGTH && this.resultsContainer.hasChildNodes()) {
           this._open();
+        } else if (query.length === 0) {
+          this._showRecentSearches();
         }
       });
 
@@ -173,16 +204,138 @@
     }
 
     /* ----------------------------------------------------------------
-     * Loading state
+     * Loading state — skeleton placeholders
      * ---------------------------------------------------------------- */
     _showLoading() {
       this._clearElement(this.resultsContainer);
-      const loading = document.createElement('div');
-      loading.className = 'inv-search-results__loading';
-      const spinner = document.createElement('div');
-      spinner.className = 'inv-search-results__spinner';
-      loading.appendChild(spinner);
-      this.resultsContainer.appendChild(loading);
+
+      for (let i = 0; i < 3; i++) {
+        const skeleton = document.createElement('div');
+        skeleton.className = 'inv-search-skeleton';
+
+        const imgPlaceholder = document.createElement('div');
+        imgPlaceholder.className = 'inv-search-skeleton__image inv-search-skeleton__pulse';
+        skeleton.appendChild(imgPlaceholder);
+
+        const textWrap = document.createElement('div');
+        textWrap.className = 'inv-search-skeleton__text';
+
+        const bar1 = document.createElement('div');
+        bar1.className = 'inv-search-skeleton__bar inv-search-skeleton__pulse';
+        bar1.style.width = '35%';
+        textWrap.appendChild(bar1);
+
+        const bar2 = document.createElement('div');
+        bar2.className = 'inv-search-skeleton__bar inv-search-skeleton__bar--wide inv-search-skeleton__pulse';
+        bar2.style.width = '80%';
+        textWrap.appendChild(bar2);
+
+        const bar3 = document.createElement('div');
+        bar3.className = 'inv-search-skeleton__bar inv-search-skeleton__pulse';
+        bar3.style.width = '50%';
+        textWrap.appendChild(bar3);
+
+        skeleton.appendChild(textWrap);
+        this.resultsContainer.appendChild(skeleton);
+      }
+
+      this._open();
+    }
+
+    /* ----------------------------------------------------------------
+     * Recent searches
+     * ---------------------------------------------------------------- */
+    _getRecentSearches() {
+      try {
+        const raw = sessionStorage.getItem(RECENT_SEARCHES_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch (_) {
+        return [];
+      }
+    }
+
+    _saveRecentSearch(term) {
+      const trimmed = term.trim();
+      if (!trimmed) return;
+      let searches = this._getRecentSearches();
+      /* Remove duplicate (case-insensitive) */
+      searches = searches.filter((s) => s.toLowerCase() !== trimmed.toLowerCase());
+      searches.unshift(trimmed);
+      if (searches.length > RECENT_SEARCHES_MAX) searches = searches.slice(0, RECENT_SEARCHES_MAX);
+      try {
+        sessionStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(searches));
+      } catch (_) { /* storage full — ignore */ }
+    }
+
+    _clearRecentSearches() {
+      try { sessionStorage.removeItem(RECENT_SEARCHES_KEY); } catch (_) {}
+    }
+
+    _showRecentSearches() {
+      const searches = this._getRecentSearches();
+      if (searches.length === 0) return;
+
+      this._clearElement(this.resultsContainer);
+      this.resultItems = [];
+      this.selectedIndex = -1;
+
+      /* Header */
+      const header = document.createElement('div');
+      header.className = 'inv-search-recent__header';
+      header.textContent = STRINGS.recent_searches;
+      this.resultsContainer.appendChild(header);
+
+      /* Items */
+      searches.forEach((term, idx) => {
+        const item = document.createElement('button');
+        item.type = 'button';
+        item.className = 'inv-search-recent__item';
+        item.id = 'inv-search-recent-' + idx;
+        item.setAttribute('role', 'option');
+        item.setAttribute('aria-selected', 'false');
+
+        /* Clock icon */
+        const svgNS = 'http://www.w3.org/2000/svg';
+        const svg = document.createElementNS(svgNS, 'svg');
+        svg.setAttribute('class', 'inv-search-recent__icon');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('fill', 'none');
+        svg.setAttribute('stroke', 'currentColor');
+        svg.setAttribute('stroke-width', '2');
+        const circle = document.createElementNS(svgNS, 'circle');
+        circle.setAttribute('cx', '12');
+        circle.setAttribute('cy', '12');
+        circle.setAttribute('r', '10');
+        svg.appendChild(circle);
+        const polyline = document.createElementNS(svgNS, 'polyline');
+        polyline.setAttribute('points', '12 6 12 12 16 14');
+        svg.appendChild(polyline);
+        item.appendChild(svg);
+
+        const label = document.createElement('span');
+        label.textContent = term;
+        item.appendChild(label);
+
+        item.addEventListener('click', () => {
+          this.input.value = term;
+          this.input.dispatchEvent(new Event('input', { bubbles: true }));
+        });
+
+        this.resultsContainer.appendChild(item);
+        this.resultItems.push(item);
+      });
+
+      /* Clear link */
+      const clearLink = document.createElement('button');
+      clearLink.type = 'button';
+      clearLink.className = 'inv-search-recent__clear';
+      clearLink.textContent = STRINGS.clear_recent;
+      clearLink.addEventListener('click', () => {
+        this._clearRecentSearches();
+        this._close(true);
+      });
+      this.resultsContainer.appendChild(clearLink);
+
       this._open();
     }
 
@@ -194,7 +347,8 @@
 
       /* Check cache first */
       if (this.cache.has(key)) {
-        this._renderResults(this.cache.get(key), query);
+        const cached = this.cache.get(key);
+        this._renderResults(cached.products, query, cached.totalCount);
         return;
       }
 
@@ -212,15 +366,16 @@
         .then((res) => res.json())
         .then((data) => {
           const products = data.resources?.results?.products || [];
+          const totalCount = products.length;
 
           /* Store in cache, evict oldest if over limit */
           if (this.cache.size >= CACHE_MAX) {
             const firstKey = this.cache.keys().next().value;
             this.cache.delete(firstKey);
           }
-          this.cache.set(key, products);
+          this.cache.set(key, { products: products, totalCount: totalCount });
 
-          this._renderResults(products, query);
+          this._renderResults(products, query, totalCount);
         })
         .catch((err) => {
           if (err.name === 'AbortError') return;
@@ -236,12 +391,48 @@
     }
 
     /* ----------------------------------------------------------------
+     * Highlighting helper
+     * ---------------------------------------------------------------- */
+    _highlightText(text, query) {
+      if (!query) return document.createTextNode(text);
+
+      const fragment = document.createDocumentFragment();
+      const lowerText = text.toLowerCase();
+      const lowerQuery = query.toLowerCase();
+      let lastIndex = 0;
+      let idx = lowerText.indexOf(lowerQuery);
+
+      while (idx !== -1) {
+        /* Text before match */
+        if (idx > lastIndex) {
+          fragment.appendChild(document.createTextNode(text.slice(lastIndex, idx)));
+        }
+        /* The match itself */
+        const mark = document.createElement('mark');
+        mark.className = 'inv-search-highlight';
+        mark.textContent = text.slice(idx, idx + query.length);
+        fragment.appendChild(mark);
+
+        lastIndex = idx + query.length;
+        idx = lowerText.indexOf(lowerQuery, lastIndex);
+      }
+
+      /* Remaining text after last match */
+      if (lastIndex < text.length) {
+        fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+      }
+
+      return fragment;
+    }
+
+    /* ----------------------------------------------------------------
      * Rendering
      * ---------------------------------------------------------------- */
-    _renderResults(products, query) {
+    _renderResults(products, query, totalCount) {
       this._clearElement(this.resultsContainer);
       this.resultItems = [];
       this.selectedIndex = -1;
+      this.lastTotalCount = totalCount || 0;
 
       if (products.length === 0) {
         this._renderEmpty(query);
@@ -256,26 +447,32 @@
         : (window.__invictaSearchSettings?.showPrice !== false);
 
       products.forEach((product, index) => {
-        const anchor = this._buildResultItem(product, index, showVendor, showPrice);
+        const anchor = this._buildResultItem(product, index, showVendor, showPrice, query);
         this.resultsContainer.appendChild(anchor);
         this.resultItems.push(anchor);
       });
 
-      /* "View all results" link */
+      /* "View all results" link — enhanced with count */
       const viewAll = document.createElement('a');
       viewAll.href = '/search?type=product&options%5Bprefix%5D=last&q=' + encodeURIComponent(query);
-      viewAll.className = 'inv-search-results__view-all';
+      viewAll.className = 'inv-search-view-all';
       viewAll.id = 'inv-search-view-all';
       viewAll.setAttribute('role', 'option');
       viewAll.setAttribute('aria-selected', 'false');
-      viewAll.textContent = 'View all results \u2192';
+      viewAll.textContent = 'View all ' + totalCount + ' results for \u201c' + query + '\u201d';
+
+      /* Save recent search when user clicks through to results */
+      viewAll.addEventListener('click', () => {
+        this._saveRecentSearch(query);
+      });
+
       this.resultsContainer.appendChild(viewAll);
       this.resultItems.push(viewAll);
 
       this._open();
     }
 
-    _buildResultItem(product, index, showVendor, showPrice) {
+    _buildResultItem(product, index, showVendor, showPrice, query) {
       const image = product.featured_image?.url || product.image || '';
       const title = product.title || '';
       const url = product.url || '';
@@ -324,6 +521,11 @@
       anchor.setAttribute('role', 'option');
       anchor.setAttribute('aria-selected', 'false');
 
+      /* Save recent search when user clicks a product */
+      anchor.addEventListener('click', () => {
+        this._saveRecentSearch(query);
+      });
+
       if (image) {
         const img = document.createElement('img');
         img.src = image + '&width=144';
@@ -345,7 +547,7 @@
 
       const titleP = document.createElement('p');
       titleP.className = 'inv-search-results__title';
-      titleP.textContent = title;
+      titleP.appendChild(this._highlightText(title, query));
       info.appendChild(titleP);
 
       if (showPrice) {
@@ -376,11 +578,12 @@
 
     _renderEmpty(query) {
       const emptyDiv = document.createElement('div');
-      emptyDiv.className = 'inv-search-results__empty';
+      emptyDiv.className = 'inv-search-empty';
 
+      /* Search icon with strikethrough line */
       const svgNS = 'http://www.w3.org/2000/svg';
       const svg = document.createElementNS(svgNS, 'svg');
-      svg.setAttribute('class', 'inv-search-results__empty-icon');
+      svg.setAttribute('class', 'inv-search-empty__icon');
       svg.setAttribute('viewBox', '0 0 24 24');
       svg.setAttribute('fill', 'none');
       svg.setAttribute('stroke', 'currentColor');
@@ -390,15 +593,35 @@
       circle.setAttribute('cy', '11');
       circle.setAttribute('r', '8');
       svg.appendChild(circle);
-      const path = document.createElementNS(svgNS, 'path');
-      path.setAttribute('d', 'm21 21-4.35-4.35');
-      svg.appendChild(path);
+      const searchLine = document.createElementNS(svgNS, 'path');
+      searchLine.setAttribute('d', 'm21 21-4.35-4.35');
+      svg.appendChild(searchLine);
+      /* Strikethrough line across the icon */
+      const strike = document.createElementNS(svgNS, 'line');
+      strike.setAttribute('x1', '4');
+      strike.setAttribute('y1', '4');
+      strike.setAttribute('x2', '20');
+      strike.setAttribute('y2', '20');
+      strike.setAttribute('stroke', 'currentColor');
+      strike.setAttribute('stroke-width', '1.5');
+      svg.appendChild(strike);
       emptyDiv.appendChild(svg);
 
       const text = document.createElement('p');
-      text.className = 'inv-search-results__empty-text';
+      text.className = 'inv-search-empty__text';
       text.textContent = 'No products found for \u201c' + query + '\u201d';
       emptyDiv.appendChild(text);
+
+      const hint = document.createElement('p');
+      hint.className = 'inv-search-empty__hint';
+      hint.textContent = STRINGS.no_results_hint;
+      emptyDiv.appendChild(hint);
+
+      const browseLink = document.createElement('a');
+      browseLink.href = '/collections/all';
+      browseLink.className = 'inv-search-empty__browse';
+      browseLink.textContent = STRINGS.browse_all;
+      emptyDiv.appendChild(browseLink);
 
       this.resultsContainer.appendChild(emptyDiv);
       this._open();

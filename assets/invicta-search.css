@@ -1,9 +1,12 @@
 /**
- * Invicta Predictive Search — Consolidated Styles v1.0
+ * Invicta Predictive Search — Consolidated Styles v2.0
  *
  * Merges:
  *   - invicta-predictive-search.css (visual design, stock badges, portal)
  *   - component-predictive-search.css (ARIA/keyboard state styles)
+ *
+ * v2.0 adds: search-term highlighting, recent searches, skeleton loading,
+ *            no-results state, enhanced "view all" button.
  *
  * Replaces both files. section-main-search.css is untouched.
  */
@@ -338,7 +341,192 @@
 }
 
 /* ================================================================
- * EMPTY STATE
+ * SEARCH TERM HIGHLIGHTING
+ * ================================================================ */
+.inv-search-highlight {
+  background: rgba(225, 29, 38, 0.12);
+  color: inherit;
+  padding: 0 1px;
+  border-radius: 2px;
+}
+
+/* ================================================================
+ * RECENT SEARCHES
+ * ================================================================ */
+.inv-search-recent__header {
+  padding: 10px 14px 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+}
+
+.inv-search-recent__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 14px;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #111827;
+  cursor: pointer;
+  text-align: left;
+  transition: background 120ms ease;
+}
+
+.inv-search-recent__item:hover,
+.inv-search-recent__item[aria-selected="true"] {
+  background: #f3f4f6;
+}
+
+.inv-search-recent__icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: #9ca3af;
+}
+
+.inv-search-recent__clear {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  cursor: pointer;
+  text-align: center;
+  transition: color 120ms ease;
+}
+
+.inv-search-recent__clear:hover {
+  color: #e11d26;
+}
+
+/* ================================================================
+ * NO RESULTS / EMPTY STATE
+ * ================================================================ */
+.inv-search-empty {
+  padding: 36px 24px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.inv-search-empty__icon {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 12px;
+  stroke: #d1d5db;
+}
+
+.inv-search-empty__text {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: #4b5563;
+}
+
+.inv-search-empty__hint {
+  font-size: 13px;
+  font-weight: 400;
+  margin: 0 0 16px;
+  color: #9ca3af;
+}
+
+.inv-search-empty__browse {
+  display: inline-block;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  background: #e11d26;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 120ms ease;
+}
+
+.inv-search-empty__browse:hover {
+  background: #c9181f;
+}
+
+/* ================================================================
+ * SKELETON LOADING STATE
+ * ================================================================ */
+.inv-search-skeleton {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+}
+
+.inv-search-skeleton__image {
+  width: 68px;
+  height: 68px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  background: #e5e7eb;
+}
+
+.inv-search-skeleton__text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inv-search-skeleton__bar {
+  height: 10px;
+  border-radius: 5px;
+  background: #e5e7eb;
+}
+
+.inv-search-skeleton__bar--wide {
+  height: 12px;
+}
+
+.inv-search-skeleton__pulse {
+  animation: inv-skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes inv-skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ================================================================
+ * VIEW ALL BUTTON (enhanced)
+ * ================================================================ */
+.inv-search-view-all {
+  display: block;
+  padding: 12px;
+  text-align: center;
+  background: #e11d26;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0 0 10px 10px;
+  margin-top: 4px;
+  transition: background 120ms ease;
+  letter-spacing: 0.01em;
+}
+
+.inv-search-view-all:hover,
+.inv-search-view-all[aria-selected="true"] {
+  background: #c9181f;
+  color: #ffffff;
+}
+
+/* ================================================================
+ * LEGACY — kept for error state compatibility
  * ================================================================ */
 .inv-search-results__empty {
   padding: 32px 24px;
@@ -346,66 +534,11 @@
   color: #6b7280;
 }
 
-.inv-search-results__empty-icon {
-  width: 40px;
-  height: 40px;
-  margin: 0 auto 10px;
-  stroke: #d1d5db;
-}
-
 .inv-search-results__empty-text {
   font-size: 0.9375rem;
   font-weight: 500;
   margin: 0;
   color: #4b5563;
-}
-
-/* ================================================================
- * LOADING STATE
- * ================================================================ */
-.inv-search-results__loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 32px;
-}
-
-.inv-search-results__spinner {
-  width: 24px;
-  height: 24px;
-  border: 3px solid #e5e7eb;
-  border-top-color: #e11d26;
-  border-radius: 50%;
-  animation: inv-spin 0.8s linear infinite;
-}
-
-@keyframes inv-spin {
-  to { transform: rotate(360deg); }
-}
-
-/* ================================================================
- * VIEW ALL LINK
- * ================================================================ */
-.inv-search-results__view-all {
-  display: block;
-  padding: 12px 14px;
-  text-align: center;
-  background: #f9fafb;
-  color: #e11d26;
-  font-size: 13px;
-  font-weight: 700;
-  text-decoration: none;
-  border-top: 1px solid #e5e7eb;
-  border-radius: 0 0 10px 10px;
-  margin-top: 4px;
-  transition: background 120ms ease, color 120ms ease;
-  letter-spacing: 0.01em;
-}
-
-.inv-search-results__view-all:hover,
-.inv-search-results__view-all[aria-selected="true"] {
-  background: #fef2f2;
-  color: #c81a22;
 }
 
 /* ================================================================
@@ -480,9 +613,20 @@
     padding: 2px 5px;
   }
 
-  .inv-search-results__view-all {
+  .inv-search-view-all {
     padding: 10px 12px;
     font-size: 12px;
     border-radius: 0 0 8px 8px;
+  }
+
+  .inv-search-skeleton__image {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+  }
+
+  .inv-search-skeleton {
+    padding: 8px 10px;
+    gap: 12px;
   }
 }

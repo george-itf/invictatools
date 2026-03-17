@@ -647,7 +647,13 @@
       "prev": "Prev",
       "next": "Next",
       "prev_page": "Previous page",
-      "next_page": "Next page"
+      "next_page": "Next page",
+      "recent_searches": "Recent searches",
+      "clear_recent": "Clear recent searches",
+      "no_results": "No products found for \"{{ query }}\"",
+      "no_results_hint": "Try checking your spelling or using more general terms",
+      "browse_all": "Browse all products",
+      "view_all_results": "View all {{ count }} results for \"{{ query }}\""
     },
     "faq": {
       "heading": "Frequently Asked Questions",
