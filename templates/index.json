@@ -229,21 +229,21 @@
           "type": "brand",
           "settings": {
             "brand_name": "Makita",
-            "collection": "makita-featured"
+            "collection": "makita"
           }
         },
         "brand_dewalt": {
           "type": "brand",
           "settings": {
             "brand_name": "DeWalt",
-            "collection": "dewalt-featured"
+            "collection": "dewalt"
           }
         },
         "brand_timco": {
           "type": "brand",
           "settings": {
             "brand_name": "TIMCO",
-            "collection": "timco-featured"
+            "collection": "timco"
           }
         },
         "brand_premier": {
@@ -271,14 +271,14 @@
           "type": "brand",
           "settings": {
             "brand_name": "Lamello",
-            "collection": "lamello-featured"
+            "collection": "lamello"
           }
         },
         "brand_n9TbLA": {
           "type": "brand",
           "settings": {
             "brand_name": "Hikoki",
-            "collection": "hikoki-featured"
+            "collection": "hikoki"
           }
         }
       },
