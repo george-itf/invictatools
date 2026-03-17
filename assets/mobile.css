@@ -108,46 +108,46 @@ html.js .section-header-invicta {
 
 /* All Shopify sections — tight mobile internal padding (app-like feel) */
 /* EXCLUDES product page and collection page (handled separately) */
-html.js .shopify-section:not(.section-invicta-product):not(:has(.inv-product)):not(.section-invicta-collection):not(:has(.inv-collection)) {
-  padding-top: 8px !important;
-  padding-bottom: 8px !important;
+html.js body .shopify-section:not(.section-invicta-product):not(:has(.inv-product)):not(.section-invicta-collection):not(:has(.inv-collection)) {
+  padding-top: 8px;
+  padding-bottom: 8px;
   margin: 0;
 }
 
 /* Section padding classes — override inline Liquid padding (except product/collection) */
-html.js [class*="-padding"]:not(.inv-product *):not(.inv-collection *),
-html.js [class*="section-"][class*="-padding"]:not(.inv-product *):not(.inv-collection *) {
-  padding-top: 8px !important;
-  padding-bottom: 8px !important;
+html.js body [class*="-padding"]:not(.inv-product *):not(.inv-collection *),
+html.js body [class*="section-"][class*="-padding"]:not(.inv-product *):not(.inv-collection *) {
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 /* ========== HERO BANNER — ZERO WHITESPACE ========== */
 
 /* Hero split — zero padding so it sits flush against header */
-html.js .shopify-section:has(.inv-hero-split) {
-  padding: 0 !important;
+html.js body .shopify-section:has(.inv-hero-split) {
+  padding: 0;
   margin: 0;
 }
 
 /* Promo banners — zero vertical padding */
-html.js .shopify-section:has(.inv-promos) {
-  padding: 0 !important;
+html.js body .shopify-section:has(.inv-promos) {
+  padding: 0;
   margin: 0;
 }
 
 /* Quick categories — tight padding */
-html.js .shopify-section:has(.inv-quick-cats) {
-  padding: 4px 0 4px !important;
+html.js body .shopify-section:has(.inv-quick-cats) {
+  padding: 4px 0 4px;
   margin: 0;
 }
 
 /* The banner section itself — full-bleed, zero padding */
-html.js [id*="image-banner"],
-html.js [id*="image_banner"],
-html.js .shopify-section--image-banner,
-html.js .shopify-section:has(.banner),
-html.js .shopify-section:has(.image-banner) {
-  padding: 0 !important;
+html.js body [id*="image-banner"],
+html.js body [id*="image_banner"],
+html.js body .shopify-section--image-banner,
+html.js body .shopify-section:has(.banner),
+html.js body .shopify-section:has(.image-banner) {
+  padding: 0;
   margin: 0;
 }
 
@@ -174,9 +174,9 @@ html.js .shopify-section:first-of-type + .shopify-section {
 }
 
 /* USP strip — prevent invisible whitespace if collapsed */
-html.js .shopify-section:has(.inv-usp2),
-html.js .shopify-section:has([class*="usp-strip"]) {
-  padding: 0 !important;
+html.js body .shopify-section:has(.inv-usp2),
+html.js body .shopify-section:has([class*="usp-strip"]) {
+  padding: 0;
   margin: 0;
 }
 
@@ -195,8 +195,8 @@ html.js [class*="brand-strip"] {
 }
 
 /* Brand strip shopify-section wrapper */
-html.js .shopify-section:has(.invicta-brand-strip) {
-  padding: 4px 0 4px !important;
+html.js body .shopify-section:has(.invicta-brand-strip) {
+  padding: 4px 0 4px;
   margin: 0;
 }
 
@@ -208,8 +208,8 @@ html.js [class*="featured-collection"] {
 }
 
 /* Featured collections shopify-section wrapper */
-html.js .shopify-section:has(.inv-featured-collection) {
-  padding: 4px 0 4px !important;
+html.js body .shopify-section:has(.inv-featured-collection) {
+  padding: 4px 0 4px;
   margin: 0;
 }
 
@@ -3955,22 +3955,22 @@ html.js .invicta-quick-qty__btn--active {
    -------------------------------------------------------------------------- */
 
 /* Kill Dawn's spacing and flex constraints on mobile */
-.cart__footer {
-  display: block !important;
+cart-items .cart__footer.cart__footer {
+  display: block;
 }
-.cart__footer > * {
-  width: 100% !important;
+cart-items .cart__footer > * {
+  width: 100%;
 }
-.cart__footer > * + * {
+cart-items .cart__footer > * + * {
   margin-top: 0;
 }
-.cart__items {
+cart-items .cart__items {
   padding-bottom: 0;
 }
-.cart__ctas {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 12px !important;
+cart-items .cart__ctas.cart__ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 /* Cart header: full width, compact */
@@ -4024,9 +4024,9 @@ button[name="checkout"] {
 .cart__dynamic-checkout-buttons [data-shopify-buttoncontainer] {
   justify-content: center;
 }
-.cart__dynamic-checkout-buttons .dynamic-checkout__buttons {
-  max-width: 100% !important;
-  width: 100% !important;
+.cart__dynamic-checkout-buttons .dynamic-checkout__buttons.dynamic-checkout__buttons {
+  max-width: 100%;
+  width: 100%;
 }
 
 /* Trust signals: horizontal on mobile */

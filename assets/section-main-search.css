@@ -51,11 +51,11 @@
   margin: 0 auto;
 }
 
-.inv-search__input-wrapper,
-.inv-search__input-wrapper *,
-.inv-search__input-wrapper *::before,
-.inv-search__input-wrapper *::after {
-  box-shadow: none !important;
+.inv-search__input-wrapper.inv-search__input-wrapper,
+.inv-search__input-wrapper.inv-search__input-wrapper *,
+.inv-search__input-wrapper.inv-search__input-wrapper *::before,
+.inv-search__input-wrapper.inv-search__input-wrapper *::after {
+  box-shadow: none;
 }
 
 .inv-search__form,
@@ -92,9 +92,9 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.inv-search__field:focus-within {
+.inv-search__field.inv-search__field:focus-within {
   border-color: #e11d26;
-  box-shadow: 0 0 0 3px rgba(225, 29, 38, 0.1) !important;
+  box-shadow: 0 0 0 3px rgba(225, 29, 38, 0.1);
 }
 
 .inv-search__input.inv-search__input {
@@ -113,11 +113,11 @@
   appearance: none;
 }
 
-.inv-search__input.inv-search__input:focus,
-.inv-search__input.inv-search__input:focus-visible {
+.inv-search .inv-search__input.inv-search__input:focus,
+.inv-search .inv-search__input.inv-search__input:focus-visible {
   outline: none;
   border: none;
-  box-shadow: none !important;
+  box-shadow: none;
 }
 
 .inv-search__input::placeholder {
@@ -827,12 +827,12 @@
   max-width: 100%;
 }
 
-.inv-grid__products .inv-grid__item,
-.inv-grid__products > li {
-  margin: 0 !important;
-  padding: 0 !important;
-  border: none !important;
-  background: none !important;
+.inv-search .inv-grid__products .inv-grid__item,
+.inv-search .inv-grid__products > li {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
 }
 
 /* ----------------------------------------
@@ -1419,6 +1419,7 @@
 }
 
 /* Hide mobile-only elements on desktop */
+/* !important needed: ensures mobile-only elements are always hidden on desktop */
 @media screen and (min-width: 750px) {
   .inv-filter-mobile-trigger,
   .inv-filter-sheet-overlay,
@@ -1468,6 +1469,7 @@
    VISUALLY HIDDEN (accessibility)
    ---------------------------------------- */
 
+/* !important needed: accessibility utility must override all other styles */
 .visually-hidden {
   position: absolute !important;
   width: 1px !important;

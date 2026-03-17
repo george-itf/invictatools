@@ -164,6 +164,7 @@ cart-items {
   margin-top: 1rem;
 }
 
+/* Base styles - extended in invicta-cart.css (font-size, font-weight, color) */
 .cart-note__label {
   display: inline-block;
   margin-bottom: 1rem;
