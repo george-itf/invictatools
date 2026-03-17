@@ -1,23 +1,19 @@
 {% comment %}
   ============================================================================
-  INVICTA SEARCH PAGE v1.3
+  INVICTA SEARCH PAGE v2.0
   ============================================================================
-  Unified search experience matching collection pages.
-  
+  Full search results page with collapsible filter panel.
+
   Features:
-  ✓ Same filter UI as collections (horizontal pills)
-  ✓ Same product grid layout
+  ✓ Collapsible filter panel with accordion groups
+  ✓ Brand filter (checkbox list with local search)
+  ✓ Product Type filter (checkbox list with local search)
+  ✓ Price range filter (min/max inputs)
+  ✓ Availability filter (in-stock toggle)
+  ✓ Active filter tags with remove
   ✓ AJAX filtering, sorting, pagination
-  ✓ Search input with predictive search
-  ✓ Products only (no articles/pages)
-  ✓ Scroll arrows for filter rows
-  ✓ Visible thin scrollbar
-  
-  Fixes in v1.3:
-  - Fixed grid uniformity (minmax constraint)
-  - Removed phantom search bar shadows
-  - Fixed list item spacing interference
-  
+  ✓ Extracted JS in invicta-search-page.js
+
   Trade 15.4.0 Compatible
   ============================================================================
 {% endcomment %}
@@ -28,23 +24,26 @@
   # ----------------------------------------
   assign products_per_page = section.settings.products_per_page
   assign show_sort = section.settings.show_sort
-  assign empty_message = section.settings.empty_message
-  
+  assign show_filters = section.settings.show_filters
+  assign show_price_filter = section.settings.show_price_filter
+  assign show_availability_filter = section.settings.show_availability_filter
+  assign filters_default_open = section.settings.filters_default_open
+
   # Grid columns
   assign cols_desktop = section.settings.columns_desktop
   assign cols_tablet = section.settings.columns_tablet
   assign cols_mobile = section.settings.columns_mobile
   assign grid_gap = section.settings.grid_gap
-  
+
   # Spacing
   assign padding_top = section.settings.padding_top
   assign padding_bottom = section.settings.padding_bottom
-  
+
   # Card settings
   assign card_radius = section.settings.card_radius
   assign card_padding = section.settings.card_padding
   assign image_ratio = section.settings.image_ratio
-  
+
   # Colours
   assign section_bg = section.settings.section_bg
   assign card_bg = section.settings.card_bg
@@ -59,52 +58,54 @@
   assign btn_secondary_bg = section.settings.btn_secondary_bg
   assign btn_secondary_text = section.settings.btn_secondary_text
   assign btn_secondary_border = section.settings.btn_secondary_border
-  
+
   # ----------------------------------------
-  # BUILD SEARCH URL BASE
+  # SEARCH STATE
   # ----------------------------------------
   assign sort_by = search.sort_by | default: search.default_sort_by
   assign search_terms = search.terms | escape
-  
+
   # ----------------------------------------
   # DETECT ACTIVE FILTERS
   # ----------------------------------------
   assign has_active_filters = false
-  assign active_brands_param = ''
-  assign active_types_param = ''
-  
+  assign total_active = 0
+  assign active_price_gte = ''
+  assign active_price_lte = ''
+  assign active_availability = false
+
   for filter in search.filters
-    if filter.active_values.size > 0
-      assign has_active_filters = true
+    if filter.param_name == 'filter.p.vendor' or filter.param_name == 'filter.p.product_type'
+      if filter.active_values.size > 0
+        assign has_active_filters = true
+        assign total_active = total_active | plus: filter.active_values.size
+      endif
     endif
-    
-    if filter.param_name == 'filter.p.vendor'
-      for value in filter.active_values
-        if active_brands_param == ''
-          assign active_brands_param = value.label
-        else
-          assign active_brands_param = active_brands_param | append: '|||' | append: value.label
-        endif
-      endfor
+
+    if filter.param_name == 'filter.v.price'
+      if filter.min_value.value != nil
+        assign active_price_gte = filter.min_value.value | money_without_currency
+        assign has_active_filters = true
+        assign total_active = total_active | plus: 1
+      endif
+      if filter.max_value.value != nil
+        assign active_price_lte = filter.max_value.value | money_without_currency
+        assign has_active_filters = true
+        assign total_active = total_active | plus: 1
+      endif
     endif
-    
-    if filter.param_name == 'filter.p.product_type'
+
+    if filter.param_name == 'filter.v.availability'
       for value in filter.active_values
-        if active_types_param == ''
-          assign active_types_param = value.label
-        else
-          assign active_types_param = active_types_param | append: '|||' | append: value.label
+        if value.value == '1'
+          assign active_availability = true
+          assign has_active_filters = true
+          assign total_active = total_active | plus: 1
         endif
       endfor
     endif
   endfor
-  
-  assign active_brands = active_brands_param | split: '|||'
-  assign active_types = active_types_param | split: '|||'
-  assign active_brand_count = active_brands | size
-  assign active_type_count = active_types | size
-  assign total_active = active_brand_count | plus: active_type_count
-  
+
   # ----------------------------------------
   # BUILD SORTED FILTER DATA
   # ----------------------------------------
@@ -112,13 +113,10 @@
   assign brand_entries_inactive = ''
   assign type_entries_active = ''
   assign type_entries_inactive = ''
-  
   assign has_brands = false
   assign has_types = false
-  
+
   for filter in search.filters
-    
-    # Brand filter
     if filter.param_name == 'filter.p.vendor'
       for value in filter.values
         if value.count > 0
@@ -126,7 +124,7 @@
           assign sort_key = 99999 | minus: value.count
           assign sort_key_padded = sort_key | prepend: '00000' | slice: -5, 5
           assign entry = sort_key_padded | append: '|' | append: value.label | append: '|' | append: value.count
-          
+
           if value.active
             if brand_entries_active == ''
               assign brand_entries_active = entry
@@ -143,8 +141,7 @@
         endif
       endfor
     endif
-    
-    # Product type filter
+
     if filter.param_name == 'filter.p.product_type'
       for value in filter.values
         if value.count > 0
@@ -152,7 +149,7 @@
           assign sort_key = 99999 | minus: value.count
           assign sort_key_padded = sort_key | prepend: '00000' | slice: -5, 5
           assign entry = sort_key_padded | append: '|' | append: value.label | append: '|' | append: value.count
-          
+
           if value.active
             if type_entries_active == ''
               assign type_entries_active = entry
@@ -169,23 +166,21 @@
         endif
       endfor
     endif
-    
   endfor
-  
-  # Sort arrays
+
   assign brand_active_sorted = brand_entries_active | split: '|||' | sort
   assign brand_inactive_sorted = brand_entries_inactive | split: '|||' | sort
   assign type_active_sorted = type_entries_active | split: '|||' | sort
   assign type_inactive_sorted = type_entries_inactive | split: '|||' | sort
 -%}
 
-<div 
+<div
   id="invicta-search"
   class="inv-search"
   data-section-id="{{ section.id }}"
   data-search-terms="{{ search_terms }}"
-  data-active-brands="{{ active_brands_param | escape }}"
-  data-active-types="{{ active_types_param | escape }}"
+  data-sort-by="{{ sort_by }}"
+  data-page="1"
   style="
     --inv-grid-columns: {{ cols_desktop }};
     --inv-grid-columns-tablet: {{ cols_tablet }};
@@ -211,11 +206,11 @@
     --inv-btn-secondary-border: {{ btn_secondary_border }};
   "
 >
-  
+
   {%- comment -%} ========== SEARCH HEADER ========== {%- endcomment -%}
   <div class="inv-search__header">
     <div class="inv-search__container page-width">
-      
+
       <h1 class="inv-search__title">
         {%- if search.performed -%}
           {%- if search_terms != blank -%}
@@ -230,17 +225,17 @@
           {{ 'invicta.search.heading' | t }}
         {%- endif -%}
       </h1>
-      
+
       {%- comment -%} Search Input {%- endcomment -%}
       <div class="inv-search__input-wrapper">
         {%- if settings.predictive_search_enabled -%}
           <predictive-search data-loading-text="{{ 'accessibility.loading' | t }}">
         {%- endif -%}
-        
+
         <form action="{{ routes.search_url }}" method="get" role="search" class="inv-search__form">
           <input type="hidden" name="type" value="product">
           <input type="hidden" name="options[prefix]" value="last">
-          
+
           <div class="inv-search__field">
             <input
               type="search"
@@ -262,14 +257,14 @@
                 aria-autocomplete="list"
               {%- endif -%}
             >
-            
+
             <button type="submit" class="inv-search__submit" aria-label="{{ 'invicta.search.submit_label' | t }}">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <circle cx="11" cy="11" r="8"/>
                 <path d="m21 21-4.35-4.35"/>
               </svg>
             </button>
-            
+
             {%- if search.terms != blank -%}
               <a href="{{ routes.search_url }}?type=product" class="inv-search__clear" aria-label="{{ 'invicta.search.clear_label' | t }}">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -279,214 +274,355 @@
               </a>
             {%- endif -%}
           </div>
-          
+
           {%- if settings.predictive_search_enabled -%}
             <div class="predictive-search predictive-search--search-template" tabindex="-1" data-predictive-search></div>
           {%- endif -%}
         </form>
-        
+
         {%- if settings.predictive_search_enabled -%}
           </predictive-search>
         {%- endif -%}
       </div>
-      
+
     </div>
   </div>
-  
+
   {%- if search.performed -%}
-    
-    {%- comment -%} ========== FILTERS ========== {%- endcomment -%}
-    {%- if search.filters != empty and section.settings.show_filters -%}
-      <div class="inv-search__filters" id="inv-search-filters">
-        
-        {%- comment -%} Brand Filter Row {%- endcomment -%}
-        {%- if has_brands -%}
-          <div class="inv-filters__row">
-            <div class="inv-filters__container page-width">
-              <div class="inv-filters__header">
-                <span class="inv-filters__label">{{ 'invicta.search.filter_brand' | t }}</span>
-                {%- if active_brand_count > 0 -%}
-                  <span class="inv-filters__count">({{ 'invicta.search.filter_selected' | t: count: active_brand_count }})</span>
-                {%- endif -%}
-              </div>
-              
-              <div class="inv-filters__scroll-container">
-                {%- comment -%} Left arrow {%- endcomment -%}
-                <button type="button" class="inv-filters__scroll-btn inv-filters__scroll-btn--left inv-filters__scroll-btn--hidden" aria-label="Scroll left" data-scroll-dir="left">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-                </button>
-                
-                <div class="inv-filters__scroll-wrapper" data-filter-scroll>
-                  <div class="inv-filters__buttons" data-filter-group="brand">
-                    
-                    {%- for entry in brand_active_sorted -%}
-                      {%- if entry != blank -%}
-                        {%- assign parts = entry | split: '|' -%}
-                        {%- assign label = parts[1] -%}
-                        {%- assign count = parts[2] -%}
-                        <button
-                          type="button"
-                          class="inv-filters__btn inv-filters__btn--active"
-                          data-filter-value="{{ label | escape }}"
-                          data-filter-type="brand"
-                          data-filter-param="filter.p.vendor"
-                          aria-pressed="true"
-                        >
-                          <span class="inv-filters__btn-text">{{ label }}</span>
-                          <span class="inv-filters__btn-count">({{ count }})</span>
-                        </button>
-                      {%- endif -%}
-                    {%- endfor -%}
-                    
-                    {%- for entry in brand_inactive_sorted -%}
-                      {%- if entry != blank -%}
-                        {%- assign parts = entry | split: '|' -%}
-                        {%- assign label = parts[1] -%}
-                        {%- assign count = parts[2] -%}
-                        <button
-                          type="button"
-                          class="inv-filters__btn"
-                          data-filter-value="{{ label | escape }}"
-                          data-filter-type="brand"
-                          data-filter-param="filter.p.vendor"
-                          aria-pressed="false"
-                        >
-                          <span class="inv-filters__btn-text">{{ label }}</span>
-                          <span class="inv-filters__btn-count">({{ count }})</span>
-                        </button>
-                      {%- endif -%}
-                    {%- endfor -%}
-                    
+
+    {%- comment -%} ========== FILTER PANEL ========== {%- endcomment -%}
+    {%- if show_filters and search.filters != empty -%}
+      <div class="inv-search__filters-section">
+        <div class="inv-search__container page-width">
+
+          {%- comment -%} Filter toggle button {%- endcomment -%}
+          <button
+            type="button"
+            class="inv-filter-toggle"
+            data-filter-toggle
+            aria-expanded="{% if filters_default_open %}true{% else %}false{% endif %}"
+            aria-controls="inv-filter-panel"
+          >
+            <svg class="inv-filter-toggle__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="4" y1="6" x2="20" y2="6"/>
+              <line x1="4" y1="12" x2="16" y2="12"/>
+              <line x1="4" y1="18" x2="12" y2="18"/>
+            </svg>
+            <span>{{ 'invicta.search.filters' | t }}</span>
+            {%- if total_active > 0 -%}
+              <span class="inv-filter-toggle__badge">{{ total_active }}</span>
+            {%- endif -%}
+          </button>
+
+          {%- comment -%} Filter panel {%- endcomment -%}
+          <div
+            class="inv-filter-panel"
+            id="inv-filter-panel"
+            data-filter-panel
+            aria-hidden="{% if filters_default_open %}false{% else %}true{% endif %}"
+          >
+            <div class="inv-filter-panel__grid">
+
+              {%- comment -%} ---- BRAND FILTER ---- {%- endcomment -%}
+              {%- if has_brands -%}
+                <div class="inv-filter-group" data-filter-group-id="brand">
+                  <button
+                    type="button"
+                    class="inv-filter-group__header"
+                    data-accordion-toggle
+                    aria-expanded="{% if filters_default_open %}true{% else %}false{% endif %}"
+                    aria-controls="inv-filter-body-brand"
+                  >
+                    <span class="inv-filter-group__title">{{ 'invicta.search.filter_brand' | t }}</span>
+                    <svg class="inv-filter-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                  </button>
+                  <div
+                    class="inv-filter-group__body"
+                    id="inv-filter-body-brand"
+                    aria-hidden="{% if filters_default_open %}false{% else %}true{% endif %}"
+                  >
+                    <div class="inv-filter-group__search">
+                      <input
+                        type="text"
+                        class="inv-filter-group__search-input"
+                        data-filter-search
+                        placeholder="{{ 'invicta.search.filter_brands_search' | t }}"
+                        aria-label="{{ 'invicta.search.filter_brands_search' | t }}"
+                      >
+                    </div>
+                    <div class="inv-filter-group__list">
+                      {%- for entry in brand_active_sorted -%}
+                        {%- if entry != blank -%}
+                          {%- assign parts = entry | split: '|' -%}
+                          {%- assign label = parts[1] -%}
+                          {%- assign count = parts[2] -%}
+                          <label class="inv-filter-checkbox">
+                            <input type="checkbox" name="filter.p.vendor" value="{{ label | escape }}" checked>
+                            <span class="inv-filter-checkbox__check"></span>
+                            <span class="inv-filter-checkbox__label">{{ label }}</span>
+                            <span class="inv-filter-checkbox__count">({{ count }})</span>
+                          </label>
+                        {%- endif -%}
+                      {%- endfor -%}
+                      {%- for entry in brand_inactive_sorted -%}
+                        {%- if entry != blank -%}
+                          {%- assign parts = entry | split: '|' -%}
+                          {%- assign label = parts[1] -%}
+                          {%- assign count = parts[2] -%}
+                          <label class="inv-filter-checkbox">
+                            <input type="checkbox" name="filter.p.vendor" value="{{ label | escape }}">
+                            <span class="inv-filter-checkbox__check"></span>
+                            <span class="inv-filter-checkbox__label">{{ label }}</span>
+                            <span class="inv-filter-checkbox__count">({{ count }})</span>
+                          </label>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </div>
                   </div>
                 </div>
-                
-                {%- comment -%} Right arrow {%- endcomment -%}
-                <button type="button" class="inv-filters__scroll-btn inv-filters__scroll-btn--right" aria-label="Scroll right" data-scroll-dir="right">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-                </button>
-              </div>
-              
-            </div>
-          </div>
-        {%- endif -%}
-        
-        {%- comment -%} Type Filter Row {%- endcomment -%}
-        {%- if has_types -%}
-          <div class="inv-filters__row inv-filters__row--types">
-            <div class="inv-filters__container page-width">
-              <div class="inv-filters__header">
-                <span class="inv-filters__label">{{ 'invicta.search.filter_type' | t }}</span>
-                {%- if active_type_count > 0 -%}
-                  <span class="inv-filters__count">({{ 'invicta.search.filter_selected' | t: count: active_type_count }})</span>
-                {%- endif -%}
-              </div>
-              
-              <div class="inv-filters__scroll-container">
-                {%- comment -%} Left arrow {%- endcomment -%}
-                <button type="button" class="inv-filters__scroll-btn inv-filters__scroll-btn--left inv-filters__scroll-btn--hidden" aria-label="Scroll left" data-scroll-dir="left">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-                </button>
-                
-                <div class="inv-filters__scroll-wrapper" data-filter-scroll>
-                  <div class="inv-filters__buttons" data-filter-group="type">
-                    
-                    {%- for entry in type_active_sorted -%}
-                      {%- if entry != blank -%}
-                        {%- assign parts = entry | split: '|' -%}
-                        {%- assign label = parts[1] -%}
-                        {%- assign count = parts[2] -%}
-                        <button
-                          type="button"
-                          class="inv-filters__btn inv-filters__btn--active"
-                          data-filter-value="{{ label | escape }}"
-                          data-filter-type="type"
-                          data-filter-param="filter.p.product_type"
-                          aria-pressed="true"
-                        >
-                          <span class="inv-filters__btn-text">{{ label }}</span>
-                          <span class="inv-filters__btn-count">({{ count }})</span>
-                        </button>
-                      {%- endif -%}
-                    {%- endfor -%}
-                    
-                    {%- for entry in type_inactive_sorted -%}
-                      {%- if entry != blank -%}
-                        {%- assign parts = entry | split: '|' -%}
-                        {%- assign label = parts[1] -%}
-                        {%- assign count = parts[2] -%}
-                        <button
-                          type="button"
-                          class="inv-filters__btn"
-                          data-filter-value="{{ label | escape }}"
-                          data-filter-type="type"
-                          data-filter-param="filter.p.product_type"
-                          aria-pressed="false"
-                        >
-                          <span class="inv-filters__btn-text">{{ label }}</span>
-                          <span class="inv-filters__btn-count">({{ count }})</span>
-                        </button>
-                      {%- endif -%}
-                    {%- endfor -%}
-                    
+              {%- endif -%}
+
+              {%- comment -%} ---- PRODUCT TYPE FILTER ---- {%- endcomment -%}
+              {%- if has_types -%}
+                <div class="inv-filter-group" data-filter-group-id="type">
+                  <button
+                    type="button"
+                    class="inv-filter-group__header"
+                    data-accordion-toggle
+                    aria-expanded="{% if filters_default_open %}true{% else %}false{% endif %}"
+                    aria-controls="inv-filter-body-type"
+                  >
+                    <span class="inv-filter-group__title">{{ 'invicta.search.filter_type' | t }}</span>
+                    <svg class="inv-filter-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                  </button>
+                  <div
+                    class="inv-filter-group__body"
+                    id="inv-filter-body-type"
+                    aria-hidden="{% if filters_default_open %}false{% else %}true{% endif %}"
+                  >
+                    <div class="inv-filter-group__search">
+                      <input
+                        type="text"
+                        class="inv-filter-group__search-input"
+                        data-filter-search
+                        placeholder="{{ 'invicta.search.filter_types_search' | t }}"
+                        aria-label="{{ 'invicta.search.filter_types_search' | t }}"
+                      >
+                    </div>
+                    <div class="inv-filter-group__list">
+                      {%- for entry in type_active_sorted -%}
+                        {%- if entry != blank -%}
+                          {%- assign parts = entry | split: '|' -%}
+                          {%- assign label = parts[1] -%}
+                          {%- assign count = parts[2] -%}
+                          <label class="inv-filter-checkbox">
+                            <input type="checkbox" name="filter.p.product_type" value="{{ label | escape }}" checked>
+                            <span class="inv-filter-checkbox__check"></span>
+                            <span class="inv-filter-checkbox__label">{{ label }}</span>
+                            <span class="inv-filter-checkbox__count">({{ count }})</span>
+                          </label>
+                        {%- endif -%}
+                      {%- endfor -%}
+                      {%- for entry in type_inactive_sorted -%}
+                        {%- if entry != blank -%}
+                          {%- assign parts = entry | split: '|' -%}
+                          {%- assign label = parts[1] -%}
+                          {%- assign count = parts[2] -%}
+                          <label class="inv-filter-checkbox">
+                            <input type="checkbox" name="filter.p.product_type" value="{{ label | escape }}">
+                            <span class="inv-filter-checkbox__check"></span>
+                            <span class="inv-filter-checkbox__label">{{ label }}</span>
+                            <span class="inv-filter-checkbox__count">({{ count }})</span>
+                          </label>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </div>
                   </div>
                 </div>
-                
-                {%- comment -%} Right arrow {%- endcomment -%}
-                <button type="button" class="inv-filters__scroll-btn inv-filters__scroll-btn--right" aria-label="Scroll right" data-scroll-dir="right">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-                </button>
-              </div>
-              
+              {%- endif -%}
+
+              {%- comment -%} ---- PRICE RANGE FILTER ---- {%- endcomment -%}
+              {%- if show_price_filter -%}
+                {%- for filter in search.filters -%}
+                  {%- if filter.param_name == 'filter.v.price' -%}
+                    <div class="inv-filter-group inv-filter-group--price" data-filter-group-id="price">
+                      <button
+                        type="button"
+                        class="inv-filter-group__header"
+                        data-accordion-toggle
+                        aria-expanded="{% if filters_default_open %}true{% else %}false{% endif %}"
+                        aria-controls="inv-filter-body-price"
+                      >
+                        <span class="inv-filter-group__title">{{ 'invicta.search.filter_price' | t }}</span>
+                        <svg class="inv-filter-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
+                      <div
+                        class="inv-filter-group__body"
+                        id="inv-filter-body-price"
+                        aria-hidden="{% if filters_default_open %}false{% else %}true{% endif %}"
+                      >
+                        <div class="inv-filter-price">
+                          <div class="inv-filter-price__inputs">
+                            <div class="inv-filter-price__field">
+                              <span class="inv-filter-price__prefix">&pound;</span>
+                              <input
+                                type="number"
+                                class="inv-filter-price__input"
+                                data-price-min
+                                name="filter.v.price.gte"
+                                value="{{ active_price_gte }}"
+                                placeholder="{{ filter.range_max | times: 0 | money_without_currency }}"
+                                min="0"
+                                aria-label="{{ 'invicta.search.filter_price_min' | t }}"
+                              >
+                              <span class="inv-filter-price__label">{{ 'invicta.search.filter_price_min' | t }}</span>
+                            </div>
+                            <span class="inv-filter-price__separator">&ndash;</span>
+                            <div class="inv-filter-price__field">
+                              <span class="inv-filter-price__prefix">&pound;</span>
+                              <input
+                                type="number"
+                                class="inv-filter-price__input"
+                                data-price-max
+                                name="filter.v.price.lte"
+                                value="{{ active_price_lte }}"
+                                placeholder="{{ filter.range_max | money_without_currency }}"
+                                min="0"
+                                aria-label="{{ 'invicta.search.filter_price_max' | t }}"
+                              >
+                              <span class="inv-filter-price__label">{{ 'invicta.search.filter_price_max' | t }}</span>
+                            </div>
+                          </div>
+                          <button type="button" class="inv-filter-price__apply" data-price-apply>
+                            {{ 'invicta.search.filter_price_apply' | t }}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+
+              {%- comment -%} ---- AVAILABILITY FILTER ---- {%- endcomment -%}
+              {%- if show_availability_filter -%}
+                {%- for filter in search.filters -%}
+                  {%- if filter.param_name == 'filter.v.availability' -%}
+                    <div class="inv-filter-group inv-filter-group--availability" data-filter-group-id="availability">
+                      <button
+                        type="button"
+                        class="inv-filter-group__header"
+                        data-accordion-toggle
+                        aria-expanded="{% if filters_default_open %}true{% else %}false{% endif %}"
+                        aria-controls="inv-filter-body-availability"
+                      >
+                        <span class="inv-filter-group__title">{{ 'invicta.search.filter_availability' | t }}</span>
+                        <svg class="inv-filter-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
+                      <div
+                        class="inv-filter-group__body"
+                        id="inv-filter-body-availability"
+                        aria-hidden="{% if filters_default_open %}false{% else %}true{% endif %}"
+                      >
+                        <label class="inv-filter-checkbox inv-filter-checkbox--toggle">
+                          <input
+                            type="checkbox"
+                            name="filter.v.availability"
+                            value="1"
+                            {% if active_availability %}checked{% endif %}
+                          >
+                          <span class="inv-filter-checkbox__check"></span>
+                          <span class="inv-filter-checkbox__label">{{ 'invicta.search.filter_in_stock' | t }}</span>
+                        </label>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+
             </div>
           </div>
-        {%- endif -%}
-        
-        {%- comment -%} Active Filters Bar {%- endcomment -%}
-        {%- if total_active > 0 -%}
-          <div class="inv-filters__active-bar" id="inv-active-filters">
-            <div class="inv-filters__container page-width">
+
+          {%- comment -%} ---- ACTIVE FILTER TAGS ---- {%- endcomment -%}
+          {%- if has_active_filters -%}
+            <div class="inv-filters__active-bar" id="inv-active-filters">
               <div class="inv-filters__active-content">
                 <div class="inv-filters__active-left">
                   <span class="inv-filters__active-label">{{ 'invicta.search.filters_active' | t }}:</span>
                   <div class="inv-filters__active-tags">
-                    {%- for brand in active_brands -%}
-                      {%- if brand != blank -%}
-                        <span class="inv-filters__tag inv-filters__tag--brand" data-filter-value="{{ brand | escape }}" data-filter-type="brand">
-                          <span class="inv-filters__tag-text">{{ brand }}</span>
-                          <button type="button" class="inv-filters__tag-remove" aria-label="Remove {{ brand }}">
-                            <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                          </button>
-                        </span>
+
+                    {%- for filter in search.filters -%}
+                      {%- if filter.param_name == 'filter.p.vendor' -%}
+                        {%- for value in filter.active_values -%}
+                          <span class="inv-filters__tag inv-filters__tag--brand" data-filter-param="filter.p.vendor" data-filter-value="{{ value.label | escape }}">
+                            <span class="inv-filters__tag-text">{{ value.label }}</span>
+                            <button type="button" class="inv-filters__tag-remove" aria-label="Remove {{ value.label }}">
+                              <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                            </button>
+                          </span>
+                        {%- endfor -%}
+                      {%- endif -%}
+
+                      {%- if filter.param_name == 'filter.p.product_type' -%}
+                        {%- for value in filter.active_values -%}
+                          <span class="inv-filters__tag inv-filters__tag--type" data-filter-param="filter.p.product_type" data-filter-value="{{ value.label | escape }}">
+                            <span class="inv-filters__tag-text">{{ value.label }}</span>
+                            <button type="button" class="inv-filters__tag-remove" aria-label="Remove {{ value.label }}">
+                              <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                            </button>
+                          </span>
+                        {%- endfor -%}
+                      {%- endif -%}
+
+                      {%- if filter.param_name == 'filter.v.price' -%}
+                        {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+                          <span class="inv-filters__tag inv-filters__tag--price" data-filter-param="filter.v.price.gte" data-filter-value="">
+                            <span class="inv-filters__tag-text">
+                              {%- if filter.min_value.value != nil and filter.max_value.value != nil -%}
+                                &pound;{{ filter.min_value.value | money_without_currency }} &ndash; &pound;{{ filter.max_value.value | money_without_currency }}
+                              {%- elsif filter.min_value.value != nil -%}
+                                &pound;{{ filter.min_value.value | money_without_currency }}+
+                              {%- elsif filter.max_value.value != nil -%}
+                                Up to &pound;{{ filter.max_value.value | money_without_currency }}
+                              {%- endif -%}
+                            </span>
+                            <button type="button" class="inv-filters__tag-remove" aria-label="Remove price filter">
+                              <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                            </button>
+                          </span>
+                        {%- endif -%}
+                      {%- endif -%}
+
+                      {%- if filter.param_name == 'filter.v.availability' -%}
+                        {%- for value in filter.active_values -%}
+                          {%- if value.value == '1' -%}
+                            <span class="inv-filters__tag inv-filters__tag--availability" data-filter-param="filter.v.availability" data-filter-value="1">
+                              <span class="inv-filters__tag-text">{{ 'invicta.search.filter_in_stock' | t }}</span>
+                              <button type="button" class="inv-filters__tag-remove" aria-label="Remove availability filter">
+                                <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                              </button>
+                            </span>
+                          {%- endif -%}
+                        {%- endfor -%}
                       {%- endif -%}
                     {%- endfor -%}
-                    
-                    {%- for type_val in active_types -%}
-                      {%- if type_val != blank -%}
-                        <span class="inv-filters__tag inv-filters__tag--type" data-filter-value="{{ type_val | escape }}" data-filter-type="type">
-                          <span class="inv-filters__tag-text">{{ type_val }}</span>
-                          <button type="button" class="inv-filters__tag-remove" aria-label="Remove {{ type_val }}">
-                            <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                          </button>
-                        </span>
-                      {%- endif -%}
-                    {%- endfor -%}
+
                   </div>
                 </div>
-                <button type="button" class="inv-filters__clear-all" id="inv-clear-all">{{ 'products.facets.clear_all' | t }}</button>
+                <button type="button" class="inv-filters__clear-all" data-clear-all-filters>{{ 'invicta.search.clear_filters' | t }}</button>
               </div>
             </div>
-          </div>
-        {%- endif -%}
-        
+          {%- endif -%}
+
+        </div>
       </div>
     {%- endif -%}
-    
+
     {%- comment -%} ========== PRODUCT GRID ========== {%- endcomment -%}
     <div class="inv-search__grid">
       <div class="inv-search__container page-width">
-        
+
         {%- paginate search.results by products_per_page -%}
-          
+
           {%- comment -%} Toolbar {%- endcomment -%}
           <div class="inv-grid__toolbar">
             <div class="inv-grid__toolbar-left">
@@ -494,16 +630,17 @@
                 {%- if search.results_count == 0 -%}
                   <strong>0</strong> {{ 'invicta.search.products' | t }}
                 {%- elsif paginate.pages > 1 -%}
-                  <strong>{{ search.results_count }}</strong>
-                  {% if search.results_count == 1 %}product{% else %}products{% endif %}
-                  <span class="inv-grid__count-range">({{ 'invicta.search.showing_range' | t: start: paginate.current_offset | plus: 1, end: paginate.current_offset | plus: paginate.items.size }})</span>
+                  {%- assign range_start = paginate.current_offset | plus: 1 -%}
+                  {%- assign range_end = paginate.current_offset | plus: paginate.items.size -%}
+                  <strong>{{ search.results_count }}</strong> {{ 'invicta.search.products' | t }}
+                  <span class="inv-grid__count-range">({{ 'invicta.search.showing_of' | t: start: range_start, end: range_end, total: search.results_count }})</span>
                 {%- else -%}
                   <strong>{{ search.results_count }}</strong>
-                  {% if search.results_count == 1 %}product{% else %}products{% endif %}
+                  {% if search.results_count == 1 %}product{% else %}{{ 'invicta.search.products' | t }}{% endif %}
                 {%- endif -%}
               </p>
             </div>
-            
+
             {%- if show_sort and search.results_count > 0 -%}
               <div class="inv-grid__toolbar-right">
                 <div class="inv-grid__sort">
@@ -519,14 +656,22 @@
               </div>
             {%- endif -%}
           </div>
-          
+
+          {%- comment -%} Loading overlay {%- endcomment -%}
+          <div class="inv-grid__loading-overlay" aria-hidden="true">
+            <svg class="inv-grid__spinner" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" stroke-opacity="0.2"/>
+              <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
+            </svg>
+          </div>
+
           {%- comment -%} Products {%- endcomment -%}
           <ul class="inv-grid__products" id="inv-product-list" role="list">
             {%- for item in search.results -%}
               {%- if item.object_type == 'product' -%}
                 <li class="inv-grid__item">
-                  {%- render 'invicta-product-card', 
-                      product: item, 
+                  {%- render 'invicta-product-card',
+                      product: item,
                       section_settings: section.settings,
                       card_index: forloop.index
                   -%}
@@ -539,24 +684,32 @@
                     <circle cx="11" cy="11" r="8"/>
                     <path d="m21 21-4.35-4.35"/>
                   </svg>
-                  <p class="inv-grid__empty-message">{{ empty_message }}</p>
+                  <p class="inv-grid__empty-message">
+                    {{ 'invicta.search.no_results' | t: query: search.terms }}
+                  </p>
                   {%- if has_active_filters -%}
-                    <button type="button" class="inv-grid__empty-link" id="inv-clear-filters-empty">
+                    <p class="inv-grid__empty-hint">{{ 'invicta.search.no_results_filters' | t }}</p>
+                    <button type="button" class="inv-grid__empty-link" data-clear-all-filters>
                       {{ 'invicta.search.clear_filters' | t }}
                     </button>
+                  {%- else -%}
+                    <p class="inv-grid__empty-hint">{{ 'invicta.search.no_results_search' | t }}</p>
                   {%- endif -%}
+                  <a href="/collections/all" class="inv-grid__empty-browse">
+                    {{ 'invicta.search.browse_all' | t }}
+                  </a>
                 </div>
               </li>
             {%- endfor -%}
           </ul>
-          
+
           {%- comment -%} Pagination {%- endcomment -%}
           {%- if paginate.pages > 1 -%}
             <nav class="inv-grid__pagination" aria-label="Search results pagination">
               <div class="inv-pagination">
-                
+
                 {%- if paginate.previous -%}
-                  <a href="{{ paginate.previous.url }}" class="inv-pagination__btn inv-pagination__btn--prev" data-inv-page-link aria-label="Previous page">
+                  <a href="{{ paginate.previous.url }}" class="inv-pagination__btn inv-pagination__btn--prev" data-inv-page-link aria-label="{{ 'invicta.search.prev_page' | t }}">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
                     <span>{{ 'invicta.search.prev' | t }}</span>
                   </a>
@@ -566,7 +719,7 @@
                     <span>{{ 'invicta.search.prev' | t }}</span>
                   </span>
                 {%- endif -%}
-                
+
                 <div class="inv-pagination__pages">
                   {%- for part in paginate.parts -%}
                     {%- if part.is_link -%}
@@ -580,7 +733,7 @@
                     {%- endif -%}
                   {%- endfor -%}
                 </div>
-                
+
                 {%- if paginate.next -%}
                   <a href="{{ paginate.next.url }}" class="inv-pagination__btn inv-pagination__btn--next" data-inv-page-link aria-label="{{ 'invicta.search.next_page' | t }}">
                     <span>{{ 'invicta.search.next' | t }}</span>
@@ -592,18 +745,18 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
                   </span>
                 {%- endif -%}
-                
+
               </div>
             </nav>
           {%- endif -%}
-          
+
         {%- endpaginate -%}
-        
+
       </div>
     </div>
-    
+
   {%- else -%}
-    
+
     {%- comment -%} No search performed yet {%- endcomment -%}
     <div class="inv-search__placeholder">
       <div class="inv-search__container page-width">
@@ -616,461 +769,15 @@
         </div>
       </div>
     </div>
-    
+
   {%- endif -%}
-  
+
   <div class="visually-hidden" aria-live="assertive" id="inv-search-announce"></div>
-  
+
 </div>
 
 {{ 'section-main-search.css' | asset_url | stylesheet_tag }}
-
-<script>
-(function() {
-  'use strict';
-  
-  /**
-   * Invicta Search v1.3
-   * AJAX filtering, sorting, pagination for search results
-   * 
-   * @class InvictaSearch
-   */
-  class InvictaSearch {
-    
-    /**
-     * @param {HTMLElement} container - The search container
-     */
-    constructor(container) {
-      /** @type {HTMLElement} */
-      this.container = container;
-      
-      /** @type {string} */
-      this.sectionId = container.dataset.sectionId;
-      
-      /** @type {string} */
-      this.searchTerms = container.dataset.searchTerms || '';
-      
-      /** @type {AbortController|null} */
-      this.abortController = null;
-      
-      /** @type {number|null} */
-      this.debounceTimer = null;
-      
-      /** @type {number} */
-      this.debounceDelay = 150;
-      
-      /** @type {Set<string>} */
-      this.activeBrands = new Set(
-        (container.dataset.activeBrands || '').split('|||').filter(Boolean)
-      );
-      
-      /** @type {Set<string>} */
-      this.activeTypes = new Set(
-        (container.dataset.activeTypes || '').split('|||').filter(Boolean)
-      );
-      
-      this.init();
-    }
-    
-    /**
-     * Initialise event listeners
-     * @returns {void}
-     */
-    init() {
-      this.container.addEventListener('click', this.handleClick.bind(this));
-      this.container.addEventListener('change', this.handleChange.bind(this));
-      window.addEventListener('popstate', this.handlePopState.bind(this));
-      
-      // Init scroll buttons
-      this.initScrollButtons();
-    }
-    
-    /**
-     * Initialise scroll button functionality
-     * @returns {void}
-     */
-    initScrollButtons() {
-      const scrollContainers = this.container.querySelectorAll('.inv-filters__scroll-container');
-      
-      scrollContainers.forEach(container => {
-        const wrapper = container.querySelector('[data-filter-scroll]');
-        const leftBtn = container.querySelector('[data-scroll-dir="left"]');
-        const rightBtn = container.querySelector('[data-scroll-dir="right"]');
-        
-        if (!wrapper || !leftBtn || !rightBtn) return;
-        
-        /**
-         * Update arrow visibility based on scroll position
-         */
-        const updateArrows = () => {
-          const { scrollLeft, scrollWidth, clientWidth } = wrapper;
-          const maxScroll = scrollWidth - clientWidth;
-          
-          // Hide left arrow at start
-          leftBtn.classList.toggle('inv-filters__scroll-btn--hidden', scrollLeft <= 5);
-          
-          // Hide right arrow at end
-          rightBtn.classList.toggle('inv-filters__scroll-btn--hidden', scrollLeft >= maxScroll - 5);
-          
-          // If no scroll needed, hide both
-          if (scrollWidth <= clientWidth + 10) {
-            leftBtn.classList.add('inv-filters__scroll-btn--hidden');
-            rightBtn.classList.add('inv-filters__scroll-btn--hidden');
-          }
-        };
-        
-        /**
-         * Scroll by amount
-         * @param {number} amount - Pixels to scroll
-         */
-        const scrollBy = (amount) => {
-          wrapper.scrollBy({ left: amount, behavior: 'smooth' });
-        };
-        
-        // Arrow click handlers
-        leftBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          scrollBy(-200);
-        });
-        
-        rightBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          scrollBy(200);
-        });
-        
-        // Update on scroll
-        wrapper.addEventListener('scroll', updateArrows, { passive: true });
-        
-        // Initial state (with small delay for rendering)
-        requestAnimationFrame(() => {
-          updateArrows();
-        });
-        
-        // Update on resize
-        let resizeTimer;
-        window.addEventListener('resize', () => {
-          clearTimeout(resizeTimer);
-          resizeTimer = setTimeout(updateArrows, 100);
-        }, { passive: true });
-      });
-    }
-    
-    /**
-     * Handle all click events via delegation
-     * @param {MouseEvent} e
-     * @returns {void}
-     */
-    handleClick(e) {
-      // Filter button
-      const btn = e.target.closest('.inv-filters__btn');
-      if (btn) {
-        e.preventDefault();
-        this.toggleFilter(btn);
-        return;
-      }
-      
-      // Tag remove button
-      const tagRemove = e.target.closest('.inv-filters__tag-remove');
-      if (tagRemove) {
-        e.preventDefault();
-        const tag = tagRemove.closest('.inv-filters__tag');
-        this.removeFilter(tag);
-        return;
-      }
-      
-      // Clear all button
-      const clearAll = e.target.closest('.inv-filters__clear-all, #inv-clear-filters-empty');
-      if (clearAll) {
-        e.preventDefault();
-        this.clearAllFilters();
-        return;
-      }
-      
-      // Pagination link
-      const pageLink = e.target.closest('[data-inv-page-link]');
-      if (pageLink) {
-        e.preventDefault();
-        this.navigateToPage(pageLink.href);
-        return;
-      }
-    }
-    
-    /**
-     * Handle change events (sort dropdown)
-     * @param {Event} e
-     * @returns {void}
-     */
-    handleChange(e) {
-      const sortSelect = e.target.closest('[data-inv-sort-select]');
-      if (sortSelect) {
-        this.changeSort(sortSelect.value);
-      }
-    }
-    
-    /**
-     * Toggle a filter on/off
-     * @param {HTMLElement} btn
-     * @returns {void}
-     */
-    toggleFilter(btn) {
-      const type = btn.dataset.filterType;
-      const value = btn.dataset.filterValue;
-      const isActive = btn.classList.contains('inv-filters__btn--active');
-      
-      if (type === 'brand') {
-        isActive ? this.activeBrands.delete(value) : this.activeBrands.add(value);
-      } else if (type === 'type') {
-        isActive ? this.activeTypes.delete(value) : this.activeTypes.add(value);
-      }
-      
-      // Immediate visual feedback
-      btn.classList.toggle('inv-filters__btn--active');
-      btn.setAttribute('aria-pressed', (!isActive).toString());
-      
-      this.debouncedFetch();
-    }
-    
-    /**
-     * Remove a filter via tag
-     * @param {HTMLElement} tag
-     * @returns {void}
-     */
-    removeFilter(tag) {
-      const type = tag.dataset.filterType;
-      const value = tag.dataset.filterValue;
-      
-      if (type === 'brand') {
-        this.activeBrands.delete(value);
-      } else if (type === 'type') {
-        this.activeTypes.delete(value);
-      }
-      
-      // Update corresponding button
-      const btn = this.container.querySelector(
-        `.inv-filters__btn[data-filter-value="${CSS.escape(value)}"][data-filter-type="${type}"]`
-      );
-      if (btn) {
-        btn.classList.remove('inv-filters__btn--active');
-        btn.setAttribute('aria-pressed', 'false');
-      }
-      
-      this.debouncedFetch();
-    }
-    
-    /**
-     * Clear all active filters
-     * @returns {void}
-     */
-    clearAllFilters() {
-      this.activeBrands.clear();
-      this.activeTypes.clear();
-      
-      this.container.querySelectorAll('.inv-filters__btn--active').forEach(btn => {
-        btn.classList.remove('inv-filters__btn--active');
-        btn.setAttribute('aria-pressed', 'false');
-      });
-      
-      this.debouncedFetch();
-    }
-    
-    /**
-     * Change sort order
-     * @param {string} sortValue
-     * @returns {void}
-     */
-    changeSort(sortValue) {
-      const url = this.buildUrl();
-      url.searchParams.set('sort_by', sortValue);
-      url.searchParams.delete('page');
-      this.fetchAndUpdate(url.toString());
-    }
-    
-    /**
-     * Navigate to a pagination page
-     * @param {string} href
-     * @returns {void}
-     */
-    navigateToPage(href) {
-      this.fetchAndUpdate(href);
-      this.scrollToTop();
-    }
-    
-    /**
-     * Build URL from current filter state
-     * @returns {URL}
-     */
-    buildUrl() {
-      const url = new URL(window.location.origin + '/search');
-      
-      if (this.searchTerms) {
-        url.searchParams.set('q', this.searchTerms);
-      }
-      url.searchParams.set('type', 'product');
-      url.searchParams.set('options[prefix]', 'last');
-      
-      this.activeBrands.forEach(brand => {
-        url.searchParams.append('filter.p.vendor', brand);
-      });
-      
-      this.activeTypes.forEach(type => {
-        url.searchParams.append('filter.p.product_type', type);
-      });
-      
-      return url;
-    }
-    
-    /**
-     * Debounced fetch — prevents rapid requests
-     * @returns {void}
-     */
-    debouncedFetch() {
-      clearTimeout(this.debounceTimer);
-      this.debounceTimer = setTimeout(() => {
-        this.fetchAndUpdate(this.buildUrl().toString());
-      }, this.debounceDelay);
-    }
-    
-    /**
-     * Fetch filtered content via AJAX
-     * @param {string} url
-     * @returns {Promise<void>}
-     */
-    async fetchAndUpdate(url) {
-      // Cancel any in-flight request
-      if (this.abortController) {
-        this.abortController.abort();
-      }
-      this.abortController = new AbortController();
-      
-      // Show loading state
-      this.setLoading(true);
-      
-      try {
-        const fetchUrl = `${url}${url.includes('?') ? '&' : '?'}sections=${this.sectionId}`;
-        
-        const response = await fetch(fetchUrl, {
-          signal: this.abortController.signal
-        });
-        
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        // Update URL without reload
-        history.pushState({}, '', url);
-        
-        // Update section
-        if (data[this.sectionId]) {
-          this.updateSection(data[this.sectionId]);
-        }
-        
-        // Announce to screen readers
-        this.announceUpdate();
-        
-      } catch (err) {
-        if (err.name === 'AbortError') {
-          return; // Request was cancelled
-        }
-        
-        console.error('[Invicta Search] Fetch error:', err);
-        
-        // Fallback to full page reload
-        window.location.href = url;
-        
-      } finally {
-        this.setLoading(false);
-        this.abortController = null;
-      }
-    }
-    
-    /**
-     * Update section with new HTML
-     * @param {string} html
-     * @returns {void}
-     */
-    updateSection(html) {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const newContent = doc.body.firstElementChild;
-      
-      if (newContent) {
-        this.container.replaceWith(newContent);
-        
-        // Re-init on new container
-        const newContainer = document.getElementById('invicta-search');
-        if (newContainer) {
-          new InvictaSearch(newContainer);
-        }
-      }
-    }
-    
-    /**
-     * Set loading state
-     * @param {boolean} loading
-     * @returns {void}
-     */
-    setLoading(loading) {
-      this.container.classList.toggle('inv-search--loading', loading);
-    }
-    
-    /**
-     * Scroll to top of search results
-     * @returns {void}
-     */
-    scrollToTop() {
-      const offset = 100;
-      const top = this.container.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-    
-    /**
-     * Announce update to screen readers
-     * @returns {void}
-     */
-    announceUpdate() {
-      const announce = document.getElementById('inv-search-announce');
-      if (!announce) return;
-      
-      const countEl = this.container.querySelector('.inv-grid__count strong');
-      const count = countEl ? countEl.textContent : '0';
-      
-      announce.textContent = `Search results updated. ${count} products found.`;
-      
-      setTimeout(() => {
-        announce.textContent = '';
-      }, 1000);
-    }
-    
-    /**
-     * Handle browser back/forward
-     * @returns {void}
-     */
-    handlePopState() {
-      window.location.reload();
-    }
-  }
-  
-  /**
-   * Initialise when DOM is ready
-   */
-  function init() {
-    const container = document.getElementById('invicta-search');
-    if (container) {
-      new InvictaSearch(container);
-    }
-  }
-  
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
-</script>
+{{ 'invicta-search-page.js' | asset_url | script_tag }}
 
 {% schema %}
 {
@@ -1146,6 +853,25 @@
       "type": "checkbox",
       "id": "show_sort",
       "label": "Show sort dropdown",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price_filter",
+      "label": "Show price filter",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_availability_filter",
+      "label": "Show availability filter",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "filters_default_open",
+      "label": "Filters open by default",
+      "info": "Whether filter accordion sections start expanded",
       "default": true
     },
     {
