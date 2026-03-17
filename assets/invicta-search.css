@@ -670,7 +670,7 @@
     border-right: none;
     left: 0 !important;
     right: 0 !important;
-    width: 100vw !important;
+    width: 100% !important;
   }
 
   /* Mobile close button */

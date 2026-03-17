@@ -249,7 +249,7 @@
 
 /* Filter panel */
 .inv-filter-panel {
-  background: #fff;
+  background: #f9fafb;
   border: 1px solid #e5e5e5;
   border-radius: 12px;
   padding: 24px;
@@ -283,12 +283,12 @@
   padding: 0 0 10px;
   min-width: 0;
   min-height: 0;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--inv-title-color);
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
   background: none;
   border: none;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #d1d5db;
   cursor: pointer;
   transition: color 0.15s ease;
 }
@@ -340,7 +340,7 @@
   width: 100%;
   height: 36px;
   padding: 0 10px;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--inv-title-color);
   background: #f9fafb;
   border: 1px solid #e5e5e5;
@@ -357,7 +357,7 @@
 }
 
 .inv-filter-group__search-input::placeholder {
-  color: #9ca3af;
+  color: #6b7280;
 }
 
 /* Scrollable checkbox list */
@@ -390,9 +390,9 @@
   align-items: center;
   gap: 8px;
   padding: 8px 4px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
-  color: var(--inv-title-color);
+  color: #111827;
   cursor: pointer;
   border-radius: 4px;
   transition: background 0.1s ease;
@@ -415,9 +415,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
-  border: 2px solid #d1d5db;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #9ca3af;
   border-radius: 4px;
   background: #fff;
   transition: all 0.15s ease;
@@ -447,16 +447,14 @@
 .inv-filter-checkbox__label {
   flex: 1;
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
   line-height: 1.3;
 }
 
 .inv-filter-checkbox__count {
   flex-shrink: 0;
-  font-size: 11px;
-  color: #9ca3af;
+  font-size: 12px;
+  color: #6b7280;
   line-height: 1;
   font-feature-settings: 'tnum';
   font-variant-numeric: tabular-nums;
@@ -489,7 +487,7 @@
   flex: 1;
   position: relative;
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
 .inv-filter-price__prefix {
@@ -497,7 +495,7 @@
   left: 10px;
   font-size: 13px;
   font-weight: 600;
-  color: #6b7280;
+  color: #374151;
   pointer-events: none;
   z-index: 1;
 }
@@ -506,7 +504,7 @@
   width: 100%;
   height: 44px;
   padding: 0 10px 0 26px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--inv-title-color);
   background: #fff;
@@ -535,11 +533,10 @@
 }
 
 .inv-filter-price__label {
-  position: absolute;
-  bottom: -16px;
-  left: 0;
-  font-size: 10px;
-  color: #9ca3af;
+  position: static;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #6b7280;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -955,11 +952,6 @@
   background-color: #f8f8f8;
 }
 
-.inv-pagination__btn:focus-visible {
-  outline: 2px solid var(--inv-btn-primary-bg);
-  outline-offset: 2px;
-}
-
 .inv-pagination__btn--disabled {
   opacity: 0.4;
   cursor: not-allowed;
@@ -1180,6 +1172,7 @@
     justify-content: center;
     gap: 8px;
     padding: 14px 20px;
+    padding-bottom: max(14px, env(safe-area-inset-bottom));
     background: #fff;
     border-top: 1px solid #e5e5e5;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
@@ -1299,6 +1292,7 @@
   .inv-filter-sheet__footer {
     flex-shrink: 0;
     padding: 16px 20px;
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
     border-top: 1px solid #e5e5e5;
     position: sticky;
     bottom: 0;

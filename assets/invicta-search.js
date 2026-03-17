@@ -41,8 +41,8 @@
   /** Replace {{ query }} and {{ count }} placeholders in a template string */
   function tpl(str, vars) {
     let out = str;
-    if (vars.query !== undefined) out = out.replace('query', vars.query);
-    if (vars.count !== undefined) out = out.replace('count', String(vars.count));
+    if (vars.query !== undefined) out = out.replace(/query/g, vars.query);
+    if (vars.count !== undefined) out = out.replace(/count/g, String(vars.count));
     return out;
   }
 
@@ -493,6 +493,12 @@
           errorText.className = 'inv-search-results__empty-text';
           errorText.textContent = 'Something went wrong. Please try again.';
           errorDiv.appendChild(errorText);
+          const retryBtn = document.createElement('button');
+          retryBtn.type = 'button';
+          retryBtn.className = 'inv-search-empty__browse';
+          retryBtn.textContent = 'Try again';
+          retryBtn.addEventListener('click', () => this._fetchResults(query));
+          errorDiv.appendChild(retryBtn);
           this.resultsContainer.appendChild(errorDiv);
         });
     }

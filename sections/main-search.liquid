@@ -841,6 +841,7 @@
               <circle cx="12" cy="12" r="10" stroke-opacity="0.2"/>
               <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
             </svg>
+            <span class="visually-hidden">Loading search results...</span>
           </div>
 
           {%- comment -%} Products {%- endcomment -%}
@@ -914,7 +915,7 @@
                 </div>
 
                 {%- comment -%} Mobile page indicator {%- endcomment -%}
-                <div class="inv-pagination__mobile-info" aria-hidden="true">
+                <div class="inv-pagination__mobile-info" role="status">
                   Page {{ paginate.current_page }} of {{ paginate.pages }}
                 </div>
 
