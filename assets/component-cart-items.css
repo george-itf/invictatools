@@ -81,7 +81,7 @@ cart-items .title-wrapper-with-link {
   height: 100%;
 }
 
-/* Base styles - overridden in invicta-cart.css */
+/* Base styles - extended in invicta-cart.css */
 .cart-item__name {
   display: block;
 }
