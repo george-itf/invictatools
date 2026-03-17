@@ -225,11 +225,18 @@
     "product_wall": {
       "type": "invicta-product-wall",
       "blocks": {
+        "brand_JHcBmt": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Faithfull",
+            "collection": ""
+          }
+        },
         "brand_makita": {
           "type": "brand",
           "settings": {
             "brand_name": "Makita",
-            "collection": "makita"
+            "collection": "makita-featured"
           }
         },
         "brand_dewalt": {
@@ -262,6 +269,7 @@
         }
       },
       "block_order": [
+        "brand_JHcBmt",
         "brand_makita",
         "brand_dewalt",
         "brand_timco",
@@ -362,6 +370,7 @@
         "cta_text": "Visit Our Stores",
         "cta_link": "/pages/kent-hub",
         "review_heading": "What Kent Tradespeople Say",
+        "review_link": "",
         "review_1_enabled": true,
         "review_1_text": "You want tools and fixings? This is the place. Top notch products & service",
         "review_1_author": "Anthony F.",
