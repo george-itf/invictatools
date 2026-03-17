@@ -425,15 +425,18 @@ button:focus-visible,
   border: 0;
 }
 
-/* Enhanced reduced motion support */
+/* Enhanced reduced motion support
+   !important is required here per WCAG / accessibility best practice:
+   these must override ALL animations and transitions site-wide,
+   including those set with high specificity or inline styles. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important; /* accessibility: must override all animations */
+    animation-iteration-count: 1 !important; /* accessibility: must override all animations */
+    transition-duration: 0.01ms !important; /* accessibility: must override all transitions */
+    scroll-behavior: auto !important; /* accessibility: must override all scroll behavior */
   }
 
   .inv-card:hover {

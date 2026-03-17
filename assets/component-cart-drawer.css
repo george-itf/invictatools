@@ -378,10 +378,12 @@ cart-drawer.is-empty .cart-drawer__scrollable-body {
   max-width: 100%;
 }
 
+/* Shopify injects inline styles on #dynamic-checkout-cart elements;
+   !important is required to override inline style attribute values. */
 .drawer__footer #dynamic-checkout-cart ul {
-  flex-wrap: wrap !important;
-  flex-direction: row !important;
-  margin: 0.5rem -0.5rem 0 0 !important;
+  flex-wrap: wrap !important; /* overrides Shopify inline style */
+  flex-direction: row !important; /* overrides Shopify inline style */
+  margin: 0.5rem -0.5rem 0 0 !important; /* overrides Shopify inline style */
   gap: 0.5rem;
 }
 
@@ -390,26 +392,26 @@ cart-drawer.is-empty .cart-drawer__scrollable-body {
 }
 
 .drawer__footer #dynamic-checkout-cart ul > li {
-  flex-basis: calc(50% - 0.5rem) !important;
-  margin: 0 !important;
+  flex-basis: calc(50% - 0.5rem) !important; /* overrides Shopify inline style */
+  margin: 0 !important; /* overrides Shopify inline style */
 }
 
 .drawer__footer #dynamic-checkout-cart ul > li:only-child {
-  flex-basis: 100% !important;
-  margin-right: 0.5rem !important;
+  flex-basis: 100% !important; /* overrides Shopify inline style */
+  margin-right: 0.5rem !important; /* overrides Shopify inline style */
 }
 
 @media screen and (min-width: 750px) {
   .drawer__footer #dynamic-checkout-cart ul > li {
-    flex-basis: calc(100% / 3 - 0.5rem) !important;
-    margin: 0 !important;
+    flex-basis: calc(100% / 3 - 0.5rem) !important; /* overrides Shopify inline style */
+    margin: 0 !important; /* overrides Shopify inline style */
   }
 
   .drawer__footer #dynamic-checkout-cart ul > li:first-child:nth-last-child(2),
   .drawer__footer #dynamic-checkout-cart ul > li:first-child:nth-last-child(2) ~ li,
   .drawer__footer #dynamic-checkout-cart ul > li:first-child:nth-last-child(4),
   .drawer__footer #dynamic-checkout-cart ul > li:first-child:nth-last-child(4) ~ li {
-    flex-basis: calc(50% - 0.5rem) !important;
+    flex-basis: calc(50% - 0.5rem) !important; /* overrides Shopify inline style */
   }
 }
 

@@ -661,16 +661,18 @@
     height: 18px;
   }
 
-  /* DROPDOWN — full width, taller on mobile */
+  /* DROPDOWN — full width, taller on mobile
+     !important needed: JS positions the dropdown with inline style attributes
+     (left, right, width) — only !important can override inline styles. */
   .inv-search-results {
     max-height: calc(100vh - 120px);
     padding: 0;
     border-radius: 0;
     border-left: none;
     border-right: none;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
+    left: 0 !important; /* overrides JS-set inline style */
+    right: 0 !important; /* overrides JS-set inline style */
+    width: 100% !important; /* overrides JS-set inline style */
   }
 
   /* Mobile close button */

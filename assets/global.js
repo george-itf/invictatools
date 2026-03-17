@@ -709,7 +709,9 @@ class DeferredMedia extends HTMLElement {
     window.pauseAllMedia();
     if (!this.getAttribute('loaded')) {
       const content = document.createElement('div');
-      content.appendChild(this.querySelector('template').content.firstElementChild.cloneNode(true));
+      const template = this.querySelector('template');
+      if (!template || !template.content.firstElementChild) return;
+      content.appendChild(template.content.firstElementChild.cloneNode(true));
 
       this.setAttribute('loaded', true);
       const deferredElement = this.appendChild(content.querySelector('video, model-viewer, iframe'));
