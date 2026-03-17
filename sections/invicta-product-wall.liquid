@@ -381,7 +381,7 @@
     border-radius: 24px;
     overflow: hidden;
     flex-shrink: 0;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition: transform 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
   }
 
   #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill {
@@ -406,8 +406,17 @@
     font-size: 13px;
   }
 
-  #shopify-section-{{ section.id }} .inv-pw-brand-btn:hover {
-    transform: translateY(-2px);
+  /* Inactive pills when a selection exists */
+  #shopify-section-{{ section.id }} .inv-pw-brands__scroll.has-selection .inv-pw-brand-btn:not(.active) {
+    filter: grayscale(100%);
+    opacity: 0.45;
+  }
+
+  /* Inactive pill hover — restore colour, subtle lift */
+  #shopify-section-{{ section.id }} .inv-pw-brands__scroll.has-selection .inv-pw-brand-btn:not(.active):hover {
+    filter: grayscale(0%);
+    opacity: 0.85;
+    transform: translateY(-1px);
   }
 
   #shopify-section-{{ section.id }} .inv-pw-brand-btn.active {
@@ -415,8 +424,8 @@
   }
 
   #shopify-section-{{ section.id }} .inv-pw-brand-btn.active .invicta-brand-pill {
-    box-shadow: 0 0 0 3px #1a1a1a;
-    transform: scale(1.06);
+    transform: scale(1.12);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   }
 
   #shopify-section-{{ section.id }} .inv-pw-brand-btn:focus:not(:focus-visible) {
@@ -434,7 +443,7 @@
   #shopify-section-{{ section.id }} .inv-pw-grid {
     display: grid;
     grid-template-columns: repeat({{ columns_desktop }}, 1fr);
-    gap: 20px;
+    gap: 12px;
     list-style: none;
     margin: 0;
     padding: 4px 2px 8px;
@@ -468,7 +477,7 @@
      COMPACT CARD OVERRIDES (product wall only)
      ---------------------------------------- */
   #shopify-section-{{ section.id }} .inv-card__body {
-    padding: 10px 12px 12px;
+    padding: 8px 10px 10px;
   }
 
   #shopify-section-{{ section.id }} .inv-card__header {
@@ -476,25 +485,25 @@
   }
 
   #shopify-section-{{ section.id }} .inv-card__title {
-    font-size: 12px;
-    min-height: 36px;
+    font-size: 11px;
+    min-height: 30px;
     margin-bottom: 8px;
   }
 
   #shopify-section-{{ section.id }} .inv-card__title a {
-    font-size: 12px;
-  }
-
-  #shopify-section-{{ section.id }} .inv-card__price {
-    font-size: 16px;
-  }
-
-  #shopify-section-{{ section.id }} .inv-card__was {
     font-size: 11px;
   }
 
-  #shopify-section-{{ section.id }} .inv-card__vat {
+  #shopify-section-{{ section.id }} .inv-card__price {
+    font-size: 15px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-card__was {
     font-size: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-card__vat {
+    font-size: 9px;
   }
 
   #shopify-section-{{ section.id }} .inv-card__action {
@@ -502,18 +511,18 @@
   }
 
   #shopify-section-{{ section.id }} .inv-card__btn {
-    min-height: 38px;
-    font-size: 11px;
-    padding: 8px 10px;
+    min-height: 36px;
+    font-size: 10px;
+    padding: 7px 8px;
   }
 
   #shopify-section-{{ section.id }} .inv-card__btn svg {
-    width: 13px;
-    height: 13px;
+    width: 12px;
+    height: 12px;
   }
 
   #shopify-section-{{ section.id }} .inv-card__img {
-    padding: 12px;
+    padding: 10px;
   }
 
   #shopify-section-{{ section.id }} .inv-card__stock {
@@ -524,8 +533,8 @@
   }
 
   #shopify-section-{{ section.id }} .inv-card__sale {
-    font-size: 10px;
-    padding: 4px 8px;
+    font-size: 9px;
+    padding: 3px 7px;
     bottom: 8px;
     left: 8px;
   }
@@ -533,10 +542,9 @@
   /* ----------------------------------------
      RESPONSIVE — Tablet
      ---------------------------------------- */
-  @media (max-width: 1024px) {
+  @media (max-width: 1100px) {
     #shopify-section-{{ section.id }} .inv-pw-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 
@@ -546,7 +554,7 @@
   @media (max-width: 768px) {
     #shopify-section-{{ section.id }} .inv-pw-grid {
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      gap: 10px;
     }
 
     #shopify-section-{{ section.id }} .inv-pw-header {
@@ -628,13 +636,14 @@
   @media (prefers-reduced-motion: reduce) {
     #shopify-section-{{ section.id }} .inv-pw-header__cta,
     #shopify-section-{{ section.id }} .inv-pw-brand-btn,
+    #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill,
     #shopify-section-{{ section.id }} .inv-pw-grid {
       transition: none;
     }
 
     #shopify-section-{{ section.id }} .inv-pw-header__cta:hover,
-    #shopify-section-{{ section.id }} .inv-pw-brand-btn:hover,
-    #shopify-section-{{ section.id }} .inv-pw-brand-btn.active {
+    #shopify-section-{{ section.id }} .inv-pw-brands__scroll.has-selection .inv-pw-brand-btn:not(.active):hover,
+    #shopify-section-{{ section.id }} .inv-pw-brand-btn.active .invicta-brand-pill {
       transform: none;
     }
   }
@@ -662,8 +671,12 @@
       var grids = root.querySelectorAll('[data-pw-grid]');
       var ctaEl = root.querySelector('[data-pw-cta]');
       var countEl = root.querySelector('[data-pw-count]');
+      var scrollContainer = root.querySelector('.inv-pw-brands__scroll');
 
       if (brandBtns.length === 0 || grids.length === 0) return;
+
+      /* Always has a selection — add class for CSS grayscale/opacity rules */
+      if (scrollContainer) scrollContainer.classList.add('has-selection');
 
       /* Show CTA for first active grid */
       updateCta(root.querySelector('[data-pw-grid]:not(.inv-pw-grid--hidden)'));
@@ -762,7 +775,7 @@
       "min": 4,
       "max": 12,
       "step": 1,
-      "default": 8,
+      "default": 10,
       "label": "Products per brand"
     },
     {
@@ -771,7 +784,7 @@
       "min": 3,
       "max": 6,
       "step": 1,
-      "default": 4,
+      "default": 5,
       "label": "Desktop columns"
     },
     {
