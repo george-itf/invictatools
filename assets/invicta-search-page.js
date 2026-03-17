@@ -74,6 +74,7 @@
       const sheetApply = e.target.closest('[data-filter-sheet-apply]');
       if (sheetApply) {
         e.preventDefault();
+        this._syncMobileToDesktop();
         this.closeMobileFilterSheet();
         this.fetchFromFilters();
         return;
@@ -193,8 +194,10 @@
     ------------------------------------------------------- */
 
     _initMobileFilterSheet() {
-      /* Escape key closes mobile sheet */
-      document.addEventListener('keydown', (e) => {
+      if (this._escapeHandler) {
+        document.removeEventListener('keydown', this._escapeHandler);
+      }
+      this._escapeHandler = (e) => {
         if (e.key === 'Escape') {
           const sheet = document.querySelector('.inv-filter-sheet');
           if (sheet && sheet.classList.contains('inv-filter-sheet--open')) {
@@ -202,7 +205,8 @@
             this.closeMobileFilterSheet();
           }
         }
-      });
+      };
+      document.addEventListener('keydown', this._escapeHandler);
     }
 
     openMobileFilterSheet() {
@@ -210,9 +214,26 @@
       const sheet = document.querySelector('.inv-filter-sheet');
       if (!overlay || !sheet) return;
 
+      this._previousFocus = document.activeElement;
+
+      this._syncDesktopToMobile();
+
       overlay.classList.add('inv-filter-sheet--open');
       sheet.classList.add('inv-filter-sheet--open');
       document.body.style.overflow = 'hidden';
+
+      this._focusTrapHandler = (e) => {
+        if (e.key !== 'Tab') return;
+        const focusable = sheet.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+        } else {
+          if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      };
+      sheet.addEventListener('keydown', this._focusTrapHandler);
 
       /* Focus the close button for accessibility */
       const closeBtn = sheet.querySelector('[data-filter-sheet-close]');
@@ -229,6 +250,49 @@
         overlay.classList.remove('inv-filter-sheet--open');
         document.body.style.overflow = '';
       }, 300);
+
+      if (this._focusTrapHandler) { sheet.removeEventListener('keydown', this._focusTrapHandler); }
+      if (this._previousFocus) { this._previousFocus.focus(); this._previousFocus = null; }
+    }
+
+    _syncMobileToDesktop() {
+      const panel = this.container.querySelector('#inv-filter-panel');
+      const sheet = this.container.querySelector('.inv-filter-sheet__body');
+      if (!panel || !sheet) return;
+
+      sheet.querySelectorAll('input[type="checkbox"]').forEach(mobileCb => {
+        const desktopCb = panel.querySelector(
+          'input[name="' + CSS.escape(mobileCb.name) + '"][value="' + CSS.escape(mobileCb.value) + '"]'
+        );
+        if (desktopCb) desktopCb.checked = mobileCb.checked;
+      });
+
+      const mobileMin = sheet.querySelector('[data-price-min]');
+      const mobileMax = sheet.querySelector('[data-price-max]');
+      const desktopMin = panel.querySelector('[data-price-min]');
+      const desktopMax = panel.querySelector('[data-price-max]');
+      if (mobileMin && desktopMin) desktopMin.value = mobileMin.value;
+      if (mobileMax && desktopMax) desktopMax.value = mobileMax.value;
+    }
+
+    _syncDesktopToMobile() {
+      const panel = this.container.querySelector('#inv-filter-panel');
+      const sheet = this.container.querySelector('.inv-filter-sheet__body');
+      if (!panel || !sheet) return;
+
+      panel.querySelectorAll('input[type="checkbox"]').forEach(desktopCb => {
+        const mobileCb = sheet.querySelector(
+          'input[name="' + CSS.escape(desktopCb.name) + '"][value="' + CSS.escape(desktopCb.value) + '"]'
+        );
+        if (mobileCb) mobileCb.checked = desktopCb.checked;
+      });
+
+      const desktopMin = panel.querySelector('[data-price-min]');
+      const desktopMax = panel.querySelector('[data-price-max]');
+      const mobileMin = sheet.querySelector('[data-price-min]');
+      const mobileMax = sheet.querySelector('[data-price-max]');
+      if (desktopMin && mobileMin) mobileMin.value = desktopMin.value;
+      if (desktopMax && mobileMax) mobileMax.value = desktopMax.value;
     }
 
     _updateMobileFilterCount() {
@@ -262,6 +326,7 @@
     ------------------------------------------------------- */
 
     buildUrl() {
+      const panel = this.container.querySelector('#inv-filter-panel') || this.container;
       const url = new URL(window.location.origin + '/search');
 
       if (this.searchTerms) {
@@ -277,33 +342,36 @@
       }
 
       // Brand checkboxes
-      this.container.querySelectorAll('input[name="filter.p.vendor"]:checked').forEach(cb => {
+      panel.querySelectorAll('input[name="filter.p.vendor"]:checked').forEach(cb => {
         url.searchParams.append('filter.p.vendor', cb.value);
       });
 
       // Product type checkboxes
-      this.container.querySelectorAll('input[name="filter.p.product_type"]:checked').forEach(cb => {
+      panel.querySelectorAll('input[name="filter.p.product_type"]:checked').forEach(cb => {
         url.searchParams.append('filter.p.product_type', cb.value);
       });
 
       // Price range — Shopify expects values in subunits (pence)
-      const priceMin = this.container.querySelector('[data-price-min]');
-      const priceMax = this.container.querySelector('[data-price-max]');
-      if (priceMin && priceMin.value !== '') {
-        const val = parseFloat(priceMin.value);
-        if (!isNaN(val) && val > 0) {
-          url.searchParams.set('filter.v.price.gte', (val * 100).toString());
-        }
+      const priceMin = panel.querySelector('[data-price-min]');
+      const priceMax = panel.querySelector('[data-price-max]');
+      let minVal = priceMin && priceMin.value !== '' ? parseFloat(priceMin.value) : NaN;
+      let maxVal = priceMax && priceMax.value !== '' ? parseFloat(priceMax.value) : NaN;
+      if (!isNaN(minVal) && !isNaN(maxVal) && minVal > maxVal) {
+        const temp = minVal;
+        minVal = maxVal;
+        maxVal = temp;
+        if (priceMin) priceMin.value = minVal;
+        if (priceMax) priceMax.value = maxVal;
       }
-      if (priceMax && priceMax.value !== '') {
-        const val = parseFloat(priceMax.value);
-        if (!isNaN(val) && val > 0) {
-          url.searchParams.set('filter.v.price.lte', (val * 100).toString());
-        }
+      if (!isNaN(minVal) && minVal > 0) {
+        url.searchParams.set('filter.v.price.gte', (minVal * 100).toString());
+      }
+      if (!isNaN(maxVal) && maxVal > 0) {
+        url.searchParams.set('filter.v.price.lte', (maxVal * 100).toString());
       }
 
       // Availability
-      const availCb = this.container.querySelector('input[name="filter.v.availability"]');
+      const availCb = panel.querySelector('input[name="filter.v.availability"]');
       if (availCb && availCb.checked) {
         url.searchParams.set('filter.v.availability', '1');
       }
@@ -420,8 +488,15 @@
         this.announceUpdate();
       } catch (err) {
         if (err.name === 'AbortError') return;
-        console.error('[Invicta Search] Fetch error:', err);
-        window.location.href = url;
+        this.setLoading(false);
+        const grid = this.container.querySelector('.inv-grid__products');
+        if (grid) {
+          grid.innerHTML = '<li style="grid-column:1/-1;text-align:center;padding:40px 20px;">' +
+            '<p style="color:#6b7280;margin:0 0 12px;">Something went wrong loading results.</p>' +
+            '<button type="button" onclick="window.location.reload()" ' +
+            'style="padding:8px 20px;background:#e11d26;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:14px;">' +
+            'Try again</button></li>';
+        }
       } finally {
         this.setLoading(false);
         this.abortController = null;
