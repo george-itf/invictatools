@@ -225,13 +225,6 @@
     "product_wall": {
       "type": "invicta-product-wall",
       "blocks": {
-        "brand_JHcBmt": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Faithfull",
-            "collection": ""
-          }
-        },
         "brand_makita": {
           "type": "brand",
           "settings": {
@@ -243,21 +236,21 @@
           "type": "brand",
           "settings": {
             "brand_name": "DeWalt",
-            "collection": "dewalt"
+            "collection": "dewalt-featured"
           }
         },
         "brand_timco": {
           "type": "brand",
           "settings": {
             "brand_name": "TIMCO",
-            "collection": "timco"
+            "collection": "timco-featured"
           }
         },
         "brand_premier": {
           "type": "brand",
           "settings": {
             "brand_name": "Premier Diamond",
-            "collection": "premier-diamond-products"
+            "collection": "premier-diamond-featured"
           }
         },
         "brand_viper": {
@@ -266,15 +259,38 @@
             "brand_name": "Viper",
             "collection": "viper-1"
           }
+        },
+        "brand_JHcBmt": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Faithfull",
+            "collection": "faithfull-featured"
+          }
+        },
+        "brand_FtBpt4": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Lamello",
+            "collection": "lamello-featured"
+          }
+        },
+        "brand_n9TbLA": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Hikoki",
+            "collection": "hikoki-featured"
+          }
         }
       },
       "block_order": [
-        "brand_JHcBmt",
         "brand_makita",
         "brand_dewalt",
         "brand_timco",
         "brand_premier",
-        "brand_viper"
+        "brand_viper",
+        "brand_JHcBmt",
+        "brand_FtBpt4",
+        "brand_n9TbLA"
       ],
       "settings": {
         "title": "Top Products by Brand",
