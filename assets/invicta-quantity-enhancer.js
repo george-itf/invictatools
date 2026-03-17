@@ -24,16 +24,39 @@
     /** @type {number[]} Quick select quantities */
     quickQtys: [5, 10, 25, 50],
 
+    /** @type {AbortController|null} Shared AbortController for global event cleanup */
+    abortController: null,
+
+    /** @type {MutationObserver|null} DOM mutation observer reference */
+    mutationObserver: null,
+
     /**
      * Initialise quantity enhancements
      * @returns {void}
      */
     init() {
+      this.abortController = new AbortController();
       this.enhanceSelectors();
       this.bindEvents();
       this.observeDynamicContent();
 
       DEBUG && console.log('[Quantity Enhancer] Initialised');
+    },
+
+    /**
+     * Cleanup all global listeners and observers
+     * @returns {void}
+     */
+    destroy() {
+      if (this.abortController) {
+        this.abortController.abort();
+        this.abortController = null;
+      }
+      if (this.mutationObserver) {
+        this.mutationObserver.disconnect();
+        this.mutationObserver = null;
+      }
+      DEBUG && console.log('[Quantity Enhancer] Destroyed');
     },
 
     /**
@@ -201,6 +224,8 @@
      * @returns {void}
      */
     bindEvents() {
+      const signal = this.abortController.signal;
+
       // Quick quantity button clicks
       document.addEventListener('click', (e) => {
         const quickBtn = e.target.closest('[data-quick-qty]');
@@ -229,21 +254,21 @@
         setTimeout(() => {
           quickBtn.classList.remove('invicta-quick-qty__btn--clicked');
         }, 200);
-      });
+      }, { signal });
 
       // Quantity input changes
       document.addEventListener('change', (e) => {
         if (e.target.matches('input[name="quantity"]')) {
           this.updateDynamicPrice(e.target);
         }
-      });
+      }, { signal });
 
       // Also listen for input event (real-time typing)
       document.addEventListener('input', (e) => {
         if (e.target.matches('input[name="quantity"]')) {
           this.updateDynamicPrice(e.target);
         }
-      });
+      }, { signal });
 
       // +/- button clicks (Shopify's quantity buttons)
       document.addEventListener('click', (e) => {
@@ -260,7 +285,7 @@
             this.updateDynamicPrice(input);
           }
         }, 50);
-      });
+      }, { signal });
     },
 
     /**
@@ -268,7 +293,7 @@
      * @returns {void}
      */
     observeDynamicContent() {
-      const observer = new MutationObserver((mutations) => {
+      this.mutationObserver = new MutationObserver((mutations) => {
         let shouldEnhance = false;
 
         mutations.forEach(mutation => {
@@ -291,7 +316,7 @@
         }
       });
 
-      observer.observe(document.body, {
+      this.mutationObserver.observe(document.body, {
         childList: true,
         subtree: true
       });

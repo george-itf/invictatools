@@ -59,17 +59,17 @@
   
   {%- if has_discounts -%}
     <!-- Discounts -->
-    <div class="invicta-cart-breakdown__row invicta-cart-breakdown__row--discount">
-      <span class="invicta-cart-breakdown__label">
-        {{ 'invicta.cart.discount' | t }}
-        {%- if cart.cart_level_discount_applications.size > 0 -%}
-          <small>({{ cart.cart_level_discount_applications.first.title }})</small>
-        {%- endif -%}
-      </span>
-      <span class="invicta-cart-breakdown__value invicta-cart-breakdown__value--negative" data-breakdown-discount>
-        -{{ cart.total_discount | money }}
-      </span>
-    </div>
+    {%- for discount in cart.cart_level_discount_applications -%}
+      <div class="invicta-cart-breakdown__row invicta-cart-breakdown__row--discount">
+        <span class="invicta-cart-breakdown__label">
+          {{ 'invicta.cart.discount' | t }}
+          <small>({{ discount.title }})</small>
+        </span>
+        <span class="invicta-cart-breakdown__value invicta-cart-breakdown__value--negative" data-breakdown-discount>
+          -{{ discount.total_allocated_amount | money }}
+        </span>
+      </div>
+    {%- endfor -%}
   {%- endif -%}
   
   <!-- Shipping -->

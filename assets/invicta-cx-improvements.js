@@ -174,7 +174,8 @@
       if (!nextUrl) return;
 
       loadMoreBtn.classList.add('inv-load-more__btn--loading');
-      loadMoreBtn.querySelector('.inv-load-more__text').textContent = 'Loading...';
+      var loadMoreText = loadMoreBtn.querySelector('.inv-load-more__text');
+      if (loadMoreText) loadMoreText.textContent = 'Loading...';
 
       fetch(nextUrl)
         .then(function(response) { return response.text(); })
@@ -202,14 +203,17 @@
           if (newLoadMore && newLoadMore.dataset.nextUrl) {
             loadMoreBtn.dataset.nextUrl = newLoadMore.dataset.nextUrl;
             loadMoreBtn.classList.remove('inv-load-more__btn--loading');
-            loadMoreBtn.querySelector('.inv-load-more__text').textContent = 'Load More Products';
+            var loadMoreText = loadMoreBtn.querySelector('.inv-load-more__text');
+            if (loadMoreText) loadMoreText.textContent = 'Load More Products';
           } else {
-            loadMoreBtn.closest('.inv-load-more').style.display = 'none';
+            var loadMoreContainer = loadMoreBtn.closest('.inv-load-more');
+            if (loadMoreContainer) loadMoreContainer.style.display = 'none';
           }
         })
         .catch(function() {
           loadMoreBtn.classList.remove('inv-load-more__btn--loading');
-          loadMoreBtn.querySelector('.inv-load-more__text').textContent = 'Load More Products';
+          var loadMoreText = loadMoreBtn.querySelector('.inv-load-more__text');
+          if (loadMoreText) loadMoreText.textContent = 'Load More Products';
         });
     });
   }
@@ -585,7 +589,8 @@
           if (successMsg) successMsg.classList.remove('inv-pdp--hidden');
           if (submitBtn) submitBtn.style.display = 'none';
           if (emailInput) emailInput.style.display = 'none';
-          form.closest('.inv-pdp__notify-field').style.display = 'none';
+          var notifyField = form.closest('.inv-pdp__notify-field');
+          if (notifyField) notifyField.style.display = 'none';
 
           /* Store in localStorage so we don't pester them again */
           try {

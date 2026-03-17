@@ -1510,6 +1510,17 @@
         "default": 14,
         "label": "t:settings_schema.invicta_trade.settings.inv_delivery_cutoff_hour.label",
         "info": "t:settings_schema.invicta_trade.settings.inv_delivery_cutoff_hour.info"
+      },
+      {
+        "type": "header",
+        "content": "Brand detection"
+      },
+      {
+        "type": "textarea",
+        "id": "inv_brand_handles",
+        "label": "Brand handles list",
+        "default": "makita,dewalt,bosch,milwaukee,hikoki,festool,metabo,stanley,faithfull,trend,draper",
+        "info": "Comma-separated collection handles that should show the official-dealer badge."
       }
     ]
   },

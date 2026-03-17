@@ -1,8 +1,8 @@
   .invicta-tiered-pricing {
     margin: 0;
     padding: 16px;
-    background: var(--pdp-green-light, #f0fdf4);
-    border: 1px solid var(--pdp-green-border, #bbf7d0);
+    background: var(--inv-success-light, #f0fdf4);
+    border: 1px solid var(--inv-success-border, #bbf7d0);
     border-radius: 0;
   }
 

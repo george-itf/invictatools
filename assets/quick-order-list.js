@@ -26,7 +26,8 @@ if (!customElements.get('quick-order-list')) {
           window.addEventListener('resize', this.handleResize);
         }
 
-        this.querySelector('form').addEventListener('submit', (event) => event.preventDefault());
+        const form = this.querySelector('form');
+        if (form) form.addEventListener('submit', (event) => event.preventDefault());
       }
 
       connectedCallback() {
@@ -48,8 +49,8 @@ if (!customElements.get('quick-order-list')) {
       }
 
       handleResize() {
-        this.totalBarPosition = window.innerHeight - this.totalBar.offsetHeight;
-        this.stickyHeader.height = this.stickyHeaderElement ? this.stickyHeaderElement.offsetHeight : 0;
+        if (this.totalBar) this.totalBarPosition = window.innerHeight - this.totalBar.offsetHeight;
+        if (this.stickyHeader) this.stickyHeader.height = this.stickyHeaderElement ? this.stickyHeaderElement.offsetHeight : 0;
       }
 
       initEventListeners() {
@@ -67,12 +68,13 @@ if (!customElements.get('quick-order-list')) {
           });
         });
 
-        this.querySelector('.quick-order-list__contents').addEventListener(
+        const contents = this.querySelector('.quick-order-list__contents');
+        if (contents) contents.addEventListener(
           'keyup',
           this.handleScrollIntoView.bind(this)
         );
 
-        this.quickOrderListTable.addEventListener('keydown', this.handleSwitchVariantOnEnter.bind(this));
+        if (this.quickOrderListTable) this.quickOrderListTable.addEventListener('keydown', this.handleSwitchVariantOnEnter.bind(this));
 
         this.initVariantEventListeners();
       }
@@ -171,7 +173,8 @@ if (!customElements.get('quick-order-list')) {
       }
 
       toggleTableLoading(enable) {
-        this.quickOrderListTable.classList.toggle('quick-order-list__container--disabled', enable);
+        const table = this.quickOrderListTable;
+        if (table) table.classList.toggle('quick-order-list__container--disabled', enable);
         this.toggleLoading(enable);
       }
 
@@ -217,16 +220,17 @@ if (!customElements.get('quick-order-list')) {
 
             const total = this.getTotalBar();
             if (total) {
-              total.innerHTML = newSection.querySelector('.quick-order-list__total').innerHTML;
+              const newTotal = newSection ? newSection.querySelector('.quick-order-list__total') : null;
+              if (newTotal) total.innerHTML = newTotal.innerHTML;
             }
 
             const table = this.quickOrderListTable;
-            const newTable = newSection.querySelector('.quick-order-list__table');
+            const newTable = newSection ? newSection.querySelector('.quick-order-list__table') : null;
 
             // only update variants if they are from the active page
             const shouldUpdateVariants =
-              this.currentPage === (newSection.querySelector('.pagination-wrapper')?.dataset.page ?? '1');
-            if (newTable && shouldUpdateVariants) {
+              this.currentPage === (newSection ? (newSection.querySelector('.pagination-wrapper')?.dataset.page ?? '1') : '1');
+            if (table && newTable && shouldUpdateVariants) {
               table.innerHTML = newTable.innerHTML;
 
               const newFocusTarget = this.querySelector(`[data-target='${focusTarget}']`);
@@ -238,9 +242,10 @@ if (!customElements.get('quick-order-list')) {
             }
           } else if (section === 'cart-drawer') {
             sectionElement.closest('cart-drawer')?.classList.toggle('is-empty', items.length === 0);
-            sectionElement.querySelector(selector).innerHTML = newSection.innerHTML;
+            const innerEl = sectionElement.querySelector(selector);
+            if (innerEl && newSection) innerEl.innerHTML = newSection.innerHTML;
           } else {
-            sectionElement.innerHTML = newSection.innerHTML;
+            if (newSection) sectionElement.innerHTML = newSection.innerHTML;
           }
         });
       }
@@ -264,9 +269,10 @@ if (!customElements.get('quick-order-list')) {
         const inputBottomBorder = target.getBoundingClientRect().bottom;
 
         if (this.isListInsideModal) {
-          const totalBarCrossesInput = inputBottomBorder > this.totalBar.getBoundingClientRect().top;
+          const totalBarCrossesInput = this.totalBar ? inputBottomBorder > this.totalBar.getBoundingClientRect().top : false;
+          const tableHead = this.querySelector('.quick-order-list__table thead');
           const tableHeadCrossesInput =
-            inputTopBorder < this.querySelector('.quick-order-list__table thead').getBoundingClientRect().bottom;
+            tableHead ? inputTopBorder < tableHead.getBoundingClientRect().bottom : false;
 
           if (totalBarCrossesInput || tableHeadCrossesInput) {
             this.scrollToCenter(target);
@@ -274,8 +280,9 @@ if (!customElements.get('quick-order-list')) {
         } else {
           const stickyHeaderBottomBorder = this.stickyHeaderElement?.getBoundingClientRect().bottom;
           const totalBarCrossesInput = inputBottomBorder > this.totalBarPosition;
+          const qtyWrapper = this.querySelector('.variant-item__quantity-wrapper');
           const inputOutsideOfViewPort =
-            inputBottomBorder < this.querySelector('.variant-item__quantity-wrapper').offsetHeight;
+            qtyWrapper ? inputBottomBorder < qtyWrapper.offsetHeight : false;
           const stickyHeaderCrossesInput =
             this.stickyHeaderElement &&
             this.stickyHeader.type !== 'on-scroll-up' &&
@@ -361,16 +368,18 @@ if (!customElements.get('quick-order-list')) {
       }
 
       setErrorMessage(message = null) {
-        this.errorMessageTemplate =
-          this.errorMessageTemplate ??
-          document.getElementById(`QuickOrderListErrorTemplate-${this.dataset.productId}`).cloneNode(true);
+        if (!this.errorMessageTemplate) {
+          const templateEl = document.getElementById(`QuickOrderListErrorTemplate-${this.dataset.productId}`);
+          if (templateEl) this.errorMessageTemplate = templateEl.cloneNode(true);
+        }
         const errorElements = document.querySelectorAll('.quick-order-list-error');
 
         errorElements.forEach((errorElement) => {
           errorElement.innerHTML = '';
-          if (!message) return;
+          if (!message || !this.errorMessageTemplate) return;
           const updatedMessageElement = this.errorMessageTemplate.cloneNode(true);
-          updatedMessageElement.content.querySelector('.quick-order-list-error-message').innerText = message;
+          const errorMsg = updatedMessageElement.content.querySelector('.quick-order-list-error-message');
+          if (errorMsg) errorMsg.innerText = message;
           errorElement.appendChild(updatedMessageElement.content);
         });
       }
@@ -416,24 +425,33 @@ if (!customElements.get('quick-order-list')) {
       updateLiveRegions(id, message) {
         const variantItemErrorDesktop = document.getElementById(`Quick-order-list-item-error-desktop-${id}`);
         if (variantItemErrorDesktop) {
-          variantItemErrorDesktop.querySelector('.variant-item__error-text').innerHTML = message;
-          variantItemErrorDesktop.closest('tr').classList.remove('hidden');
+          const errorText = variantItemErrorDesktop.querySelector('.variant-item__error-text');
+          if (errorText) errorText.innerHTML = message;
+          const closestTr = variantItemErrorDesktop.closest('tr');
+          if (closestTr) closestTr.classList.remove('hidden');
         }
-        if (variantItemErrorMobile)
-          variantItemErrorMobile.querySelector('.variant-item__error-text').innerHTML = message;
+        const variantItemErrorMobile = document.getElementById(`Quick-order-list-item-error-mobile-${id}`);
+        if (variantItemErrorMobile) {
+          const errorTextMobile = variantItemErrorMobile.querySelector('.variant-item__error-text');
+          if (errorTextMobile) errorTextMobile.innerHTML = message;
+        }
 
-        this.querySelector('#shopping-cart-variant-item-status').setAttribute('aria-hidden', true);
+        const statusEl = this.querySelector('#shopping-cart-variant-item-status');
+        if (statusEl) statusEl.setAttribute('aria-hidden', true);
 
         const cartStatus = document.getElementById('quick-order-list-live-region-text');
-        cartStatus.setAttribute('aria-hidden', false);
+        if (cartStatus) {
+          cartStatus.setAttribute('aria-hidden', false);
 
-        setTimeout(() => {
-          cartStatus.setAttribute('aria-hidden', true);
-        }, 1000);
+          setTimeout(() => {
+            cartStatus.setAttribute('aria-hidden', true);
+          }, 1000);
+        }
       }
 
       toggleLoading(loading, target = this) {
-        target.querySelector('#shopping-cart-variant-item-status').toggleAttribute('aria-hidden', !loading);
+        const statusEl = target.querySelector('#shopping-cart-variant-item-status');
+        if (statusEl) statusEl.toggleAttribute('aria-hidden', !loading);
         target
           .querySelectorAll('.variant-remove-total .loading__spinner')
           ?.forEach((spinner) => spinner.classList.toggle('hidden', !loading));
@@ -475,10 +493,10 @@ if (!customElements.get('quick-order-list-remove-all-button')) {
       }
 
       toggleConfirmation(showConfirmation, showInfo) {
-        this.quickOrderList
-          .querySelector('.quick-order-list-total__confirmation')
-          .classList.toggle('hidden', showConfirmation);
-        this.quickOrderList.querySelector('.quick-order-list-total__info').classList.toggle('hidden', showInfo);
+        const confirmation = this.quickOrderList.querySelector('.quick-order-list-total__confirmation');
+        if (confirmation) confirmation.classList.toggle('hidden', showConfirmation);
+        const info = this.quickOrderList.querySelector('.quick-order-list-total__info');
+        if (info) info.classList.toggle('hidden', showInfo);
       }
     }
   );

@@ -27,7 +27,7 @@
   assign product_count = collection.products_count | default: 0
 
   assign is_brand = false
-  assign brand_handles = 'makita,dewalt,bosch,milwaukee,hikoki,festool,metabo,stanley,faithfull,trend,draper' | split: ','
+  assign brand_handles = settings.inv_brand_handles | default: 'makita,dewalt,bosch,milwaukee,hikoki,festool,metabo,stanley,faithfull,trend,draper' | split: ','
   assign handle_lower = collection.handle | downcase
   for bh in brand_handles
     if handle_lower == bh

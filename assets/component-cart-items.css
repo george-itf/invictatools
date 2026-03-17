@@ -8,17 +8,17 @@ cart-items .title-wrapper-with-link {
   border: none;
 }
 
+/* Base styles - extended in invicta-cart.css (padding-bottom, opacity, font-weight, font-size, color) */
 .cart-items th {
   text-align: left;
-  padding-bottom: 1.8rem;
-  opacity: 0.85;
-  font-weight: normal;
+  /* padding-bottom, opacity, font-weight set in invicta-cart.css */
 }
 
 .cart-item__quantity-wrapper {
   display: flex;
 }
 
+/* Base styles - extended in invicta-cart.css (child selectors) */
 .cart-item__totals {
   position: relative;
 }
@@ -44,17 +44,13 @@ cart-items .title-wrapper-with-link {
   content: none;
 }
 
+/* Base styles - extended in invicta-cart.css */
 .cart-item__image {
   height: auto;
   max-width: calc(10rem / var(--font-body-scale));
 }
 
-@media screen and (min-width: 750px) {
-  .cart-item__image {
-    max-width: 100%;
-  }
-}
-
+/* Base styles - extended in invicta-cart.css */
 .cart-item__details {
   font-size: 1.6rem;
   line-height: calc(1 + 0.4 / var(--font-body-scale));
@@ -69,6 +65,7 @@ cart-items .title-wrapper-with-link {
   margin-top: 0.6rem;
 }
 
+/* Base styles - extended in invicta-cart.css */
 .cart-item__media {
   position: relative;
 }
@@ -84,15 +81,9 @@ cart-items .title-wrapper-with-link {
   height: 100%;
 }
 
+/* Base styles - extended in invicta-cart.css */
 .cart-item__name {
-  text-decoration: none;
   display: block;
-}
-
-.cart-item__name:hover {
-  text-decoration: underline;
-  text-underline-offset: 0.3rem;
-  text-decoration-thickness: 0.2rem;
 }
 
 .cart-item__price-wrapper > * {
@@ -105,14 +96,14 @@ cart-items .title-wrapper-with-link {
   margin: 0;
 }
 
-.cart-item__discounted-prices .cart-item__old-price {
-  font-size: 1.4rem;
-}
+/* Removed: .cart-item__discounted-prices .cart-item__old-price font-size — set in invicta-cart.css */
 
+/* Base styles - opacity overridden in context-specific selectors in invicta-cart.css */
 .cart-item__old-price {
   opacity: 0.7;
 }
 
+/* Base styles - overridden in specific contexts by invicta-cart.css */
 .cart-item__final-price {
   font-weight: 400;
 }
@@ -135,33 +126,19 @@ cart-items .title-wrapper-with-link {
   }
 }
 
+/* Base styles - extended in invicta-cart.css (min-width, min-height, padding, color, background, border) */
 cart-remove-button .button {
-  min-width: calc(4.5rem / var(--font-body-scale));
-  min-height: 4.5rem;
-  padding: 0;
   margin: 0 0.1rem 0.1rem 0;
+  /* min-width, min-height, padding set in invicta-cart.css */
 }
 
-cart-remove-button .button:before,
-cart-remove-button .button:after {
-  content: none;
-}
+/* Removed: cart-remove-button .button:before/after content: none — set in invicta-cart.css */
 
-cart-remove-button .button:not([disabled]):hover {
-  color: rgb(var(--color-foreground));
-}
+/* Removed: cart-remove-button hover color — fully overridden by invicta-cart.css */
 
-@media screen and (min-width: 750px) {
-  cart-remove-button .button {
-    min-width: 3.5rem;
-    min-height: 3.5rem;
-  }
-}
+/* Removed: 750px cart-remove-button .button min-width/height — fully overridden by invicta-cart.css */
 
-cart-remove-button .icon-remove {
-  height: 1.5rem;
-  width: 1.5rem;
-}
+/* Removed: cart-remove-button .icon-remove size — fully overridden by invicta-cart.css */
 
 .cart-item .loading__spinner {
   top: 0;
@@ -219,9 +196,7 @@ cart-remove-button .icon-remove {
   margin: 0;
 }
 
-.cart-items thead th {
-  text-transform: uppercase;
-}
+/* Removed: .cart-items thead th text-transform — set in invicta-cart.css */
 
 @media screen and (max-width: 749px) {
   .cart-items,
@@ -238,11 +213,10 @@ cart-remove-button .icon-remove {
     margin-bottom: 4rem;
   }
 
+  /* Base styles - extended in invicta-cart.css */
   .cart-item {
     display: grid;
     grid-template: repeat(2, auto) / repeat(4, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 3.5rem;
   }
 
   .cart-item:has(+ .cart-item__nested-line) {
@@ -297,9 +271,10 @@ cart-remove-button .icon-remove {
     padding-left: 4rem;
   }
 
+  /* Base styles - padding-top overridden in invicta-cart.css */
   .cart-items td {
     vertical-align: top;
-    padding-top: 4rem;
+    /* padding-top set in invicta-cart.css */
   }
 
   .cart-items .cart-item__nested-line td {
@@ -318,9 +293,7 @@ cart-remove-button .icon-remove {
     width: 35rem;
   }
 
-  .cart-item__media {
-    width: 10rem;
-  }
+  /* Width overridden in invicta-cart.css */
 
   .cart-item__price-wrapper > *:only-child:not(.cart-item__discounted-prices) {
     margin-top: 1rem;

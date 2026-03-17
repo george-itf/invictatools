@@ -1,9 +1,12 @@
 /* =======================================================
    INVICTA BORDER-RADIUS SYSTEM — GLOBAL OVERRIDE
    -------------------------------------------------------
-   Version: 1.0
+   Version: 1.1
    Purpose: Enforce consistent border-radius site-wide
    Usage:   All components must use these custom properties
+   NOTE: v1.1 — Removed force-override flags by doubling selectors.
+         This file loads after base.css so equal specificity
+         wins by source order; doubled selectors add safety.
    ======================================================= */
 
 /* Radius tokens consolidated into invicta-css-variables.css v3.0
@@ -14,171 +17,173 @@
    ======================================================= */
 
 /* Buttons — all types */
-button,
-.button,
-.btn,
-.shopify-button,
-[class*="button"],
-[class*="btn"],
-input[type="submit"],
-input[type="button"],
+button.button,
+.button.button,
+.btn.btn,
+.shopify-button.shopify-button,
+[class*="button"][class*="button"],
+[class*="btn"][class*="btn"],
+input[type="submit"][type="submit"],
+input[type="button"][type="button"],
 .shopify-payment-button button,
-.shopify-payment-button__button {
-  border-radius: var(--inv-radius-button) !important;
+.shopify-payment-button__button.shopify-payment-button__button {
+  border-radius: var(--inv-radius-button);
 }
 
 /* Cards & containers */
-.card,
-.card__inner,
-.product-card,
-.product-card-wrapper,
-.collection-card,
-[class*="card"],
-.article-card,
-.blog-card {
-  border-radius: var(--inv-radius-card) !important;
+.card.card,
+.card__inner.card__inner,
+.product-card.product-card,
+.product-card-wrapper.product-card-wrapper,
+.collection-card.collection-card,
+[class*="card"][class*="card"],
+.article-card.article-card,
+.blog-card.blog-card {
+  border-radius: var(--inv-radius-card);
 }
 
 /* Product images & thumbnails */
-.product__media,
-.product__media-item,
-.thumbnail,
-.thumbnail-list__item,
-[class*="thumbnail"],
-.media,
-.media--transparent,
-.product-card__image,
-.card__media {
-  border-radius: var(--inv-radius-card) !important;
+.product__media.product__media,
+.product__media-item.product__media-item,
+.thumbnail.thumbnail,
+.thumbnail-list__item.thumbnail-list__item,
+[class*="thumbnail"][class*="thumbnail"],
+.media.media,
+.media--transparent.media--transparent,
+.product-card__image.product-card__image,
+.card__media.card__media {
+  border-radius: var(--inv-radius-card);
 }
 
 /* Inputs & form elements */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="search"],
-input[type="tel"],
-input[type="number"],
-input[type="url"],
+input[type="text"][type="text"],
+input[type="email"][type="email"],
+input[type="password"][type="password"],
+input[type="search"][type="search"],
+input[type="tel"][type="tel"],
+input[type="number"][type="number"],
+input[type="url"][type="url"],
+textarea.field__input,
 textarea,
+select.select__select,
 select,
-.field__input,
-.form__input,
-.search__input,
-[class*="input"],
-.select__select {
-  border-radius: var(--inv-radius-input) !important;
+.field__input.field__input,
+.form__input.form__input,
+.search__input.search__input,
+[class*="input"][class*="input"],
+.select__select.select__select {
+  border-radius: var(--inv-radius-input);
 }
 
 /* Dropdowns & selects */
-.dropdown,
-.dropdown__menu,
-.select,
-.disclosure__list,
-[class*="dropdown"],
-[class*="select"] {
-  border-radius: var(--inv-radius-input) !important;
+.dropdown.dropdown,
+.dropdown__menu.dropdown__menu,
+.select.select,
+.disclosure__list.disclosure__list,
+[class*="dropdown"][class*="dropdown"],
+[class*="select"][class*="select"] {
+  border-radius: var(--inv-radius-input);
 }
 
 /* Modals, drawers & overlays */
-.modal,
-.modal__inner,
-.drawer,
-.drawer__inner,
-.popup,
-.cart-drawer,
-.menu-drawer,
-[class*="modal"],
-[class*="drawer"],
-[class*="popup"] {
-  border-radius: var(--inv-radius-modal) !important;
+.modal.modal,
+.modal__inner.modal__inner,
+.drawer.drawer,
+.drawer__inner.drawer__inner,
+.popup.popup,
+.cart-drawer.cart-drawer,
+.menu-drawer.menu-drawer,
+[class*="modal"][class*="modal"],
+[class*="drawer"][class*="drawer"],
+[class*="popup"][class*="popup"] {
+  border-radius: var(--inv-radius-modal);
 }
 
 /* Badges & tags */
-.badge,
-.tag,
-.label,
-[class*="badge"],
-[class*="tag"] {
-  border-radius: var(--inv-radius-md) !important;
+.badge.badge,
+.tag.tag,
+.label.label,
+[class*="badge"][class*="badge"],
+[class*="tag"][class*="tag"] {
+  border-radius: var(--inv-radius-md);
 }
 
 /* Toggles (VAT, filters, etc.) */
-[class*="toggle"],
-[class*="switch"] {
-  border-radius: var(--inv-radius-toggle-outer) !important;
+[class*="toggle"][class*="toggle"],
+[class*="switch"][class*="switch"] {
+  border-radius: var(--inv-radius-toggle-outer);
 }
 
-[class*="toggle"] button,
-[class*="toggle"] [class*="btn"],
-[class*="switch"] button {
-  border-radius: var(--inv-radius-toggle-inner) !important;
+[class*="toggle"] button.button,
+[class*="toggle"] [class*="btn"][class*="btn"],
+[class*="switch"] button.button {
+  border-radius: var(--inv-radius-toggle-inner);
 }
 
 /* Quick add, quantity selectors */
-.quantity,
-.quantity__input,
-.quantity__button,
-.quick-add__submit,
-[class*="quantity"] {
-  border-radius: var(--inv-radius-md) !important;
+.quantity.quantity,
+.quantity__input.quantity__input,
+.quantity__button.quantity__button,
+.quick-add__submit.quick-add__submit,
+[class*="quantity"][class*="quantity"] {
+  border-radius: var(--inv-radius-md);
 }
 
 /* Search components */
-.search-modal,
-.search-modal__content,
-.predictive-search,
-.predictive-search__results,
-[class*="search-modal"],
-[class*="predictive-search"] {
-  border-radius: var(--inv-radius-md) !important;
+.search-modal.search-modal,
+.search-modal__content.search-modal__content,
+.predictive-search.predictive-search,
+.predictive-search__results.predictive-search__results,
+[class*="search-modal"][class*="search-modal"],
+[class*="predictive-search"][class*="predictive-search"] {
+  border-radius: var(--inv-radius-md);
 }
 
 /* Navigation dropdowns */
-.header__menu-item,
-.nav-dropdown,
-[class*="nav-dropdown"] {
-  border-radius: var(--inv-radius-md) !important;
+.header__menu-item.header__menu-item,
+.nav-dropdown.nav-dropdown,
+[class*="nav-dropdown"][class*="nav-dropdown"] {
+  border-radius: var(--inv-radius-md);
 }
 
 /* Image overlays & zoom */
-.media-gallery,
-.product-media-modal,
-[class*="gallery"],
-[class*="lightbox"] {
-  border-radius: var(--inv-radius-lg) !important;
+.media-gallery.media-gallery,
+.product-media-modal.product-media-modal,
+[class*="gallery"][class*="gallery"],
+[class*="lightbox"][class*="lightbox"] {
+  border-radius: var(--inv-radius-lg);
 }
 
 /* =======================================================
    INVICTA NAMESPACE — Explicit overrides for inv- classes
    ======================================================= */
 
-[class^="inv-"] button,
-[class^="inv-"] .btn,
-[class*=" inv-"] button,
-[class*=" inv-"] .btn {
-  border-radius: var(--inv-radius-button) !important;
+[class^="inv-"] button.button,
+[class^="inv-"] .btn.btn,
+[class*=" inv-"] button.button,
+[class*=" inv-"] .btn.btn {
+  border-radius: var(--inv-radius-button);
 }
 
-[class^="inv-"][class*="card"],
-[class*=" inv-"][class*="card"] {
-  border-radius: var(--inv-radius-card) !important;
+[class^="inv-"][class*="card"][class*="card"],
+[class*=" inv-"][class*="card"][class*="card"] {
+  border-radius: var(--inv-radius-card);
 }
 
-[class^="inv-"][class*="toggle"],
-[class*=" inv-"][class*="toggle"] {
-  border-radius: var(--inv-radius-toggle-outer) !important;
+[class^="inv-"][class*="toggle"][class*="toggle"],
+[class*=" inv-"][class*="toggle"][class*="toggle"] {
+  border-radius: var(--inv-radius-toggle-outer);
 }
 
 /* =======================================================
    KILL PILL SHAPES — Nuclear option for 9999px offenders
    ======================================================= */
 
-*[style*="border-radius: 9999"],
-*[style*="border-radius:9999"],
-*[style*="border-radius: 50%"],
-*[style*="border-radius:50%"] {
-  border-radius: var(--inv-radius-md) !important;
+*[style*="border-radius: 9999"][style*="border-radius: 9999"],
+*[style*="border-radius:9999"][style*="border-radius:9999"],
+*[style*="border-radius: 50%"][style*="border-radius: 50%"],
+*[style*="border-radius:50%"][style*="border-radius:50%"] {
+  border-radius: var(--inv-radius-md);
 }
 
 /* =======================================================
@@ -186,40 +191,40 @@ select,
    ======================================================= */
 
 /* Icon buttons (account, cart) — keep circular */
-.invicta-header__icon,
-[class*="icon-button"],
-.icon-button {
-  border-radius: 50% !important;
+.invicta-header__icon.invicta-header__icon,
+[class*="icon-button"][class*="icon-button"],
+.icon-button.icon-button {
+  border-radius: 50%;
 }
 
 /* Cart count badge — keep circular */
-.invicta-header__badge,
-.cart-count-bubble,
-[class*="cart-count"],
-[class*="count-bubble"] {
-  border-radius: 50% !important;
+.invicta-header__badge.invicta-header__badge,
+.cart-count-bubble.cart-count-bubble,
+[class*="cart-count"][class*="cart-count"],
+[class*="count-bubble"][class*="count-bubble"] {
+  border-radius: 50%;
 }
 
 /* Avatar/profile images — keep circular */
-[class*="avatar"],
-.avatar {
-  border-radius: 50% !important;
+[class*="avatar"][class*="avatar"],
+.avatar.avatar {
+  border-radius: 50%;
 }
 
 /* Drawer panel — full-height, no rounded corners */
-.invicta-drawer__panel {
-  border-radius: 0 !important;
+.invicta-drawer__panel.invicta-drawer__panel {
+  border-radius: 0;
 }
 
 /* Drawer VAT pills — explicit radii, not the [class*="drawer"] modal radius */
-.invicta-drawer__vat {
-  border-radius: 0 !important;
+.invicta-drawer__vat.invicta-drawer__vat {
+  border-radius: 0;
 }
 
-.invicta-drawer__vat-pills {
-  border-radius: 8px !important;
+.invicta-drawer__vat-pills.invicta-drawer__vat-pills {
+  border-radius: 8px;
 }
 
-.invicta-drawer__vat-pill {
-  border-radius: 6px !important;
+.invicta-drawer__vat-pill.invicta-drawer__vat-pill {
+  border-radius: 6px;
 }

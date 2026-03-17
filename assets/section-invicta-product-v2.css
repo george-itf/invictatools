@@ -7,7 +7,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--pdp-grey-100, #f5f5f5);
+  background: var(--inv-grey-100, #f5f5f5);
   border-radius: 20px;
   padding: 5px 12px;
   margin-top: 6px;
@@ -15,7 +15,7 @@
 .inv-pdp__vat-toggle-label {
   font-size: 11px;
   font-weight: 600;
-  color: var(--pdp-grey-400);
+  color: var(--inv-grey-400);
   transition: color 0.15s ease;
   cursor: pointer;
   text-transform: uppercase;
@@ -23,13 +23,13 @@
   line-height: 1;
 }
 .inv-pdp__vat-toggle-label--active {
-  color: var(--pdp-text);
+  color: var(--inv-fg-near-black);
 }
 .inv-pdp__vat-toggle-switch {
   position: relative;
   width: 28px;
   height: 16px;
-  background: var(--pdp-grey-200);
+  background: var(--inv-grey-200);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -37,7 +37,7 @@
   transition: background 0.2s ease;
 }
 .inv-pdp__vat-toggle-switch[aria-checked="true"] {
-  background: var(--pdp-dark);
+  background: var(--inv-dark);
 }
 .inv-pdp__vat-toggle-thumb {
   position: absolute;
@@ -54,7 +54,7 @@
   transform: translateX(12px);
 }
 .inv-pdp__vat-toggle-switch:focus-visible {
-  box-shadow: var(--pdp-focus);
+  box-shadow: var(--inv-focus-shadow);
   outline: none;
 }
 
@@ -66,8 +66,8 @@
   padding: 12px 14px;
   background: #f0f9ff;
   border: 1px solid #bae6fd;
-  border-radius: var(--pdp-radius);
-  margin-bottom: var(--pdp-space-md);
+  border-radius: var(--inv-radius-md);
+  margin-bottom: var(--inv-space-md);
 }
 .inv-pdp__collect-icon {
   flex-shrink: 0;
@@ -77,7 +77,7 @@
 .inv-pdp__collect-text {
   font-size: 13px;
   line-height: 1.5;
-  color: var(--pdp-text);
+  color: var(--inv-fg-near-black);
 }
 .inv-pdp__collect-text strong {
   display: block;
@@ -86,7 +86,7 @@
   margin-bottom: 2px;
 }
 .inv-pdp__collect-text span {
-  color: var(--pdp-text-muted);
+  color: var(--inv-fg-medium);
 }
 .inv-pdp__collect-text a {
   color: #0284c7;
@@ -103,27 +103,27 @@
   align-items: center;
   gap: 10px;
   padding: 12px 14px;
-  background: var(--pdp-grey-50);
-  border: 1px dashed var(--pdp-grey-300);
-  border-radius: var(--pdp-radius);
-  margin-top: var(--pdp-space-md);
+  background: var(--inv-grey-50);
+  border: 1px dashed var(--inv-grey-300);
+  border-radius: var(--inv-radius-md);
+  margin-top: var(--inv-space-md);
   font-size: 13px;
-  color: var(--pdp-text-muted);
+  color: var(--inv-fg-medium);
 }
 .inv-pdp__trade-callout svg {
   flex-shrink: 0;
-  color: var(--pdp-grey-500);
+  color: var(--inv-grey-500);
 }
 .inv-pdp__trade-callout strong {
-  color: var(--pdp-text);
+  color: var(--inv-fg-near-black);
 }
 .inv-pdp__trade-callout a {
-  color: var(--pdp-red);
+  color: var(--inv-accent);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 .inv-pdp__trade-callout a:hover {
-  color: var(--pdp-red-hover);
+  color: var(--inv-accent-hover);
 }
 
 /* --- Low Stock Banner modifier --- */

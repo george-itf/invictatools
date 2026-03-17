@@ -1,75 +1,32 @@
-/* Cart Breakdown Layout */
+/* Cart Breakdown Layout
+   Base structural styles — visual properties set in invicta-cart.css */
+
 .invicta-cart-breakdown {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  /* gap set in invicta-cart.css */
 }
 
 .invicta-cart-breakdown__row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 0;
+  /* padding, font-size set in invicta-cart.css */
 }
 
-.invicta-cart-breakdown__row--total {
-  border-top: 2px solid #1a1a1a;
-  padding-top: 10px;
-  margin-top: 8px;
-  font-weight: 700;
-  font-size: 16px;
-  color: #1a1a1a;
-}
-
+/* Base styles - extended in invicta-cart.css */
 .invicta-cart-breakdown__label {
-  color: #374151;
   white-space: nowrap;
   margin-right: 12px;
+  /* color, font-weight set in invicta-cart.css */
 }
 
-.invicta-cart-breakdown__value {
-  font-weight: 500;
-  color: #1a1a1a;
-}
-
-.invicta-cart-breakdown__value--negative {
-  color: #059669;
-}
-
-.invicta-cart-breakdown__free-label {
-  color: #059669;
-  font-weight: 600;
-}
-
-.invicta-vat-indicator {
-  font-size: 12px;
-  color: #6b7280;
-  padding: 6px 0 8px;
-  border-bottom: 1px solid #e5e7eb;
-  margin-bottom: 4px;
-}
-
-/* Shipping Progress Bar */
-.invicta-cart-breakdown__shipping-progress {
-  margin: 8px 0;
-  padding: 8px 0;
-}
-
-.invicta-cart-breakdown__shipping-text {
-  font-size: 12px;
-  color: #6b7280;
-  margin-bottom: 6px;
-}
-
-.invicta-cart-breakdown__shipping-bar {
-  height: 4px;
-  background: #e5e7eb;
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.invicta-cart-breakdown__shipping-fill {
-  height: 100%;
-  background: #d97706;
-  border-radius: 2px;
-}
+/* Removed: .invicta-cart-breakdown__row--total — fully overridden by invicta-cart.css */
+/* Removed: .invicta-cart-breakdown__value — fully overridden by invicta-cart.css */
+/* Removed: .invicta-cart-breakdown__value--negative — fully overridden by invicta-cart.css */
+/* Removed: .invicta-cart-breakdown__free-label — fully overridden by invicta-cart.css */
+/* Removed: .invicta-vat-indicator — fully overridden by invicta-cart.css */
+/* Removed: .invicta-cart-breakdown__shipping-progress — fully overridden by invicta-cart.css */
+/* Removed: .invicta-cart-breakdown__shipping-text — fully overridden by invicta-cart.css */
+/* Removed: .invicta-cart-breakdown__shipping-bar — fully overridden by invicta-cart.css */
+/* Removed: .invicta-cart-breakdown__shipping-fill — fully overridden by invicta-cart.css */

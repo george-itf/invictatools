@@ -13,7 +13,7 @@
 
 .inv-related {
   padding: 48px 0;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid var(--inv-border-skeleton);
 }
 
 .inv-related__container {
@@ -34,7 +34,7 @@
 .inv-related__title {
   font-size: 24px;
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--inv-dark);
   margin: 0;
   letter-spacing: -0.02em;
 }
@@ -44,7 +44,7 @@
   display: block;
   width: 48px;
   height: 3px;
-  background: var(--inv-accent, #e11d26);
+  background: var(--inv-accent, var(--inv-accent));
   margin: 12px auto 0;
   border-radius: 2px;
 }
@@ -77,25 +77,25 @@
 }
 
 .inv-related__skeleton-card {
-  border: 1px solid #e8e8e8;
+  border: 1px solid var(--inv-bg-skeleton-border);
   overflow: hidden;
 }
 
 .inv-related__skeleton-img {
   aspect-ratio: 1 / 1;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, var(--inv-bg-skeleton) 25%, var(--inv-bg-skeleton-highlight) 50%, var(--inv-bg-skeleton) 75%);
   background-size: 200% 100%;
   animation: inv-related-shimmer 1.5s ease-in-out infinite;
 }
 
 .inv-related__skeleton-body {
   padding: 12px;
-  background: #f5f5f5;
+  background: var(--inv-grey-100);
 }
 
 .inv-related__skeleton-line {
   height: 12px;
-  background: linear-gradient(90deg, #e8e8e8 25%, #ddd 50%, #e8e8e8 75%);
+  background: linear-gradient(90deg, var(--inv-bg-skeleton-border) 25%, var(--inv-border-skeleton-dark) 50%, var(--inv-bg-skeleton-border) 75%);
   background-size: 200% 100%;
   animation: inv-related-shimmer 1.5s ease-in-out infinite;
   margin-bottom: 8px;
@@ -110,7 +110,7 @@
   height: 20px;
   width: 40%;
   margin-top: 12px;
-  background: linear-gradient(90deg, #e8e8e8 25%, #ddd 50%, #e8e8e8 75%);
+  background: linear-gradient(90deg, var(--inv-bg-skeleton-border) 25%, var(--inv-border-skeleton-dark) 50%, var(--inv-bg-skeleton-border) 75%);
   background-size: 200% 100%;
   animation: inv-related-shimmer 1.5s ease-in-out infinite;
 }

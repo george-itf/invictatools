@@ -57,6 +57,10 @@
     {% endif %}
 
     {% render 'meta-tags' %}
+
+    {%- comment -%} Structured data: Organization, Product, BreadcrumbList, LocalBusiness {%- endcomment -%}
+    {% render 'schema-jsonld' %}
+
     {% render 'invicta-css-variables' %}
 
     {%- comment -%}
@@ -565,7 +569,5 @@
       });
     </script>
 
-    {%- comment -%} Structured data: Organization, Product, BreadcrumbList, LocalBusiness {%- endcomment -%}
-    {% render 'schema-jsonld' %}
   </body>
 </html>

@@ -15,18 +15,18 @@
   visibility: visible;
 }
 
+/* Base styles - extended in invicta-cart.css (width, border, box-shadow) */
 .drawer__inner {
   height: 100%;
-  width: 40rem;
   max-width: calc(100vw - 3rem);
   padding: 0 1.5rem;
-  border: 0.1rem solid rgba(var(--color-foreground), 0.2);
-  border-right: 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transform: translateX(100%);
   transition: transform var(--duration-default) ease;
+  /* width set in invicta-cart.css (44rem) */
+  /* border set in invicta-cart.css (none) */
 }
 
 .drawer__inner-empty {
@@ -68,31 +68,26 @@ cart-drawer:not(.is-empty) .cart-drawer__collection {
   transform: translateX(0);
 }
 
+/* Base styles - extended in invicta-cart.css (padding, border-bottom) */
 .drawer__header {
   position: relative;
-  padding: 1.5rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  /* padding set in invicta-cart.css */
 }
 
-.drawer__heading {
-  margin: 0 0 1rem;
-}
+/* Removed: margin: 0 0 1rem — fully overridden by invicta-cart.css via high-specificity selector */
 
+/* Base styles - extended in invicta-cart.css (display, min-width/height, background, border, box-shadow) */
 .drawer__close {
-  display: inline-block;
   padding: 0;
-  min-width: 4.4rem;
-  min-height: 4.4rem;
-  box-shadow: 0 0 0 0.2rem rgba(var(--color-button), 0);
   position: absolute;
   top: 10px;
   right: -10px;
   color: rgb(var(--color-foreground));
-  background-color: transparent;
-  border: none;
   cursor: pointer;
+  /* display, min-width, min-height, background, border, box-shadow set in invicta-cart.css */
 }
 
 .cart-drawer__warnings .drawer__close {
@@ -110,6 +105,7 @@ cart-drawer:not(.is-empty) .cart-drawer__collection {
   flex-direction: column;
 }
 
+/* Base styles - .drawer__footer--sticky extended in invicta-cart.css */
 .drawer__footer {
   border-top: 0.1rem solid rgba(var(--color-foreground), 0.2);
   padding: 1.5rem 0;
@@ -198,13 +194,12 @@ cart-drawer-items {
 }
 
 /* Sticky footer: subtotals, trust bar, checkout button - always visible at bottom */
+/* Base styles - extended in invicta-cart.css (border-top, box-shadow, padding) */
 .drawer__footer--sticky {
   flex-shrink: 0;
   z-index: 2;
   background-color: rgb(var(--color-background));
-  border-top: 0.1rem solid rgba(var(--color-foreground), 0.1);
-  box-shadow: 0 -4px 12px rgba(var(--color-foreground), 0.06);
-  padding: 1.5rem 0;
+  /* border-top, box-shadow, padding set in invicta-cart.css */
 }
 
 /* The scrollable footer section doesn't need a top border since it flows with items */
@@ -244,16 +239,15 @@ cart-drawer.is-empty .cart-drawer__scrollable-body {
   }
 }
 
+/* Base styles - extended in invicta-cart.css */
 .cart-drawer .cart-item {
   display: grid;
   grid-template: repeat(2, auto) / repeat(4, 1fr);
-  gap: 1rem;
   margin-bottom: 0;
+  /* gap set in invicta-cart.css */
 }
 
-.cart-drawer .cart-item:last-child {
-  margin-bottom: 1rem;
-}
+/* Removed: .cart-drawer .cart-item:last-child margin-bottom: 1rem — overridden by invicta-cart.css via high-specificity selector */
 
 .cart-drawer .cart-item__media {
   grid-row: 1 / 3;
@@ -292,9 +286,7 @@ cart-drawer.is-empty .cart-drawer__scrollable-body {
   border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
 }
 
-.cart-drawer .cart-item:last-child {
-  margin-bottom: 1.5rem;
-}
+/* Removed: .cart-drawer .cart-item:last-child margin-bottom: 1.5rem — overridden by invicta-cart.css via high-specificity selector */
 
 .cart-drawer .cart-item .loading__spinner {
   right: 5px;
@@ -313,11 +305,13 @@ cart-drawer.is-empty .cart-drawer__scrollable-body {
   padding-left: 1rem;
 }
 
+/* Base styles - extended in invicta-cart.css (child selectors) */
 .cart-drawer .cart-item__details {
   width: auto;
   grid-column: 2 / 4;
 }
 
+/* Base styles - extended in invicta-cart.css (child selectors) */
 .cart-drawer .cart-item__totals {
   pointer-events: none;
   display: flex;
@@ -375,6 +369,7 @@ cart-drawer.is-empty .cart-drawer__scrollable-body {
   transform: rotate(180deg);
 }
 
+/* Base styles - extended in invicta-cart.css */
 .cart-drawer .cart__checkout-button {
   max-width: none;
 }
@@ -383,10 +378,12 @@ cart-drawer.is-empty .cart-drawer__scrollable-body {
   max-width: 100%;
 }
 
+/* Shopify injects inline styles on #dynamic-checkout-cart elements;
+   CSS cannot override inline style attributes without the force-override flag. */
 .drawer__footer #dynamic-checkout-cart ul {
-  flex-wrap: wrap !important;
-  flex-direction: row !important;
-  margin: 0.5rem -0.5rem 0 0 !important;
+  flex-wrap: wrap !important; /* overrides Shopify inline style */
+  flex-direction: row !important; /* overrides Shopify inline style */
+  margin: 0.5rem -0.5rem 0 0 !important; /* overrides Shopify inline style */
   gap: 0.5rem;
 }
 
@@ -395,26 +392,26 @@ cart-drawer.is-empty .cart-drawer__scrollable-body {
 }
 
 .drawer__footer #dynamic-checkout-cart ul > li {
-  flex-basis: calc(50% - 0.5rem) !important;
-  margin: 0 !important;
+  flex-basis: calc(50% - 0.5rem) !important; /* overrides Shopify inline style */
+  margin: 0 !important; /* overrides Shopify inline style */
 }
 
 .drawer__footer #dynamic-checkout-cart ul > li:only-child {
-  flex-basis: 100% !important;
-  margin-right: 0.5rem !important;
+  flex-basis: 100% !important; /* overrides Shopify inline style */
+  margin-right: 0.5rem !important; /* overrides Shopify inline style */
 }
 
 @media screen and (min-width: 750px) {
   .drawer__footer #dynamic-checkout-cart ul > li {
-    flex-basis: calc(100% / 3 - 0.5rem) !important;
-    margin: 0 !important;
+    flex-basis: calc(100% / 3 - 0.5rem) !important; /* overrides Shopify inline style */
+    margin: 0 !important; /* overrides Shopify inline style */
   }
 
   .drawer__footer #dynamic-checkout-cart ul > li:first-child:nth-last-child(2),
   .drawer__footer #dynamic-checkout-cart ul > li:first-child:nth-last-child(2) ~ li,
   .drawer__footer #dynamic-checkout-cart ul > li:first-child:nth-last-child(4),
   .drawer__footer #dynamic-checkout-cart ul > li:first-child:nth-last-child(4) ~ li {
-    flex-basis: calc(50% - 0.5rem) !important;
+    flex-basis: calc(50% - 0.5rem) !important; /* overrides Shopify inline style */
   }
 }
 

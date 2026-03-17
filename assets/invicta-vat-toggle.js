@@ -188,17 +188,21 @@
     updateToggleButtons(mode);
     updatePriceDisplays(mode);
 
-    // Attach click listener (delegated)
+    // Attach click listener (delegated) — intentionally persistent for the
+    // lifetime of the page. VAT toggle is a global site-wide feature that must
+    // remain active regardless of DOM changes (AJAX navigations, section renders).
     document.addEventListener('click', handleToggleClick);
 
-    // Re-apply VAT mode when collection filters update the DOM via AJAX
+    // Re-apply VAT mode when collection filters update the DOM via AJAX —
+    // intentionally persistent: must survive AJAX collection page transitions.
     document.addEventListener('invicta:collection:updated', function() {
       var currentMode = getVatMode();
       updatePriceDisplays(currentMode);
       updateToggleButtons(currentMode);
     });
 
-    // Also re-apply on generic cart refresh / section render
+    // Also re-apply on generic cart refresh / section render —
+    // intentionally persistent: Shopify design-mode events fire throughout the session.
     document.addEventListener('shopify:section:load', function() {
       var currentMode = getVatMode();
       updatePriceDisplays(currentMode);
