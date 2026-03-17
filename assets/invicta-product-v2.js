@@ -522,9 +522,23 @@
         }
       }
 
-      const skuFallback = productHandle.toUpperCase();
-      section.querySelectorAll('[data-sku], [data-sku-display]').forEach(function(el) {
-        el.textContent = matchingVariant.sku || skuFallback;
+      section.querySelectorAll('[data-sku]').forEach(function(el) {
+        if (matchingVariant.sku) {
+          el.textContent = matchingVariant.sku;
+          el.style.display = '';
+        } else {
+          el.textContent = '';
+          el.style.display = 'none';
+        }
+      });
+      section.querySelectorAll('[data-sku-display]').forEach(function(el) {
+        if (matchingVariant.sku) {
+          el.textContent = matchingVariant.sku;
+          if (el.closest('.inv-pdp__info-row')) el.closest('.inv-pdp__info-row').style.display = '';
+        } else {
+          el.textContent = '';
+          if (el.closest('.inv-pdp__info-row')) el.closest('.inv-pdp__info-row').style.display = 'none';
+        }
       });
 
       if (buyNowBtn) {
@@ -603,7 +617,7 @@
     function updateStockStatus(available, variant) {
       const stockBanner = section.querySelector('[data-stock-banner]');
       const stockText = section.querySelector('[data-stock-text]');
-      const dispatchInfo = section.querySelector('[data-dispatch-info]');
+      const dispatchText = section.querySelector('[data-dispatch-text]');
       const lowStockThreshold = parseInt(section.dataset.lowStockThreshold, 10) || 5;
       var stockSource = stockBanner ? (stockBanner.dataset.stockSource || 'invicta') : 'invicta';
       var supplierBannerText = stockBanner ? (stockBanner.dataset.supplierBannerText || 'In Stock with Supplier \u2014 Usually Dispatched within 2\u20133 Working Days') : '';
@@ -638,12 +652,12 @@
         }
       }
 
-      /* Show/hide dispatch info block for supplier items */
-      if (dispatchInfo) {
+      /* Show/hide dispatch text for supplier items */
+      if (dispatchText) {
         if (available && stockSource === 'supplier') {
-          dispatchInfo.classList.remove('inv-pdp--hidden');
+          dispatchText.classList.remove('inv-pdp--hidden');
         } else {
-          dispatchInfo.classList.add('inv-pdp--hidden');
+          dispatchText.classList.add('inv-pdp--hidden');
         }
       }
 

@@ -205,9 +205,9 @@
         </ol>
       </nav>
       
-      {% if show_sku %}
+      {% if show_sku and current_variant.sku != blank %}
         <span class="inv-pdp__sku" data-sku>
-          {{ current_variant.sku | default: product.handle | upcase }}
+          {{ current_variant.sku }}
         </span>
       {% endif %}
     </div>
@@ -371,10 +371,10 @@
           {% endif %}
           
           {%- comment -%} Part Number {%- endcomment -%}
-          {% if show_sku %}
+          {% if show_sku and current_variant.sku != blank %}
             <div class="inv-pdp__info-row">
               <span class="inv-pdp__info-label">Part Number</span>
-              <span class="inv-pdp__info-value" data-sku-display>{{ current_variant.sku | default: product.handle | upcase }}</span>
+              <span class="inv-pdp__info-value" data-sku-display>{{ current_variant.sku }}</span>
             </div>
           {% endif %}
           
@@ -441,39 +441,25 @@
           data-supplier-banner-text="{{ supplier_banner_text | escape }}"
         >
           <span class="inv-pdp__stock-dot" aria-hidden="true"></span>
-          <span data-stock-text>
-            {%- if is_in_stock == false -%}
-              {{ section.settings.oos_text | default: 'Out of Stock' }}
-            {%- elsif stock_source == 'supplier' -%}
-              {{ supplier_banner_text }}
-            {%- elsif show_low_stock -%}
-              Only {{ stock_qty }} left in stock — order soon
+          <div class="inv-pdp__stock-banner-content">
+            <span data-stock-text>
+              {%- if is_in_stock == false -%}
+                {{ section.settings.oos_text | default: 'Out of Stock' }}
+              {%- elsif stock_source == 'supplier' -%}
+                {{ supplier_banner_text }}
+              {%- elsif show_low_stock -%}
+                Only {{ stock_qty }} left in stock — order soon
+              {%- else -%}
+                {{ section.settings.in_stock_text | default: 'In Stock — Ready to Ship' }}
+              {%- endif -%}
+            </span>
+            {%- if is_in_stock and stock_source == 'supplier' -%}
+              <span class="inv-pdp__stock-dispatch" data-dispatch-text>{{ supplier_dispatch_text }}</span>
             {%- else -%}
-              {{ section.settings.in_stock_text | default: 'In Stock — Ready to Ship' }}
+              <span class="inv-pdp__stock-dispatch inv-pdp--hidden" data-dispatch-text></span>
             {%- endif -%}
-          </span>
+          </div>
         </div>
-
-        {%- comment -%} SUPPLIER DISPATCH DISCLAIMER — only for supplier-sourced items {%- endcomment -%}
-        {%- if is_in_stock and stock_source == 'supplier' -%}
-          <div class="inv-pdp__dispatch-info" data-dispatch-info>
-            <svg class="inv-pdp__dispatch-info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="8" x2="12" y2="12"></line>
-              <line x1="12" y1="16" x2="12.01" y2="16"></line>
-            </svg>
-            <span data-dispatch-text>{{ supplier_dispatch_text }}</span>
-          </div>
-        {%- else -%}
-          <div class="inv-pdp__dispatch-info inv-pdp--hidden" data-dispatch-info>
-            <svg class="inv-pdp__dispatch-info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="8" x2="12" y2="12"></line>
-              <line x1="12" y1="16" x2="12.01" y2="16"></line>
-            </svg>
-            <span data-dispatch-text></span>
-          </div>
-        {%- endif -%}
 
         <div class="inv-pdp__buybox-body">
 
