@@ -206,7 +206,8 @@
             var loadMoreText = loadMoreBtn.querySelector('.inv-load-more__text');
             if (loadMoreText) loadMoreText.textContent = 'Load More Products';
           } else {
-            loadMoreBtn.closest('.inv-load-more').style.display = 'none';
+            var loadMoreContainer = loadMoreBtn.closest('.inv-load-more');
+            if (loadMoreContainer) loadMoreContainer.style.display = 'none';
           }
         })
         .catch(function() {
@@ -588,7 +589,8 @@
           if (successMsg) successMsg.classList.remove('inv-pdp--hidden');
           if (submitBtn) submitBtn.style.display = 'none';
           if (emailInput) emailInput.style.display = 'none';
-          form.closest('.inv-pdp__notify-field').style.display = 'none';
+          var notifyField = form.closest('.inv-pdp__notify-field');
+          if (notifyField) notifyField.style.display = 'none';
 
           /* Store in localStorage so we don't pester them again */
           try {

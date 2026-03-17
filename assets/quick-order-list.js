@@ -26,7 +26,8 @@ if (!customElements.get('quick-order-list')) {
           window.addEventListener('resize', this.handleResize);
         }
 
-        this.querySelector('form').addEventListener('submit', (event) => event.preventDefault());
+        const form = this.querySelector('form');
+        if (form) form.addEventListener('submit', (event) => event.preventDefault());
       }
 
       connectedCallback() {
@@ -48,8 +49,8 @@ if (!customElements.get('quick-order-list')) {
       }
 
       handleResize() {
-        this.totalBarPosition = window.innerHeight - this.totalBar.offsetHeight;
-        this.stickyHeader.height = this.stickyHeaderElement ? this.stickyHeaderElement.offsetHeight : 0;
+        if (this.totalBar) this.totalBarPosition = window.innerHeight - this.totalBar.offsetHeight;
+        if (this.stickyHeader) this.stickyHeader.height = this.stickyHeaderElement ? this.stickyHeaderElement.offsetHeight : 0;
       }
 
       initEventListeners() {
@@ -67,12 +68,13 @@ if (!customElements.get('quick-order-list')) {
           });
         });
 
-        this.querySelector('.quick-order-list__contents').addEventListener(
+        const contents = this.querySelector('.quick-order-list__contents');
+        if (contents) contents.addEventListener(
           'keyup',
           this.handleScrollIntoView.bind(this)
         );
 
-        this.quickOrderListTable.addEventListener('keydown', this.handleSwitchVariantOnEnter.bind(this));
+        if (this.quickOrderListTable) this.quickOrderListTable.addEventListener('keydown', this.handleSwitchVariantOnEnter.bind(this));
 
         this.initVariantEventListeners();
       }
@@ -171,7 +173,8 @@ if (!customElements.get('quick-order-list')) {
       }
 
       toggleTableLoading(enable) {
-        this.quickOrderListTable.classList.toggle('quick-order-list__container--disabled', enable);
+        const table = this.quickOrderListTable;
+        if (table) table.classList.toggle('quick-order-list__container--disabled', enable);
         this.toggleLoading(enable);
       }
 
@@ -227,7 +230,7 @@ if (!customElements.get('quick-order-list')) {
             // only update variants if they are from the active page
             const shouldUpdateVariants =
               this.currentPage === (newSection ? (newSection.querySelector('.pagination-wrapper')?.dataset.page ?? '1') : '1');
-            if (newTable && shouldUpdateVariants) {
+            if (table && newTable && shouldUpdateVariants) {
               table.innerHTML = newTable.innerHTML;
 
               const newFocusTarget = this.querySelector(`[data-target='${focusTarget}']`);
@@ -365,14 +368,15 @@ if (!customElements.get('quick-order-list')) {
       }
 
       setErrorMessage(message = null) {
-        this.errorMessageTemplate =
-          this.errorMessageTemplate ??
-          document.getElementById(`QuickOrderListErrorTemplate-${this.dataset.productId}`).cloneNode(true);
+        if (!this.errorMessageTemplate) {
+          const templateEl = document.getElementById(`QuickOrderListErrorTemplate-${this.dataset.productId}`);
+          if (templateEl) this.errorMessageTemplate = templateEl.cloneNode(true);
+        }
         const errorElements = document.querySelectorAll('.quick-order-list-error');
 
         errorElements.forEach((errorElement) => {
           errorElement.innerHTML = '';
-          if (!message) return;
+          if (!message || !this.errorMessageTemplate) return;
           const updatedMessageElement = this.errorMessageTemplate.cloneNode(true);
           const errorMsg = updatedMessageElement.content.querySelector('.quick-order-list-error-message');
           if (errorMsg) errorMsg.innerText = message;

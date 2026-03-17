@@ -35,12 +35,16 @@
     qtyInput.addEventListener('change', updateActiveTier);
     qtyInput.addEventListener('input', updateActiveTier);
 
-    // Also listen for +/- button clicks
-    document.addEventListener('click', (e) => {
-      if (e.target.closest('.quantity__button')) {
-        setTimeout(updateActiveTier, 50);
-      }
-    });
+    // Also listen for +/- button clicks — scoped to the quantity container
+    // that is associated with this tiered pricing component, not the whole document.
+    const qtyContainer = qtyInput.closest('.quantity, quantity-input, product-form, .product-form') || qtyInput.parentElement;
+    if (qtyContainer) {
+      qtyContainer.addEventListener('click', (e) => {
+        if (e.target.closest('.quantity__button')) {
+          setTimeout(updateActiveTier, 50);
+        }
+      });
+    }
 
     // Initial check
     updateActiveTier();

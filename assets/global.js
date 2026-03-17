@@ -526,8 +526,9 @@ class MenuDrawer extends HTMLElement {
     const parentMenuElement = detailsElement.closest('.submenu-open');
     parentMenuElement && parentMenuElement.classList.remove('submenu-open');
     detailsElement.classList.remove('menu-opening');
-    detailsElement.querySelector('summary').setAttribute('aria-expanded', false);
-    removeTrapFocus(detailsElement.querySelector('summary'));
+    const summaryEl = detailsElement.querySelector('summary');
+    if (summaryEl) summaryEl.setAttribute('aria-expanded', false);
+    removeTrapFocus(summaryEl);
     this.closeAnimation(detailsElement);
   }
 
@@ -564,8 +565,9 @@ class HeaderDrawer extends MenuDrawer {
 
   openMenuDrawer(summaryElement) {
     this.header = this.header || document.querySelector('.section-header');
+    const headerWrapper = this.closest('.header-wrapper');
     this.borderOffset =
-      this.borderOffset || this.closest('.header-wrapper').classList.contains('header-wrapper--border-bottom') ? 1 : 0;
+      this.borderOffset || (headerWrapper && headerWrapper.classList.contains('header-wrapper--border-bottom')) ? 1 : 0;
     document.documentElement.style.setProperty(
       '--header-bottom-position',
       `${parseInt(this.header.getBoundingClientRect().bottom - this.borderOffset)}px`
@@ -623,7 +625,8 @@ class ModalDialog extends HTMLElement {
   connectedCallback() {
     if (this.moved) return;
     this.moved = true;
-    this.dataset.section = this.closest('.shopify-section').id.replace('shopify-section-', '');
+    const shopifySection = this.closest('.shopify-section');
+    if (shopifySection) this.dataset.section = shopifySection.id.replace('shopify-section-', '');
     document.body.appendChild(this);
   }
 
@@ -1162,7 +1165,8 @@ class VariantSelects extends HTMLElement {
         target.selectedOptions[0].dataset.optionSwatchFocalPoint || 'unset'
       );
     } else if (tagName === 'INPUT' && target.type === 'radio') {
-      const selectedSwatchValue = target.closest(`.product-form__input`).querySelector('[data-selected-value]');
+      const productFormInput = target.closest(`.product-form__input`);
+      const selectedSwatchValue = productFormInput ? productFormInput.querySelector('[data-selected-value]') : null;
       if (selectedSwatchValue) selectedSwatchValue.innerHTML = value;
     }
   }
@@ -1336,7 +1340,8 @@ class BulkAdd extends HTMLElement {
   }
 
   getSectionInnerHTML(html, selector) {
-    return new DOMParser().parseFromString(html, 'text/html').querySelector(selector).innerHTML;
+    const el = new DOMParser().parseFromString(html, 'text/html').querySelector(selector);
+    return el ? el.innerHTML : '';
   }
 }
 

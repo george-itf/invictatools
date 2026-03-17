@@ -36,7 +36,7 @@
   .inv-card:hover {
     transform: translateY(-4px);
     border-color: var(--inv-border-dark);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.10), 0 4px 10px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 12px 28px var(--inv-shadow-color), 0 4px 10px rgba(0, 0, 0, 0.04);
   }
 }
 
@@ -290,7 +290,7 @@
 
 .inv-card__btn--add:hover {
   background: var(--inv-accent-hover, var(--inv-accent-hover));
-  box-shadow: 0 4px 12px rgba(225, 29, 38, 0.25);
+  box-shadow: 0 4px 12px var(--inv-accent-glow);
 }
 
 .inv-card__btn--options {
@@ -304,7 +304,7 @@
 .inv-card__btn--options:hover {
   background: var(--inv-accent, var(--inv-accent));
   color: var(--inv-white);
-  box-shadow: 0 4px 12px rgba(225, 29, 38, 0.25);
+  box-shadow: 0 4px 12px var(--inv-accent-glow);
 }
 
 .inv-card__btn--notify {

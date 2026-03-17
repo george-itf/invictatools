@@ -90,14 +90,19 @@
       }
     }
 
-    /* Listen for Shopify cart update events */
+    /* Listen for Shopify cart update events —
+       Intentionally persistent: the delivery bar is a page-level singleton
+       that must stay responsive to cart changes for the entire session.
+       The IIFE early-returns if [data-delivery-bar] is absent, so these
+       listeners are only registered when the bar is actually in the DOM. */
     document.addEventListener('cart:updated', function(e) {
       if (e.detail && e.detail.total_price != null) {
         updateBar(e.detail.total_price);
       }
     });
 
-    /* CX v1.0: Also listen for invicta cart events */
+    /* CX v1.0: Also listen for invicta cart events —
+       Intentionally persistent: same rationale as above. */
     document.addEventListener('invicta:cart:updated', function(e) {
       if (e.detail && e.detail.cart && e.detail.cart.total_price != null) {
         updateBar(e.detail.cart.total_price);

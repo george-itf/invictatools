@@ -55,16 +55,16 @@ cart-items {
   display: block;
 }
 
+/* Base styles - extended in invicta-cart.css */
 .cart__items {
   position: relative;
-  padding-bottom: 3rem;
-  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
 }
 
 .cart__items--disabled {
   pointer-events: none;
 }
 
+/* Base styles - extended in invicta-cart.css */
 .cart__footer-wrapper:last-child .cart__footer {
   padding-bottom: 5rem;
 }
@@ -80,6 +80,7 @@ cart-items {
 .cart__footer .discounts {
   margin-bottom: 1rem;
 }
+
 
 .cart__note {
   height: fit-content;
@@ -117,10 +118,10 @@ cart-items {
 }
 
 @media screen and (min-width: 750px) {
+  /* Base styles - extended in invicta-cart.css */
   .cart__items {
     grid-column-start: 1;
     grid-column-end: 3;
-    padding-bottom: 4rem;
   }
 
   .cart__contents > * + * {
@@ -131,24 +132,16 @@ cart-items {
     grid-column: 2;
   }
 
+  /* Base styles - overridden in invicta-cart.css */
   .cart__footer {
-    display: flex;
     justify-content: space-between;
-    border: 0;
   }
 
   .cart__footer-wrapper:last-child {
     padding-top: 0;
   }
 
-  .cart__footer > * {
-    width: 35rem;
-  }
-
-  .cart__footer > * + * {
-    margin-left: 4rem;
-    margin-top: 0;
-  }
+  /* Overridden in invicta-cart.css */
 }
 
 .cart__ctas button {
@@ -188,6 +181,7 @@ cart-items {
   display: block;
 }
 
+/* Base styles - extended in invicta-cart.css */
 .cart__checkout-button {
   max-width: none;
   width: 100%;

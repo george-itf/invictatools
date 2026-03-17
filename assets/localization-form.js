@@ -155,14 +155,16 @@ if (!customElements.get('localization-form')) {
         const allCountries = this.querySelectorAll('a');
         let visibleCountries = allCountries.length;
 
-        this.elements.resetButton.classList.toggle('hidden', !searchValue);
+        if (this.elements.resetButton) this.elements.resetButton.classList.toggle('hidden', !searchValue);
 
         if (popularCountries) {
           popularCountries.classList.toggle('hidden', searchValue);
         }
 
         allCountries.forEach((item) => {
-          const countryName = this.normalizeString(item.querySelector('.country').textContent);
+          const countryEl = item.querySelector('.country');
+          if (!countryEl) return;
+          const countryName = this.normalizeString(countryEl.textContent);
           if (countryName.indexOf(searchValue) > -1) {
             item.parentElement.classList.remove('hidden');
             visibleCountries++;

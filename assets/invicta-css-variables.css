@@ -37,7 +37,9 @@
   --inv-accent: #e11d26;
   --inv-accent-hover: #b91c1c;
   --inv-accent-soft: rgba(225, 29, 38, 0.08);
+  --inv-accent-ring: rgba(225, 29, 38, 0.1);
   --inv-accent-light: rgba(225, 29, 38, 0.12);
+  --inv-accent-glow: rgba(225, 29, 38, 0.25);
 
   /* Legacy aliases */
   --inv-primary: var(--inv-accent);

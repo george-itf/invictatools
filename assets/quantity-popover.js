@@ -11,6 +11,7 @@ if (!customElements.get('quantity-popover')) {
         this.popoverInfo = this.querySelector('.quantity-popover__info');
         this.closeButton = this.querySelector('.button-close');
         this.eventMouseEnterHappened = false;
+        this.boundEscapeHandler = this.handleEscape.bind(this);
 
         if (this.closeButton) {
           this.closeButton.addEventListener('click', this.closePopover.bind(this));
@@ -60,11 +61,16 @@ if (!customElements.get('quantity-popover')) {
 
         if (isOpen && event.type !== 'mouseenter') {
           button.focus();
-          button.addEventListener('keyup', (e) => {
-            if (e.key === 'Escape') {
-              this.closePopover(e);
-            }
-          });
+          /* Use a single bound handler to prevent duplicate listeners accumulating on each open */
+          button.addEventListener('keyup', this.boundEscapeHandler);
+        } else {
+          button.removeEventListener('keyup', this.boundEscapeHandler);
+        }
+      }
+
+      handleEscape(e) {
+        if (e.key === 'Escape') {
+          this.closePopover(e);
         }
       }
 
@@ -83,6 +89,10 @@ if (!customElements.get('quantity-popover')) {
         }
 
         this.eventMouseEnterHappened = false;
+
+        /* Remove escape key handler when popover closes to prevent accumulation */
+        const btn = this.infoButtonDesktop && this.mql.matches ? this.infoButtonDesktop : this.infoButtonMobile;
+        if (btn) btn.removeEventListener('keyup', this.boundEscapeHandler);
       }
     }
   );
