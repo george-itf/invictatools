@@ -249,16 +249,18 @@
 
   #inv-tr5-{{ section.id }} {
     --itr5-accent: var(--inv-accent, #e11d26);
-    --itr5-bg: #f5f5f6;
+    --itr5-bg: #fff;
     --itr5-fg: #0f172a;
     --itr5-fg-muted: #6b7280;
     --itr5-border: #e5e7eb;
-    --itr5-card-bg: #fff;
+    --itr5-card-bg: #f8f9fa;
+    --itr5-review-bg: #1e2125;
   }
 
   .inv-tr5 {
     background: var(--itr5-bg);
     border-top: 4px solid var(--itr5-accent);
+    border-bottom: 1px solid var(--itr5-border);
   }
 
   .inv-tr5__wrap {
@@ -419,14 +421,13 @@
     border-radius: 4px;
     text-decoration: none;
     color: inherit;
-    transition: background 0.15s ease, border-color 0.15s ease;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
     min-width: 190px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   }
 
   .inv-tr5__rating:hover {
     border-color: #d1d5db;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   }
 
   .inv-tr5__rating:focus-visible {
@@ -523,7 +524,8 @@
      PART 3: REVIEWS
      ---------------------------------------- */
   .inv-tr5__reviews {
-    padding: 0 0 {{ section.settings.padding_bottom | default: 36 }}px;
+    background: var(--itr5-review-bg);
+    padding: 24px 0 {{ section.settings.padding_bottom | default: 28 }}px;
   }
 
   .inv-tr5__reviews-header {
@@ -533,7 +535,7 @@
   .inv-tr5__reviews-label {
     font-size: 13px;
     font-weight: 700;
-    color: var(--itr5-fg-muted);
+    color: rgba(255, 255, 255, 0.55);
     text-transform: uppercase;
     letter-spacing: 0.1em;
   }
@@ -562,13 +564,12 @@
     flex-shrink: 0;
     width: 260px;
     padding: 14px 16px;
-    background: var(--itr5-card-bg);
-    border: 1px solid var(--itr5-border);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 4px;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   }
 
   .inv-tr5__review-stars {
@@ -581,7 +582,7 @@
 
   .inv-tr5__review-text {
     font-size: 13px;
-    color: var(--itr5-fg-muted);
+    color: rgba(255, 255, 255, 0.7);
     line-height: 1.5;
     margin: 0;
     font-style: italic;
@@ -603,20 +604,20 @@
     height: 28px;
     min-width: 28px;
     border-radius: 50%;
-    background: #e5e7eb;
+    background: rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 10px;
     font-weight: 700;
-    color: var(--itr5-fg-muted);
+    color: rgba(255, 255, 255, 0.5);
     text-transform: uppercase;
   }
 
   .inv-tr5__review-author {
     font-size: 12px;
     font-weight: 700;
-    color: var(--itr5-fg);
+    color: #fff;
   }
 
   .inv-tr5__review-source {
