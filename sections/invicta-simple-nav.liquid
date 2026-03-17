@@ -37,11 +37,18 @@
   }
 }
 
+{%- comment -%}
+  CLS fix: Reserve nav height from settings to prevent layout shift.
+  Height = link padding (11px * 2) + (font_size * line-height 1.2) + borders (3px)
+{%- endcomment -%}
+{%- assign nav_content_height = ss.font_size | times: 1.2 | round -%}
+{%- assign nav_min_height = nav_content_height | plus: 22 | plus: 3 -%}
 .inv-simple-nav {
   width: 100%;
   background: var(--inv-nav-bg, #ffffff);
   border-top: 1px solid var(--inv-nav-border, #eeeeee);
   border-bottom: 2px solid var(--inv-nav-border, #eeeeee);
+  min-height: {{ nav_min_height }}px;
 }
 
 .inv-simple-nav__list {
