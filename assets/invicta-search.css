@@ -1,5 +1,16 @@
-/* Invicta Predictive Search v7.6 — Portal + fixed positioning */
+/**
+ * Invicta Predictive Search — Consolidated Styles v1.0
+ *
+ * Merges:
+ *   - invicta-predictive-search.css (visual design, stock badges, portal)
+ *   - component-predictive-search.css (ARIA/keyboard state styles)
+ *
+ * Replaces both files. section-main-search.css is untouched.
+ */
 
+/* ================================================================
+ * SEARCH WRAPPER
+ * ================================================================ */
 .inv-search-wrapper {
   width: 100%;
   max-width: 700px;
@@ -17,7 +28,9 @@
   position: relative;
 }
 
-/* INPUT WRAPPER */
+/* ================================================================
+ * INPUT WRAPPER
+ * ================================================================ */
 .inv-search-input-wrap {
   position: relative;
   display: flex;
@@ -36,7 +49,9 @@
   box-shadow: 0 0 0 3px rgba(225, 29, 38, 0.15);
 }
 
-/* INPUT — outline is on the WRAPPER via focus-within, not the input */
+/* ================================================================
+ * INPUT
+ * ================================================================ */
 .inv-search-input {
   flex: 1;
   height: 100%;
@@ -51,8 +66,6 @@
   appearance: none;
 }
 
-/* Remove ALL focus outlines/shadows from the input itself.
-   The parent wrapper handles focus indication via :focus-within. */
 .inv-search-input:focus,
 .inv-search-input:focus-visible,
 .inv-search-input:focus:not(:focus-visible) {
@@ -66,7 +79,6 @@
   font-size: 1.4rem;
 }
 
-/* Kill WebKit search decoration that can cause visual artefacts */
 .inv-search-input::-webkit-search-decoration,
 .inv-search-input::-webkit-search-cancel-button,
 .inv-search-input::-webkit-search-results-button,
@@ -75,7 +87,9 @@
   display: none;
 }
 
-/* CLEAR BUTTON — override base.css `button` min-width/padding */
+/* ================================================================
+ * CLEAR BUTTON
+ * ================================================================ */
 .inv-search-clear.inv-search-clear {
   position: absolute;
   right: 64px;
@@ -114,7 +128,9 @@
   color: #6b7280;
 }
 
-/* SUBMIT BUTTON — override base.css `button` min-width/padding/min-height */
+/* ================================================================
+ * SUBMIT BUTTON
+ * ================================================================ */
 .inv-search-submit.inv-search-submit {
   position: absolute;
   right: 0;
@@ -157,8 +173,9 @@
   stroke: #ffffff;
 }
 
-/* RESULTS DROPDOWN — portalled to #ps-root (body-level) so it escapes
-   all nested header stacking contexts. Positioned with JS via fixed. */
+/* ================================================================
+ * RESULTS DROPDOWN (portalled to #ps-root, positioned with JS)
+ * ================================================================ */
 .inv-search-results {
   position: fixed;
   z-index: 10000000;
@@ -180,16 +197,9 @@
 .inv-search-results::-webkit-scrollbar-track { background: transparent; }
 .inv-search-results::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
 
-.inv-search-results:not(:empty) {
-  display: block;
-}
-
-.inv-search-results.is-loading {
-  display: block;
-  min-height: 100px;
-}
-
-/* RESULT ITEM — card-like rows */
+/* ================================================================
+ * RESULT ITEM
+ * ================================================================ */
 .inv-search-results__item {
   display: flex;
   align-items: center;
@@ -206,7 +216,8 @@
   margin-bottom: 0;
 }
 
-.inv-search-results__item:hover {
+.inv-search-results__item:hover,
+.inv-search-results__item[aria-selected="true"] {
   background: #f3f4f6;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
@@ -215,7 +226,16 @@
   background: #e5e7eb;
 }
 
-/* Product image — bordered container */
+/* Keyboard-selected title highlight */
+.inv-search-results__item[aria-selected="true"] .inv-search-results__title {
+  color: #e11d26;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* ================================================================
+ * PRODUCT IMAGE
+ * ================================================================ */
 .inv-search-results__image {
   width: 68px;
   height: 68px;
@@ -227,6 +247,9 @@
   flex-shrink: 0;
 }
 
+/* ================================================================
+ * RESULT INFO
+ * ================================================================ */
 .inv-search-results__info {
   flex: 1;
   min-width: 0;
@@ -235,7 +258,6 @@
   gap: 3px;
 }
 
-/* Vendor / brand label */
 .inv-search-results__vendor {
   font-size: 10px;
   font-weight: 700;
@@ -262,6 +284,16 @@
   color: #e11d26;
 }
 
+/* ================================================================
+ * META ROW (price + ex-VAT + stock badge)
+ * ================================================================ */
+.inv-search-results__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+
 .inv-search-results__price {
   font-size: 14px;
   font-weight: 800;
@@ -270,7 +302,15 @@
   line-height: 1;
 }
 
-/* Stock status badges */
+.inv-search-results__price-ex-vat {
+  font-size: 11px;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+/* ================================================================
+ * STOCK BADGES
+ * ================================================================ */
 .inv-search-results__stock {
   font-size: 9px;
   font-weight: 700;
@@ -297,14 +337,9 @@
   color: #1d4ed8;
 }
 
-/* Ex-VAT price in search results */
-.inv-search-results__price-ex-vat {
-  font-size: 11px;
-  color: #6b7280;
-  white-space: nowrap;
-}
-
-/* NO RESULTS */
+/* ================================================================
+ * EMPTY STATE
+ * ================================================================ */
 .inv-search-results__empty {
   padding: 32px 24px;
   text-align: center;
@@ -325,7 +360,9 @@
   color: #4b5563;
 }
 
-/* LOADING STATE */
+/* ================================================================
+ * LOADING STATE
+ * ================================================================ */
 .inv-search-results__loading {
   display: flex;
   align-items: center;
@@ -342,7 +379,13 @@
   animation: inv-spin 0.8s linear infinite;
 }
 
-/* VIEW ALL LINK */
+@keyframes inv-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ================================================================
+ * VIEW ALL LINK
+ * ================================================================ */
 .inv-search-results__view-all {
   display: block;
   padding: 12px 14px;
@@ -359,23 +402,26 @@
   letter-spacing: 0.01em;
 }
 
-.inv-search-results__view-all:hover {
+.inv-search-results__view-all:hover,
+.inv-search-results__view-all[aria-selected="true"] {
   background: #fef2f2;
   color: #c81a22;
 }
 
-/* MOBILE */
+/* ================================================================
+ * MOBILE
+ * ================================================================ */
 @media (max-width: 749px) {
   .inv-search-input-wrap {
     height: 40px;
     border-radius: 20px;
     border: none;
     background: #ffffff;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
   }
 
   .inv-search-input-wrap:focus-within {
-    box-shadow: 0 1px 4px rgba(0,0,0,0.12), 0 0 0 3px rgba(225, 29, 38, 0.15);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12), 0 0 0 3px rgba(225, 29, 38, 0.15);
   }
 
   .inv-search-input {
