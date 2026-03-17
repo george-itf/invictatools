@@ -599,10 +599,6 @@
             <script src="{{ 'component-tiered-pricing.js' | asset_url }}" defer></script>
           {%- endif -%}
 
-          {%- comment -%} DELIVERY ESTIMATE (reusable snippet) {%- endcomment -%}
-          {% render 'invicta-delivery-estimate', stock_source: stock_source, supplier_delivery_est: supplier_delivery_est %}
-
-
           {%- comment -%} TRUST STRIP — 2x2 grid above ATC for conversion confidence {%- endcomment -%}
           <div class="inv-pdp__trust-strip">
             <span class="inv-pdp__trust-link">
@@ -754,25 +750,9 @@
               </button>
             </div>
           {% endif %}
-          
 
-
-          
-          {%- comment -%} TRADE ACCOUNT CALLOUT — only for guest/retail visitors {%- endcomment -%}
-          {% unless customer and customer.tags contains 'trade' %}
-            <div class="inv-pdp__trade-callout">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                <circle cx="8.5" cy="7" r="4"/>
-                <line x1="20" y1="8" x2="20" y2="14"/>
-                <line x1="23" y1="11" x2="17" y2="11"/>
-              </svg>
-              <span>
-                <strong>Trade Customer?</strong>
-                <a href="/pages/trade-account">Apply for exclusive trade pricing</a>
-              </span>
-            </div>
-          {% endunless %}
+          {%- comment -%} DELIVERY ESTIMATE (reusable snippet) {%- endcomment -%}
+          {% render 'invicta-delivery-estimate', stock_source: stock_source, supplier_delivery_est: supplier_delivery_est %}
 
         </div>
       </div>
