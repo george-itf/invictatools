@@ -182,6 +182,7 @@
 }
 
 .inv-pdp__gallery-main::after {
+  display: none;
   content: '';
   position: absolute;
   top: 12px;
@@ -217,29 +218,7 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Specs grid with better visual hierarchy */
-.inv-pdp__info-specs-item {
-  display: grid;
-  grid-template-columns: minmax(120px, 1fr) 2fr;
-  gap: 8px;
-  padding: 8px 0;
-  border-bottom: 1px solid #f3f4f6;
-}
-
-.inv-pdp__info-specs-item:last-child {
-  border-bottom: none;
-}
-
-.inv-pdp__info-specs-label {
-  font-weight: 600;
-  color: #374151;
-  font-size: 13px;
-}
-
-.inv-pdp__info-specs-value {
-  color: #1a1a1a;
-  font-size: 13px;
-}
+/* Specs grid — removed, handled by invicta-product-v2.css */
 
 /* =======================================================
    AREA 5: MOBILE — Touch Targets & Navigation
@@ -683,7 +662,7 @@ button:focus-visible,
   padding: 16px;
   background: #fef3c7;
   border: 1px solid #fbbf24;
-  border-radius: 10px;
+  border-radius: 0;
 }
 
 .inv-pdp__notify-heading {
@@ -710,7 +689,7 @@ button:focus-visible,
   flex: 1;
   padding: 10px 14px;
   border: 1px solid #d1d5db;
-  border-radius: 6px;
+  border-radius: 0;
   font-size: 0.9rem;
   font-family: inherit;
   background: #fff;
@@ -728,7 +707,7 @@ button:focus-visible,
   background: #d97706;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 0;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;

@@ -418,9 +418,15 @@
 
       var newSrc = thumb.dataset.imageSrc;
       if (newSrc && mainImage.src !== newSrc) {
+        mainImage.style.opacity = '0.3';
         var baseSrc = newSrc.replace(/width=\d+/, '');
         mainImage.srcset = baseSrc + 'width=400 400w, ' + baseSrc + 'width=600 600w, ' + baseSrc + 'width=800 800w, ' + baseSrc + 'width=1200 1200w';
         mainImage.src = newSrc;
+        mainImage.addEventListener('load', function onLoad() {
+          mainImage.style.opacity = '1';
+          mainImage.removeEventListener('load', onLoad);
+        });
+        setTimeout(function() { mainImage.style.opacity = '1'; }, 400);
       }
     }
 
@@ -522,8 +528,16 @@
         }
       }
 
+      function isRealSku(sku) {
+        if (!sku) return false;
+        var s = sku.trim();
+        if (!s) return false;
+        if (/^[a-z0-9]+(-[a-z0-9]+){2,}$/.test(s) && s.length > 15) return false;
+        return true;
+      }
+
       section.querySelectorAll('[data-sku]').forEach(function(el) {
-        if (matchingVariant.sku) {
+        if (isRealSku(matchingVariant.sku)) {
           el.textContent = matchingVariant.sku;
           el.style.display = '';
         } else {
@@ -532,7 +546,7 @@
         }
       });
       section.querySelectorAll('[data-sku-display]').forEach(function(el) {
-        if (matchingVariant.sku) {
+        if (isRealSku(matchingVariant.sku)) {
           el.textContent = matchingVariant.sku;
           if (el.closest('.inv-pdp__info-row')) el.closest('.inv-pdp__info-row').style.display = '';
         } else {
@@ -556,7 +570,10 @@
       /* Update sticky price display */
       var stickyPrice = document.querySelector('[data-sticky-price]');
       if (stickyPrice) {
-        stickyPrice.textContent = formatMoney(matchingVariant.price);
+        var vatRate = parseInt(section.dataset.vatRate, 10) || 20;
+        var vatDivisor = 100 + vatRate;
+        var stickyExVat = Math.round(matchingVariant.price * 100 / vatDivisor);
+        stickyPrice.innerHTML = formatMoney(stickyExVat) + ' <span class="inv-pdp__sticky-atc-vat">ex VAT</span>';
       }
 
       const url = new URL(window.location);

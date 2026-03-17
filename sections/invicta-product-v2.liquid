@@ -21,7 +21,6 @@
 {% endcomment %}
 
 {{ 'invicta-product-v2.css' | asset_url | stylesheet_tag }}
-{{ 'invicta-product-v2-trust.css' | asset_url | stylesheet_tag }}
 {{ 'section-invicta-product-v2.css' | asset_url | stylesheet_tag }}
 
 {% liquid
@@ -205,7 +204,7 @@
         </ol>
       </nav>
       
-      {% if show_sku and current_variant.sku != blank %}
+      {% if show_sku and current_variant.sku != blank and current_variant.sku != product.handle %}
         <span class="inv-pdp__sku" data-sku>
           {{ current_variant.sku }}
         </span>
@@ -371,7 +370,7 @@
           {% endif %}
           
           {%- comment -%} Part Number {%- endcomment -%}
-          {% if show_sku and current_variant.sku != blank %}
+          {% if show_sku and current_variant.sku != blank and current_variant.sku != product.handle %}
             <div class="inv-pdp__info-row">
               <span class="inv-pdp__info-label">Part Number</span>
               <span class="inv-pdp__info-value" data-sku-display>{{ current_variant.sku }}</span>
@@ -509,16 +508,20 @@
             aria-atomic="true"
           >
             <div class="inv-pdp__price-inline">
-              <span class="inv-pdp__price-current" data-price-ex-value>{{ price_ex_vat | money }}</span>
-              <span class="inv-pdp__price-label">ex VAT</span>
-              {% if has_compare_price %}
-                <span class="inv-pdp__price-was" data-compare-ex>{{ compare_ex_vat | money }}</span>
-              {% endif %}
-              <span class="inv-pdp__price-secondary" data-price-inc-value>{{ current_variant.price | money }}</span>
-              <span class="inv-pdp__price-label inv-pdp__price-label--secondary">inc VAT</span>
-              {% if has_compare_price %}
-                <span class="inv-pdp__price-was inv-pdp__price-was--secondary" data-compare-inc>{{ current_variant.compare_at_price | money }}</span>
-              {% endif %}
+              <div class="inv-pdp__price-line">
+                <span class="inv-pdp__price-current" data-price-ex-value>{{ price_ex_vat | money }}</span>
+                <span class="inv-pdp__price-label">ex VAT</span>
+                {% if has_compare_price %}
+                  <span class="inv-pdp__price-was" data-compare-ex>{{ compare_ex_vat | money }}</span>
+                {% endif %}
+              </div>
+              <div class="inv-pdp__price-line inv-pdp__price-line--secondary">
+                <span class="inv-pdp__price-secondary" data-price-inc-value>{{ current_variant.price | money }}</span>
+                <span class="inv-pdp__price-label inv-pdp__price-label--secondary">inc VAT</span>
+                {% if has_compare_price %}
+                  <span class="inv-pdp__price-was inv-pdp__price-was--secondary" data-compare-inc>{{ current_variant.compare_at_price | money }}</span>
+                {% endif %}
+              </div>
             </div>
 
             {%- comment -%} SAVINGS {%- endcomment -%}
@@ -611,6 +614,29 @@
               </div>
             </div>
           {% endif %}
+
+          {%- comment -%} TRUST STRIP — above ATC for conversion confidence {%- endcomment -%}
+          <div class="inv-pdp__trust-strip">
+            <span class="inv-pdp__trust-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>Free UK Delivery</span>
+            </span>
+            <span class="inv-pdp__trust-sep" aria-hidden="true">·</span>
+            <span class="inv-pdp__trust-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Authorised Dealer</span>
+            </span>
+            <span class="inv-pdp__trust-sep" aria-hidden="true">·</span>
+            <span class="inv-pdp__trust-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              <span>Full Warranty</span>
+            </span>
+            <span class="inv-pdp__trust-sep" aria-hidden="true">·</span>
+            <span class="inv-pdp__trust-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>Secure Checkout</span>
+            </span>
+          </div>
 
           {%- comment -%} ADD TO CART FORM {%- endcomment -%}
           <form
@@ -789,7 +815,7 @@
   <div class="inv-pdp__sticky-atc-inner">
     <div class="inv-pdp__sticky-atc-info">
       <p class="inv-pdp__sticky-atc-title">{{ product.title | escape }}</p>
-      <p class="inv-pdp__sticky-atc-price" data-sticky-price>{{ current_variant.price | money }}</p>
+      <p class="inv-pdp__sticky-atc-price" data-sticky-price>{{ price_ex_vat | money }} <span class="inv-pdp__sticky-atc-vat">ex VAT</span></p>
     </div>
     <button
       type="button"
