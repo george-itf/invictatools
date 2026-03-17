@@ -1817,6 +1817,8 @@ html.inv-vat-ex [data-price-inc]:not([data-price-ex]) { display: none !important
 html.inv-vat-ex [data-price-ex].inv-vat--hidden { display: revert !important; }
 html.inv-vat-ex [data-price-inc].inv-card__price-block:not([data-price-ex]) { display: none !important; }
 html.inv-vat-ex .inv-card__price-block[data-price-ex] { display: block !important; }
+/* PDP price lines: show ex VAT line when inv-vat-ex is set early */
+html.inv-vat-ex .inv-pdp__price-line[data-price-ex].inv-vat--hidden { display: flex !important; }
 
 /* Responsive Visibility */
 @media screen and (max-width: 749px) {
