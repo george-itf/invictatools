@@ -72,7 +72,7 @@
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
+    {%- comment -%} search-form.js removed — consolidated into invicta-search.js {%- endcomment -%}
 
     {%- if settings.animations_reveal_on_scroll -%}
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
@@ -413,14 +413,7 @@
       <script src="{{ 'localization-form.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-    {%- if settings.predictive_search_enabled -%}
-      <link
-        rel="stylesheet"
-        href="{{ 'component-predictive-search.css' | asset_url }}"
-        media="print"
-        onload="this.media='all'"
-      >
-    {%- endif -%}
+    {%- comment -%} component-predictive-search.css removed — consolidated into invicta-search.css {%- endcomment -%}
 
 
 
@@ -544,9 +537,7 @@
     <!-- Brand Pill Badges -->
     <script src="{{ 'invicta-brand-pill.js' | asset_url }}" defer></script>
     
-    {%- if settings.predictive_search_enabled -%}
-      <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
-    {%- endif -%}
+    {%- comment -%} predictive-search.js removed — consolidated into invicta-search.js {%- endcomment -%}
 
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>

@@ -1,12 +1,13 @@
 {% comment %}
   ============================================================================
-  INVICTA PREDICTIVE SEARCH INLINE v7.4
+  INVICTA PREDICTIVE SEARCH INLINE v8.0 (Consolidated)
   ============================================================================
-  CSS and JS extracted to external assets for cacheability.
+  Single search system — replaces the dual Invicta/Shopify implementations.
+  CSS and JS are consolidated into invicta-search.css and invicta-search.js.
   ============================================================================
 {% endcomment %}
 
-{{ 'invicta-predictive-search.css' | asset_url | stylesheet_tag }}
+{{ 'invicta-search.css' | asset_url | stylesheet_tag }}
 
 <div class="inv-search-wrapper">
   <form action="{{ routes.search_url }}" method="get" role="search" class="inv-search-form">
@@ -24,6 +25,8 @@
         aria-label="Search products"
         aria-controls="inv-search-results"
         aria-expanded="false"
+        role="combobox"
+        aria-haspopup="listbox"
       >
 
       <!-- CLEAR BUTTON -->
@@ -44,8 +47,16 @@
     </div>
 
     <!-- RESULTS DROPDOWN -->
-    <div id="inv-search-results" class="inv-search-results" role="listbox"></div>
+    <div id="inv-search-results" class="inv-search-results" role="listbox" aria-label="Search suggestions"></div>
   </form>
 </div>
 
-<script src="{{ 'invicta-predictive-search.js' | asset_url }}" defer></script>
+{%- comment -%} Pass theme settings to JS so show_vendor/show_price work {%- endcomment -%}
+<script>
+  window.__invictaSearchSettings = {
+    showVendor: {{ settings.predictive_search_show_vendor | json }},
+    showPrice: {{ settings.predictive_search_show_price | json }}
+  };
+</script>
+
+<script src="{{ 'invicta-search.js' | asset_url }}" defer></script>
