@@ -1,9 +1,10 @@
   .inv-del-est {
-    border: 2px solid var(--inv-accent, #e11d26);
+    border: 1px solid var(--inv-border, #e5e7eb);
+    border-left: 3px solid var(--pdp-green, #16a34a);
     border-radius: 0;
     padding: 10px 14px;
     background: #fff;
-    margin: 12px 0;
+    margin: 0;
     box-sizing: border-box;
   }
   .inv-del-est--compact {
@@ -11,8 +12,8 @@
     border-color: var(--inv-border, #e5e7eb);
     padding: 10px 14px;
     background: var(--inv-bg-elevated, #fff);
-    border-radius: 8px;
-    margin: 8px 0;
+    border-radius: 0;
+    margin: 0;
   }
   .inv-del-est__row {
     display: flex;
@@ -36,7 +37,7 @@
     width: 20px;
     height: 20px;
     flex-shrink: 0;
-    color: var(--inv-accent, #e11d26);
+    color: var(--pdp-green, #16a34a);
   }
   .inv-del-est__icon--muted {
     color: var(--inv-fg-muted, #6b7280);
@@ -44,7 +45,8 @@
     height: 18px;
   }
   .inv-del-est__day {
-    color: var(--inv-accent, #e11d26);
+    color: var(--pdp-green, #16a34a);
+    font-weight: 700;
   }
   .inv-del-est__returns {
     margin-top: 6px;

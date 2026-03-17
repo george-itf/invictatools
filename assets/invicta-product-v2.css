@@ -205,7 +205,7 @@
   width: 72px;
   height: 72px;
   border: 2px solid var(--pdp-grey-200);
-  border-radius: 6px;
+  border-radius: 0;
   background: #fff;
   cursor: pointer;
   padding: 4px;
@@ -217,6 +217,7 @@
 
 .inv-pdp__gallery-thumb:hover {
   border-color: var(--pdp-grey-400);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .inv-pdp__gallery-thumb:focus-visible {
@@ -226,6 +227,11 @@
 
 .inv-pdp__gallery-thumb--active {
   border-color: var(--pdp-red);
+  box-shadow: 0 0 0 1px var(--pdp-red);
+}
+
+.inv-pdp__gallery-thumb--active:hover {
+  border-color: var(--pdp-red);
 }
 
 .inv-pdp__gallery-thumb img {
@@ -233,7 +239,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  border-radius: 2px;
+  border-radius: 0;
 }
 
 .inv-pdp__gallery-main {
@@ -258,6 +264,11 @@
   height: 100%;
   padding: 16px;
   box-sizing: border-box;
+  transition: transform 0.3s ease;
+}
+
+.inv-pdp__gallery-image-wrap:hover {
+  transform: scale(1.02);
 }
 
 .inv-pdp__gallery-image {
@@ -267,6 +278,7 @@
   width: auto;
   height: auto;
   object-fit: contain;
+  transition: opacity 0.2s ease;
 }
 
 .inv-pdp__gallery-badge {
@@ -276,7 +288,7 @@
   background: var(--pdp-red);
   color: #fff;
   padding: 6px 12px;
-  border-radius: var(--pdp-radius-sm);
+  border-radius: 0;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.3px;
@@ -291,7 +303,7 @@
   color: #fff;
   border: none;
   padding: 8px 14px;
-  border-radius: 6px;
+  border-radius: 0;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -570,14 +582,14 @@
   padding: var(--pdp-space-lg);
   display: flex;
   flex-direction: column;
-  gap: var(--pdp-space-lg);
+  gap: var(--pdp-space-md);
 }
 
 /* ============================================
    STOCK BANNER
    ============================================ */
 .inv-pdp__stock-banner {
-  padding: 14px 20px;
+  padding: 12px 16px;
   font-size: 14px;
   font-weight: 600;
   display: flex;
@@ -595,31 +607,34 @@
 .inv-pdp__stock-dispatch {
   font-size: 12px;
   font-weight: 400;
-  opacity: 0.85;
+  opacity: 1;
   line-height: 1.4;
+  color: inherit;
 }
 
 .inv-pdp__stock-banner--in-stock {
-  background: var(--pdp-green);
-  color: #fff;
+  background: var(--pdp-green-light);
+  color: var(--pdp-green-dark);
+  border-bottom: 2px solid var(--pdp-green);
 }
 
 .inv-pdp__stock-banner--out-of-stock {
-  background: var(--pdp-grey-100);
-  color: var(--pdp-grey-500);
+  background: #fef2f2;
+  color: #991b1b;
+  border-bottom: 2px solid #fecaca;
 }
 
 .inv-pdp__stock-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   background: currentColor;
   border-radius: 50%;
   flex-shrink: 0;
-  margin-top: 5px;
+  margin-top: 4px;
 }
 
 .inv-pdp__stock-banner--in-stock .inv-pdp__stock-dot {
-  background: #fff;
+  background: var(--pdp-green);
   animation: inv-pdp-pulse 2s ease-in-out infinite;
 }
 
@@ -636,6 +651,7 @@
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
+  margin-top: -4px;
 }
 
 .inv-pdp__dealer-badge {
@@ -645,8 +661,8 @@
   background: var(--dealer-bg, #2d2d2d);
   color: var(--dealer-text, #fff);
   padding: 8px 14px;
-  border-radius: 6px;
-  font-size: 12px;
+  border-radius: 0;
+  font-size: 13px;
   font-weight: 700;
 }
 
@@ -666,15 +682,25 @@
    PRICE BLOCK — Inline dual-price layout
    ============================================ */
 .inv-pdp__price {
-  padding-bottom: var(--pdp-space-lg);
+  padding-bottom: var(--pdp-space-md);
   border-bottom: 1px solid var(--pdp-grey-200);
 }
 
 .inv-pdp__price-inline {
   display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inv-pdp__price-line {
+  display: flex;
   align-items: baseline;
   gap: 6px;
   flex-wrap: wrap;
+}
+
+.inv-pdp__price-line--secondary {
+  margin-top: 0;
 }
 
 .inv-pdp__price-current {
@@ -719,16 +745,17 @@
 }
 
 .inv-pdp__price-savings {
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 .inv-pdp__price-save {
   display: inline-flex;
   align-items: center;
-  background: #fef2f2;
+  background: #fee2e2;
   color: var(--pdp-red);
-  padding: 6px 12px;
-  border-radius: var(--pdp-radius-sm);
+  padding: 6px 12px 6px 10px;
+  border-left: 3px solid var(--pdp-red);
+  border-radius: 0;
   font-size: 12px;
   font-weight: 600;
 }
@@ -740,13 +767,17 @@
   display: flex;
   flex-direction: column;
   gap: var(--pdp-space-sm);
+  padding-top: var(--pdp-space-md);
+  border-top: 1px solid var(--pdp-grey-100);
 }
 
 .inv-pdp__variant-group-label {
   display: block;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--pdp-text);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--pdp-grey-500);
   margin-bottom: 6px;
 }
 
@@ -754,7 +785,7 @@
   width: 100%;
   padding: 12px 40px 12px 14px;
   border: 2px solid var(--pdp-grey-200);
-  border-radius: var(--pdp-radius);
+  border-radius: 0;
   font-size: 14px;
   font-weight: 500;
   font-family: inherit;
@@ -762,7 +793,7 @@
   color: var(--pdp-text);
   cursor: pointer;
   appearance: none;
-  transition: border-color 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .inv-pdp__variant-select:hover {
@@ -836,68 +867,73 @@
    QUANTITY SELECTOR — Compact fixed width
    High specificity to override base.css
    ============================================ */
-.inv-pdp .inv-pdp__qty {
-  display: inline-flex !important;
-  align-items: center !important;
-  border: 2px solid #e5e5e5 !important;
-  border-radius: 8px !important;
-  overflow: hidden !important;
-  flex-shrink: 0 !important;
-  height: 52px !important;
-  width: 120px !important;
-  min-width: 120px !important;
-  max-width: 120px !important;
-  background: #fff !important;
+.inv-pdp .inv-pdp__buybox .inv-pdp__qty {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid var(--pdp-grey-200);
+  border-radius: 0;
+  overflow: hidden;
+  flex-shrink: 0;
+  height: 52px;
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
+  background: #fff;
 }
 
-.inv-pdp .inv-pdp__qty-btn {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 36px !important;
-  min-width: 36px !important;
-  max-width: 36px !important;
-  height: 100% !important;
-  border: none !important;
-  background: #fff !important;
-  cursor: pointer !important;
-  color: #1a1a1a !important;
-  padding: 0 !important;
-  flex-shrink: 0 !important;
+.inv-pdp .inv-pdp__buybox .inv-pdp__qty-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  min-width: 36px;
+  max-width: 36px;
+  height: 100%;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+  color: var(--pdp-text);
+  padding: 0;
+  flex-shrink: 0;
   transition: background-color 0.15s ease;
 }
 
-.inv-pdp .inv-pdp__qty-btn:hover {
-  background: #f5f5f5 !important;
+.inv-pdp .inv-pdp__buybox .inv-pdp__qty-btn:hover {
+  background: var(--pdp-grey-100);
 }
 
-.inv-pdp .inv-pdp__qty-btn:focus-visible {
+.inv-pdp .inv-pdp__buybox .inv-pdp__qty-btn:focus-visible {
   outline: none;
-  background: #f5f5f5 !important;
-  box-shadow: inset 0 0 0 2px #2d2d2d;
+  background: var(--pdp-grey-100);
+  box-shadow: inset 0 0 0 2px var(--pdp-dark);
 }
 
-.inv-pdp .inv-pdp__qty-btn svg {
-  width: 16px !important;
-  height: 16px !important;
+.inv-pdp .inv-pdp__buybox .inv-pdp__qty-btn:active {
+  background: var(--pdp-grey-200);
+  transform: scale(0.95);
+}
+
+.inv-pdp .inv-pdp__buybox .inv-pdp__qty-btn svg {
+  width: 16px;
+  height: 16px;
   flex-shrink: 0;
 }
 
-.inv-pdp .inv-pdp__qty-input {
-  flex: 1 !important;
-  width: 48px !important;
-  height: 100% !important;
-  border: none !important;
-  border-left: 1px solid #e5e5e5 !important;
-  border-right: 1px solid #e5e5e5 !important;
-  text-align: center !important;
-  font-size: 15px !important;
-  font-weight: 700 !important;
-  font-family: inherit !important;
-  color: #1a1a1a !important;
-  background: #fff !important;
-  padding: 0 !important;
-  -moz-appearance: textfield !important;
+.inv-pdp .inv-pdp__buybox .inv-pdp__qty-input {
+  flex: 1;
+  width: 48px;
+  height: 100%;
+  border: none;
+  border-left: 1px solid var(--pdp-grey-200);
+  border-right: 1px solid var(--pdp-grey-200);
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  color: var(--pdp-text);
+  background: #fff;
+  padding: 0;
+  -moz-appearance: textfield;
 }
 
 .inv-pdp .inv-pdp__qty-input::-webkit-outer-spin-button,
@@ -906,36 +942,36 @@
   margin: 0;
 }
 
-.inv-pdp .inv-pdp__qty-input:focus-visible {
+.inv-pdp .inv-pdp__buybox .inv-pdp__qty-input:focus-visible {
   outline: none;
-  background: #fafafa !important;
+  background: var(--pdp-grey-50);
 }
 
 /* ============================================
    ADD TO CART BUTTON — Prominent, fills space
    ============================================ */
-.inv-pdp .inv-pdp__atc-btn {
-  flex: 1 1 auto !important;
-  height: 52px !important;
-  background: #e11d26 !important;
-  color: #fff !important;
-  border: none !important;
-  border-radius: 8px !important;
-  font-size: 16px !important;
-  font-weight: 700 !important;
-  font-family: inherit !important;
-  cursor: pointer !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 8px !important;
-  padding: 0 20px !important;
-  white-space: nowrap !important;
+.inv-pdp .inv-pdp__buybox .inv-pdp__atc-btn {
+  flex: 1 1 auto;
+  height: 52px;
+  background: var(--pdp-red);
+  color: #fff;
+  border: none;
+  border-radius: 0;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 20px;
+  white-space: nowrap;
   transition: background-color 0.15s ease;
 }
 
-.inv-pdp .inv-pdp__atc-btn:hover:not(:disabled) {
-  background: #b91c1c !important;
+.inv-pdp .inv-pdp__buybox .inv-pdp__atc-btn:hover:not(:disabled) {
+  background: var(--pdp-red-hover);
 }
 
 .inv-pdp .inv-pdp__atc-btn:focus-visible {
@@ -943,9 +979,13 @@
   box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.4);
 }
 
-.inv-pdp .inv-pdp__atc-btn:disabled {
-  background: #d4d4d4 !important;
-  cursor: not-allowed !important;
+.inv-pdp .inv-pdp__buybox .inv-pdp__atc-btn:disabled {
+  background: var(--pdp-grey-300);
+  cursor: not-allowed;
+}
+
+.inv-pdp .inv-pdp__buybox .inv-pdp__atc-btn:active:not(:disabled) {
+  transform: scale(0.98);
 }
 
 /* Button states */
@@ -974,7 +1014,7 @@
 }
 
 .inv-pdp__atc-btn.is-error {
-  background: #e11d26 !important;
+  background: var(--pdp-red) !important;
 }
 
 .inv-pdp__spinner {
@@ -999,12 +1039,12 @@
   background: transparent;
   color: var(--pdp-text);
   border: 2px solid var(--pdp-grey-200);
-  border-radius: var(--pdp-radius);
+  border-radius: 0;
   font-size: 14px;
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
 }
 
 .inv-pdp__buy-now-btn:hover:not(:disabled) {
@@ -1037,9 +1077,10 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 8px var(--pdp-space-md);
-  padding: var(--pdp-space-sm) var(--pdp-space-md);
-  background: var(--pdp-grey-50);
-  border-radius: var(--pdp-radius);
+  padding: var(--pdp-space-sm) 0;
+  border-top: 1px solid var(--pdp-grey-200);
+  background: transparent;
+  border-radius: 0;
   font-size: 13px;
 }
 
@@ -1077,6 +1118,12 @@
 
 .inv-pdp__trust-link:hover svg {
   color: var(--pdp-grey-600);
+}
+
+.inv-pdp__sticky-atc-vat {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--pdp-grey-500);
 }
 
 .inv-pdp__trust-link span {
@@ -1138,6 +1185,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.inv-pdp__lightbox:not([hidden]) {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .inv-pdp__lightbox[hidden] {
@@ -1156,6 +1211,12 @@
   z-index: 1;
   max-width: 90vw;
   max-height: 90vh;
+  transform: scale(0.95);
+  transition: transform 0.2s ease;
+}
+
+.inv-pdp__lightbox:not([hidden]) .inv-pdp__lightbox-content {
+  transform: scale(1);
 }
 
 .inv-pdp__lightbox-content img {
@@ -1290,8 +1351,8 @@
   }
   
   .inv-pdp__gallery-main {
-    min-height: 300px;
-    max-height: 420px;
+    min-height: 280px;
+    max-height: 50vh;
   }
   
   .inv-pdp__gallery-image-wrap {
@@ -1322,29 +1383,29 @@
   /* ========================================
      MOBILE FORM — Side by side ATC
      ======================================== */
-  .inv-pdp .inv-pdp__atc-row {
-    flex-direction: row !important;
-    gap: var(--pdp-space-sm) !important;
+  .inv-pdp .inv-pdp__buybox .inv-pdp__atc-row {
+    flex-direction: row;
+    gap: var(--pdp-space-sm);
   }
-  
-  .inv-pdp .inv-pdp__qty {
-    width: 110px !important;
-    min-width: 110px !important;
-    max-width: 110px !important;
-    height: 50px !important;
+
+  .inv-pdp .inv-pdp__buybox .inv-pdp__qty {
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+    height: 50px;
   }
-  
-  .inv-pdp .inv-pdp__qty-btn {
-    width: 32px !important;
-    min-width: 32px !important;
-    max-width: 32px !important;
+
+  .inv-pdp .inv-pdp__buybox .inv-pdp__qty-btn {
+    width: 32px;
+    min-width: 32px;
+    max-width: 32px;
   }
-  
-  .inv-pdp .inv-pdp__atc-btn {
-    flex: 1 !important;
-    height: 50px !important;
-    font-size: 15px !important;
-    padding: 0 var(--pdp-space-md) !important;
+
+  .inv-pdp .inv-pdp__buybox .inv-pdp__atc-btn {
+    flex: 1;
+    height: 50px;
+    font-size: 15px;
+    padding: 0 var(--pdp-space-md);
   }
   
   .inv-pdp__buy-now-btn {
@@ -1477,28 +1538,28 @@
   /* ========================================
      SMALL PHONE — Stack qty + ATC
      ======================================== */
-  .inv-pdp .inv-pdp__atc-row {
-    flex-direction: column !important;
-    gap: var(--pdp-space-sm) !important;
+  .inv-pdp .inv-pdp__buybox .inv-pdp__atc-row {
+    flex-direction: column;
+    gap: var(--pdp-space-sm);
   }
-  
-  .inv-pdp .inv-pdp__qty {
-    width: 140px !important;
-    min-width: 140px !important;
-    max-width: 140px !important;
-    margin: 0 auto !important;
-    height: 48px !important;
+
+  .inv-pdp .inv-pdp__buybox .inv-pdp__qty {
+    width: 140px;
+    min-width: 140px;
+    max-width: 140px;
+    margin: 0;
+    height: 48px;
   }
-  
-  .inv-pdp .inv-pdp__qty-btn {
-    width: 40px !important;
-    min-width: 40px !important;
-    max-width: 40px !important;
+
+  .inv-pdp .inv-pdp__buybox .inv-pdp__qty-btn {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
   }
-  
-  .inv-pdp .inv-pdp__atc-btn {
-    width: 100% !important;
-    height: 50px !important;
+
+  .inv-pdp .inv-pdp__buybox .inv-pdp__atc-btn {
+    width: 100%;
+    height: 50px;
   }
   
   .inv-pdp__buy-now-btn {
