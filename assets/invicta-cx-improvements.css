@@ -610,31 +610,6 @@ button:focus-visible,
   background: var(--inv-accent-hover);
 }
 
-/* Product page trust strip (inline below ATC) */
-.inv-pdp-trust {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 12px 0;
-  margin-top: 12px;
-  border-top: 1px solid var(--inv-bg-soft);
-}
-
-.inv-pdp-trust__item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--inv-fg-secondary);
-}
-
-.inv-pdp-trust__item svg {
-  width: 16px;
-  height: 16px;
-  color: var(--inv-success-heading);
-  flex-shrink: 0;
-}
 
 /* Mobile adjustments for social proof */
 @media (max-width: 749px) {
@@ -651,9 +626,6 @@ button:focus-visible,
     padding: 16px;
   }
 
-  .inv-pdp-trust {
-    justify-content: center;
-  }
 }
 
 /* =======================================================
