@@ -23,11 +23,12 @@
       var bg = wrap.querySelector('.invicta-brand-pill__logo-bg');
       var label = wrap.querySelector('.invicta-brand-pill__label');
 
-      if (bg) bg.style.display = 'none';
-      if (label) label.style.display = 'inline-block';
-
+      /* CLS fix: Use class toggle instead of display swaps to avoid reflow.
+         The pill has a fixed --pill-height so dimensions stay stable. */
       var pill = img.closest('.invicta-brand-pill');
       if (pill) pill.classList.add('invicta-brand-pill--text');
+      if (bg) { bg.style.visibility = 'hidden'; bg.style.position = 'absolute'; }
+      if (label) label.style.display = 'inline-block';
     }, true);
   }
 
