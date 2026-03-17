@@ -38,14 +38,6 @@
       </span>
     {%- endif -%}
   </div>
-  {% unless is_compact %}
-  <div class="inv-del-est__row inv-del-est__returns">
-    <svg class="inv-del-est__icon inv-del-est__icon--muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-    </svg>
-    <span class="inv-del-est__meta">{{ 'invicta.delivery.returns_warranty' | t }}</span>
-  </div>
-  {% endunless %}
 </div>
 
 {{ 'component-delivery-estimate.css' | asset_url | stylesheet_tag }}

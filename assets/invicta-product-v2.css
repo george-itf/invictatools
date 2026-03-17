@@ -1036,11 +1036,9 @@
    TRUST STRIP — Horizontal inline
    ============================================ */
 .inv-pdp__trust-strip {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px var(--inv-space-md);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 16px;
   padding: var(--inv-space-sm-plus) 0;
   border-top: 1px solid var(--inv-grey-200);
   background: transparent;
@@ -1094,10 +1092,6 @@
   font-weight: 600;
 }
 
-.inv-pdp__trust-sep {
-  color: var(--inv-grey-300);
-  font-size: 10px;
-}
 
 /* ============================================
    TRUST BADGES (Full version)
