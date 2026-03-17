@@ -346,10 +346,10 @@
     <!-- 1. Base Theme CSS (foundations — high priority) -->
     <link rel="stylesheet" href="{{ 'base.css' | asset_url }}" fetchpriority="high">
     
-    <!-- 2. Shared Components (lazy-loaded — only needed on product listing pages) -->
-    <link rel="stylesheet" href="{{ 'invicta-brand-pill.css' | asset_url }}" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="{{ 'invicta-product-card.css' | asset_url }}" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="{{ 'invicta-radius-reset.css' | asset_url }}" media="print" onload="this.media='all'">
+    <!-- 2. Shared Components (synchronous — layout-critical, prevents CLS on product cards/pills) -->
+    <link rel="stylesheet" href="{{ 'invicta-brand-pill.css' | asset_url }}">
+    <link rel="stylesheet" href="{{ 'invicta-product-card.css' | asset_url }}">
+    <link rel="stylesheet" href="{{ 'invicta-radius-reset.css' | asset_url }}">
     
 
     <!-- 3. Device-Specific Styles (PWA optimised) -->
@@ -367,13 +367,12 @@
     <!-- UX Improvements (accessibility, focus states, sticky ATC) — deferred, not critical path -->
     <link rel="stylesheet" href="{{ 'invicta-ux-improvements.css' | asset_url }}" media="print" onload="this.media='all'">
 
-    <!-- Cart Components (lazy loaded) -->
-    <link
-      rel="stylesheet"
-      href="{{ 'component-cart-items.css' | asset_url }}"
-      media="print"
-      onload="this.media='all'"
-    >
+    <!-- Cart Components — synchronous on cart page to prevent CLS, lazy elsewhere -->
+    {%- if template == 'cart' -%}
+      <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}">
+    {%- else -%}
+      <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
+    {%- endif -%}
 
     {%- if settings.cart_type == 'drawer' -%}
       {%- comment -%} CX v1.1: Defer cart CSS — drawer not visible until user interaction {%- endcomment -%}
