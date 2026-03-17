@@ -1037,8 +1037,9 @@
    ============================================ */
 .inv-pdp__trust-strip {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px 16px;
+  grid-template-columns: auto auto;
+  gap: 10px 32px;
+  justify-content: center;
   padding: var(--inv-space-sm-plus) 0;
   border-top: 1px solid var(--inv-grey-200);
   background: transparent;
