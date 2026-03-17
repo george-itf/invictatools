@@ -250,7 +250,7 @@
           "type": "brand",
           "settings": {
             "brand_name": "Premier Diamond",
-            "collection": "premier-diamond-featured"
+            "collection": "premier-diamond-products"
           }
         },
         "brand_viper": {
@@ -264,7 +264,7 @@
           "type": "brand",
           "settings": {
             "brand_name": "Faithfull",
-            "collection": "faithfull-featured"
+            "collection": "faithfull"
           }
         },
         "brand_FtBpt4": {
