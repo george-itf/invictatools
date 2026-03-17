@@ -99,7 +99,8 @@
 
   .inv-usp2 {
     background: var(--inv-usp2-bg);
-    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    padding-top: max({{ section.settings.padding_top }}px, 10px);
+    padding-bottom: max({{ section.settings.padding_bottom }}px, 10px);
     contain: layout style;
   }
 
@@ -119,6 +120,14 @@
     gap: 14px;
     padding: 20px 16px;
     position: relative;
+  }
+
+  .inv-usp2__item:first-child {
+    justify-content: flex-start;
+  }
+
+  .inv-usp2__item:last-child {
+    justify-content: flex-end;
   }
 
   /* Vertical dividers */
