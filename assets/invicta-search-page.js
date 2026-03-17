@@ -29,6 +29,8 @@
       this.container.addEventListener('change', this.handleChange.bind(this));
       this.container.addEventListener('input', this.handleInput.bind(this));
       window.addEventListener('popstate', this.handlePopState.bind(this));
+      this._initMobileFilterSheet();
+      this._updateMobileFilterCount();
     }
 
     /* -------------------------------------------------------
@@ -36,11 +38,44 @@
     ------------------------------------------------------- */
 
     handleClick(e) {
-      // Filter panel toggle
+      // Filter panel toggle (desktop)
       const toggleBtn = e.target.closest('[data-filter-toggle]');
       if (toggleBtn) {
         e.preventDefault();
         this.toggleFilterPanel();
+        return;
+      }
+
+      // Mobile filter trigger
+      const mobileTrigger = e.target.closest('[data-filter-mobile-trigger]');
+      if (mobileTrigger) {
+        e.preventDefault();
+        this.openMobileFilterSheet();
+        return;
+      }
+
+      // Mobile filter sheet close
+      const sheetClose = e.target.closest('[data-filter-sheet-close]');
+      if (sheetClose) {
+        e.preventDefault();
+        this.closeMobileFilterSheet();
+        return;
+      }
+
+      // Mobile filter sheet overlay click
+      const sheetOverlay = e.target.closest('[data-filter-sheet-overlay]');
+      if (sheetOverlay && e.target === sheetOverlay) {
+        e.preventDefault();
+        this.closeMobileFilterSheet();
+        return;
+      }
+
+      // Mobile filter sheet apply
+      const sheetApply = e.target.closest('[data-filter-sheet-apply]');
+      if (sheetApply) {
+        e.preventDefault();
+        this.closeMobileFilterSheet();
+        this.fetchFromFilters();
         return;
       }
 
@@ -151,6 +186,75 @@
         const text = label.textContent.toLowerCase();
         item.style.display = text.includes(query) ? '' : 'none';
       });
+    }
+
+    /* -------------------------------------------------------
+       MOBILE FILTER BOTTOM SHEET
+    ------------------------------------------------------- */
+
+    _initMobileFilterSheet() {
+      /* Escape key closes mobile sheet */
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          const sheet = document.querySelector('.inv-filter-sheet');
+          if (sheet && sheet.classList.contains('inv-filter-sheet--open')) {
+            e.preventDefault();
+            this.closeMobileFilterSheet();
+          }
+        }
+      });
+    }
+
+    openMobileFilterSheet() {
+      const overlay = document.querySelector('[data-filter-sheet-overlay]');
+      const sheet = document.querySelector('.inv-filter-sheet');
+      if (!overlay || !sheet) return;
+
+      overlay.classList.add('inv-filter-sheet--open');
+      sheet.classList.add('inv-filter-sheet--open');
+      document.body.style.overflow = 'hidden';
+
+      /* Focus the close button for accessibility */
+      const closeBtn = sheet.querySelector('[data-filter-sheet-close]');
+      if (closeBtn) setTimeout(() => closeBtn.focus(), 100);
+    }
+
+    closeMobileFilterSheet() {
+      const overlay = document.querySelector('[data-filter-sheet-overlay]');
+      const sheet = document.querySelector('.inv-filter-sheet');
+      if (!overlay || !sheet) return;
+
+      sheet.classList.remove('inv-filter-sheet--open');
+      setTimeout(() => {
+        overlay.classList.remove('inv-filter-sheet--open');
+        document.body.style.overflow = '';
+      }, 300);
+    }
+
+    _updateMobileFilterCount() {
+      const trigger = document.querySelector('[data-filter-mobile-trigger]');
+      if (!trigger) return;
+
+      const checkedCount = this.container.querySelectorAll(
+        '.inv-filter-panel input[type="checkbox"]:checked'
+      ).length;
+      const priceMin = this.container.querySelector('[data-price-min]');
+      const priceMax = this.container.querySelector('[data-price-max]');
+      let count = checkedCount;
+      if (priceMin && priceMin.value) count++;
+      if (priceMax && priceMax.value) count++;
+
+      const countEl = trigger.querySelector('.inv-filter-mobile-trigger__count');
+      if (countEl) {
+        countEl.textContent = count;
+        countEl.style.display = count > 0 ? '' : 'none';
+      }
+
+      /* Update trigger text */
+      const textEl = trigger.querySelector('.inv-filter-mobile-trigger__text');
+      if (textEl) {
+        textEl.textContent = count > 0 ? 'Filters (' + count + ')' : 'Filters';
+      }
     }
 
     /* -------------------------------------------------------
@@ -420,6 +524,9 @@
 
       announce.textContent = 'Search results updated. ' + count + ' products found.';
       setTimeout(() => { announce.textContent = ''; }, 1000);
+
+      /* Update mobile filter count after DOM swap */
+      this._updateMobileFilterCount();
     }
 
     handlePopState() {

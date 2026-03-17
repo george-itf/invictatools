@@ -151,6 +151,13 @@
           resizeRaf = null;
         });
       }, { passive: true });
+
+      /* Mobile: back button / popstate closes dropdown */
+      window.addEventListener('popstate', () => {
+        if (this.isOpen && this._isMobile()) {
+          this._close();
+        }
+      });
     }
 
     /* ----------------------------------------------------------------
@@ -168,6 +175,10 @@
       while (el.firstChild) el.removeChild(el.firstChild);
     }
 
+    _isMobile() {
+      return window.innerWidth < 750;
+    }
+
     /* ----------------------------------------------------------------
      * Dropdown positioning (fixed, viewport-relative)
      * ---------------------------------------------------------------- */
@@ -176,29 +187,125 @@
       const rect = this.wrapper.getBoundingClientRect();
       this.resultsContainer.style.position = 'fixed';
       this.resultsContainer.style.top = (rect.bottom + 8) + 'px';
-      this.resultsContainer.style.left = rect.left + 'px';
-      this.resultsContainer.style.width = rect.width + 'px';
+
+      if (this._isMobile()) {
+        /* Full viewport width on mobile — CSS handles left/right/width */
+        this.resultsContainer.style.left = '0';
+        this.resultsContainer.style.width = '100vw';
+      } else {
+        this.resultsContainer.style.left = rect.left + 'px';
+        this.resultsContainer.style.width = rect.width + 'px';
+      }
     }
 
     /* ----------------------------------------------------------------
-     * Open / Close
+     * Mobile close button (injected into dropdown)
+     * ---------------------------------------------------------------- */
+    _ensureMobileCloseButton() {
+      if (!this._isMobile()) return;
+
+      /* Only add once */
+      if (this.resultsContainer.querySelector('.inv-search-results__close')) return;
+
+      const closeBar = document.createElement('div');
+      closeBar.className = 'inv-search-results__close';
+
+      const closeBtn = document.createElement('button');
+      closeBtn.type = 'button';
+      closeBtn.className = 'inv-search-results__close-btn';
+      closeBtn.setAttribute('aria-label', 'Close search results');
+
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('stroke', 'currentColor');
+      svg.setAttribute('stroke-width', '2');
+      svg.setAttribute('stroke-linecap', 'round');
+      svg.setAttribute('stroke-linejoin', 'round');
+      svg.setAttribute('aria-hidden', 'true');
+      const line1 = document.createElementNS(svgNS, 'line');
+      line1.setAttribute('x1', '18'); line1.setAttribute('y1', '6');
+      line1.setAttribute('x2', '6'); line1.setAttribute('y2', '18');
+      svg.appendChild(line1);
+      const line2 = document.createElementNS(svgNS, 'line');
+      line2.setAttribute('x1', '6'); line2.setAttribute('y1', '6');
+      line2.setAttribute('x2', '18'); line2.setAttribute('y2', '18');
+      svg.appendChild(line2);
+      closeBtn.appendChild(svg);
+
+      const label = document.createElement('span');
+      label.textContent = 'Close';
+      closeBtn.appendChild(label);
+
+      closeBtn.addEventListener('click', () => this._close());
+
+      closeBar.appendChild(closeBtn);
+      this.resultsContainer.insertBefore(closeBar, this.resultsContainer.firstChild);
+    }
+
+    /* ----------------------------------------------------------------
+     * Open / Close (with CSS animation classes)
      * ---------------------------------------------------------------- */
     _open() {
       this.resultsContainer.style.display = 'block';
+      this.resultsContainer.classList.remove('inv-search-results--closing');
+      /* will-change hint during animation */
+      this.resultsContainer.style.willChange = 'transform, opacity';
+
+      /* Force reflow to ensure the initial state is applied */
+      void this.resultsContainer.offsetHeight;
+
+      this.resultsContainer.classList.add('inv-search-results--open');
       this.isOpen = true;
       this.input.setAttribute('aria-expanded', 'true');
       this._positionDropdown();
+
+      /* Add wrapper class for sticky input shadow on mobile */
+      this.wrapper.classList.add('inv-search--dropdown-open');
+
+      /* Inject mobile close button */
+      this._ensureMobileCloseButton();
+
+      /* Mobile: push history state so back button can close */
+      if (this._isMobile() && !this._historyPushed) {
+        history.pushState({ invSearchOpen: true }, '');
+        this._historyPushed = true;
+      }
+
+      /* Remove will-change after animation completes */
+      setTimeout(() => {
+        this.resultsContainer.style.willChange = '';
+      }, 160);
     }
 
     _close(clear = false) {
-      this.resultsContainer.style.display = 'none';
+      if (this.isOpen) {
+        this.resultsContainer.classList.remove('inv-search-results--open');
+        this.resultsContainer.classList.add('inv-search-results--closing');
+
+        /* After close animation, hide element */
+        setTimeout(() => {
+          this.resultsContainer.style.display = 'none';
+          this.resultsContainer.classList.remove('inv-search-results--closing');
+          if (clear) {
+            this._clearElement(this.resultsContainer);
+          }
+        }, 110);
+      } else {
+        this.resultsContainer.style.display = 'none';
+        if (clear) {
+          this._clearElement(this.resultsContainer);
+        }
+      }
+
       this.isOpen = false;
       this.selectedIndex = -1;
       this.input.setAttribute('aria-expanded', 'false');
       this.input.removeAttribute('aria-activedescendant');
-      if (clear) {
-        this._clearElement(this.resultsContainer);
-      }
+      this.wrapper.classList.remove('inv-search--dropdown-open');
+      this._historyPushed = false;
+
       /* Deselect any highlighted item */
       this.resultItems.forEach((item) => item.setAttribute('aria-selected', 'false'));
     }
