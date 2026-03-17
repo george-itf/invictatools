@@ -174,7 +174,8 @@
       if (!nextUrl) return;
 
       loadMoreBtn.classList.add('inv-load-more__btn--loading');
-      loadMoreBtn.querySelector('.inv-load-more__text').textContent = 'Loading...';
+      var loadMoreText = loadMoreBtn.querySelector('.inv-load-more__text');
+      if (loadMoreText) loadMoreText.textContent = 'Loading...';
 
       fetch(nextUrl)
         .then(function(response) { return response.text(); })
@@ -202,14 +203,16 @@
           if (newLoadMore && newLoadMore.dataset.nextUrl) {
             loadMoreBtn.dataset.nextUrl = newLoadMore.dataset.nextUrl;
             loadMoreBtn.classList.remove('inv-load-more__btn--loading');
-            loadMoreBtn.querySelector('.inv-load-more__text').textContent = 'Load More Products';
+            var loadMoreText = loadMoreBtn.querySelector('.inv-load-more__text');
+            if (loadMoreText) loadMoreText.textContent = 'Load More Products';
           } else {
             loadMoreBtn.closest('.inv-load-more').style.display = 'none';
           }
         })
         .catch(function() {
           loadMoreBtn.classList.remove('inv-load-more__btn--loading');
-          loadMoreBtn.querySelector('.inv-load-more__text').textContent = 'Load More Products';
+          var loadMoreText = loadMoreBtn.querySelector('.inv-load-more__text');
+          if (loadMoreText) loadMoreText.textContent = 'Load More Products';
         });
     });
   }

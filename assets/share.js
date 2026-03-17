@@ -22,10 +22,10 @@ if (!customElements.get('share-button')) {
           });
         } else {
           this.mainDetailsToggle.addEventListener('toggle', this.toggleDetails.bind(this));
-          this.mainDetailsToggle
-            .querySelector('.share-button__copy')
-            .addEventListener('click', this.copyToClipboard.bind(this));
-          this.mainDetailsToggle.querySelector('.share-button__close').addEventListener('click', this.close.bind(this));
+          const copyBtn = this.mainDetailsToggle.querySelector('.share-button__copy');
+          if (copyBtn) copyBtn.addEventListener('click', this.copyToClipboard.bind(this));
+          const closeBtn = this.mainDetailsToggle.querySelector('.share-button__close');
+          if (closeBtn) closeBtn.addEventListener('click', this.close.bind(this));
         }
       }
 

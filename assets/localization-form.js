@@ -19,7 +19,7 @@ if (!customElements.get('localization-form')) {
         this.addEventListener('keyup', this.onContainerKeyUp.bind(this));
         this.addEventListener('keydown', this.onContainerKeyDown.bind(this));
         this.addEventListener('focusout', this.closeSelector.bind(this));
-        this.elements.button.addEventListener('click', this.openSelector.bind(this));
+        if (this.elements.button) this.elements.button.addEventListener('click', this.openSelector.bind(this));
 
         if (this.elements.search) {
           this.elements.search.addEventListener('keyup', this.filterCountries.bind(this));
@@ -47,8 +47,9 @@ if (!customElements.get('localization-form')) {
           this.elements.search.setAttribute('aria-activedescendant', '');
         }
         document.body.classList.remove('overflow-hidden-mobile');
-        document.querySelector('.menu-drawer').classList.remove('country-selector-open');
-        this.header.preventHide = false;
+        const menuDrawer = document.querySelector('.menu-drawer');
+        if (menuDrawer) menuDrawer.classList.remove('country-selector-open');
+        if (this.header) this.header.preventHide = false;
       }
 
       onContainerKeyDown(event) {
@@ -61,15 +62,17 @@ if (!customElements.get('localization-form')) {
         switch (event.code.toUpperCase()) {
           case 'ARROWUP':
             event.preventDefault();
+            if (focusableItems.length === 0) break;
             itemToFocus =
               focusedItemIndex > 0 ? focusableItems[focusedItemIndex - 1] : focusableItems[focusableItems.length - 1];
-            itemToFocus.focus();
+            if (itemToFocus) itemToFocus.focus();
             break;
           case 'ARROWDOWN':
             event.preventDefault();
+            if (focusableItems.length === 0) break;
             itemToFocus =
               focusedItemIndex < focusableItems.length - 1 ? focusableItems[focusedItemIndex + 1] : focusableItems[0];
-            itemToFocus.focus();
+            if (itemToFocus) itemToFocus.focus();
             break;
         }
 
@@ -122,10 +125,11 @@ if (!customElements.get('localization-form')) {
         if (this.elements.search && this.mql.matches) {
           this.elements.search.focus();
         }
-        if (this.hasAttribute('data-prevent-hide')) {
+        if (this.hasAttribute('data-prevent-hide') && this.header) {
           this.header.preventHide = true;
         }
-        document.querySelector('.menu-drawer').classList.add('country-selector-open');
+        const menuDrawer = document.querySelector('.menu-drawer');
+        if (menuDrawer) menuDrawer.classList.add('country-selector-open');
       }
 
       closeSelector(event) {
@@ -175,8 +179,10 @@ if (!customElements.get('localization-form')) {
           );
         }
 
-        this.querySelector('.country-selector').scrollTop = 0;
-        this.querySelector('.country-selector__list').scrollTop = 0;
+        const countrySelector = this.querySelector('.country-selector');
+        if (countrySelector) countrySelector.scrollTop = 0;
+        const countrySelectorList = this.querySelector('.country-selector__list');
+        if (countrySelectorList) countrySelectorList.scrollTop = 0;
       }
 
       resetFilter(event) {

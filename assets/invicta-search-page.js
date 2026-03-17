@@ -225,6 +225,7 @@
       this._focusTrapHandler = (e) => {
         if (e.key !== 'Tab') return;
         const focusable = sheet.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusable.length === 0) return;
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
         if (e.shiftKey) {

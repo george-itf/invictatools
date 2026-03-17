@@ -62,6 +62,7 @@
       /* State */
       this.cache = new Map();
       this.abortController = null;
+      this.eventAbortController = new AbortController();
       this.debounceTimer = null;
       this.isOpen = false;
       this.selectedIndex = -1;
@@ -123,14 +124,16 @@
       /* Keyboard navigation */
       this.input.addEventListener('keydown', (e) => this._onKeydown(e));
 
-      /* Click outside closes dropdown */
+      /* Click outside closes dropdown — uses AbortController for cleanup */
+      const signal = this.eventAbortController.signal;
+
       document.addEventListener('click', (e) => {
         if (!this.wrapper.contains(e.target) && !this.resultsContainer.contains(e.target)) {
           this._close();
         }
-      });
+      }, { signal });
 
-      /* Reposition on scroll/resize using rAF */
+      /* Reposition on scroll/resize using rAF — uses AbortController for cleanup */
       let scrollRaf = null;
       let resizeRaf = null;
 
@@ -141,7 +144,7 @@
           this._positionDropdown();
           scrollRaf = null;
         });
-      }, { passive: true });
+      }, { passive: true, signal });
 
       window.addEventListener('resize', () => {
         if (!this.isOpen) return;
@@ -150,14 +153,28 @@
           this._positionDropdown();
           resizeRaf = null;
         });
-      }, { passive: true });
+      }, { passive: true, signal });
 
       /* Mobile: back button / popstate closes dropdown */
       window.addEventListener('popstate', () => {
         if (this.isOpen && this._isMobile()) {
           this._close();
         }
-      });
+      }, { signal });
+    }
+
+    /* ----------------------------------------------------------------
+     * Cleanup — abort all global listeners
+     * ---------------------------------------------------------------- */
+    destroy() {
+      if (this.eventAbortController) {
+        this.eventAbortController.abort();
+        this.eventAbortController = null;
+      }
+      if (this.abortController) {
+        this.abortController.abort();
+        this.abortController = null;
+      }
     }
 
     /* ----------------------------------------------------------------

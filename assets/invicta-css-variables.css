@@ -1,3 +1,15 @@
+/*
+ * Invicta Design Tokens v3.x
+ *
+ * Naming conventions:
+ * --color-*    Shopify base theme tokens (do not modify)
+ * --font-*     Shopify base theme typography (do not modify)
+ * --media-*    Shopify base theme breakpoints (do not modify)
+ * --inv-*      Invicta custom tokens (our system)
+ *
+ * All new tokens MUST use the --inv- prefix.
+ * Do not create --pdp-*, --cart-*, or other component-scoped prefixes.
+ */
 /* ============================================================
    INVICTA DESIGN TOKENS v3.0 (CANONICAL)
    ============================================================
@@ -33,9 +45,30 @@
 
   /* Semantic Colors */
   --inv-success: #16a34a;
+  --inv-success-light: #f0fdf4;
+  --inv-success-border: #bbf7d0;
+  --inv-success-dark: #166534;
+  --inv-success-bright: #22c55e;
+  --inv-success-bg: #d1fae5;
+  --inv-success-bg-light: #dcfce7;
+  --inv-success-medium: #059669;
+  --inv-success-text: #065f46;
+  --inv-success-heading: #15803d;
   --inv-warning: #f59e0b;
+  --inv-warning-dark: #d97706;
+  --inv-warning-darker: #b45309;
+  --inv-warning-text: #92400e;
+  --inv-warning-bg: #fef3c7;
+  --inv-warning-border: #fbbf24;
   --inv-error: #dc2626;
+  --inv-error-bg: #fef2f2;
+  --inv-error-light: #fee2e2;
+  --inv-error-border: #fecaca;
+  --inv-error-dark: #991b1b;
+  --inv-error-text: #ef4444;
   --inv-info: #3b82f6;
+  --inv-info-bg: #dbeafe;
+  --inv-info-dark: #1d4ed8;
 
   /* Legacy aliases */
   --inv-green: var(--inv-success);
@@ -48,9 +81,18 @@
   --inv-bg-elevated: #ffffff;
   --inv-bg-soft: #f3f4f6;
   --inv-bg-muted: #f9fafb;
+  --inv-bg-subtle: #f8fafc;
+
+  /* Card / Component backgrounds */
+  --inv-bg-card-body: #f7f7f8;
+  --inv-bg-card-border: #ececec;
+  --inv-bg-skeleton: #f0f0f0;
+  --inv-bg-skeleton-highlight: #e0e0e0;
+  --inv-bg-skeleton-border: #e8e8e8;
 
   /* Legacy alias */
   --inv-white: var(--inv-bg-elevated);
+  --inv-black: #000000;
 
   /* ========================================
      TEXT COLORS
@@ -59,24 +101,54 @@
   --inv-fg-muted: #6b7280;
   --inv-fg-subtle: #9ca3af;
 
+  --inv-fg-secondary: #374151;
+  --inv-fg-strong: #111827;
+  --inv-fg-dim: #4b5563;
+
+  /* Near-black text (from PDP) */
+  --inv-fg-near-black: #1a1a1a;
+  --inv-fg-medium: #525252;
+
   /* Legacy aliases */
   --inv-text: var(--inv-fg);
   --inv-text-muted: var(--inv-fg-muted);
   --inv-text-light: var(--inv-fg-subtle);
   --inv-dark: #2d2d2d;
   --inv-dark-hover: #404040;
+  --inv-dark-hover-deep: #1a1a1a;
 
   /* ========================================
      BORDER COLORS
      ======================================== */
   --inv-border: #e5e7eb;
+  --inv-border-dark: #d1d5db;
   --inv-border-subtle: rgba(148, 163, 184, 0.4);
   --inv-border-strong: rgba(15, 23, 42, 0.25);
   --inv-border-light: #e5e7eb;
+  --inv-border-muted: #e2e8f0;
+  --inv-border-notify: #d0d0d0;
+  --inv-border-skeleton: #e5e5e5;
+  --inv-border-skeleton-dark: #ddd;
+
+  /* ========================================
+     NEUTRAL GREY SCALE
+     ======================================== */
+  --inv-grey-50: #fafafa;
+  --inv-grey-100: #f5f5f5;
+  --inv-grey-200: #e5e5e5;
+  --inv-grey-300: #d4d4d4;
+  --inv-grey-400: #a3a3a3;
+  --inv-grey-500: #737373;
+  --inv-grey-600: #525252;
+  --inv-grey-700: #404040;
+  --inv-grey-placeholder: #ccc;
+  --inv-grey-was: #999;
+  --inv-grey-vat: #666;
 
   /* ========================================
      SHADOWS
      ======================================== */
+  --inv-shadow-color: rgba(0, 0, 0, 0.1);
   --inv-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --inv-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
   --inv-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -108,6 +180,7 @@
      ======================================== */
   --inv-space-xs: 0.25rem;  /* 4px */
   --inv-space-sm: 0.5rem;   /* 8px */
+  --inv-space-sm-plus: 12px; /* 12px — between sm and md */
   --inv-space-md: 1rem;     /* 16px */
   --inv-space-lg: 1.5rem;   /* 24px */
   --inv-space-xl: 2rem;     /* 32px */
@@ -224,6 +297,7 @@
   --inv-focus-ring-width: 2px;
   --inv-focus-ring-color: rgba(225, 29, 38, 0.5);
   --inv-focus-ring-offset: 2px;
+  --inv-focus-shadow: 0 0 0 3px rgba(45, 45, 45, 0.3);
 
   /* Legacy aliases (from base.css) */
   --alpha-button-background: 1;

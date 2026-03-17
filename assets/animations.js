@@ -48,27 +48,33 @@ function initializeScrollZoomAnimationTrigger() {
 
   const scaleAmount = 0.2 / 100;
 
-  animationTriggerElements.forEach((element) => {
-    let elementIsVisible = false;
-    const observer = new IntersectionObserver((elements) => {
-      elements.forEach((entry) => {
-        elementIsVisible = entry.isIntersecting;
-      });
+  // Track visibility state per element using a shared Map
+  const visibilityMap = new WeakMap();
+
+  // Single shared IntersectionObserver for all zoom-in elements
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      visibilityMap.set(entry.target, entry.isIntersecting);
     });
-    observer.observe(element);
-
-    element.style.setProperty('--zoom-in-ratio', 1 + scaleAmount * percentageSeen(element));
-
-    window.addEventListener(
-      'scroll',
-      throttle(() => {
-        if (!elementIsVisible) return;
-
-        element.style.setProperty('--zoom-in-ratio', 1 + scaleAmount * percentageSeen(element));
-      }),
-      { passive: true }
-    );
   });
+
+  animationTriggerElements.forEach((element) => {
+    visibilityMap.set(element, false);
+    observer.observe(element);
+    element.style.setProperty('--zoom-in-ratio', 1 + scaleAmount * percentageSeen(element));
+  });
+
+  // Single consolidated scroll handler for all zoom-in elements
+  window.addEventListener(
+    'scroll',
+    throttle(() => {
+      animationTriggerElements.forEach((element) => {
+        if (!visibilityMap.get(element)) return;
+        element.style.setProperty('--zoom-in-ratio', 1 + scaleAmount * percentageSeen(element));
+      });
+    }),
+    { passive: true }
+  );
 }
 
 function percentageSeen(element) {

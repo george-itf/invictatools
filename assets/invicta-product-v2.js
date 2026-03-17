@@ -945,6 +945,7 @@
         if (e.key !== 'Tab') return;
 
         const focusable = lightbox.querySelectorAll('button, [tabindex="0"]');
+        if (focusable.length === 0) return;
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
 

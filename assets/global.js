@@ -604,7 +604,8 @@ if (!customElements.get('header-drawer')) customElements.define('header-drawer',
 class ModalDialog extends HTMLElement {
   constructor() {
     super();
-    this.querySelector('[id^="ModalClose-"]').addEventListener('click', this.hide.bind(this, false));
+    const modalClose = this.querySelector('[id^="ModalClose-"]');
+    if (modalClose) modalClose.addEventListener('click', this.hide.bind(this, false));
     this.addEventListener('keyup', (event) => {
       if (event.code.toUpperCase() === 'ESCAPE') this.hide();
     });
@@ -661,8 +662,8 @@ class BulkModal extends HTMLElement {
           .then((response) => response.text())
           .then((responseText) => {
             const html = new DOMParser().parseFromString(responseText, 'text/html');
-            const sourceQty = html.querySelector('.quick-order-list-container').parentNode;
-            this.innerHTML = sourceQty.innerHTML;
+            const sourceQty = html.querySelector('.quick-order-list-container');
+            if (sourceQty && sourceQty.parentNode) this.innerHTML = sourceQty.parentNode.innerHTML;
           })
           .catch((e) => {
             DEBUG && console.error(e);
