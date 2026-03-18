@@ -200,9 +200,8 @@
             Read all reviews <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
-      </div>
 
-      <div class="inv-tr5__ticker" data-itr5-ticker>
+        <div class="inv-tr5__ticker" data-itr5-ticker>
         <div class="inv-tr5__ticker-track" data-itr5-track>
           {%- for i in (1..10) -%}
             {%- assign enabled_key = 'review_' | append: i | append: '_enabled' -%}
@@ -247,6 +246,7 @@
           {%- endfor -%}
         </div>
       </div>
+      </div>{%- comment -%} .inv-tr5__wrap {%- endcomment -%}
     </div>
   {%- endif -%}
 
