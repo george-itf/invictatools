@@ -64,6 +64,10 @@
   .shopify-section--announcement-bar,
   .inv-pdp__sticky-atc,
   [data-compare-toggle],
+  .inv-compare__badge,
+  .inv-compare__drawer,
+  .inv-compare__overlay,
+  .inv-compare__max-msg,
   .no-print {
     display: none !important;
   }

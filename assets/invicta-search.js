@@ -637,10 +637,9 @@
       }
 
       /* Ex-VAT price */
-      const vatRate = (window.invictaConfig && window.invictaConfig.vatRate) || 20;
-      const vatDivisor = 100 + vatRate;
-      const priceExVatPence = Math.round((product.price * 100) / vatDivisor);
-      const priceExVat = (priceExVatPence / 100).toFixed(2);
+      const vat = window.invictaVat || { exFromInc: function(p) { return Math.round(p * 100 / 120); }, formatPounds: function(p) { return (p / 100).toFixed(2); } };
+      const priceExVatPence = vat.exFromInc(product.price);
+      const priceExVat = vat.formatPounds(priceExVatPence);
       const priceInc = (product.price / 100).toFixed(2);
 
       /* Build DOM */

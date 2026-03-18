@@ -14,8 +14,19 @@
   'use strict';
 
   /* ================================================================
+   * Fetch with timeout helper
+   * ================================================================ */
+  function fetchWithTimeout(url, timeoutMs) {
+    var controller = new AbortController();
+    var id = setTimeout(function() { controller.abort(); }, timeoutMs || 8000);
+    return fetch(url, { signal: controller.signal }).finally(function() { clearTimeout(id); });
+  }
+
+  /* ================================================================
    * Configuration
    * ================================================================ */
+  var strings = window.invictaCompareStrings || {};
+
   var STORAGE_KEY = 'invicta-compare';
   var CACHE_PREFIX = 'invicta-compare-cache:';
   var MAX_PRODUCTS = 4;
@@ -75,13 +86,13 @@
     badge = document.createElement('button');
     badge.type = 'button';
     badge.className = 'inv-compare__badge';
-    badge.setAttribute('aria-label', 'Open product comparison');
+    badge.setAttribute('aria-label', strings.badgeLabel || 'Open product comparison');
     badge.addEventListener('click', openDrawer);
 
     /* Max-products warning */
     maxMessage = document.createElement('div');
     maxMessage.className = 'inv-compare__max-msg';
-    maxMessage.textContent = 'Remove a product to add another';
+    maxMessage.textContent = strings.maxMessage || 'Remove a product to add another';
     maxMessage.setAttribute('role', 'alert');
     document.body.appendChild(maxMessage);
 
@@ -120,8 +131,8 @@
       toggles[i].setAttribute('aria-pressed', String(pressed));
       toggles[i].setAttribute('aria-label',
         pressed
-          ? 'Remove from comparison'
-          : 'Add to comparison'
+          ? (strings.removeLabel || 'Remove from comparison')
+          : (strings.addLabel || 'Add to comparison')
       );
     }
   }
@@ -164,7 +175,7 @@
       if (cached) return Promise.resolve(JSON.parse(cached));
     } catch (_) {}
 
-    return fetch('/products/' + handle + '.json')
+    return fetchWithTimeout('/products/' + handle + '.json', 8000)
       .then(function (res) { return res.json(); })
       .then(function (data) {
         var product = data.product;
@@ -184,6 +195,7 @@
    * ================================================================ */
   var overlay = null;
   var drawer = null;
+  var previousFocus = null;
 
   function createDrawer() {
     overlay = document.createElement('div');
@@ -196,6 +208,22 @@
     drawer.setAttribute('aria-label', 'Product comparison');
     drawer.setAttribute('aria-modal', 'true');
 
+    /* Focus trap: keep Tab cycling within drawer */
+    drawer.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab') return;
+      var focusable = drawer.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length === 0) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+
     document.body.appendChild(overlay);
     document.body.appendChild(drawer);
   }
@@ -204,18 +232,26 @@
     var handles = getCompareList();
     if (handles.length === 0) return;
 
+    previousFocus = document.activeElement;
+
     if (!drawer) createDrawer();
 
     /* Show loading */
-    drawer.innerHTML = '<div class="inv-compare__loading">Loading comparison\u2026</div>';
+    drawer.innerHTML = '<div class="inv-compare__loading">' + (strings.loading || 'Loading comparison\u2026') + '</div>';
     overlay.classList.add('inv-compare__overlay--open');
     drawer.classList.add('inv-compare__drawer--open');
     document.body.style.overflow = 'hidden';
 
     fetchAllProducts(handles).then(function (products) {
       renderDrawerContent(products);
-    }).catch(function () {
-      drawer.innerHTML = '<div class="inv-compare__loading">Failed to load products. Please try again.</div>';
+      /* Focus first focusable element in drawer */
+      var firstFocusable = drawer.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (firstFocusable) firstFocusable.focus();
+    }).catch(function (err) {
+      var msg = (err && err.name === 'AbortError')
+        ? (strings.timeoutError || 'Products took too long to load. Please try again.')
+        : (strings.error || 'Failed to load products. Please try again.');
+      drawer.innerHTML = '<div class="inv-compare__loading">' + msg + '</div>';
     });
   }
 
@@ -224,23 +260,26 @@
     overlay.classList.remove('inv-compare__overlay--open');
     drawer.classList.remove('inv-compare__drawer--open');
     document.body.style.overflow = '';
+    if (previousFocus) {
+      previousFocus.focus();
+      previousFocus = null;
+    }
   }
 
   /* ================================================================
    * Render comparison content
    * ================================================================ */
   function renderDrawerContent(products) {
-    var vatRate = (window.invictaConfig && window.invictaConfig.vatRate) || 20;
-    var vatDivisor = 100 + vatRate;
+    var vat = window.invictaVat || { exFromInc: function(p) { return Math.round(p * 100 / 120); }, formatPounds: function(p) { return (p / 100).toFixed(2); } };
 
     var html = '';
 
     /* Header */
     html += '<div class="inv-compare__header">';
-    html += '<h2 class="inv-compare__title">Compare Products</h2>';
+    html += '<h2 class="inv-compare__title">' + (strings.title || 'Compare Products') + '</h2>';
     html += '<div class="inv-compare__header-actions">';
-    html += '<button type="button" class="inv-compare__clear" data-compare-clear>Clear All</button>';
-    html += '<button type="button" class="inv-compare__close-btn" data-compare-close aria-label="Close comparison">';
+    html += '<button type="button" class="inv-compare__clear" data-compare-clear>' + (strings.clearAll || 'Clear All') + '</button>';
+    html += '<button type="button" class="inv-compare__close-btn" data-compare-close aria-label="' + escapeAttr(strings.closeLabel || 'Close comparison') + '">';
     html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
     html += '</button>';
     html += '</div>';
@@ -252,9 +291,10 @@
     for (var i = 0; i < products.length; i++) {
       var p = products[i];
       var variant = p.variants && p.variants[0] ? p.variants[0] : {};
-      var priceInc = variant.price ? (parseFloat(variant.price)).toFixed(2) : '0.00';
-      var priceExPence = Math.round((parseFloat(variant.price || 0) * 100 * 100) / vatDivisor);
-      var priceEx = (priceExPence / 100).toFixed(2);
+      var priceInc = variant.price ? parseFloat(variant.price).toFixed(2) : '0.00';
+      var priceInPence = Math.round(parseFloat(variant.price || 0) * 100);
+      var priceExPence = vat.exFromInc(priceInPence);
+      var priceEx = vat.formatPounds(priceExPence);
       var available = variant.available !== false;
       var imgSrc = p.image ? p.image.src : '';
 
@@ -271,11 +311,11 @@
 
       var stockLabel, stockClass;
       if (!available) {
-        stockLabel = 'Out of Stock'; stockClass = 'out';
+        stockLabel = strings.outOfStock || 'Out of Stock'; stockClass = 'out';
       } else if (stockSource === 'supplier') {
-        stockLabel = 'Available from Supplier'; stockClass = 'supplier';
+        stockLabel = strings.supplierStock || 'Available from Supplier'; stockClass = 'supplier';
       } else {
-        stockLabel = 'In Stock'; stockClass = 'in-stock';
+        stockLabel = strings.inStock || 'In Stock'; stockClass = 'in-stock';
       }
 
       /* Metafields (custom namespace) */
@@ -315,11 +355,11 @@
       /* Price */
       html += '<div class="inv-compare__price-block">';
       html += '<div data-price-inc>';
-      html += '<span class="inv-compare__price">\u00a3' + priceInc + ' <small>inc VAT</small></span>';
+      html += '<span class="inv-compare__price">\u00a3' + priceInc + ' <small>' + (strings.incVat || 'inc VAT') + '</small></span>';
       html += '<span class="inv-compare__price-alt">(\u00a3' + priceEx + ' ex)</span>';
       html += '</div>';
       html += '<div data-price-ex class="inv-vat--hidden">';
-      html += '<span class="inv-compare__price">\u00a3' + priceEx + ' <small>ex VAT</small></span>';
+      html += '<span class="inv-compare__price">\u00a3' + priceEx + ' <small>' + (strings.exVat || 'ex VAT') + '</small></span>';
       html += '<span class="inv-compare__price-alt">(\u00a3' + priceInc + ' inc)</span>';
       html += '</div>';
       html += '</div>';
@@ -348,9 +388,9 @@
       if (available && variant.id) {
         html += '<button type="button" class="inv-compare__atc" data-add-to-cart data-variant-id="' + variant.id + '" data-quantity="1">';
         html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>';
-        html += ' Add to Cart</button>';
+        html += ' ' + (strings.addToCart || 'Add to Cart') + '</button>';
       } else {
-        html += '<button type="button" class="inv-compare__atc inv-compare__atc--disabled" disabled>Out of Stock</button>';
+        html += '<button type="button" class="inv-compare__atc inv-compare__atc--disabled" disabled>' + (strings.outOfStock || 'Out of Stock') + '</button>';
       }
 
       html += '</div>';

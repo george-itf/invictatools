@@ -64,21 +64,15 @@
 
           <h3 class="footer-heading">{{ ss.addr_heading }}</h3>
 
-          <h4 class="footer-subheading">RAMSGATE</h4>
-          <div class="footer-text">
-            Unit 74 Invicta Way<br>
-            The Oaks Business Park<br>
-            Ramsgate, CT12 5FS<br>
-            Tel: 01843 210459
-          </div>
+          <h4 class="footer-subheading">{{ ss.ramsgate_name | default: 'RAMSGATE' }}</h4>
+          <div class="footer-text">{{ ss.ramsgate_address | default: 'Unit 74 Invicta Way
+The Oaks Business Park
+Ramsgate, CT12 5FS' | newline_to_br }}<br>Tel: {{ ss.ramsgate_phone | default: '01843 210459' }}</div>
 
-          <h4 class="footer-subheading mt">CANTERBURY</h4>
-          <div class="footer-text">
-            Unit 9 Cotton Road<br>
-            Wincheap Industrial Estate<br>
-            Canterbury, CT1 3TB<br>
-            Tel: 01227 458333
-          </div>
+          <h4 class="footer-subheading mt">{{ ss.canterbury_name | default: 'CANTERBURY' }}</h4>
+          <div class="footer-text">{{ ss.canterbury_address | default: 'Unit 9 Cotton Road
+Wincheap Industrial Estate
+Canterbury, CT1 3TB' | newline_to_br }}<br>Tel: {{ ss.canterbury_phone | default: '01227 458333' }}</div>
 
         </div>
         {% endif %}
@@ -630,6 +624,42 @@
       "id": "addr_heading",
       "label": "Column 2 title",
       "default": "Branches"
+    },
+    {
+      "type": "text",
+      "id": "ramsgate_name",
+      "label": "Ramsgate branch name",
+      "default": "RAMSGATE"
+    },
+    {
+      "type": "textarea",
+      "id": "ramsgate_address",
+      "label": "Ramsgate address",
+      "default": "Unit 74 Invicta Way\nThe Oaks Business Park\nRamsgate, CT12 5FS"
+    },
+    {
+      "type": "text",
+      "id": "ramsgate_phone",
+      "label": "Ramsgate phone",
+      "default": "01843 210459"
+    },
+    {
+      "type": "text",
+      "id": "canterbury_name",
+      "label": "Canterbury branch name",
+      "default": "CANTERBURY"
+    },
+    {
+      "type": "textarea",
+      "id": "canterbury_address",
+      "label": "Canterbury address",
+      "default": "Unit 9 Cotton Road\nWincheap Industrial Estate\nCanterbury, CT1 3TB"
+    },
+    {
+      "type": "text",
+      "id": "canterbury_phone",
+      "label": "Canterbury phone",
+      "default": "01227 458333"
     },
 
     {

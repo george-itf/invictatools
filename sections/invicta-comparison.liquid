@@ -16,7 +16,27 @@
 {% endcomment %}
 
 {%- if section.settings.enable_comparison -%}
-  <link rel="stylesheet" href="{{ 'invicta-comparison.css' | asset_url }}" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="{{ 'invicta-comparison.css' | asset_url }}">
+  <script>
+    window.invictaCompareStrings = {
+      maxMessage: {{ 'invicta.compare.max_message' | t | json }},
+      badgeLabel: {{ 'invicta.compare.badge_label' | t | json }},
+      addLabel: {{ 'invicta.compare.add' | t | json }},
+      removeLabel: {{ 'invicta.compare.remove' | t | json }},
+      loading: {{ 'invicta.compare.loading' | t | json }},
+      error: {{ 'invicta.compare.error' | t | json }},
+      timeoutError: {{ 'invicta.compare.timeout_error' | t | json }},
+      title: {{ 'invicta.compare.title' | t | json }},
+      clearAll: {{ 'invicta.compare.clear_all' | t | json }},
+      closeLabel: {{ 'invicta.compare.close' | t | json }},
+      inStock: {{ 'invicta.compare.in_stock' | t | json }},
+      outOfStock: {{ 'invicta.compare.out_of_stock' | t | json }},
+      supplierStock: {{ 'invicta.compare.supplier_stock' | t | json }},
+      incVat: {{ 'invicta.compare.inc_vat' | t | json }},
+      exVat: {{ 'invicta.compare.ex_vat' | t | json }},
+      addToCart: {{ 'invicta.compare.add_to_cart' | t | json }}
+    };
+  </script>
   <script src="{{ 'invicta-comparison.js' | asset_url }}" defer></script>
 
   <style>

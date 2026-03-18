@@ -11,6 +11,15 @@
 (function() {
   'use strict';
 
+  function fetchWithTimeout(url, options, timeoutMs) {
+    if (typeof options === 'number') { timeoutMs = options; options = {}; }
+    options = options || {};
+    var controller = new AbortController();
+    var id = setTimeout(function() { controller.abort(); }, timeoutMs || 8000);
+    var opts = Object.assign({}, options, { signal: controller.signal });
+    return fetch(url, opts).finally(function() { clearTimeout(id); });
+  }
+
   /* ========================================
      AREA 7: ACCESSIBILITY — Live Announcer
      Global utility for screen reader announcements
@@ -81,7 +90,7 @@
     });
 
     // Reset focus index when results change
-    var observer = new MutationObserver(function() {
+    var searchResultsObserver = new MutationObserver(function() {
       focusIndex = -1;
       var items = results.querySelectorAll('.inv-search-results__item');
       if (items.length > 0) {
@@ -89,7 +98,7 @@
       }
     });
 
-    observer.observe(results, { childList: true });
+    searchResultsObserver.observe(results, { childList: true });
 
     // Set ARIA attributes for accessibility
     results.setAttribute('role', 'listbox');
@@ -108,6 +117,17 @@
     });
 
     expandedObserver.observe(results, { attributes: true, childList: true, attributeFilter: ['style'] });
+
+    // Disconnect observers when page is hidden to save resources
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        searchResultsObserver.disconnect();
+        expandedObserver.disconnect();
+      } else {
+        searchResultsObserver.observe(results, { childList: true });
+        expandedObserver.observe(results, { attributes: true, childList: true, attributeFilter: ['style'] });
+      }
+    });
   }
 
   function updateSearchFocus(items) {
@@ -177,7 +197,7 @@
       var loadMoreText = loadMoreBtn.querySelector('.inv-load-more__text');
       if (loadMoreText) loadMoreText.textContent = 'Loading...';
 
-      fetch(nextUrl)
+      fetchWithTimeout(nextUrl, 8000)
         .then(function(response) { return response.text(); })
         .then(function(html) {
           var parser = new DOMParser();
@@ -541,11 +561,11 @@
         formData.append('customer[tags]', 'back-in-stock,' + productHandle);
         formData.append('customer[note]', 'Back in stock request for: ' + productTitle + ' (' + productHandle + ')');
 
-        fetch('/contact', {
+        fetchWithTimeout('/contact', {
           method: 'POST',
           body: formData,
           headers: { 'Accept': 'application/json' }
-        })
+        }, 8000)
         .then(function() {
           /* Show success regardless — we don't want to leak customer data */
           if (successMsg) successMsg.classList.remove('inv-pdp--hidden');

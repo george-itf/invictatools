@@ -28,9 +28,9 @@
    ====================================================================== */
 
 .invicta-brand-pill {
-  --pill-bg: #ffffff;
+  --pill-bg: var(--inv-white);
   --pill-border: var(--pill-bg);
-  --pill-text: #ffffff;
+  --pill-text: var(--inv-white);
 
   --pill-height: 30px;
   --pill-logo-height: 22px;
@@ -78,7 +78,7 @@
 }
 
 .invicta-brand-pill:focus-visible {
-  outline: 2px solid #ffffff;
+  outline: 2px solid var(--inv-white);
   outline-offset: 3px;
 }
 
@@ -288,8 +288,8 @@
   align-items: center;
   gap: 8px;
 
-  background: #111827;
-  color: #fff;
+  background: var(--inv-fg-strong);
+  color: var(--inv-white);
 
   padding: 8px 14px;
   border-radius: 999px;
@@ -304,7 +304,7 @@
   pointer-events: none;
 
   transition: opacity .15s ease, transform .15s ease;
-  z-index: 500;
+  z-index: var(--inv-z-sticky);
 }
 
 /* Show on hover */
@@ -320,5 +320,5 @@
   height: 16px;
   display: block;
   flex-shrink: 0;
-  fill: #fff;
+  fill: var(--inv-white);
 }

@@ -316,7 +316,8 @@
         }
       });
 
-      this.mutationObserver.observe(document.body, {
+      var observeTarget = document.querySelector('#MainContent') || document.body;
+      this.mutationObserver.observe(observeTarget, {
         childList: true,
         subtree: true
       });
