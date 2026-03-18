@@ -1,0 +1,671 @@
+/* =============================================================================
+   INVICTA PRINT STYLES
+   =============================================================================
+   Print-only stylesheet for invictatools.co.uk
+   Loaded with media="print" — zero render cost on screen.
+   ============================================================================= */
+
+@media print {
+
+  /* =========================================================================
+     1. GLOBAL PRINT RULES
+     ========================================================================= */
+
+  /* --- Page setup --- */
+  @page {
+    margin: 1.5cm;
+    @top-center {
+      content: "Invicta Tools — invictatools.co.uk";
+      font-size: 9pt;
+      color: #666;
+    }
+    @bottom-center {
+      content: "Printed from invictatools.co.uk — Page " counter(page);
+      font-size: 8pt;
+      color: #999;
+    }
+  }
+
+  /* --- Hide non-essential UI --- */
+  .invicta-header,
+  header[role="banner"],
+  .header-group,
+  .footer,
+  footer,
+  .footer-group,
+  cart-drawer,
+  .cart-drawer,
+  .drawer,
+  #CartDrawer,
+  .cart-drawer__overlay,
+  #invicta-mobile-drawer,
+  .invicta-drawer,
+  .invicta-drawer__backdrop,
+  .inv-search-wrapper,
+  .inv-search-results,
+  #inv-search-results,
+  #ps-root,
+  .utility-bar,
+  .announcement-bar,
+  .cookie-banner,
+  [id*="cookie"],
+  [class*="cookie-banner"],
+  [class*="newsletter-popup"],
+  [class*="chat-widget"],
+  [class*="chat-button"],
+  #tidio-chat,
+  #gorgias-chat-container,
+  .shopify-chat,
+  .inv-scroll-top,
+  .inv-floating-filter,
+  .inv-drawer-overlay,
+  .inv-drawer,
+  .skip-to-content-link,
+  .shopify-section--announcement-bar,
+  .inv-pdp__sticky-atc,
+  [data-compare-toggle],
+  .no-print {
+    display: none !important;
+  }
+
+  /* --- Main content full width --- */
+  body {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    color: #000 !important;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  #MainContent,
+  .content-for-layout,
+  main {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* --- Typography --- */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #000 !important;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  p, li, td, th, dd, dt {
+    color: #000 !important;
+  }
+
+  /* --- Visual resets --- */
+  *,
+  *::before,
+  *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  .inv-card,
+  .inv-pdp__buybox,
+  .inv-pdp__info,
+  [class*="card"] {
+    border-radius: 0 !important;
+    background-color: transparent !important;
+  }
+
+  /* --- Links: show URL for external links only --- */
+  a[href^="http"]:not([href*="invictatools.co.uk"])::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    font-style: italic;
+    color: #555;
+    word-break: break-all;
+  }
+
+  a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+
+  /* --- Images --- */
+  img {
+    max-width: 300px !important;
+    height: auto !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* --- Page break control --- */
+  .inv-card,
+  .inv-pdp__info-row,
+  .inv-pdp__info,
+  table,
+  tr,
+  .invicta-tiered-pricing,
+  .inv-pdp__key-specs {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+
+  /* =========================================================================
+     2. PRODUCT PAGE (PDP)
+     ========================================================================= */
+
+  /* --- Show store branding via body::before / ::after --- */
+  body::before {
+    content: "Invicta Tools — invictatools.co.uk";
+    display: block;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14pt;
+    font-weight: 700;
+    padding: 8pt 0;
+    margin-bottom: 12pt;
+    border-bottom: 2pt solid #000;
+    color: #000 !important;
+  }
+
+  body::after {
+    content: "Printed from invictatools.co.uk";
+    display: block;
+    text-align: center;
+    font-size: 9pt;
+    color: #666;
+    padding-top: 12pt;
+    margin-top: 24pt;
+    border-top: 1pt solid #ccc;
+  }
+
+  /* --- PDP layout --- */
+  .inv-pdp__grid {
+    display: block !important;
+  }
+
+  .inv-pdp__left {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .inv-pdp__right {
+    position: static !important;
+    width: 100% !important;
+  }
+
+  /* --- Gallery: show first 2 images only --- */
+  .inv-pdp__gallery-thumbs {
+    display: none !important;
+  }
+
+  .inv-pdp__gallery-main .inv-pdp__gallery-image-wrap {
+    display: none;
+  }
+
+  .inv-pdp__gallery-main .inv-pdp__gallery-image-wrap:first-child,
+  .inv-pdp__gallery-main .inv-pdp__gallery-image-wrap:nth-child(2) {
+    display: block !important;
+  }
+
+  .inv-pdp__gallery-main .inv-pdp__gallery-image-wrap img {
+    max-width: 250px !important;
+    margin: 0 auto 8pt;
+  }
+
+  .inv-pdp__gallery-badge {
+    display: none !important;
+  }
+
+  .inv-pdp__gallery-zoom,
+  [data-zoom-trigger] {
+    display: none !important;
+  }
+
+  .inv-pdp__lightbox {
+    display: none !important;
+  }
+
+  /* --- PDP: Show key info --- */
+  .inv-pdp__title {
+    font-size: 18pt !important;
+    margin-bottom: 4pt;
+  }
+
+  .inv-pdp__sku {
+    display: block !important;
+    font-size: 10pt;
+    color: #333 !important;
+  }
+
+  .inv-pdp__price {
+    font-size: 14pt !important;
+  }
+
+  .inv-pdp__price-line {
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  .inv-pdp__dealer-row {
+    display: block !important;
+  }
+
+  .inv-pdp__key-specs,
+  .inv-pdp__features {
+    display: block !important;
+  }
+
+  .inv-pdp__info {
+    display: block !important;
+    page-break-before: auto;
+  }
+
+  .inv-pdp__info-row--hidden {
+    display: table-row !important;
+  }
+
+  .inv-pdp__info-specs {
+    display: block !important;
+  }
+
+  /* --- PDP: Hide interactive elements --- */
+  .inv-pdp__atc-row,
+  .inv-pdp__form,
+  .inv-pdp__buy-now,
+  .inv-pdp__qty,
+  .inv-pdp__notify,
+  .inv-pdp__trust-strip,
+  .inv-pdp__trust-badges,
+  .inv-pdp__kit-wrapper,
+  .inv-share,
+  .inv-del-est,
+  .inv-pdp__stock-banner,
+  [data-recently-viewed],
+  .recently-viewed,
+  [class*="recently-viewed"],
+  .related-products,
+  [class*="related-product"],
+  .product-recommendations,
+  .shopify-section--product-recommendations,
+  .inv-pdp__breadcrumb-bar {
+    display: none !important;
+  }
+
+  /* --- Tiered pricing table: show for reference --- */
+  .invicta-tiered-pricing {
+    display: block !important;
+    margin: 8pt 0;
+  }
+
+  .invicta-tiered-pricing__table {
+    border-collapse: collapse;
+    width: auto;
+  }
+
+  .invicta-tiered-pricing__row {
+    border-bottom: 0.5pt solid #ccc;
+  }
+
+
+  /* =========================================================================
+     3. CART PAGE
+     ========================================================================= */
+
+  /* --- Cart: clean table layout --- */
+  .cart__contents,
+  .cart__items,
+  cart-items {
+    width: 100% !important;
+    display: block !important;
+  }
+
+  cart-items table,
+  .cart-items {
+    width: 100% !important;
+    border-collapse: collapse;
+  }
+
+  cart-items th,
+  cart-items td {
+    border-bottom: 0.5pt solid #ccc;
+    padding: 4pt 8pt;
+    text-align: left;
+    font-size: 10pt;
+  }
+
+  cart-items th {
+    font-weight: 700;
+    border-bottom: 1pt solid #000;
+  }
+
+  /* --- Cart item: show key details --- */
+  .cart-item__name {
+    font-weight: 600;
+    color: #000 !important;
+  }
+
+  .cart-item__image {
+    max-width: 60px !important;
+    height: auto !important;
+  }
+
+  /* --- Cart: hide interactive controls --- */
+  .quantity-popover-wrapper,
+  .quantity-popover-container,
+  .quantity__button,
+  .quantity-popover__info-button,
+  cart-remove-button,
+  .cart-remove-button,
+  .cart__checkout-button,
+  .cart__dynamic-checkout-buttons,
+  .additional-checkout-buttons,
+  .cart__ctas,
+  .inv-delivery-bar,
+  [data-delivery-bar],
+  .inv-cart-trust,
+  .invicta-cart-breakdown__shipping-progress,
+  .invicta-cart-breakdown__shipping-bar,
+  .invicta-cart-breakdown__free-label {
+    display: none !important;
+  }
+
+  /* --- Cart: show quantity as plain text --- */
+  .quantity__input {
+    border: none !important;
+    background: transparent !important;
+    text-align: center;
+    font-size: 10pt;
+    padding: 0;
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  /* --- Cart: pricing breakdown --- */
+  .invicta-cart-breakdown {
+    display: block !important;
+    margin-top: 12pt;
+    border-top: 1pt solid #000;
+    padding-top: 8pt;
+  }
+
+  .invicta-cart-breakdown__row {
+    display: flex;
+    justify-content: space-between;
+    padding: 2pt 0;
+    font-size: 10pt;
+  }
+
+  .invicta-cart-breakdown__row--total {
+    font-weight: 700;
+    font-size: 12pt;
+    border-top: 1pt solid #000;
+    margin-top: 4pt;
+    padding-top: 4pt;
+  }
+
+  /* --- Cart: show order notes --- */
+  .cart__note {
+    display: block !important;
+    margin-top: 8pt;
+    border: 0.5pt solid #ccc;
+    padding: 4pt;
+  }
+
+  .cart__note textarea,
+  .cart__note .field__input {
+    border: none !important;
+    background: transparent !important;
+    font-size: 10pt;
+    color: #000 !important;
+    width: 100%;
+  }
+
+  /* --- Cart footer --- */
+  .cart__footer {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .inv-cart-checkout-total {
+    font-size: 14pt;
+    font-weight: 700;
+    text-align: right;
+    margin-top: 8pt;
+  }
+
+
+  /* =========================================================================
+     4. COLLECTION PAGE
+     ========================================================================= */
+
+  /* --- Collection: hide filters and controls --- */
+  .inv-toolbar,
+  .inv-sidebar,
+  .inv-sort,
+  .inv-filter-toggle,
+  .inv-pagination,
+  .inv-full-catalogue-banner,
+  .inv-empty__clear-all,
+  .inv-card__action,
+  .inv-card__btn,
+  .inv-card__compare,
+  .inv-card__stock-bar {
+    display: none !important;
+  }
+
+  /* --- Collection: show title and active filters --- */
+  .inv-hero {
+    padding: 0 !important;
+    margin-bottom: 8pt;
+    background: transparent !important;
+  }
+
+  .inv-hero__image-wrap,
+  .inv-hero__overlay {
+    display: none !important;
+  }
+
+  .inv-hero__title {
+    font-size: 16pt !important;
+    color: #000 !important;
+  }
+
+  .inv-hero__count {
+    font-size: 10pt;
+    color: #333 !important;
+  }
+
+  .inv-active-filters {
+    display: block !important;
+    margin-bottom: 8pt;
+  }
+
+  .inv-filter-chip {
+    display: inline-block;
+    border: 0.5pt solid #999;
+    padding: 1pt 4pt;
+    font-size: 9pt;
+    margin: 1pt;
+  }
+
+  /* --- Collection: compact 3-column grid --- */
+  .inv-layout__inner {
+    display: block !important;
+  }
+
+  .inv-product-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8pt !important;
+    padding: 0 !important;
+  }
+
+  /* --- Collection: product card print --- */
+  .inv-card {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    border: 0.5pt solid #ddd;
+    padding: 4pt;
+  }
+
+  .inv-card__media {
+    text-align: center;
+  }
+
+  .inv-card__img {
+    max-width: 120px !important;
+    height: auto !important;
+  }
+
+  .inv-card__title {
+    font-size: 9pt !important;
+    font-weight: 600;
+    margin: 2pt 0;
+  }
+
+  .inv-card__pricing {
+    font-size: 9pt;
+  }
+
+  .inv-card__price {
+    font-weight: 700;
+    color: #000 !important;
+  }
+
+  .inv-card__vat {
+    font-size: 8pt;
+    color: #555 !important;
+  }
+
+  .inv-card__volume-hint {
+    font-size: 8pt;
+    color: #333 !important;
+  }
+
+  .inv-card__sale {
+    display: inline-block;
+    font-size: 8pt;
+    font-weight: 700;
+    border: 0.5pt solid #000;
+    padding: 0 2pt;
+  }
+
+  /* --- Collection: brand pills in hero --- */
+  .inv-hero__brands {
+    display: none !important;
+  }
+
+
+  /* =========================================================================
+     5. ORDER CONFIRMATION
+     ========================================================================= */
+
+  /* --- Order: clean layout --- */
+  .customer .order-details {
+    width: 100% !important;
+    border-collapse: collapse;
+  }
+
+  .customer .order-details th,
+  .customer .order-details td {
+    border-bottom: 0.5pt solid #ccc;
+    padding: 4pt 6pt;
+    text-align: left;
+    font-size: 10pt;
+  }
+
+  .customer .order-details th {
+    font-weight: 700;
+    border-bottom: 1pt solid #000;
+  }
+
+  .customer .order-details tfoot td {
+    font-weight: 600;
+  }
+
+  .customer__title {
+    font-size: 16pt;
+    margin-bottom: 8pt;
+  }
+
+  /* --- Order: addresses --- */
+  .customer .addresses {
+    display: flex;
+    gap: 24pt;
+    margin-top: 12pt;
+  }
+
+  /* --- Order: store contact info --- */
+  .customer::after {
+    content: "Invicta Tools | invictatools.co.uk | For queries, contact us via the website.";
+    display: block;
+    margin-top: 16pt;
+    padding-top: 8pt;
+    border-top: 0.5pt solid #ccc;
+    font-size: 9pt;
+    color: #666;
+    text-align: center;
+  }
+
+
+  /* =========================================================================
+     6. GENERAL PAGES
+     ========================================================================= */
+
+  /* --- Full width content --- */
+  .shopify-section,
+  .page-width,
+  .section-template--*,
+  [class*="page-width"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* --- Clean typography for content pages --- */
+  .rte,
+  .rte p,
+  .rte li {
+    font-size: 11pt;
+    line-height: 1.6;
+    color: #000 !important;
+  }
+
+  .rte h2,
+  .rte h3 {
+    margin-top: 12pt;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .rte img {
+    max-width: 250px !important;
+    margin: 8pt 0;
+  }
+
+  .rte table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .rte table th,
+  .rte table td {
+    border: 0.5pt solid #ccc;
+    padding: 4pt 6pt;
+    font-size: 10pt;
+  }
+
+  /* --- Hide sidebar elements on general pages --- */
+  .sidebar,
+  [class*="sidebar"],
+  aside {
+    display: none !important;
+  }
+}
