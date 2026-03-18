@@ -9,129 +9,19 @@
  */
 {
   "sections": {
-    "hero_split": {
-      "type": "invicta-hero-split",
-      "blocks": {
-        "slide_default": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/PDP_HOMEPAGE_2.png",
-            "heading": "",
-            "subheading": "",
-            "button_text": "SHOP PREMIER DIAMOND",
-            "button_link": "shopify://products/p6-twc-125mm",
-            "button_position_y": 50,
-            "button_position_x": 3
-          }
-        },
-        "promo_card_bAbLAQ": {
-          "type": "promo_card",
-          "settings": {
-            "style": "sale",
-            "custom_bg": "",
-            "custom_title_color": "",
-            "custom_subtitle_color": "",
-            "custom_icon_bg": "",
-            "custom_icon_color": "",
-            "icon": "tag",
-            "callout_text": "UP TO 30% OFF",
-            "title": "Top trade brands, limited time",
-            "text": "",
-            "cta_text": "Shop Deals",
-            "link": "shopify://collections/deals-and-sales",
-            "ribbon_text": "SAVE"
-          }
-        },
-        "promo_card_fDnDtM": {
-          "type": "promo_card",
-          "settings": {
-            "style": "info",
-            "custom_bg": "#282c31",
-            "custom_title_color": "",
-            "custom_subtitle_color": "",
-            "custom_icon_bg": "",
-            "custom_icon_color": "",
-            "icon": "store",
-            "callout_text": "READY IN 1 HOUR",
-            "title": "CLICK & COLLECT ACROSS KENT",
-            "text": "",
-            "cta_text": "Find a Store",
-            "link": "shopify://pages/kent-tools",
-            "ribbon_text": ""
-          }
-        }
-      },
-      "block_order": [
-        "slide_default",
-        "promo_card_bAbLAQ",
-        "promo_card_fDnDtM"
-      ],
-      "settings": {
-        "badge_text": "",
-        "button_font_size": 14,
-        "button_padding_vertical": 14,
-        "button_padding_horizontal": 28,
-        "button_bg_color": "",
-        "button_text_color": "#ffffff",
-        "background_color": "#f5f5f5",
-        "padding_top": 24,
-        "padding_bottom": 24
-      }
-    },
-    "hero_v3": {
+    "invicta_hero_v3_HEkjRd": {
       "type": "invicta-hero-v3",
+      "name": "Hero v3",
       "settings": {
         "eyebrow_text": "Premier Diamond Products",
         "heading": "P6-TWC Triple Disc Wall Chaser Blade",
         "description": "Professional grade diamond blade. Built for continuous use on site. In stock now at Canterbury and Ramsgate with free next-day delivery.",
-        "hero_image": "shopify://shop_images/PDP_HOMEPAGE_2.png",
+        "hero_image": "shopify://shop_images/P6-TWC-Front.png",
         "button_text": "SHOP PREMIER DIAMOND",
-        "button_link": "shopify://products/p6-twc-125mm",
+        "button_link": "",
         "secondary_text": "View All Deals",
-        "secondary_link": "shopify://collections/deals-and-sales",
+        "secondary_link": "",
         "background_color": "#2d2d2d"
-      }
-    },
-    "trust_strip": {
-      "type": "invicta-trust-strip",
-      "blocks": {
-        "usp_1": {
-          "type": "usp",
-          "settings": {
-            "icon": "truck",
-            "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £30"
-          }
-        },
-        "usp_2": {
-          "type": "usp",
-          "settings": {
-            "icon": "shield",
-            "title": "Authorised Dealer",
-            "subtitle": "Full manufacturer warranty"
-          }
-        },
-        "usp_3": {
-          "type": "usp",
-          "settings": {
-            "icon": "location",
-            "title": "Click & Collect",
-            "subtitle": "Ready in 1 hour"
-          }
-        },
-        "usp_4": {
-          "type": "usp",
-          "settings": {
-            "icon": "phone",
-            "title": "Hassle-Free Returns",
-            "subtitle": "30-day returns policy"
-          }
-        }
-      },
-      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
-      "settings": {
-        "padding_top": 0,
-        "padding_bottom": 0
       }
     },
     "promo_banners": {
@@ -241,10 +131,10 @@
         "padding_bottom": 32
       }
     },
-    "invicta_usp_strip_v2_eepGaQ": {
-      "type": "invicta-usp-strip-v2",
+    "invicta_trust_strip_KM6y8M": {
+      "type": "invicta-trust-strip",
       "blocks": {
-        "usp_RPxidp": {
+        "usp_bK7Qtm": {
           "type": "usp",
           "settings": {
             "icon": "truck",
@@ -252,7 +142,7 @@
             "subtitle": "On orders over £30"
           }
         },
-        "usp_nXwwaX": {
+        "usp_HNzLxX": {
           "type": "usp",
           "settings": {
             "icon": "shield",
@@ -260,7 +150,7 @@
             "subtitle": "Full manufacturer warranty"
           }
         },
-        "usp_PC7xiG": {
+        "usp_QTGqd8": {
           "type": "usp",
           "settings": {
             "icon": "location",
@@ -268,7 +158,7 @@
             "subtitle": "Ready in 1 hour"
           }
         },
-        "usp_BR6deT": {
+        "usp_88k7xk": {
           "type": "usp",
           "settings": {
             "icon": "phone",
@@ -278,20 +168,15 @@
         }
       },
       "block_order": [
-        "usp_RPxidp",
-        "usp_nXwwaX",
-        "usp_PC7xiG",
-        "usp_BR6deT"
+        "usp_bK7Qtm",
+        "usp_HNzLxX",
+        "usp_QTGqd8",
+        "usp_88k7xk"
       ],
-      "name": "USP Strip v2",
+      "name": "Trust Strip",
       "settings": {
-        "background_color": "#282c31",
-        "accent_color": "#e11d26",
-        "text_color": "#ffffff",
-        "subtitle_color": "#999999",
-        "divider_color": "#282c31",
         "padding_top": 0,
-        "padding_bottom": 16
+        "padding_bottom": 0
       }
     },
     "product_wall": {
@@ -613,10 +498,10 @@
     }
   },
   "order": [
-    "hero_v3",
-    "trust_strip",
+    "invicta_hero_v3_HEkjRd",
     "promo_banners",
     "quick_cats",
+    "invicta_trust_strip_KM6y8M",
     "product_wall",
     "trust_reviews",
     "recently_viewed",
