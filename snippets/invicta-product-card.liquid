@@ -206,6 +206,19 @@
       
     </div>
     
+    {%- comment -%} Volume pricing hint (best price break) {%- endcomment -%}
+    {%- if current_variant.quantity_price_breaks.size > 0 -%}
+      {%- assign inv_pb_sorted = current_variant.quantity_price_breaks | sort: 'minimum_quantity' | reverse -%}
+      {%- assign inv_best_pb = inv_pb_sorted[0] -%}
+      {%- assign inv_pb_price_ex = inv_best_pb.price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor -%}
+      <div class="inv-card__volume-hint" data-price-inc>
+        Buy {{ inv_best_pb.minimum_quantity }}+ @ {{ inv_best_pb.price | money }} each
+      </div>
+      <div class="inv-card__volume-hint inv-vat--hidden" data-price-ex>
+        Buy {{ inv_best_pb.minimum_quantity }}+ @ {{ inv_pb_price_ex | money }} each
+      </div>
+    {%- endif -%}
+
     {%- comment -%} Action button {%- endcomment -%}
     <div class="inv-card__action">
       {%- if available -%}
