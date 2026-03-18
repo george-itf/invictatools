@@ -1,0 +1,64 @@
+{% comment %}
+  ============================================
+  INVICTA PRODUCT COMPARISON v1.0
+  ============================================
+  Lightweight product comparison for tradespeople.
+  Loads CSS + JS assets for the comparison feature.
+
+  Toggle via section settings:
+  - enable_comparison: Show/hide compare buttons on product cards
+  - max_products: Maximum products to compare (default 4)
+
+  Assets:
+  - assets/invicta-comparison.css
+  - assets/invicta-comparison.js
+  ============================================
+{% endcomment %}
+
+{%- if section.settings.enable_comparison -%}
+  <link rel="stylesheet" href="{{ 'invicta-comparison.css' | asset_url }}" media="print" onload="this.media='all'">
+  <script src="{{ 'invicta-comparison.js' | asset_url }}" defer></script>
+
+  <style>
+    {%- unless section.settings.enable_comparison -%}
+      .inv-card__compare,
+      .inv-compare__badge { display: none !important; }
+    {%- endunless -%}
+  </style>
+{%- else -%}
+  <style>
+    .inv-card__compare { display: none !important; }
+  </style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product Comparison",
+  "tag": "section",
+  "class": "invicta-comparison-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_comparison",
+      "label": "Enable product comparison",
+      "default": true,
+      "info": "Show compare buttons on product cards and enable the comparison drawer"
+    },
+    {
+      "type": "range",
+      "id": "max_products",
+      "label": "Max products to compare",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4,
+      "info": "Maximum number of products that can be compared at once"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Comparison"
+    }
+  ]
+}
+{% endschema %}
