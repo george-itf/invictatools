@@ -205,7 +205,7 @@
 
 /* Delivery urgency styling */
 .inv-del-est--urgent {
-  background: linear-gradient(135deg, var(--inv-error-bg), #fff);
+  background: linear-gradient(135deg, var(--inv-error-bg), var(--inv-white));
   border: 1px solid var(--inv-error-border);
   border-radius: 8px;
   padding: 12px 16px;
@@ -469,7 +469,7 @@ button:focus-visible,
   position: fixed;
   bottom: 24px;
   left: 24px;
-  z-index: 999;
+  z-index: var(--inv-z-header);
   max-width: 340px;
   background: var(--inv-white);
   border: 1px solid var(--inv-border);

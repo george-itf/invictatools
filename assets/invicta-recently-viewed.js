@@ -6,6 +6,12 @@ const DEBUG = false;
 (function() {
   'use strict';
 
+  function fetchWithTimeout(url, timeoutMs) {
+    var controller = new AbortController();
+    var id = setTimeout(function() { controller.abort(); }, timeoutMs || 8000);
+    return fetch(url, { signal: controller.signal }).finally(function() { clearTimeout(id); });
+  }
+
   class InvictaRecentlyViewed {
     constructor(config) {
       this.storageKey = 'invicta_recently_viewed_v3';
@@ -92,7 +98,7 @@ const DEBUG = false;
 
       const fetchPromises = handles.slice(0, this.maxProducts).map(async (handle) => {
         try {
-          const response = await fetch(`/products/${handle}.json`);
+          const response = await fetchWithTimeout(`/products/${handle}.json`, 8000);
           if (!response.ok) return null;
           const data = await response.json();
           return data.product;

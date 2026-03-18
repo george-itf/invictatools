@@ -238,6 +238,10 @@
     {%- endif -%}
 
     {%- comment -%} Action button {%- endcomment -%}
+    {%- assign default_qty = 1 -%}
+    {%- if current_variant.quantity_rule.min > 1 -%}
+      {%- assign default_qty = current_variant.quantity_rule.min -%}
+    {%- endif -%}
     <div class="inv-card__action">
       {%- if available -%}
         {%- if has_multiple_variants -%}
@@ -260,7 +264,7 @@
             class="inv-card__btn inv-card__btn--add"
             data-add-to-cart
             data-variant-id="{{ current_variant.id }}"
-            data-quantity="1"
+            data-quantity="{{ default_qty }}"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <circle cx="9" cy="21" r="1"/>

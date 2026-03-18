@@ -526,6 +526,9 @@
       };
     </script>
 
+    <!-- VAT utilities (must load before other Invicta scripts) -->
+    <script src="{{ 'invicta-vat-utils.js' | asset_url }}" defer></script>
+
     <!-- Shared Cart API (must load before cart handler, quick-add, PDP) -->
     <script src="{{ 'invicta-cart-api.js' | asset_url }}" defer></script>
 

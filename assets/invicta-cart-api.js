@@ -18,6 +18,13 @@
 (function() {
   'use strict';
 
+  function fetchWithTimeout(url, options, timeoutMs) {
+    var controller = new AbortController();
+    var id = setTimeout(function() { controller.abort(); }, timeoutMs || 10000);
+    var opts = Object.assign({}, options, { signal: controller.signal });
+    return fetch(url, opts).finally(function() { clearTimeout(id); });
+  }
+
   /** @type {Set<string>} Variant IDs currently in-flight */
   var _inFlight = new Set();
 
@@ -80,7 +87,7 @@
       };
     }
 
-    return fetch(cartAddUrl, fetchOptions)
+    return fetchWithTimeout(cartAddUrl, fetchOptions, 10000)
       .then(function(response) {
         if (!response.ok) {
           return response.json().then(function(err) { throw err; });
@@ -102,6 +109,14 @@
 
         return data;
       })
+      .catch(function(err) {
+        if (err && err.name === 'AbortError') {
+          document.dispatchEvent(new CustomEvent('invicta:cart:error', {
+            detail: { message: 'Request timed out. Please try again.' }
+          }));
+        }
+        throw err;
+      })
       .finally(function() {
         _inFlight.delete(dedupKey);
       });
@@ -114,9 +129,9 @@
   function updateCartCount() {
     var cartUrl = ((window.routes && window.routes.cart_url) || '/cart') + '.js';
 
-    return fetch(cartUrl, {
+    return fetchWithTimeout(cartUrl, {
       headers: { 'Accept': 'application/json' }
-    })
+    }, 10000)
     .then(function(response) {
       if (!response.ok) return;
       return response.json();

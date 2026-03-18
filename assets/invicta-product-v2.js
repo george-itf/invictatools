@@ -570,9 +570,8 @@
       /* Update sticky price display */
       var stickyPrice = document.querySelector('[data-sticky-price]');
       if (stickyPrice) {
-        var vatRate = parseInt(section.dataset.vatRate, 10) || 20;
-        var vatDivisor = 100 + vatRate;
-        var stickyExVat = Math.round(matchingVariant.price * 100 / vatDivisor);
+        var vat = window.invictaVat || { exFromInc: function(p) { return Math.round(p * 100 / 120); } };
+        var stickyExVat = vat.exFromInc(matchingVariant.price);
         stickyPrice.innerHTML = formatMoney(stickyExVat) + ' <span class="inv-pdp__sticky-atc-vat">ex VAT</span>';
       }
 
@@ -591,9 +590,8 @@
       const savingsWrap = priceWrapper.querySelector('[data-savings-wrap]');
       const savingsEl = priceWrapper.querySelector('[data-savings]');
 
-      const vatRate = parseInt(section.dataset.vatRate, 10) || 20;
-      const vatDivisor = 100 + vatRate;
-      const exVat = Math.round(variant.price * 100 / vatDivisor);
+      const vat = window.invictaVat || { exFromInc: function(p) { return Math.round(p * 100 / 120); } };
+      const exVat = vat.exFromInc(variant.price);
 
       if (priceIncEl) priceIncEl.textContent = formatMoney(variant.price);
       if (priceExEl) priceExEl.textContent = formatMoney(exVat);
@@ -611,7 +609,7 @@
 
       if (compareEx) {
         if (hasCompare) {
-          const compareExVat = Math.round(variant.compare_at_price * 100 / vatDivisor);
+          const compareExVat = vat.exFromInc(variant.compare_at_price);
           compareEx.textContent = formatMoney(compareExVat);
           compareEx.style.display = '';
         } else {
