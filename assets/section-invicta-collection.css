@@ -9,12 +9,12 @@
    ============================================================================ */
 
 .inv-collection {
-  --inv-c-bg: #fff;
+  --inv-c-bg: var(--inv-white);
   --inv-c-surface: #f5f5f5;
   --inv-c-border: #e5e5e5;
-  --inv-c-text: #1a1a1a;
+  --inv-c-text: var(--inv-fg-near-black);
   --inv-c-muted: #666;
-  --inv-c-accent: var(--inv-accent, #e11d26);
+  --inv-c-accent: var(--inv-accent, var(--inv-accent));
   --inv-c-dark: var(--inv-fg, #f5f5f5);
   --inv-c-radius: 8px;
   --inv-c-transition: 0.15s ease;
@@ -27,7 +27,7 @@
 .inv-hero {
   position: relative;
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-  color: #fff;
+  color: var(--inv-white);
   padding: 32px 0 28px;
   overflow: hidden;
 }
@@ -105,7 +105,7 @@
 }
 
 .inv-hero__breadcrumb a:hover {
-  color: #fff;
+  color: var(--inv-white);
 }
 
 .inv-hero__breadcrumb [aria-current] {
@@ -124,7 +124,7 @@
 .inv-hero__title {
   font-size: clamp(1.75rem, 5vw, 2.5rem);
   font-weight: 800;
-  color: #ffffff;
+  color: var(--inv-white);
   font-size: 30px;
   margin: 0;
   line-height: 1.15;
@@ -139,7 +139,7 @@
   width: 48px;
   height: 3px;
   margin-top: 10px;
-  background: var(--inv-c-accent, #e11d26);
+  background: var(--inv-c-accent, var(--inv-accent));
   border-radius: 2px;
 }
 
@@ -221,14 +221,14 @@
 .inv-brand-pill:hover {
   background: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.3);
-  color: #fff;
+  color: var(--inv-white);
   transform: translateY(-1px);
 }
 
 .inv-brand-pill.is-active {
   background: var(--inv-c-accent);
   border-color: var(--inv-c-accent);
-  color: #fff;
+  color: var(--inv-white);
   box-shadow: 0 2px 8px rgba(225, 29, 38, 0.3);
 }
 
@@ -321,7 +321,7 @@
    ============================================================================ */
 
 .inv-toolbar {
-  background: #fff;
+  background: var(--inv-bg-elevated);
   border-bottom: 1px solid var(--inv-c-border);
   padding: 0;
   position: sticky;
@@ -367,7 +367,7 @@
   font-size: 13px;
   font-weight: 600;
   color: var(--inv-c-text);
-  background: #fff;
+  background: var(--inv-bg-elevated);
   border: 1px solid var(--inv-c-border);
   border-radius: 6px;
   cursor: pointer;
@@ -395,7 +395,7 @@
   padding: 0 5px;
   font-size: 10px;
   font-weight: 700;
-  color: #fff;
+  color: var(--inv-white);
   background: var(--inv-c-accent);
   border-radius: 999px;
 }
@@ -427,7 +427,7 @@
   font-weight: 600;
   font-family: inherit;
   color: var(--inv-c-text);
-  background: #fff;
+  background: var(--inv-bg-elevated);
   border: 1px solid var(--inv-c-border);
   border-radius: 6px;
   cursor: pointer;
@@ -473,7 +473,7 @@
   min-height: 36px;
   font-size: 12px;
   font-weight: 600;
-  color: #fff;
+  color: var(--inv-white);
   background: var(--inv-c-accent);
   border-radius: 6px;
   text-decoration: none;
@@ -507,7 +507,7 @@
 
 .inv-clear-all:hover {
   background: var(--inv-c-accent);
-  color: #fff;
+  color: var(--inv-white);
 }
 
 /* ============================================================================
@@ -533,7 +533,7 @@
 .inv-sidebar {
   position: sticky;
   top: 60px;
-  background: #fff;
+  background: var(--inv-bg-elevated);
   border: 1px solid var(--inv-c-border);
   border-radius: var(--inv-c-radius);
   overflow: hidden;
@@ -575,7 +575,7 @@
   font-size: 13px;
   font-weight: 700;
   font-family: inherit;
-  color: #fff;
+  color: var(--inv-white);
   background: var(--inv-c-accent);
   border: none;
   border-radius: 6px;
@@ -685,7 +685,7 @@
   flex-shrink: 0;
   border: 2px solid #d0d0d0;
   border-radius: 3px;
-  background: #fff;
+  background: var(--inv-bg-elevated);
   cursor: pointer;
   transition: border-color var(--inv-c-transition), background var(--inv-c-transition);
   position: relative;
@@ -707,7 +707,7 @@
   top: 1px;
   width: 5px;
   height: 10px;
-  border: solid #fff;
+  border: solid var(--inv-white);
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
@@ -738,7 +738,7 @@
   display: flex;
   align-items: center;
   flex: 1;
-  background: #fff;
+  background: var(--inv-bg-elevated);
   border: 1px solid var(--inv-c-border);
   border-radius: 6px;
   overflow: hidden;
@@ -822,7 +822,7 @@
   font-size: 14px;
   font-weight: 600;
   color: var(--inv-c-text);
-  background: #fff;
+  background: var(--inv-bg-elevated);
   border: 1px solid var(--inv-c-border);
   border-radius: 6px;
   text-decoration: none;
@@ -837,7 +837,7 @@
 .inv-pagination__item--current {
   background: var(--inv-c-accent);
   border-color: var(--inv-c-accent);
-  color: #fff;
+  color: var(--inv-white);
   font-weight: 700;
 }
 
@@ -906,7 +906,7 @@
   padding: 12px 24px;
   font-size: 14px;
   font-weight: 700;
-  color: #fff;
+  color: var(--inv-white);
   background: var(--inv-c-dark);
   border-radius: 6px;
   text-decoration: none;
@@ -950,7 +950,7 @@ body.inv-drawer-open {
   left: 0;
   right: 0;
   z-index: var(--inv-z-overlay);
-  background: #fff;
+  background: var(--inv-bg-elevated);
   border-radius: 16px 16px 0 0;
   max-height: 85vh;
   display: none;
@@ -1047,7 +1047,7 @@ body.inv-drawer-open {
   padding: 16px 20px;
   padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
   border-top: 1px solid var(--inv-c-border);
-  background: #fff;
+  background: var(--inv-bg-elevated);
   flex-shrink: 0;
   position: sticky;
   bottom: 0;
@@ -1080,7 +1080,7 @@ body.inv-drawer-open {
   font-size: 14px;
   font-weight: 700;
   font-family: inherit;
-  color: #fff;
+  color: var(--inv-white);
   background: var(--inv-c-accent);
   border: none;
   border-radius: 8px;
@@ -1110,7 +1110,7 @@ body.inv-drawer-open {
   font-size: 14px;
   font-weight: 700;
   font-family: inherit;
-  color: #fff;
+  color: var(--inv-white);
   background: var(--inv-c-dark);
   border: none;
   border-radius: 999px;
@@ -1135,7 +1135,7 @@ body.inv-drawer-open {
   padding: 0 5px;
   font-size: 10px;
   font-weight: 700;
-  color: #fff;
+  color: var(--inv-white);
   background: var(--inv-c-accent);
   border-radius: 999px;
 }
@@ -1159,7 +1159,7 @@ body.inv-drawer-open {
   font-size: 10px;
   font-weight: 700;
   font-family: inherit;
-  color: #fff;
+  color: var(--inv-white);
   background: var(--inv-c-dark);
   border: none;
   border-radius: 10px;
