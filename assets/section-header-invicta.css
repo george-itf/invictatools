@@ -15,14 +15,14 @@
   margin: 0;
   padding: 0;
   position: relative;
-  z-index: 1000;
+  z-index: var(--inv-z-overlay);
   overflow: visible;
 }
 
 .invicta-header {
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: var(--inv-z-header);
   width: 100%;
   background: var(--inv-header-bg, #e11d26);
   border-bottom: none;
@@ -116,7 +116,7 @@
   width: 100%;
   height: 100dvh;
   height: 100%;
-  z-index: 10000 !important;
+  z-index: var(--inv-z-modal) !important;
   pointer-events: none;
   visibility: hidden;
 }
@@ -471,7 +471,7 @@
   min-width: 0;
   max-width: 700px;
   position: relative;
-  z-index: 9999999;
+  z-index: var(--inv-z-search-active);
 }
 
 .invicta-header__search .predictive-search,
@@ -480,7 +480,7 @@
 .invicta-header__search .inv-search-wrapper {
   width: 100%;
   position: relative;
-  z-index: 9999999;
+  z-index: var(--inv-z-search-active);
 }
 
 /* =======================================================
