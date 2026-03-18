@@ -15,12 +15,14 @@
         "eyebrow_text": "Premier Diamond Products",
         "heading": "P6-TWC Triple Disc Wall Chaser Blade",
         "description": "Professional grade diamond blade. Built for continuous use on site. In stock now at Canterbury and Ramsgate with free next-day delivery.",
-        "hero_image": "shopify://shop_images/PDP_HOMEPAGE_2.png",
+        "hero_image": "shopify://shop_images/P6-TWC-Front.png",
         "button_text": "SHOP PREMIER DIAMOND",
         "button_link": "shopify://products/p6-twc-125mm",
         "secondary_text": "View All Deals",
         "secondary_link": "shopify://collections/deals-and-sales",
-        "background_color": "#2d2d2d"
+        "background_color": "#2d2d2d",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "trust_strip": {
