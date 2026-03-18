@@ -98,10 +98,18 @@
   }
 
   .inv-usp2 {
-    background: var(--inv-usp2-bg);
+    background: transparent;
     padding-top: max({{ section.settings.padding_top }}px, 10px);
     padding-bottom: max({{ section.settings.padding_bottom }}px, 10px);
     contain: layout style;
+  }
+
+  #usp-{{ section.id }} .inv-container {
+    background: var(--inv-usp2-bg);
+    max-width: var(--inv-container, 1400px);
+    margin: 0 auto;
+    padding-left: var(--inv-gutter, 24px);
+    padding-right: var(--inv-gutter, 24px);
   }
 
   .inv-usp2__list {
