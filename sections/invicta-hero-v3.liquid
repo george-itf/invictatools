@@ -1,9 +1,16 @@
 {% comment %}
   ============================================================================
-  INVICTA HERO v3.0 — Full-bleed dark hero with text + product visual
+  INVICTA HERO v3.1 — Full-bleed dark hero with text + product image
   ============================================================================
-  Two-column hero: text content left, product image right with radial glow.
+  Two-column hero: text content left, clean product image right.
   Red eyebrow tag, condensed uppercase title, dual CTAs.
+  NO gradients, NO glows, NO overlays.
+
+  Updates in v3.1:
+  - Removed radial glow behind product image
+  - Removed box-shadow glow on CTA hover
+  - Added padding_top / padding_bottom settings
+  - Clean image rendering with no overlays
 
   Trade 15.4.0 Compatible
   Usage: Add via theme editor or templates/index.json
@@ -19,7 +26,7 @@
   id="hero-v3-{{ section.id }}"
   aria-label="{{ section.settings.heading | escape }}"
 >
-  <div class="inv-hero-v3__container">
+  <div class="inv-hero-v3__container{% if section.settings.hero_image == blank %} inv-hero-v3__container--full{% endif %}">
     {%- comment -%} LEFT COLUMN: Text content {%- endcomment -%}
     <div class="inv-hero-v3__content">
       {%- if section.settings.eyebrow_text != blank -%}
@@ -55,10 +62,9 @@
       </div>
     </div>
 
-    {%- comment -%} RIGHT COLUMN: Product visual {%- endcomment -%}
+    {%- comment -%} RIGHT COLUMN: Product image (clean, no overlay) {%- endcomment -%}
     {%- if section.settings.hero_image != blank -%}
       <div class="inv-hero-v3__visual">
-        <div class="inv-hero-v3__glow"></div>
         <img
           src="{{ section.settings.hero_image | image_url: width: 680 }}"
           srcset="{{ section.settings.hero_image | image_url: width: 340 }} 340w,
@@ -79,11 +85,14 @@
 
 <style>
   /* ============================================================================
-     INVICTA HERO v3.0 — Full-bleed dark hero
+     INVICTA HERO v3.1 — Full-bleed dark hero
+     NO gradients, NO glows, NO overlays
      ============================================================================ */
 
   #hero-v3-{{ section.id }} {
     background: {{ section.settings.background_color | default: '#2d2d2d' }};
+    padding-top: {{ section.settings.padding_top | default: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px;
   }
 
   #hero-v3-{{ section.id }} .inv-hero-v3__container {
@@ -92,8 +101,13 @@
     padding: 0 var(--inv-space-xl);
     display: grid;
     grid-template-columns: 1fr;
-    min-height: 300px;
+    min-height: 380px;
     align-items: center;
+  }
+
+  /* When no image: content takes full width */
+  #hero-v3-{{ section.id }} .inv-hero-v3__container--full .inv-hero-v3__content {
+    grid-column: 1 / -1;
   }
 
   /* --- Left column: content --- */
@@ -114,7 +128,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-    padding: 5px 12px;
+    padding: 5px 14px;
     margin-bottom: var(--inv-space-md);
     line-height: 1.3;
   }
@@ -122,11 +136,11 @@
   /* Heading */
   #hero-v3-{{ section.id }} .inv-hero-v3__heading {
     font-family: 'Barlow Condensed', Impact, 'Arial Narrow', sans-serif;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 800;
     text-transform: uppercase;
     color: var(--inv-bg-elevated);
-    line-height: 1.02;
+    line-height: 1.05;
     margin: 0 0 var(--inv-space-md) 0;
   }
 
@@ -135,7 +149,7 @@
     font-size: 15px;
     color: rgba(255, 255, 255, 0.6);
     line-height: 1.55;
-    max-width: 420px;
+    max-width: 400px;
     margin: 0 0 var(--inv-space-lg) 0;
   }
 
@@ -143,7 +157,7 @@
   #hero-v3-{{ section.id }} .inv-hero-v3__ctas {
     display: flex;
     flex-direction: column;
-    gap: var(--inv-space-sm-plus);
+    gap: var(--inv-space-sm);
     align-items: flex-start;
   }
 
@@ -158,14 +172,13 @@
     text-decoration: none;
     padding: 13px 28px;
     transition: background var(--inv-duration-normal) ease,
-                border-color var(--inv-duration-normal) ease,
-                box-shadow var(--inv-duration-normal) ease;
+                border-color var(--inv-duration-normal) ease;
     min-height: var(--inv-touch-target-min);
   }
 
   #hero-v3-{{ section.id }} .inv-hero-v3__btn:focus-visible {
-    outline: var(--inv-focus-ring-width) solid var(--inv-accent);
-    outline-offset: var(--inv-focus-ring-offset);
+    outline: 2px solid var(--inv-accent);
+    outline-offset: 2px;
   }
 
   /* Primary CTA */
@@ -177,7 +190,6 @@
 
   #hero-v3-{{ section.id }} .inv-hero-v3__btn--primary:hover {
     background: var(--inv-accent-hover);
-    box-shadow: 0 0 20px var(--inv-accent-glow);
   }
 
   /* Secondary CTA */
@@ -194,30 +206,25 @@
   /* --- Right column: visual --- */
   #hero-v3-{{ section.id }} .inv-hero-v3__visual {
     display: none;
-    position: relative;
     align-items: center;
     justify-content: center;
   }
 
-  #hero-v3-{{ section.id }} .inv-hero-v3__glow {
-    position: absolute;
-    width: 380px;
-    height: 380px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(225, 29, 38, 0.12) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
   #hero-v3-{{ section.id }} .inv-hero-v3__image {
-    position: relative;
-    z-index: 1;
     max-width: 340px;
+    max-height: 340px;
     width: 100%;
     height: auto;
     object-fit: contain;
+  }
+
+  /* ----------------------------------------
+     MOBILE (<750px)
+     ---------------------------------------- */
+  @media (max-width: 749px) {
+    #hero-v3-{{ section.id }} .inv-hero-v3__container {
+      padding: 0 var(--inv-space-md);
+    }
   }
 
   /* ----------------------------------------
@@ -225,11 +232,12 @@
      ---------------------------------------- */
   @media (min-width: 750px) {
     #hero-v3-{{ section.id }} .inv-hero-v3__heading {
-      font-size: 36px;
+      font-size: 34px;
     }
 
     #hero-v3-{{ section.id }} .inv-hero-v3__ctas {
       flex-direction: row;
+      gap: var(--inv-space-sm-plus);
     }
   }
 
@@ -239,7 +247,6 @@
   @media (min-width: 990px) {
     #hero-v3-{{ section.id }} .inv-hero-v3__container {
       grid-template-columns: 1fr 1fr;
-      min-height: 400px;
     }
 
     #hero-v3-{{ section.id }} .inv-hero-v3__content {
@@ -247,7 +254,7 @@
     }
 
     #hero-v3-{{ section.id }} .inv-hero-v3__heading {
-      font-size: 46px;
+      font-size: 44px;
     }
 
     #hero-v3-{{ section.id }} .inv-hero-v3__visual {
@@ -339,6 +346,26 @@
       "id": "background_color",
       "label": "Background colour",
       "default": "#2d2d2d"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 0
     }
   ],
   "presets": [

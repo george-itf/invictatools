@@ -1,20 +1,19 @@
 {% comment %}
   ============================================
-  INVICTA PROMO BANNERS v9.0 (Dark gradient cards with overlay text)
+  INVICTA PROMO BANNERS v10.0 (Clean image cards with text footer)
   ============================================
-  Two dark gradient cards with text overlay, tag badges,
-  and optional background images.
+  Two dark cards: clean banner image on top, text footer below.
+  NO gradients, NO overlays, NO text on images.
 
-  Updates in v9.0:
-  - Dark gradient card backgrounds (configurable)
-  - Text overlay: tag badge, title, subtitle
-  - Background images as card backgrounds with gradient overlay
-  - Barlow Condensed heading font
+  Updates in v10.0:
+  - Removed gradient backgrounds
+  - Removed ::after overlay on images
+  - Text now sits BELOW the image in a dark footer area
+  - Tag badge, title, subtitle in footer
 
   Supports:
-  • Banner images via image_picker (now used as card backgrounds)
+  • Banner images via image_picker (rendered clean)
   • Date-windowed visibility per banner
-  • Configurable gradient colours
   • Fully responsive (stacks on mobile)
 
   Trade 15.4.0 Compatible
@@ -58,31 +57,33 @@
 -%}
 
 {%- if show_banner_1 or show_banner_2 -%}
-<section class="inv-promos" id="promos-{{ section.id }}">
+<section class="inv-promos" id="promos-{{ section.id }}" aria-label="Promotional banners">
   <div class="inv-promos__container">
     <div class="inv-promos__grid{% unless show_banner_1 and show_banner_2 %} inv-promos__grid--single{% endunless %}">
 
       {%- if show_banner_1 -%}
       <a
         href="{{ section.settings.banner_1_link | default: '/collections/all' }}"
-        class="inv-promos__card inv-promos__card--1"
+        class="inv-promos__card"
         aria-label="{{ section.settings.banner_1_tag | escape }} — {{ section.settings.banner_1_title | escape }}"
       >
         {%- if section.settings.banner_1_image -%}
-          <img
-            src="{{ section.settings.banner_1_image | image_url: width: 800 }}"
-            srcset="{{ section.settings.banner_1_image | image_url: width: 400 }} 400w,
-                    {{ section.settings.banner_1_image | image_url: width: 600 }} 600w,
-                    {{ section.settings.banner_1_image | image_url: width: 800 }} 800w"
-            sizes="(max-width: 749px) 100vw, 50vw"
-            alt="{{ section.settings.banner_1_image.alt | escape }}"
-            loading="lazy"
-            width="{{ section.settings.banner_1_image.width }}"
-            height="{{ section.settings.banner_1_image.height }}"
-            class="inv-promos__bg"
-          >
+          <div class="inv-promos__image-area">
+            <img
+              src="{{ section.settings.banner_1_image | image_url: width: 800 }}"
+              srcset="{{ section.settings.banner_1_image | image_url: width: 400 }} 400w,
+                      {{ section.settings.banner_1_image | image_url: width: 600 }} 600w,
+                      {{ section.settings.banner_1_image | image_url: width: 800 }} 800w"
+              sizes="(max-width: 749px) 100vw, 50vw"
+              alt="{{ section.settings.banner_1_image.alt | escape }}"
+              loading="lazy"
+              width="{{ section.settings.banner_1_image.width }}"
+              height="{{ section.settings.banner_1_image.height }}"
+              class="inv-promos__img"
+            >
+          </div>
         {%- endif -%}
-        <div class="inv-promos__content">
+        <div class="inv-promos__footer">
           {%- if section.settings.banner_1_tag != blank -%}
             <span class="inv-promos__tag">{{ section.settings.banner_1_tag }}</span>
           {%- endif -%}
@@ -99,24 +100,26 @@
       {%- if show_banner_2 -%}
       <a
         href="{{ section.settings.banner_2_link | default: '/collections/all' }}"
-        class="inv-promos__card inv-promos__card--2"
+        class="inv-promos__card"
         aria-label="{{ section.settings.banner_2_tag | escape }} — {{ section.settings.banner_2_title | escape }}"
       >
         {%- if section.settings.banner_2_image -%}
-          <img
-            src="{{ section.settings.banner_2_image | image_url: width: 800 }}"
-            srcset="{{ section.settings.banner_2_image | image_url: width: 400 }} 400w,
-                    {{ section.settings.banner_2_image | image_url: width: 600 }} 600w,
-                    {{ section.settings.banner_2_image | image_url: width: 800 }} 800w"
-            sizes="(max-width: 749px) 100vw, 50vw"
-            alt="{{ section.settings.banner_2_image.alt | escape }}"
-            loading="lazy"
-            width="{{ section.settings.banner_2_image.width }}"
-            height="{{ section.settings.banner_2_image.height }}"
-            class="inv-promos__bg"
-          >
+          <div class="inv-promos__image-area">
+            <img
+              src="{{ section.settings.banner_2_image | image_url: width: 800 }}"
+              srcset="{{ section.settings.banner_2_image | image_url: width: 400 }} 400w,
+                      {{ section.settings.banner_2_image | image_url: width: 600 }} 600w,
+                      {{ section.settings.banner_2_image | image_url: width: 800 }} 800w"
+              sizes="(max-width: 749px) 100vw, 50vw"
+              alt="{{ section.settings.banner_2_image.alt | escape }}"
+              loading="lazy"
+              width="{{ section.settings.banner_2_image.width }}"
+              height="{{ section.settings.banner_2_image.height }}"
+              class="inv-promos__img"
+            >
+          </div>
         {%- endif -%}
-        <div class="inv-promos__content">
+        <div class="inv-promos__footer">
           {%- if section.settings.banner_2_tag != blank -%}
             <span class="inv-promos__tag">{{ section.settings.banner_2_tag }}</span>
           {%- endif -%}
@@ -137,8 +140,9 @@
 
 <style>
   /* ============================================
-     INVICTA PROMO BANNERS v9.0
-     Dark gradient cards with overlay text
+     INVICTA PROMO BANNERS v10.0
+     Clean image cards with text footer
+     NO gradients, NO overlays
      ============================================ */
 
   #promos-{{ section.id }} {
@@ -165,57 +169,43 @@
   /* --- Card --- */
   #promos-{{ section.id }} .inv-promos__card {
     display: flex;
-    align-items: flex-end;
-    position: relative;
+    flex-direction: column;
+    background: var(--inv-dark);
     overflow: hidden;
-    height: 200px;
-    padding: var(--inv-space-lg);
     text-decoration: none;
-    transition: transform var(--inv-duration-moderate) ease;
+    transition: transform var(--inv-duration-moderate) ease,
+                box-shadow var(--inv-duration-moderate) ease;
   }
 
-  /* Gradient backgrounds */
-  #promos-{{ section.id }} .inv-promos__card--1 {
-    background: linear-gradient(135deg, {{ section.settings.banner_1_gradient_start | default: '#1a1a2e' }}, {{ section.settings.banner_1_gradient_end | default: '#2d2d2d' }});
+  #promos-{{ section.id }} .inv-promos__card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--inv-shadow-md);
   }
 
-  #promos-{{ section.id }} .inv-promos__card--2 {
-    background: linear-gradient(135deg, {{ section.settings.banner_2_gradient_start | default: '#004d40' }}, {{ section.settings.banner_2_gradient_end | default: '#00695c' }});
+  #promos-{{ section.id }} .inv-promos__card:focus-visible {
+    outline: 2px solid var(--inv-accent);
+    outline-offset: 2px;
   }
 
-  /* Background image */
-  #promos-{{ section.id }} .inv-promos__bg {
-    position: absolute;
-    inset: 0;
+  /* --- Image area (clean, no overlay) --- */
+  #promos-{{ section.id }} .inv-promos__image-area {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--inv-dark);
+  }
+
+  #promos-{{ section.id }} .inv-promos__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
 
-  /* Gradient overlay on top of image */
-  #promos-{{ section.id }} .inv-promos__card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  #promos-{{ section.id }} .inv-promos__card:hover {
-    transform: scale(1.005);
-  }
-
-  #promos-{{ section.id }} .inv-promos__card:focus-visible {
-    outline: var(--inv-focus-ring-width) solid var(--inv-accent);
-    outline-offset: var(--inv-focus-ring-offset);
-  }
-
-  /* --- Content overlay --- */
-  #promos-{{ section.id }} .inv-promos__content {
-    position: relative;
-    z-index: 2;
+  /* --- Text footer (below the image) --- */
+  #promos-{{ section.id }} .inv-promos__footer {
+    background: var(--inv-dark);
+    padding: var(--inv-space-md) 20px;
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -230,14 +220,14 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    padding: 3px 8px;
+    padding: 3px 10px;
     margin-bottom: 4px;
     line-height: 1.3;
   }
 
   #promos-{{ section.id }} .inv-promos__title {
     font-family: 'Barlow Condensed', Impact, 'Arial Narrow', sans-serif;
-    font-size: 26px;
+    font-size: 18px;
     font-weight: 800;
     text-transform: uppercase;
     color: var(--inv-bg-elevated);
@@ -246,7 +236,7 @@
 
   #promos-{{ section.id }} .inv-promos__subtitle {
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.6);
     line-height: 1.4;
   }
 
@@ -260,10 +250,6 @@
   @media (max-width: 749px) {
     #promos-{{ section.id }} .inv-promos__container {
       padding: var(--inv-space-md) var(--inv-space-md) var(--inv-space-sm-plus);
-    }
-
-    #promos-{{ section.id }} .inv-promos__card {
-      padding: var(--inv-space-md);
     }
   }
 
@@ -320,7 +306,7 @@
       "type": "image_picker",
       "id": "banner_1_image",
       "label": "Banner image",
-      "info": "Used as the card background. The gradient overlay sits on top."
+      "info": "Displayed clean with no overlay. Text appears below."
     },
     {
       "type": "url",
@@ -346,18 +332,6 @@
       "default": "Premium gas nailer consumables"
     },
     {
-      "type": "color",
-      "id": "banner_1_gradient_start",
-      "label": "Gradient start",
-      "default": "#1a1a2e"
-    },
-    {
-      "type": "color",
-      "id": "banner_1_gradient_end",
-      "label": "Gradient end",
-      "default": "#2d2d2d"
-    },
-    {
       "type": "text",
       "id": "banner_1_start",
       "label": "Start date (YYYY-MM-DD)",
@@ -377,7 +351,7 @@
       "type": "image_picker",
       "id": "banner_2_image",
       "label": "Banner image",
-      "info": "Used as the card background. The gradient overlay sits on top."
+      "info": "Displayed clean with no overlay. Text appears below."
     },
     {
       "type": "url",
@@ -401,18 +375,6 @@
       "id": "banner_2_subtitle",
       "label": "Subtitle",
       "default": "Cordless, GPS-guided lawn care"
-    },
-    {
-      "type": "color",
-      "id": "banner_2_gradient_start",
-      "label": "Gradient start",
-      "default": "#004d40"
-    },
-    {
-      "type": "color",
-      "id": "banner_2_gradient_end",
-      "label": "Gradient end",
-      "default": "#00695c"
     },
     {
       "type": "text",

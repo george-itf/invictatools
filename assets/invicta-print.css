@@ -678,9 +678,8 @@
      7. HOMEPAGE — HERO v3
      ========================================================================= */
 
-  /* Hide the visual column (radial glow + product image) */
-  .inv-hero-v3__visual,
-  .inv-hero-v3__glow {
+  /* Hide the visual column (product image) */
+  .inv-hero-v3__visual {
     display: none !important;
   }
 
@@ -769,22 +768,21 @@
 
 
   /* =========================================================================
-     9. HOMEPAGE — PROMO BANNERS (v9.0 gradient cards)
+     9. HOMEPAGE — PROMO BANNERS (v10.0 clean image cards)
      ========================================================================= */
 
   .inv-promos__card {
     background: transparent !important;
-    height: auto !important;
-    padding: 4pt 0 !important;
     border-bottom: 0.5pt solid #ccc;
   }
 
-  .inv-promos__card::after {
+  .inv-promos__image-area {
     display: none !important;
   }
 
-  .inv-promos__bg {
-    display: none !important;
+  .inv-promos__footer {
+    background: transparent !important;
+    padding: 4pt 0 !important;
   }
 
   .inv-promos__tag {
