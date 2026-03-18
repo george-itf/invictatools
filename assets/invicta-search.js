@@ -680,6 +680,16 @@
       titleP.appendChild(this._highlightText(title, query));
       info.appendChild(titleP);
 
+      /* SKU line — helps tradespeople verify the right product */
+      const variants = product.variants || [];
+      const sku = variants.length > 0 ? (variants[0].sku || '') : '';
+      if (sku) {
+        const skuP = document.createElement('p');
+        skuP.className = 'inv-search-results__sku';
+        skuP.textContent = 'SKU: ' + sku;
+        info.appendChild(skuP);
+      }
+
       if (showPrice) {
         const meta = document.createElement('div');
         meta.className = 'inv-search-results__meta';
@@ -737,21 +747,36 @@
       svg.appendChild(strike);
       emptyDiv.appendChild(svg);
 
-      const text = document.createElement('p');
-      text.className = 'inv-search-empty__text';
-      text.textContent = 'No products found for \u201c' + query + '\u201d';
-      emptyDiv.appendChild(text);
+      const heading = document.createElement('p');
+      heading.className = 'inv-search-empty__text';
+      heading.textContent = 'No results for \u201c' + query + '\u201d';
+      emptyDiv.appendChild(heading);
 
       const hint = document.createElement('p');
       hint.className = 'inv-search-empty__hint';
-      hint.textContent = STRINGS.no_results_hint;
+      hint.textContent = 'Try checking the spelling or searching by brand, category, or part number';
       emptyDiv.appendChild(hint);
 
-      const browseLink = document.createElement('a');
-      browseLink.href = '/collections/all';
-      browseLink.className = 'inv-search-empty__browse';
-      browseLink.textContent = STRINGS.browse_all;
-      emptyDiv.appendChild(browseLink);
+      /* Quick links to popular categories */
+      const quickLinks = document.createElement('div');
+      quickLinks.className = 'inv-search-empty__categories';
+
+      const categories = [
+        { label: 'Power Tools', url: '/collections/power-tools' },
+        { label: 'Hand Tools', url: '/collections/hand-tools' },
+        { label: 'Fixings & Fasteners', url: '/collections/fixings-fasteners' },
+        { label: 'Abrasives', url: '/collections/abrasives' },
+      ];
+
+      categories.forEach(function (cat) {
+        const link = document.createElement('a');
+        link.href = cat.url;
+        link.className = 'inv-search-empty__cat-link';
+        link.textContent = cat.label;
+        quickLinks.appendChild(link);
+      });
+
+      emptyDiv.appendChild(quickLinks);
 
       this.resultsContainer.appendChild(emptyDiv);
       this._open();
