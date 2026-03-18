@@ -2,6 +2,7 @@
  * Invicta Recently Viewed Products v3.1
  * Extracted from inline — reads config from data attributes
  */
+const DEBUG = false;
 (function() {
   'use strict';
 
@@ -44,7 +45,7 @@
           this.showEmpty();
         }
       } catch (err) {
-        console.error('[Invicta RV] Error loading products:', err);
+        if (DEBUG) console.error('[Invicta RV] Error loading products:', err);
         this.showEmpty();
       }
     }
