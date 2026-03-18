@@ -34,20 +34,12 @@
             "text": "AUTHORISED MAKITA, DEWALT & HIKOKI DEALER",
             "link": "shopify://pages/shop-by-brand"
           }
-        },
-        "announcement-bar-3": {
-          "type": "announcement",
-          "settings": {
-            "text": "TRADE ACCOUNTS — APPLY FOR 30-DAY TERMS",
-            "link": "shopify://pages/trade-landing"
-          }
         }
       },
       "block_order": [
         "announcement-bar-0",
         "announcement-bar-1",
-        "announcement-bar-2",
-        "announcement-bar-3"
+        "announcement-bar-2"
       ],
       "settings": {
         "auto_rotate": true,
