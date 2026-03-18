@@ -384,7 +384,7 @@
         "image_2_caption": "Ramsgate",
         "badge_text": "Authorised Dealer",
         "cta_text": "Visit Our Stores",
-        "cta_link": "/pages/kent-hub",
+        "cta_link": "shopify://pages/kent-tools",
         "review_heading": "What Kent Tradespeople Say",
         "review_link": "https://share.google/6jjHrtIbAzPgsEAmy",
         "review_1_enabled": true,
