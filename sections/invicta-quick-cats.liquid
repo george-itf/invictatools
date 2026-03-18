@@ -1,7 +1,17 @@
 {% comment %}
   ============================================================================
-  INVICTA QUICK CATEGORIES v1.4 — BULLETPROOF
-  Uses collections[] lookup to resolve string handles to real collection objects
+  INVICTA QUICK CATEGORIES v2.0 — Product card style
+  ============================================================================
+  Uses collections[] lookup to resolve string handles to real collection objects.
+  Card-style treatment with 12px radius, hover lift, product count.
+
+  Updates in v2.0:
+  - Card-style visual treatment (12px radius, body bg, border-top separator)
+  - Hover lift with shadow matching product cards
+  - Product count per category
+  - show_count setting per block
+
+  Trade 15.4.0 Compatible
   ============================================================================
 {% endcomment %}
 
@@ -13,62 +23,68 @@
 
 <style>
   /* ============================================================================
-     QUICK CATEGORIES — SECTION SCOPED STYLES
+     QUICK CATEGORIES v2.0 — PRODUCT CARD STYLE
      ============================================================================ */
-  
+
   #shopify-section-{{ section.id }} {
-    display: block !important;
-    visibility: visible !important;
+    display: block;
   }
-  
+
   #shopify-section-{{ section.id }} .inv-quick-cats {
-    display: block !important;
-    visibility: visible !important;
+    display: block;
     background: {{ bg_color }};
     padding-top: {{ pad_top }}px;
     padding-bottom: 20px;
   }
-  
+
   #shopify-section-{{ section.id }} .inv-quick-cats__container {
     max-width: var(--inv-container, 1400px);
     margin: 0 auto;
     padding: 0 var(--inv-gutter, 24px);
   }
-  
+
   #shopify-section-{{ section.id }} .inv-quick-cats__grid {
-    display: grid !important;
-    visibility: visible !important;
+    display: grid;
     grid-template-columns: repeat({{ section.settings.columns_desktop | default: 6 }}, 1fr);
-    gap: 12px;
+    gap: var(--inv-space-sm-plus);
   }
-  
+
+  /* --- Card --- */
   #shopify-section-{{ section.id }} .inv-quick-cats__card {
-    display: flex !important;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    visibility: visible !important;
-    background: #fff;
-    border: 1px solid #e5e5e5;
-    border-radius: 0;
+    background: var(--inv-bg-elevated);
+    border: 1px solid var(--inv-border);
+    border-radius: var(--inv-radius-lg);
     padding: 0;
     text-align: center;
     text-decoration: none;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
     overflow: hidden;
     contain: content;
+    box-shadow: var(--inv-shadow-card);
+    transition: transform var(--inv-duration-moderate) ease,
+                border-color var(--inv-duration-normal) ease,
+                box-shadow var(--inv-duration-moderate) ease;
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__card:hover {
-    border-color: var(--color-button, #e11d26);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    transform: translateY(-4px);
+    border-color: var(--inv-border-dark);
+    box-shadow: 0 12px 28px var(--inv-shadow-color);
   }
 
-  /* Category image (collection photo) */
+  #shopify-section-{{ section.id }} .inv-quick-cats__card:focus-visible {
+    outline: var(--inv-focus-ring-width) solid var(--inv-accent);
+    outline-offset: var(--inv-focus-ring-offset);
+  }
+
+  /* --- Category image (collection photo) --- */
   #shopify-section-{{ section.id }} .inv-quick-cats__image {
     width: 100%;
     aspect-ratio: 1 / 1;
     overflow: hidden;
-    background: #f5f5f5;
+    background: var(--inv-bg-soft);
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__image img {
@@ -76,98 +92,116 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.3s ease;
+    transition: transform var(--inv-duration-slow) ease;
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__image img {
     transform: scale(1.05);
   }
 
-  /* Icon fallback (shown when no image) */
+  /* --- Card body (below image) --- */
+  #shopify-section-{{ section.id }} .inv-quick-cats__body {
+    width: 100%;
+    background: var(--inv-bg-card-body);
+    border-top: 1px solid var(--inv-bg-card-border);
+    padding: var(--inv-space-sm-plus) var(--inv-space-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  /* --- Icon fallback (shown when no image) --- */
   #shopify-section-{{ section.id }} .inv-quick-cats__icon {
-    display: flex !important;
-    visibility: visible !important;
+    display: flex;
     width: 56px;
     height: 56px;
-    margin: 24px auto 16px;
-    background: var(--color-foreground, #2d2d2d);
-    border-radius: var(--inv-radius-md, 8px);
+    margin: var(--inv-space-lg) auto var(--inv-space-md);
+    background: var(--inv-dark);
+    border-radius: var(--inv-radius-md);
     align-items: center;
     justify-content: center;
-    transition: background 0.15s ease;
+    transition: background var(--inv-duration-normal) ease;
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__icon {
-    background: var(--color-button, #e11d26);
+    background: var(--inv-accent);
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__icon svg {
     width: 28px;
     height: 28px;
-    color: #ffffff;
-    display: block !important;
+    color: var(--inv-bg-elevated);
+    display: block;
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__icon img {
     width: 28px;
     height: 28px;
     object-fit: contain;
-    /* Custom icons should be uploaded as white/light SVGs on transparent bg */
-    display: block !important;
+    display: block;
   }
 
+  /* --- Title --- */
   #shopify-section-{{ section.id }} .inv-quick-cats__title {
-    font-size: 16px;
-    font-weight: 900;
-    color: var(--color-foreground, #1a1a1a);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--inv-dark);
     margin: 0;
-    padding: 12px 10px 16px;
     text-transform: uppercase;
-    letter-spacing: 0.4px;
-  }
-
-  /* When card has no image, add top padding for icon-only cards */
-  #shopify-section-{{ section.id }} .inv-quick-cats__card--icon-only .inv-quick-cats__title {
-    padding-bottom: 24px;
+    letter-spacing: 0.3px;
+    line-height: 1.3;
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__title {
-    color: var(--color-button, #e11d26);
+    color: var(--inv-accent);
   }
-  
-  /* TABLET */
+
+  /* --- Product count --- */
+  #shopify-section-{{ section.id }} .inv-quick-cats__count {
+    font-size: 11px;
+    color: var(--inv-fg-muted);
+    line-height: 1.3;
+  }
+
+  /* When card has no image, card body fills full card */
+  #shopify-section-{{ section.id }} .inv-quick-cats__card--icon-only .inv-quick-cats__body {
+    padding-bottom: var(--inv-space-lg);
+  }
+
+  /* ----------------------------------------
+     TABLET
+     ---------------------------------------- */
   @media screen and (max-width: 989px) {
     #shopify-section-{{ section.id }} .inv-quick-cats__grid {
-      grid-template-columns: repeat(3, 1fr) !important;
+      grid-template-columns: repeat(3, 1fr);
     }
   }
-  
-  /* MOBILE */
+
+  /* ----------------------------------------
+     MOBILE
+     ---------------------------------------- */
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .inv-quick-cats {
-      padding-top: 8px;
-      padding-bottom: 8px;
+      padding-top: var(--inv-space-sm);
+      padding-bottom: var(--inv-space-sm);
     }
 
     #shopify-section-{{ section.id }} .inv-quick-cats__container {
-      padding-left: 12px;
-      padding-right: 12px;
+      padding-left: var(--inv-mobile-gutter);
+      padding-right: var(--inv-mobile-gutter);
     }
 
     #shopify-section-{{ section.id }} .inv-quick-cats__grid {
-      grid-template-columns: repeat(2, 1fr) !important;
-      gap: 10px;
-    }
-    
-    #shopify-section-{{ section.id }} .inv-quick-cats__card {
-      border-radius: 0;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--inv-mobile-card-gap);
     }
 
     #shopify-section-{{ section.id }} .inv-quick-cats__icon {
       width: 44px;
       height: 44px;
-      border-radius: var(--inv-radius-md, 8px);
-      margin: 16px auto 10px;
+      border-radius: var(--inv-radius-md);
+      margin: var(--inv-space-md) auto var(--inv-space-sm);
     }
 
     #shopify-section-{{ section.id }} .inv-quick-cats__icon svg,
@@ -176,25 +210,53 @@
       height: 22px;
     }
 
-    #shopify-section-{{ section.id }} .inv-quick-cats__title {
-      font-size: 13px;
-      padding: 8px 8px 12px;
+    #shopify-section-{{ section.id }} .inv-quick-cats__body {
+      padding: var(--inv-space-sm) var(--inv-space-sm);
     }
 
-    #shopify-section-{{ section.id }} .inv-quick-cats__card--icon-only .inv-quick-cats__title {
-      padding-bottom: 16px;
+    #shopify-section-{{ section.id }} .inv-quick-cats__title {
+      font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .inv-quick-cats__card--icon-only .inv-quick-cats__body {
+      padding-bottom: var(--inv-space-md);
+    }
+  }
+
+  /* ----------------------------------------
+     REDUCED MOTION
+     ---------------------------------------- */
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .inv-quick-cats__card {
+      transition: none;
+    }
+
+    #shopify-section-{{ section.id }} .inv-quick-cats__card:hover {
+      transform: none;
+    }
+
+    #shopify-section-{{ section.id }} .inv-quick-cats__image img {
+      transition: none;
+    }
+
+    #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__image img {
+      transform: none;
+    }
+
+    #shopify-section-{{ section.id }} .inv-quick-cats__icon {
+      transition: none;
     }
   }
 </style>
 
 <section class="inv-quick-cats">
   <div class="inv-quick-cats__container">
-    
-    <h2 class="visually-hidden">Shop by Category</h2>
+
+    <h2 class="visually-hidden">{{ 'invicta.sections.quick_cats.heading' | t | default: 'Shop by Category' }}</h2>
     {%- if section.blocks.size > 0 -%}
       <div class="inv-quick-cats__grid">
         {%- for block in section.blocks -%}
-          
+
           {%- liquid
             # ================================================================
             # BULLETPROOF URL RESOLUTION
@@ -244,8 +306,20 @@
                 assign cat_image = lookup_collection.image
               endif
             endif
+
+            # Product count
+            assign inv_show_count = block.settings.show_count | default: true
+            assign inv_product_count = 0
+            if cat_collection_setting.products_count
+              assign inv_product_count = cat_collection_setting.products_count
+            elsif cat_collection_setting != blank and cat_collection_setting != ''
+              assign lookup_collection = collections[cat_collection_setting]
+              if lookup_collection.products_count
+                assign inv_product_count = lookup_collection.products_count
+              endif
+            endif
           -%}
-          
+
           <a
             href="{{ cat_url }}"
             class="inv-quick-cats__card{% if cat_image == blank %} inv-quick-cats__card--icon-only{% endif %}"
@@ -300,15 +374,21 @@
               {%- endif -%}
             </div>
             {%- endif -%}
-            <h3 class="inv-quick-cats__title">{{ cat_title }}</h3>
+
+            <div class="inv-quick-cats__body">
+              <h3 class="inv-quick-cats__title">{{ cat_title }}</h3>
+              {%- if inv_show_count and inv_product_count > 0 -%}
+                <span class="inv-quick-cats__count">{{ inv_product_count }}+ products</span>
+              {%- endif -%}
+            </div>
           </a>
-          
+
         {%- endfor -%}
       </div>
     {%- else -%}
       <p class="inv-quick-cats__empty">{{ 'invicta.sections.quick_cats.empty_state' | t }}</p>
     {%- endif -%}
-    
+
   </div>
 </section>
 
@@ -405,6 +485,12 @@
           "id": "custom_icon",
           "label": "Custom Icon Image",
           "info": "Overrides built-in icon when no category image is set. Use a white or light-coloured icon."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_count",
+          "label": "Show product count",
+          "default": true
         }
       ]
     }
@@ -413,12 +499,12 @@
     {
       "name": "Quick Categories",
       "blocks": [
-        { "type": "category", "settings": { "title": "Cordless Drills", "icon": "drill" } },
-        { "type": "category", "settings": { "title": "Impact Drivers", "icon": "impact" } },
-        { "type": "category", "settings": { "title": "Grinders", "icon": "grinder" } },
-        { "type": "category", "settings": { "title": "Batteries", "icon": "battery" } },
-        { "type": "category", "settings": { "title": "Saws", "icon": "saw" } },
-        { "type": "category", "settings": { "title": "Tool Storage", "icon": "storage" } }
+        { "type": "category", "settings": { "title": "Cordless Drills", "icon": "drill", "show_count": true } },
+        { "type": "category", "settings": { "title": "Impact Drivers", "icon": "impact", "show_count": true } },
+        { "type": "category", "settings": { "title": "Grinders", "icon": "grinder", "show_count": true } },
+        { "type": "category", "settings": { "title": "Batteries", "icon": "battery", "show_count": true } },
+        { "type": "category", "settings": { "title": "Saws", "icon": "saw", "show_count": true } },
+        { "type": "category", "settings": { "title": "Tool Storage", "icon": "storage", "show_count": true } }
       ]
     }
   ]

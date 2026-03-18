@@ -78,6 +78,62 @@
         "padding_bottom": 24
       }
     },
+    "hero_v3": {
+      "type": "invicta-hero-v3",
+      "settings": {
+        "eyebrow_text": "Premier Diamond Products",
+        "heading": "P6-TWC Triple Disc Wall Chaser Blade",
+        "description": "Professional grade diamond blade. Built for continuous use on site. In stock now at Canterbury and Ramsgate with free next-day delivery.",
+        "hero_image": "shopify://shop_images/PDP_HOMEPAGE_2.png",
+        "button_text": "SHOP PREMIER DIAMOND",
+        "button_link": "shopify://products/p6-twc-125mm",
+        "secondary_text": "View All Deals",
+        "secondary_link": "shopify://collections/deals-and-sales",
+        "background_color": "#2d2d2d"
+      }
+    },
+    "trust_strip": {
+      "type": "invicta-trust-strip",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £30"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Authorised Dealer",
+            "subtitle": "Full manufacturer warranty"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "Click & Collect",
+            "subtitle": "Ready in 1 hour"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Hassle-Free Returns",
+            "subtitle": "30-day returns policy"
+          }
+        }
+      },
+      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "promo_banners": {
       "type": "invicta-promo-banners",
       "settings": {
@@ -86,10 +142,20 @@
         "padding_bottom": 0,
         "banner_1_image": "shopify://shop_images/vipernails-1.svg",
         "banner_1_link": "shopify://collections/viper-1",
+        "banner_1_tag": "New Range",
+        "banner_1_title": "Viper Fuel Cell Nails",
+        "banner_1_subtitle": "Premium gas nailer consumables",
+        "banner_1_gradient_start": "#1a1a2e",
+        "banner_1_gradient_end": "#2d2d2d",
         "banner_1_start": "",
         "banner_1_end": "",
         "banner_2_image": "shopify://shop_images/RM350D-3.svg",
         "banner_2_link": "shopify://products/makita-rm350d-18v-lxt-brushless-robotic-mower-240mm",
+        "banner_2_tag": "Just Landed",
+        "banner_2_title": "Makita RM350D Robotic Mower",
+        "banner_2_subtitle": "Cordless, GPS-guided lawn care",
+        "banner_2_gradient_start": "#004d40",
+        "banner_2_gradient_end": "#00695c",
         "banner_2_start": "",
         "banner_2_end": ""
       }
@@ -104,7 +170,8 @@
             "collection": "drilling-driving",
             "custom_link": "",
             "icon": "drill",
-            "custom_icon": "shopify://shop_images/drill-electric-svgrepo-com_1.svg"
+            "custom_icon": "shopify://shop_images/drill-electric-svgrepo-com_1.svg",
+            "show_count": true
           }
         },
         "cat_2": {
@@ -114,7 +181,8 @@
             "collection": "grinding",
             "custom_link": "",
             "icon": "grinder",
-            "custom_icon": "shopify://shop_images/saw-svgrepo-com_3.svg"
+            "custom_icon": "shopify://shop_images/saw-svgrepo-com_3.svg",
+            "show_count": true
           }
         },
         "cat_3": {
@@ -123,7 +191,8 @@
             "title": "Nailers",
             "collection": "nailing-fastening",
             "custom_link": "",
-            "icon": "impact"
+            "icon": "impact",
+            "show_count": true
           }
         },
         "cat_4": {
@@ -132,7 +201,8 @@
             "title": "Batteries",
             "collection": "batteries-chargers",
             "custom_link": "",
-            "icon": "battery"
+            "icon": "battery",
+            "show_count": true
           }
         },
         "cat_5": {
@@ -141,7 +211,8 @@
             "title": "Saws",
             "collection": "sawing-cutting",
             "custom_link": "",
-            "icon": "saw"
+            "icon": "saw",
+            "show_count": true
           }
         },
         "cat_6": {
@@ -150,7 +221,8 @@
             "title": "Power Tool Kits",
             "collection": "power-tools-kits",
             "custom_link": "",
-            "icon": "storage"
+            "icon": "storage",
+            "show_count": true
           }
         }
       },
@@ -541,10 +613,10 @@
     }
   },
   "order": [
-    "hero_split",
+    "hero_v3",
+    "trust_strip",
     "promo_banners",
     "quick_cats",
-    "invicta_usp_strip_v2_eepGaQ",
     "product_wall",
     "trust_reviews",
     "recently_viewed",
