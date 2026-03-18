@@ -672,4 +672,135 @@
   aside {
     display: none !important;
   }
+
+
+  /* =========================================================================
+     7. HOMEPAGE — HERO v3
+     ========================================================================= */
+
+  /* Hide the visual column (radial glow + product image) */
+  .inv-hero-v3__visual,
+  .inv-hero-v3__glow {
+    display: none !important;
+  }
+
+  /* Show hero text content at full width */
+  .inv-hero-v3__container {
+    display: block !important;
+  }
+
+  .inv-hero-v3__content {
+    width: 100% !important;
+    padding: 8pt 0 !important;
+  }
+
+  .inv-hero-v3 {
+    background: transparent !important;
+  }
+
+  .inv-hero-v3__heading {
+    color: #000 !important;
+    font-size: 18pt !important;
+  }
+
+  .inv-hero-v3__eyebrow {
+    display: inline-block;
+    background: #000 !important;
+    color: #fff !important;
+    font-size: 8pt;
+    padding: 1pt 4pt;
+  }
+
+  .inv-hero-v3__desc {
+    color: #333 !important;
+    font-size: 10pt;
+  }
+
+  /* Hide CTAs */
+  .inv-hero-v3__ctas {
+    display: none !important;
+  }
+
+
+  /* =========================================================================
+     8. HOMEPAGE — TRUST STRIP
+     ========================================================================= */
+
+  /* Print as a simple text list, hide circle icons */
+  .inv-trust-strip {
+    background: transparent !important;
+    padding: 4pt 0 !important;
+    border-top: 1pt solid #ccc;
+    border-bottom: 1pt solid #ccc;
+  }
+
+  .inv-trust-strip__list {
+    display: block !important;
+  }
+
+  .inv-trust-strip__item {
+    display: inline !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+
+  .inv-trust-strip__item:not(:last-child)::after {
+    content: " · ";
+    color: #666;
+  }
+
+  .inv-trust-strip__icon {
+    display: none !important;
+  }
+
+  .inv-trust-strip__title {
+    color: #000 !important;
+    font-size: 9pt;
+  }
+
+  .inv-trust-strip__subtitle {
+    color: #666 !important;
+    font-size: 8pt;
+  }
+
+  .inv-trust-strip__text {
+    display: inline !important;
+  }
+
+
+  /* =========================================================================
+     9. HOMEPAGE — PROMO BANNERS (v9.0 gradient cards)
+     ========================================================================= */
+
+  .inv-promos__card {
+    background: transparent !important;
+    height: auto !important;
+    padding: 4pt 0 !important;
+    border-bottom: 0.5pt solid #ccc;
+  }
+
+  .inv-promos__card::after {
+    display: none !important;
+  }
+
+  .inv-promos__bg {
+    display: none !important;
+  }
+
+  .inv-promos__tag {
+    background: #000 !important;
+    color: #fff !important;
+    font-size: 8pt;
+    padding: 0 2pt;
+  }
+
+  .inv-promos__title {
+    color: #000 !important;
+    font-size: 12pt !important;
+  }
+
+  .inv-promos__subtitle {
+    color: #333 !important;
+    font-size: 9pt;
+  }
 }
