@@ -11,7 +11,7 @@
    mobile drawer (iOS Safari clips fixed children of overflow:hidden
    ancestors in some scroll states). */
 .section-header-invicta {
-  background: var(--inv-header-bg, #e11d26);
+  background: var(--inv-header-bg, var(--inv-accent));
   margin: 0;
   padding: 0;
   position: relative;
@@ -24,7 +24,7 @@
   top: 0;
   z-index: var(--inv-z-header);
   width: 100%;
-  background: var(--inv-header-bg, #e11d26);
+  background: var(--inv-header-bg, var(--inv-accent));
   border-bottom: none;
   padding-top: var(--inv-safe-area-top);
   padding-left: var(--inv-safe-area-left);
@@ -88,14 +88,14 @@
 }
 
 .invicta-header__menu-btn:focus-visible {
-  outline: 2px solid #ffffff;
+  outline: 2px solid var(--inv-white);
   outline-offset: 2px;
 }
 
 .invicta-header__menu-btn svg {
   width: 20px;
   height: 20px;
-  stroke: #ffffff;
+  stroke: var(--inv-white);
   stroke-width: 2;
   fill: none;
 }
@@ -143,7 +143,7 @@
   left: 0;
   width: min(320px, 85vw);
   height: 100%;
-  background: #fff;
+  background: var(--inv-bg-elevated);
   transform: translateX(-100%);
   transition: transform 0.3s ease;
   display: flex;
@@ -162,14 +162,14 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--inv-border);
   flex-shrink: 0;
 }
 
 .invicta-drawer__title {
   font-size: 16px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--inv-fg-near-black);
   margin: 0;
 }
 
@@ -180,7 +180,7 @@
   min-width: 44px;
   min-height: 44px;
   border: none;
-  background: #f3f4f6;
+  background: var(--inv-bg-soft);
   border-radius: 999px;
   display: flex;
   align-items: center;
@@ -190,7 +190,7 @@
 }
 
 .invicta-drawer__close:hover {
-  background: #e5e7eb;
+  background: var(--inv-border);
 }
 
 .invicta-drawer__close:focus-visible {
@@ -201,7 +201,7 @@
 .invicta-drawer__close svg {
   width: 18px;
   height: 18px;
-  stroke: #374151;
+  stroke: var(--inv-fg-secondary);
   stroke-width: 2;
   fill: none;
 }
@@ -218,7 +218,7 @@
 }
 
 .invicta-drawer__nav-item {
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--inv-bg-soft);
 }
 
 .invicta-drawer__nav-link {
@@ -228,13 +228,13 @@
   padding: 14px 20px;
   font-size: 15px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--inv-fg-near-black);
   text-decoration: none;
   transition: background 0.15s, color 0.15s;
 }
 
 .invicta-drawer__nav-link:hover {
-  background: #f9fafb;
+  background: var(--inv-bg-muted);
   color: var(--inv-accent);
 }
 
@@ -268,7 +268,7 @@
   padding: 14px 20px;
   font-size: 15px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--inv-fg-near-black);
   text-decoration: none;
   background: none;
   border: none;
@@ -277,7 +277,7 @@
 }
 
 .invicta-drawer__submenu-toggle:hover {
-  background: #f9fafb;
+  background: var(--inv-bg-muted);
   color: var(--inv-accent);
 }
 
@@ -303,7 +303,7 @@
   list-style: none;
   margin: 0;
   padding: 0 0 8px 0;
-  background: #f9fafb;
+  background: var(--inv-bg-muted);
   display: none;
 }
 
@@ -316,7 +316,7 @@
   padding: 10px 20px 10px 44px;
   font-size: 14px;
   font-weight: 500;
-  color: #374151;
+  color: var(--inv-fg-secondary);
   text-decoration: none;
 }
 
@@ -337,7 +337,7 @@
 /* Drawer VAT toggle for mobile */
 .invicta-drawer__vat {
   padding: 16px 20px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--inv-border);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -348,7 +348,7 @@
 .invicta-drawer__vat-label {
   font-size: 12px;
   font-weight: 600;
-  color: #374151;
+  color: var(--inv-fg-secondary);
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -356,7 +356,7 @@
 .invicta-drawer__vat-pills {
   display: flex;
   gap: 0;
-  background: #e5e7eb;
+  background: var(--inv-border);
   border-radius: 8px;
   padding: 3px;
   flex: 1;
@@ -372,7 +372,7 @@
   border-radius: 6px;
   cursor: pointer;
   background: transparent;
-  color: #6b7280;
+  color: var(--inv-fg-muted);
   transition: all 0.15s;
   text-align: center;
   white-space: nowrap;
@@ -384,14 +384,14 @@
 
 .invicta-drawer__vat-pill--active {
   background: var(--inv-accent);
-  color: #fff;
+  color: var(--inv-white);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 /* Drawer footer with account link */
 .invicta-drawer__footer {
   padding: 16px 20px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--inv-border);
   flex-shrink: 0;
 }
 
@@ -401,7 +401,7 @@
   gap: 10px;
   font-size: 14px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--inv-fg-near-black);
   text-decoration: none;
 }
 
@@ -441,11 +441,11 @@
 }
 
 .invicta-header__logo a:focus-visible {
-  outline: 2px solid #ffffff;
+  outline: 2px solid var(--inv-white);
   outline-offset: 2px;
 }
 
-.invicta-header__logo-text { color: #ffffff; font-weight: 800; }
+.invicta-header__logo-text { color: var(--inv-white); font-weight: 800; }
 
 .invicta-header__logo img,
 .invicta-header__logo .header__heading-logo {
@@ -536,8 +536,8 @@
   }
 
   .invicta-header__vat-btn--active {
-    color: var(--inv-accent, #e11d26);
-    background-color: #ffffff;
+    color: var(--inv-accent, var(--inv-accent));
+    background-color: var(--inv-bg-elevated);
     box-shadow: 0 1px 3px rgba(0,0,0,0.15);
   }
 }
@@ -574,14 +574,14 @@
   }
 
   .invicta-header__vat-btn--active {
-    color: var(--inv-accent, #e11d26);
-    background-color: #ffffff;
+    color: var(--inv-accent, var(--inv-accent));
+    background-color: var(--inv-bg-elevated);
     box-shadow: 0 1px 3px rgba(0,0,0,0.15);
   }
 }
 
 .invicta-header__vat-btn:focus-visible {
-  outline: 2px solid #ffffff;
+  outline: 2px solid var(--inv-white);
   outline-offset: 1px;
 }
 
@@ -606,14 +606,14 @@
 }
 
 .invicta-header__icon:focus-visible {
-  outline: 2px solid #ffffff;
+  outline: 2px solid var(--inv-white);
   outline-offset: 2px;
 }
 
 .invicta-header__icon svg {
   width: 22px;
   height: 22px;
-  stroke: #ffffff;
+  stroke: var(--inv-white);
   stroke-width: 2;
   fill: none;
 }
@@ -636,9 +636,9 @@
   height: 20px;
   padding: 0 6px;
   border-radius: 999px;
-  background: #ffffff;
-  color: var(--inv-accent, #e11d26);
-  border: 2px solid var(--inv-accent, #e11d26);
+  background: var(--inv-bg-elevated);
+  color: var(--inv-accent, var(--inv-accent));
+  border: 2px solid var(--inv-accent, var(--inv-accent));
   font-size: 11px;
   font-weight: 700;
   display: inline-flex;

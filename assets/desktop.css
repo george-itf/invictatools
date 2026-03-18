@@ -108,7 +108,7 @@ html.js body .collection-list__item h3,
 html.js body .collection-list__item h3 a {
   font-size: 1.6rem;
   font-weight: 900;
-  color: #111827;
+  color: var(--inv-fg-strong);
   text-decoration: none;
   letter-spacing: -0.01em;
 }
@@ -141,7 +141,7 @@ html.js body .collection-list-wrapper .title-wrapper h2,
 html.js body section:has(.collection-list) h2 {
   font-size: 2.2rem;
   font-weight: 900;
-  color: #111827;
+  color: var(--inv-fg-strong);
   margin-bottom: 32px;
   letter-spacing: -0.02em;
   padding-left: 48px;
@@ -178,7 +178,7 @@ html.js body .inv-description__body,
 html.js body .inv-description__body p {
   font-size: 1.2rem;
   line-height: 1.8;
-  color: #1f2937;
+  color: var(--inv-fg);
 }
 
 /* Description header */
@@ -197,26 +197,26 @@ html.js body .inv-accordion__content p,
 html.js body .inv-accordion__content li {
   font-size: 1.15rem;
   line-height: 1.75;
-  color: #1f2937;
+  color: var(--inv-fg);
 }
 
 /* Spec table */
 html.js body .inv-spec-table td {
   font-size: 1.1rem;
   padding: 14px 0;
-  color: #1f2937;
+  color: var(--inv-fg);
 }
 
 /* Trust badges */
 html.js body .inv-trust__item {
   font-size: 1rem;
-  color: #374151;
+  color: var(--inv-fg-secondary);
 }
 
 /* Delivery info */
 html.js body .inv-delivery__row {
   font-size: 1.1rem;
-  color: #374151;
+  color: var(--inv-fg-secondary);
 }
 
 
@@ -230,7 +230,7 @@ html.js body .utility-bar.color-scheme-5,
 html.js body div.utility-bar,
 html.js body .announcement-bar-section,
 html.js body [id*="announcement-bar"] {
-  background: #2d2d2d;
+  background: var(--inv-dark);
   border: none;
   margin: 0;
   padding: 0;
@@ -249,7 +249,7 @@ html.js body .announcement-bar {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #2d2d2d;
+  background: var(--inv-dark);
   border: none;
   min-height: 44px;
   padding: 10px 0;
@@ -270,7 +270,7 @@ html.js body .utility-bar span {
   font-weight: 800;
   letter-spacing: 0.03em ;
   text-transform: uppercase ;
-  color: #ffffff;
+  color: var(--inv-white);
   text-align: center;
   margin: 0 auto;
   padding: 0;
@@ -317,7 +317,7 @@ html.js body .section-header {
 /* Account icon (invicta-header__icon class) */
 html.js body a.invicta-header__icon,
 html.js body .invicta-header__icon {
-  background: #2d2d2d;
+  background: var(--inv-dark);
   border-radius: 50% ;
   width: 44px;
   height: 44px;
@@ -329,8 +329,8 @@ html.js body .invicta-header__icon {
 
 html.js body a.invicta-header__icon svg,
 html.js body .invicta-header__icon svg {
-  stroke: #ffffff;
-  color: #ffffff;
+  stroke: var(--inv-white);
+  color: var(--inv-white);
   fill: none;
   width: 22px;
   height: 22px;
@@ -339,7 +339,7 @@ html.js body .invicta-header__icon svg {
 /* Cart icon */
 html.js body .header__icon--cart,
 html.js body a.header__icon--cart {
-  background: #2d2d2d;
+  background: var(--inv-dark);
   border-radius: 50% ;
   width: 44px;
   height: 44px;
@@ -351,8 +351,8 @@ html.js body a.header__icon--cart {
 }
 
 html.js body .header__icon--cart svg {
-  stroke: #ffffff;
-  color: #ffffff;
+  stroke: var(--inv-white);
+  color: var(--inv-white);
   fill: none;
   width: 22px;
   height: 22px;
@@ -363,15 +363,15 @@ html.js body .search__button,
 html.js body .header__search button,
 html.js body button[class*="search"],
 html.js body .search-modal__form button {
-  background: #2d2d2d;
+  background: var(--inv-dark);
   border: none;
 }
 
 html.js body .search__button svg,
 html.js body .header__search button svg,
 html.js body button[class*="search"] svg {
-  stroke: #ffffff;
-  color: #ffffff;
+  stroke: var(--inv-white);
+  color: var(--inv-white);
 }
 
 /* Cart count badge */
@@ -383,7 +383,7 @@ html.js body .cart-count-bubble {
   height: 18px;
   padding: 0 5px;
   background: var(--inv-accent);
-  color: #ffffff;
+  color: var(--inv-white);
   font-size: 0.7rem;
   font-weight: 700;
   line-height: 18px;
@@ -411,7 +411,7 @@ html.js body .search__input::placeholder,
 html.js body input[type="search"]::placeholder,
 html.js body [class*="search"] input::placeholder {
   font-size: 1.1rem;
-  color: #6b7280;
+  color: var(--inv-fg-muted);
 }
 
 
@@ -423,8 +423,8 @@ html.js body [class*="search"] input::placeholder {
 html.js body predictive-search,
 html.js body .predictive-search,
 html.js body .predictive-search__results-groups-wrapper {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--inv-bg-elevated);
+  border: 1px solid var(--inv-border);
   border-radius: 12px ;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
   margin-top: 8px;
@@ -441,7 +441,7 @@ html.js body .predictive-search__results-groups-wrapper ul {
 /* Each result row */
 html.js body .predictive-search__list-item,
 html.js body .predictive-search li[role="option"] {
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--inv-border);
 }
 
 html.js body .predictive-search__list-item:last-child {
@@ -462,7 +462,7 @@ html.js body .predictive-search li[role="option"] a {
 
 html.js body .predictive-search__list-item a:hover,
 html.js body .predictive-search li[role="option"] a:hover {
-  background: #f3f4f6;
+  background: var(--inv-bg-soft);
 }
 
 /* Product image */
@@ -473,8 +473,8 @@ html.js body .predictive-search li img {
   height: 72px;
   object-fit: contain ;
   border-radius: 8px ;
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
+  background: var(--inv-bg-muted);
+  border: 1px solid var(--inv-border);
 }
 
 /* Product title */
@@ -482,7 +482,7 @@ html.js body .predictive-search__item-heading,
 html.js body .predictive-search__list-item .predictive-search__item-heading {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #111827;
+  color: var(--inv-fg-strong);
   line-height: 1.4;
   margin: 0 0 8px 0;
   display: block;
@@ -511,7 +511,7 @@ html.js body .predictive-search .price-item--regular s,
 html.js body .predictive-search .price--on-sale .price-item--regular {
   font-size: 0.95rem;
   font-weight: 500;
-  color: #9ca3af;
+  color: var(--inv-fg-subtle);
   text-decoration: line-through;
 }
 
@@ -528,10 +528,10 @@ html.js body .predictive-search__heading {
   font-weight: 700;
   text-transform: uppercase ;
   letter-spacing: 0.05em ;
-  color: #6b7280;
+  color: var(--inv-fg-muted);
   padding: 12px 20px 8px;
-  border-bottom: 1px solid #e5e7eb;
-  background: #f9fafb;
+  border-bottom: 1px solid var(--inv-border);
+  background: var(--inv-bg-muted);
 }
 
 /* View all results link */
@@ -544,7 +544,7 @@ html.js body .predictive-search a[href*="/search"] {
   font-weight: 700;
   color: var(--inv-accent);
   background: #fef2f2;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--inv-border);
 }
 
 html.js body .predictive-search__view-all:hover {
@@ -644,7 +644,7 @@ html.js body .invicta-card-sale-badge {
   top: 12px;
   left: 12px;
   background: var(--inv-accent);
-  color: #ffffff;
+  color: var(--inv-white);
   font-size: 1.1rem;
   font-weight: 800;
   padding: 6px 10px;
@@ -662,8 +662,8 @@ html.js body .invicta-card-sold-out-badge {
   position: absolute;
   bottom: 12px;
   right: 12px;
-  background: #374151;
-  color: #ffffff;
+  background: var(--inv-fg-secondary);
+  color: var(--inv-white);
   font-size: 1.1rem;
   font-weight: 700;
   padding: 8px 14px;
@@ -700,20 +700,20 @@ html.js body .invicta-btn {
 
 /* Outline style — See More */
 html.js body .invicta-btn--outline {
-  background: #ffffff;
-  color: #374151;
-  border: 1.5px solid #d1d5db;
+  background: var(--inv-bg-elevated);
+  color: var(--inv-fg-secondary);
+  border: 1.5px solid var(--inv-border-dark);
 }
 
 html.js body .invicta-btn--outline:hover {
-  border-color: #111827;
-  color: #111827;
+  border-color: var(--inv-fg-strong);
+  color: var(--inv-fg-strong);
 }
 
 /* Solid style — Add to Cart */
 html.js body .invicta-btn--solid {
-  background: #111827;
-  color: #ffffff;
+  background: var(--inv-fg-strong);
+  color: var(--inv-white);
 }
 
 html.js body .invicta-btn--solid:hover {
@@ -729,15 +729,15 @@ html.js body .invicta-btn--solid svg {
 
 /* Disabled style — Sold Out */
 html.js body .invicta-btn--disabled {
-  background: #e5e7eb;
-  color: #9ca3af;
+  background: var(--inv-border);
+  color: var(--inv-fg-subtle);
   cursor: not-allowed;
 }
 
 /* Loading state */
 html.js body .invicta-btn--solid.is-loading {
   pointer-events: none;
-  background: #6b7280;
+  background: var(--inv-fg-muted);
   position: relative;
 }
 
@@ -752,7 +752,7 @@ html.js body .invicta-btn--solid.is-loading::after {
   width: 14px;
   height: 14px;
   border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: #ffffff;
+  border-top-color: var(--inv-white);
   border-radius: 50%;
   animation: invicta-spin 0.6s linear infinite;
 }
@@ -789,12 +789,12 @@ html.js body .invicta-card-stars .star {
 }
 
 html.js body .invicta-card-stars .star--empty {
-  color: #d1d5db;
+  color: var(--inv-border-dark);
 }
 
 html.js body .invicta-card-rating-count {
   font-size: 1.2rem;
-  color: #6b7280;
+  color: var(--inv-fg-muted);
   font-weight: 500;
 }
 
@@ -816,7 +816,7 @@ html.js body .invicta-price-main--sale {
 
 html.js body .invicta-price-compare {
   font-size: 1.4rem;
-  color: #9ca3af;
+  color: var(--inv-fg-subtle);
   text-decoration: line-through;
   font-weight: 500;
 }
@@ -831,7 +831,7 @@ html.js body .facet-filters__label,
 html.js body .facet-filters__label label {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #111827;
+  color: var(--inv-fg-strong);
 }
 
 /* Filter summaries (dropdown triggers) */
@@ -839,7 +839,7 @@ html.js body .facets__summary,
 html.js body .facets__summary-label {
   font-size: 1.5rem;
   font-weight: 500;
-  color: #374151;
+  color: var(--inv-fg-secondary);
   cursor: pointer;
 }
 
@@ -849,14 +849,14 @@ html.js body .facet-filters__sort.select__select,
 html.js body .facets .select__select {
   font-size: 1.5rem;
   font-weight: 500;
-  color: #374151;
+  color: var(--inv-fg-secondary);
 }
 
 /* Product count */
 html.js body .product-count__text {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #111827;
+  color: var(--inv-fg-strong);
 }
 
 /* Hide SVG arrows inside facet summaries — use CSS background-image instead */
@@ -991,21 +991,21 @@ html.js body .card .invicta-btn {
 
 /* Outline button (See More) */
 html.js body .card .invicta-btn--outline {
-  background: #ffffff;
-  color: #374151;
-  border: 1.5px solid #d1d5db;
+  background: var(--inv-bg-elevated);
+  color: var(--inv-fg-secondary);
+  border: 1.5px solid var(--inv-border-dark);
 }
 
 html.js body .card .invicta-btn--outline:hover {
-  border-color: #111827 ;
-  color: #111827;
+  border-color: var(--inv-fg-strong) ;
+  color: var(--inv-fg-strong);
 }
 
 /* Solid button (Add) */
 html.js body .card .invicta-btn--solid {
-  background: #2d2d2d;
-  color: #ffffff;
-  border: 1.5px solid #2d2d2d;
+  background: var(--inv-dark);
+  color: var(--inv-white);
+  border: 1.5px solid var(--inv-dark);
 }
 
 html.js body .card .invicta-btn--solid:hover {
@@ -1022,8 +1022,8 @@ html.js body .card .invicta-btn svg {
 
 /* Loading state */
 html.js body .card .invicta-btn--loading {
-  background: #9ca3af;
-  border-color: #9ca3af;
+  background: var(--inv-fg-subtle);
+  border-color: var(--inv-fg-subtle);
   pointer-events: none ;
 }
 
@@ -1035,9 +1035,9 @@ html.js body .card .invicta-btn--success {
 
 /* Disabled state */
 html.js body .card .invicta-btn--disabled {
-  background: #e5e7eb;
-  border-color: #e5e7eb;
-  color: #9ca3af;
+  background: var(--inv-border);
+  border-color: var(--inv-border);
+  color: var(--inv-fg-subtle);
   pointer-events: none ;
 }
 
@@ -1135,7 +1135,7 @@ html.js body .slider-counter {
 
 .inv-product {
   padding: 32px 0 60px;
-  background: var(--inv-bg-soft, #f9fafb);
+  background: var(--inv-bg-soft, var(--inv-bg-muted));
 }
 
 .inv-product .page-width {
@@ -1168,9 +1168,9 @@ html.js body .slider-counter {
 
 .inv-gallery__main {
   position: relative;
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
   border-radius: 16px;
-  border: 1px solid var(--inv-border-light, #e5e7eb);
+  border: 1px solid var(--inv-border-light, var(--inv-border));
   overflow: hidden;
   margin-bottom: 16px;
 }
@@ -1186,7 +1186,7 @@ html.js body .slider-counter {
 .inv-gallery__placeholder {
   width: 100%;
   aspect-ratio: 1 / 1;
-  background: var(--inv-bg-soft, #f3f4f6);
+  background: var(--inv-bg-soft, var(--inv-bg-soft));
 }
 
 /* Zoom Button */
@@ -1197,8 +1197,8 @@ html.js body .slider-counter {
   width: 48px;
   height: 48px;
   border-radius: 999px;
-  background: #ffffff;
-  border: 1px solid var(--inv-border-light, #e5e7eb);
+  background: var(--inv-bg-elevated);
+  border: 1px solid var(--inv-border-light, var(--inv-border));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1207,14 +1207,14 @@ html.js body .slider-counter {
 }
 
 .inv-gallery__zoom:hover {
-  background: var(--inv-bg-soft, #f3f4f6);
+  background: var(--inv-bg-soft, var(--inv-bg-soft));
   transform: scale(1.05);
 }
 
 .inv-gallery__zoom svg {
   width: 24px;
   height: 24px;
-  stroke: var(--inv-fg-muted, #6b7280);
+  stroke: var(--inv-fg-muted, var(--inv-fg-muted));
 }
 
 /* Thumbnails */
@@ -1228,11 +1228,11 @@ html.js body .slider-counter {
   width: 80px;
   height: 80px;
   border-radius: 8px;
-  border: 2px solid var(--inv-border-light, #e5e7eb);
+  border: 2px solid var(--inv-border-light, var(--inv-border));
   overflow: hidden;
   cursor: pointer;
   transition: all 0.15s ease;
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
   padding: 0;
 }
 
@@ -1243,7 +1243,7 @@ html.js body .slider-counter {
 }
 
 .inv-gallery__thumb:hover {
-  border-color: var(--inv-fg-muted, #6b7280);
+  border-color: var(--inv-fg-muted, var(--inv-fg-muted));
 }
 
 .inv-gallery__thumb.is-active {
@@ -1257,9 +1257,9 @@ html.js body .slider-counter {
    ============================================================================ */
 
 .inv-product__info {
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
   border-radius: 16px;
-  border: 1px solid var(--inv-border-light, #e5e7eb);
+  border: 1px solid var(--inv-border-light, var(--inv-border));
   padding: 32px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
@@ -1316,7 +1316,7 @@ html.js body .slider-counter {
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: -0.01em;
-  color: var(--inv-fg, #111827);
+  color: var(--inv-fg, var(--inv-fg-strong));
   margin: 0 0 16px;
 }
 
@@ -1339,7 +1339,7 @@ html.js body .slider-counter {
 .inv-price__current {
   font-size: 2.2rem;
   font-weight: 900;
-  color: var(--inv-fg, #111827);
+  color: var(--inv-fg, var(--inv-fg-strong));
 }
 
 .inv-price__current--sale {
@@ -1348,7 +1348,7 @@ html.js body .slider-counter {
 
 .inv-price__was {
   font-size: 1.2rem;
-  color: var(--inv-fg-muted, #6b7280);
+  color: var(--inv-fg-muted, var(--inv-fg-muted));
   text-decoration: line-through;
 }
 
@@ -1399,7 +1399,7 @@ html.js body .slider-counter {
 
 .inv-stock__badge--out {
   background: #fee2e2;
-  color: #b91c1c;
+  color: var(--inv-accent-hover);
 }
 
 
@@ -1419,7 +1419,7 @@ html.js body .slider-counter {
   display: block;
   font-size: 1rem;
   font-weight: 700;
-  color: var(--inv-fg, #111827);
+  color: var(--inv-fg, var(--inv-fg-strong));
   margin-bottom: 8px;
 }
 
@@ -1433,9 +1433,9 @@ html.js body .slider-counter {
   padding: 0 48px 0 18px;
   font-size: 1.05rem;
   font-weight: 600;
-  color: var(--inv-fg, #111827);
-  background: #ffffff;
-  border: 2px solid var(--inv-border-light, #e5e7eb);
+  color: var(--inv-fg, var(--inv-fg-strong));
+  background: var(--inv-bg-elevated);
+  border: 2px solid var(--inv-border-light, var(--inv-border));
   border-radius: 12px;
   appearance: none;
   cursor: pointer;
@@ -1457,7 +1457,7 @@ html.js body .slider-counter {
   width: 22px;
   height: 22px;
   pointer-events: none;
-  stroke: var(--inv-fg-muted, #6b7280);
+  stroke: var(--inv-fg-muted, var(--inv-fg-muted));
 }
 
 
@@ -1474,10 +1474,10 @@ html.js body .slider-counter {
 .inv-qty {
   display: flex;
   align-items: center;
-  border: 2px solid var(--inv-border-light, #e5e7eb);
+  border: 2px solid var(--inv-border-light, var(--inv-border));
   border-radius: 12px;
   overflow: hidden;
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
 }
 
 .inv-qty__btn {
@@ -1491,12 +1491,12 @@ html.js body .slider-counter {
   cursor: pointer;
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--inv-fg-muted, #6b7280);
+  color: var(--inv-fg-muted, var(--inv-fg-muted));
   transition: background 0.15s ease;
 }
 
 .inv-qty__btn:hover {
-  background: var(--inv-bg-soft, #f3f4f6);
+  background: var(--inv-bg-soft, var(--inv-bg-soft));
 }
 
 .inv-qty__input {
@@ -1505,10 +1505,10 @@ html.js body .slider-counter {
   text-align: center;
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--inv-fg, #111827);
+  color: var(--inv-fg, var(--inv-fg-strong));
   border: none;
-  border-left: 1px solid var(--inv-border-light, #e5e7eb);
-  border-right: 1px solid var(--inv-border-light, #e5e7eb);
+  border-left: 1px solid var(--inv-border-light, var(--inv-border));
+  border-right: 1px solid var(--inv-border-light, var(--inv-border));
   background: transparent;
   -moz-appearance: textfield;
 }
@@ -1533,7 +1533,7 @@ html.js body .slider-counter {
   height: 60px;
   padding: 0 32px;
   background: var(--inv-accent, var(--inv-accent)); /* Solid colour - no gradient */
-  color: #ffffff;
+  color: var(--inv-white);
   border: none;
   border-radius: 999px;
   cursor: pointer;
@@ -1554,8 +1554,8 @@ html.js body .slider-counter {
 
 .inv-atc-btn--disabled,
 .inv-atc-btn:disabled {
-  background: var(--inv-bg-soft, #f3f4f6);
-  color: var(--inv-fg-muted, #6b7280);
+  background: var(--inv-bg-soft, var(--inv-bg-soft));
+  color: var(--inv-fg-muted, var(--inv-fg-muted));
   cursor: not-allowed;
   box-shadow: none;
 }
@@ -1586,8 +1586,8 @@ html.js body .slider-counter {
   align-items: center;
   justify-content: center;
   background: transparent;
-  color: var(--inv-fg, #111827);
-  border: 2px solid var(--inv-fg, #111827);
+  color: var(--inv-fg, var(--inv-fg-strong));
+  border: 2px solid var(--inv-fg, var(--inv-fg-strong));
   border-radius: 999px;
   cursor: pointer;
   font-size: 1.05rem;
@@ -1597,8 +1597,8 @@ html.js body .slider-counter {
 }
 
 .inv-buy-now:hover {
-  background: var(--inv-fg, #111827);
-  color: #ffffff;
+  background: var(--inv-fg, var(--inv-fg-strong));
+  color: var(--inv-white);
 }
 
 
@@ -1612,7 +1612,7 @@ html.js body .slider-counter {
   gap: 18px;
   margin-bottom: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid var(--inv-border-light, #e5e7eb);
+  border-bottom: 1px solid var(--inv-border-light, var(--inv-border));
 }
 
 .inv-trust__item {
@@ -1621,7 +1621,7 @@ html.js body .slider-counter {
   gap: 8px;
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--inv-fg-muted, #374151);
+  color: var(--inv-fg-muted, var(--inv-fg-secondary));
 }
 
 .inv-trust__item svg {
@@ -1647,7 +1647,7 @@ html.js body .slider-counter {
   align-items: flex-start;
   gap: 12px;
   font-size: 1rem;
-  color: var(--inv-fg-muted, #374151);
+  color: var(--inv-fg-muted, var(--inv-fg-secondary));
   line-height: 1.5;
 }
 
@@ -1655,7 +1655,7 @@ html.js body .slider-counter {
   width: 22px;
   height: 22px;
   flex-shrink: 0;
-  stroke: var(--inv-fg-muted, #6b7280);
+  stroke: var(--inv-fg-muted, var(--inv-fg-muted));
   margin-top: 2px;
 }
 
@@ -1667,7 +1667,7 @@ html.js body .slider-counter {
 .inv-product__lower {
   margin-top: 48px;
   padding-top: 48px;
-  border-top: 1px solid var(--inv-border-light, #e5e7eb);
+  border-top: 1px solid var(--inv-border-light, var(--inv-border));
 }
 
 
@@ -1676,9 +1676,9 @@ html.js body .slider-counter {
    ============================================================================ */
 
 .inv-description {
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
   border-radius: 16px;
-  border: 1px solid var(--inv-border-light, #e5e7eb);
+  border: 1px solid var(--inv-border-light, var(--inv-border));
   padding: 28px 32px;
   margin-bottom: 32px;
 }
@@ -1689,7 +1689,7 @@ html.js body .slider-counter {
   gap: 12px;
   margin-bottom: 20px;
   padding-bottom: 16px;
-  border-bottom: 1px solid var(--inv-border-light, #e5e7eb);
+  border-bottom: 1px solid var(--inv-border-light, var(--inv-border));
 }
 
 .inv-description__header svg {
@@ -1704,14 +1704,14 @@ html.js body .slider-counter {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--inv-fg, #111827);
+  color: var(--inv-fg, var(--inv-fg-strong));
   margin: 0;
 }
 
 .inv-description__body {
   font-size: 1.1rem;
   line-height: 1.75;
-  color: var(--inv-fg-muted, #374151);
+  color: var(--inv-fg-muted, var(--inv-fg-secondary));
 }
 
 .inv-description__body p {
@@ -1739,8 +1739,8 @@ html.js body .slider-counter {
    ---------------------------------------------------------------------------- */
 
 .inv-accordion {
-  background: #ffffff;
-  border: 1px solid var(--inv-border-light, #e5e7eb);
+  background: var(--inv-bg-elevated);
+  border: 1px solid var(--inv-border-light, var(--inv-border));
   border-radius: 12px;
   overflow: hidden;
   transition: box-shadow 0.15s ease;
@@ -1794,14 +1794,14 @@ html.js body .slider-counter {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--inv-fg, #111827);
+  color: var(--inv-fg, var(--inv-fg-strong));
 }
 
 /* Chevron */
 .inv-accordion__chevron {
   width: 22px;
   height: 22px;
-  stroke: var(--inv-fg-muted, #6b7280);
+  stroke: var(--inv-fg-muted, var(--inv-fg-muted));
   flex-shrink: 0;
   transition: transform 0.25s ease;
 }
@@ -1817,7 +1817,7 @@ html.js body .slider-counter {
   padding: 20px 24px 28px;
   font-size: 1.05rem;
   line-height: 1.85;
-  color: var(--inv-fg-muted, #374151);
+  color: var(--inv-fg-muted, var(--inv-fg-secondary));
 }
 
 .inv-accordion.is-open .inv-accordion__content {
@@ -1848,7 +1848,7 @@ html.js body .slider-counter {
 }
 
 .inv-spec-table tr:not(:last-child) {
-  border-bottom: 1px solid var(--inv-border-light, #e5e7eb);
+  border-bottom: 1px solid var(--inv-border-light, var(--inv-border));
 }
 
 .inv-spec-table td {
@@ -1858,7 +1858,7 @@ html.js body .slider-counter {
 
 .inv-spec-table td:first-child {
   font-weight: 700;
-  color: var(--inv-fg, #111827);
+  color: var(--inv-fg, var(--inv-fg-strong));
   padding-right: 16px;
 }
 
@@ -1870,13 +1870,13 @@ html.js body .slider-counter {
 .inv-recs {
   margin-top: 64px;
   padding-top: 64px;
-  border-top: 1px solid var(--inv-border-light, #e5e7eb);
+  border-top: 1px solid var(--inv-border-light, var(--inv-border));
 }
 
 .inv-recs__title {
   font-size: 2.2rem;
   font-weight: 900;
-  color: var(--inv-fg, #111827);
+  color: var(--inv-fg, var(--inv-fg-strong));
   margin: 0 0 48px;
   text-align: center;
   letter-spacing: -0.02em;
@@ -1904,14 +1904,14 @@ html.js body .slider-counter {
   justify-content: center;
   gap: 12px;
   padding: 48px 24px;
-  color: #6b7280;
+  color: var(--inv-fg-muted);
   font-size: 0.95rem;
 }
 
 .inv-recs__spinner {
   width: 20px;
   height: 20px;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--inv-border);
   border-top-color: var(--inv-accent);
   border-radius: 50%;
   animation: invRecsSpinner 0.7s linear infinite;
@@ -1925,8 +1925,8 @@ html.js body .slider-counter {
 .invicta-card-brand-badge {
   display: inline-block;
   padding: 6px 14px;
-  background: #111827;
-  color: #ffffff;
+  background: var(--inv-fg-strong);
+  color: var(--inv-white);
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -1939,7 +1939,7 @@ html.js body .slider-counter {
 .invicta-card-placeholder {
   width: 100%;
   aspect-ratio: 1 / 1;
-  background: #f3f4f6;
+  background: var(--inv-bg-soft);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1949,7 +1949,7 @@ html.js body .slider-counter {
   content: '';
   width: 48px;
   height: 48px;
-  background: #d1d5db;
+  background: var(--inv-border-dark);
   border-radius: 8px;
 }
 
@@ -1963,8 +1963,8 @@ html.js body .slider-counter {
   bottom: 0;
   left: 0;
   right: 0;
-  background: #ffffff;
-  border-top: 1px solid var(--inv-border-light, #e5e7eb);
+  background: var(--inv-bg-elevated);
+  border-top: 1px solid var(--inv-border-light, var(--inv-border));
   padding: 12px 24px;
   transform: translateY(100%);
   transition: transform 0.25s ease;
@@ -1988,7 +1988,7 @@ html.js body .slider-counter {
 .inv-sticky-atc__price {
   font-size: 1.4rem;
   font-weight: 900;
-  color: var(--inv-fg, #111827);
+  color: var(--inv-fg, var(--inv-fg-strong));
   white-space: nowrap;
 }
 
@@ -1999,7 +1999,7 @@ html.js body .slider-counter {
   align-items: center;
   justify-content: center;
   background: var(--inv-accent, var(--inv-accent)); /* Solid colour - no gradient */
-  color: #ffffff;
+  color: var(--inv-white);
   border: none;
   border-radius: 999px;
   cursor: pointer;
@@ -2008,8 +2008,8 @@ html.js body .slider-counter {
 }
 
 .inv-sticky-atc__btn:disabled {
-  background: var(--inv-bg-soft, #f3f4f6);
-  color: var(--inv-fg-muted, #6b7280);
+  background: var(--inv-bg-soft, var(--inv-bg-soft));
+  color: var(--inv-fg-muted, var(--inv-fg-muted));
   cursor: not-allowed;
 }
 
@@ -2056,7 +2056,7 @@ html.js body .slider-counter {
    ============================================================================ */
 
 .inv-account__header {
-  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, var(--inv-dark) 0%, var(--inv-fg-near-black) 100%);
   border-radius: 20px;
   padding: 32px 40px;
   margin-bottom: 28px;
@@ -2090,7 +2090,7 @@ html.js body .slider-counter {
   justify-content: center;
   font-size: 1.6rem;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--inv-white);
   letter-spacing: 0.02em;
   flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
@@ -2112,7 +2112,7 @@ html.js body .slider-counter {
 .inv-account__name {
   font-size: 1.8rem;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--inv-white);
   margin: 0;
   letter-spacing: -0.02em;
 }
@@ -2137,7 +2137,7 @@ html.js body .slider-counter {
 .inv-account__stat-value {
   font-size: 1.4rem;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--inv-white);
 }
 
 .inv-account__stat-label {
@@ -2163,7 +2163,7 @@ html.js body .slider-counter {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
-  color: #ffffff;
+  color: var(--inv-white);
   font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
@@ -2171,9 +2171,9 @@ html.js body .slider-counter {
 }
 
 .inv-account__logout:hover {
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
   color: var(--inv-accent);
-  border-color: #ffffff;
+  border-color: var(--inv-white);
 }
 
 .inv-account__logout svg {
@@ -2198,7 +2198,7 @@ html.js body .slider-counter {
    ============================================================================ */
 
 .inv-account__card {
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
@@ -2209,7 +2209,7 @@ html.js body .slider-counter {
   align-items: center;
   gap: 14px;
   padding: 24px 28px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--inv-border);
 }
 
 .inv-account__card-header svg {
@@ -2222,7 +2222,7 @@ html.js body .slider-counter {
 .inv-account__card-header h2 {
   font-size: 1.35rem;
   font-weight: 800;
-  color: #111827;
+  color: var(--inv-fg-strong);
   margin: 0;
 }
 
@@ -2245,27 +2245,27 @@ html.js body .slider-counter {
 }
 
 .inv-orders-table thead {
-  background: #f9fafb;
+  background: var(--inv-bg-muted);
 }
 
 .inv-orders-table thead th {
   padding: 14px 16px;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #6b7280;
+  color: var(--inv-fg-muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   text-align: left;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--inv-border);
 }
 
 .inv-orders-table tbody tr {
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--inv-bg-soft);
   transition: background 150ms ease;
 }
 
 .inv-orders-table tbody tr:hover {
-  background: #f9fafb;
+  background: var(--inv-bg-muted);
 }
 
 .inv-orders-table tbody tr:last-child {
@@ -2275,7 +2275,7 @@ html.js body .slider-counter {
 .inv-orders-table tbody td {
   padding: 18px 16px;
   font-size: 1.05rem;
-  color: #374151;
+  color: var(--inv-fg-secondary);
   vertical-align: middle;
 }
 
@@ -2285,7 +2285,7 @@ html.js body .slider-counter {
   align-items: center;
   padding: 8px 16px;
   background: var(--inv-accent);
-  color: #ffffff;
+  color: var(--inv-white);
   font-size: 0.95rem;
   font-weight: 700;
   border-radius: 8px;
@@ -2351,7 +2351,7 @@ html.js body .slider-counter {
   width: 80px;
   height: 80px;
   margin: 0 auto 20px;
-  background: #f3f4f6;
+  background: var(--inv-bg-soft);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -2361,19 +2361,19 @@ html.js body .slider-counter {
 .inv-empty-state__icon svg {
   width: 40px;
   height: 40px;
-  stroke: #9ca3af;
+  stroke: var(--inv-fg-subtle);
 }
 
 .inv-empty-state__title {
   font-size: 1.4rem;
   font-weight: 800;
-  color: #111827;
+  color: var(--inv-fg-strong);
   margin: 0 0 8px;
 }
 
 .inv-empty-state__text {
   font-size: 1.1rem;
-  color: #6b7280;
+  color: var(--inv-fg-muted);
   margin: 0 0 24px;
 }
 
@@ -2383,7 +2383,7 @@ html.js body .slider-counter {
   gap: 10px;
   padding: 14px 28px;
   background: var(--inv-accent);
-  color: #ffffff;
+  color: var(--inv-white);
   font-size: 1.1rem;
   font-weight: 700;
   border-radius: 10px;
@@ -2419,7 +2419,7 @@ html.js body .slider-counter {
 
 .inv-detail-group {
   padding: 18px 28px;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--inv-bg-soft);
 }
 
 .inv-detail-group:last-of-type {
@@ -2430,7 +2430,7 @@ html.js body .slider-counter {
   display: block;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #6b7280;
+  color: var(--inv-fg-muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   margin-bottom: 6px;
@@ -2440,18 +2440,18 @@ html.js body .slider-counter {
   display: block;
   font-size: 1.15rem;
   font-weight: 600;
-  color: #111827;
+  color: var(--inv-fg-strong);
 }
 
 .inv-detail-address {
   font-size: 1.05rem;
   font-style: normal;
   line-height: 1.7;
-  color: #374151;
+  color: var(--inv-fg-secondary);
 }
 
 .inv-detail-address strong {
-  color: #111827;
+  color: var(--inv-fg-strong);
   font-weight: 700;
 }
 
@@ -2480,14 +2480,14 @@ html.js body .slider-counter {
 }
 
 .inv-btn--outline {
-  background: #f3f4f6;
-  color: #374151;
-  border: 1px solid #e5e7eb;
+  background: var(--inv-bg-soft);
+  color: var(--inv-fg-secondary);
+  border: 1px solid var(--inv-border);
 }
 
 .inv-btn--outline:hover {
   background: var(--inv-accent);
-  color: #ffffff;
+  color: var(--inv-white);
   border-color: var(--inv-accent);
 }
 
@@ -2512,7 +2512,7 @@ html.js body .slider-counter {
 .inv-rv-card {
   display: flex;
   flex-direction: column;
-  background: #f9fafb;
+  background: var(--inv-bg-muted);
   border-radius: 12px;
   overflow: hidden;
   text-decoration: none;
@@ -2526,7 +2526,7 @@ html.js body .slider-counter {
 
 .inv-rv-card__image {
   aspect-ratio: 1;
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2556,7 +2556,7 @@ html.js body .slider-counter {
 .inv-rv-card__title {
   font-size: 1rem;
   font-weight: 700;
-  color: #111827;
+  color: var(--inv-fg-strong);
   margin: 0 0 8px;
   line-height: 1.4;
   display: -webkit-box;
@@ -2568,7 +2568,7 @@ html.js body .slider-counter {
 .inv-rv-card__price {
   font-size: 1.1rem;
   font-weight: 800;
-  color: #111827;
+  color: var(--inv-fg-strong);
 }
 
 
@@ -2583,7 +2583,7 @@ html.js body .slider-counter {
   gap: 16px;
   margin-top: 24px;
   padding: 24px 16px 0;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--inv-border);
 }
 
 .inv-pagination__btn {
@@ -2592,10 +2592,10 @@ html.js body .slider-counter {
   justify-content: center;
   width: 44px;
   height: 44px;
-  background: #f3f4f6;
-  border: 1px solid #e5e7eb;
+  background: var(--inv-bg-soft);
+  border: 1px solid var(--inv-border);
   border-radius: 10px;
-  color: #374151;
+  color: var(--inv-fg-secondary);
   text-decoration: none;
   transition: all 150ms ease;
 }
@@ -2603,7 +2603,7 @@ html.js body .slider-counter {
 .inv-pagination__btn:hover {
   background: var(--inv-accent);
   border-color: var(--inv-accent);
-  color: #ffffff;
+  color: var(--inv-white);
 }
 
 .inv-pagination__btn svg {
@@ -2614,7 +2614,7 @@ html.js body .slider-counter {
 .inv-pagination__info {
   font-size: 1rem;
   font-weight: 600;
-  color: #6b7280;
+  color: var(--inv-fg-muted);
 }
 
 
@@ -2635,13 +2635,13 @@ html.js body .slider-counter {
 .customer.register h1 {
   font-size: 2.4rem;
   font-weight: 900;
-  color: #111827;
+  color: var(--inv-fg-strong);
   margin: 0 0 8px;
 }
 
 .customer.login form,
 .customer.register form {
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
   border-radius: 20px;
   padding: 36px;
   margin-top: 32px;
@@ -2658,10 +2658,10 @@ html.js body .slider-counter {
 .customer.register .field input {
   width: 100%;
   padding: 16px 20px;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--inv-border);
   border-radius: 12px;
   font-size: 1.1rem;
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
   transition: border-color 150ms ease;
 }
 
@@ -2678,7 +2678,7 @@ html.js body .slider-counter {
   margin-bottom: 10px;
   font-size: 1.05rem;
   font-weight: 700;
-  color: #374151;
+  color: var(--inv-fg-secondary);
 }
 
 .customer.login button,
@@ -2686,7 +2686,7 @@ html.js body .slider-counter {
   width: 100%;
   padding: 18px 24px;
   background: var(--inv-accent);
-  color: #ffffff;
+  color: var(--inv-white);
   border: none;
   border-radius: 12px;
   font-size: 1.15rem;
@@ -2705,7 +2705,7 @@ html.js body .slider-counter {
 
 .customer.login a,
 .customer.register a {
-  color: #6b7280;
+  color: var(--inv-fg-muted);
   font-size: 1.05rem;
   text-decoration: none;
 }
@@ -2725,27 +2725,27 @@ html.js body .slider-counter {
 .customer.login #customer_login_guest {
   margin-top: 36px;
   padding-top: 36px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--inv-border);
 }
 
 .customer.login #customer_login_guest h3 {
   font-size: 1.3rem;
   font-weight: 800;
-  color: #111827;
+  color: var(--inv-fg-strong);
   margin-bottom: 16px;
   text-align: center;
 }
 
 .customer.login #customer_login_guest button {
-  background: #f3f4f6;
-  color: #374151;
-  border: 1px solid #e5e7eb;
+  background: var(--inv-bg-soft);
+  color: var(--inv-fg-secondary);
+  border: 1px solid var(--inv-border);
 }
 
 .customer.login #customer_login_guest button:hover {
-  background: #2d2d2d;
-  color: #ffffff;
-  border-color: #2d2d2d;
+  background: var(--inv-dark);
+  color: var(--inv-white);
+  border-color: var(--inv-dark);
   box-shadow: none;
 }
 
@@ -2764,12 +2764,12 @@ html.js body .slider-counter {
 .customer.addresses > h1 {
   font-size: 2.2rem;
   font-weight: 900;
-  color: #111827;
+  color: var(--inv-fg-strong);
   margin: 0 0 8px;
 }
 
 .customer.addresses > a {
-  color: #6b7280;
+  color: var(--inv-fg-muted);
   font-size: 1.05rem;
   text-decoration: none;
 }
@@ -2785,7 +2785,7 @@ html.js body .slider-counter {
   margin: 24px 0;
   padding: 14px 28px;
   background: var(--inv-accent);
-  color: #ffffff;
+  color: var(--inv-white);
   border: none;
   border-radius: 10px;
   font-size: 1.05rem;
@@ -2810,7 +2810,7 @@ html.js body .slider-counter {
 }
 
 .customer.addresses li[data-address] {
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
   border-radius: 16px;
   padding: 28px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
@@ -2822,7 +2822,7 @@ html.js body .slider-counter {
   font-weight: 700;
   text-transform: uppercase ;
   letter-spacing: 0.04em ;
-  color: #ffffff;
+  color: var(--inv-white);
   background: var(--inv-accent);
   margin: 0 0 16px;
   padding: 8px 14px;
@@ -2834,7 +2834,7 @@ html.js body .slider-counter {
   margin: 0;
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #374151;
+  color: var(--inv-fg-secondary);
 }
 
 .customer.addresses li[data-address] > button {
@@ -2848,9 +2848,9 @@ html.js body .slider-counter {
 }
 
 .customer.addresses li[data-address] > button[aria-expanded] {
-  background: #f3f4f6;
-  border: 1px solid #e5e7eb;
-  color: #374151;
+  background: var(--inv-bg-soft);
+  border: 1px solid var(--inv-border);
+  color: var(--inv-fg-secondary);
   margin: 20px 8px 0 0;
 }
 
@@ -2863,7 +2863,7 @@ html.js body .slider-counter {
 .customer.addresses form {
   margin-top: 24px;
   padding: 24px;
-  background: #f9fafb;
+  background: var(--inv-bg-muted);
   border-radius: 12px;
 }
 
@@ -2875,10 +2875,10 @@ html.js body .slider-counter {
 .customer.addresses form select {
   width: 100%;
   padding: 14px 18px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--inv-border);
   border-radius: 10px;
   font-size: 1.05rem;
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
 }
 
 .customer.addresses form label {
@@ -2886,7 +2886,7 @@ html.js body .slider-counter {
   margin-bottom: 8px;
   font-size: 1rem;
   font-weight: 600;
-  color: #374151;
+  color: var(--inv-fg-secondary);
 }
 
 .customer.addresses form button {
@@ -2900,14 +2900,14 @@ html.js body .slider-counter {
 
 .customer.addresses form button:not([type="reset"]) {
   background: var(--inv-accent);
-  color: #ffffff;
+  color: var(--inv-white);
   border: none;
 }
 
 .customer.addresses form button[type="reset"] {
-  background: #f3f4f6;
-  color: #374151;
-  border: 1px solid #e5e7eb;
+  background: var(--inv-bg-soft);
+  color: var(--inv-fg-secondary);
+  border: 1px solid var(--inv-border);
 }
 
 
@@ -2923,14 +2923,14 @@ html.js body .slider-counter {
 }
 
 .customer.order > div:first-child {
-  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, var(--inv-dark) 0%, var(--inv-fg-near-black) 100%);
   border-radius: 20px;
   padding: 32px 40px;
   margin-bottom: 28px;
 }
 
 .customer.order > div:first-child h1 {
-  color: #ffffff;
+  color: var(--inv-white);
   font-size: 2rem;
   font-weight: 800;
   margin: 0 0 8px;
@@ -2943,7 +2943,7 @@ html.js body .slider-counter {
 }
 
 .customer.order > div:first-child > a:hover {
-  color: #ffffff;
+  color: var(--inv-white);
 }
 
 .customer.order > div:nth-of-type(2) {
@@ -2954,7 +2954,7 @@ html.js body .slider-counter {
 
 
 .customer.order > div:nth-of-type(2) > div:first-of-type {
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
@@ -2963,10 +2963,10 @@ html.js body .slider-counter {
 .customer.order > div:nth-of-type(2) > div:first-of-type h2 {
   font-size: 1.3rem;
   font-weight: 800;
-  color: #111827;
+  color: var(--inv-fg-strong);
   margin: 0;
   padding: 20px 24px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--inv-border);
 }
 
 .customer.order table {
@@ -2976,25 +2976,25 @@ html.js body .slider-counter {
 }
 
 .customer.order table thead {
-  background: #f9fafb;
+  background: var(--inv-bg-muted);
 }
 
 .customer.order table thead th {
   padding: 14px 20px;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #6b7280;
+  color: var(--inv-fg-muted);
   text-transform: uppercase ;
 }
 
 .customer.order table tbody td {
   padding: 18px 20px;
   font-size: 1.05rem;
-  color: #374151;
+  color: var(--inv-fg-secondary);
 }
 
 .customer.order table tbody td a {
-  color: #111827;
+  color: var(--inv-fg-strong);
   font-weight: 600;
 }
 
@@ -3006,7 +3006,7 @@ html.js body .slider-counter {
   font-size: 1.4rem;
   font-weight: 800;
   padding-top: 20px;
-  border-top: 2px solid #e5e7eb;
+  border-top: 2px solid var(--inv-border);
 }
 
 .customer.order > div:nth-of-type(2) > div:last-of-type {
@@ -3016,7 +3016,7 @@ html.js body .slider-counter {
 }
 
 .customer.order > div:nth-of-type(2) > div:last-of-type > div {
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
@@ -3046,7 +3046,7 @@ html.js body .slider-counter {
   align-items: center;
   justify-content: space-between;
   background: #282c31;
-  color: #fff;
+  color: var(--inv-white);
   padding: 16px 24px;
   margin-bottom: 24px;
 }
@@ -3060,12 +3060,12 @@ html.js body .slider-counter {
   font-weight: 800;
   letter-spacing: -0.02em;
   margin: 0;
-  color: #fff;
+  color: var(--inv-white);
 }
 .inv-cart-header__count {
   font-size: 14px;
   font-weight: 500;
-  color: #9ca3af;
+  color: var(--inv-fg-subtle);
 }
 .inv-cart-header__continue {
   display: flex;
@@ -3073,11 +3073,11 @@ html.js body .slider-counter {
   gap: 6px;
   font-size: 13px;
   font-weight: 600;
-  color: #fff;
+  color: var(--inv-white);
   text-decoration: none;
 }
 .inv-cart-header__continue:hover {
-  color: #e5e7eb;
+  color: var(--inv-border);
 }
 
 /* --- Info strip (delivery bar + estimate) --- */
@@ -3087,7 +3087,7 @@ html.js body .slider-counter {
   margin-bottom: 24px;
   padding: 12px 16px;
   background: #f5f5f5;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--inv-border);
 }
 .inv-cart-info-strip > * {
   flex: 1;
@@ -3100,13 +3100,13 @@ html.js body .slider-counter {
 /* --- Per-item ex-VAT pricing --- */
 .inv-cart-item__ex-vat {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--inv-fg-muted);
   margin-top: 2px;
 }
 .inv-cart-item__line-ex-vat {
   display: block;
   font-size: 11px;
-  color: #6b7280;
+  color: var(--inv-fg-muted);
   margin-top: 4px;
 }
 
@@ -3123,7 +3123,7 @@ html.js body .slider-counter {
 .cart__footer-wrapper.gradient,
 #main-cart-footer,
 #main-cart-footer > div {
-  background: #fff !important;
+  background: var(--inv-bg-elevated) !important;
 }
 #main-cart-footer {
   border-top: 2px solid #282c31;
@@ -3175,17 +3175,17 @@ html.js body .slider-counter {
   justify-content: space-between;
   align-items: baseline;
   padding-bottom: 12px;
-  border-bottom: 2px solid #1a1a1a;
+  border-bottom: 2px solid var(--inv-fg-near-black);
 }
 .inv-cart-checkout-total__label {
   font-size: 16px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--inv-fg-near-black);
 }
 .inv-cart-checkout-total__price {
   font-size: 22px;
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--inv-fg-near-black);
   letter-spacing: -0.02em;
 }
 
@@ -3193,8 +3193,8 @@ html.js body .slider-counter {
 .cart__checkout-button,
 #checkout,
 button[name="checkout"] {
-  background: #e11d26;
-  color: #fff;
+  background: var(--inv-accent);
+  color: var(--inv-white);
   border: none;
   border-radius: 8px;
   height: 52px;
@@ -3237,24 +3237,24 @@ button[name="checkout"] {
   flex-direction: column;
   gap: 8px;
   padding-top: 12px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--inv-border);
 }
 .inv-cart-trust__item {
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 13px;
-  color: #6b7280;
+  color: var(--inv-fg-muted);
 }
 .inv-cart-trust__item svg {
   flex-shrink: 0;
-  color: #6b7280;
+  color: var(--inv-fg-muted);
 }
 
 /* --- Cart breakdown --- */
 .invicta-cart-breakdown {
   padding: 16px 0;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--inv-border);
   margin-top: 0;
 }
 .invicta-cart-breakdown__row {
@@ -3263,17 +3263,17 @@ button[name="checkout"] {
   padding: 4px 0;
   font-size: 14px;
 }
-.invicta-cart-breakdown__row--subtotal { color: #374151; }
-.invicta-cart-breakdown__row--vat { color: #6b7280; font-size: 13px; }
-.invicta-cart-breakdown__row--shipping { color: #6b7280; font-size: 13px; }
+.invicta-cart-breakdown__row--subtotal { color: var(--inv-fg-secondary); }
+.invicta-cart-breakdown__row--vat { color: var(--inv-fg-muted); font-size: 13px; }
+.invicta-cart-breakdown__row--shipping { color: var(--inv-fg-muted); font-size: 13px; }
 .invicta-cart-breakdown__row--discount { color: #059669; font-weight: 600; }
 .invicta-cart-breakdown__row--total {
   font-weight: 700;
   font-size: 16px;
   padding-top: 10px;
   margin-top: 8px;
-  border-top: 2px solid #1a1a1a;
-  color: #1a1a1a;
+  border-top: 2px solid var(--inv-fg-near-black);
+  color: var(--inv-fg-near-black);
 }
 .invicta-cart-breakdown__label { flex: 1; white-space: nowrap; margin-right: 12px; }
 .invicta-cart-breakdown__value { font-weight: 500; text-align: right; }
@@ -3282,7 +3282,7 @@ button[name="checkout"] {
 .invicta-cart-breakdown__shipping-progress { margin-top: 8px; }
 .invicta-cart-breakdown__shipping-bar {
   height: 4px;
-  background: #e5e7eb;
+  background: var(--inv-border);
   border-radius: 2px;
   overflow: hidden;
   margin-top: 4px;
@@ -3292,13 +3292,13 @@ button[name="checkout"] {
   background: #d97706;
   border-radius: 2px;
 }
-.invicta-cart-breakdown__shipping-text { font-size: 12px; color: #6b7280; }
+.invicta-cart-breakdown__shipping-text { font-size: 12px; color: var(--inv-fg-muted); }
 .invicta-vat-indicator {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--inv-fg-muted);
   text-align: left;
   padding: 6px 0 8px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--inv-border);
   margin-bottom: 8px;
 }
 
@@ -3324,7 +3324,7 @@ button[name="checkout"] {
 /* --- Cart note --- */
 .cart__note { margin-bottom: 24px; }
 .cart__note .text-area {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--inv-border);
   border-radius: 4px;
   font-size: 14px;
   min-height: 80px;
@@ -3338,12 +3338,12 @@ button[name="checkout"] {
 .cart__warnings .cart__empty-text {
   font-size: 18px;
   font-weight: 700;
-  color: #374151;
+  color: var(--inv-fg-secondary);
   margin-bottom: 16px;
 }
 .cart__warnings .button {
-  background: #e11d26;
-  color: #fff;
+  background: var(--inv-accent);
+  color: var(--inv-white);
   border: none;
   border-radius: 8px;
   height: 48px;
@@ -3369,12 +3369,12 @@ button[name="checkout"] {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--inv-border);
   border-radius: 16px;
 }
 
@@ -3390,7 +3390,7 @@ button[name="checkout"] {
   bottom: 16px;
   left: 16px;
   background: rgba(0, 0, 0, 0.6);
-  color: #ffffff;
+  color: var(--inv-white);
   font-size: 0.8rem;
   font-weight: 600;
   padding: 6px 14px;
@@ -3417,7 +3417,7 @@ button[name="checkout"] {
 }
 
 .inv-gallery__dot.is-active {
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
   width: 24px;
   border-radius: 4px;
 }
@@ -3430,7 +3430,7 @@ button[name="checkout"] {
   height: 44px;
   padding: 0 18px;
   background: rgba(255, 255, 255, 0.95);
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--inv-border);
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   z-index: 10;
@@ -3443,20 +3443,20 @@ button[name="checkout"] {
 }
 
 .inv-gallery__zoom:hover {
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .inv-gallery__zoom svg {
   width: 18px;
   height: 18px;
-  stroke: #374151;
+  stroke: var(--inv-fg-secondary);
 }
 
 .inv-gallery__zoom span {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #374151;
+  color: var(--inv-fg-secondary);
 }
 
 /* === Thumbnails === */
@@ -3474,16 +3474,16 @@ button[name="checkout"] {
   min-width: 80px;
   flex-shrink: 0;
   border-radius: 10px;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--inv-border);
   overflow: hidden;
   cursor: pointer;
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
   padding: 6px;
   transition: border-color 150ms ease;
 }
 
 .inv-gallery__thumb:hover {
-  border-color: #9ca3af;
+  border-color: var(--inv-fg-subtle);
 }
 
 .inv-gallery__thumb img {
@@ -3508,7 +3508,7 @@ button[name="checkout"] {
   background: var(--inv-accent);
   border: none;
   border-radius: 12px;
-  color: #ffffff;
+  color: var(--inv-white);
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
@@ -3516,7 +3516,7 @@ button[name="checkout"] {
 }
 
 .inv-share:hover {
-  background: #b91c1c;
+  background: var(--inv-accent-hover);
 }
 
 .inv-share svg {
@@ -3542,7 +3542,7 @@ button[name="checkout"] {
   aspect-ratio: 1 / 1;
   width: 100%;
   padding: 16px;
-  background: #ffffff;
+  background: var(--inv-bg-elevated);
   border-radius: 12px 12px 0 0;
   display: flex;
   align-items: center;
@@ -3581,7 +3581,7 @@ button[name="checkout"] {
   font-size: 0.95rem;
   font-weight: 600;
   line-height: 1.4;
-  color: #1f2937;
+  color: var(--inv-fg);
 }
 
 /* Sale price red */
@@ -3686,7 +3686,7 @@ button[name="checkout"] {
 
 .invicta-quick-qty__label {
   font-size: 0.9rem;
-  color: #6b7280;
+  color: var(--inv-fg-muted);
   font-weight: 500;
 }
 
@@ -3699,25 +3699,25 @@ button[name="checkout"] {
   min-width: 48px;
   height: 38px;
   padding: 0 14px;
-  background: #f3f4f6;
-  border: 1px solid #e5e7eb;
+  background: var(--inv-bg-soft);
+  border: 1px solid var(--inv-border);
   border-radius: 6px;
   font-size: 0.9rem;
   font-weight: 600;
-  color: #374151;
+  color: var(--inv-fg-secondary);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .invicta-quick-qty__btn:hover {
-  background: #e5e7eb;
-  border-color: #d1d5db;
+  background: var(--inv-border);
+  border-color: var(--inv-border-dark);
 }
 
 .invicta-quick-qty__btn--active {
   background: var(--inv-accent);
   border-color: var(--inv-accent);
-  color: #fff;
+  color: var(--inv-white);
 }
 
 /* --------------------------------------------------------------------------
@@ -3737,7 +3737,7 @@ button[name="checkout"] {
 
 .invicta-qty-total__label {
   font-size: 0.95rem;
-  color: #6b7280;
+  color: var(--inv-fg-muted);
 }
 
 .invicta-qty-total__value {
@@ -3756,7 +3756,7 @@ button[name="checkout"] {
 
 .invicta-cart-breakdown {
   padding: 16px 0;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--inv-border);
   margin-top: 16px;
 }
 
@@ -3772,7 +3772,7 @@ button[name="checkout"] {
   font-weight: 700;
   padding-top: 10px;
   margin-top: 8px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--inv-border);
 }
 /* ==========================================================================
    INVICTA TRADE FEATURES v2.8 - CSS FIXES
@@ -3793,7 +3793,7 @@ button[name="checkout"] {
 
 .inv-vat-toggle {
   display: inline-flex;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--inv-border-dark);
   border-radius: 6px;
   overflow: hidden;
   font-size: 0.75rem;
@@ -3802,8 +3802,8 @@ button[name="checkout"] {
 .inv-vat-toggle__btn {
   padding: 6px 12px;
   border: none;
-  background: #f9fafb;
-  color: #6b7280;
+  background: var(--inv-bg-muted);
+  color: var(--inv-fg-muted);
   font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
@@ -3811,17 +3811,17 @@ button[name="checkout"] {
 }
 
 .inv-vat-toggle__btn:first-child {
-  border-right: 1px solid #d1d5db;
+  border-right: 1px solid var(--inv-border-dark);
 }
 
 .inv-vat-toggle__btn[aria-pressed="true"],
 .inv-vat-toggle__btn--active {
   background: var(--inv-accent);
-  color: #ffffff;
+  color: var(--inv-white);
 }
 
 .inv-vat-toggle__btn:hover:not([aria-pressed="true"]) {
-  background: #f3f4f6;
+  background: var(--inv-bg-soft);
 }
 
 /* Placement on product page - inline with price */
@@ -3840,7 +3840,7 @@ button[name="checkout"] {
 .cart-item quantity-input {
   display: flex;
   align-items: center;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--inv-border-dark);
   border-radius: 6px;
   overflow: hidden;
   height: 40px;
@@ -3857,14 +3857,14 @@ button[name="checkout"] {
   padding: 0;
   border: none;
   background: transparent;
-  color: #374151;
+  color: var(--inv-fg-secondary);
   cursor: pointer;
   transition: background 0.15s ease;
 }
 
 .cart-item .quantity__button:hover,
 .cart-item .inv-qty-btn:hover {
-  background: #f3f4f6;
+  background: var(--inv-bg-soft);
 }
 
 .cart-item .quantity__button svg,
@@ -3880,13 +3880,13 @@ button[name="checkout"] {
   height: 100%;
   padding: 0;
   border: none;
-  border-left: 1px solid #e5e7eb;
-  border-right: 1px solid #e5e7eb;
+  border-left: 1px solid var(--inv-border);
+  border-right: 1px solid var(--inv-border);
   background: transparent;
   text-align: center;
   font-size: 14px;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--inv-fg);
   -moz-appearance: textfield;
 }
 
