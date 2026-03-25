@@ -374,6 +374,19 @@
     parseDescription();
 
     /* ========================================
+       ACCORDION TOGGLES
+       ======================================== */
+    section.querySelectorAll('[data-accordion-toggle]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var sec = btn.closest('.inv-pdp__info-section');
+        if (!sec) return;
+        var isOpen = sec.classList.contains('inv-pdp__info-section--open');
+        sec.classList.toggle('inv-pdp__info-section--open');
+        btn.setAttribute('aria-expanded', !isOpen);
+      });
+    });
+
+    /* ========================================
        PARSE JSON DATA
        ======================================== */
 
@@ -415,6 +428,12 @@
       thumb.classList.add('inv-pdp__gallery-thumb--active');
       thumb.setAttribute('aria-selected', 'true');
       activeThumbIndex = parseInt(thumb.dataset.index, 10) || 0;
+
+      /* Update image counter */
+      var counter = section.querySelector('[data-image-counter]');
+      if (counter) {
+        counter.textContent = (activeThumbIndex + 1) + ' / ' + thumbArray.length;
+      }
 
       var newSrc = thumb.dataset.imageSrc;
       if (newSrc && mainImage.src !== newSrc) {
