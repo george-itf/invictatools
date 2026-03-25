@@ -1,16 +1,18 @@
 {% comment %}
   ============================================================================
-  INVICTA HERO v3.1 — Full-bleed dark hero with text + product image
+  INVICTA HERO v3.2 — Full-bleed dark hero with text + product image
   ============================================================================
   Two-column hero: text content left, clean product image right.
   Red eyebrow tag, condensed uppercase title, dual CTAs.
-  NO gradients, NO glows, NO overlays.
+  Subtle background texture via pseudo-elements, price callout badge.
 
-  Updates in v3.1:
-  - Removed radial glow behind product image
-  - Removed box-shadow glow on CTA hover
-  - Added padding_top / padding_bottom settings
-  - Clean image rendering with no overlays
+  Updates in v3.2:
+  - Larger heading (54px desktop, 40px tablet, 28px mobile)
+  - Improved description legibility (opacity 0.7, 16px)
+  - Larger product image (380px)
+  - Background texture via ::before pseudo-element
+  - Bottom accent line via ::after pseudo-element
+  - Price callout badge on product image
 
   Trade 15.4.0 Compatible
   Usage: Add via theme editor or templates/index.json
@@ -70,7 +72,7 @@
           srcset="{{ section.settings.hero_image | image_url: width: 340 }} 340w,
                   {{ section.settings.hero_image | image_url: width: 500 }} 500w,
                   {{ section.settings.hero_image | image_url: width: 680 }} 680w"
-          sizes="(max-width: 989px) 0px, 340px"
+          sizes="(max-width: 989px) 0px, 380px"
           alt="{{ section.settings.heading | escape }}"
           width="{{ section.settings.hero_image.width }}"
           height="{{ section.settings.hero_image.height }}"
@@ -78,6 +80,15 @@
           fetchpriority="high"
           class="inv-hero-v3__image"
         >
+        {%- if section.settings.price_text != blank -%}
+          <div class="inv-hero-v3__price-tag">
+            <div class="inv-hero-v3__price-label">{{ section.settings.price_label | default: 'From' }}</div>
+            <div class="inv-hero-v3__price-value">{{ section.settings.price_text }}</div>
+            {%- if section.settings.price_subtext != blank -%}
+              <div class="inv-hero-v3__price-sub">{{ section.settings.price_subtext }}</div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
       </div>
     {%- endif -%}
   </div>
@@ -85,14 +96,37 @@
 
 <style>
   /* ============================================================================
-     INVICTA HERO v3.1 — Full-bleed dark hero
-     NO gradients, NO glows, NO overlays
+     INVICTA HERO v3.2 — Full-bleed dark hero
+     Subtle background texture via pseudo-elements
      ============================================================================ */
 
   #hero-v3-{{ section.id }} {
     background: {{ section.settings.background_color | default: '#2d2d2d' }};
     padding-top: {{ section.settings.padding_top | default: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #hero-v3-{{ section.id }}::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 80%, rgba(225,29,38,0.06) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  #hero-v3-{{ section.id }}::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--inv-accent);
+    z-index: 1;
   }
 
   #hero-v3-{{ section.id }} .inv-hero-v3__container {
@@ -103,6 +137,8 @@
     grid-template-columns: 1fr;
     min-height: 380px;
     align-items: center;
+    position: relative;
+    z-index: 1;
   }
 
   /* When no image: content takes full width */
@@ -136,18 +172,19 @@
   /* Heading */
   #hero-v3-{{ section.id }} .inv-hero-v3__heading {
     font-family: 'Barlow Condensed', Impact, 'Arial Narrow', sans-serif;
-    font-size: 26px;
-    font-weight: 800;
+    font-size: 28px;
+    font-weight: 900;
     text-transform: uppercase;
     color: var(--inv-bg-elevated);
     line-height: 1.05;
+    letter-spacing: -0.5px;
     margin: 0 0 var(--inv-space-md) 0;
   }
 
   /* Description */
   #hero-v3-{{ section.id }} .inv-hero-v3__desc {
-    font-size: 15px;
-    color: rgba(255, 255, 255, 0.6);
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
     line-height: 1.55;
     max-width: 400px;
     margin: 0 0 var(--inv-space-lg) 0;
@@ -208,14 +245,46 @@
     display: none;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
 
   #hero-v3-{{ section.id }} .inv-hero-v3__image {
-    max-width: 340px;
-    max-height: 340px;
+    max-width: 380px;
+    max-height: 380px;
     width: 100%;
     height: auto;
     object-fit: contain;
+  }
+
+  /* --- Price callout --- */
+  #hero-v3-{{ section.id }} .inv-hero-v3__price-tag {
+    position: absolute;
+    bottom: 20px;
+    right: -10px;
+    background: var(--inv-bg-elevated);
+    padding: 10px 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    z-index: 2;
+  }
+
+  #hero-v3-{{ section.id }} .inv-hero-v3__price-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--inv-fg-muted);
+    font-weight: 600;
+  }
+
+  #hero-v3-{{ section.id }} .inv-hero-v3__price-value {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--inv-fg);
+    line-height: 1.1;
+  }
+
+  #hero-v3-{{ section.id }} .inv-hero-v3__price-sub {
+    font-size: 11px;
+    color: var(--inv-fg-muted);
   }
 
   /* ----------------------------------------
@@ -232,7 +301,7 @@
      ---------------------------------------- */
   @media (min-width: 750px) {
     #hero-v3-{{ section.id }} .inv-hero-v3__heading {
-      font-size: 34px;
+      font-size: 40px;
     }
 
     #hero-v3-{{ section.id }} .inv-hero-v3__ctas {
@@ -254,7 +323,7 @@
     }
 
     #hero-v3-{{ section.id }} .inv-hero-v3__heading {
-      font-size: 44px;
+      font-size: 54px;
     }
 
     #hero-v3-{{ section.id }} .inv-hero-v3__visual {
@@ -268,6 +337,10 @@
   @media (prefers-reduced-motion: reduce) {
     #hero-v3-{{ section.id }} .inv-hero-v3__btn {
       transition: none;
+    }
+    #hero-v3-{{ section.id }}::before,
+    #hero-v3-{{ section.id }}::after {
+      animation: none;
     }
   }
 </style>
@@ -340,6 +413,29 @@
     {
       "type": "header",
       "content": "Style"
+    },
+    {
+      "type": "header",
+      "content": "Price Callout"
+    },
+    {
+      "type": "text",
+      "id": "price_label",
+      "label": "Price label",
+      "default": "From",
+      "info": "Small text above price"
+    },
+    {
+      "type": "text",
+      "id": "price_text",
+      "label": "Price",
+      "info": "Leave blank to hide price callout"
+    },
+    {
+      "type": "text",
+      "id": "price_subtext",
+      "label": "Price subtext",
+      "info": "e.g. (£35.83 ex VAT)"
     },
     {
       "type": "color",

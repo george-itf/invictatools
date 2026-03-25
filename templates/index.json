@@ -22,7 +22,10 @@
         "secondary_link": "shopify://collections/deals-and-sales",
         "background_color": "#2d2d2d",
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "price_label": "From",
+        "price_text": "£42.99",
+        "price_subtext": "(£35.83 ex VAT)"
       }
     },
     "trust_strip": {
@@ -72,26 +75,30 @@
         "padding_bottom": 0
       }
     },
-    "promo_banners": {
-      "type": "invicta-promo-banners",
+    "spotlight": {
+      "type": "invicta-spotlight",
       "settings": {
-        "section_bg": "#f5f5f5",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "banner_1_image": "shopify://shop_images/vipernails-1.svg",
-        "banner_1_link": "shopify://collections/viper-1",
-        "banner_1_tag": "New Range",
-        "banner_1_title": "Viper Fuel Cell Nails",
-        "banner_1_subtitle": "Premium gas nailer consumables",
-        "banner_1_start": "",
-        "banner_1_end": "",
-        "banner_2_image": "shopify://shop_images/RM350D-3.svg",
-        "banner_2_link": "shopify://products/makita-rm350d-18v-lxt-brushless-robotic-mower-240mm",
-        "banner_2_tag": "Just Landed",
-        "banner_2_title": "Makita RM350D Robotic Mower",
-        "banner_2_subtitle": "Cordless, GPS-guided lawn care",
-        "banner_2_start": "",
-        "banner_2_end": ""
+        "primary_tag": "New Range",
+        "primary_tag_style": "new",
+        "primary_title": "Viper Fuel Cell Nails",
+        "primary_subtitle": "Premium gas nailer consumables. Full range in stock at both branches.",
+        "primary_cta": "Shop Viper Nails",
+        "card2_tag": "Just Landed",
+        "card2_tag_style": "featured",
+        "card2_title": "Makita RM350D Robotic Mower",
+        "card2_price": "£2,299.00",
+        "card2_price_sub": "(£1,915.83 ex)",
+        "card2_cta": "View Product",
+        "card3_tag": "Spring Deal",
+        "card3_tag_style": "deal",
+        "card3_title": "DeWalt DW088K Cross Line Laser",
+        "card3_price": "£109.99",
+        "card3_was_price": "£139.99",
+        "card3_price_sub": "(£91.66 ex)",
+        "card3_cta": "View Product",
+        "section_bg": "#f5f5f6",
+        "padding_top": 40,
+        "padding_bottom": 0
       }
     },
     "quick_cats": {
@@ -246,8 +253,8 @@
         "brand_n9TbLA"
       ],
       "settings": {
-        "title": "Top Products by Brand",
-        "subtitle": "Shop from our authorised brand partners",
+        "title": "Explore Our Brands",
+        "subtitle": "Click a brand to see their top products",
         "show_view_all": true,
         "max_products": 10,
         "columns_desktop": 5,
@@ -496,7 +503,7 @@
   "order": [
     "hero_v3",
     "trust_strip",
-    "promo_banners",
+    "spotlight",
     "quick_cats",
     "product_wall",
     "trust_reviews",
