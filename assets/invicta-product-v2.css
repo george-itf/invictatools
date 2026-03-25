@@ -287,6 +287,26 @@
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
 }
 
+/* Image counter pill */
+.inv-pdp__gallery-counter {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(0, 0, 0, 0.65);
+  color: var(--inv-white);
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.inv-pdp__gallery-counter svg {
+  opacity: 0.8;
+}
+
 /* ============================================
    KEY SPECS
    ============================================ */
@@ -343,67 +363,90 @@
 }
 
 /* ============================================
-   PRODUCT INFO — Table layout
+   PRODUCT INFO — Accordion
    ============================================ */
 .inv-pdp__info {
   background: var(--inv-grey-50);
   border-radius: var(--inv-radius-md);
-  padding: var(--inv-space-lg);
-}
-
-.inv-pdp__info-title {
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--inv-grey-500);
-  margin: 0 0 var(--inv-space-md) 0;
-  padding-bottom: var(--inv-space-sm-plus);
-  border-bottom: 2px solid var(--inv-grey-200);
-}
-
-/* Info Table */
-.inv-pdp__info-table {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--inv-grey-200);
-  border-radius: var(--inv-radius-sm);
   overflow: hidden;
+  border: 1px solid var(--inv-grey-200);
 }
 
-/* Table row — label | value side by side */
-.inv-pdp__info-row {
+/* Brand/SKU meta bar */
+.inv-pdp__info-meta {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 14px 16px;
-  background: var(--inv-white);
-  font-size: 14px;
-  border-bottom: 1px solid var(--inv-grey-100);
   gap: var(--inv-space-lg);
+  padding: 14px 20px;
+  background: var(--inv-white);
+  border-bottom: 1px solid var(--inv-grey-200);
+}
+.inv-pdp__info-meta-item {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+}
+.inv-pdp__info-meta-label {
+  color: var(--inv-grey-500);
+  font-weight: 500;
+}
+.inv-pdp__info-meta-value {
+  color: var(--inv-fg-near-black);
+  font-weight: 700;
 }
 
-.inv-pdp__info-row:last-child {
+/* Accordion sections */
+.inv-pdp__info-section {
+  border-bottom: 1px solid var(--inv-grey-200);
+}
+.inv-pdp__info-section:last-child {
   border-bottom: none;
 }
 
-.inv-pdp__info-row:nth-child(even) {
+.inv-pdp__info-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--inv-white);
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--inv-fg-near-black);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--inv-duration-normal) ease;
+}
+.inv-pdp__info-toggle:hover {
   background: var(--inv-grey-50);
 }
-
-.inv-pdp__info-label {
-  color: var(--inv-grey-500);
-  flex-shrink: 0;
-  font-weight: 500;
-  min-width: 120px;
+.inv-pdp__info-toggle:focus-visible {
+  outline: none;
+  box-shadow: var(--inv-focus-shadow);
 }
 
-.inv-pdp__info-value {
-  font-weight: 700;
-  text-align: right;
-  color: var(--inv-fg-near-black);
-  word-break: break-word;
-  flex: 1;
+.inv-pdp__info-toggle-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--inv-grey-400);
+  transition: transform var(--inv-duration-normal) ease;
+  flex-shrink: 0;
+}
+.inv-pdp__info-section--open .inv-pdp__info-toggle-icon {
+  transform: rotate(180deg);
+}
+
+/* Accordion content */
+.inv-pdp__info-content {
+  padding: 0 20px 20px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--inv-fg-secondary);
+  display: none;
+}
+.inv-pdp__info-section--open .inv-pdp__info-content {
+  display: block;
 }
 
 /* Hidden source row — doubled selector for higher specificity */
@@ -411,19 +454,10 @@
   display: none;
 }
 
-/* Full-width rows — label on top, content below */
-.inv-pdp__info-row--full {
-  flex-direction: column;
-  align-items: stretch;
-  gap: var(--inv-space-sm-plus);
-}
-
-.inv-pdp__info-row--full .inv-pdp__info-label {
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--inv-grey-500);
+@media (prefers-reduced-motion: reduce) {
+  .inv-pdp__info-toggle-icon {
+    transition: none;
+  }
 }
 
 /* Description content — paragraphs */
@@ -668,7 +702,7 @@
 }
 
 .inv-pdp__price-current {
-  font-size: clamp(22px, 4vw, 28px);
+  font-size: clamp(26px, 5vw, 32px);
   font-weight: 700;
   color: var(--inv-fg-near-black);
   line-height: 1;
@@ -1446,22 +1480,7 @@
      MOBILE PRODUCT INFO
      ======================================== */
   .inv-pdp__info {
-    padding: var(--inv-space-lg);
     margin-top: var(--inv-space-sm-plus);
-  }
-  
-  .inv-pdp__info-row {
-    padding: var(--inv-space-sm-plus) 14px;
-    gap: var(--inv-space-md);
-  }
-  
-  .inv-pdp__info-label {
-    min-width: 100px;
-    font-size: 13px;
-  }
-  
-  .inv-pdp__info-value {
-    font-size: 13px;
   }
 }
 
@@ -1544,23 +1563,20 @@
   /* ========================================
      SMALL PHONE — Product info
      ======================================== */
-  .inv-pdp__info {
-    padding: var(--inv-space-md);
-  }
-  
-  .inv-pdp__info-row {
+  .inv-pdp__info-meta {
     flex-direction: column;
-    gap: 4px;
+    gap: var(--inv-space-sm);
+    padding: 12px 16px;
   }
-  
-  .inv-pdp__info-label {
-    min-width: unset;
+
+  .inv-pdp__info-toggle {
+    padding: 14px 16px;
   }
-  
-  .inv-pdp__info-value {
-    text-align: left;
+
+  .inv-pdp__info-content {
+    padding: 0 16px 16px;
   }
-  
+
   .inv-pdp__info-specs {
     grid-template-columns: 1fr;
   }
