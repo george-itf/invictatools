@@ -15,17 +15,17 @@
         "eyebrow_text": "Premier Diamond Products",
         "heading": "P6-TWC Triple Disc Wall Chaser Blade",
         "description": "Professional grade diamond blade. Built for continuous use on site. In stock now at Canterbury and Ramsgate with free next-day delivery.",
-        "hero_image": "shopify://shop_images/P6-TWC-aac5878e_ee85a54b-4739-4de2-ae71-a32a8aecdcb7.webp",
+        "hero_image": "shopify://shop_images/P6-TWC.svg",
         "button_text": "SHOP PREMIER DIAMOND",
         "button_link": "shopify://products/p6-twc-125mm",
         "secondary_text": "View All Deals",
         "secondary_link": "shopify://collections/deals-and-sales",
+        "price_label": "From",
+        "price_text": "",
+        "price_subtext": "",
         "background_color": "#2d2d2d",
         "padding_top": 0,
-        "padding_bottom": 0,
-        "price_label": "From",
-        "price_text": "£42.99",
-        "price_subtext": "(£35.83 ex VAT)"
+        "padding_bottom": 0
       }
     },
     "trust_strip": {
@@ -71,6 +71,7 @@
         "usp_4"
       ],
       "settings": {
+        "background_color": "#1a1a1a",
         "padding_top": 0,
         "padding_bottom": 0
       }
@@ -78,17 +79,21 @@
     "spotlight": {
       "type": "invicta-spotlight",
       "settings": {
+        "primary_link": "",
         "primary_tag": "New Range",
         "primary_tag_style": "new",
         "primary_title": "Viper Fuel Cell Nails",
         "primary_subtitle": "Premium gas nailer consumables. Full range in stock at both branches.",
         "primary_cta": "Shop Viper Nails",
+        "card2_link": "",
         "card2_tag": "Just Landed",
         "card2_tag_style": "featured",
         "card2_title": "Makita RM350D Robotic Mower",
         "card2_price": "£2,299.00",
+        "card2_was_price": "",
         "card2_price_sub": "(£1,915.83 ex)",
         "card2_cta": "View Product",
+        "card3_link": "",
         "card3_tag": "Spring Deal",
         "card3_tag_style": "deal",
         "card3_title": "DeWalt DW088K Cross Line Laser",
