@@ -36,6 +36,14 @@
             "link": "/collections/sanding-planing-finishing"
           }
         },
+        "category_aHx4EV": {
+          "type": "category",
+          "settings": {
+            "collection": "power-tools-kits",
+            "title": "",
+            "link": "shopify://collections/power-tools-kits"
+          }
+        },
         "category_neFLJL": {
           "type": "category",
           "settings": {
@@ -60,12 +68,12 @@
             "link": ""
           }
         },
-        "category_JkXGxL": {
+        "category_GF7qx4": {
           "type": "category",
           "settings": {
-            "collection": "extraction",
+            "collection": "outdoor-power",
             "title": "",
-            "link": "/collections/extraction"
+            "link": "/collections/outdoor-power"
           }
         },
         "category_gB6NyM": {
@@ -76,20 +84,12 @@
             "link": "shopify://collections/lighting-audio"
           }
         },
-        "category_GF7qx4": {
+        "category_JkXGxL": {
           "type": "category",
           "settings": {
-            "collection": "outdoor-power",
+            "collection": "extraction",
             "title": "",
-            "link": "/collections/outdoor-power"
-          }
-        },
-        "category_4pjRRe": {
-          "type": "category",
-          "settings": {
-            "collection": "batteries-chargers",
-            "title": "",
-            "link": "shopify://collections/batteries-chargers"
+            "link": "/collections/extraction"
           }
         },
         "category_jWb6Qh": {
@@ -100,12 +100,12 @@
             "link": "shopify://collections/tool-storage"
           }
         },
-        "category_aHx4EV": {
+        "category_4pjRRe": {
           "type": "category",
           "settings": {
-            "collection": "power-tools-kits",
+            "collection": "batteries-chargers",
             "title": "",
-            "link": "shopify://collections/power-tools-kits"
+            "link": "shopify://collections/batteries-chargers"
           }
         }
       },
@@ -113,21 +113,21 @@
         "category_iwxyGt",
         "category_EFgAHN",
         "category_AcFCb8",
+        "category_aHx4EV",
         "category_neFLJL",
         "category_aB7aqw",
         "category_MUBVnN",
-        "category_JkXGxL",
-        "category_gB6NyM",
         "category_GF7qx4",
-        "category_4pjRRe",
+        "category_gB6NyM",
+        "category_JkXGxL",
         "category_jWb6Qh",
-        "category_aHx4EV"
+        "category_4pjRRe"
       ],
       "settings": {
         "heading": "Power Tools",
         "description": "Professional power tools for trade and DIY.",
         "header_align": "center",
-        "columns_desktop": 5,
+        "columns_desktop": 4,
         "columns_tablet": 3,
         "columns_mobile": 2,
         "grid_gap": 20,
