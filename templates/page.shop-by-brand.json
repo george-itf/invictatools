@@ -12,13 +12,12 @@
     "main": {
       "type": "invicta-category-grid",
       "blocks": {
-        "category_4xTRge": {
+        "category_9Cjbyi": {
           "type": "category",
           "settings": {
-            "collection": "clothing",
+            "collection": "clothing-1",
             "title": "",
-            "link": "",
-            "image": "shopify://shop_images/Hover_31-069_Black_EssentialsHat.avif"
+            "link": ""
           }
         },
         "category_CwtpaA": {
@@ -26,13 +25,12 @@
           "settings": {
             "collection": "hi-visibility",
             "title": "",
-            "link": "",
-            "image": "shopify://shop_images/Makita-Hi-Viz-Jacket06-1-800x601.jpg"
+            "link": ""
           }
         }
       },
       "block_order": [
-        "category_4xTRge",
+        "category_9Cjbyi",
         "category_CwtpaA"
       ],
       "settings": {
