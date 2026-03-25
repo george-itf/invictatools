@@ -12,98 +12,28 @@
     "main": {
       "type": "invicta-category-grid",
       "blocks": {
-        "category_4DrxcP": {
+        "category_4xTRge": {
           "type": "category",
           "settings": {
-            "collection": "makita",
+            "collection": "clothing",
             "title": "",
-            "link": ""
+            "link": "",
+            "image": "shopify://shop_images/Hover_31-069_Black_EssentialsHat.avif"
           }
         },
-        "category_6pCzJB": {
+        "category_CwtpaA": {
           "type": "category",
           "settings": {
-            "collection": "dewalt",
+            "collection": "hi-visibility",
             "title": "",
-            "link": ""
-          }
-        },
-        "category_wVBKfm": {
-          "type": "category",
-          "settings": {
-            "collection": "hikoki",
-            "title": "",
-            "link": ""
-          }
-        },
-        "category_KcHMPF": {
-          "type": "category",
-          "settings": {
-            "collection": "lamello",
-            "title": "",
-            "link": "https://invictatools.co.uk/pages/lamello"
-          }
-        },
-        "category_CFYNEt": {
-          "type": "category",
-          "settings": {
-            "collection": "faithfull",
-            "title": "",
-            "link": ""
-          }
-        },
-        "category_i4BqEA": {
-          "type": "category",
-          "settings": {
-            "collection": "timco",
-            "title": "",
-            "link": ""
-          }
-        },
-        "category_KmPiUB": {
-          "type": "category",
-          "settings": {
-            "collection": "stanley",
-            "title": "",
-            "link": ""
-          }
-        },
-        "category_RmXmE4": {
-          "type": "category",
-          "settings": {
-            "collection": "premier-diamond-products",
-            "title": "",
-            "link": ""
-          }
-        },
-        "category_PcNWCT": {
-          "type": "category",
-          "settings": {
-            "collection": "brand-trend",
-            "title": "",
-            "link": ""
-          }
-        },
-        "category_VXapDG": {
-          "type": "category",
-          "settings": {
-            "collection": "brand-irwin",
-            "title": "",
-            "link": ""
+            "link": "",
+            "image": "shopify://shop_images/Makita-Hi-Viz-Jacket06-1-800x601.jpg"
           }
         }
       },
       "block_order": [
-        "category_4DrxcP",
-        "category_6pCzJB",
-        "category_wVBKfm",
-        "category_KcHMPF",
-        "category_CFYNEt",
-        "category_i4BqEA",
-        "category_KmPiUB",
-        "category_RmXmE4",
-        "category_PcNWCT",
-        "category_VXapDG"
+        "category_4xTRge",
+        "category_CwtpaA"
       ],
       "settings": {
         "heading": "Shop by Brand",
