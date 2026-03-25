@@ -99,22 +99,6 @@
             "title": "",
             "link": ""
           }
-        },
-        "category_AUcW9M": {
-          "type": "category",
-          "settings": {
-            "collection": "ht-planes-spokeshaves",
-            "title": "",
-            "link": ""
-          }
-        },
-        "category_67EQxH": {
-          "type": "category",
-          "settings": {
-            "collection": "ht-trowels-floats",
-            "title": "",
-            "link": ""
-          }
         }
       },
       "block_order": [
@@ -128,9 +112,7 @@
         "category_xXphUb",
         "category_t3Uzmm",
         "category_J3QFnm",
-        "category_mNELmw",
-        "category_AUcW9M",
-        "category_67EQxH"
+        "category_mNELmw"
       ],
       "settings": {
         "heading": "Hand Tools",
