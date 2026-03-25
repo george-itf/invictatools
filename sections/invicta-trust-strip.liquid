@@ -1,9 +1,16 @@
 {% comment %}
   ============================================================================
-  INVICTA TRUST STRIP v1.0 — Red accent USP bar
+  INVICTA TRUST STRIP v1.1 — Dark USP bar with red icons
   ============================================================================
-  Red background trust strip with circle icons and dividers.
+  Dark background trust strip with red icons and 60% hairline dividers.
   Designed for homepage use below the hero.
+
+  Updates in v1.1:
+  - Background changed from red to dark (#1a1a1a)
+  - Icons are now red on transparent background
+  - Dividers use 60% height hairlines via ::after pseudo-elements
+  - Bottom border for section separation
+  - Configurable background colour
 
   Trade 15.4.0 Compatible
   Usage: Add via theme editor or templates/index.json
@@ -84,13 +91,14 @@
 
 <style>
   /* ============================================================================
-     INVICTA TRUST STRIP v1.0 — Red accent USP bar
+     INVICTA TRUST STRIP v1.1 — Dark USP bar with red icons
      ============================================================================ */
 
   #trust-strip-{{ section.id }} {
-    background: var(--inv-accent);
+    background: {{ section.settings.background_color | default: '#1a1a1a' }};
     padding-top: {{ section.settings.padding_top | default: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   #trust-strip-{{ section.id }} .inv-trust-strip__container {
@@ -122,12 +130,12 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   }
 
-  /* --- Circle icon --- */
+  /* --- Icon --- */
   #trust-strip-{{ section.id }} .inv-trust-strip__icon {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -137,7 +145,7 @@
   #trust-strip-{{ section.id }} .inv-trust-strip__icon svg {
     width: 16px;
     height: 16px;
-    color: var(--inv-bg-elevated);
+    color: var(--inv-accent);
   }
 
   /* --- Text --- */
@@ -168,24 +176,19 @@
       grid-template-columns: repeat(2, 1fr);
     }
 
-    /* Switch to right border on tablet */
     #trust-strip-{{ section.id }} .inv-trust-strip__item:not(:last-child) {
       border-bottom: none;
-    }
-
-    #trust-strip-{{ section.id }} .inv-trust-strip__item:nth-child(odd):not(:last-child) {
-      border-right: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     /* Bottom borders for first row */
     #trust-strip-{{ section.id }} .inv-trust-strip__item:nth-child(1),
     #trust-strip-{{ section.id }} .inv-trust-strip__item:nth-child(2) {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
   }
 
   /* ----------------------------------------
-     DESKTOP (990px+): 4-column grid
+     DESKTOP (990px+): 4-column grid with hairline dividers
      ---------------------------------------- */
   @media (min-width: 990px) {
     #trust-strip-{{ section.id }} .inv-trust-strip__list {
@@ -198,13 +201,19 @@
       border-bottom: none;
     }
 
-    #trust-strip-{{ section.id }} .inv-trust-strip__item:nth-child(odd):not(:last-child) {
-      border-right: none;
+    /* 60% height hairline dividers via ::after */
+    #trust-strip-{{ section.id }} .inv-trust-strip__item {
+      position: relative;
     }
 
-    /* Right border dividers between items */
-    #trust-strip-{{ section.id }} .inv-trust-strip__item:not(:last-child) {
-      border-right: 1px solid rgba(255, 255, 255, 0.15);
+    #trust-strip-{{ section.id }} .inv-trust-strip__item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 20%;
+      height: 60%;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.08);
     }
   }
 
@@ -224,6 +233,12 @@
   "tag": "section",
   "class": "section",
   "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colour",
+      "default": "#1a1a1a"
+    },
     {
       "type": "header",
       "content": "Spacing"

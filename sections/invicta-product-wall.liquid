@@ -18,7 +18,7 @@
 {%- liquid
   assign columns_desktop = section.settings.columns_desktop | default: 5
   assign show_view_all = section.settings.show_view_all
-  assign title_text = section.settings.title | default: 'Top Products by Brand'
+  assign title_text = section.settings.title | default: 'Explore Our Brands'
   assign max_products = section.settings.max_products | default: 10
 
   assign has_brands = false
@@ -120,7 +120,7 @@
 
   #shopify-section-{{ section.id }} .inv-product-wall {
     background: #ffffff;
-    border-top: 4px solid #e11d26;
+    border-top: 4px solid var(--inv-accent);
     padding-top: 28px !important;
   }
 
@@ -290,6 +290,55 @@
     outline-offset: 2px;
   }
 
+  /* v5.0: Redesigned brand tabs */
+  #shopify-section-{{ section.id }} .inv-pw-brands {
+    border-bottom: 2px solid var(--inv-border, #e5e7eb);
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brands__scroll {
+    padding-bottom: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn {
+    border-radius: 0;
+    border: 1.5px solid var(--inv-border, #e5e7eb);
+    background: var(--inv-bg, #f5f5f6);
+    padding: 10px 20px;
+    min-height: 44px;
+    transition: all 0.15s ease;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn:hover {
+    border-color: var(--inv-dark, #1a1a1a);
+    background: var(--inv-bg-elevated);
+  }
+
+  /* Active state: fill with brand colour */
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn.active {
+    border-color: var(--inv-dark, #1a1a1a);
+    background: var(--inv-dark, #1a1a1a);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn.active .invicta-brand-pill {
+    box-shadow: none;
+    transform: none;
+  }
+
+  /* Remove grayscale from inactive — use opacity only */
+  #shopify-section-{{ section.id }} .inv-pw-brands.has-selection .inv-pw-brand-btn:not(.active) {
+    opacity: 0.55;
+  }
+  #shopify-section-{{ section.id }} .inv-pw-brands.has-selection .inv-pw-brand-btn:not(.active) .invicta-brand-pill {
+    filter: none;
+    opacity: 1;
+  }
+  #shopify-section-{{ section.id }} .inv-pw-brands.has-selection .inv-pw-brand-btn:not(.active):hover {
+    opacity: 1;
+  }
+
   /* ----------------------------------------
      PRODUCT GRID
      ---------------------------------------- */
@@ -300,6 +349,7 @@
     list-style: none;
     margin: 0;
     padding: 4px 2px 8px;
+    padding-top: 24px;
     transition: opacity 0.25s ease;
     contain: content;
   }
@@ -606,14 +656,14 @@
     {
       "type": "inline_richtext",
       "id": "title",
-      "default": "Top Products by Brand",
+      "default": "Explore Our Brands",
       "label": "Heading"
     },
     {
       "type": "text",
       "id": "subtitle",
       "label": "Subtitle",
-      "default": "Shop from our authorised brand partners"
+      "default": "Click a brand to see their top products"
     },
     {
       "type": "checkbox",
