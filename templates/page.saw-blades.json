@@ -17,7 +17,7 @@
           "settings": {
             "collection": "circular-saw-blades",
             "title": "Circular Saw Blades",
-            "link": "shopify://pages/circular-saw-blades"
+            "link": "shopify://collections/circular-saw-blades"
           }
         },
         "category_Ndb8Ek": {
@@ -25,7 +25,7 @@
           "settings": {
             "collection": "recip-blades",
             "title": "",
-            "link": ""
+            "link": "shopify://collections/recip-blades"
           }
         },
         "category_GNaNri": {

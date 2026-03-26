@@ -207,6 +207,13 @@
             "collection": "dewalt"
           }
         },
+        "brand_timco": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "TIMCO",
+            "collection": "timco"
+          }
+        },
         "brand_premier": {
           "type": "brand",
           "settings": {
@@ -246,6 +253,7 @@
       "block_order": [
         "brand_makita",
         "brand_dewalt",
+        "brand_timco",
         "brand_premier",
         "brand_viper",
         "brand_JHcBmt",
