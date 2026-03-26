@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £30"
+            "subtitle": "On orders over £99"
           }
         },
         "usp_2": {
@@ -406,7 +406,7 @@
           "type": "faq",
           "settings": {
             "question": "Do you stock Lamello biscuits and replacement blades?",
-            "answer": "<p>Yes. We carry the full range of Lamello consumables including <strong>standard beech biscuits</strong> (sizes 0, 10, 20), <strong>Clamex and Cabineo connectors</strong>, <strong>diamond-tipped cutter blades</strong> and <strong>HW carbide blades</strong>. All available with free next-day delivery on orders over £30.</p>"
+            "answer": "<p>Yes. We carry the full range of Lamello consumables including <strong>standard beech biscuits</strong> (sizes 0, 10, 20), <strong>Clamex and Cabineo connectors</strong>, <strong>diamond-tipped cutter blades</strong> and <strong>HW carbide blades</strong>. All available with free next-day delivery on orders over £99.</p>"
           }
         }
       },

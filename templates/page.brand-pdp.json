@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £30"
+            "subtitle": "On orders over £99"
           }
         },
         "usp_2": {
@@ -417,7 +417,7 @@
           "type": "faq",
           "settings": {
             "question": "Do you offer trade pricing on PDP blades?",
-            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full PDP range. Contact our trade team on <strong>01843 210 459</strong> for volume discounts and trade account enquiries. We also offer free next-day delivery on all orders over £30.</p>"
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full PDP range. Contact our trade team on <strong>01843 210 459</strong> for volume discounts and trade account enquiries. We also offer free next-day delivery on all orders over £99.</p>"
           }
         }
       },

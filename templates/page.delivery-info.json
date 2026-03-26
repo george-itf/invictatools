@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -8,7 +17,7 @@
           "settings": {
             "name": "Standard Delivery",
             "description": "Royal Mail or courier depending on order size",
-            "price": "FREE on orders over £30",
+            "price": "FREE on orders over £99",
             "timeframe": "2-3 working days"
           }
         },

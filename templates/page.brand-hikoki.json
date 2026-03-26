@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £30"
+            "subtitle": "On orders over £99"
           }
         },
         "usp_2": {
@@ -406,7 +406,7 @@
           "type": "faq",
           "settings": {
             "question": "Do you stock HiKOKI batteries and chargers?",
-            "answer": "<p>Yes. We carry the full range of HiKOKI batteries including <strong>MultiVolt 36V/18V</strong> in 2.5Ah and 4.0Ah, plus <strong>standard 18V</strong> batteries and <strong>rapid chargers</strong>. All available with free next-day delivery on orders over £30.</p>"
+            "answer": "<p>Yes. We carry the full range of HiKOKI batteries including <strong>MultiVolt 36V/18V</strong> in 2.5Ah and 4.0Ah, plus <strong>standard 18V</strong> batteries and <strong>rapid chargers</strong>. All available with free next-day delivery on orders over £99.</p>"
           }
         }
       },

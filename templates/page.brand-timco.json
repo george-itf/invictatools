@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £30"
+            "subtitle": "On orders over £99"
           }
         },
         "usp_2": {
@@ -380,7 +380,7 @@
           "type": "faq",
           "settings": {
             "question": "Can I buy Timco products in bulk?",
-            "answer": "<p>Yes. Timco products are available in individual <strong>TIMpak bags</strong> for everyday use and in <strong>trade boxes</strong> for larger quantities. Contact our trade team on <strong>01843 210 459</strong> for bulk pricing and trade account enquiries. We offer free next-day delivery on all orders over £30.</p>"
+            "answer": "<p>Yes. Timco products are available in individual <strong>TIMpak bags</strong> for everyday use and in <strong>trade boxes</strong> for larger quantities. Contact our trade team on <strong>01843 210 459</strong> for bulk pricing and trade account enquiries. We offer free next-day delivery on all orders over £99.</p>"
           }
         },
         "faq_4": {
