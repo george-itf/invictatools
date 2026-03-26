@@ -1,0 +1,24 @@
+{%- comment -%}
+  Invicta Tools — robots.txt
+  Preserves Shopify defaults and adds optional crawl control
+  for faceted filter URLs.
+{%- endcomment -%}
+{%- for group in robots.default_groups -%}
+  {%- for agent in group.user_agent -%}
+User-agent: {{ agent.value }}
+  {%- endfor -%}
+  {%- for rule in group.rules -%}
+{{ rule.directive }}: {{ rule.value }}
+  {%- endfor -%}
+
+{% endfor -%}
+
+{%- if settings.seo_robots_block_filter_params -%}
+# Invicta SEO — block faceted filter and sort URLs to reduce crawl waste
+User-agent: *
+Disallow: /*?*filter.
+Disallow: /*&filter.
+Disallow: /*?*sort_by=
+Disallow: /*&sort_by=
+
+{%- endif -%}

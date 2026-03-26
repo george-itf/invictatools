@@ -1,0 +1,552 @@
+/* ============================================================
+   Invicta UX Improvements v1.0
+   Based on comprehensive UX audit recommendations
+   ============================================================ */
+
+/* =======================================================
+   0. CANONICAL CONTAINER — Single Source of Truth
+   All Invicta homepage sections use these variables for
+   consistent max-width and gutters across the page.
+   ======================================================= */
+/* Tokens consolidated into invicta-css-variables.css v3.0
+   --inv-container, --inv-section-gap, --inv-dark-hover now canonical.
+   --inv-gutter retired → use --inv-page-gutter. */
+
+.inv-container {
+  max-width: var(--inv-container);
+  margin: 0 auto;
+  padding: 0 var(--inv-gutter);
+}
+
+/* =======================================================
+   BUTTON BASE — Shared foundation for all button tiers
+   ======================================================= */
+
+.inv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+  font-family: var(--inv-font-body);
+  font-size: var(--inv-text-sm);
+  letter-spacing: var(--inv-tracking-wide);
+  text-transform: uppercase;
+  line-height: 1;
+  transition: background-color var(--inv-duration-normal) ease,
+              color var(--inv-duration-normal) ease,
+              border-color var(--inv-duration-normal) ease;
+  cursor: pointer;
+  border-radius: var(--inv-radius-none);
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* =======================================================
+   1. SKIP TO CONTENT — Visible on Focus
+   ======================================================= */
+.skip-to-content-link {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--inv-z-toast);
+  padding: 12px 24px;
+  background: var(--inv-dark);
+  color: var(--inv-bg-elevated);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0;
+  transition: top 0.2s ease;
+}
+
+.skip-to-content-link:focus {
+  top: 0;
+  outline: 2px solid var(--inv-accent);
+  outline-offset: 2px;
+}
+
+/* =======================================================
+   2. FOCUS STATES — Global Accessibility
+   ======================================================= */
+
+*:focus-visible {
+  outline: 2px solid var(--inv-accent);
+  outline-offset: 2px;
+}
+
+.invicta-header *:focus-visible,
+[data-dark-bg] *:focus-visible {
+  outline-color: #fff;
+}
+
+/* Disabled buttons */
+button:disabled,
+button[disabled],
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+button:disabled:hover {
+  transform: none;
+}
+
+/* =======================================================
+   3. LINK STYLES — Consistent Hover/Focus
+   ======================================================= */
+
+/* Body text links should have underlines for accessibility */
+.rte a,
+.inv-pdp__info-content a,
+.product-description a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.rte a:hover,
+.inv-pdp__info-content a:hover,
+.product-description a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Footer links hover */
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* =======================================================
+   4. BUTTON CONSISTENCY — Unified System
+   ======================================================= */
+
+/* Legacy multi-class rule — zero radius on all primary action buttons */
+.inv-pdp__atc-btn,
+.inv-checkout-btn,
+.inv-card__btn--add,
+.inv-hero-split__btn {
+  font-family: var(--font-body-family);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: 0;
+  transition: background-color var(--inv-duration-normal) ease, transform var(--inv-duration-fast) ease;
+}
+
+.inv-pdp__atc-btn:active:not(:disabled),
+.inv-checkout-btn:active:not(:disabled),
+.inv-card__btn--add:active {
+  transform: scale(0.98);
+}
+
+/* ---- Button Tiers ---- */
+
+/* Primary CTA — red brand button */
+.inv-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 28px;
+  background: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+  border: none;
+  border-radius: 0;
+  font-family: var(--inv-font-body);
+  font-size: var(--inv-text-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--inv-tracking-wide);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--inv-duration-normal) ease;
+}
+
+.inv-btn-primary:hover {
+  background: var(--inv-accent-hover);
+}
+
+.inv-btn-primary:focus-visible {
+  outline: 2px solid var(--inv-accent);
+  outline-offset: 2px;
+}
+
+.inv-btn-primary:active {
+  transform: scale(0.98);
+}
+
+.inv-btn-primary:disabled {
+  background: var(--inv-fg-subtle);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Secondary CTA — dark button */
+.inv-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 28px;
+  background: var(--inv-dark);
+  color: var(--inv-bg-elevated);
+  border: none;
+  border-radius: 0;
+  font-family: var(--inv-font-body);
+  font-size: var(--inv-text-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--inv-tracking-wide);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--inv-duration-normal) ease;
+}
+
+.inv-btn-secondary:hover {
+  background: var(--inv-dark-hover);
+}
+
+.inv-btn-secondary:focus-visible {
+  outline: 2px solid var(--inv-accent);
+  outline-offset: 2px;
+}
+
+/* Outline CTA — bordered button */
+.inv-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 28px;
+  background: transparent;
+  color: var(--inv-fg);
+  border: 1.5px solid var(--inv-border-dark);
+  border-radius: 0;
+  font-family: var(--inv-font-body);
+  font-size: var(--inv-text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--inv-tracking-wide);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--inv-duration-normal) ease,
+              border-color var(--inv-duration-normal) ease;
+}
+
+.inv-btn-outline:hover {
+  border-color: var(--inv-dark);
+  background: var(--inv-grey-50);
+}
+
+.inv-btn-outline:focus-visible {
+  outline: 2px solid var(--inv-accent);
+  outline-offset: 2px;
+}
+
+/* Ghost CTA — minimal button */
+.inv-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  background: transparent;
+  color: var(--inv-fg);
+  border: none;
+  border-radius: 0;
+  font-family: var(--inv-font-body);
+  font-size: var(--inv-text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--inv-tracking-wide);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.inv-btn-ghost:hover {
+  text-decoration: underline;
+}
+
+.inv-btn-ghost:focus-visible {
+  outline: 2px solid var(--inv-accent);
+  outline-offset: 2px;
+}
+
+/* Arrow icon animation on hover */
+.inv-btn-primary svg,
+.inv-btn-secondary svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--inv-duration-normal) ease;
+}
+
+.inv-btn-primary:hover svg,
+.inv-btn-secondary:hover svg {
+  transform: translateX(3px);
+}
+
+/* =======================================================
+   5. PRODUCT PAGE — Sticky Add to Cart (Mobile)
+   ======================================================= */
+.inv-pdp__sticky-atc {
+  display: none;
+}
+
+@media (max-width: 749px) {
+  .inv-pdp__sticky-atc {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--inv-z-header);
+    background: var(--inv-bg-elevated);
+    border-top: 1px solid var(--inv-border);
+    padding: 10px 16px;
+    box-shadow: 0 -2px 10px var(--inv-shadow-color);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .inv-pdp__sticky-atc--visible {
+    display: block;
+    transform: translateY(0);
+  }
+
+  .inv-pdp__sticky-atc-inner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: var(--inv-container, 1400px);
+    margin: 0 auto;
+  }
+
+  .inv-pdp__sticky-atc-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .inv-pdp__sticky-atc-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--inv-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+  }
+
+  .inv-pdp__sticky-atc-price {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--inv-accent);
+    margin: 0;
+  }
+
+  .inv-pdp__sticky-atc-btn {
+    flex-shrink: 0;
+    height: 48px;
+    padding: 0 24px;
+    background: var(--inv-accent);
+    color: var(--inv-bg-elevated);
+    border: none;
+    border-radius: 0;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background-color var(--inv-duration-normal) ease;
+  }
+
+  .inv-pdp__sticky-atc-btn:hover {
+    background: var(--inv-accent-hover);
+  }
+
+  .inv-pdp__sticky-atc-btn:disabled {
+    background: var(--inv-fg-subtle);
+    cursor: not-allowed;
+  }
+
+  .inv-pdp__sticky-atc-thumb {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--inv-grey-200);
+    border-radius: 0;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .inv-pdp__sticky-atc-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+/* =======================================================
+   6. TYPOGRAPHY — Consistency
+   ======================================================= */
+
+/* Ensure body text is legible */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Consistent heading sizes */
+h1, .h1 { line-height: 1.15; }
+h2, .h2 { line-height: 1.2; }
+h3, .h3 { line-height: 1.25; }
+
+/* =======================================================
+   7. SPACING — Consistent Section Spacing
+   ======================================================= */
+
+/* Ensure consistent section margins on homepage */
+.section-hero-split + .shopify-section,
+.shopify-section + .shopify-section {
+  margin-top: 0;
+}
+
+/* =======================================================
+   8. CART — Mobile Improvements
+   ======================================================= */
+
+/* Cart items mobile stacking */
+@media (max-width: 749px) {
+  .cart-item__media {
+    max-width: 100px;
+  }
+
+  /* Ensure checkout button is full width and prominent */
+  .inv-checkout-btn {
+    font-size: 17px;
+    padding: 16px;
+  }
+}
+
+/* =======================================================
+   9. PRODUCT CARD — Hover Effects
+   ======================================================= */
+.inv-card {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.inv-card:hover {
+  box-shadow: var(--inv-shadow-md);
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inv-card:hover {
+    transform: none;
+  }
+
+  .inv-pdp__sticky-atc {
+    transition: none;
+  }
+
+  /* CX v1.0: Comprehensive reduced-motion support */
+  .inv-pdp__atc-btn,
+  .inv-btn-primary,
+  .inv-btn-secondary,
+  .skip-to-content-link {
+    transition: none;
+  }
+}
+
+/* =======================================================
+   10. FORM LABELS — Accessibility
+   ======================================================= */
+
+/* Ensure all inputs have visible labels or proper spacing */
+input[type="email"]::placeholder,
+input[type="text"]::placeholder,
+input[type="search"]::placeholder {
+  color: var(--inv-fg-subtle);
+}
+
+/* Newsletter form label accessibility */
+.inv-newsletter__input {
+  font-size: 16px; /* Prevents zoom on iOS */
+}
+
+/* =======================================================
+   11. IMAGE IMPROVEMENTS
+   ======================================================= */
+
+/* Prevent layout shift */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Product images should allow pinch zoom on mobile */
+.inv-pdp__gallery-image {
+  touch-action: pinch-zoom;
+}
+
+/* =======================================================
+   12. COLOR CONTRAST FIXES
+   ======================================================= */
+
+/* Ensure muted text meets WCAG AA contrast (4.5:1) */
+.inv-del-est__meta {
+  color: var(--inv-fg-dim); /* Darker than default for better contrast */
+}
+
+/* Stock badge text contrast */
+.inv-card__stock {
+  font-weight: 700;
+}
+
+/* =======================================================
+   13. CART ERROR FEEDBACK
+   ======================================================= */
+.inv-pdp__atc-error {
+  margin-top: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--inv-accent-hover);
+  background: var(--inv-error-bg);
+  border: 1px solid var(--inv-error-border);
+  border-radius: 0;
+  text-align: center;
+}
+
+/* =======================================================
+   14. PRINT STYLES
+   ======================================================= */
+@media print {
+  .invicta-header,
+  .invicta-drawer,
+  .inv-pdp__sticky-atc {
+    display: none;
+  }
+}
+
+/* =======================================================
+   UTILITIES — Shared pattern classes
+   ======================================================= */
+
+.inv-section-heading {
+  font-family: var(--inv-font-display);
+  font-weight: 800;
+  font-size: var(--inv-text-2xl);
+  line-height: var(--inv-leading-tight);
+  letter-spacing: var(--inv-tracking-tight);
+  text-transform: uppercase;
+  color: var(--inv-fg);
+  margin: 0;
+}

@@ -1,0 +1,18 @@
+{% comment %}
+  ============================================================
+  INVICTA DESIGN TOKENS v3.0 (CANONICAL)
+  ============================================================
+  Single source of truth for ALL Invicta design tokens.
+  Include in theme.liquid BEFORE base.css:
+  {% render 'invicta-css-variables' %}
+
+  v3.0 - Consolidated scattered tokens from 6 satellite files
+       - Resolved radius conflicts (8px canonical, not pill)
+       - Added mobile/responsive tokens
+       - Unified brand colour to --inv-accent
+  v2.1 - Moved all static tokens to external CSS file
+  v2.0 - Initial consolidation
+  ============================================================
+{% endcomment %}
+
+{{ 'invicta-css-variables.css' | asset_url | stylesheet_tag }}

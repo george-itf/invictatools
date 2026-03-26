@@ -1,0 +1,84 @@
+{% comment %}
+  ============================================
+  INVICTA PRODUCT COMPARISON v1.0
+  ============================================
+  Lightweight product comparison for tradespeople.
+  Loads CSS + JS assets for the comparison feature.
+
+  Toggle via section settings:
+  - enable_comparison: Show/hide compare buttons on product cards
+  - max_products: Maximum products to compare (default 4)
+
+  Assets:
+  - assets/invicta-comparison.css
+  - assets/invicta-comparison.js
+  ============================================
+{% endcomment %}
+
+{%- if section.settings.enable_comparison -%}
+  <link rel="stylesheet" href="{{ 'invicta-comparison.css' | asset_url }}">
+  <script>
+    window.invictaCompareStrings = {
+      maxMessage: {{ 'invicta.compare.max_message' | t | json }},
+      badgeLabel: {{ 'invicta.compare.badge_label' | t | json }},
+      addLabel: {{ 'invicta.compare.add' | t | json }},
+      removeLabel: {{ 'invicta.compare.remove' | t | json }},
+      loading: {{ 'invicta.compare.loading' | t | json }},
+      error: {{ 'invicta.compare.error' | t | json }},
+      timeoutError: {{ 'invicta.compare.timeout_error' | t | json }},
+      title: {{ 'invicta.compare.title' | t | json }},
+      clearAll: {{ 'invicta.compare.clear_all' | t | json }},
+      closeLabel: {{ 'invicta.compare.close' | t | json }},
+      inStock: {{ 'invicta.compare.in_stock' | t | json }},
+      outOfStock: {{ 'invicta.compare.out_of_stock' | t | json }},
+      supplierStock: {{ 'invicta.compare.supplier_stock' | t | json }},
+      incVat: {{ 'invicta.compare.inc_vat' | t | json }},
+      exVat: {{ 'invicta.compare.ex_vat' | t | json }},
+      addToCart: {{ 'invicta.compare.add_to_cart' | t | json }}
+    };
+  </script>
+  <script src="{{ 'invicta-comparison.js' | asset_url }}" defer></script>
+
+  <style>
+    {%- unless section.settings.enable_comparison -%}
+      .inv-card__compare,
+      .inv-compare__badge { display: none !important; }
+    {%- endunless -%}
+  </style>
+{%- else -%}
+  <style>
+    .inv-card__compare { display: none !important; }
+  </style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product Comparison",
+  "tag": "section",
+  "class": "invicta-comparison-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_comparison",
+      "label": "Enable product comparison",
+      "default": true,
+      "info": "Show compare buttons on product cards and enable the comparison drawer"
+    },
+    {
+      "type": "range",
+      "id": "max_products",
+      "label": "Max products to compare",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4,
+      "info": "Maximum number of products that can be compared at once"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Comparison"
+    }
+  ]
+}
+{% endschema %}

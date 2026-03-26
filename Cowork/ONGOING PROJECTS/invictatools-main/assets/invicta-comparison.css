@@ -1,0 +1,539 @@
+/* =======================================================================
+   Invicta Product Comparison v1.0
+   -----------------------------------------------------------------------
+   Namespace: inv-compare__
+   Responsive: 2-4 columns desktop, horizontal scroll mobile
+   ======================================================================= */
+
+/* -----------------------------------------------------------------------
+   1. FLOATING BADGE
+   ----------------------------------------------------------------------- */
+
+.inv-compare__badge {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--inv-z-modal);
+  padding: 12px 28px;
+  background: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border: none;
+  border-radius: var(--inv-radius-pill);
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), 0 0 0 3px var(--inv-accent-ring);
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  font-family: inherit;
+}
+
+.inv-compare__badge:hover {
+  background: var(--inv-accent-hover);
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25), 0 0 0 3px var(--inv-accent-ring);
+}
+
+/* -----------------------------------------------------------------------
+   2. MAX PRODUCTS MESSAGE
+   ----------------------------------------------------------------------- */
+
+.inv-compare__max-msg {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  z-index: var(--inv-z-toast);
+  padding: 10px 20px;
+  background: var(--inv-fg-strong);
+  color: var(--inv-bg-elevated);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 0;
+  box-shadow: var(--inv-shadow-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.inv-compare__max-msg--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* -----------------------------------------------------------------------
+   3. OVERLAY
+   ----------------------------------------------------------------------- */
+
+.inv-compare__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--inv-z-modal);
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.inv-compare__overlay--open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* -----------------------------------------------------------------------
+   4. DRAWER
+   ----------------------------------------------------------------------- */
+
+.inv-compare__drawer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: calc(var(--inv-z-modal) + 1);
+  max-height: 90vh;
+  background: var(--inv-bg-elevated);
+  border-radius: var(--inv-radius-modal) var(--inv-radius-modal) 0 0;
+  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.15);
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  scrollbar-width: thin;
+  scrollbar-color: var(--inv-border-dark) transparent;
+}
+
+.inv-compare__drawer--open {
+  transform: translateY(0);
+}
+
+/* -----------------------------------------------------------------------
+   5. HEADER
+   ----------------------------------------------------------------------- */
+
+.inv-compare__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--inv-border);
+  position: sticky;
+  top: 0;
+  background: var(--inv-bg-elevated);
+  z-index: 2;
+}
+
+.inv-compare__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--inv-fg-strong);
+  margin: 0;
+}
+
+.inv-compare__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.inv-compare__clear {
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--inv-fg-muted);
+  background: none;
+  border: 1px solid var(--inv-border);
+  border-radius: 0;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.inv-compare__clear:hover {
+  color: var(--inv-accent);
+  border-color: var(--inv-accent);
+}
+
+.inv-compare__close-btn {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid var(--inv-border);
+  border-radius: 0;
+  cursor: pointer;
+  color: var(--inv-fg-muted);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.inv-compare__close-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.inv-compare__close-btn:hover {
+  background: var(--inv-bg-soft);
+  color: var(--inv-fg-strong);
+}
+
+/* -----------------------------------------------------------------------
+   6. PRODUCT GRID
+   ----------------------------------------------------------------------- */
+
+.inv-compare__grid {
+  display: grid;
+  gap: 0;
+  padding: 0;
+}
+
+.inv-compare__grid--cols-2 { grid-template-columns: repeat(2, 1fr); }
+.inv-compare__grid--cols-3 { grid-template-columns: repeat(3, 1fr); }
+.inv-compare__grid--cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+/* -----------------------------------------------------------------------
+   7. PRODUCT COLUMN
+   ----------------------------------------------------------------------- */
+
+.inv-compare__product {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px 16px 24px;
+  border-right: 1px solid var(--inv-border);
+}
+
+.inv-compare__product:last-child {
+  border-right: none;
+}
+
+/* Remove button */
+.inv-compare__remove {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--inv-bg-soft);
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  color: var(--inv-fg-muted);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.inv-compare__remove svg {
+  width: 14px;
+  height: 14px;
+}
+
+.inv-compare__remove:hover {
+  background: var(--inv-accent-light);
+  color: var(--inv-accent);
+}
+
+/* -----------------------------------------------------------------------
+   8. PRODUCT IMAGE
+   ----------------------------------------------------------------------- */
+
+.inv-compare__img-link {
+  display: block;
+  width: 100%;
+  max-width: 180px;
+  aspect-ratio: 1 / 1;
+  margin-bottom: 12px;
+}
+
+.inv-compare__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 0;
+  border: 1px solid var(--inv-border);
+  padding: 8px;
+  background: var(--inv-bg-elevated);
+}
+
+/* -----------------------------------------------------------------------
+   9. PRODUCT TITLE
+   ----------------------------------------------------------------------- */
+
+.inv-compare__product-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--inv-fg-strong);
+  margin: 0 0 8px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.inv-compare__product-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.inv-compare__product-title a:hover {
+  color: var(--inv-accent);
+}
+
+/* -----------------------------------------------------------------------
+   10. BRAND
+   ----------------------------------------------------------------------- */
+
+.inv-compare__brand {
+  margin-bottom: 8px;
+}
+
+.inv-compare__vendor-text {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--inv-fg-muted);
+  background: var(--inv-bg-soft);
+  border-radius: 0;
+}
+
+/* -----------------------------------------------------------------------
+   11. PRICING
+   ----------------------------------------------------------------------- */
+
+.inv-compare__price-block {
+  margin-bottom: 8px;
+}
+
+.inv-compare__price {
+  display: block;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--inv-fg-strong);
+  line-height: 1.2;
+}
+
+.inv-compare__price small {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--inv-fg-muted);
+}
+
+.inv-compare__price-alt {
+  display: block;
+  font-size: 11px;
+  color: var(--inv-fg-muted);
+  margin-top: 2px;
+}
+
+/* -----------------------------------------------------------------------
+   12. STOCK BADGE
+   ----------------------------------------------------------------------- */
+
+.inv-compare__stock {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  border-radius: 0;
+  margin-bottom: 12px;
+}
+
+.inv-compare__stock--in-stock {
+  background: var(--inv-success-bg-light);
+  color: var(--inv-success-heading);
+}
+
+.inv-compare__stock--out {
+  background: var(--inv-bg-soft);
+  color: var(--inv-fg-muted);
+}
+
+.inv-compare__stock--supplier {
+  background: var(--inv-info-bg);
+  color: var(--inv-info-dark);
+}
+
+/* -----------------------------------------------------------------------
+   13. SPECS TABLE
+   ----------------------------------------------------------------------- */
+
+.inv-compare__specs {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 14px;
+  font-size: 12px;
+}
+
+.inv-compare__specs tr {
+  border-bottom: 1px solid var(--inv-border);
+}
+
+.inv-compare__specs tr:last-child {
+  border-bottom: none;
+}
+
+.inv-compare__spec-label {
+  padding: 6px 8px 6px 0;
+  font-weight: 600;
+  color: var(--inv-fg-muted);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.inv-compare__spec-value {
+  padding: 6px 0;
+  font-weight: 500;
+  color: var(--inv-fg-strong);
+  text-align: right;
+}
+
+/* -----------------------------------------------------------------------
+   14. ADD TO CART BUTTON
+   ----------------------------------------------------------------------- */
+
+.inv-compare__atc {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 8px 14px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  margin-top: auto;
+}
+
+.inv-compare__atc svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.inv-compare__atc:hover {
+  background: var(--inv-accent-hover);
+}
+
+.inv-compare__atc--disabled {
+  background: var(--inv-bg-soft);
+  color: var(--inv-fg-muted);
+  cursor: not-allowed;
+}
+
+.inv-compare__atc--disabled:hover {
+  background: var(--inv-bg-soft);
+}
+
+/* -----------------------------------------------------------------------
+   15. LOADING STATE
+   ----------------------------------------------------------------------- */
+
+.inv-compare__loading {
+  padding: 48px 24px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--inv-fg-muted);
+}
+
+/* -----------------------------------------------------------------------
+   16. RESPONSIVE — MOBILE
+   ----------------------------------------------------------------------- */
+
+@media (max-width: 749px) {
+  .inv-compare__badge {
+    bottom: 16px;
+    padding: 10px 22px;
+    font-size: 13px;
+  }
+
+  .inv-compare__drawer {
+    max-height: 85vh;
+    border-radius: var(--inv-radius-modal) var(--inv-radius-modal) 0 0;
+  }
+
+  .inv-compare__header {
+    padding: 16px 16px 12px;
+  }
+
+  .inv-compare__title {
+    font-size: 16px;
+  }
+
+  .inv-compare__grid {
+    grid-template-columns: 1fr;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .inv-compare__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .inv-compare__product {
+    min-width: 260px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    border-right: 1px solid var(--inv-border);
+    padding: 16px 14px 20px;
+  }
+
+  .inv-compare__img-link {
+    max-width: 140px;
+  }
+
+  .inv-compare__price {
+    font-size: 16px;
+  }
+}
+
+/* -----------------------------------------------------------------------
+   17. ACCESSIBILITY — Reduced Motion
+   ----------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .inv-compare__badge,
+  .inv-compare__drawer,
+  .inv-compare__overlay,
+  .inv-compare__max-msg {
+    transition: none;
+  }
+}
+
+/* -----------------------------------------------------------------------
+   18. FOCUS-VISIBLE
+   ----------------------------------------------------------------------- */
+
+.inv-compare__badge:focus-visible,
+.inv-compare__close-btn:focus-visible,
+.inv-compare__clear:focus-visible,
+.inv-compare__remove:focus-visible,
+.inv-compare__atc:focus-visible {
+  outline: 2px solid var(--inv-accent);
+  outline-offset: 2px;
+}
