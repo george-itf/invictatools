@@ -1,0 +1,3917 @@
+/* ============================================================================
+   DESKTOP.CSS — Invicta Tools PWA Desktop Styles v2.0 (REFACTORED)
+   ============================================================================
+
+   This file loads ONLY on desktop devices (≥750px)
+   Mobile styles are in mobile.css
+
+   Generated: 2024-11-30
+   Refactored: 2025-01-12
+
+   REFACTORING NOTES:
+   - Removed 615 !important declarations by using html.js body prefix
+   - Replaced hardcoded colors with CSS variables (--inv-accent, etc.)
+   - Uses html.js prefix for higher specificity without !important
+
+   CONTENTS:
+   1. Global Desktop Overrides (from invicta-overrides.css)
+   2. Product Page Desktop (from invicta-product.css)
+   3. Collection Page Desktop (from invicta-collection.css)
+   4. Account Pages (from invicta-account.css)
+   5. Cart Styles (from invicta-cart.css)
+
+   ============================================================================ */
+
+
+/* ============================================================================
+   SECTION 1: GLOBAL DESKTOP OVERRIDES
+   Source: invicta-overrides.css
+   ============================================================================ */
+
+/* ============================================================================
+   INVICTA OVERRIDES v2.0 — CLEANED & CONSOLIDATED
+   ============================================================================
+
+   This file loads LAST in theme.liquid (before </head>)
+   All rules use html.js body prefix for maximum specificity
+
+   CONTENTS:
+   1. Collection List
+   2. Product Page Typography
+   3. Announcement Bar
+   4. Header Layout & Icons
+   5. Search Bar
+   6. Predictive Search Dropdown
+   7. Mega Menu
+   8. Section Headers
+
+   ============================================================================ */
+
+
+/* ============================================================================
+   1. COLLECTION LIST
+   ============================================================================ */
+
+/* Force horizontal text */
+html.js body .collection-list,
+html.js body .collection-list *,
+html.js body .collection-list__item,
+html.js body .collection-list__item * {
+  writing-mode: horizontal-tb;
+  text-orientation: mixed;
+}
+
+/* Section container */
+html.js body .collection-list-wrapper,
+html.js body section:has(.collection-list) {
+  padding: 40px 0;
+  overflow: hidden;
+}
+
+/* Full width spread */
+html.js body .collection-list-wrapper .page-width,
+html.js body section:has(.collection-list) .page-width {
+  max-width: 100%;
+  padding-left: 48px;
+  padding-right: 48px;
+}
+
+/* Grid — evenly spread */
+html.js body .collection-list.slider,
+html.js body .collection-list {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 32px;
+  overflow-x: visible;
+  width: 100%;
+}
+
+/* Each item — equal flex */
+html.js body .collection-list__item {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: none;
+  margin-right: 0;
+}
+
+/* Collection card wrapper — make entire card clickable */
+html.js body .collection-list .card-wrapper,
+html.js body .collection-list .card {
+  cursor: pointer;
+}
+
+/* Collection names — BIGGER & BOLDER, NO ARROW */
+html.js body .collection-list .card__heading,
+html.js body .collection-list .card__heading a,
+html.js body .collection-list__item h3,
+html.js body .collection-list__item h3 a {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--inv-fg-strong);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+html.js body .collection-list .card__heading a:hover {
+  color: var(--inv-accent);
+}
+
+/* Hide the arrow icon */
+html.js body .collection-list .icon-arrow,
+html.js body .collection-list__item .icon-arrow,
+html.js body .collection-list .icon-wrap,
+html.js body .collection-list .card__content .icon-wrap {
+  display: none;
+}
+
+/* Card content wrapper — center text, no arrow gap */
+html.js body .collection-list .card__content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding-top: 18px;
+}
+
+/* Section title */
+html.js body .collection-list-wrapper .title,
+html.js body .collection-list-wrapper .title-wrapper h2,
+html.js body section:has(.collection-list) h2 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--inv-fg-strong);
+  margin-bottom: 32px;
+  letter-spacing: -0.02em;
+  padding-left: 48px;
+}
+
+/* Red arrow after title */
+html.js body .collection-list-wrapper .title-wrapper a,
+html.js body .collection-list-wrapper .title a {
+  color: var(--inv-accent);
+}
+
+html.js body .collection-list-wrapper .title-wrapper .icon-arrow {
+  width: 32px;
+  height: 32px;
+  stroke: var(--inv-accent);
+}
+
+/* Hide slider controls */
+html.js body .collection-list-wrapper .slider-buttons {
+  display: none;
+}
+
+/* Tablet */
+
+/* Mobile */
+
+
+/* ============================================================================
+   2. PRODUCT PAGE TYPOGRAPHY
+   ============================================================================ */
+
+/* Description body */
+html.js body .inv-description__body,
+html.js body .inv-description__body p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--inv-fg);
+}
+
+/* Description header */
+html.js body .inv-description__header h2 {
+  font-size: 1.2rem;
+}
+
+/* Accordion headers */
+html.js body .inv-accordion__title span {
+  font-size: 1.1rem;
+}
+
+/* Accordion content */
+html.js body .inv-accordion__content,
+html.js body .inv-accordion__content p,
+html.js body .inv-accordion__content li {
+  font-size: 1.15rem;
+  line-height: 1.75;
+  color: var(--inv-fg);
+}
+
+/* Spec table */
+html.js body .inv-spec-table td {
+  font-size: 1.1rem;
+  padding: 14px 0;
+  color: var(--inv-fg);
+}
+
+/* Trust badges */
+html.js body .inv-trust__item {
+  font-size: 1rem;
+  color: var(--inv-fg-secondary);
+}
+
+/* Delivery info */
+html.js body .inv-delivery__row {
+  font-size: 1.1rem;
+  color: var(--inv-fg-secondary);
+}
+
+
+/* ============================================================================
+   3. ANNOUNCEMENT BAR
+   ============================================================================ */
+
+/* Container — full neutral grey, no borders */
+html.js body .utility-bar,
+html.js body .utility-bar.color-scheme-5,
+html.js body div.utility-bar,
+html.js body .announcement-bar-section,
+html.js body [id*="announcement-bar"] {
+  background: var(--inv-dark);
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+html.js body .utility-bar .page-width,
+html.js body .utility-bar .utility-bar__grid {
+  background: transparent;
+  border: none;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+html.js body .announcement-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--inv-dark);
+  border: none;
+  min-height: 44px;
+  padding: 10px 0;
+  width: 100%;
+  text-align: center;
+}
+
+/* Text — BIGGER, BOLDER, centered */
+html.js body .announcement-bar__message,
+html.js body .announcement-bar__message.h5,
+html.js body .announcement-bar__message.h5 span,
+html.js body .announcement-bar__message span,
+html.js body p.announcement-bar__message,
+html.js body p.announcement-bar__message span,
+html.js body .utility-bar p,
+html.js body .utility-bar span {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.03em ;
+  text-transform: uppercase ;
+  color: var(--inv-white);
+  text-align: center;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Force center on all wrappers */
+html.js body .utility-bar__grid,
+html.js body .announcement-bar__link,
+html.js body .announcement-bar > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ============================================================================
+   4. HEADER LAYOUT & ICONS
+   ============================================================================ */
+
+/* Remove gaps between header sections */
+html.js body .shopify-section-group-header-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0 ;
+}
+
+html.js body .shopify-section-group-header-group .shopify-section {
+  margin: 0;
+  padding: 0;
+}
+
+/* Header wrapper — remove white lines but NOT mega menu underlines */
+html.js body .header-wrapper,
+html.js body .section-header {
+  border-bottom: none;
+  margin-bottom: 0;
+  box-shadow: none;
+}
+
+/* Account icon (invicta-header__icon class) */
+html.js body a.invicta-header__icon,
+html.js body .invicta-header__icon {
+  background: var(--inv-dark);
+  border-radius: 50% ;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+html.js body a.invicta-header__icon svg,
+html.js body .invicta-header__icon svg {
+  stroke: var(--inv-white);
+  color: var(--inv-white);
+  fill: none;
+  width: 22px;
+  height: 22px;
+}
+
+/* Cart icon */
+html.js body .header__icon--cart,
+html.js body a.header__icon--cart {
+  background: var(--inv-dark);
+  border-radius: 50% ;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  position: relative;
+}
+
+html.js body .header__icon--cart svg {
+  stroke: var(--inv-white);
+  color: var(--inv-white);
+  fill: none;
+  width: 22px;
+  height: 22px;
+}
+
+/* Search button in header */
+html.js body .search__button,
+html.js body .header__search button,
+html.js body button[class*="search"],
+html.js body .search-modal__form button {
+  background: var(--inv-dark);
+  border: none;
+}
+
+html.js body .search__button svg,
+html.js body .header__search button svg,
+html.js body button[class*="search"] svg {
+  stroke: var(--inv-white);
+  color: var(--inv-white);
+}
+
+/* Cart count badge */
+html.js body .cart-count-bubble {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background: var(--inv-accent);
+  color: var(--inv-white);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 18px;
+  border-radius: 999px ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+
+/* ============================================================================
+   5. SEARCH BAR
+   ============================================================================ */
+
+html.js body .search__input,
+html.js body .search-modal__input,
+html.js body input[type="search"],
+html.js body [class*="search"] input {
+  font-size: 1.1rem;
+  padding: 14px 18px;
+}
+
+html.js body .search__input::placeholder,
+html.js body input[type="search"]::placeholder,
+html.js body [class*="search"] input::placeholder {
+  font-size: 1.1rem;
+  color: var(--inv-fg-muted);
+}
+
+
+/* ============================================================================
+   6. PREDICTIVE SEARCH DROPDOWN
+   ============================================================================ */
+
+/* Main container */
+html.js body predictive-search,
+html.js body .predictive-search,
+html.js body .predictive-search__results-groups-wrapper {
+  background: var(--inv-bg-elevated);
+  border: 1px solid var(--inv-border);
+  border-radius: 12px ;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+/* Results list */
+html.js body .predictive-search__results-groups-wrapper ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each result row */
+html.js body .predictive-search__list-item,
+html.js body .predictive-search li[role="option"] {
+  border-bottom: 1px solid var(--inv-border);
+}
+
+html.js body .predictive-search__list-item:last-child {
+  border-bottom: none;
+}
+
+/* Link inside each result */
+html.js body .predictive-search__list-item a,
+html.js body .predictive-search li[role="option"] a {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 16px ;
+  padding: 16px 20px;
+  text-decoration: none;
+  align-items: center;
+  transition: background 0.15s ease ;
+}
+
+html.js body .predictive-search__list-item a:hover,
+html.js body .predictive-search li[role="option"] a:hover {
+  background: var(--inv-bg-soft);
+}
+
+/* Product image */
+html.js body .predictive-search__list-item img,
+html.js body .predictive-search__image,
+html.js body .predictive-search li img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain ;
+  border-radius: 8px ;
+  background: var(--inv-bg-muted);
+  border: 1px solid var(--inv-border);
+}
+
+/* Product title */
+html.js body .predictive-search__item-heading,
+html.js body .predictive-search__list-item .predictive-search__item-heading {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--inv-fg-strong);
+  line-height: 1.4;
+  margin: 0 0 8px 0;
+  display: block;
+}
+
+/* Price container */
+html.js body .predictive-search__item-content .price,
+html.js body .predictive-search__list-item .price {
+  display: flex;
+  align-items: center;
+  gap: 10px ;
+}
+
+/* Current price — big & red */
+html.js body .predictive-search .price-item,
+html.js body .predictive-search .price-item--regular,
+html.js body .predictive-search .price-item--sale,
+html.js body .predictive-search__list-item .price-item {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--inv-accent);
+}
+
+/* Compare at price (strikethrough) */
+html.js body .predictive-search .price-item--regular s,
+html.js body .predictive-search .price--on-sale .price-item--regular {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--inv-fg-subtle);
+  text-decoration: line-through;
+}
+
+/* Content wrapper */
+html.js body .predictive-search__item-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Section headings */
+html.js body .predictive-search__heading {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase ;
+  letter-spacing: 0.05em ;
+  color: var(--inv-fg-muted);
+  padding: 12px 20px 8px;
+  border-bottom: 1px solid var(--inv-border);
+  background: var(--inv-bg-muted);
+}
+
+/* View all results link */
+html.js body .predictive-search__view-all,
+html.js body .predictive-search a[href*="/search"] {
+  display: block;
+  padding: 14px 20px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--inv-accent);
+  background: #fef2f2;
+  border-top: 1px solid var(--inv-border);
+}
+
+html.js body .predictive-search__view-all:hover {
+  background: #fee2e2;
+}
+
+
+/* ============================================================================
+   8. SECTION HEADERS — RED UNDERLINE
+   ============================================================================ */
+
+/* Section titles with red underline */
+html.js body .title-wrapper h2,
+html.js body .section-header h2,
+html.js body .title-wrapper .title,
+html.js body h2.title,
+html.js body .featured-collection h2,
+html.js body .product-recommendations__heading {
+  position: relative;
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+}
+
+html.js body .title-wrapper h2::after,
+html.js body .section-header h2::after,
+html.js body .title-wrapper .title::after,
+html.js body h2.title::after,
+html.js body .featured-collection h2::after,
+html.js body .product-recommendations__heading::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  background: var(--inv-accent);
+  border-radius: 2px ;
+}
+
+/* Centered titles — center the red line */
+html.js body .title-wrapper--center h2::after,
+html.js body .center .title::after {
+  left: 50%;
+  transform: translateX(-50%) ;
+}
+
+/* ============================================================================
+   9. HEADER — RED BORDER
+   ============================================================================ */
+
+/* Red border at bottom of header */
+html.js body .invicta-header,
+html.js body header.invicta-header,
+html.js body .section-header-invicta,
+html.js body [id*="header_invicta"],
+html.js body #shopify-section-sections--26025140879733__header_invicta_eLmeMd {
+  border-bottom: 3px solid var(--inv-accent);
+}
+
+/* ============================================================================
+   9c. RED UNDERLINE EXCLUSIONS — SECTIONS THAT STAY CLEAN
+   ============================================================================
+
+   These sections will NOT get red underlines on their h2 titles.
+
+   ============================================================================ */
+
+/* Review Carousel — NO red underline */
+.shopify-section:has(.review-carousel) h2::after,
+.shopify-section:has(.review-carousel) .title::after,
+.shopify-section:has(.review-carousel) .title-wrapper h2::after {
+  display: none;
+  content: none;
+}
+
+
+/* ============================================================================
+   10. SEARCH RESULTS PAGE — CARD ENHANCEMENTS v2.0
+   ============================================================================
+
+   Improvements:
+   • Sale badge (top right)
+   • Quick-add button on hover
+   • Star ratings
+   • Enhanced sale price visibility
+   • Sticky filter bar
+   • Larger filter text
+   • Hidden loading spinner (only shows when loading)
+
+   ============================================================================ */
+
+/* -------------------------------------------------------
+   SALE BADGE — Top left corner
+   ------------------------------------------------------- */
+html.js body .invicta-card-sale-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--inv-accent);
+  color: var(--inv-white);
+  font-size: 1.1rem;
+  font-weight: 800;
+  padding: 6px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  z-index: 5;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* -------------------------------------------------------
+   SOLD OUT BADGE — Over image
+   ------------------------------------------------------- */
+html.js body .invicta-card-sold-out-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: var(--inv-fg-secondary);
+  color: var(--inv-white);
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 20px;
+  z-index: 5;
+}
+
+/* -------------------------------------------------------
+   DUAL BUTTON ROW — See More + Add
+   ------------------------------------------------------- */
+html.js body .invicta-card-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+html.js body .invicta-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: none;
+  white-space: nowrap;
+  min-height: 38px;
+}
+
+/* Outline style — See More */
+html.js body .invicta-btn--outline {
+  background: var(--inv-bg-elevated);
+  color: var(--inv-fg-secondary);
+  border: 1.5px solid var(--inv-border-dark);
+}
+
+html.js body .invicta-btn--outline:hover {
+  border-color: var(--inv-fg-strong);
+  color: var(--inv-fg-strong);
+}
+
+/* Solid style — Add to Cart */
+html.js body .invicta-btn--solid {
+  background: var(--inv-fg-strong);
+  color: var(--inv-white);
+}
+
+html.js body .invicta-btn--solid:hover {
+  background: var(--inv-accent);
+}
+
+html.js body .invicta-btn--solid svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  flex-shrink: 0;
+}
+
+/* Disabled style — Sold Out */
+html.js body .invicta-btn--disabled {
+  background: var(--inv-border);
+  color: var(--inv-fg-subtle);
+  cursor: not-allowed;
+}
+
+/* Loading state */
+html.js body .invicta-btn--solid.is-loading {
+  pointer-events: none;
+  background: var(--inv-fg-muted);
+  position: relative;
+}
+
+html.js body .invicta-btn--solid.is-loading span,
+html.js body .invicta-btn--solid.is-loading svg {
+  visibility: hidden;
+}
+
+html.js body .invicta-btn--solid.is-loading::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--inv-white);
+  border-radius: 50%;
+  animation: invicta-spin 0.6s linear infinite;
+}
+
+/* Success state */
+html.js body .invicta-btn--solid.is-added {
+  background: #10b981;
+}
+
+@keyframes invicta-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* -------------------------------------------------------
+   STAR RATINGS
+   ------------------------------------------------------- */
+html.js body .invicta-card-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0 4px;
+}
+
+html.js body .invicta-card-stars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: #f59e0b;
+}
+
+html.js body .invicta-card-stars .star {
+  width: 14px;
+  height: 14px;
+}
+
+html.js body .invicta-card-stars .star--empty {
+  color: var(--inv-border-dark);
+}
+
+html.js body .invicta-card-rating-count {
+  font-size: 1.2rem;
+  color: var(--inv-fg-muted);
+  font-weight: 500;
+}
+
+/* -------------------------------------------------------
+   ENHANCED SALE PRICE DISPLAY
+   ------------------------------------------------------- */
+html.js body .invicta-price-row--sale {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+}
+
+html.js body .invicta-price-main--sale {
+  color: var(--inv-accent);
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+html.js body .invicta-price-compare {
+  font-size: 1.4rem;
+  color: var(--inv-fg-subtle);
+  text-decoration: line-through;
+  font-weight: 500;
+}
+
+/* -------------------------------------------------------
+   FACETS / FILTERS — Larger text, no double arrows
+   ------------------------------------------------------- */
+
+/* Filter headings */
+html.js body .facets__heading,
+html.js body .facet-filters__label,
+html.js body .facet-filters__label label {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--inv-fg-strong);
+}
+
+/* Filter summaries (dropdown triggers) */
+html.js body .facets__summary,
+html.js body .facets__summary-label {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--inv-fg-secondary);
+  cursor: pointer;
+}
+
+/* Sort dropdown text */
+html.js body .facet-filters__sort,
+html.js body .facet-filters__sort.select__select,
+html.js body .facets .select__select {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--inv-fg-secondary);
+}
+
+/* Product count */
+html.js body .product-count__text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--inv-fg-strong);
+}
+
+/* Hide SVG arrows inside facet summaries — use CSS background-image instead */
+html.js body .facets__summary .svg-wrapper,
+html.js body .facets__summary .icon-caret,
+html.js body .facets__disclosure .facets__summary .svg-wrapper {
+  display: none;
+}
+
+/* Add CSS arrow to facet summaries */
+html.js body .facets__summary {
+  position: relative;
+  padding-right: 24px;
+}
+
+html.js body .facets__summary::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: transform 0.2s ease;
+}
+
+html.js body .facets__disclosure[open] .facets__summary::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* Hide loading spinner by default */
+html.js body .product-count .loading__spinner,
+html.js body .product-count-vertical .loading__spinner {
+  display: none;
+}
+
+/* Show spinner only when loading */
+html.js body .product-count.loading .loading__spinner,
+html.js body .product-count-vertical.loading .loading__spinner,
+html.js body #ProductCountDesktop.loading + .loading__spinner,
+html.js body #ProductCount.loading + .loading__spinner {
+  display: block;
+}
+
+/* -------------------------------------------------------
+   STICKY FILTER BAR
+   ------------------------------------------------------- */
+html.js body .template-search .facets-wrapper,
+html.js body .template-collection .facets-wrapper {
+  position: sticky;
+  top: 0;
+  background: rgb(var(--color-background));
+  z-index: 10;
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+}
+
+
+/* ============================================================================
+   11. QUICK ADD JAVASCRIPT
+   ============================================================================ */
+
+
+/* ============================================================================
+   12. FEATURED COLLECTION / SLIDER CARD BUTTONS
+   ============================================================================
+
+   Targets the dual-button layout in sliders & carousels
+   Makes them smaller and less dominant
+
+   ============================================================================ */
+
+/* Button container in slider cards */
+html.js body .slider .card .invicta-card-buttons,
+html.js body .slideshow .card .invicta-card-buttons,
+html.js body .product-grid-container .card .invicta-card-buttons,
+html.js body [class*="featured"] .card .invicta-card-buttons,
+html.js body .collection-slider .card .invicta-card-buttons {
+  gap: 6px ;
+  margin-top: 10px;
+}
+
+/* Smaller buttons in sliders */
+html.js body .slider .card .invicta-btn,
+html.js body .slideshow .card .invicta-btn,
+html.js body .product-grid-container .card .invicta-btn,
+html.js body [class*="featured"] .card .invicta-btn,
+html.js body .collection-slider .card .invicta-btn {
+  padding: 6px 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  min-height: 34px;
+  border-radius: 6px ;
+}
+
+/* Icon size in slider buttons */
+html.js body .slider .card .invicta-btn svg,
+html.js body .slideshow .card .invicta-btn svg,
+html.js body .product-grid-container .card .invicta-btn svg,
+html.js body [class*="featured"] .card .invicta-btn svg,
+html.js body .collection-slider .card .invicta-btn svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* ALL card buttons site-wide — smaller & tighter */
+html.js body .card .invicta-card-buttons {
+  display: flex;
+  gap: 6px ;
+  margin-top: 10px;
+}
+
+html.js body .card .invicta-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px ;
+  padding: 7px 10px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  min-height: 36px;
+  border-radius: 6px ;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer ;
+  transition: all 150ms ease ;
+}
+
+/* Outline button (See More) */
+html.js body .card .invicta-btn--outline {
+  background: var(--inv-bg-elevated);
+  color: var(--inv-fg-secondary);
+  border: 1.5px solid var(--inv-border-dark);
+}
+
+html.js body .card .invicta-btn--outline:hover {
+  border-color: var(--inv-fg-strong) ;
+  color: var(--inv-fg-strong);
+}
+
+/* Solid button (Add) */
+html.js body .card .invicta-btn--solid {
+  background: var(--inv-dark);
+  color: var(--inv-white);
+  border: 1.5px solid var(--inv-dark);
+}
+
+html.js body .card .invicta-btn--solid:hover {
+  background: var(--inv-accent);
+  border-color: var(--inv-accent);
+}
+
+/* Icon in buttons */
+html.js body .card .invicta-btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* Loading state */
+html.js body .card .invicta-btn--loading {
+  background: var(--inv-fg-subtle);
+  border-color: var(--inv-fg-subtle);
+  pointer-events: none ;
+}
+
+/* Success state */
+html.js body .card .invicta-btn--success {
+  background: #10b981;
+  border-color: #10b981;
+}
+
+/* Disabled state */
+html.js body .card .invicta-btn--disabled {
+  background: var(--inv-border);
+  border-color: var(--inv-border);
+  color: var(--inv-fg-subtle);
+  pointer-events: none ;
+}
+
+
+/* ============================================================================
+   13. SLIDER / CAROUSEL NAVIGATION ARROWS
+   ============================================================================
+
+   Those massive pill buttons are overkill — smaller circles instead
+
+   ============================================================================ */
+
+/* Slider navigation container */
+html.js body .slider-buttons,
+html.js body .slideshow__controls,
+html.js body .slider-counter {
+  gap: 8px ;
+}
+
+/* Arrow buttons — compact circles */
+html.js body .slider-button,
+html.js body .slideshow__button,
+html.js body [class*="slider"] button[class*="button"],
+html.js body .slider-buttons button {
+  width: 33px;
+  height: 33px;
+  min-width: 33px;
+  min-height: 33px;
+  padding: 0;
+  border-radius: 50% ;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Arrow icons inside */
+html.js body .slider-button svg,
+html.js body .slideshow__button svg,
+html.js body .slider-buttons button svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Page counter (1/2) — smaller */
+html.js body .slider-counter__current,
+html.js body .slider-counter__total,
+html.js body .slider-counter {
+  font-size: 0.9rem;
+  font-weight: 600;
+  min-width: auto;
+  padding: 6px 12px;
+}
+
+/* ============================================================================
+   HEADER — REMOVE WHITE GAP BELOW
+   ============================================================================ */
+
+
+/* ============================================================================
+   HEADER SECTION WRAPPER — KILL WHITE GAP
+   ============================================================================ */
+
+
+/* ============================================================================
+   SECTION 2: PRODUCT PAGE DESKTOP
+   Source: invicta-product.css
+   ============================================================================ */
+
+/* ============================================================================
+   INVICTA PRODUCT PAGE v7.2 — FINAL POLISHED VERSION
+   ============================================================================
+
+   DEPENDENCIES: base.css (must load first — provides all CSS variables)
+
+   VERSION HISTORY:
+   v7.0 — Initial release
+   v7.1 — Bigger text, better spacing, accordion fixes
+   v7.2 — Final polish: gaps, padding, visual consistency
+
+   FEATURES:
+   • Brand badge uses brand-pill snippet
+   • Description + accordions FULL WIDTH
+   • Accordions in 3-column grid with ROW-SYNC
+   • All buttons are PILLS (border-radius: 999px)
+   • Proper chevron icons
+   • Truck icon for dispatch
+   • AJAX product recommendations with loading state
+
+   ============================================================================ */
+
+
+/* ============================================================================
+   1. SECTION CONTAINER
+   ============================================================================ */
+
+.inv-product {
+  padding: 32px 0 60px;
+  background: var(--inv-bg-soft, var(--inv-bg-muted));
+}
+
+.inv-product .page-width {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+
+/* ============================================================================
+   2. MAIN GRID — MEDIA + INFO
+   ============================================================================ */
+
+.inv-product__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+
+/* ============================================================================
+   3. IMAGE GALLERY
+   ============================================================================ */
+
+.inv-product__media {
+  position: sticky;
+  top: 24px;
+}
+
+.inv-gallery__main {
+  position: relative;
+  background: var(--inv-bg-elevated);
+  border-radius: 16px;
+  border: 1px solid var(--inv-border-light, var(--inv-border));
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.inv-gallery__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  aspect-ratio: 1 / 1;
+}
+
+.inv-gallery__placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--inv-bg-soft, var(--inv-bg-soft));
+}
+
+/* Zoom Button */
+.inv-gallery__zoom {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background: var(--inv-bg-elevated);
+  border: 1px solid var(--inv-border-light, var(--inv-border));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.inv-gallery__zoom:hover {
+  background: var(--inv-bg-soft, var(--inv-bg-soft));
+  transform: scale(1.05);
+}
+
+.inv-gallery__zoom svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--inv-fg-muted, var(--inv-fg-muted));
+}
+
+/* Thumbnails */
+.inv-gallery__thumbs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.inv-gallery__thumb {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  border: 2px solid var(--inv-border-light, var(--inv-border));
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: var(--inv-bg-elevated);
+  padding: 0;
+}
+
+.inv-gallery__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.inv-gallery__thumb:hover {
+  border-color: var(--inv-fg-muted, var(--inv-fg-muted));
+}
+
+.inv-gallery__thumb.is-active {
+  border-color: var(--inv-accent, var(--inv-accent));
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1); /* Active border */
+}
+
+
+/* ============================================================================
+   4. INFO COLUMN (BUY BOX)
+   ============================================================================ */
+
+.inv-product__info {
+  background: var(--inv-bg-elevated);
+  border-radius: 16px;
+  border: 1px solid var(--inv-border-light, var(--inv-border));
+  padding: 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+
+
+/* ============================================================================
+   5C. HANDLING TIME NOTE (for non-stocked products)
+   ============================================================================ */
+
+.inv-card__handling {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  color: var(--inv-gray-500, #888);
+  margin-top: 4px;
+}
+
+.inv-card__handling svg {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  opacity: 0.7;
+}
+
+
+/* ============================================================================
+   6. BRAND BADGE — Uses brand-pill snippet
+   ============================================================================ */
+
+.inv-product__brand-pill {
+  margin-bottom: 16px;
+}
+
+.inv-product__brand-pill .invicta-brand-pill-wrapper {
+  width: auto;
+  display: inline-flex;
+}
+
+.inv-product__brand-pill .invicta-brand-pill {
+  --pill-height: 42px;
+  --pill-logo-height: 30px;
+  padding: 6px 22px;
+}
+
+
+/* ============================================================================
+   7. TITLE
+   ============================================================================ */
+
+.inv-product__title {
+  font-size: clamp(1.75rem, 1.4rem + 1.8vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--inv-fg, var(--inv-fg-strong));
+  margin: 0 0 16px;
+}
+
+
+/* ============================================================================
+   8. PRICE
+   ============================================================================ */
+
+.inv-price {
+  margin-bottom: 20px;
+}
+
+.inv-price__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.inv-price__current {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--inv-fg, var(--inv-fg-strong));
+}
+
+.inv-price__current--sale {
+  color: var(--inv-accent, var(--inv-accent));
+}
+
+.inv-price__was {
+  font-size: 1.2rem;
+  color: var(--inv-fg-muted, var(--inv-fg-muted));
+  text-decoration: line-through;
+}
+
+.inv-price__saving {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #059669;
+}
+
+.inv-price__saving svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* ============================================================================
+   9. STOCK BADGE
+   ============================================================================ */
+
+.inv-stock {
+  margin-bottom: 24px;
+}
+
+.inv-stock__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.inv-stock__badge svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.inv-stock__badge--in {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.inv-stock__badge--out {
+  background: #fee2e2;
+  color: var(--inv-accent-hover);
+}
+
+
+/* ============================================================================
+   10. VARIANT PICKER
+   ============================================================================ */
+
+.inv-variants {
+  margin-bottom: 24px;
+}
+
+.inv-variant-group {
+  margin-bottom: 16px;
+}
+
+.inv-variant-group__label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--inv-fg, var(--inv-fg-strong));
+  margin-bottom: 8px;
+}
+
+.inv-variant-group__select-wrap {
+  position: relative;
+}
+
+.inv-variant-group__select {
+  width: 100%;
+  height: 56px;
+  padding: 0 48px 0 18px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--inv-fg, var(--inv-fg-strong));
+  background: var(--inv-bg-elevated);
+  border: 2px solid var(--inv-border-light, var(--inv-border));
+  border-radius: 12px;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.inv-variant-group__select:focus {
+  outline: none;
+  border-color: var(--inv-accent, var(--inv-accent));
+  box-shadow: 0 0 0 2px rgba(45, 45, 45, 0.2);
+}
+
+/* Chevron */
+.inv-variant-group__chevron {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+  stroke: var(--inv-fg-muted, var(--inv-fg-muted));
+}
+
+
+/* ============================================================================
+   11. QUANTITY SELECTOR
+   ============================================================================ */
+
+.inv-buy-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.inv-qty {
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--inv-border-light, var(--inv-border));
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--inv-bg-elevated);
+}
+
+.inv-qty__btn {
+  width: 52px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--inv-fg-muted, var(--inv-fg-muted));
+  transition: background 0.15s ease;
+}
+
+.inv-qty__btn:hover {
+  background: var(--inv-bg-soft, var(--inv-bg-soft));
+}
+
+.inv-qty__input {
+  width: 64px;
+  height: 56px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--inv-fg, var(--inv-fg-strong));
+  border: none;
+  border-left: 1px solid var(--inv-border-light, var(--inv-border));
+  border-right: 1px solid var(--inv-border-light, var(--inv-border));
+  background: transparent;
+  -moz-appearance: textfield;
+}
+
+.inv-qty__input::-webkit-outer-spin-button,
+.inv-qty__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+/* ============================================================================
+   12. ADD TO CART BUTTON — PILL
+   ============================================================================ */
+
+.inv-atc-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 60px;
+  padding: 0 32px;
+  background: var(--inv-accent, var(--inv-accent)); /* Solid colour - no gradient */
+  color: var(--inv-white);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 1.15rem;
+  font-weight: 800;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Clean subtle shadow */
+  transition: all 0.2s ease;
+}
+
+.inv-atc-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15); /* Clean hover shadow */
+}
+
+.inv-atc-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.inv-atc-btn--disabled,
+.inv-atc-btn:disabled {
+  background: var(--inv-bg-soft, var(--inv-bg-soft));
+  color: var(--inv-fg-muted, var(--inv-fg-muted));
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.inv-atc-btn__icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.inv-atc-btn__price {
+  padding: 5px 14px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+
+/* ============================================================================
+   13. BUY NOW BUTTON — PILL
+   ============================================================================ */
+
+.inv-buy-now {
+  width: 100%;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--inv-fg, var(--inv-fg-strong));
+  border: 2px solid var(--inv-fg, var(--inv-fg-strong));
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  transition: all 0.15s ease;
+}
+
+.inv-buy-now:hover {
+  background: var(--inv-fg, var(--inv-fg-strong));
+  color: var(--inv-white);
+}
+
+
+/* ============================================================================
+   14. TRUST BADGES
+   ============================================================================ */
+
+.inv-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--inv-border-light, var(--inv-border));
+}
+
+.inv-trust__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--inv-fg-muted, var(--inv-fg-secondary));
+}
+
+.inv-trust__item svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  stroke: var(--inv-accent, var(--inv-accent));
+}
+
+
+/* ============================================================================
+   15. DELIVERY INFO
+   ============================================================================ */
+
+.inv-delivery {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.inv-delivery__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 1rem;
+  color: var(--inv-fg-muted, var(--inv-fg-secondary));
+  line-height: 1.5;
+}
+
+.inv-delivery__row svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  stroke: var(--inv-fg-muted, var(--inv-fg-muted));
+  margin-top: 2px;
+}
+
+
+/* ============================================================================
+   16. LOWER SECTION — DESCRIPTION + ACCORDIONS (FULL WIDTH)
+   ============================================================================ */
+
+.inv-product__lower {
+  margin-top: 48px;
+  padding-top: 48px;
+  border-top: 1px solid var(--inv-border-light, var(--inv-border));
+}
+
+
+/* ============================================================================
+   17. DESCRIPTION — ALWAYS VISIBLE
+   ============================================================================ */
+
+.inv-description {
+  background: var(--inv-bg-elevated);
+  border-radius: 16px;
+  border: 1px solid var(--inv-border-light, var(--inv-border));
+  padding: 28px 32px;
+  margin-bottom: 32px;
+}
+
+.inv-description__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--inv-border-light, var(--inv-border));
+}
+
+.inv-description__header svg {
+  width: 26px;
+  height: 26px;
+  stroke: var(--inv-accent, var(--inv-accent));
+  flex-shrink: 0;
+}
+
+.inv-description__header h2 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--inv-fg, var(--inv-fg-strong));
+  margin: 0;
+}
+
+.inv-description__body {
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: var(--inv-fg-muted, var(--inv-fg-secondary));
+}
+
+.inv-description__body p {
+  margin-bottom: 1em;
+}
+
+.inv-description__body p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* ============================================================================
+   18. ACCORDION GRID — 3 COLUMNS WITH ROW-SYNC
+   ============================================================================ */
+
+.inv-accordions__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+
+/* ----------------------------------------------------------------------------
+   Individual Accordion
+   ---------------------------------------------------------------------------- */
+
+.inv-accordion {
+  background: var(--inv-bg-elevated);
+  border: 1px solid var(--inv-border-light, var(--inv-border));
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.15s ease;
+}
+
+.inv-accordion:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Header — Clean white, no grey oval */
+.inv-accordion__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 24px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.inv-accordion__header:hover {
+  background: #fafafa;
+}
+
+/* When accordion is open, subtle bottom border on header */
+.inv-accordion.is-open .inv-accordion__header {
+  border-bottom-color: #f0f0f0;
+}
+
+/* Title row with icon */
+.inv-accordion__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.inv-accordion__icon {
+  width: 24px;
+  height: 24px;
+  stroke: var(--inv-accent, var(--inv-accent));
+  flex-shrink: 0;
+}
+
+.inv-accordion__title span {
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--inv-fg, var(--inv-fg-strong));
+}
+
+/* Chevron */
+.inv-accordion__chevron {
+  width: 22px;
+  height: 22px;
+  stroke: var(--inv-fg-muted, var(--inv-fg-muted));
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+/* Chevron rotation when open */
+.inv-accordion.is-open .inv-accordion__chevron {
+  transform: rotate(180deg);
+}
+
+/* Content — Good padding and readable text */
+.inv-accordion__content {
+  display: none;
+  padding: 20px 24px 28px;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--inv-fg-muted, var(--inv-fg-secondary));
+}
+
+.inv-accordion.is-open .inv-accordion__content {
+  display: block;
+}
+
+/* List items in accordions */
+.inv-accordion__content ul,
+.inv-accordion__content ol {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.inv-accordion__content li {
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.inv-accordion__content li:last-child {
+  margin-bottom: 0;
+}
+
+/* Spec Table */
+.inv-spec-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.inv-spec-table tr:not(:last-child) {
+  border-bottom: 1px solid var(--inv-border-light, var(--inv-border));
+}
+
+.inv-spec-table td {
+  padding: 14px 0;
+  font-size: 1.05rem;
+}
+
+.inv-spec-table td:first-child {
+  font-weight: 700;
+  color: var(--inv-fg, var(--inv-fg-strong));
+  padding-right: 16px;
+}
+
+
+/* ============================================================================
+   19. RECOMMENDATIONS
+   ============================================================================ */
+
+.inv-recs {
+  margin-top: 64px;
+  padding-top: 64px;
+  border-top: 1px solid var(--inv-border-light, var(--inv-border));
+}
+
+.inv-recs__title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--inv-fg, var(--inv-fg-strong));
+  margin: 0 0 48px;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+/* Red underline accent */
+.inv-recs__title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: var(--inv-accent, var(--inv-accent));
+  margin: 16px auto 0;
+  border-radius: 2px;
+}
+
+/* ============================================================================
+   20. RECOMMENDATIONS — LOADING STATE + AJAX BRAND BADGE
+   ============================================================================ */
+
+.inv-recs__loading {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 48px 24px;
+  color: var(--inv-fg-muted);
+  font-size: 0.95rem;
+}
+
+.inv-recs__spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--inv-border);
+  border-top-color: var(--inv-accent);
+  border-radius: 50%;
+  animation: invRecsSpinner 0.7s linear infinite;
+}
+
+@keyframes invRecsSpinner {
+  to { transform: rotate(360deg); }
+}
+
+/* AJAX brand badge fallback (full brand-pill requires Liquid) */
+.invicta-card-brand-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  background: var(--inv-fg-strong);
+  color: var(--inv-white);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: 999px;
+  line-height: 1;
+}
+
+/* Placeholder for missing images */
+.invicta-card-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--inv-bg-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.invicta-card-placeholder::after {
+  content: '';
+  width: 48px;
+  height: 48px;
+  background: var(--inv-border-dark);
+  border-radius: 8px;
+}
+
+
+/* ============================================================================
+   21. STICKY MOBILE ATC
+   ============================================================================ */
+
+.inv-sticky-atc {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--inv-bg-elevated);
+  border-top: 1px solid var(--inv-border-light, var(--inv-border));
+  padding: 12px 24px;
+  transform: translateY(100%);
+  transition: transform 0.25s ease;
+  z-index: 100;
+  display: none;
+}
+
+.inv-sticky-atc.visible {
+  transform: translateY(0);
+}
+
+
+.inv-sticky-atc__inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.inv-sticky-atc__price {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--inv-fg, var(--inv-fg-strong));
+  white-space: nowrap;
+}
+
+.inv-sticky-atc__btn {
+  flex: 1;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--inv-accent, var(--inv-accent)); /* Solid colour - no gradient */
+  color: var(--inv-white);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.inv-sticky-atc__btn:disabled {
+  background: var(--inv-bg-soft, var(--inv-bg-soft));
+  color: var(--inv-fg-muted, var(--inv-fg-muted));
+  cursor: not-allowed;
+}
+
+
+/* ============================================================================
+   22. MOBILE ADJUSTMENTS
+   ============================================================================ */
+
+/* ============================================================================
+   SECTION 4: ACCOUNT PAGES
+   Source: invicta-account.css
+   ============================================================================ */
+
+/* ============================================================================
+   INVICTA ACCOUNT PAGES v2.0
+   ============================================================================
+
+   Complete restyle:
+   - Avatar, stats, welcome header
+   - Order history with status colours
+   - Recently viewed section
+   - Bigger text throughout
+   - Login/Register
+   - Addresses
+
+   ============================================================================ */
+
+
+/* ============================================================================
+   1. BASE LAYOUT
+   ============================================================================ */
+
+.inv-account {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+  background: #f8f9fa;
+  min-height: 60vh;
+}
+
+
+/* ============================================================================
+   2. HEADER — Avatar, Welcome, Stats, Logout
+   ============================================================================ */
+
+.inv-account__header {
+  background: linear-gradient(135deg, var(--inv-dark) 0%, var(--inv-fg-near-black) 100%);
+  border-radius: 20px;
+  padding: 32px 40px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.inv-account__header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.inv-account__header-right {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+/* Avatar */
+.inv-account__avatar {
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, var(--inv-accent) 0%, #c4191f 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--inv-white);
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Welcome text */
+.inv-account__welcome {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inv-account__greeting {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.inv-account__name {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--inv-white);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+/* Quick stats */
+.inv-account__stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.inv-account__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.inv-account__stat-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--inv-white);
+}
+
+.inv-account__stat-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.inv-account__stat-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Logout button */
+.inv-account__logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  color: var(--inv-white);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 200ms ease;
+}
+
+.inv-account__logout:hover {
+  background: var(--inv-bg-elevated);
+  color: var(--inv-accent);
+  border-color: var(--inv-white);
+}
+
+.inv-account__logout svg {
+  width: 18px;
+  height: 18px;
+}
+
+
+/* ============================================================================
+   3. MAIN GRID
+   ============================================================================ */
+
+.inv-account__grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 28px;
+}
+
+
+/* ============================================================================
+   4. CARDS — Shared styles
+   ============================================================================ */
+
+.inv-account__card {
+  background: var(--inv-bg-elevated);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.inv-account__card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--inv-border);
+}
+
+.inv-account__card-header svg {
+  width: 26px;
+  height: 26px;
+  stroke: var(--inv-accent);
+  flex-shrink: 0;
+}
+
+.inv-account__card-header h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--inv-fg-strong);
+  margin: 0;
+}
+
+.inv-account__card-body {
+  padding: 24px 28px;
+}
+
+
+/* ============================================================================
+   5. ORDER HISTORY TABLE
+   ============================================================================ */
+
+.inv-account__orders .inv-account__card-body {
+  padding: 0;
+}
+
+.inv-orders-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.inv-orders-table thead {
+  background: var(--inv-bg-muted);
+}
+
+.inv-orders-table thead th {
+  padding: 14px 16px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--inv-fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: left;
+  border-bottom: 1px solid var(--inv-border);
+}
+
+.inv-orders-table tbody tr {
+  border-bottom: 1px solid var(--inv-bg-soft);
+  transition: background 150ms ease;
+}
+
+.inv-orders-table tbody tr:hover {
+  background: var(--inv-bg-muted);
+}
+
+.inv-orders-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.inv-orders-table tbody td {
+  padding: 18px 16px;
+  font-size: 1.05rem;
+  color: var(--inv-fg-secondary);
+  vertical-align: middle;
+}
+
+/* Order link */
+.inv-order-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: var(--inv-accent);
+  color: var(--inv-white);
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 150ms ease;
+}
+
+.inv-order-link:hover {
+  background: #c4191f;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Status badges */
+.inv-status {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 6px;
+  text-transform: capitalize;
+}
+
+.inv-status--default,
+.inv-status--pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.inv-status--success,
+.inv-status--paid,
+.inv-status--fulfilled {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.inv-status--warning,
+.inv-status--partial {
+  background: #fed7aa;
+  color: #9a3412;
+}
+
+.inv-status--error,
+.inv-status--refunded,
+.inv-status--voided {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Mobile table */
+
+
+/* ============================================================================
+   6. EMPTY STATE
+   ============================================================================ */
+
+.inv-empty-state {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.inv-empty-state__icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: var(--inv-bg-soft);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inv-empty-state__icon svg {
+  width: 40px;
+  height: 40px;
+  stroke: var(--inv-fg-subtle);
+}
+
+.inv-empty-state__title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--inv-fg-strong);
+  margin: 0 0 8px;
+}
+
+.inv-empty-state__text {
+  font-size: 1.1rem;
+  color: var(--inv-fg-muted);
+  margin: 0 0 24px;
+}
+
+.inv-empty-state__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: var(--inv-accent);
+  color: var(--inv-white);
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 150ms ease;
+}
+
+.inv-empty-state__btn:hover {
+  background: #c4191f;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12); /* Clean subtle shadow */
+}
+
+.inv-empty-state__btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+
+/* ============================================================================
+   7. ACCOUNT DETAILS CARD
+   ============================================================================ */
+
+.inv-account__details {
+  height: fit-content;
+  position: sticky;
+  top: 24px;
+}
+
+.inv-account__details .inv-account__card-body {
+  padding: 0;
+}
+
+.inv-detail-group {
+  padding: 18px 28px;
+  border-bottom: 1px solid var(--inv-bg-soft);
+}
+
+.inv-detail-group:last-of-type {
+  border-bottom: none;
+}
+
+.inv-detail-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--inv-fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.inv-detail-value {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--inv-fg-strong);
+}
+
+.inv-detail-address {
+  font-size: 1.05rem;
+  font-style: normal;
+  line-height: 1.7;
+  color: var(--inv-fg-secondary);
+}
+
+.inv-detail-address strong {
+  color: var(--inv-fg-strong);
+  font-weight: 700;
+}
+
+.inv-detail-actions {
+  padding: 20px 28px 28px;
+}
+
+.inv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 24px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.inv-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.inv-btn--outline {
+  background: var(--inv-bg-soft);
+  color: var(--inv-fg-secondary);
+  border: 1px solid var(--inv-border);
+}
+
+.inv-btn--outline:hover {
+  background: var(--inv-accent);
+  color: var(--inv-white);
+  border-color: var(--inv-accent);
+}
+
+
+/* ============================================================================
+   8. RECENTLY VIEWED SECTION
+   ============================================================================ */
+
+.inv-recently-viewed {
+  margin-top: 28px;
+  grid-column: 1 / -1;
+}
+
+.inv-recently-viewed__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+
+/* Recently viewed card */
+.inv-rv-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--inv-bg-muted);
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: all 200ms ease;
+}
+
+.inv-rv-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.inv-rv-card__image {
+  aspect-ratio: 1;
+  background: var(--inv-bg-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.inv-rv-card__image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.inv-rv-card__info {
+  padding: 16px;
+}
+
+.inv-rv-card__vendor {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--inv-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.inv-rv-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--inv-fg-strong);
+  margin: 0 0 8px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.inv-rv-card__price {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--inv-fg-strong);
+}
+
+
+/* ============================================================================
+   9. PAGINATION
+   ============================================================================ */
+
+.inv-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 24px 16px 0;
+  border-top: 1px solid var(--inv-border);
+}
+
+.inv-pagination__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--inv-bg-soft);
+  border: 1px solid var(--inv-border);
+  border-radius: 10px;
+  color: var(--inv-fg-secondary);
+  text-decoration: none;
+  transition: all 150ms ease;
+}
+
+.inv-pagination__btn:hover {
+  background: var(--inv-accent);
+  border-color: var(--inv-accent);
+  color: var(--inv-white);
+}
+
+.inv-pagination__btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.inv-pagination__info {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--inv-fg-muted);
+}
+
+
+/* ============================================================================
+   10. LOGIN / REGISTER / RECOVER PAGES
+   ============================================================================ */
+
+.customer.login,
+.customer.register,
+.customer:has(form[action*="recover"]) {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 60px 24px 80px;
+  text-align: center;
+}
+
+.customer.login h1,
+.customer.register h1 {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--inv-fg-strong);
+  margin: 0 0 8px;
+}
+
+.customer.login form,
+.customer.register form {
+  background: var(--inv-bg-elevated);
+  border-radius: 20px;
+  padding: 36px;
+  margin-top: 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: left;
+}
+
+.customer.login .field,
+.customer.register .field {
+  margin: 0 0 20px;
+}
+
+.customer.login .field input,
+.customer.register .field input {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid var(--inv-border);
+  border-radius: 12px;
+  font-size: 1.1rem;
+  background: var(--inv-bg-elevated);
+  transition: border-color 150ms ease;
+}
+
+.customer.login .field input:focus,
+.customer.register .field input:focus {
+  outline: none;
+  border-color: var(--inv-accent);
+  box-shadow: 0 0 0 2px rgba(45, 45, 45, 0.2);
+}
+
+.customer.login .field label,
+.customer.register .field label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--inv-fg-secondary);
+}
+
+.customer.login button,
+.customer.register button {
+  width: 100%;
+  padding: 18px 24px;
+  background: var(--inv-accent);
+  color: var(--inv-white);
+  border: none;
+  border-radius: 12px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  cursor: pointer;
+  margin: 24px 0 16px;
+  transition: all 150ms ease;
+}
+
+.customer.login button:hover,
+.customer.register button:hover {
+  background: #c4191f;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12); /* Clean subtle shadow */
+}
+
+.customer.login a,
+.customer.register a {
+  color: var(--inv-fg-muted);
+  font-size: 1.05rem;
+  text-decoration: none;
+}
+
+.customer.login a:hover,
+.customer.register a:hover {
+  color: var(--inv-accent);
+}
+
+.customer.login a[href="#recover"] {
+  display: block;
+  margin-top: 20px;
+  color: var(--inv-accent);
+  font-weight: 700;
+}
+
+.customer.login #customer_login_guest {
+  margin-top: 36px;
+  padding-top: 36px;
+  border-top: 1px solid var(--inv-border);
+}
+
+.customer.login #customer_login_guest h3 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--inv-fg-strong);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.customer.login #customer_login_guest button {
+  background: var(--inv-bg-soft);
+  color: var(--inv-fg-secondary);
+  border: 1px solid var(--inv-border);
+}
+
+.customer.login #customer_login_guest button:hover {
+  background: var(--inv-dark);
+  color: var(--inv-white);
+  border-color: var(--inv-dark);
+  box-shadow: none;
+}
+
+
+/* ============================================================================
+   11. ADDRESSES PAGE
+   ============================================================================ */
+
+.customer.addresses {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+  background: #f8f9fa;
+}
+
+.customer.addresses > h1 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--inv-fg-strong);
+  margin: 0 0 8px;
+}
+
+.customer.addresses > a {
+  color: var(--inv-fg-muted);
+  font-size: 1.05rem;
+  text-decoration: none;
+}
+
+.customer.addresses > a:hover {
+  color: var(--inv-accent);
+}
+
+.customer.addresses [data-address] > button[aria-expanded] {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 24px 0;
+  padding: 14px 28px;
+  background: var(--inv-accent);
+  color: var(--inv-white);
+  border: none;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.customer.addresses [data-address] > button[aria-expanded]:hover {
+  background: #c4191f;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12); /* Clean subtle shadow */
+}
+
+.customer.addresses ul {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+.customer.addresses li[data-address] {
+  background: var(--inv-bg-elevated);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  margin: 0;
+}
+
+.customer.addresses li[data-address] h2 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase ;
+  letter-spacing: 0.04em ;
+  color: var(--inv-white);
+  background: var(--inv-accent);
+  margin: 0 0 16px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.customer.addresses li[data-address] p {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--inv-fg-secondary);
+}
+
+.customer.addresses li[data-address] > button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.customer.addresses li[data-address] > button[aria-expanded] {
+  background: var(--inv-bg-soft);
+  border: 1px solid var(--inv-border);
+  color: var(--inv-fg-secondary);
+  margin: 20px 8px 0 0;
+}
+
+.customer.addresses li[data-address] > button[data-confirm-message] {
+  background: transparent;
+  border: 1px solid #fecaca;
+  color: var(--inv-accent);
+}
+
+.customer.addresses form {
+  margin-top: 24px;
+  padding: 24px;
+  background: var(--inv-bg-muted);
+  border-radius: 12px;
+}
+
+.customer.addresses form .field {
+  margin: 0 0 16px;
+}
+
+.customer.addresses form input,
+.customer.addresses form select {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid var(--inv-border);
+  border-radius: 10px;
+  font-size: 1.05rem;
+  background: var(--inv-bg-elevated);
+}
+
+.customer.addresses form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--inv-fg-secondary);
+}
+
+.customer.addresses form button {
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin: 8px 8px 0 0;
+}
+
+.customer.addresses form button:not([type="reset"]) {
+  background: var(--inv-accent);
+  color: var(--inv-white);
+  border: none;
+}
+
+.customer.addresses form button[type="reset"] {
+  background: var(--inv-bg-soft);
+  color: var(--inv-fg-secondary);
+  border: 1px solid var(--inv-border);
+}
+
+
+/* ============================================================================
+   12. ORDER DETAIL PAGE
+   ============================================================================ */
+
+.customer.order {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+  background: #f8f9fa;
+}
+
+.customer.order > div:first-child {
+  background: linear-gradient(135deg, var(--inv-dark) 0%, var(--inv-fg-near-black) 100%);
+  border-radius: 20px;
+  padding: 32px 40px;
+  margin-bottom: 28px;
+}
+
+.customer.order > div:first-child h1 {
+  color: var(--inv-white);
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+
+.customer.order > div:first-child > a {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.05rem;
+  text-decoration: none;
+}
+
+.customer.order > div:first-child > a:hover {
+  color: var(--inv-white);
+}
+
+.customer.order > div:nth-of-type(2) {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 28px;
+}
+
+
+.customer.order > div:nth-of-type(2) > div:first-of-type {
+  background: var(--inv-bg-elevated);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.customer.order > div:nth-of-type(2) > div:first-of-type h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--inv-fg-strong);
+  margin: 0;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--inv-border);
+}
+
+.customer.order table {
+  width: 100%;
+  border: none;
+  box-shadow: none;
+}
+
+.customer.order table thead {
+  background: var(--inv-bg-muted);
+}
+
+.customer.order table thead th {
+  padding: 14px 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--inv-fg-muted);
+  text-transform: uppercase ;
+}
+
+.customer.order table tbody td {
+  padding: 18px 20px;
+  font-size: 1.05rem;
+  color: var(--inv-fg-secondary);
+}
+
+.customer.order table tbody td a {
+  color: var(--inv-fg-strong);
+  font-weight: 600;
+}
+
+.customer.order table tbody td a:hover {
+  color: var(--inv-accent);
+}
+
+.customer.order table tfoot tr:last-of-type td {
+  font-size: 1.4rem;
+  font-weight: 800;
+  padding-top: 20px;
+  border-top: 2px solid var(--inv-border);
+}
+
+.customer.order > div:nth-of-type(2) > div:last-of-type {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.customer.order > div:nth-of-type(2) > div:last-of-type > div {
+  background: var(--inv-bg-elevated);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.customer.order > div:nth-of-type(2) > div:last-of-type h2 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin: 0 0 16px;
+}
+
+.customer.order > div:nth-of-type(2) > div:last-of-type p {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+
+
+/* ============================================================================
+   SECTION 5: CART — Invicta trade-focused cart
+   ============================================================================ */
+
+/* --- Cart header bar --- */
+.inv-cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #282c31;
+  color: var(--inv-white);
+  padding: 16px 24px;
+  margin-bottom: 24px;
+}
+.inv-cart-header__left {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.inv-cart-header__title {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--inv-white);
+}
+.inv-cart-header__count {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--inv-fg-subtle);
+}
+.inv-cart-header__continue {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--inv-white);
+  text-decoration: none;
+}
+.inv-cart-header__continue:hover {
+  color: var(--inv-border);
+}
+
+/* --- Info strip (delivery bar + estimate) --- */
+.inv-cart-info-strip {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 12px 16px;
+  background: #f5f5f5;
+  border: 1px solid var(--inv-border);
+}
+.inv-cart-info-strip > * {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+/* --- Per-item ex-VAT pricing --- */
+.inv-cart-item__ex-vat {
+  font-size: 12px;
+  color: var(--inv-fg-muted);
+  margin-top: 2px;
+}
+.inv-cart-item__line-ex-vat {
+  display: block;
+  font-size: 11px;
+  color: var(--inv-fg-muted);
+  margin-top: 4px;
+}
+
+/* --- Cart images: sharp corners --- */
+.cart-item__image-container {
+  border-radius: 0;
+}
+.cart-item__image {
+  border-radius: 0;
+}
+
+/* --- Footer: kill colour scheme bleeding --- */
+.cart__footer-wrapper,
+.cart__footer-wrapper.gradient,
+#main-cart-footer,
+#main-cart-footer > div {
+  background: var(--inv-bg-elevated) !important;
+}
+#main-cart-footer {
+  border-top: 2px solid #282c31;
+}
+
+/* --- Kill Dawn's flex layout and width constraints on footer --- */
+.cart__footer {
+  display: block !important;
+}
+.cart__footer > * {
+  width: 100% !important;
+}
+.cart__footer > * + * {
+  margin-top: 0;
+  margin-left: 0;
+}
+.cart__footer > div:only-child {
+  margin-left: 0;
+}
+.cart__items {
+  padding-bottom: 0;
+}
+/* Force checkout CTA stack (Dawn sets flex-row at 750px+) */
+.cart__ctas {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+/* --- Footer grid: two columns on desktop --- */
+.inv-cart-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.inv-cart-footer-grid__breakdown {
+  padding-top: 4px;
+}
+.inv-cart-footer-grid__checkout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* --- Checkout total (right column) --- */
+.inv-cart-checkout-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--inv-fg-near-black);
+}
+.inv-cart-checkout-total__label {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--inv-fg-near-black);
+}
+.inv-cart-checkout-total__price {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--inv-fg-near-black);
+  letter-spacing: -0.02em;
+}
+
+/* --- Checkout button --- */
+.cart__checkout-button,
+#checkout,
+button[name="checkout"] {
+  background: var(--inv-accent);
+  color: var(--inv-white);
+  border: none;
+  border-radius: 8px;
+  height: 52px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  width: 100%;
+}
+.cart__checkout-button:hover,
+#checkout:hover {
+  background: #c81a22;
+}
+
+/* --- Additional checkout buttons (PayPal etc) --- */
+.cart__dynamic-checkout-buttons {
+  margin-top: 8px;
+  max-width: none;
+  width: 100%;
+}
+.cart__dynamic-checkout-buttons [data-shopify-buttoncontainer] {
+  justify-content: center;
+}
+.cart__dynamic-checkout-buttons .dynamic-checkout__content {
+  max-width: 100%;
+  width: 100%;
+}
+.cart__dynamic-checkout-buttons .dynamic-checkout__buttons {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+.cart__checkout-button,
+.cart__ctas #checkout {
+  max-width: none;
+}
+
+/* --- Trust signals --- */
+.inv-cart-trust {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--inv-border);
+}
+.inv-cart-trust__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--inv-fg-muted);
+}
+.inv-cart-trust__item svg {
+  flex-shrink: 0;
+  color: var(--inv-fg-muted);
+}
+
+/* --- Cart breakdown --- */
+.invicta-cart-breakdown {
+  padding: 16px 0;
+  border-top: 1px solid var(--inv-border);
+  margin-top: 0;
+}
+.invicta-cart-breakdown__row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-size: 14px;
+}
+.invicta-cart-breakdown__row--subtotal { color: var(--inv-fg-secondary); }
+.invicta-cart-breakdown__row--vat { color: var(--inv-fg-muted); font-size: 13px; }
+.invicta-cart-breakdown__row--shipping { color: var(--inv-fg-muted); font-size: 13px; }
+.invicta-cart-breakdown__row--discount { color: #059669; font-weight: 600; }
+.invicta-cart-breakdown__row--total {
+  font-weight: 700;
+  font-size: 16px;
+  padding-top: 10px;
+  margin-top: 8px;
+  border-top: 2px solid var(--inv-fg-near-black);
+  color: var(--inv-fg-near-black);
+}
+.invicta-cart-breakdown__label { flex: 1; white-space: nowrap; margin-right: 12px; }
+.invicta-cart-breakdown__value { font-weight: 500; text-align: right; }
+.invicta-cart-breakdown__value--negative { color: #059669; }
+.invicta-cart-breakdown__free-label { color: #059669; font-weight: 600; }
+.invicta-cart-breakdown__shipping-progress { margin-top: 8px; }
+.invicta-cart-breakdown__shipping-bar {
+  height: 4px;
+  background: var(--inv-border);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.invicta-cart-breakdown__shipping-fill {
+  height: 100%;
+  background: #d97706;
+  border-radius: 2px;
+}
+.invicta-cart-breakdown__shipping-text { font-size: 12px; color: var(--inv-fg-muted); }
+.invicta-vat-indicator {
+  font-size: 12px;
+  color: var(--inv-fg-muted);
+  text-align: left;
+  padding: 6px 0 8px;
+  border-bottom: 1px solid var(--inv-border);
+  margin-bottom: 8px;
+}
+
+/* --- Hide Dawn default totals (we use cart-breakdown instead) --- */
+.cart__footer .totals { display: none; }
+.cart__footer .tax-note { display: none; }
+
+/* --- Quantity selectors: compact --- */
+.cart-quantity .quantity__input {
+  height: 40px;
+  width: 40px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.cart-quantity .quantity__button {
+  height: 40px;
+  width: 36px;
+}
+
+/* --- Visibility fix --- */
+.cart__footer, .cart__ctas, .totals, #checkout { visibility: visible; opacity: 1; }
+
+/* --- Cart note --- */
+.cart__note { margin-bottom: 24px; }
+.cart__note .text-area {
+  border: 1px solid var(--inv-border);
+  border-radius: 4px;
+  font-size: 14px;
+  min-height: 80px;
+}
+
+/* --- Empty cart --- */
+.cart__warnings {
+  text-align: center;
+  padding: 48px 0;
+}
+.cart__warnings .cart__empty-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--inv-fg-secondary);
+  margin-bottom: 16px;
+}
+.cart__warnings .button {
+  background: var(--inv-accent);
+  color: var(--inv-white);
+  border: none;
+  border-radius: 8px;
+  height: 48px;
+  padding: 0 32px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* ============================================================================
+   INVICTA PRODUCT PAGE — Desktop Gallery & Components
+   ============================================================================
+   These styles were missing from desktop.css, causing elements to render
+   with default/inherited styles (red pills instead of proper dots, etc.)
+   ============================================================================ */
+
+/* === Gallery Container === */
+.inv-gallery {
+  position: relative;
+  width: 100%;
+}
+
+.inv-gallery__main {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--inv-bg-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--inv-border);
+  border-radius: 16px;
+}
+
+.inv-gallery__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* === Image Counter (top-left badge) === */
+.inv-gallery__counter {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--inv-white);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* === Gallery Dots (below thumbnails on desktop, hide if not needed) === */
+.inv-gallery__dots {
+  display: none; /* Hide on desktop — thumbnails are used instead */
+}
+
+.inv-gallery__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.inv-gallery__dot.is-active {
+  background: var(--inv-bg-elevated);
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* === Zoom Button === */
+.inv-gallery__zoom {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  height: 44px;
+  padding: 0 18px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--inv-border);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.inv-gallery__zoom:hover {
+  background: var(--inv-bg-elevated);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.inv-gallery__zoom svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--inv-fg-secondary);
+}
+
+.inv-gallery__zoom span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--inv-fg-secondary);
+}
+
+/* === Thumbnails === */
+.inv-gallery__thumbs {
+  display: flex;
+  gap: 12px;
+  padding: 16px 0;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.inv-gallery__thumb {
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  border: 2px solid var(--inv-border);
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--inv-bg-elevated);
+  padding: 6px;
+  transition: border-color 150ms ease;
+}
+
+.inv-gallery__thumb:hover {
+  border-color: var(--inv-fg-subtle);
+}
+
+.inv-gallery__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.inv-gallery__thumb.is-active {
+  border-color: var(--inv-accent);
+}
+
+/* === Share Button === */
+.inv-share {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 24px;
+  margin-top: 16px;
+  background: var(--inv-accent);
+  border: none;
+  border-radius: 12px;
+  color: var(--inv-white);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.inv-share:hover {
+  background: var(--inv-accent-hover);
+}
+
+.inv-share svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+}
+
+
+/* ============================================================================
+   FIX v2.4: Recommendations Cards Item Wrapper
+   ============================================================================ */
+
+/* Grid item wrapper for desktop recs */
+.inv-recs__item {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Card image sizing in recs */
+.inv-recs__item .invicta-card-image-wrapper {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  padding: 16px;
+  background: var(--inv-bg-elevated);
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inv-recs__item .invicta-card-image {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Brand pill in recs */
+.inv-recs__item .invicta-brand-pill__logo-bg {
+  display: block;
+  width: 60px;
+  height: 20px;
+  min-width: 45px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
+  opacity: 1;
+}
+
+
+/* ============================================================================
+   FIX v2.5: Recommendations Cards — Desktop
+   ============================================================================ */
+
+/* Titles */
+.inv-recs__item .invicta-card-title a,
+.inv-recs .invicta-card-title a {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--inv-fg);
+}
+
+/* Sale price red */
+.inv-recs__item .invicta-price-main--sale,
+.inv-recs .invicta-price-main--sale {
+  color: var(--inv-accent);
+}
+
+.inv-recs__item .invicta-price-main,
+.inv-recs .invicta-price-main {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* Brand pill logo */
+.inv-recs__item .invicta-brand-pill__logo-bg,
+.inv-recs .invicta-brand-pill__logo-bg {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  width: 60px;
+  height: 20px;
+  min-width: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+/* === BRAND PILL LOGO — Show IMG for recommendations === */
+.inv-recs__item .invicta-brand-pill__logo,
+.inv-recs .invicta-brand-pill__logo {
+  position: relative;
+  display: block;
+  width: 60px;
+  height: 20px;
+  opacity: 1 ;
+  visibility: visible ;
+  pointer-events: auto ;
+  clip: auto;
+  object-fit: contain ;
+}
+
+/* Hide bg span */
+.inv-recs__item .invicta-brand-pill__logo-bg,
+.inv-recs .invicta-brand-pill__logo-bg {
+  display: none;
+}
+
+/* ==========================================================================
+   LOGIN / CUSTOMER FORM FIXES - DESKTOP (v2.6)
+   ========================================================================== */
+
+/* Hide labels by default - placeholder handles empty state */
+.customer .field label:not(.field__label) {
+  position: absolute;
+  top: 50%;
+  left: 1.5rem;
+  transform: translateY(-50%) ;
+  font-size: 1.4rem;
+  color: rgba(var(--color-foreground), 0.6);
+  pointer-events: none ;
+  transition: all 0.2s ease ;
+  opacity: 0 ;
+  visibility: hidden ;
+}
+
+/* Show label as floating when input has value or focus */
+.customer .field input:focus ~ label:not(.field__label),
+.customer .field input:not(:placeholder-shown) ~ label:not(.field__label) {
+  top: 0.8rem;
+  transform: translateY(0) ;
+  font-size: 1.1rem;
+  opacity: 1 ;
+  visibility: visible ;
+}
+
+/* Field positioning */
+.customer .field {
+  position: relative;
+}
+
+/* Input padding for floating label */
+.customer .field input {
+  padding: 1.8rem 1.5rem 0.8rem;
+}
+
+/* ==========================================================================
+   PART 1: VAT TOGGLE, QUANTITY ENHANCER, CART BREAKDOWN - DESKTOP (v2.7)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Quick Quantity Selector
+   -------------------------------------------------------------------------- */
+
+.invicta-quick-qty {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.invicta-quick-qty__label {
+  font-size: 0.9rem;
+  color: var(--inv-fg-muted);
+  font-weight: 500;
+}
+
+.invicta-quick-qty__buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.invicta-quick-qty__btn {
+  min-width: 48px;
+  height: 38px;
+  padding: 0 14px;
+  background: var(--inv-bg-soft);
+  border: 1px solid var(--inv-border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--inv-fg-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.invicta-quick-qty__btn:hover {
+  background: var(--inv-border);
+  border-color: var(--inv-border-dark);
+}
+
+.invicta-quick-qty__btn--active {
+  background: var(--inv-accent);
+  border-color: var(--inv-accent);
+  color: var(--inv-white);
+}
+
+/* --------------------------------------------------------------------------
+   Dynamic Quantity Total
+   -------------------------------------------------------------------------- */
+
+.invicta-qty-total {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+}
+
+.invicta-qty-total__label {
+  font-size: 0.95rem;
+  color: var(--inv-fg-muted);
+}
+
+.invicta-qty-total__value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--inv-accent);
+}
+
+/* --------------------------------------------------------------------------
+   VAT Toggle Placement - Desktop
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   Cart Subtotal Breakdown - Desktop
+   -------------------------------------------------------------------------- */
+
+.invicta-cart-breakdown {
+  padding: 16px 0;
+  border-top: 1px solid var(--inv-border);
+  margin-top: 16px;
+}
+
+.invicta-cart-breakdown__row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 13px;
+}
+
+.invicta-cart-breakdown__row--total {
+  font-size: 15px;
+  font-weight: 700;
+  padding-top: 10px;
+  margin-top: 8px;
+  border-top: 1px solid var(--inv-border);
+}
+/* ==========================================================================
+   INVICTA TRADE FEATURES v2.8 - CSS FIXES
+   ==========================================================================
+
+   This file patches the following issues:
+   1. VAT toggle - compact button pair style
+   2. Cart breakdown - horizontal grid layout with bold typography
+   3. Cart quantity buttons - matching Trade's native sizing
+   4. Cart footer - proper 3-column grid layout
+
+   ADD THIS TO THE END OF mobile.css AND desktop.css
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. VAT TOGGLE - Compact Button Pair
+   -------------------------------------------------------------------------- */
+
+.inv-vat-toggle {
+  display: inline-flex;
+  border: 1px solid var(--inv-border-dark);
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 0.75rem;
+}
+
+.inv-vat-toggle__btn {
+  padding: 6px 12px;
+  border: none;
+  background: var(--inv-bg-muted);
+  color: var(--inv-fg-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.inv-vat-toggle__btn:first-child {
+  border-right: 1px solid var(--inv-border-dark);
+}
+
+.inv-vat-toggle__btn[aria-pressed="true"],
+.inv-vat-toggle__btn--active {
+  background: var(--inv-accent);
+  color: var(--inv-white);
+}
+
+.inv-vat-toggle__btn:hover:not([aria-pressed="true"]) {
+  background: var(--inv-bg-soft);
+}
+
+/* Placement on product page - inline with price */
+.product .inv-vat-toggle {
+  margin-left: 12px;
+  vertical-align: middle;
+}
+
+/* --------------------------------------------------------------------------
+   3. CART QUANTITY BUTTONS - Match Trade's Native Sizing
+   -------------------------------------------------------------------------- */
+
+/* Cart quantity — compact override */
+.cart-item .quantity,
+.cart-item .cart-quantity,
+.cart-item quantity-input {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--inv-border-dark);
+  border-radius: 6px;
+  overflow: hidden;
+  height: 40px;
+}
+
+.cart-item .quantity__button,
+.cart-item .inv-qty-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--inv-fg-secondary);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.cart-item .quantity__button:hover,
+.cart-item .inv-qty-btn:hover {
+  background: var(--inv-bg-soft);
+}
+
+.cart-item .quantity__button svg,
+.cart-item .inv-qty-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.cart-item .quantity__input,
+.cart-item .inv-qty-input {
+  width: 44px;
+  min-width: 44px;
+  height: 100%;
+  padding: 0;
+  border: none;
+  border-left: 1px solid var(--inv-border);
+  border-right: 1px solid var(--inv-border);
+  background: transparent;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--inv-fg);
+  -moz-appearance: textfield;
+}
+
+.cart-item .quantity__input::-webkit-outer-spin-button,
+.cart-item .quantity__input::-webkit-inner-spin-button,
+.cart-item .inv-qty-input::-webkit-outer-spin-button,
+.cart-item .inv-qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Cart responsive — stack on tablet */
+@media screen and (max-width: 989px) {
+  .cart__blocks,
+  .inv-cart-blocks {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .inv-cart-checkout-col {
+    flex: none;
+    width: 100%;
+  }
+
+  .inv-cart-trust {
+    justify-content: center;
+  }
+}

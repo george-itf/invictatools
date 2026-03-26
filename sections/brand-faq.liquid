@@ -1,0 +1,128 @@
+{% comment %}
+  ============================================
+  BRAND FAQ v1.0
+  ============================================
+  Block-based FAQ accordion for brand pages
+  Built-in FAQPage JSON-LD schema
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+{{ 'brand-page.css' | asset_url | stylesheet_tag }}
+
+{%- assign faq_count = 0 -%}
+{%- for block in section.blocks -%}
+  {%- if block.settings.question != blank and block.settings.answer != blank -%}
+    {%- assign faq_count = faq_count | plus: 1 -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if faq_count > 0 -%}
+<section class="brand-faq" id="faq-{{ section.id }}">
+  <div class="page-width">
+
+    {%- comment -%} Section Header {%- endcomment -%}
+    <div class="brand-faq__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="brand-faq__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="brand-faq__subheading">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} FAQ Accordion {%- endcomment -%}
+    <div class="brand-faq__list" role="list">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.question != blank and block.settings.answer != blank -%}
+          <details class="brand-faq__item" {{ block.shopify_attributes }}>
+            <summary class="brand-faq__question" role="listitem">
+              <span class="brand-faq__question-text">{{ block.settings.question }}</span>
+              <span class="brand-faq__chevron" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </span>
+            </summary>
+            <div class="brand-faq__answer">
+              <div class="brand-faq__answer-inner">
+                {{ block.settings.answer }}
+              </div>
+            </div>
+          </details>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{%- comment -%} ===== FAQPage JSON-LD Schema ===== {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- assign faq_index = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.settings.question != blank and block.settings.answer != blank -%}
+        {%- assign faq_index = faq_index | plus: 1 -%}
+        {
+          "@type": "Question",
+          "name": {{ block.settings.question | escape | json }},
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": {{ block.settings.answer | strip_html | strip | json }}
+          }
+        }{%- if faq_index < faq_count -%},{%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Brand FAQ",
+  "tag": "section",
+  "class": "section-brand-faq",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand FAQ"
+    }
+  ]
+}
+{% endschema %}

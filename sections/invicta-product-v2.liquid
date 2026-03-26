@@ -1,0 +1,1231 @@
+{% comment %}
+  ============================================
+  INVICTA PRODUCT V2 — SECTION TEMPLATE
+  Version: 3.0.0 — Full rebuild with fixes
+  
+  Changelog from 2.4.0:
+  - FIXED: VAT toggle data attributes aligned
+  - FIXED: Buy Now goes to checkout (not cart)
+  - FIXED: Cart drawer opens after add
+  - FIXED: Single description with CSS reorder
+  - FIXED: Removed inline onclick handlers
+  - FIXED: Buy Now disabled when out of stock
+  - FIXED: Keyboard navigation for gallery
+  - FIXED: aria-live for price announcements
+  - ADDED: More schema settings
+  - ADDED: Focus-visible states throughout
+  - CLEANED: Removed unnecessary code
+  
+  Uses .inv-pdp__* prefix to avoid conflicts
+  ============================================
+{% endcomment %}
+
+{{ 'invicta-product-v2.css' | asset_url | stylesheet_tag }}
+{{ 'section-invicta-product-v2.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  comment
+    ============================
+    CORE PRODUCT DATA
+    ============================
+  endcomment
+  assign current_variant = product.selected_or_first_available_variant
+  assign featured_image = current_variant.featured_image | default: product.featured_image
+
+  comment
+    Cache metafield lookups — avoids repeated evaluation
+  endcomment
+  assign mf_voltage = product.metafields.custom.voltage
+  assign mf_max_torque = product.metafields.custom.max_torque
+  assign mf_motor_type = product.metafields.custom.motor_type
+  assign mf_features = product.metafields.custom.features
+
+  comment
+    Compare price logic
+  endcomment
+  assign has_compare_price = false
+  if current_variant.compare_at_price > current_variant.price
+    assign has_compare_price = true
+  endif
+  
+  comment
+    Price ex VAT — uses centralised VAT rate from theme settings
+    Integer-safe rounding: times: 100 | plus: rounding | divided_by: divisor
+  endcomment
+  assign inv_vat_divisor = 100 | plus: settings.inv_vat_rate
+  assign inv_vat_rounding = inv_vat_divisor | divided_by: 2
+  assign price_ex_vat = current_variant.price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor
+  assign compare_ex_vat = current_variant.compare_at_price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor
+  
+  comment
+    Discount percentage
+  endcomment
+  assign discount_percent = 0
+  if has_compare_price
+    assign discount_amount = current_variant.compare_at_price | minus: current_variant.price
+    assign discount_percent = discount_amount | times: 100.0 | divided_by: current_variant.compare_at_price | round
+  endif
+  
+  comment
+    Stock status + low-stock indicator
+  endcomment
+  assign is_in_stock = current_variant.available
+  assign stock_qty = current_variant.inventory_quantity | default: 0
+  assign low_stock_threshold = section.settings.low_stock_threshold | default: 5
+  assign show_low_stock = false
+  if is_in_stock and current_variant.inventory_management == 'shopify' and stock_qty <= low_stock_threshold and stock_qty > 0
+    assign show_low_stock = true
+  endif
+
+  comment
+    Fulfillment source + brand detection — single tag loop
+    invicta-stock = held in our warehouse (ships same/next day)
+    trend-stock / toolbank-stock / timco-stock / pdp-stock = held by supplier (longer lead)
+    brand-* tags = brand detected from tags
+    Priority: invicta-stock wins if present (ships faster)
+  endcomment
+  assign stock_source = 'invicta'
+  assign supplier_key = ''
+  assign product_brand = ''
+  for tag in product.tags
+    assign tag_lower = tag | downcase | strip
+    if tag_lower == 'invicta-stock'
+      assign stock_source = 'invicta'
+      assign supplier_key = ''
+      break
+    elsif tag_lower == 'trend-stock'
+      assign stock_source = 'supplier'
+      assign supplier_key = 'trend'
+    elsif tag_lower == 'toolbank-stock'
+      assign stock_source = 'supplier'
+      assign supplier_key = 'toolbank'
+    elsif tag_lower == 'timco-stock'
+      assign stock_source = 'supplier'
+      assign supplier_key = 'timco'
+    elsif tag_lower == 'pdp-stock'
+      assign stock_source = 'supplier'
+      assign supplier_key = 'pdp'
+    endif
+    if tag_lower contains 'brand-'
+      assign product_brand = tag_lower | remove: 'brand-'
+    endif
+  endfor
+
+  comment
+    Resolve per-supplier text from section blocks (falls back to generic defaults).
+    Each "supplier_config" block carries a supplier_key plus its 3 text fields.
+    If no block matches the current supplier_key the defaults below are used.
+  endcomment
+  assign supplier_banner_text = section.settings.supplier_stock_text | default: 'In Stock with Supplier — Usually Dispatched within 2–3 Working Days'
+  assign supplier_dispatch_text = section.settings.supplier_dispatch_text | default: 'This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 3–5 working days.'
+  assign supplier_delivery_est = section.settings.supplier_delivery_estimate | default: '3–5 working days'
+
+  for block in section.blocks
+    if block.type == 'supplier_config' and block.settings.supplier_key == supplier_key
+      if block.settings.banner_text != blank
+        assign supplier_banner_text = block.settings.banner_text
+      endif
+      if block.settings.dispatch_text != blank
+        assign supplier_dispatch_text = block.settings.dispatch_text
+      endif
+      if block.settings.delivery_estimate != blank
+        assign supplier_delivery_est = block.settings.delivery_estimate
+      endif
+      break
+    endif
+  endfor
+
+  comment
+    Buy Now price threshold (in pounds, converted to pence)
+  endcomment
+  assign buy_now_threshold_pence = section.settings.buy_now_price_threshold | default: 500 | times: 100
+  assign show_buy_now = section.settings.show_buy_now
+  assign show_buy_now_final = false
+  if show_buy_now and is_in_stock and current_variant.price <= buy_now_threshold_pence and stock_source == 'invicta'
+    assign show_buy_now_final = true
+  endif
+  
+  comment
+    Gallery logic
+  endcomment
+  assign has_multiple_images = false
+  if product.images.size > 1
+    assign has_multiple_images = true
+  endif
+  
+  comment
+    Section settings shortcuts
+  endcomment
+  assign show_breadcrumb = section.settings.show_breadcrumb
+  assign show_sku = section.settings.show_sku
+  assign show_trust_badges = section.settings.show_trust_badges
+  assign show_key_specs = section.settings.show_key_specs
+  assign delivery_title = section.settings.delivery_title
+  assign delivery_text = section.settings.delivery_text
+%}
+
+<div
+  class="inv-pdp"
+  data-section-id="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-product-url="{{ product.url }}"
+  data-product-handle="{{ product.handle }}"
+  data-vat-rate="{{ settings.inv_vat_rate | default: 20 }}"
+  data-low-stock-threshold="{{ section.settings.low_stock_threshold | default: 5 }}"
+>
+  
+  {%- comment -%} ========== BREADCRUMB BAR ========== {%- endcomment -%}
+  {% if show_breadcrumb %}
+    <div class="inv-pdp__breadcrumb-bar">
+      <nav class="inv-pdp__breadcrumb" aria-label="Breadcrumb">
+        <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a itemprop="item" href="/"><span itemprop="name">{{ 'invicta.breadcrumbs.home' | t }}</span></a>
+            <meta itemprop="position" content="1">
+          </li>
+          <li aria-hidden="true"><span class="inv-pdp__breadcrumb-sep">/</span></li>
+          {% if product.collections.size > 0 %}
+            {% assign primary_collection = product.collections | first %}
+            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+              <a itemprop="item" href="{{ primary_collection.url }}"><span itemprop="name">{{ primary_collection.title }}</span></a>
+              <meta itemprop="position" content="2">
+            </li>
+            <li aria-hidden="true"><span class="inv-pdp__breadcrumb-sep">/</span></li>
+            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+              <span class="inv-pdp__breadcrumb-current" itemprop="name">{{ product.title | truncate: 50 }}</span>
+              <meta itemprop="position" content="3">
+            </li>
+          {% else %}
+            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+              <span class="inv-pdp__breadcrumb-current" itemprop="name">{{ product.title | truncate: 50 }}</span>
+              <meta itemprop="position" content="2">
+            </li>
+          {% endif %}
+        </ol>
+      </nav>
+      
+      {% if show_sku and current_variant.sku != blank and current_variant.sku != product.handle %}
+        <span class="inv-pdp__sku" data-sku>
+          {{ current_variant.sku }}
+        </span>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {%- comment -%} ========== MAIN GRID ========== {%- endcomment -%}
+  <div class="inv-pdp__grid">
+    
+    {%- comment -%} ========== LEFT COLUMN ========== {%- endcomment -%}
+    <div class="inv-pdp__left">
+      
+      {%- comment -%} GALLERY {%- endcomment -%}
+      <div 
+        class="inv-pdp__gallery{% unless has_multiple_images %} inv-pdp__gallery--single{% endunless %}"
+        data-gallery
+      >
+        {% if has_multiple_images %}
+          <div 
+            class="inv-pdp__gallery-thumbs" 
+            role="listbox" 
+            aria-label="Product images"
+            tabindex="0"
+            data-gallery-thumbs
+          >
+            {% for image in product.images %}
+              {%- assign thumb_img_150 = image | image_url: width: 150 -%}
+              {%- assign thumb_img_800 = image | image_url: width: 800 -%}
+              <button
+                type="button"
+                class="inv-pdp__gallery-thumb{% if forloop.first %} inv-pdp__gallery-thumb--active{% endif %}"
+                data-image-id="{{ image.id }}"
+                data-image-src="{{ thumb_img_800 }}"
+                data-index="{{ forloop.index0 }}"
+                aria-label="View image {{ forloop.index }} of {{ product.images.size }}"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                role="option"
+              >
+                <img
+                  src="{{ thumb_img_150 }}"
+                  alt="{{ image.alt | escape | default: product.title }}"
+                  loading="{% if forloop.index <= 6 %}eager{% else %}lazy{% endif %}"
+                  width="64"
+                  height="64"
+                >
+              </button>
+            {% endfor %}
+          </div>
+        {% endif %}
+        
+        <div class="inv-pdp__gallery-main">
+          {% if discount_percent > 0 %}
+            <span class="inv-pdp__gallery-badge" aria-label="Save {{ discount_percent }} percent">
+              SAVE {{ discount_percent }}%
+            </span>
+          {% endif %}
+          
+          {%- comment -%} Image counter pill {%- endcomment -%}
+          {% if product.images.size > 1 %}
+            <div class="inv-pdp__gallery-counter" aria-live="polite" aria-atomic="true">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+              </svg>
+              <span data-image-counter>1 / {{ product.images.size }}</span>
+            </div>
+          {% endif %}
+
+          {%- assign main_img_400 = featured_image | image_url: width: 400 -%}
+          {%- assign main_img_600 = featured_image | image_url: width: 600 -%}
+          {%- assign main_img_800 = featured_image | image_url: width: 800 -%}
+          {%- assign main_img_1200 = featured_image | image_url: width: 1200 -%}
+          <div class="inv-pdp__gallery-image-wrap">
+            <img
+              id="inv-pdp-main-image-{{ section.id }}"
+              class="inv-pdp__gallery-image"
+              src="{{ main_img_800 }}"
+              srcset="{{ main_img_400 }} 400w,
+                      {{ main_img_600 }} 600w,
+                      {{ main_img_800 }} 800w,
+                      {{ main_img_1200 }} 1200w"
+              sizes="(max-width: 749px) 100vw, 50vw"
+              alt="{{ featured_image.alt | escape | default: product.title }}"
+              width="{{ featured_image.width | default: 800 }}"
+              height="{{ featured_image.height | default: 800 }}"
+              loading="eager"
+              fetchpriority="high"
+              data-main-image
+            >
+          </div>
+          
+          <button 
+            type="button" 
+            class="inv-pdp__gallery-zoom" 
+            aria-label="Zoom image"
+            data-zoom-trigger
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+              <path d="M11 8v6M8 11h6"></path>
+            </svg>
+            Zoom
+          </button>
+        </div>
+      </div>
+      
+      {%- comment -%} KEY SPECS CHIPS {%- endcomment -%}
+      {% if show_key_specs %}
+        {% liquid
+          assign has_key_specs = false
+          if mf_voltage != blank or mf_max_torque != blank or mf_motor_type != blank
+            assign has_key_specs = true
+          endif
+        %}
+        {% if has_key_specs %}
+          <div class="inv-pdp__key-specs" role="list" aria-label="Key specifications">
+            {% if mf_voltage != blank %}
+              <span class="inv-pdp__key-spec" role="listitem">
+                <svg class="inv-pdp__key-spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+                {{ mf_voltage }}
+              </span>
+            {% endif %}
+            {% if mf_max_torque != blank %}
+              <span class="inv-pdp__key-spec" role="listitem">
+                <svg class="inv-pdp__key-spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+                {{ mf_max_torque }}
+              </span>
+            {% endif %}
+            {% if mf_motor_type != blank %}
+              <span class="inv-pdp__key-spec" role="listitem">
+                <svg class="inv-pdp__key-spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                </svg>
+                {{ mf_motor_type }}
+              </span>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endif %}
+      
+      {%- comment -%} FEATURE CHIPS {%- endcomment -%}
+      {% if mf_features != blank %}
+        <div class="inv-pdp__features" role="list" aria-label="Product features">
+          {% assign features = mf_features | split: ',' %}
+          {% for feature in features limit: 5 %}
+            <span class="inv-pdp__feature-chip" role="listitem">
+              <span class="inv-pdp__feature-chip-icon" aria-hidden="true">✓</span>
+              {{ feature | strip }}
+            </span>
+          {% endfor %}
+        </div>
+      {% endif %}
+      
+      {%- comment -%} PRODUCT INFO — Accordion Sections {%- endcomment -%}
+      <div class="inv-pdp__info" data-product-info>
+
+        {%- comment -%} Brand + SKU always visible (not collapsible) {%- endcomment -%}
+        {% if product.vendor != blank %}
+          <div class="inv-pdp__info-meta">
+            <span class="inv-pdp__info-meta-item">
+              <span class="inv-pdp__info-meta-label">Brand</span>
+              <span class="inv-pdp__info-meta-value">{{ product.vendor }}</span>
+            </span>
+            {% if show_sku and current_variant.sku != blank and current_variant.sku != product.handle %}
+              <span class="inv-pdp__info-meta-item">
+                <span class="inv-pdp__info-meta-label">Part No.</span>
+                <span class="inv-pdp__info-meta-value" data-sku-display>{{ current_variant.sku }}</span>
+              </span>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {%- comment -%} Hidden source for JS description parser {%- endcomment -%}
+        {% if product.description != blank %}
+          <div class="inv-pdp__info-row inv-pdp__info-row--hidden" data-description-source>
+            {{ product.description }}
+          </div>
+        {% endif %}
+
+        {%- comment -%} Accordion sections — JS populates content, then removes inv-pdp--hidden {%- endcomment -%}
+        <div class="inv-pdp__info-section inv-pdp__info-section--open inv-pdp--hidden" data-row="description">
+          <button class="inv-pdp__info-toggle" type="button" aria-expanded="true" data-accordion-toggle>
+            <span>Description</span>
+            <svg class="inv-pdp__info-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="inv-pdp__info-content" data-content></div>
+        </div>
+
+        <div class="inv-pdp__info-section inv-pdp--hidden" data-row="why-buy">
+          <button class="inv-pdp__info-toggle" type="button" aria-expanded="false" data-accordion-toggle>
+            <span>Key Features</span>
+            <svg class="inv-pdp__info-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="inv-pdp__info-content">
+            <ul class="inv-pdp__info-list" data-content></ul>
+          </div>
+        </div>
+
+        <div class="inv-pdp__info-section inv-pdp--hidden" data-row="used-for">
+          <button class="inv-pdp__info-toggle" type="button" aria-expanded="false" data-accordion-toggle>
+            <span>Ideal For</span>
+            <svg class="inv-pdp__info-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="inv-pdp__info-content">
+            <ul class="inv-pdp__info-list" data-content></ul>
+          </div>
+        </div>
+
+        <div class="inv-pdp__info-section inv-pdp--hidden" data-row="specifications">
+          <button class="inv-pdp__info-toggle" type="button" aria-expanded="false" data-accordion-toggle>
+            <span>Specifications</span>
+            <svg class="inv-pdp__info-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="inv-pdp__info-content">
+            <div class="inv-pdp__info-specs" data-content></div>
+          </div>
+        </div>
+
+        <div class="inv-pdp__info-section inv-pdp--hidden" data-row="whats-included">
+          <button class="inv-pdp__info-toggle" type="button" aria-expanded="false" data-accordion-toggle>
+            <span>What's in the Box</span>
+            <svg class="inv-pdp__info-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="inv-pdp__info-content">
+            <ul class="inv-pdp__info-list inv-pdp__info-list--included" data-content></ul>
+          </div>
+        </div>
+
+        {%- comment -%} Fallback if JS fails {%- endcomment -%}
+        <noscript>
+          <div class="inv-pdp__info-section inv-pdp__info-section--open">
+            <div class="inv-pdp__info-content">{{ product.description }}</div>
+          </div>
+        </noscript>
+      </div>
+      
+    </div>
+    
+    {%- comment -%} ========== RIGHT COLUMN — BUY BOX ========== {%- endcomment -%}
+    <div class="inv-pdp__right">
+      <div class="inv-pdp__buybox">
+        
+        {%- comment -%} STOCK BANNER {%- endcomment -%}
+        <div
+          class="inv-pdp__stock-banner
+            {%- if is_in_stock and stock_source == 'supplier' %} inv-pdp__stock-banner--supplier-stock
+            {%- elsif is_in_stock and show_low_stock %} inv-pdp__stock-banner--low-stock
+            {%- elsif is_in_stock %} inv-pdp__stock-banner--in-stock
+            {%- else %} inv-pdp__stock-banner--out-of-stock
+            {%- endif -%}"
+          role="status"
+          aria-live="polite"
+          data-stock-banner
+          data-stock-source="{{ stock_source }}"
+          data-supplier-banner-text="{{ supplier_banner_text | escape }}"
+        >
+          <span class="inv-pdp__stock-dot" aria-hidden="true"></span>
+          <div class="inv-pdp__stock-banner-content">
+            <span data-stock-text>
+              {%- if is_in_stock == false -%}
+                {{ section.settings.oos_text | default: 'Out of Stock' }}
+              {%- elsif stock_source == 'supplier' -%}
+                {{ supplier_banner_text }}
+              {%- elsif show_low_stock -%}
+                Only {{ stock_qty }} left in stock — order soon
+              {%- else -%}
+                {{ section.settings.in_stock_text | default: 'In Stock — Ready to Ship' }}
+              {%- endif -%}
+            </span>
+            {%- if is_in_stock and stock_source == 'supplier' -%}
+              <span class="inv-pdp__stock-dispatch" data-dispatch-text>{{ supplier_dispatch_text }}</span>
+            {%- else -%}
+              <span class="inv-pdp__stock-dispatch inv-pdp--hidden" data-dispatch-text></span>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <div class="inv-pdp__buybox-body">
+
+          {%- comment -%} PRODUCT TITLE — in buy box so title+price are scanned together {%- endcomment -%}
+          <h1 class="inv-pdp__title">{{ product.title | escape }}</h1>
+
+          {%- comment -%} DEALER BADGE + BRAND PILL {%- endcomment -%}
+          {% liquid
+            assign dealer_vendor = product.vendor | downcase
+            assign dealer_bg = '#2d2d2d'
+            assign dealer_text = '#ffffff'
+            
+            if dealer_vendor contains 'makita'
+              assign dealer_bg = '#00a0aa'
+              assign dealer_text = '#ffffff'
+            elsif dealer_vendor contains 'dewalt'
+              assign dealer_bg = '#febd17'
+              assign dealer_text = '#111111'
+            elsif dealer_vendor contains 'hikoki'
+              assign dealer_bg = '#006b3f'
+              assign dealer_text = '#ffffff'
+            elsif dealer_vendor contains 'milwaukee'
+              assign dealer_bg = '#db0032'
+              assign dealer_text = '#ffffff'
+            endif
+          %}
+          <div class="inv-pdp__dealer-row">
+            <div class="inv-pdp__dealer-badge" style="--dealer-bg: {{ dealer_bg }}; --dealer-text: {{ dealer_text }};">
+              <svg class="inv-pdp__dealer-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="m9 12 2 2 4-4"/>
+              </svg>
+              <span class="inv-pdp__dealer-badge-text">Authorised Dealer</span>
+            </div>
+            {% render 'invicta-brand-pill', product: product %}
+          </div>
+          
+          {%- comment -%}
+            PRICE BLOCK — Single price controlled by VAT toggle
+            Shows either ex VAT or inc VAT based on header toggle selection.
+            Uses data-price-ex / data-price-inc for invicta-vat-toggle.js control.
+          {%- endcomment -%}
+          <div
+            class="inv-pdp__price"
+            data-price-wrapper
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            <div class="inv-pdp__price-inline">
+              <div class="inv-pdp__price-line inv-vat--hidden" data-price-ex>
+                <span class="inv-pdp__price-current" data-price-ex-value>{{ price_ex_vat | money }}</span>
+                <span class="inv-pdp__price-label">ex VAT</span>
+                {% if has_compare_price %}
+                  <span class="inv-pdp__price-was" data-compare-ex>{{ compare_ex_vat | money }}</span>
+                {% endif %}
+              </div>
+              <div class="inv-pdp__price-line" data-price-inc>
+                <span class="inv-pdp__price-current" data-price-inc-value>{{ current_variant.price | money }}</span>
+                <span class="inv-pdp__price-label">inc VAT</span>
+                {% if has_compare_price %}
+                  <span class="inv-pdp__price-was" data-compare-inc>{{ current_variant.compare_at_price | money }}</span>
+                {% endif %}
+              </div>
+            </div>
+
+            {%- comment -%} SAVINGS {%- endcomment -%}
+            {% if has_compare_price %}
+              <div class="inv-pdp__price-savings" data-savings-wrap>
+                <span class="inv-pdp__price-save" data-savings>
+                  You save {{ current_variant.compare_at_price | minus: current_variant.price | money }} ({{ discount_percent }}% off)
+                </span>
+              </div>
+            {% endif %}
+          </div>
+          
+          {%- comment -%} VARIANTS {%- endcomment -%}
+          {% if product.has_only_default_variant == false %}
+            <div class="inv-pdp__variants">
+              {% for option in product.options_with_values %}
+                <div class="inv-pdp__variant-group">
+                  <label 
+                    class="inv-pdp__variant-group-label" 
+                    for="inv-pdp-option-{{ section.id }}-{{ forloop.index0 }}"
+                  >
+                    {{ option.name }}
+                  </label>
+                  <select 
+                    id="inv-pdp-option-{{ section.id }}-{{ forloop.index0 }}"
+                    class="inv-pdp__variant-select"
+                    data-option-index="{{ forloop.index0 }}"
+                  >
+                    {% for value in option.values %}
+                      <option 
+                        value="{{ value | escape }}"
+                        {% if option.selected_value == value %}selected{% endif %}
+                      >
+                        {{ value }}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+          
+          {%- comment -%} CX v1.1: VOLUME / TIERED PRICING TABLE {%- endcomment -%}
+          {%- if current_variant.quantity_price_breaks.size > 0 -%}
+            <div class="invicta-tiered-pricing" data-tiered-pricing>
+              <h3 class="invicta-tiered-pricing__title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                Buy More, Save More
+              </h3>
+              <div class="invicta-tiered-pricing__table" role="table" aria-label="Volume pricing tiers">
+                <div class="invicta-tiered-pricing__header" role="row">
+                  <span role="columnheader">Quantity</span>
+                  <span role="columnheader">Price Each</span>
+                  <span role="columnheader">Savings</span>
+                </div>
+                {%- assign base_price = current_variant.price -%}
+                {%- assign sorted_breaks = current_variant.quantity_price_breaks | sort: 'minimum_quantity' -%}
+                {%- for price_break in sorted_breaks -%}
+                  {%- assign saving_pence = base_price | minus: price_break.price | times: price_break.minimum_quantity -%}
+                  {%- assign saving_percent = base_price | minus: price_break.price | times: 100 | divided_by: base_price -%}
+                  <div class="invicta-tiered-pricing__row" role="row" data-tier-qty="{{ price_break.minimum_quantity }}">
+                    <span class="invicta-tiered-pricing__qty" role="cell">{{ price_break.minimum_quantity }}+</span>
+                    <span class="invicta-tiered-pricing__price" role="cell">{{ price_break.price | money }}</span>
+                    <span role="cell">
+                      {%- if saving_percent > 0 -%}
+                        <span class="invicta-tiered-pricing__badge">Save {{ saving_percent }}%</span>
+                      {%- endif -%}
+                    </span>
+                  </div>
+                {%- endfor -%}
+              </div>
+              <p class="invicta-tiered-pricing__note">Prices update automatically based on quantity</p>
+            </div>
+            {{ 'component-tiered-pricing.css' | asset_url | stylesheet_tag }}
+            <script src="{{ 'component-tiered-pricing.js' | asset_url }}" defer></script>
+          {%- endif -%}
+
+          {%- comment -%} DELIVERY ESTIMATE (reusable snippet) {%- endcomment -%}
+          {% render 'invicta-delivery-estimate', stock_source: stock_source, supplier_delivery_est: supplier_delivery_est %}
+
+          {%- comment -%} ADD TO CART FORM {%- endcomment -%}
+          <form
+            class="inv-pdp__form"
+            action="/cart/add"
+            method="post"
+            novalidate
+            data-product-form
+            id="inv-pdp-form-{{ section.id }}"
+          >
+            <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+            
+            <div class="inv-pdp__atc-row">
+              <div class="inv-pdp__qty">
+                <button 
+                  type="button" 
+                  class="inv-pdp__qty-btn" 
+                  data-qty-decrease 
+                  aria-label="Decrease quantity"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                </button>
+                <input
+                  type="number"
+                  name="quantity"
+                  class="inv-pdp__qty-input"
+                  value="{{ current_variant.quantity_rule.min | default: 1 }}"
+                  min="{{ current_variant.quantity_rule.min | default: 1 }}"
+                  {% if current_variant.quantity_rule.max %}max="{{ current_variant.quantity_rule.max }}"{% else %}max="9999"{% endif %}
+                  {% if current_variant.quantity_rule.increment > 1 %}step="{{ current_variant.quantity_rule.increment }}"{% endif %}
+                  aria-label="Quantity"
+                  data-qty-input
+                >
+                <button 
+                  type="button" 
+                  class="inv-pdp__qty-btn" 
+                  data-qty-increase 
+                  aria-label="Increase quantity"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                </button>
+              </div>
+              
+              <button 
+                type="submit" 
+                class="inv-pdp__atc-btn"
+                data-atc-btn
+                {% unless is_in_stock %}disabled{% endunless %}
+              >
+                <span class="inv-pdp__atc-text" data-atc-text>
+                  {% if is_in_stock %}{{ section.settings.atc_text | default: 'Add to Cart' }}{% else %}{{ section.settings.oos_text | default: 'Out of Stock' }}{% endif %}
+                </span>
+                <span class="inv-pdp__atc-loading" aria-hidden="true">
+                  <svg class="inv-pdp__spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="12"></circle>
+                  </svg>
+                  Adding...
+                </span>
+                <span class="inv-pdp__atc-success" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 6L9 17l-5-5"></path>
+                  </svg>
+                  Added!
+                </span>
+              </button>
+            </div>
+            
+            {%- comment -%} CART ERROR FEEDBACK {%- endcomment -%}
+            <div class="inv-pdp__atc-error inv-pdp--hidden" role="alert" aria-live="assertive" data-atc-error data-error-text="{{ section.settings.cart_error_text | escape }}"></div>
+          </form>
+
+          {%- comment -%}
+            CX v1.1: BACK-IN-STOCK NOTIFICATION
+            IMPORTANT: This MUST be outside the ATC form. HTML forbids nested forms.
+            A nested <form> tag is ignored by the parser, which causes the inner
+            form's <input type="email" required> to become part of the outer ATC form.
+            The hidden required field then silently blocks form submission.
+          {%- endcomment -%}
+          <div class="inv-pdp__notify{% if is_in_stock %} inv-pdp--hidden{% endif %}" data-notify-wrap>
+            <div class="inv-pdp__notify-inner">
+              <p class="inv-pdp__notify-heading">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                Notify me when back in stock
+              </p>
+              <form class="inv-pdp__notify-form" data-notify-form data-product-title="{{ product.title | escape }}" data-product-handle="{{ product.handle }}">
+                <div class="inv-pdp__notify-field">
+                  <input
+                    type="email"
+                    name="email"
+                    class="inv-pdp__notify-input"
+                    placeholder="Enter your email address"
+                    aria-label="Email address for back-in-stock notification"
+                    required
+                    data-notify-email
+                  >
+                  <button type="submit" class="inv-pdp__notify-btn" data-notify-submit>
+                    <span data-notify-btn-text>Notify Me</span>
+                    <span class="inv-pdp__notify-spinner inv-pdp--hidden" data-notify-spinner aria-hidden="true">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="12"/></svg>
+                    </span>
+                  </button>
+                </div>
+                <p class="inv-pdp__notify-success inv-pdp--hidden" data-notify-success role="status">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  We'll email you when this item is available again.
+                </p>
+                <p class="inv-pdp__notify-error inv-pdp--hidden" data-notify-error role="alert"></p>
+                <p class="inv-pdp__notify-privacy">We'll only use your email for this notification.</p>
+              </form>
+            </div>
+          </div>
+
+          {%- comment -%} BUY NOW — adds to cart & redirects to checkout {%- endcomment -%}
+          {% if show_buy_now_final %}
+            <div class="inv-pdp__buy-now">
+              <button
+                type="button"
+                class="inv-pdp__buy-now-btn"
+                data-buy-now
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+                {{ section.settings.buy_now_text | default: 'Add & Checkout' }}
+              </button>
+            </div>
+          {% endif %}
+
+          {%- comment -%} TRUST STRIP — 2x2 grid below Buy Now {%- endcomment -%}
+          <div class="inv-pdp__trust-strip">
+            <span class="inv-pdp__trust-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>Free UK Delivery</span>
+            </span>
+            <span class="inv-pdp__trust-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Authorised Dealer</span>
+            </span>
+            <span class="inv-pdp__trust-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              <span>Full Manufacturer Warranty</span>
+            </span>
+            <span class="inv-pdp__trust-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>Secure Checkout</span>
+            </span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  {%- comment -%} ========== VARIANT JSON ========== {%- endcomment -%}
+  <script type="application/json" data-variants-json>
+    {{ product.variants | json }}
+  </script>
+
+  {%- comment -%} ========== PRODUCT IMAGES JSON ========== {%- endcomment -%}
+  <script type="application/json" data-images-json>
+    {
+      {% for image in product.images %}
+        "{{ image.id }}": "{{ image | image_url: width: 800 }}"{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    }
+  </script>
+
+  </div>
+</div>
+
+{%- comment -%} ========== STICKY ADD TO CART (Mobile) ========== {%- endcomment -%}
+<div class="inv-pdp__sticky-atc" data-sticky-atc>
+  <div class="inv-pdp__sticky-atc-inner">
+    {%- comment -%} Product thumbnail for visual confirmation {%- endcomment -%}
+    <div class="inv-pdp__sticky-atc-thumb">
+      {% if featured_image %}
+        <img
+          src="{{ featured_image | image_url: width: 80 }}"
+          alt=""
+          width="40"
+          height="40"
+          loading="lazy"
+        >
+      {% endif %}
+    </div>
+    <div class="inv-pdp__sticky-atc-info">
+      <p class="inv-pdp__sticky-atc-title">{{ product.title | escape }}</p>
+      <p class="inv-pdp__sticky-atc-price" data-sticky-price>{{ price_ex_vat | money }} <span class="inv-pdp__sticky-atc-vat">ex VAT</span></p>
+    </div>
+    <button
+      type="button"
+      class="inv-pdp__sticky-atc-btn"
+      data-sticky-atc-btn
+      data-variant-id="{{ current_variant.id }}"
+      {% unless is_in_stock %}disabled{% endunless %}
+    >
+      {% if is_in_stock %}{{ section.settings.atc_text | default: 'Add to Cart' }}{% else %}{{ section.settings.oos_text | default: 'Out of Stock' }}{% endif %}
+    </button>
+  </div>
+</div>
+
+{%- comment -%} ========== LIGHTBOX ========== {%- endcomment -%}
+<div 
+  id="inv-pdp-lightbox-{{ section.id }}" 
+  class="inv-pdp__lightbox" 
+  role="dialog"
+  aria-modal="true"
+  aria-label="Image zoom"
+  data-lightbox
+  hidden
+>
+  <div class="inv-pdp__lightbox-backdrop" data-lightbox-close></div>
+  <div class="inv-pdp__lightbox-content">
+    <button 
+      type="button" 
+      class="inv-pdp__lightbox-close" 
+      aria-label="Close zoom" 
+      data-lightbox-close
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <img 
+      id="inv-pdp-lightbox-img-{{ section.id }}" 
+      src="" 
+      alt="" 
+      width="1200" 
+      height="1200" 
+      data-lightbox-img
+    >
+  </div>
+</div>
+
+
+<script src="{{ 'invicta-product-v2.js' | asset_url }}" defer></script>
+
+{%- comment -%} Sticky ATC behavior — show bar when main ATC scrolls out of view {%- endcomment -%}
+<script>
+(function() {
+  var stickyBar = document.querySelector('[data-sticky-atc]');
+  var mainAtc = document.querySelector('[data-atc-btn]');
+  var stickyBtn = document.querySelector('[data-sticky-atc-btn]');
+  if (!stickyBar || !mainAtc) return;
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        stickyBar.classList.remove('inv-pdp__sticky-atc--visible');
+      } else {
+        stickyBar.classList.add('inv-pdp__sticky-atc--visible');
+      }
+    });
+  }, { threshold: 0 });
+
+  observer.observe(mainAtc);
+
+  var isStickyAdding = false;
+
+  if (stickyBtn) {
+    stickyBtn.addEventListener('click', function() {
+      if (stickyBtn.disabled || isStickyAdding) return;
+      isStickyAdding = true;
+
+      var variantId = stickyBtn.getAttribute('data-variant-id');
+      var qtyInput = document.querySelector('[data-qty-input]');
+      var quantity = qtyInput ? parseInt(qtyInput.value, 10) || 1 : 1;
+      var originalText = stickyBtn.textContent;
+      stickyBtn.textContent = 'Adding...';
+
+      var cartAddUrl = ((window.routes && window.routes.cart_add_url) || '/cart/add') + '.js';
+
+      var formData = new FormData();
+      formData.append('id', variantId);
+      formData.append('quantity', quantity);
+      formData.append('sections', 'cart-drawer,cart-icon-bubble');
+      formData.append('sections_url', window.location.pathname);
+
+      fetch(cartAddUrl, {
+        method: 'POST',
+        body: formData
+      })
+      .then(function(response) {
+        if (!response.ok) return response.json().then(function(err) { throw err; });
+        return response.json();
+      })
+      .then(function(data) {
+        stickyBtn.textContent = 'Added!';
+        setTimeout(function() { stickyBtn.textContent = originalText; }, 1500);
+
+        /* Refresh cart drawer with section rendering data */
+        var cartDrawer = document.querySelector('cart-drawer');
+        if (cartDrawer && data.sections && data.sections['cart-drawer']) {
+          var parser = new DOMParser();
+          var doc = parser.parseFromString(data.sections['cart-drawer'], 'text/html');
+          var newDrawer = doc.querySelector('#CartDrawer');
+          var existingDrawer = document.getElementById('CartDrawer');
+          if (newDrawer && existingDrawer) {
+            existingDrawer.innerHTML = newDrawer.innerHTML;
+          }
+          cartDrawer.classList.remove('is-empty');
+          setTimeout(function() { cartDrawer.open(); });
+        }
+
+        /* Update cart icon bubble */
+        if (data.sections && data.sections['cart-icon-bubble']) {
+          var bubbleEl = document.getElementById('cart-icon-bubble');
+          if (bubbleEl) {
+            var parser2 = new DOMParser();
+            var doc2 = parser2.parseFromString(data.sections['cart-icon-bubble'], 'text/html');
+            var newBubble = doc2.querySelector('.shopify-section');
+            if (newBubble) bubbleEl.innerHTML = newBubble.innerHTML;
+          }
+        }
+
+        document.dispatchEvent(new CustomEvent('cart:item-added', { detail: { item: data } }));
+        document.dispatchEvent(new CustomEvent('invicta:cart:updated', { detail: { source: 'sticky-atc', item: data } }));
+      })
+      .catch(function(error) {
+        var message = (error && (error.description || error.message)) || 'Error';
+        stickyBtn.textContent = message;
+        setTimeout(function() { stickyBtn.textContent = originalText; }, 2500);
+      })
+      .finally(function() {
+        isStickyAdding = false;
+      });
+    });
+  }
+})();
+</script>
+
+
+
+{%- comment -%} Product structured data rendered via snippets/schema-jsonld.liquid (avoids duplicate) {%- endcomment -%}
+
+{% schema %}
+{
+  "name": "Invicta Product V2",
+  "tag": "section",
+  "class": "section-invicta-product-v2",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumb",
+      "label": "Show breadcrumb navigation",
+      "default": true,
+      "info": "Displays Home > Collection > Product path"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sku",
+      "label": "Show SKU / Part Number",
+      "default": true,
+      "info": "Displays in breadcrumb bar and specs table"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_key_specs",
+      "label": "Show key specs chips",
+      "default": true,
+      "info": "Voltage, torque, motor type below image"
+    },
+    {
+      "type": "header",
+      "content": "Buy Box"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_buy_now",
+      "label": "Show Buy Now button",
+      "default": true,
+      "info": "Skip cart and go direct to checkout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_badges",
+      "label": "Show full trust badges",
+      "default": false,
+      "info": "Extended badges below compact version"
+    },
+    {
+      "type": "header",
+      "content": "Delivery"
+    },
+    {
+      "type": "text",
+      "id": "delivery_title",
+      "label": "Delivery title",
+      "default": "FREE Next Day Delivery"
+    },
+    {
+      "type": "text",
+      "id": "delivery_text",
+      "label": "Delivery text",
+      "default": "Order before 2pm for next working day delivery"
+    },
+    {
+      "type": "header",
+      "content": "Stock & Dispatch"
+    },
+    {
+      "type": "text",
+      "id": "in_stock_text",
+      "label": "In stock text",
+      "default": "In Stock — Ready to Ship"
+    },
+    {
+      "type": "text",
+      "id": "dispatch_text",
+      "label": "Dispatch time text",
+      "default": "Typically dispatches within 1-2 working days"
+    },
+    {
+      "type": "header",
+      "content": "Supplier Stock — Defaults"
+    },
+    {
+      "type": "paragraph",
+      "content": "Default text for products sourced from a supplier. Add Supplier Configuration blocks for per-supplier overrides."
+    },
+    {
+      "type": "text",
+      "id": "supplier_stock_text",
+      "label": "Supplier stock banner text",
+      "default": "In Stock with Supplier — Usually Dispatched within 2–3 Working Days"
+    },
+    {
+      "type": "text",
+      "id": "supplier_dispatch_text",
+      "label": "Supplier dispatch disclaimer",
+      "default": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 3–5 working days."
+    },
+    {
+      "type": "text",
+      "id": "supplier_delivery_estimate",
+      "label": "Supplier delivery estimate (delivery row)",
+      "default": "3–5 working days"
+    },
+    {
+      "type": "header",
+      "content": "Add to Cart"
+    },
+    {
+      "type": "text",
+      "id": "atc_text",
+      "label": "Add to cart button text",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "text",
+      "id": "oos_text",
+      "label": "Out of stock text",
+      "default": "Out of Stock"
+    },
+    {
+      "type": "text",
+      "id": "buy_now_text",
+      "label": "Buy now button text",
+      "default": "Buy Now — Skip the Cart"
+    },
+    {
+      "type": "text",
+      "id": "cart_error_text",
+      "label": "Cart error message",
+      "default": "Sorry, couldn't add to cart. Please try again."
+    },
+    {
+      "type": "header",
+      "content": "Stock Levels"
+    },
+    {
+      "type": "range",
+      "id": "low_stock_threshold",
+      "label": "Low stock warning threshold",
+      "info": "Show 'Only X left' when stock is at or below this number",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Buy Now"
+    },
+    {
+      "type": "range",
+      "id": "buy_now_price_threshold",
+      "label": "Buy Now max price (£)",
+      "info": "Hide Buy Now button on products above this price to reduce friction on high-value items",
+      "min": 50,
+      "max": 2000,
+      "step": 50,
+      "default": 500
+    },
+    {
+      "type": "header",
+      "content": "Click & Collect"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_click_collect",
+      "label": "Show in-store collection CTA",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "collect_text",
+      "label": "In-store collection text",
+      "default": "Call us on <a href=\"tel:01843210459\">01843 210 459</a> to check availability at Canterbury or Ramsgate"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "supplier_config",
+      "name": "Supplier Configuration",
+      "settings": [
+        {
+          "type": "text",
+          "id": "supplier_key",
+          "label": "Supplier tag prefix",
+          "info": "Must match the product tag format, e.g. 'trend' for 'trend-stock'"
+        },
+        {
+          "type": "text",
+          "id": "banner_text",
+          "label": "Stock banner text",
+          "info": "Leave blank to use the default supplier stock text above"
+        },
+        {
+          "type": "text",
+          "id": "dispatch_text",
+          "label": "Dispatch info text",
+          "info": "Leave blank to use the default supplier dispatch text above"
+        },
+        {
+          "type": "text",
+          "id": "delivery_estimate",
+          "label": "Delivery estimate",
+          "info": "Leave blank to use the default supplier delivery estimate above"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Invicta Product V2",
+      "blocks": [
+        {
+          "type": "supplier_config",
+          "settings": {
+            "supplier_key": "trend",
+            "banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
+            "dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
+            "delivery_estimate": "2-3 working days"
+          }
+        },
+        {
+          "type": "supplier_config",
+          "settings": {
+            "supplier_key": "toolbank",
+            "banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
+            "dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
+            "delivery_estimate": "2-3 working days"
+          }
+        },
+        {
+          "type": "supplier_config",
+          "settings": {
+            "supplier_key": "timco",
+            "banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
+            "dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
+            "delivery_estimate": "2-3 working days"
+          }
+        },
+        {
+          "type": "supplier_config",
+          "settings": {
+            "supplier_key": "pdp",
+            "banner_text": "In Stock with Supplier — Usually Dispatched within 1-2 Working Days",
+            "dispatch_text": "This item is sourced from our supplier. Once received, we inspect and dispatch it to you. Estimated delivery: 2-3 working days.",
+            "delivery_estimate": "2-3 working days"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

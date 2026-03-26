@@ -1,0 +1,68 @@
+{% comment %}
+  ============================================
+  INVICTA SECTION HEADER v3.0 (COMPACT)
+  ============================================
+  Slim inline header: breadcrumb > title + count on one line.
+  Description as a subtle single line below. No hero block.
+  Designed to NOT push products down the page.
+
+  Params:
+    title:       (string) Page title - defaults to collection.title
+    description: (string) Page description - defaults to collection.description
+    breadcrumbs: (boolean) Show breadcrumb trail - default true
+
+  Usage:
+    {% render 'invicta-section-header', title: collection.title, description: collection.description %}
+  ============================================
+{% endcomment %}
+
+{%- liquid
+  unless title
+    assign title = collection.title | default: page.title
+  endunless
+  unless breadcrumbs == false
+    assign breadcrumbs = true
+  endunless
+
+  assign product_count = collection.products_count | default: 0
+
+  assign is_brand = false
+  assign brand_handles = settings.inv_brand_handles | default: 'makita,dewalt,bosch,milwaukee,hikoki,festool,metabo,stanley,faithfull,trend,draper' | split: ','
+  assign handle_lower = collection.handle | downcase
+  for bh in brand_handles
+    if handle_lower == bh
+      assign is_brand = true
+      break
+    endif
+  endfor
+-%}
+
+<div class="inv-sheader">
+  <div class="inv-sheader__inner page-width">
+    {%- if breadcrumbs -%}
+      <nav class="inv-sheader__crumbs" aria-label="Breadcrumb">
+        <a href="/">{{ 'invicta.section_header.home' | t }}</a>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 18 15 12 9 6"/></svg>
+        <span aria-current="page">{{ title }}</span>
+      </nav>
+    {%- endif -%}
+
+    <div class="inv-sheader__row">
+      <h1 class="inv-sheader__title">{{ title }}</h1>
+
+      {%- if is_brand -%}
+        <span class="inv-sheader__badge inv-sheader__badge--brand">{{ 'invicta.section_header.official_dealer' | t }}</span>
+      {%- endif -%}
+
+      {%- if product_count > 0 -%}
+        <span class="inv-sheader__badge inv-sheader__badge--count">{{ 'invicta.section_header.product_count' | t: count: product_count }}</span>
+      {%- endif -%}
+    </div>
+
+    {%- if description != blank -%}
+      <p class="inv-sheader__desc">{{ description | strip_html | truncate: 200 }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{{ 'component-section-header.css' | asset_url | stylesheet_tag }}

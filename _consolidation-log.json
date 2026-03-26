@@ -1,0 +1,405 @@
+{
+  "generated": "2026-03-13T14:00:00.000Z",
+  "phase": "Phase 4 — Consolidation & Architecture",
+  "summary": {
+    "css_files_removed": 0,
+    "css_files_merged": 0,
+    "js_files_removed": 0,
+    "js_files_merged": 0,
+    "svg_removal_candidates": 45,
+    "section_files_renamed": 0,
+    "json_templates_modified": 0,
+    "config_files_modified": 0,
+    "locale_files_modified": 0,
+    "files_created": 3,
+    "css_deduplication_changes": 1,
+    "notes": "CSS/JS architecture is well-organized after Phase 3. One CSS deduplication performed: @keyframes inv-spin was defined 4 times across 3 files — consolidated to a single canonical definition in base.css. Dead code referencing deleted invicta-collection-filters.liquid was also cleaned up."
+  },
+  "css_analysis": {
+    "conclusion": "No CSS files were removed or merged. One deduplication performed: @keyframes inv-spin consolidated from 4 definitions (3 files) to 1 canonical definition in base.css. No override conflicts or redundant files found.",
+    "findings": [
+      {
+        "finding": "component-* CSS files used by invicta snippets use inv-* class prefixes despite the component-* filename",
+        "files": [
+          "assets/component-trust-bar.css",
+          "assets/component-section-header.css",
+          "assets/component-cta-banner.css",
+          "assets/component-free-delivery-bar.css",
+          "assets/component-delivery-estimate.css",
+          "assets/component-tiered-pricing.css"
+        ],
+        "action": "No change. These are invicta CSS with legacy filenames. Renaming is cosmetic and risks breaking Shopify asset CDN cache. The naming convention is documented in ARCHITECTURE.md.",
+        "reason": "Per constraints: mass renaming has a terrible risk-to-reward ratio in a Shopify theme."
+      },
+      {
+        "finding": "component-cart.css and invicta-cart.css have 9 overlapping CSS class selectors",
+        "overlapping_classes": [
+          ".cart-note__label",
+          ".cart__checkout-button",
+          ".cart__ctas",
+          ".cart__dynamic-checkout-buttons",
+          ".cart__empty-text",
+          ".cart__footer",
+          ".cart__items",
+          ".cart__warnings",
+          ".tax-note"
+        ],
+        "action": "No change. Both files are required. component-cart.css provides base Dawn cart styles, invicta-cart.css adds trade-specific customizations using more specific selectors (e.g., .inv-cart-footer-grid__checkout .cart__checkout-button). This is intentional cascade-based architecture.",
+        "reason": "Removing either file would break cart styling. The invicta file uses higher-specificity selectors to override selectively, not wholesale."
+      },
+      {
+        "finding": "component-predictive-search.css and invicta-predictive-search.css both exist",
+        "action": "No change. Zero overlapping classes. component-predictive-search.css styles Dawn's .predictive-search classes (used on search results page via main-search.liquid). invicta-predictive-search.css styles .inv-search-* classes (used in header inline search via predictive-search-inline.liquid). They are complementary implementations.",
+        "reason": "Different class namespaces, different features, both in active use."
+      },
+      {
+        "finding": "Several CSS files are small (under 30 lines)",
+        "files_and_lines": {
+          "section-main-page.css": 23,
+          "component-discounts.css": 30,
+          "component-list-menu.css": 30,
+          "component-list-social.css": 32,
+          "section-contact-form.css": 39,
+          "component-totals.css": 40,
+          "component-free-delivery-bar.css": 45,
+          "invicta-product-v2-trust.css": 50,
+          "newsletter-section.css": 50
+        },
+        "action": "No change. Each small file is loaded on-demand by exactly one section or snippet. Merging them would force unnecessary CSS onto pages that don't need it, hurting performance. On-demand loading is the correct pattern for Shopify OS 2.0.",
+        "reason": "File size alone is not a reason to merge in a section-driven architecture. The overhead of an extra HTTP request is negligible compared to unused CSS bloat."
+      },
+      {
+        "finding": "Global CSS loading in theme.liquid is well-structured",
+        "global_css": [
+          "base.css (foundation — loaded synchronously, high priority)",
+          "invicta-css-variables.css (design tokens — loaded via snippet)",
+          "invicta-brand-pill.css (lazy — print→all pattern)",
+          "invicta-product-card.css (lazy — print→all pattern)",
+          "invicta-radius-reset.css (lazy — print→all pattern)",
+          "mobile.css (media query: max-width 749px)",
+          "desktop.css (media query: min-width 750px)",
+          "invicta-ux-improvements.css (lazy — print→all pattern)",
+          "component-cart-items.css (lazy — print→all pattern)",
+          "invicta-cx-improvements.css (lazy — not critical path)"
+        ],
+        "conditionally_loaded_global": [
+          "component-cart-drawer.css (if cart_type == drawer)",
+          "component-cart.css (if cart_type == drawer)",
+          "component-totals.css (if cart_type == drawer)",
+          "component-price.css (if cart_type == drawer)",
+          "component-discounts.css (if cart_type == drawer)",
+          "component-localization-form.css (if multiple locales)",
+          "component-predictive-search.css (if predictive_search_enabled)"
+        ],
+        "action": "No change. Loading strategy is already optimized with appropriate use of lazy loading (print→all pattern), media queries, and conditional loading.",
+        "reason": "Current global loading is already minimal and well-optimized."
+      },
+      {
+        "finding": "@keyframes inv-spin was defined 4 times across 3 CSS files",
+        "files": [
+          "assets/invicta-cx-improvements.css (2 definitions — lines 402 and 803)",
+          "assets/mobile.css (1 definition — line 2932)",
+          "assets/invicta-predictive-search.css (1 definition — line 333)"
+        ],
+        "action": "FIXED. Removed all 4 duplicate definitions. Added single canonical @keyframes inv-spin to assets/base.css (loaded synchronously on every page, before any lazy-loaded CSS that references the animation).",
+        "reason": "All definitions were functionally identical (rotate 0→360deg). base.css is the foundation file loaded first, making the animation available everywhere. No animation references needed updating — only the @keyframes declarations were deduplicated."
+      }
+    ]
+  },
+  "js_analysis": {
+    "conclusion": "No JS files were removed or merged. 31 JS files analysed (6,929 lines total; 3,247 global, 3,682 conditional). Architecture is sound with no true duplication. One benign overlap found (free delivery bar).",
+    "total_files": 31,
+    "total_lines": 6929,
+    "global_lines": 3247,
+    "conditional_lines": 3682,
+    "custom_elements_defined": 27,
+    "findings": [
+      {
+        "finding": "Cart-related JS files appear similar but are complementary",
+        "files": {
+          "cart.js": "Dawn cart page form submission handler (296 lines)",
+          "cart-drawer.js": "Dawn cart drawer component (136 lines)",
+          "invicta-cart-api.js": "Shared add-to-cart utility with deduplication (163 lines)",
+          "invicta-cart-handler.js": "Handles cart UI updates after add-to-cart (88 lines)"
+        },
+        "action": "No change. Each has a distinct responsibility: cart.js handles the full cart page, cart-drawer.js handles the drawer UI, invicta-cart-api.js centralizes fetch calls, invicta-cart-handler.js manages cart count/drawer updates.",
+        "reason": "JavaScript has runtime dependencies. These files are intentionally separated for different loading contexts."
+      },
+      {
+        "finding": "Predictive search has two JS implementations",
+        "files": {
+          "predictive-search.js": "Dawn predictive search for search results page (334 lines)",
+          "invicta-predictive-search.js": "Invicta inline header search (264 lines)"
+        },
+        "action": "No change. Different implementations for different UI contexts. predictive-search.js is loaded conditionally in theme.liquid. invicta-predictive-search.js is loaded by the predictive-search-inline.liquid snippet.",
+        "reason": "Different features, different DOM targets, different loading contexts."
+      },
+      {
+        "finding": "Global JS loading is appropriate",
+        "global_js": [
+          "constants.js (9 lines — PubSub event names)",
+          "pubsub.js (25 lines — event bus)",
+          "global.js (1394 lines — core custom elements)",
+          "details-disclosure.js (53 lines — disclosure component)",
+          "details-modal.js (47 lines — modal component)",
+          "search-form.js (47 lines — search form component)",
+          "invicta-cart-api.js (163 lines — shared cart utility)",
+          "invicta-cart-handler.js (88 lines — cart UI handler, via snippet)",
+          "invicta-brand-pill.js (74 lines — brand badge component)",
+          "invicta-quick-add.js (72 lines — quick add buttons)",
+          "invicta-vat-toggle.js (233 lines — VAT inc/ex toggle)",
+          "invicta-quantity-enhancer.js (316 lines — quantity input improvements)"
+        ],
+        "conditionally_loaded": [
+          "animations.js (if animations_reveal_on_scroll)",
+          "localization-form.js (if multiple locales)",
+          "predictive-search.js (if predictive_search_enabled)",
+          "cart-drawer.js (if cart_type == drawer)",
+          "invicta-cx-improvements.js (unless password/gift_card template)"
+        ],
+        "action": "No change. Global scripts are all small utility files or core components needed on every page. Larger feature scripts are conditionally loaded.",
+        "reason": "Loading strategy is already well-optimized."
+      },
+      {
+        "finding": "Free delivery bar has benign logic overlap between component-free-delivery-bar.js and invicta-cx-improvements.js",
+        "details": "Both files listen to cart:updated events and modify the same [data-delivery-bar] element. Both independently add/remove inv-delivery-bar--almost class. The cx-improvements version also adds InvictaAnnouncer screen-reader announcements.",
+        "action": "No change. The duplication is benign — both add/remove the same class based on the same threshold. The cx-improvements file adds accessibility announcements that the component file lacks, making them complementary rather than conflicting.",
+        "reason": "Fixing this would require moving accessibility logic between files, which risks breaking the announcement flow. Low reward, moderate risk."
+      },
+      {
+        "finding": "11 custom elements defined in global.js have no direct Liquid template references",
+        "elements": ["menu-drawer", "header-drawer", "modal-dialog", "bulk-modal", "modal-opener", "deferred-media", "slider-component", "variant-selects", "product-recommendations", "account-icon", "bulk-add"],
+        "action": "No change. These are Dawn core custom elements. They may be used by Shopify apps, the theme editor, content_for_header, or serve as base classes (bulk-add is parent of quick-order-list). The if (!customElements.get(...)) guards mean they cause no harm.",
+        "reason": "Removing Dawn core elements from global.js risks breaking Shopify internals, apps, and theme editor functionality."
+      },
+      {
+        "finding": "invicta-quantity-enhancer.js (316 lines) loaded globally but only relevant on PDP pages",
+        "action": "No change. The script uses MutationObserver to detect dynamically-added product forms, which may appear in quick-add modals on any page. Moving to conditional loading requires verifying quick-add modal behavior first — flagged as future optimisation.",
+        "reason": "Risk of breaking quick-add quantity enhancement on collection pages outweighs the performance gain of conditional loading."
+      }
+    ]
+  },
+  "svg_audit": {
+    "total_svgs": 103,
+    "referenced_in_theme": 31,
+    "brand_logos_dynamically_loaded": 25,
+    "brand_logos_likely_orphaned": 2,
+    "unreferenced_removal_candidates": 45,
+    "note": "Unreferenced SVGs may be used in Shopify admin content (metafields, rich text, page content) that is not visible in theme files. Do NOT auto-delete — flag for manual review by theme owner.",
+    "brand_logo_loading_mechanism": "Brand logos are loaded dynamically in snippets/invicta-brand-pill.liquid and snippets/invicta-brand-hero.liquid using the pattern: brand_key | append: '.svg' | asset_url. The brand key is derived from the product vendor name or a hardcoded brand database.",
+    "orphaned_brand_logos": [
+      {
+        "file": "assets/dormer.svg",
+        "category": "brand_logo",
+        "note": "Not in the brand database and not referenced anywhere in theme files. Likely orphaned."
+      },
+      {
+        "file": "assets/tengtools.svg",
+        "category": "brand_logo",
+        "note": "Brand DB uses key 'teng' not 'tengtools', so the dynamic loader would look for 'teng.svg', not 'tengtools.svg'. This SVG filename does not match the dynamic loading pattern. Likely orphaned."
+      }
+    ],
+    "unreferenced_svgs": [
+      {"file": "assets/icon-account.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-apple.svg", "category": "icon", "note": "Dawn default icon (food/lifestyle). No references found."},
+      {"file": "assets/icon-banana.svg", "category": "icon", "note": "Dawn default icon (food/lifestyle). No references found."},
+      {"file": "assets/icon-bottle.svg", "category": "icon", "note": "Dawn default icon (food/lifestyle). No references found."},
+      {"file": "assets/icon-box.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-carrot.svg", "category": "icon", "note": "Dawn default icon (food/lifestyle). No references found."},
+      {"file": "assets/icon-chat-bubble.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-check-mark.svg", "category": "icon", "note": "Dawn default icon. Note: icon-checkmark.svg (no hyphen) IS used. This variant is not."},
+      {"file": "assets/icon-clipboard.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-dairy-free.svg", "category": "icon", "note": "Dawn default icon (food/lifestyle). No references found."},
+      {"file": "assets/icon-dairy.svg", "category": "icon", "note": "Dawn default icon (food/lifestyle). No references found."},
+      {"file": "assets/icon-dryer.svg", "category": "icon", "note": "Dawn default icon (laundry). No references found."},
+      {"file": "assets/icon-eye.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-fire.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-gluten-free.svg", "category": "icon", "note": "Dawn default icon (food/lifestyle). No references found."},
+      {"file": "assets/icon-heart.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-iron.svg", "category": "icon", "note": "Dawn default icon (laundry). No references found."},
+      {"file": "assets/icon-leaf.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-leather.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-lightning-bolt.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-lipstick.svg", "category": "icon", "note": "Dawn default icon (cosmetics). No references found."},
+      {"file": "assets/icon-lock.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-map-pin.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-nut-free.svg", "category": "icon", "note": "Dawn default icon (food/lifestyle). No references found."},
+      {"file": "assets/icon-pants.svg", "category": "icon", "note": "Dawn default icon (fashion). No references found."},
+      {"file": "assets/icon-paw-print.svg", "category": "icon", "note": "Dawn default icon (pets). No references found."},
+      {"file": "assets/icon-pepper.svg", "category": "icon", "note": "Dawn default icon (food/lifestyle). No references found."},
+      {"file": "assets/icon-perfume.svg", "category": "icon", "note": "Dawn default icon (cosmetics). No references found."},
+      {"file": "assets/icon-plane.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-plant.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-price-tag.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-question-mark.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-recycle.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-return.svg", "category": "icon", "note": "Dawn default icon. Theme uses inline SVG for returns instead."},
+      {"file": "assets/icon-ruler.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-serving-dish.svg", "category": "icon", "note": "Dawn default icon (food/hospitality). No references found."},
+      {"file": "assets/icon-shirt.svg", "category": "icon", "note": "Dawn default icon (fashion). No references found."},
+      {"file": "assets/icon-shoe.svg", "category": "icon", "note": "Dawn default icon (fashion). No references found."},
+      {"file": "assets/icon-silhouette.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-snowflake.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-star.svg", "category": "icon", "note": "Dawn default icon. Theme uses inline SVG for stars."},
+      {"file": "assets/icon-stopwatch.svg", "category": "icon", "note": "Dawn default icon. No references found."},
+      {"file": "assets/icon-truck.svg", "category": "icon", "note": "Dawn default icon. Theme uses inline SVG for delivery icons."},
+      {"file": "assets/icon-washing.svg", "category": "icon", "note": "Dawn default icon (laundry). No references found."},
+      {"file": "assets/placeholder-image.svg", "category": "placeholder", "note": "No theme-level references but could be used by Shopify platform-level fallback rendering."}
+    ]
+  },
+  "template_analysis": {
+    "identical_groups": [
+      {
+        "group": "Brand landing pages",
+        "templates": [
+          "page.brand-dewalt.json",
+          "page.brand-faithfull.json",
+          "page.brand-hikoki.json",
+          "page.brand-lamello.json",
+          "page.brand-makita.json",
+          "page.brand-pdp.json",
+          "page.brand-stanley.json",
+          "page.brand-timco.json"
+        ],
+        "shared_sections": [
+          "brand-hero",
+          "brand-about",
+          "brand-applications",
+          "brand-categories",
+          "brand-faq",
+          "brand-new-products",
+          "brand-schema",
+          "brand-video",
+          "brand-why-choose",
+          "cta-bar",
+          "featured-collection",
+          "invicta-usp-strip-v2"
+        ],
+        "differences": "Settings only — brand name, images, content, colours. All use identical section structure.",
+        "note": "page.brand.json is NEARLY identical but uses slightly fewer sections (no brand-faq, no brand-schema, adds breadcrumb-simple). This is the generic brand template."
+      },
+      {
+        "group": "Category landing pages (with recently viewed)",
+        "templates": [
+          "page.abrasives.json",
+          "page.adhesives-chemicals.json",
+          "page.cutting-discs.json",
+          "page.drill-bits.json",
+          "page.fixings-fasteners.json",
+          "page.gun-nails.json",
+          "page.hand-tools.json",
+          "page.hole-cutters.json",
+          "page.power-tool-accessories.json",
+          "page.power-tools.json",
+          "page.saw-blades.json",
+          "page.screwdriver-bits.json",
+          "page.sds-bits.json",
+          "page.silicone.json",
+          "page.site-equipment.json"
+        ],
+        "shared_sections": ["invicta-category-grid", "invicta-recently-viewed"],
+        "differences": "Settings only — category data, icons, collection links."
+      },
+      {
+        "group": "Category landing pages (without recently viewed)",
+        "templates": [
+          "page.accessories-consumables.json",
+          "page.shop-by-brand.json",
+          "page.workwear-safety.json"
+        ],
+        "shared_sections": ["invicta-category-grid"],
+        "differences": "Single section only. These 3 lack the invicta-recently-viewed section that the other 15 category pages have — this may be an inconsistency rather than intentional."
+      },
+      {
+        "group": "Default page templates",
+        "templates": [
+          "page.json",
+          "page.category-landing.json"
+        ],
+        "shared_sections": ["main-page"],
+        "differences": "Structurally identical — both use only main-page. page.category-landing.json appears redundant but may be used by specific admin pages."
+      },
+      {
+        "group": "Local SEO pages",
+        "templates": [
+          "page.kent-hub.json",
+          "page.local-seo.json"
+        ],
+        "shared_sections": ["breadcrumb-simple", "cta-bar", "invicta-usp-strip-v2"],
+        "differences": "page.kent-hub uses local-hero + local-hub. page.local-seo uses local-hero + local-content."
+      },
+      {
+        "group": "Customer account pages",
+        "templates": [
+          "customers/account.json",
+          "customers/activate_account.json",
+          "customers/addresses.json",
+          "customers/login.json",
+          "customers/order.json",
+          "customers/register.json",
+          "customers/reset_password.json"
+        ],
+        "shared_sections": [],
+        "differences": "Each uses a single unique main-* section. Standard Shopify pattern."
+      }
+    ],
+    "unique_templates": [
+      {"template": "404.json", "sections": ["main-404"]},
+      {"template": "article.json", "sections": ["main-article"]},
+      {"template": "blog.json", "sections": ["main-blog"]},
+      {"template": "cart.json", "sections": ["main-cart-items", "main-cart-footer", "featured-collection"]},
+      {"template": "collection.json", "sections": ["invicta-collection"]},
+      {"template": "collection.brand.json", "sections": ["invicta-brand-collection"]},
+      {"template": "index.json", "sections": ["invicta-hero-split", "invicta-promo-banners", "invicta-quick-cats", "invicta-usp-strip-v2", "invicta-brand-strip", "featured-collection (x3)", "invicta-trade-cta", "invicta-trust-bar", "review-carousel", "invicta-recently-viewed", "invicta-newsletter"]},
+      {"template": "list-collections.json", "sections": ["main-list-collections"]},
+      {"template": "password.json", "sections": ["email-signup-banner"]},
+      {"template": "product.json", "sections": ["invicta-product-v2", "invicta-related-products", "invicta-recently-viewed"]},
+      {"template": "search.json", "sections": ["main-search"]},
+      {"template": "page.category-landing.json", "sections": ["main-page"]},
+      {"template": "page.contact.json", "sections": ["image-banner", "main-page", "contact-form"]},
+      {"template": "page.delivery-info.json", "sections": ["invicta-delivery-info"]},
+      {"template": "page.faq.json", "sections": ["invicta-faq"]},
+      {"template": "page.returns.json", "sections": ["invicta-returns"]},
+      {"template": "page.thank-you-trade.json", "sections": ["trade-thank-you"]},
+      {"template": "page.trade-landing.json", "sections": ["trade-landing"]}
+    ],
+    "observations": [
+      "page.category-landing.json is structurally identical to page.json — both use only main-page. The owner should check if any admin pages use it; if not, it could be removed.",
+      "page.brand.json (generic brand template) has drifted from the 8 specific brand templates: it is missing brand-faq and brand-schema sections, and has breadcrumb-simple which the others lack. Consider aligning it if it is still in active use.",
+      "3 category pages (accessories-consumables, shop-by-brand, workwear-safety) lack the invicta-recently-viewed section that the other 15 category pages have. This may be an oversight."
+    ],
+    "recommendation": "The 8 brand-specific templates and 18 category templates are structurally identical with different settings. The theme owner could consider whether some admin pages should be migrated to use a single template with dynamic content, but this is a Shopify admin decision, not a theme file change."
+  },
+  "naming_convention_established": {
+    "document": "ARCHITECTURE.md",
+    "conventions": {
+      "main-*": "Shopify core sections (cart, account, search, blog, etc.). Standard Dawn pattern. Keep as-is.",
+      "brand-*": "Brand landing page sections. Coherent group used by brand templates. Keep as-is.",
+      "invicta-*": "Custom Invicta business logic. The standard for new files. CSS uses inv-* class prefix.",
+      "component-*": "Shared component CSS/JS. Some are Dawn originals, some are Invicta CSS with legacy names. Keep as-is — renaming risks cache/reference issues.",
+      "section-*": "Section-specific CSS. Loaded on-demand by the corresponding section.",
+      "local-*": "Local SEO sections (local-hero, local-hub, local-content)."
+    }
+  },
+  "changes": [
+    {
+      "type": "dead_code_cleanup",
+      "action": "Removed stale comment and dead JS code referencing invicta-collection-filters.liquid (deleted in Phase 3)",
+      "files_modified": ["sections/invicta-product-grid.liquid"],
+      "files_removed": [],
+      "reason": "invicta-collection-filters.liquid was deleted in Phase 3. The product grid had a stale comment mentioning it and two dead JS code blocks that checked for a DOM element (getElementById('invicta-collection-filters')) that will never exist. Code was safely guarded with null checks so it wasn't breaking, but it was dead weight."
+    },
+    {
+      "type": "css_deduplication",
+      "action": "Consolidated @keyframes inv-spin to single canonical definition in base.css",
+      "files_modified": [
+        "assets/base.css",
+        "assets/invicta-cx-improvements.css",
+        "assets/mobile.css",
+        "assets/invicta-predictive-search.css"
+      ],
+      "files_removed": [],
+      "reason": "@keyframes inv-spin was defined 4 times across 3 files (2 in invicta-cx-improvements.css, 1 in mobile.css, 1 in invicta-predictive-search.css). All definitions were identical (rotate 0→360deg). Consolidated to base.css which loads synchronously on every page, ensuring the animation is available before any lazy-loaded CSS that references it. No animation references were changed — only the @keyframes definitions were deduplicated."
+    }
+  ]
+}

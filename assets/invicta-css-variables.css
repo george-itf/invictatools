@@ -1,0 +1,319 @@
+/*
+ * Invicta Design Tokens v3.x
+ *
+ * Naming conventions:
+ * --color-*    Shopify base theme tokens (do not modify)
+ * --font-*     Shopify base theme typography (do not modify)
+ * --media-*    Shopify base theme breakpoints (do not modify)
+ * --inv-*      Invicta custom tokens (our system)
+ *
+ * All new tokens MUST use the --inv- prefix.
+ * Do not create --pdp-*, --cart-*, or other component-scoped prefixes.
+ */
+/* ============================================================
+   INVICTA DESIGN TOKENS v3.0 (CANONICAL)
+   ============================================================
+   Single source of truth for ALL Invicta design tokens.
+   Every token lives here. No other file should define :root
+   custom properties in the --inv-* namespace.
+
+   All values are static (no Liquid dependencies) so the
+   entire file is externalized for browser caching.
+
+   CHANGELOG:
+   v3.0 - Consolidated scattered tokens from 6 satellite files
+        - Resolved radius conflicts (8px canonical, not pill)
+        - Added mobile/responsive tokens
+        - Added container/layout tokens
+        - Unified brand colour to --inv-accent (retired --inv-brand)
+   v2.1 - Moved all static tokens to external CSS file
+   v2.0 - Initial consolidation from Liquid variables
+   ============================================================ */
+
+:root {
+  /* ========================================
+     BRAND COLORS
+     ======================================== */
+  --inv-accent: #e11d26;
+  --inv-accent-hover: #b91c1c;
+  --inv-accent-soft: rgba(225, 29, 38, 0.08);
+  --inv-accent-ring: rgba(225, 29, 38, 0.1);
+  --inv-accent-light: rgba(225, 29, 38, 0.12);
+  --inv-accent-glow: rgba(225, 29, 38, 0.25);
+
+  /* Legacy aliases */
+  --inv-primary: var(--inv-accent);
+  --inv-primary-hover: var(--inv-accent-hover);
+
+  /* Semantic Colors */
+  --inv-success: #16a34a;
+  --inv-success-light: #f0fdf4;
+  --inv-success-border: #bbf7d0;
+  --inv-success-dark: #166534;
+  --inv-success-bright: #22c55e;
+  --inv-success-bg: #d1fae5;
+  --inv-success-bg-light: #dcfce7;
+  --inv-success-medium: #059669;
+  --inv-success-text: #065f46;
+  --inv-success-heading: #15803d;
+  --inv-warning: #f59e0b;
+  --inv-warning-dark: #d97706;
+  --inv-warning-darker: #b45309;
+  --inv-warning-text: #92400e;
+  --inv-warning-bg: #fef3c7;
+  --inv-warning-border: #fbbf24;
+  --inv-error: #dc2626;
+  --inv-error-bg: #fef2f2;
+  --inv-error-light: #fee2e2;
+  --inv-error-border: #fecaca;
+  --inv-error-dark: #991b1b;
+  --inv-error-text: #ef4444;
+  --inv-info: #3b82f6;
+  --inv-info-bg: #dbeafe;
+  --inv-info-dark: #1d4ed8;
+
+  /* Legacy aliases */
+  --inv-green: var(--inv-success);
+  --inv-amber: var(--inv-warning);
+
+  /* ========================================
+     BACKGROUND COLORS
+     ======================================== */
+  --inv-bg: #f5f5f6;
+  --inv-bg-elevated: #ffffff;
+  --inv-bg-soft: #f3f4f6;
+  --inv-bg-muted: #f9fafb;
+  --inv-bg-subtle: #f8fafc;
+
+  /* Card / Component backgrounds */
+  --inv-bg-card-body: #f7f7f8;
+  --inv-bg-card-border: #ececec;
+  --inv-bg-skeleton: #f0f0f0;
+  --inv-bg-skeleton-highlight: #e0e0e0;
+  --inv-bg-skeleton-border: #e8e8e8;
+
+  /* Legacy alias */
+  --inv-white: var(--inv-bg-elevated);
+  --inv-black: #000000;
+
+  /* ========================================
+     TEXT COLORS
+     ======================================== */
+  --inv-fg: #0f172a;
+  --inv-fg-muted: #6b7280;
+  --inv-fg-subtle: #9ca3af;
+
+  --inv-fg-secondary: #374151;
+  --inv-fg-strong: #111827;
+  --inv-fg-dim: #4b5563;
+
+  /* Near-black text (from PDP) */
+  --inv-fg-near-black: #1a1a1a;
+  --inv-fg-medium: #525252;
+
+  /* Legacy aliases */
+  --inv-text: var(--inv-fg);
+  --inv-text-muted: var(--inv-fg-muted);
+  --inv-text-light: var(--inv-fg-subtle);
+  --inv-dark: #2d2d2d;
+  --inv-dark-hover: #404040;
+  --inv-dark-hover-deep: #1a1a1a;
+
+  /* ========================================
+     BORDER COLORS
+     ======================================== */
+  --inv-border: #e5e7eb;
+  --inv-border-dark: #d1d5db;
+  --inv-border-subtle: rgba(148, 163, 184, 0.4);
+  --inv-border-strong: rgba(15, 23, 42, 0.25);
+  --inv-border-light: #e5e7eb;
+  --inv-border-muted: #e2e8f0;
+  --inv-border-notify: #d0d0d0;
+  --inv-border-skeleton: #e5e5e5;
+  --inv-border-skeleton-dark: #ddd;
+
+  /* ========================================
+     NEUTRAL GREY SCALE
+     ======================================== */
+  --inv-grey-50: #fafafa;
+  --inv-grey-100: #f5f5f5;
+  --inv-grey-200: #e5e5e5;
+  --inv-grey-300: #d4d4d4;
+  --inv-grey-400: #a3a3a3;
+  --inv-grey-500: #737373;
+  --inv-grey-600: #525252;
+  --inv-grey-700: #404040;
+  --inv-grey-placeholder: #ccc;
+  --inv-grey-was: #999;
+  --inv-grey-vat: #666;
+
+  /* ========================================
+     SHADOWS
+     ======================================== */
+  --inv-shadow-color: rgba(0, 0, 0, 0.1);
+  --inv-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --inv-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --inv-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --inv-shadow-elevated: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --inv-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --inv-shadow-soft: 0 18px 40px -28px rgba(15, 23, 42, 0.35);
+  --inv-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+  /* ========================================
+     BORDER RADIUS
+     ======================================== */
+  --inv-radius-none: 0;
+  --inv-radius-sm: 4px;
+  --inv-radius-md: 8px;
+  --inv-radius-lg: 12px;
+  --inv-radius-xl: 16px;
+  --inv-radius-pill: 999px;
+
+  /* Component-specific radii (enforced site-wide) */
+  --inv-radius-button: 0;
+  --inv-radius-card: 0;
+  --inv-radius-input: 0;
+  --inv-radius-modal: var(--inv-radius-lg);
+  --inv-radius-toggle-outer: var(--inv-radius-md);
+  --inv-radius-toggle-inner: var(--inv-radius-sm);
+
+  /* ========================================
+     SPACING
+     ======================================== */
+  --inv-space-xs: 0.25rem;  /* 4px */
+  --inv-space-sm: 0.5rem;   /* 8px */
+  --inv-space-sm-plus: 12px; /* 12px — between sm and md */
+  --inv-space-md: 1rem;     /* 16px */
+  --inv-space-lg: 1.5rem;   /* 24px */
+  --inv-space-xl: 2rem;     /* 32px */
+  --inv-space-2xl: 3rem;    /* 48px */
+  --inv-space-3xl: 4rem;    /* 64px */
+
+  /* Page Layout */
+  --inv-page-width: 1320px;              /* Narrower content width (text blocks, trust bars) */
+  --inv-container: var(--page-width, 1400px);  /* Primary layout container — synced to Shopify page_width setting */
+  --inv-page-gutter: 1.5rem;
+  --inv-page-gutter-desktop: 3rem;
+  --inv-section-gap: 0px;
+
+  /* Legacy alias (retired → use --inv-page-gutter) */
+  --inv-gutter: var(--inv-page-gutter);
+
+  /* ========================================
+     BREAKPOINTS (reference only — CSS custom properties cannot be used in media queries)
+     Mobile:   max-width: 749px
+     Tablet:   min-width: 750px  and  max-width: 989px
+     Desktop:  min-width: 990px
+     Wide:     min-width: 1200px
+     ======================================== */
+
+  /* Mobile / Responsive */
+  --inv-mobile-gutter: 12px;
+  --inv-mobile-section-gap: 24px;
+  --inv-mobile-card-gap: 10px;
+  --inv-mobile-radius: 8px;
+  --inv-touch-target-min: 44px;
+
+  /* Safe area insets (for notch/dynamic island devices) */
+  --inv-safe-area-top: env(safe-area-inset-top, 0px);
+  --inv-safe-area-right: env(safe-area-inset-right, 0px);
+  --inv-safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --inv-safe-area-left: env(safe-area-inset-left, 0px);
+
+  /* ========================================
+     DURATION (Animation/Transition)
+     ======================================== */
+  --inv-duration-instant: 50ms;
+  --inv-duration-fast: 100ms;
+  --inv-duration-normal: 150ms;
+  --inv-duration-moderate: 200ms;
+  --inv-duration-slow: 300ms;
+  --inv-duration-slower: 500ms;
+  --inv-duration-slowest: 600ms;
+
+  /* Legacy aliases (from base.css) */
+  --duration-short: var(--inv-duration-fast);
+  --duration-default: var(--inv-duration-moderate);
+  --duration-medium: var(--inv-duration-slow);
+  --duration-long: var(--inv-duration-slower);
+  --duration-extended: var(--inv-duration-slowest);
+  --duration-announcement-bar: 250ms;
+
+  /* ========================================
+     EASING FUNCTIONS
+     ======================================== */
+  --inv-ease-linear: linear;
+  --inv-ease-default: ease;
+  --inv-ease-in: ease-in;
+  --inv-ease-out: ease-out;
+  --inv-ease-in-out: ease-in-out;
+  --inv-ease-out-slow: cubic-bezier(0, 0, 0.3, 1);
+  --inv-ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Legacy alias */
+  --ease-out-slow: var(--inv-ease-out-slow);
+
+  /* ========================================
+     Z-INDEX SCALE
+     ======================================== */
+  --inv-z-base: 0;
+  --inv-z-dropdown: 100;
+  --inv-z-sticky: 500;
+  --inv-z-header: 999;
+  --inv-z-overlay: 1000;
+  --inv-z-drawer: 2000;
+  --inv-z-search-dropdown: 9999;
+  --inv-z-modal: 10000;
+  --inv-z-search-active: 99999;
+  --inv-z-toast: 100000;
+
+  /* Legacy aliases (from base.css) */
+  --z-dropdown: var(--inv-z-dropdown);
+  --z-sticky: var(--inv-z-sticky);
+  --z-header: var(--inv-z-header);
+  --z-search-dropdown: var(--inv-z-search-dropdown);
+  --z-search-active: var(--inv-z-search-active);
+  --z-modal: var(--inv-z-modal);
+
+  /* ========================================
+     HEADER (Invicta Red)
+     ======================================== */
+  --inv-header-bg: var(--inv-accent, #e11d26);
+  --inv-header-fg: #ffffff;
+  --inv-header-border: none;
+  --inv-header-icon-bg: rgba(255, 255, 255, 0.15);
+  --inv-header-icon-fg: #ffffff;
+  --inv-header-icon-hover-bg: rgba(255, 255, 255, 0.25);
+
+  /* NAV */
+  --inv-nav-bg: #ffffff;
+  --inv-nav-fg: #444444;
+  --inv-nav-hover-fg: var(--inv-accent);
+  --inv-nav-active-fg: var(--inv-accent);
+  --inv-nav-border: #eeeeee;
+  --inv-nav-indicator: var(--inv-accent);
+
+  /* ========================================
+     FOCUS STATES
+     ======================================== */
+  --inv-focus-ring-width: 2px;
+  --inv-focus-ring-color: rgba(225, 29, 38, 0.5);
+  --inv-focus-ring-offset: 2px;
+  --inv-focus-shadow: 0 0 0 3px rgba(45, 45, 45, 0.3);
+
+  /* Legacy aliases (from base.css) */
+  --alpha-button-background: 1;
+  --alpha-button-border: 1;
+  --alpha-link: 0.85;
+  --alpha-badge-border: 0.1;
+  --focused-base-outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  --focused-base-outline-offset: 0.3rem;
+  --focused-base-box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
+}
+
+/* Desktop gutter override */
+@media screen and (min-width: 750px) {
+  :root {
+    --inv-page-gutter: var(--inv-page-gutter-desktop);
+  }
+}

@@ -1,0 +1,1494 @@
+{% comment %}
+  ============================================
+  INVICTA TRUST & REVIEWS v7.0
+  ============================================
+  Rebuilt section. Sharp corners, red accent on white,
+  DM Sans, clean and structural.
+
+  Layout:
+  1. Hero row: heading + text left, rating badges right
+  2. Stats row: full-width below hero grid, CTA pushed right
+  3. Branch strip: wide images with overlay text
+  4. Reviews: scrolling ticker on light background
+
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+{%- liquid
+  assign stat_blocks = section.blocks | where: 'type', 'stat'
+  assign point_blocks = section.blocks | where: 'type', 'point'
+  assign rating_blocks = section.blocks | where: 'type', 'rating'
+-%}
+
+<section class="inv-tr5" id="inv-tr5-{{ section.id }}">
+
+  {%- comment -%} ═══ PART 1: Hero content ═══ {%- endcomment -%}
+  <div class="inv-tr5__hero">
+    <div class="inv-tr5__wrap">
+      <div class="inv-tr5__hero-grid">
+
+        <div class="inv-tr5__content">
+          {%- if section.settings.eyebrow != blank -%}
+            <span class="inv-tr5__eyebrow">{{ section.settings.eyebrow }}</span>
+          {%- endif -%}
+
+          {%- if section.settings.heading != blank -%}
+            <h2 class="inv-tr5__heading">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+
+          {%- if section.settings.text != blank -%}
+            <div class="inv-tr5__text">{{ section.settings.text }}</div>
+          {%- endif -%}
+
+          {%- if point_blocks.size > 0 -%}
+            <ul class="inv-tr5__points">
+              {%- for block in point_blocks -%}
+                {%- if block.settings.text != blank -%}
+                  <li class="inv-tr5__point" {{ block.shopify_attributes }}>
+                    <svg class="inv-tr5__point-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <circle cx="12" cy="12" r="12" fill="#16a34a"/>
+                      <path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>{{ block.settings.text }}</span>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} Right: compact rating badges {%- endcomment -%}
+        {%- if rating_blocks.size > 0 -%}
+          <div class="inv-tr5__ratings">
+            {%- for block in rating_blocks -%}
+              <a
+                href="{{ block.settings.url }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inv-tr5__rating inv-tr5__rating--{{ block.settings.platform }}"
+                aria-label="{{ block.settings.text }} - opens in new tab"
+                {{ block.shopify_attributes }}
+              >
+                <span class="inv-tr5__rating-icon">
+                  {%- case block.settings.platform -%}
+                    {%- when 'google' -%}
+                      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                      </svg>
+                    {%- when 'facebook' -%}
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                      </svg>
+                    {%- when 'trustpilot' -%}
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="#00b67a" aria-hidden="true">
+                        <path d="M12 0l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 0z"/>
+                      </svg>
+                  {%- endcase -%}
+                </span>
+                <span class="inv-tr5__rating-score">{{ block.settings.text | split: ' ' | first }}</span>
+                <span class="inv-tr5__rating-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                <span class="inv-tr5__rating-name">{{ block.settings.platform | capitalize }}&nbsp;&rarr;</span>
+              </a>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+      </div>
+
+      {%- comment -%} Stats row: full-width, below the hero grid {%- endcomment -%}
+      {%- if stat_blocks.size > 0 or section.settings.cta_text != blank -%}
+        <div class="inv-tr5__stats-row">
+          {%- if stat_blocks.size > 0 -%}
+            <div class="inv-tr5__stats">
+              {%- for block in stat_blocks -%}
+                <div class="inv-tr5__stat" {{ block.shopify_attributes }}>
+                  <span class="inv-tr5__stat-num" data-itr5-counter="{{ block.settings.number }}">{{ block.settings.number }}</span>
+                  <span class="inv-tr5__stat-label">{{ block.settings.label }}</span>
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.cta_text != blank and section.settings.cta_link != blank -%}
+            <a href="{{ section.settings.cta_link }}" class="inv-tr5__cta">
+              {{ section.settings.cta_text }}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+
+  {%- comment -%} ═══ PART 2: Branch images strip ═══ {%- endcomment -%}
+  {%- if section.settings.image_1 != blank or section.settings.image_2 != blank -%}
+    <div class="inv-tr5__branches">
+      <div class="inv-tr5__wrap">
+        <div class="inv-tr5__branches-grid">
+          {%- if section.settings.image_1 != blank -%}
+            <div class="inv-tr5__branch">
+              <img
+                src="{{ section.settings.image_1 | image_url: width: 720 }}"
+                srcset="{{ section.settings.image_1 | image_url: width: 480 }} 480w,
+                        {{ section.settings.image_1 | image_url: width: 720 }} 720w"
+                sizes="(max-width: 680px) 100vw, 50vw"
+                alt="{{ section.settings.image_1.alt | default: section.settings.image_1_caption }}"
+                loading="lazy"
+                width="{{ section.settings.image_1.width }}"
+                height="{{ section.settings.image_1.height }}"
+                class="inv-tr5__branch-img"
+              >
+              <div class="inv-tr5__branch-overlay">
+                {%- if section.settings.image_1_caption != blank -%}
+                  <span class="inv-tr5__branch-name">{{ section.settings.image_1_caption }}</span>
+                {%- endif -%}
+                {%- if section.settings.badge_text != blank -%}
+                  <span class="inv-tr5__branch-badge">{{ section.settings.badge_text }}</span>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.image_2 != blank -%}
+            <div class="inv-tr5__branch">
+              <img
+                src="{{ section.settings.image_2 | image_url: width: 720 }}"
+                srcset="{{ section.settings.image_2 | image_url: width: 480 }} 480w,
+                        {{ section.settings.image_2 | image_url: width: 720 }} 720w"
+                sizes="(max-width: 680px) 100vw, 50vw"
+                alt="{{ section.settings.image_2.alt | default: section.settings.image_2_caption }}"
+                loading="lazy"
+                width="{{ section.settings.image_2.width }}"
+                height="{{ section.settings.image_2.height }}"
+                class="inv-tr5__branch-img"
+              >
+              <div class="inv-tr5__branch-overlay">
+                {%- if section.settings.image_2_caption != blank -%}
+                  <span class="inv-tr5__branch-name">{{ section.settings.image_2_caption }}</span>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ═══ PART 3: Reviews — scrolling ticker on light background ═══ {%- endcomment -%}
+  {%- assign has_reviews = false -%}
+  {%- for i in (1..10) -%}
+    {%- assign enabled_key = 'review_' | append: i | append: '_enabled' -%}
+    {%- assign text_key = 'review_' | append: i | append: '_text' -%}
+    {%- if section.settings[enabled_key] and section.settings[text_key] != blank -%}
+      {%- assign has_reviews = true -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if has_reviews -%}
+    <div class="inv-tr5__reviews" aria-label="Customer reviews">
+      <div class="inv-tr5__wrap">
+        <div class="inv-tr5__reviews-header">
+          {%- if section.settings.review_heading != blank -%}
+            <span class="inv-tr5__reviews-label">{{ section.settings.review_heading }}</span>
+          {%- endif -%}
+          <a href="{{ section.settings.review_link | default: '#' }}" class="inv-tr5__reviews-link">
+            Read all reviews <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+
+        <div class="inv-tr5__ticker" data-itr5-ticker>
+        <div class="inv-tr5__ticker-track" data-itr5-track>
+          {%- for i in (1..10) -%}
+            {%- assign enabled_key = 'review_' | append: i | append: '_enabled' -%}
+            {%- assign text_key = 'review_' | append: i | append: '_text' -%}
+            {%- assign author_key = 'review_' | append: i | append: '_author' -%}
+            {%- assign source_key = 'review_' | append: i | append: '_source' -%}
+            {%- if section.settings[enabled_key] and section.settings[text_key] != blank -%}
+              {%- assign review_author = section.settings[author_key] -%}
+              {%- assign review_source = section.settings[source_key] -%}
+              <div class="inv-tr5__review" aria-label="Review by {{ review_author }}">
+                <div class="inv-tr5__review-stars" aria-label="5 out of 5 stars">
+                  {%- for s in (1..5) -%}
+                    <span class="inv-tr5__star--filled">&#9733;</span>
+                  {%- endfor -%}
+                </div>
+                <p class="inv-tr5__review-text">&ldquo;{{ section.settings[text_key] }}&rdquo;</p>
+                <div class="inv-tr5__review-footer">
+                  <span class="inv-tr5__review-author">{{ review_author }}</span>
+                  <span class="inv-tr5__review-source">
+                    {%- case review_source -%}
+                      {%- when 'google' -%}
+                        <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                        </svg>
+                      {%- when 'facebook' -%}
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true">
+                          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                      {%- when 'trustpilot' -%}
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#00b67a" aria-hidden="true">
+                          <path d="M12 0l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 0z"/>
+                        </svg>
+                    {%- endcase -%}
+                    {{ review_source | capitalize }}
+                  </span>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+      </div>{%- comment -%} .inv-tr5__wrap {%- endcomment -%}
+    </div>
+  {%- endif -%}
+
+</section>
+
+<style>
+  /* ============================================
+     INVICTA TRUST & REVIEWS v7.0
+     Trade shop feel. Sharp corners, clean, structural.
+     Scrolling review ticker on light background.
+     ============================================ */
+
+  #inv-tr5-{{ section.id }} {
+    --itr5-accent: var(--inv-accent, #e11d26);
+    --itr5-accent-hover: var(--inv-accent-hover, #b91c1c);
+    --itr5-bg: #f5f5f5;
+    --itr5-fg: var(--inv-fg, #0f172a);
+    --itr5-fg-muted: var(--inv-fg-muted, #6b7280);
+    --itr5-border: var(--inv-border, #e5e7eb);
+    --itr5-card-bg: #f8f9fa;
+    --itr5-reviews-bg: #f5f5f5;
+  }
+
+  .inv-tr5 {
+    background: var(--itr5-bg);
+    border-top: 4px solid var(--itr5-accent);
+  }
+
+  .inv-tr5__wrap {
+    max-width: var(--inv-container, 1400px);
+    margin: 0 auto;
+    padding: 0 var(--inv-gutter, 24px);
+  }
+
+  /* ----------------------------------------
+     PART 1: HERO
+     ---------------------------------------- */
+  .inv-tr5__hero {
+    padding: {{ section.settings.padding_top | default: 48 }}px 0 0;
+  }
+
+  .inv-tr5__hero-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .inv-tr5__content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .inv-tr5__eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--itr5-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  .inv-tr5__heading {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(26px, 3.5vw, 36px);
+    font-weight: 900;
+    color: var(--itr5-fg);
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .inv-tr5__text {
+    font-size: 15px;
+    color: var(--itr5-fg-muted);
+    line-height: 1.6;
+  }
+
+  .inv-tr5__text p { margin: 0; }
+
+  .inv-tr5__points {
+    list-style: none;
+    margin: 2px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .inv-tr5__point {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--itr5-fg);
+  }
+
+  .inv-tr5__point-icon { flex-shrink: 0; }
+
+  /* ----------------------------------------
+     Stats + CTA row — full width below hero grid
+     ---------------------------------------- */
+  .inv-tr5__stats-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--itr5-border);
+  }
+
+  .inv-tr5__stats {
+    display: flex;
+    gap: 0;
+  }
+
+  .inv-tr5__stat {
+    padding-right: 36px;
+    margin-right: 36px;
+    border-right: 1px solid var(--itr5-border);
+  }
+
+  .inv-tr5__stat:last-child {
+    border-right: none;
+    margin-right: 0;
+    padding-right: 0;
+  }
+
+  .inv-tr5__stat-num {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(28px, 3vw, 36px);
+    font-weight: 900;
+    color: var(--itr5-accent);
+    line-height: 1;
+  }
+
+  .inv-tr5__stat-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--itr5-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 4px;
+  }
+
+  /* CTA */
+  .inv-tr5__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 28px;
+    background: var(--itr5-accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    border-radius: 0;
+    transition: background 0.15s ease;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .inv-tr5__cta:hover { background: var(--itr5-accent-hover); }
+  .inv-tr5__cta:focus-visible { outline: 2px solid var(--itr5-accent); outline-offset: 2px; }
+
+  /* ---- Rating badges (right side, stacked) ---- */
+  .inv-tr5__ratings {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 4px;
+  }
+
+  .inv-tr5__rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--itr5-card-bg);
+    border: 1px solid var(--itr5-border);
+    border-radius: 0;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    min-width: 190px;
+  }
+
+  .inv-tr5__rating:hover {
+    border-color: #d1d5db;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+
+  .inv-tr5__rating:focus-visible {
+    outline: 2px solid var(--itr5-accent);
+    outline-offset: 2px;
+  }
+
+  .inv-tr5__rating-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .inv-tr5__rating-score {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--itr5-fg);
+    line-height: 1;
+  }
+
+  .inv-tr5__rating-stars {
+    color: #fbbf24;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .inv-tr5__rating-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--itr5-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-left: auto;
+  }
+
+  /* ----------------------------------------
+     PART 2: BRANCH IMAGES
+     ---------------------------------------- */
+  .inv-tr5__branches {
+    padding: 24px 0 20px;
+  }
+
+  .inv-tr5__branches-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .inv-tr5__branch {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+    aspect-ratio: 16 / 7;
+  }
+
+  .inv-tr5__branch-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .inv-tr5__branch-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 50%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 14px 16px;
+  }
+
+  .inv-tr5__branch-name {
+    font-size: 14px;
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .inv-tr5__branch-badge {
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: var(--itr5-accent);
+    padding: 4px 10px;
+    border-radius: 0;
+  }
+
+  /* ----------------------------------------
+     PART 3: REVIEWS — scrolling ticker on light
+     ---------------------------------------- */
+  .inv-tr5__reviews {
+    background: var(--itr5-reviews-bg);
+    padding: 32px 0 {{ section.settings.padding_bottom | default: 48 }}px;
+    overflow: hidden;
+  }
+
+  .inv-tr5__reviews-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  .inv-tr5__reviews-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--itr5-fg);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .inv-tr5__reviews-link {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--itr5-accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.15s ease;
+  }
+
+  .inv-tr5__reviews-link:hover {
+    gap: 10px;
+  }
+
+  /* Ticker container */
+  .inv-tr5__ticker {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
+  }
+
+  .inv-tr5__ticker-track {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    animation: itr5-scroll 45s linear infinite;
+  }
+
+  .inv-tr5__ticker:hover .inv-tr5__ticker-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes itr5-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Review cards */
+  .inv-tr5__review {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-left: 3px solid var(--itr5-accent);
+    border-radius: 0;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 340px;
+    min-width: 340px;
+    flex-shrink: 0;
+  }
+
+  .inv-tr5__review-stars {
+    font-size: 16px;
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+
+  .inv-tr5__star--filled { color: #fbbf24; }
+
+  .inv-tr5__review-text {
+    font-size: 14px;
+    color: var(--itr5-fg-muted);
+    line-height: 1.6;
+    margin: 0;
+    font-style: italic;
+    flex: 1;
+  }
+
+  .inv-tr5__review-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid #e5e7eb;
+    margin-top: auto;
+  }
+
+  .inv-tr5__review-author {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--itr5-fg);
+  }
+
+  .inv-tr5__review-source {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--itr5-fg-muted);
+  }
+
+  .inv-tr5__review-source svg {
+    flex-shrink: 0;
+  }
+
+  /* ----------------------------------------
+     RESPONSIVE
+     ---------------------------------------- */
+  @media (max-width: 960px) {
+    .inv-tr5__hero-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .inv-tr5__ratings {
+      flex-direction: row;
+      flex-wrap: wrap;
+      padding-top: 0;
+    }
+
+    .inv-tr5__rating {
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .inv-tr5__branches-grid {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .inv-tr5__branch {
+      aspect-ratio: 16 / 8;
+    }
+
+    .inv-tr5__stats-row {
+      flex-wrap: wrap;
+    }
+
+    .inv-tr5__stats {
+      flex-wrap: wrap;
+      gap: 14px 0;
+      width: 100%;
+    }
+
+    .inv-tr5__stat {
+      flex: 0 0 auto;
+    }
+
+    .inv-tr5__cta {
+      width: 100%;
+      justify-content: center;
+      margin-left: 0;
+    }
+
+    .inv-tr5__ratings {
+      flex-direction: column;
+    }
+
+    .inv-tr5__hero {
+      padding-top: 28px;
+    }
+
+    .inv-tr5__branches {
+      padding: 18px 0 16px;
+    }
+
+    .inv-tr5__review {
+      width: 290px;
+      min-width: 290px;
+      padding: 20px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .inv-tr5__stat {
+      border-right: none;
+      margin-right: 16px;
+      padding-right: 0;
+    }
+
+    .inv-tr5__heading {
+      font-size: 22px;
+    }
+
+    .inv-tr5__review {
+      width: 260px;
+      min-width: 260px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .inv-tr5__cta, .inv-tr5__rating, .inv-tr5__reviews-link { transition: none; }
+    .inv-tr5__ticker-track { animation: none; }
+  }
+</style>
+
+<script>
+(function() {
+  var section = document.getElementById('inv-tr5-{{ section.id }}');
+  if (!section) return;
+
+  /* =========================================
+     COUNTER ANIMATION
+     ========================================= */
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
+
+  function parseStatNumber(raw) {
+    var match = raw.match(/^([\d,]+\.?\d*)\s*(.*)$/);
+    if (!match) return null;
+    var numStr = match[1].replace(/,/g, '');
+    var num = parseFloat(numStr);
+    var suffix = match[2] || '';
+    var hasDecimal = numStr.indexOf('.') !== -1;
+    var decimals = hasDecimal ? (numStr.split('.')[1] || '').length : 0;
+    var isLarge = num >= 1000;
+    return { target: num, suffix: suffix, decimals: decimals, isLarge: isLarge };
+  }
+
+  function formatNumber(val, parsed) {
+    if (parsed.decimals > 0) return val.toFixed(parsed.decimals);
+    var rounded = Math.round(val);
+    return parsed.isLarge ? rounded.toLocaleString() : rounded.toString();
+  }
+
+  function animateCounter(el) {
+    if (el.dataset.animated) return;
+    el.dataset.animated = 'true';
+    var raw = el.dataset.itr5Counter;
+    var parsed = parseStatNumber(raw);
+    if (!parsed) return;
+    if (reducedMotion) { el.textContent = formatNumber(parsed.target, parsed) + parsed.suffix; return; }
+    var duration = 2000;
+    var start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var elapsed = ts - start;
+      var progress = Math.min(elapsed / duration, 1);
+      var current = easeOutQuart(progress) * parsed.target;
+      el.textContent = formatNumber(current, parsed) + parsed.suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    el.textContent = '0' + parsed.suffix;
+    requestAnimationFrame(step);
+  }
+
+  var statsWrap = section.querySelector('.inv-tr5__stats');
+  if (statsWrap) {
+    var counters = statsWrap.querySelectorAll('[data-itr5-counter]');
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          counters.forEach(function(el) { animateCounter(el); });
+          obs.disconnect();
+        }
+      });
+    }, { threshold: 0.5 });
+    obs.observe(statsWrap);
+  }
+
+  /* =========================================
+     TICKER: duplicate track for seamless loop
+     ========================================= */
+  var ticker = section.querySelector('[data-itr5-ticker]');
+  var track = section.querySelector('[data-itr5-track]');
+  if (ticker && track) {
+    var cards = track.querySelectorAll('.inv-tr5__review');
+    if (cards.length > 0) {
+      /* Clone all cards and append for seamless loop */
+      var fragment = document.createDocumentFragment();
+      for (var c = 0; c < cards.length; c++) {
+        var clone = cards[c].cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        fragment.appendChild(clone);
+      }
+      track.appendChild(fragment);
+    }
+  }
+
+  /* =========================================
+     JUDGE.ME REVIEW FETCH
+     ========================================= */
+  function getJudgeMeToken() {
+    if (window.jdgm && window.jdgm.publicToken) return window.jdgm.publicToken;
+    var scripts = document.querySelectorAll('script[src*="judge.me"]');
+    for (var i = 0; i < scripts.length; i++) {
+      var src = scripts[i].getAttribute('src') || '';
+      var tokenMatch = src.match(/api_token=([^&]+)/);
+      if (tokenMatch) return tokenMatch[1];
+    }
+    return null;
+  }
+
+  function getSourceIcon(source) {
+    if (!source) return '';
+    var s = source.toLowerCase();
+    if (s.indexOf('google') !== -1) {
+      return '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>';
+    }
+    if (s.indexOf('facebook') !== -1) {
+      return '<svg width="14" height="14" viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>';
+    }
+    if (s.indexOf('trustpilot') !== -1) {
+      return '<svg width="14" height="14" viewBox="0 0 24 24" fill="#00b67a" aria-hidden="true"><path d="M12 0l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 0z"/></svg>';
+    }
+    return '';
+  }
+
+  function getSourceLabel(source) {
+    if (!source) return 'Review';
+    var s = source.toLowerCase();
+    if (s.indexOf('google') !== -1) return 'Google';
+    if (s.indexOf('facebook') !== -1) return 'Facebook';
+    if (s.indexOf('trustpilot') !== -1) return 'Trustpilot';
+    return source;
+  }
+
+  function renderStars(rating) {
+    var html = '';
+    for (var i = 1; i <= 5; i++) {
+      html += '<span class="inv-tr5__star--' + (i <= rating ? 'filled' : 'empty') + '">&#9733;</span>';
+    }
+    return html;
+  }
+
+  function buildReviewCard(review) {
+    var name = (review.reviewer && review.reviewer.name) ? review.reviewer.name : (review.author || 'Customer');
+    var rating = review.rating || 5;
+    var text = review.body || review.text || '';
+    var source = review.source || 'Judge.me';
+
+    return '<div class="inv-tr5__review" aria-hidden="true">' +
+      '<div class="inv-tr5__review-stars" aria-label="' + rating + ' out of 5 stars">' + renderStars(rating) + '</div>' +
+      '<p class="inv-tr5__review-text">&ldquo;' + text.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '&rdquo;</p>' +
+      '<div class="inv-tr5__review-footer">' +
+        '<span class="inv-tr5__review-author">' + name.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</span>' +
+        '<span class="inv-tr5__review-source">' + getSourceIcon(source) + ' ' + getSourceLabel(source) + '</span>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function replaceTickerWithLiveReviews(reviews) {
+    var trackEl = section.querySelector('[data-itr5-track]');
+    if (!trackEl || reviews.length === 0) return;
+    var html = '';
+    var count = Math.min(reviews.length, 10);
+    for (var i = 0; i < count; i++) {
+      html += buildReviewCard(reviews[i]);
+    }
+    /* Duplicate for seamless loop */
+    trackEl.innerHTML = html + html;
+  }
+
+  function fetchJudgeMeReviews() {
+    var token = getJudgeMeToken();
+    if (!token) return;
+    var shopDomain = (window.Shopify && window.Shopify.shop) ? window.Shopify.shop : 'invictatools.co.uk';
+    var url = 'https://judge.me/api/v1/reviews?shop_domain=' + encodeURIComponent(shopDomain) +
+              '&api_token=' + encodeURIComponent(token) + '&per_page=15&sort_by=most_helpful';
+    fetch(url)
+      .then(function(res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+      .then(function(data) {
+        var reviews = data.reviews || data.data || [];
+        if (reviews.length > 0) replaceTickerWithLiveReviews(reviews);
+      })
+      .catch(function() { /* keep hardcoded fallbacks */ });
+  }
+
+  fetchJudgeMeReviews();
+
+  /* =========================================
+     SHOPIFY EDITOR EVENTS
+     ========================================= */
+  document.addEventListener('shopify:section:load', function(e) {
+    if (e.detail && e.detail.sectionId === '{{ section.id }}') {
+      var els = section.querySelectorAll('[data-itr5-counter]');
+      els.forEach(function(el) { el.dataset.animated = ''; animateCounter(el); });
+    }
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Invicta Trust v3",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Trust Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Since 1996"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Kent's Trade Tool Specialists"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Body text",
+      "default": "<p>Family-run from Canterbury with a second branch in Ramsgate. We stock what tradespeople actually need, when they need it.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Branch Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1 (Canterbury branch)",
+      "info": "Landscape recommended. Wide banner display."
+    },
+    {
+      "type": "text",
+      "id": "image_1_caption",
+      "label": "Image 1 caption",
+      "default": "Canterbury"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2 (Ramsgate branch)",
+      "info": "Landscape recommended. Wide banner display."
+    },
+    {
+      "type": "text",
+      "id": "image_2_caption",
+      "label": "Image 2 caption",
+      "default": "Ramsgate"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Authorised dealer badge",
+      "default": "Authorised Dealer",
+      "info": "Overlays bottom-right of first branch image"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "Visit Our Stores"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Review Ticker"
+    },
+    {
+      "type": "text",
+      "id": "review_heading",
+      "label": "Review heading",
+      "default": "What Kent Tradespeople Say"
+    },
+    {
+      "type": "url",
+      "id": "review_link",
+      "label": "Reviews link",
+      "info": "Where 'Read all reviews' links to (e.g. a reviews page or Trustpilot)"
+    },
+    {
+      "type": "header",
+      "content": "Review 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_1_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_1_text",
+      "label": "Review text",
+      "default": "You want tools and fixings? This is the place. Top notch products & service"
+    },
+    {
+      "type": "text",
+      "id": "review_1_author",
+      "label": "Author",
+      "default": "Anthony F."
+    },
+    {
+      "type": "select",
+      "id": "review_1_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "google"
+    },
+    {
+      "type": "header",
+      "content": "Review 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_2_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_2_text",
+      "label": "Review text",
+      "default": "Fantastic firm, great service, range of tools and competitively priced!"
+    },
+    {
+      "type": "text",
+      "id": "review_2_author",
+      "label": "Author",
+      "default": "Neil B."
+    },
+    {
+      "type": "select",
+      "id": "review_2_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "google"
+    },
+    {
+      "type": "header",
+      "content": "Review 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_3_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_3_text",
+      "label": "Review text",
+      "default": "Ultra helpful. Extremely good value for money. Massive selection of stock"
+    },
+    {
+      "type": "text",
+      "id": "review_3_author",
+      "label": "Author",
+      "default": "A W."
+    },
+    {
+      "type": "select",
+      "id": "review_3_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "google"
+    },
+    {
+      "type": "header",
+      "content": "Review 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_4_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_4_text",
+      "label": "Review text",
+      "default": "The best professional tools for trade but also for DIY"
+    },
+    {
+      "type": "text",
+      "id": "review_4_author",
+      "label": "Author",
+      "default": "Marcin P."
+    },
+    {
+      "type": "select",
+      "id": "review_4_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "facebook"
+    },
+    {
+      "type": "header",
+      "content": "Review 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_5_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_5_text",
+      "label": "Review text",
+      "default": "The place looks small on the outside but it's like a TARDIS on the inside."
+    },
+    {
+      "type": "text",
+      "id": "review_5_author",
+      "label": "Author",
+      "default": "Steven J."
+    },
+    {
+      "type": "select",
+      "id": "review_5_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "google"
+    },
+    {
+      "type": "header",
+      "content": "Review 6"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_6_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_6_text",
+      "label": "Review text",
+      "default": "Amazing service!! Delivery on time! Great price 5*!"
+    },
+    {
+      "type": "text",
+      "id": "review_6_author",
+      "label": "Author",
+      "default": "Daniel M."
+    },
+    {
+      "type": "select",
+      "id": "review_6_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "trustpilot"
+    },
+    {
+      "type": "header",
+      "content": "Review 7"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_7_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_7_text",
+      "label": "Review text",
+      "default": "If you're in need of anything come to these guys, they will get you what you need!"
+    },
+    {
+      "type": "text",
+      "id": "review_7_author",
+      "label": "Author",
+      "default": "Billy W."
+    },
+    {
+      "type": "select",
+      "id": "review_7_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "facebook"
+    },
+    {
+      "type": "header",
+      "content": "Review 8"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_8_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_8_text",
+      "label": "Review text",
+      "default": "Always willing to give you a good deal. Excellent amount of Makita tools!"
+    },
+    {
+      "type": "text",
+      "id": "review_8_author",
+      "label": "Author",
+      "default": "Alan G."
+    },
+    {
+      "type": "select",
+      "id": "review_8_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "google"
+    },
+    {
+      "type": "header",
+      "content": "Review 9"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_9_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_9_text",
+      "label": "Review text",
+      "default": "Brilliant choice of tools and always seem to have what I want in stock."
+    },
+    {
+      "type": "text",
+      "id": "review_9_author",
+      "label": "Author",
+      "default": "Kieran W."
+    },
+    {
+      "type": "select",
+      "id": "review_9_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "google"
+    },
+    {
+      "type": "header",
+      "content": "Review 10"
+    },
+    {
+      "type": "checkbox",
+      "id": "review_10_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_10_text",
+      "label": "Review text",
+      "default": "A nice little tool shop with friendly informative staff, good prices too!"
+    },
+    {
+      "type": "text",
+      "id": "review_10_author",
+      "label": "Author",
+      "default": "Richard H."
+    },
+    {
+      "type": "select",
+      "id": "review_10_source",
+      "label": "Source",
+      "options": [
+        { "value": "google", "label": "Google" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "trustpilot", "label": "Trustpilot" }
+      ],
+      "default": "trustpilot"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "30+",
+          "info": "Include suffix like +, ★ etc."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Years Trading"
+        }
+      ]
+    },
+    {
+      "type": "point",
+      "name": "Proof Point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Authorised Makita, DeWalt & HiKOKI Dealer"
+        }
+      ]
+    },
+    {
+      "type": "rating",
+      "name": "Rating Badge",
+      "settings": [
+        {
+          "type": "select",
+          "id": "platform",
+          "label": "Platform",
+          "options": [
+            { "value": "google", "label": "Google" },
+            { "value": "facebook", "label": "Facebook" },
+            { "value": "trustpilot", "label": "Trustpilot" }
+          ],
+          "default": "google"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Button text",
+          "default": "4.5 ★ on Google",
+          "info": "Score is extracted from the first word"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Invicta Trust & Reviews v3",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": { "number": "30+", "label": "Years Trading" }
+        },
+        {
+          "type": "stat",
+          "settings": { "number": "15,000+", "label": "Products" }
+        },
+        {
+          "type": "stat",
+          "settings": { "number": "2", "label": "Kent Branches" }
+        },
+        {
+          "type": "stat",
+          "settings": { "number": "4.7★", "label": "Average Rating" }
+        },
+        {
+          "type": "point",
+          "settings": { "text": "Authorised Makita, DeWalt & HiKOKI Dealer" }
+        },
+        {
+          "type": "rating",
+          "settings": { "platform": "google", "text": "4.5 ★ on Google" }
+        },
+        {
+          "type": "rating",
+          "settings": { "platform": "facebook", "text": "4.8 ★ on Facebook" }
+        },
+        {
+          "type": "rating",
+          "settings": { "platform": "trustpilot", "text": "4.4 ★ on Trustpilot" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,751 @@
+{% comment %}
+  ============================================
+  INVICTA PRODUCT WALL v4.0
+  ============================================
+  Brand-tabbed product grid. Each brand tab is
+  a block so merchants can add / remove / reorder
+  freely from the theme editor (up to 12).
+
+  Uses:
+  - snippets/invicta-product-card.liquid (cards)
+  - snippets/invicta-brand-pill.liquid (brand filter pills, type: 'filter')
+  - assets/invicta-product-card.css (loaded globally)
+
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+{%- liquid
+  assign columns_desktop = section.settings.columns_desktop | default: 5
+  assign show_view_all = section.settings.show_view_all
+  assign title_text = section.settings.title | default: 'Explore Our Brands'
+  assign max_products = section.settings.max_products | default: 10
+
+  assign has_brands = false
+  for block in section.blocks
+    if block.type == 'brand' and block.settings.brand_name != blank and block.settings.collection != blank
+      assign has_brands = true
+      break
+    endif
+  endfor
+-%}
+
+<div
+  class="inv-product-wall"
+  id="inv-pw-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="invicta-product-wall"
+  style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="inv-container">
+
+    {%- comment -%} ================================
+        HEADER
+        ================================ {%- endcomment -%}
+    <div class="inv-pw-header">
+      <div class="inv-pw-header__top">
+        <div class="inv-pw-header__text">
+          {%- if title_text != blank -%}
+            <h2 class="inv-pw-header__title" data-pw-title>{{ title_text }}</h2>
+          {%- endif -%}
+          {%- if section.settings.subtitle != blank -%}
+            <p class="inv-pw-header__subtitle">{{ section.settings.subtitle }}</p>
+          {%- endif -%}
+        </div>
+        {%- if show_view_all -%}
+          <a href="#" class="inv-pw-header__cta" data-pw-cta style="display:none;">
+            <span>View All</span>
+            <span class="inv-pw-header__count" data-pw-count></span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        {%- endif -%}
+      </div>
+
+      {%- if has_brands -%}
+        <div class="inv-pw-brands" data-pw-brands>
+          <div class="inv-pw-brands__scroll">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'brand' and block.settings.brand_name != blank and block.settings.collection != blank -%}
+                <button class="inv-pw-brand-btn{% if forloop.first %} active{% endif %}"
+                        data-brand="{{ block.settings.brand_name | handleize }}"
+                        aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+                        {{ block.shopify_attributes }}>
+                  {% render 'invicta-brand-pill', vendor: block.settings.brand_name, type: 'filter' %}
+                </button>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} ================================
+        PRODUCT GRIDS — one per brand block
+        ================================ {%- endcomment -%}
+
+    {%- if has_brands -%}
+      {%- assign grid_index = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'brand' and block.settings.brand_name != blank and block.settings.collection != blank -%}
+          {%- assign grid_index = grid_index | plus: 1 -%}
+          {%- assign brand_col = block.settings.collection -%}
+          <ul class="inv-pw-grid{% unless grid_index == 1 %} inv-pw-grid--hidden{% endunless %}" role="list"
+              data-pw-grid="{{ block.settings.brand_name | handleize }}"
+              data-collection-url="{{ brand_col.url }}"
+              data-total-count="{{ brand_col.products_count | default: 0 }}">
+            {%- if brand_col.products.size > 0 -%}
+              {%- for product in brand_col.products limit: max_products -%}
+                <li class="inv-pw-grid__item">
+                  {% render 'invicta-product-card', product: product, card_index: forloop.index %}
+                </li>
+              {%- endfor -%}
+            {%- else -%}
+              <li class="inv-pw-grid__empty"><p>No products found.</p></li>
+            {%- endif -%}
+          </ul>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- comment -%} No brands configured — placeholder {%- endcomment -%}
+      <p style="text-align:center;padding:40px 0;color:#999;">Configure brand tabs in the theme editor to display products.</p>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<style>
+  /* ============================================
+     INVICTA PRODUCT WALL v4.0
+     ============================================ */
+
+  #shopify-section-{{ section.id }} .inv-product-wall {
+    background: #ffffff;
+    border-top: 4px solid var(--inv-accent);
+    padding-top: 28px !important;
+  }
+
+  #shopify-section-{{ section.id }} .inv-container {
+    max-width: var(--inv-container, 1400px);
+    margin: 0 auto;
+    padding: 0 var(--inv-page-gutter, 1.5rem);
+  }
+
+  /* ----------------------------------------
+     HEADER
+     ---------------------------------------- */
+  #shopify-section-{{ section.id }} .inv-pw-header {
+    border-bottom: 3px solid var(--inv-accent, #e11d26);
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-header__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-header__title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 800;
+    color: var(--inv-fg, #0f172a);
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-header__subtitle {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--inv-fg-muted, #6b7280);
+    margin: 6px 0 0;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-header__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--inv-accent, #e11d26);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    padding-top: 6px;
+    transition: gap 0.15s ease;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-header__cta:hover {
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-header__count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--inv-accent, #e11d26);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 12px;
+    min-width: 24px;
+  }
+
+  /* ----------------------------------------
+     BRAND PILLS — inside the header
+     ---------------------------------------- */
+  #shopify-section-{{ section.id }} .inv-pw-brands {
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brands__scroll {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 6px 2px 10px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--inv-border, #e5e7eb) transparent;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brands__scroll::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brands__scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brands__scroll::-webkit-scrollbar-thumb {
+    background: var(--inv-border, #e5e7eb);
+    border-radius: 3px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 24px;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: transform 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill {
+    min-height: 36px;
+    padding: 6px 14px;
+    --pill-logo-height: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill .invicta-brand-pill__logo-bg {
+    width: 70px;
+    height: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill--text {
+    min-height: 36px;
+    padding: 8px 18px;
+    font-size: 13px !important;
+    letter-spacing: 0.3px !important;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill--text .invicta-brand-pill__label {
+    font-size: 13px;
+  }
+
+  /* Active pill — scale + ring */
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn.active .invicta-brand-pill {
+    box-shadow: 0 0 0 3px #1a1a1a;
+    transform: scale(1.08);
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn.active {
+    outline: none;
+  }
+
+  /* Inactive pills when a selection exists */
+  #shopify-section-{{ section.id }} .inv-pw-brands.has-selection .inv-pw-brand-btn:not(.active) .invicta-brand-pill {
+    filter: grayscale(100%);
+    opacity: 0.5;
+    transition: filter 0.2s ease, opacity 0.2s ease, transform 0.15s ease;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brands.has-selection .inv-pw-brand-btn:not(.active):hover .invicta-brand-pill {
+    filter: grayscale(0);
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn:focus-visible {
+    outline: 2px solid var(--inv-accent, #e11d26);
+    outline-offset: 2px;
+  }
+
+  /* v5.0: Redesigned brand tabs */
+  #shopify-section-{{ section.id }} .inv-pw-brands {
+    border-bottom: 2px solid var(--inv-border, #e5e7eb);
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brands__scroll {
+    padding-bottom: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn {
+    border-radius: 0;
+    border: 1.5px solid var(--inv-border, #e5e7eb);
+    background: var(--inv-bg, #f5f5f6);
+    padding: 10px 20px;
+    min-height: 44px;
+    transition: all 0.15s ease;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn:hover {
+    border-color: var(--inv-dark, #1a1a1a);
+    background: var(--inv-bg-elevated);
+  }
+
+  /* Active state: fill with brand colour */
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn.active {
+    border-color: var(--inv-dark, #1a1a1a);
+    background: var(--inv-dark, #1a1a1a);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-brand-btn.active .invicta-brand-pill {
+    box-shadow: none;
+    transform: none;
+  }
+
+  /* Remove grayscale from inactive — use opacity only */
+  #shopify-section-{{ section.id }} .inv-pw-brands.has-selection .inv-pw-brand-btn:not(.active) {
+    opacity: 0.55;
+  }
+  #shopify-section-{{ section.id }} .inv-pw-brands.has-selection .inv-pw-brand-btn:not(.active) .invicta-brand-pill {
+    filter: none;
+    opacity: 1;
+  }
+  #shopify-section-{{ section.id }} .inv-pw-brands.has-selection .inv-pw-brand-btn:not(.active):hover {
+    opacity: 1;
+  }
+
+  /* ----------------------------------------
+     PRODUCT GRID
+     ---------------------------------------- */
+  #shopify-section-{{ section.id }} .inv-pw-grid {
+    display: grid;
+    grid-template-columns: repeat({{ columns_desktop }}, 1fr);
+    gap: 16px;
+    list-style: none;
+    margin: 0;
+    padding: 4px 2px 8px;
+    padding-top: 24px;
+    transition: opacity 0.25s ease;
+    contain: content;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-grid--hidden {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-grid.inv-pw-fade {
+    opacity: 0;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-grid__item {
+    display: flex;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .inv-pw-grid__empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 48px 16px;
+    color: #999;
+    font-size: 14px;
+    list-style: none;
+  }
+
+  /* ----------------------------------------
+     COMPACT CARD OVERRIDES (product wall only)
+     ---------------------------------------- */
+  #shopify-section-{{ section.id }} .inv-card__body {
+    padding: 8px 10px 10px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-card__header {
+    margin-bottom: 6px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-card__title {
+    font-size: 11px;
+    min-height: 30px;
+    margin-bottom: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-card__title a {
+    font-size: 11px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-card__price {
+    font-size: 15px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-card__was {
+    font-size: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-card__vat {
+    font-size: 9px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-card__action {
+    margin-top: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-card__btn {
+    min-height: 36px;
+    font-size: 10px;
+    padding: 7px 8px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-card__btn svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-card__img {
+    padding: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-card__stock {
+    font-size: 8px;
+    padding: 2px 6px;
+    top: 8px;
+    left: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .inv-card__sale {
+    font-size: 9px;
+    padding: 3px 7px;
+    bottom: 8px;
+    left: 8px;
+  }
+
+  /* ----------------------------------------
+     RESPONSIVE — Tablet
+     ---------------------------------------- */
+  @media (max-width: 1100px) {
+    #shopify-section-{{ section.id }} .inv-pw-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* ----------------------------------------
+     RESPONSIVE — Mobile
+     ---------------------------------------- */
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .inv-pw-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .inv-pw-header__top {
+      flex-direction: column;
+    }
+
+    #shopify-section-{{ section.id }} .inv-pw-header__title {
+      font-size: clamp(18px, 5vw, 24px);
+    }
+
+    #shopify-section-{{ section.id }} .inv-pw-header__cta {
+      align-self: flex-start;
+    }
+
+    #shopify-section-{{ section.id }} .inv-pw-brands__scroll {
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill {
+      min-height: 32px;
+      padding: 5px 12px;
+      --pill-logo-height: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill .invicta-brand-pill__logo-bg {
+      width: 58px;
+      height: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill--text {
+      min-height: 32px;
+      padding: 6px 14px;
+      font-size: 12px !important;
+    }
+
+    #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill--text .invicta-brand-pill__label {
+      font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .inv-card__body {
+      padding: 8px 10px 10px;
+    }
+
+    #shopify-section-{{ section.id }} .inv-card__title {
+      font-size: 11px;
+      min-height: 32px;
+      margin-bottom: 6px;
+    }
+
+    #shopify-section-{{ section.id }} .inv-card__title a {
+      font-size: 11px;
+    }
+
+    #shopify-section-{{ section.id }} .inv-card__price {
+      font-size: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .inv-card__btn {
+      min-height: 38px;
+      font-size: 10px;
+      padding: 6px 8px;
+    }
+
+    #shopify-section-{{ section.id }} .inv-card__img {
+      padding: 8px;
+    }
+  }
+
+  /* ----------------------------------------
+     ACCESSIBILITY — Reduced Motion
+     ---------------------------------------- */
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .inv-pw-header__cta,
+    #shopify-section-{{ section.id }} .inv-pw-brand-btn,
+    #shopify-section-{{ section.id }} .inv-pw-brand-btn .invicta-brand-pill,
+    #shopify-section-{{ section.id }} .inv-pw-grid {
+      transition: none;
+    }
+
+    #shopify-section-{{ section.id }} .inv-pw-header__cta:hover,
+    #shopify-section-{{ section.id }} .inv-pw-brands.has-selection .inv-pw-brand-btn:not(.active):hover .invicta-brand-pill,
+    #shopify-section-{{ section.id }} .inv-pw-brand-btn.active .invicta-brand-pill {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  /**
+   * Invicta Product Wall v4.0
+   * Brand-tabbed grid switching with fade animation
+   */
+  (function() {
+    'use strict';
+
+    var SECTION_ID = {{ section.id | json }};
+
+    function prefersReducedMotion() {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+
+    function init() {
+      var root = document.getElementById('inv-pw-' + SECTION_ID);
+      if (!root) return;
+
+      var brandBtns = root.querySelectorAll('.inv-pw-brand-btn');
+      var grids = root.querySelectorAll('[data-pw-grid]');
+      var ctaEl = root.querySelector('[data-pw-cta]');
+      var countEl = root.querySelector('[data-pw-count]');
+      var brandsContainer = root.querySelector('[data-pw-brands]');
+
+      if (brandBtns.length === 0 || grids.length === 0) return;
+
+      /* Always has a selection — add class for CSS grayscale/opacity rules */
+      if (brandsContainer) brandsContainer.classList.add('has-selection');
+
+      /* Show CTA for first active grid */
+      updateCta(root.querySelector('[data-pw-grid]:not(.inv-pw-grid--hidden)'));
+
+      for (var b = 0; b < brandBtns.length; b++) {
+        brandBtns[b].addEventListener('click', function() {
+          var brand = this.getAttribute('data-brand');
+
+          for (var j = 0; j < brandBtns.length; j++) {
+            brandBtns[j].classList.remove('active');
+            brandBtns[j].setAttribute('aria-pressed', 'false');
+          }
+          this.classList.add('active');
+          this.setAttribute('aria-pressed', 'true');
+
+          var reduced = prefersReducedMotion();
+          var activeGrid = root.querySelector('[data-pw-grid]:not(.inv-pw-grid--hidden)');
+
+          if (!reduced && activeGrid) {
+            activeGrid.classList.add('inv-pw-fade');
+          }
+
+          var swap = function() {
+            for (var g = 0; g < grids.length; g++) {
+              grids[g].classList.add('inv-pw-grid--hidden');
+              grids[g].classList.remove('inv-pw-fade');
+            }
+            var target = root.querySelector('[data-pw-grid="' + brand + '"]');
+            if (target) {
+              target.classList.remove('inv-pw-grid--hidden');
+              updateCta(target);
+            }
+          };
+
+          if (!reduced) {
+            setTimeout(swap, 150);
+          } else {
+            swap();
+          }
+        });
+      }
+
+      function updateCta(grid) {
+        if (!ctaEl || !grid) return;
+        var url = grid.getAttribute('data-collection-url');
+        var total = grid.getAttribute('data-total-count');
+        if (url) {
+          ctaEl.href = url;
+          ctaEl.style.display = '';
+          if (countEl && total) countEl.textContent = total;
+        } else {
+          ctaEl.style.display = 'none';
+        }
+      }
+    }
+
+    function handleSectionEvent(event) {
+      if (event.detail && event.detail.sectionId === SECTION_ID) init();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+    document.addEventListener('shopify:section:load', handleSectionEvent);
+    document.addEventListener('shopify:section:select', handleSectionEvent);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Invicta Product Wall",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Explore Our Brands",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Click a brand to see their top products"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "Show 'View All' button"
+    },
+    {
+      "type": "range",
+      "id": "max_products",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 10,
+      "label": "Products per brand"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 3,
+      "max": 6,
+      "step": 1,
+      "default": 5,
+      "label": "Desktop columns"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand Tab",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "text",
+          "id": "brand_name",
+          "label": "Brand name",
+          "info": "Must match the vendor name exactly (e.g. 'Makita', 'DeWalt'). Used to render the brand pill."
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection",
+          "info": "The collection whose products will be shown when this brand is selected."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Invicta Product Wall",
+      "blocks": [
+        { "type": "brand", "settings": { "brand_name": "Makita" } },
+        { "type": "brand", "settings": { "brand_name": "DeWalt" } },
+        { "type": "brand", "settings": { "brand_name": "TIMCO" } },
+        { "type": "brand", "settings": { "brand_name": "Premier Diamond" } },
+        { "type": "brand", "settings": { "brand_name": "Viper" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
