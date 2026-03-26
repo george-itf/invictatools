@@ -1387,3 +1387,214 @@ All icons use `viewBox="0 0 24 24"`, `fill="none"`, `stroke="currentColor"` unle
 
 **Flag:** Icons without explicit `width`/`height` attributes rely on CSS sizing — if CSS fails to load or is overridden, icons will collapse to zero size. Hardcoded `stroke="#16a34a"` and `fill="#1877F2"` / `fill="#00b67a"` appear in multiple places and bypass the colour token system. Two distinct `stroke-width` values (`2` and `2.5`) are used across the system with no consistent rule — heavier icons appear in USP strips and FAQ, lighter in navigation and social.
 
+
+---
+
+## 5. Spacing
+
+### 5A. Section Padding
+
+Sections without schema padding controls use hardcoded values. Default values are from the `"default"` key in schema range controls.
+
+| Section File | Desktop PT | Desktop PB | Mobile PT | Mobile PB | Token Used? | Schema Range? |
+|---|---|---|---|---|---|---|
+| `invicta-hero-v3.liquid` | Schema (default: `0`) | Schema (default: `0`) | Schema value | Schema value | No | Yes |
+| `invicta-hero-split.liquid` | Schema (default: `20`) | Schema (default: `20`) | 75% of schema (×0.7 approx) | 75% | No | Yes |
+| `invicta-trust-strip.liquid` | Schema (default: `0`) | Schema (default: `0`) | Schema value | Schema value | No | Yes |
+| `invicta-trust-bar.liquid` | Schema | Schema | Schema | Schema | No | Yes |
+| `invicta-usp-strip-v2.liquid` | `max(schema, 10px)` | `max(schema, 10px)` | Schema | Schema | No | Yes |
+| `invicta-spotlight.liquid` | Schema (default: `40`) | Schema (default: `40`) | Schema | Schema | No | Yes |
+| `invicta-quick-cats.liquid` | Schema (default: `0`) | `20px` hardcoded | Schema | `20px` | Partial | Yes |
+| `invicta-product-wall.liquid` | Schema (default: `40`) | Schema (default: `40`) | Schema | Schema | No | Yes (inline style) |
+| `invicta-product-grid.liquid` | Schema | Schema | Schema × 0.6 | Schema × 0.6 | No | Yes |
+| `invicta-collection.liquid` | Not controlled by padding schema | No schema padding | — | — | — | No |
+| `invicta-trust-reviews.liquid` | Schema (default: `48`) | Schema (default: `48`) | `32px` hardcoded | Schema | Partial | Yes |
+| `invicta-recently-viewed.liquid` | Schema | Schema | Schema × 0.7 | Schema × 0.7 | No | Yes |
+| `invicta-newsletter.liquid` | Not in section wrapper | Not in section wrapper | — | — | — | No |
+| `invicta-footer.liquid` | Schema | Schema | Schema | Schema | No | Yes |
+| `invicta-simple-nav.liquid` | Not a section | — | — | — | — | — |
+| `invicta-promo-banners.liquid` | Schema | Schema | Schema | Schema | No | Yes |
+| `invicta-faq.liquid` | Not direct section | — | — | — | — | No |
+| `invicta-delivery-info.liquid` | Not controlled by section padding | — | — | — | — | No |
+| `invicta-returns.liquid` | `48px 0 64px` hardcoded | — | — | — | No | No |
+| `invicta-comparison.liquid` | No section padding | — | — | — | — | No |
+| `invicta-brand-collection.liquid` | No section padding | — | — | — | — | No |
+| `invicta-brand-strip.liquid` | Schema (clamp if > 20px, default: `48`) | Schema (clamp if > 16px, default: `48`) | Clamp via schema | Clamp via schema | No | Yes |
+| `invicta-category-grid.liquid` | Schema | Schema | Schema × 0.6 | Schema × 0.6 | No | Yes |
+| `invicta-trade-cta.liquid` | `0 20px` hardcoded (only horizontal) | — | — | — | No | No |
+| `invicta-related-products.liquid` | Schema × 0.75 (mobile) / Schema (desktop) | Schema | Schema × 0.75 | Schema | No | Yes |
+
+**Key observations:**
+- No section uses `--inv-space-*` tokens for its outer section padding — all use raw pixel values from schema or hardcoded.
+- Mobile padding reductions are computed inconsistently: some use ×0.6, some ×0.7, some ×0.75, some `max()` clamping.
+- `invicta-quick-cats.liquid` hardcodes bottom padding to `20px` regardless of schema.
+
+---
+
+### 5B. Container Widths
+
+| Value | Context | File |
+|---|---|---|
+| `var(--inv-container, 1400px)` | Primary layout container — hero, trust strip, spotlight, product wall, newsletter, brand strip, simple nav, quick cats | Multiple sections |
+| `var(--inv-page-width, 1320px)` | Narrower content container — FAQ, delivery info, returns | Multiple sections |
+| `1400px` | Trade CTA wrapper (hardcoded, not using token) | `sections/invicta-trade-cta.liquid:15` |
+| `var(--page-width, 1200px)` | Category grid (Shopify base token, not Invicta) | `sections/invicta-category-grid.liquid:147` |
+| `1400px` | PDP layout container | `assets/invicta-product-v2.css:21` |
+| `1400px` | Sticky ATC bar | `assets/invicta-ux-improvements.css:244` |
+| `var(--inv-page-width, 1320px)` | Related products | `assets/invicta-related-products.css:20` |
+| `700px` | Search dropdown | `assets/invicta-search.css:19` |
+
+**Flag:** Three different container width systems are in use: `--inv-container` (1400px), `--inv-page-width` (1320px), and `--page-width` (Shopify base, 1200px). `invicta-trade-cta.liquid` hardcodes `1400px` instead of using the token, and `invicta-category-grid.liquid` uses `--page-width` from the base theme, not the Invicta system.
+
+---
+
+### 5C. Container Gutters
+
+| Value | Context | File |
+|---|---|---|
+| `var(--inv-page-gutter, 1.5rem)` | Token default — page horizontal padding | `assets/invicta-css-variables.css:195` |
+| `var(--inv-page-gutter-desktop, 3rem)` | Desktop gutter token | `assets/invicta-css-variables.css:196` |
+| `var(--inv-mobile-gutter, 12px)` | Mobile gutter token | `assets/invicta-css-variables.css:211` |
+| `0 1.5rem` | Category grid container | `sections/invicta-category-grid.liquid:149` |
+| `0 1rem` | Recently-viewed mobile, product-grid mobile | Multiple |
+| `0 20px` | Trade CTA | `sections/invicta-trade-cta.liquid:17` |
+| `0 var(--inv-space-lg)` | PDP layout | `assets/invicta-product-v2.css:23` |
+| `0 var(--inv-space-md)` | PDP mobile | `assets/invicta-product-v2.css:1304` |
+
+**Flag:** Container gutters are inconsistently applied. Several sections set horizontal padding in inline `padding` shorthand rather than using gutter tokens. The `--inv-page-gutter` token exists but is not consistently applied to section containers.
+
+---
+
+### 5D. Grid Gaps
+
+| Value | Context | File |
+|---|---|---|
+| `var(--inv-space-xs)` = 4px | PDP internal small gaps | `assets/invicta-product-v2.css` |
+| `var(--inv-space-sm)` = 8px | PDP gallery thumbs, feature groups | `assets/invicta-product-v2.css` |
+| `var(--inv-space-sm-plus)` = 12px | PDP sections default, buybox | `assets/invicta-product-v2.css` |
+| `var(--inv-space-md)` = 16px | PDP info groups | `assets/invicta-product-v2.css` |
+| `var(--inv-space-lg)` = 24px | PDP main columns, price block | `assets/invicta-product-v2.css` |
+| `var(--inv-space-xl)` = 32px | PDP full layout | `assets/invicta-product-v2.css` |
+| `var(--inv-space-2xl)` = 48px | PDP top-level columns | `assets/invicta-product-v2.css` |
+| `3px` | CX badge icon gap | `assets/invicta-cx-improvements.css:75` |
+| `4px` | CX small gaps, product card price row | Multiple |
+| `6px` | Comparison, CX, cart | Multiple |
+| `8px` | Most common non-token gap: buttons, product card, cart | Many files |
+| `10px` | Related products, cart, utility buttons | Multiple |
+| `12px` | Comparison, search, cart, newsletter | Multiple |
+| `14px` | Search results layout | `assets/invicta-search.css:210,495` |
+| `16px` | Related products card grid | `assets/invicta-related-products.css:59,76` |
+| `--inv-mobile-card-gap` (10px) | Defined but usage not confirmed in scanned files | Token only |
+
+**Note:** PDP uses tokens almost exclusively for gaps. All other components use raw pixel values. This creates two tiers of gap management with no consistent bridge.
+
+---
+
+### 5E. Component Internal Spacing
+
+| Component | Internal Padding | File |
+|---|---|---|
+| Product card (`.inv-card`) | `12px` (body — not shown directly, inferred from card layout) | `assets/invicta-product-card.css` |
+| Product card badge | `6px 12px` | `assets/invicta-product-v2.css:254` |
+| PDP option group | `8px 14px` | `assets/invicta-product-v2.css:269,325,354` |
+| PDP info tab item | `14px 20px` and `16px 20px` | `assets/invicta-product-v2.css:379,410` |
+| PDP description panel | `0 20px 20px` | `assets/invicta-product-v2.css:442` |
+| PDP trust strip item | `var(--inv-space-sm-plus) 0` | `assets/invicta-product-v2.css:1076` |
+| Trust strip item (USP) | `14px 20px` | `sections/invicta-trust-strip.liquid:124` |
+| USP strip item | `20px 16px` (desktop), `16px 20px` and `14px 12px` (mobile) | `sections/invicta-usp-strip-v2.liquid:125,198,217` |
+| Trust bar tab item | `24px 16px` (desktop), `10px 16px` (mobile) | `sections/invicta-trust-bar.liquid:197,523` |
+| Cart item | `1.2rem` gap | `assets/invicta-cart.css:218` |
+| Newsletter form | `28px 48px` (desktop), `16px 28px` (mobile) | `sections/invicta-newsletter.liquid:168,410` |
+| Category grid card | `60px 20px` (empty), schema-controlled title | `sections/invicta-category-grid.liquid:194` |
+
+---
+
+## 6. Borders & Radius
+
+### 6A. Border Radius
+
+All non-zero values found:
+
+| Value | Element/Context | File | Line |
+|---|---|---|---|
+| `2px` | PDP bundle label; related product save badge; trade-cta eyebrow | Multiple | Various |
+| `3px` | CX improvement badge; cart discount chip; recently-viewed chip | Multiple | Various |
+| `4px` | Badge; comparison badge; cart discount chip; input (via `--inv-radius-sm`) | Multiple | Various |
+| `6px` | Cart quantity btn; cart remove btn; CX components; search items; product card secondary badge; footer social links; product grid chips | Many files | Various |
+| `8px` | Cart items wrapper; checkout button (cart + drawer); comparison drawer; CX; search items; hero-split badge; footer newsletter input | Many files | Various |
+| `10px` | Cart item card (mobile); CX dropdown; search items | `invicta-cart.css:214`, `invicta-cx-improvements.css:282` | Various |
+| `11px` | Hero-split accent badge | `sections/invicta-hero-split.liquid:514` | — |
+| `12px` | Product card outer card; lightbox container; search dropdown container; category grid card; product-wall tab active | Multiple | Various |
+| `16px` | Comparison modal top; `--inv-radius-xl` token | Multiple | Various |
+| `20px` | CX pill badge | `assets/invicta-cx-improvements.css:351` | — |
+| `24px` | Product wall brand pill active | `sections/invicta-product-wall.liquid:234` | — |
+| `50%` | Circular icons (brand pill avatar, cart shipping icon, USP strip icon bg, footer social, trust-bar circle, newsletter icon) | Many files | Various |
+| `50px` | Recently-viewed filter chip | `sections/invicta-recently-viewed.liquid:340` | — |
+| `100px` | Pill-shaped swatch/colour chip in PDP | `assets/invicta-product-v2.css:298,326,355` | — |
+| `999px` | Brand pill; comparison sticky bar; collection filter chip; footer chip | Multiple | Various |
+| `0` | PDP ATC, buy-now, variant select, all form inputs (via `invicta-radius-reset.css`), info tabs, trust-reviews cards | Many files | Various |
+| `var(--inv-radius-sm)` = 4px | Token-driven: sticky ATC thumb, PDP gallery thumb, spec card | Multiple | Various |
+| `var(--inv-radius-md)` = 8px | Token-driven: PDP image, swatch group, lightbox, modal, radius-reset cards, quick cats card | Multiple | Various |
+| `var(--inv-radius-lg)` = 12px | Token-driven: PDP mobile main, radius-reset media | Multiple | Various |
+| `var(--inv-radius-button)` = 0 | Button base reset | `assets/invicta-radius-reset.css:30` | — |
+| `var(--inv-radius-card)` = 0 | Card base reset | `assets/invicta-radius-reset.css:42,55` | — |
+| `var(--inv-radius-input)` = 0 | Input base reset | `assets/invicta-radius-reset.css:75,85` | — |
+| `var(--buttons-radius, 4px)` | Dawn theme fallback for buttons | Multiple via ux-improvements | Various |
+
+**Summary:** There are 20+ distinct radius values in use across the codebase. The design intent (via `invicta-radius-reset.css`) is to set `--inv-radius-button`, `--inv-radius-card`, and `--inv-radius-input` all to `0`, but numerous components override with raw `8px`, `12px`, `6px`, `4px` values. The product card itself has `border-radius: 12px` while `--inv-radius-card` = 0. This is a significant inconsistency.
+
+---
+
+### 6B. Border Styles
+
+| Pattern | Context | Files |
+|---|---|---|
+| `1px solid var(--inv-border)` (#e5e7eb) | Default dividers, product card separators | Many |
+| `1px solid var(--inv-border-dark)` (#d1d5db) | Stronger dividers, cart item borders | Multiple |
+| `1px solid var(--inv-grey-200)` | PDP form inputs, qty stepper | `invicta-product-v2.css` |
+| `1px solid var(--inv-grey-100)` | PDP section dividers | `invicta-product-v2.css` |
+| `2px solid var(--inv-grey-200)` | PDP variant select | `invicta-product-v2.css:785` |
+| `2px solid var(--inv-dark)` | Focus/active border override | `invicta-product-v2.css:803` |
+| `1.5px solid var(--inv-accent)` | Product card options button outline | `invicta-product-card.css:376` |
+| `1.5px solid rgba(255,255,255,0.3)` | Hero v3 ghost button | `invicta-hero-v3.liquid:236` |
+| `3px solid var(--inv-accent)` | PDP price savings callout | `invicta-product-v2.css:755` |
+| `2px solid var(--inv-accent)` | Focus rings on inputs, trust link | Multiple |
+| `1px solid var(--inv-bg-card-border)` (#ececec) | Product card border | `invicta-product-card.css:34` |
+| `1px solid var(--inv-nav-border)` (#eeeeee) | Navigation section border | Token |
+| `border-bottom: 2px solid var(--inv-accent)` | Active tabs, nav active items | Multiple |
+| `border-left: 3px solid var(--inv-accent)` | Alert/callout left accent | `invicta-product-v2.css:755` |
+
+---
+
+## 7. Shadows
+
+| Value | Token Used? | Context | File |
+|---|---|---|---|
+| `var(--inv-shadow-color)` = `rgba(0,0,0,0.1)` | Yes | Sticky ATC bottom shadow, product card hover, search | Multiple |
+| `var(--inv-shadow-card)` = `0 1px 3px rgba(0,0,0,0.08)` | Yes | Referenced but rarely used directly |  |
+| `var(--inv-shadow-elevated)` = `0 4px 12px rgba(0,0,0,0.1)` | Yes | Referenced as token | Token definition |
+| `var(--inv-focus-shadow)` | Yes | PDP swatch focus, buy-now focus, variant focus | Multiple via `invicta-product-v2.css` |
+| `var(--inv-accent-glow)` = `rgba(225,29,38,0.25)` | Yes | Product card ATC hover, card btn hover | `invicta-product-card.css:370,384` |
+| `var(--inv-accent-ring)` = `rgba(225,29,38,0.1)` | Yes | Search input focus ring | `invicta-search.css:52` |
+| `0 1px 3px rgba(0,0,0,0.04)` | No | Product card base shadow; cart item shadow | `invicta-product-card.css:32`, `invicta-cart.css:217` |
+| `0 12px 28px var(--inv-shadow-color), 0 4px 10px rgba(0,0,0,0.04)` | Partial | Product card hover (compound) | `invicta-product-card.css:39` |
+| `0 1px 3px rgba(0,0,0,0.08)` | No (matches `--inv-shadow-card`) | Compare button | `invicta-product-card.css:151` |
+| `0 2px 8px rgba(0,0,0,0.08)` | No | PDP swatch hover; UX improvements search bar | `invicta-product-v2.css:184`, `invicta-ux-improvements.css:360` |
+| `0 4px 16px rgba(0,0,0,0.08)` | No | UX improvements toaster/sticky bar | `invicta-ux-improvements.css:360` |
+| `0 4px 16px rgba(0,0,0,0.2)` | No | Comparison sticky bar | `invicta-comparison.css:27` |
+| `0 6px 20px rgba(0,0,0,0.25)` | No | Comparison sticky bar hover | `invicta-comparison.css:35` |
+| `0 4px 12px rgba(0,0,0,0.2)` | No | Comparison remove btn | `invicta-comparison.css:54` |
+| `0 -4px 30px rgba(0,0,0,0.15)` | No | Comparison modal top edge | `invicta-comparison.css:98` |
+| `0 2px 8px rgba(0,0,0,0.06)` | No | Brand pill base | `invicta-brand-pill.css:64` |
+| `0 4px 12px rgba(0,0,0,0.10)` | No | Brand pill hover | `invicta-brand-pill.css:77` |
+| `0 4px 12px rgba(0,0,0,0.2)` | No | Brand pill shimmer | `invicta-brand-pill.css:302` |
+| `0 0 0 3px rgba(220,38,38,0.4)` | No | PDP ATC focus ring | `invicta-product-v2.css:977` |
+| `0 0 0 3px rgba(255,255,255,0.5)` | No | PDP swatch focus ring (on dark bg) | `invicta-product-v2.css:287` |
+| `inset 0 0 0 2px var(--inv-dark)` | Yes (token) | PDP qty btn active | `invicta-product-v2.css:906` |
+| `-8px 0 30px rgba(0,0,0,0.12)` | No | Cart drawer left edge shadow | `invicta-cart.css:835` |
+| `0 -6px 20px rgba(0,0,0,0.08)` | No | Cart drawer footer top shadow | `invicta-cart.css:915` |
+| `0 8px 30px rgba(0,0,0,0.12)` | No | CX dropdown | `invicta-cx-improvements.css:477` |
+| `0 0 0 2px var(--inv-accent)` | Yes | CX swatch active border ring | `invicta-cx-improvements.css:444` |
+
+**Summary:** The shadow token system (`--inv-shadow-*`) is defined but underused. The majority of shadows are hardcoded `rgba(0,0,0,X)` values at 7+ different opacity levels and spread values. `--inv-shadow-sm`, `--inv-shadow-lg`, `--inv-shadow-soft`, `--inv-shadow-xl` are all defined but verified unused (listed in the Pass 1 unused tokens). `--inv-focus-shadow` and `--inv-shadow-color` are the only shadow tokens seeing active use.
+
