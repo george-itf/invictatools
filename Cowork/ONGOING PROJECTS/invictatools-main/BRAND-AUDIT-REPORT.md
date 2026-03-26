@@ -1598,3 +1598,180 @@ All non-zero values found:
 
 **Summary:** The shadow token system (`--inv-shadow-*`) is defined but underused. The majority of shadows are hardcoded `rgba(0,0,0,X)` values at 7+ different opacity levels and spread values. `--inv-shadow-sm`, `--inv-shadow-lg`, `--inv-shadow-soft`, `--inv-shadow-xl` are all defined but verified unused (listed in the Pass 1 unused tokens). `--inv-focus-shadow` and `--inv-shadow-color` are the only shadow tokens seeing active use.
 
+
+---
+
+## 8. Transitions & Animations
+
+### 8A. Transitions
+
+All unique transition values found across scanned files:
+
+| Duration / Value | Context | Token Used? | Key Files |
+|---|---|---|---|
+| `var(--inv-duration-normal)` = 150ms | PDP tabs, quick cats hover, FAQ, delivery info, hero v3 CTA | Yes | Multiple |
+| `var(--inv-duration-moderate)` = 200ms | Product grid skeleton, quick cats card image, promo banner | Yes | Multiple |
+| `var(--inv-duration-slow)` = (not in variables) | FAQ accordion, product grid card image hover | Yes (token ref but value not in variables.css) | `invicta-faq.liquid`, `invicta-product-grid.liquid` |
+| `0.1s / 100ms` | Button :active scale, cart quantity, trade CTA active | No | Multiple |
+| `0.15s / 150ms` | Most hover states: colour, border, background transitions | No | Most component files |
+| `0.2s / 200ms` | Button arrows, image lift, comparison, brand strip card hover | No | Many files |
+| `0.25s` | Product card base transitions | No | `invicta-product-card.css:29` |
+| `0.3s / 300ms` | Gallery zoom, comparison drawer, cart bar, category grid image | No | Multiple |
+| `0.35s` | Product card image scale on hover; hero-split slide | No | `invicta-product-card.css:65`, `invicta-hero-split.liquid:332` |
+| `0.4s` | Trust bar panel fade, hero-split slide opacity, CX dropdown | No | Multiple |
+| `0.6s cubic-bezier(0.4, 0, 0.2, 1)` | CX free delivery progress bar | No | `invicta-cx-improvements.css:161` |
+| `0.4s cubic-bezier(0.4, 0, 0.2, 1)` | CX cart drawer entrance | No | `invicta-cx-improvements.css:484` |
+| `120ms` | Search result item hover, category chip hover | No | `invicta-search.css:381,409,455,480,547` |
+| `150ms` | Search input focus, search show/hide fade | No | `invicta-search.css:115,155,592,603` |
+| `200ms ease` | Brand strip card hover | No | `sections/invicta-brand-strip.liquid:128` |
+| `400ms ease` | Hero split slide fade | No | `sections/invicta-hero-split.liquid:69` |
+| `all 0.15s ease` | Product wall tab, recently-viewed sorting | No — `all` is a performance anti-pattern | `invicta-product-wall.liquid:310`, `invicta-recently-viewed.liquid:483` |
+| `all 0.2s ease` | CX improvement generic | No — `all` anti-pattern | `invicta-cx-improvements.css:318` |
+| `all 150ms ease` | Search wrapper | No — `all` anti-pattern | `invicta-search.css:115` |
+| `transition: .15s` | Footer nav link (no property specified) | No — unspecified property | `sections/invicta-footer.liquid:281` |
+| `var(--inv-duration-fast)` = 100ms | Button :active scale (via ux-improvements) | Yes | `invicta-ux-improvements.css:122` |
+
+**Note:** Duration tokens (`--inv-duration-*`) are defined in the token file and used in several places, but the majority of transitions use hardcoded ms/s values. `transition: all` is used in 3 places — a performance anti-pattern as it transitions every animatable property. `invicta-footer.liquid:281` has `transition: .15s` with no property specified. `--inv-duration-slow` is referenced but not defined in `invicta-css-variables.css`.
+
+---
+
+### 8B. Reduced Motion
+
+Files with `@media (prefers-reduced-motion: reduce)` **present:**
+
+| File | What it disables |
+|---|---|
+| `assets/invicta-product-v2.css` | Gallery transitions, lightbox animations (lines 457, 1642) |
+| `assets/invicta-product-card.css` | Card hover transform, image scale (line 559) |
+| `assets/invicta-ux-improvements.css` | Sticky ATC slide-in, sticky bar transitions (line 364) |
+| `assets/invicta-comparison.css` | Modal slide-in, sticky bar transitions (line 519) |
+| `assets/invicta-related-products.css` | Product slide animations (line 176) |
+| `assets/invicta-cx-improvements.css` | CX improvement animations (line 432) |
+| `sections/invicta-hero-v3.liquid` | Hero enter animations (line 337) |
+| `sections/invicta-hero-split.liquid` | Slider transitions (line 825) |
+| `sections/invicta-spotlight.liquid` | Spotlight reveal animations (line 247) |
+| `sections/invicta-trust-reviews.liquid` | Review panel animations + JS check (line 747, 761) |
+| `sections/invicta-trust-bar.liquid` | Trust bar slide animations (line 616) |
+| `sections/invicta-trust-strip.liquid` | Trust strip transitions (line 223) |
+| `sections/invicta-quick-cats.liquid` | Category card transitions (line 229) |
+| `sections/invicta-newsletter.liquid` | Newsletter entrance (line 460) |
+| `sections/invicta-product-grid.liquid` | Grid image/skeleton transitions (line 838) |
+| `sections/invicta-product-wall.liquid` | Product wall card + JS check (line 532, 559) |
+| `sections/invicta-recently-viewed.liquid` | Carousel/scroll animations (line 625) |
+| `sections/invicta-promo-banners.liquid` | Banner transitions (line 256) |
+
+**Files with transitions that are MISSING `prefers-reduced-motion`:**
+
+| File | Has Transitions | Missing Reduced Motion |
+|---|---|---|
+| `assets/invicta-cart.css` | Yes — 10+ transitions | **MISSING** |
+| `assets/invicta-search.css` | Yes — 12+ transitions | **MISSING** |
+| `assets/invicta-brand-pill.css` | Yes — 2 transitions | **MISSING** |
+| `sections/invicta-brand-strip.liquid` | Yes — 1 transition | **MISSING** |
+| `sections/invicta-footer.liquid` | Yes — 2 transitions | **MISSING** |
+| `sections/invicta-collection.liquid` | Yes — 2 transitions | **MISSING** |
+| `sections/invicta-delivery-info.liquid` | Yes — 2 transitions (uses tokens) | **MISSING** |
+| `sections/invicta-returns.liquid` | Yes — 1 transition | **MISSING** |
+| `sections/invicta-trade-cta.liquid` | Yes — 2 transitions | **MISSING** |
+| `sections/invicta-category-grid.liquid` | Yes — 3 transitions | **MISSING** |
+| `sections/invicta-simple-nav.liquid` | Yes — 2 transitions | **MISSING** |
+
+---
+
+## 9. Focus States
+
+### Global Focus System
+
+Two overlapping global focus rules are defined across both `invicta-ux-improvements.css` and `invicta-cx-improvements.css`:
+
+| Selector | Style Applied | File |
+|---|---|---|
+| `*:focus-visible` | `outline: 3px solid var(--inv-dark); outline-offset: 2px` | `invicta-ux-improvements.css:51` |
+| `a, button, input, select, textarea, [tabindex]:focus-visible` | `outline: 3px solid var(--inv-accent); outline-offset: 2px` | `invicta-ux-improvements.css:57–64` |
+| `*:focus-visible` | `outline: 3px solid var(--inv-dark); outline-offset: 2px` | `invicta-cx-improvements.css:395` (duplicate) |
+| `a, button, [role=button]:focus-visible` | `outline-color: var(--inv-accent)` | `invicta-cx-improvements.css:401` (partial duplicate) |
+| `.invicta-header *:focus-visible` | `outline-color: var(--inv-white); outline-offset: 3px` | Both files (duplicate) |
+
+**Flag:** The global focus system is defined twice — once in `invicta-ux-improvements.css` and once in `invicta-cx-improvements.css`. Both set `*:focus-visible` identically. The last-loaded file wins, creating fragility if load order changes.
+
+### Component-Level Focus States
+
+| Element | Focus Style | File | Line |
+|---|---|---|---|
+| `.inv-pdp__breadcrumb a` | `outline: 2px solid var(--inv-dark); outline-offset: 2px` | `invicta-product-v2.css` | 73 |
+| `.inv-pdp__gallery-thumbs` | `outline: none` (removes focus) | `invicta-product-v2.css` | 158 |
+| `.inv-pdp__gallery-thumbs:focus-visible` | `outline: 2px solid var(--inv-dark); outline-offset: 2px` | `invicta-product-v2.css` | 162 |
+| `.inv-pdp__gallery-thumb:focus-visible` | `box-shadow: var(--inv-focus-shadow)` | `invicta-product-v2.css` | 187 |
+| `.inv-pdp__gallery-zoom:focus-visible` | `box-shadow: 0 0 0 3px rgba(255,255,255,0.5)` | `invicta-product-v2.css` | 285 |
+| `.inv-pdp__info-toggle:focus-visible` | `box-shadow: var(--inv-focus-shadow)` | `invicta-product-v2.css` | 424 |
+| `.inv-pdp__variant-select:focus-visible` | `border-color: var(--inv-dark); box-shadow: var(--inv-focus-shadow)` | `invicta-product-v2.css` | 801 |
+| `.inv-pdp__qty-btn:focus-visible` | `box-shadow: inset 0 0 0 2px var(--inv-dark)` | `invicta-product-v2.css` | 903 |
+| `.inv-pdp__qty-input:focus-visible` | `outline: none; background: var(--inv-grey-50)` (no visible ring) | `invicta-product-v2.css` | 943 |
+| `.inv-pdp__atc-btn:focus-visible` | `outline: none; box-shadow: 0 0 0 3px rgba(220,38,38,0.4)` | `invicta-product-v2.css` | 975 |
+| `.inv-pdp__buy-now-btn:focus-visible` | `border-color: var(--inv-dark); box-shadow: var(--inv-focus-shadow)` | `invicta-product-v2.css` | 1053 |
+| `.inv-pdp__trust-link:focus-visible` | `outline: 2px solid var(--inv-dark); outline-offset: 2px; border-radius: 2px` | `invicta-product-v2.css` | 1105 |
+| `.inv-pdp__lightbox-close:focus-visible` | `box-shadow: 0 0 0 2px var(--inv-white)` | `invicta-product-v2.css` | 1243 |
+| `.inv-btn-primary:focus-visible` | `outline: 2px solid var(--inv-white); outline-offset: 2px` | `invicta-ux-improvements.css` | 158 |
+| `.inv-btn-secondary:focus-visible` | `outline: 2px solid var(--inv-accent); outline-offset: 2px` | `invicta-ux-improvements.css` | 188 |
+| `.inv-card a:focus-visible, button:focus-visible` | `outline: 2px solid var(--inv-accent); outline-offset: 2px` | `invicta-product-card.css` | 402 |
+| `.inv-card__title a:focus-visible` | `outline-offset: 4px` | `invicta-product-card.css` | 408 |
+| `.invicta-brand-pill:focus-visible` | `outline: none; box-shadow: 0 0 0 3px rgba(0,0,0,0.08)` (only on dark bg) | `invicta-brand-pill.css` | 75,80 |
+| `.inv-search-wrapper:focus-within` | `border-color: var(--inv-accent)` | `invicta-search.css` | 25 |
+| `.inv-search-input-wrap:focus-within` | `border-color: var(--inv-dark); box-shadow: 0 0 0 3px var(--inv-accent-ring)` | `invicta-search.css` | 50 |
+| `invicta-comparison` elements | `outline: 2px solid var(--inv-accent); outline-offset: 2px` | `invicta-comparison.css` | 532–536 |
+| `.inv-hero-v3__btn:focus-visible` | `outline: 2px solid var(--inv-accent); outline-offset: 2px` | `invicta-hero-v3.liquid` | 216 |
+
+**Flag:** `.inv-pdp__qty-input:focus-visible` removes focus entirely (`outline: none`) with only a background colour change — this fails WCAG 2.1 SC 2.4.7 (Focus Visible). The brand pill focus ring `rgba(0,0,0,0.08)` is too low-contrast to be reliably visible. The focus ring approach mixes three different methods: `outline`, `box-shadow`, and `border-color`, with no single canonical approach.
+
+**Note:** Two separate global focus systems exist (`invicta-ux-improvements.css` and `invicta-cx-improvements.css`), both applying 3px rings. The component-level overrides often drop to 2px, creating inconsistency.
+
+---
+
+## 10. Responsive Patterns
+
+### 10A. Breakpoints Used
+
+All unique `@media` breakpoint values found:
+
+| Breakpoint Value | Direction | Count (approx) | Files | Canonical? |
+|---|---|---|---|---|
+| `max-width: 749px` | Mobile | Most common | Almost all files | Yes |
+| `min-width: 750px` | Tablet+ | Common | Multiple | Yes |
+| `max-width: 989px` | Tablet and below | Common | Multiple | Yes |
+| `min-width: 990px` | Desktop only | Common | Multiple | Yes |
+| `min-width: 1200px` | Wide desktop | Moderate | `invicta-brand-strip.liquid`, `invicta-product-v2.css` | Yes |
+| `max-width: 1200px` | Not-wide-desktop | Used | `assets/invicta-product-v2.css:107` | Yes |
+| `min-width: 750px and max-width: 989px` | Tablet-only | Several | `invicta-simple-nav.liquid`, `invicta-brand-strip.liquid` | Yes |
+| `max-width: 480px` | Small mobile | Used | `invicta-product-v2.css:1491`, `invicta-trade-cta.liquid:202` | **Non-canonical** |
+| `max-width: 768px` | Non-standard tablet | Used | `invicta-trust-reviews.liquid:681`, `invicta-product-wall.liquid:457` | **Non-canonical** |
+| `max-width: 960px` | Non-standard | Used | `invicta-trust-reviews.liquid:663` | **Non-canonical** |
+| `max-width: 420px` | Non-standard small | Used | `invicta-trust-reviews.liquid:730` | **Non-canonical** |
+| `max-width: 1100px` | Non-standard wide | Used | `invicta-product-wall.liquid:448` | **Non-canonical** |
+| `hover: hover` | Touch-vs-pointer | Used | `invicta-product-card.css:35,68` | Special — correct usage |
+| `prefers-reduced-motion: reduce` | Motion accessibility | Used | See 8B above | Correct usage |
+| `forced-colors: active` | High contrast mode | 1 file | `invicta-cx-improvements.css:453` | Correct usage |
+
+**Summary:** The canonical breakpoint system (`749px` / `750px`, `989px` / `990px`, `1200px`) is followed by most files. Six non-canonical breakpoints exist: `480px`, `768px`, `960px`, `420px`, `1100px`. These appear primarily in `invicta-trust-reviews.liquid` (3 of them) and `invicta-product-wall.liquid` (1).
+
+---
+
+### 10B. Mobile Touch Targets Below 44px
+
+| Element | Size | File | Line |
+|---|---|---|---|
+| `.inv-pdp__gallery-thumb` | height: `72px` (OK) | `invicta-product-v2.css:170` | — |
+| `.inv-pdp__qty-btn` (mobile) | height: `50px` (OK) | `invicta-product-v2.css:1388` | — |
+| `.inv-pdp__qty-btn` (small mobile) | height: `48px` (OK) | `invicta-product-v2.css:1529` | — |
+| `.inv-pdp__atc-btn` (mobile) | height: `50px` (OK) | `invicta-product-v2.css:1399` | — |
+| `.inv-pdp__buy-now-btn` (mobile) | height: `46px` (OK) | `invicta-product-v2.css:1405` | — |
+| `.inv-pdp__buy-now-btn` (small mobile) | height: `44px` (OK) | `invicta-product-v2.css:1544` | — |
+| `.inv-pdp__lightbox-close` | height: `40px` | `invicta-product-v2.css:1227` | **Below 44px** |
+| `.inv-pdp__gallery-thumb` (small mobile, 360px) | height: `36px` | `invicta-product-v2.css:1476` | **Below 44px** |
+| Product card compare button | No explicit height (min-height from global) | `invicta-product-card.css:150` | — |
+| `.inv-pagination__btn` (mobile) | `36px` height | `sections/invicta-product-grid.liquid:828` | **Below 44px** |
+| `.inv-hero-split__btn` (small mobile, <480px) | Padding `10px 16px` only, no min-height | `invicta-hero-split.liquid:795` | **Potentially below 44px** |
+| Comparison close/remove buttons | No explicit height | `invicta-comparison.css:157` | Not confirmed |
+| Brand pill (when active/filter) | No explicit height | `invicta-brand-pill.css` | Not confirmed |
+
+**Summary:** Most interactive elements meet the 44px minimum touch target guideline. Three confirmed failures: lightbox close button (`40px`), gallery thumbnails on small mobile (`36px`), and pagination buttons on mobile (`36px`).
+
