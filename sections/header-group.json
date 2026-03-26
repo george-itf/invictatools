@@ -17,7 +17,7 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "FREE NEXT-DAY DELIVERY ON ORDERS OVER £30",
+            "text": "FREE NEXT-DAY DELIVERY ON ORDERS OVER £99",
             "link": "shopify://policies/shipping-policy"
           }
         },
