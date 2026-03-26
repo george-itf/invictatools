@@ -762,3 +762,263 @@ Every hex colour appearing outside `assets/invicta-css-variables.css`.
 | `sections/invicta-trust-reviews.liquid:264` | `#b91c1c` | Yes |
 
 **Note:** Several sections define scoped `--inv-*` custom properties at `:root` or on the section element from `section.settings` values (e.g. `--inv-nl-*`, `--inv-usp2-*`, `--inv-cat-*`, `--inv-grid-*`, `--inv-recent-*`). These are not in the canonical token file and violate the `--inv-*` namespace convention.
+
+---
+
+## 2. Typography
+
+### 2A. Font Families
+
+Every unique font-family declaration found across all scanned files.
+
+| Font Stack | File | Line | FLAGGED? |
+|---|---|---|---|
+| `var(--font-body-family)` | `layout/theme.liquid` | 326 | No — Shopify theme var |
+| `var(--font-body-family)` | `assets/base.css` | 265 | No |
+| `var(--font-heading-family)` | `assets/base.css` | 272, 337 | No |
+| `var(--font-body-family)` | `assets/invicta-ux-improvements.css` | 117, 143, 173 | No |
+| `inherit` | `assets/invicta-product-v2.css` | 24, 416, 789, 930, 960, 1043, 1094 | No — inheriting correct family |
+| `inherit` | `assets/invicta-comparison.css` | 29, 148, 415 | No |
+| `inherit` | `assets/invicta-cx-improvements.css` | 669 | No |
+| `inherit` | `assets/invicta-product-card.css` | 346 | No |
+| `'Barlow Condensed', Impact, 'Arial Narrow', sans-serif` | `sections/invicta-spotlight.liquid` | 132 | **FLAG: hardcoded — not a token** |
+| `'Barlow Condensed', Impact, 'Arial Narrow', sans-serif` | `sections/invicta-hero-v3.liquid` | 174 | **FLAG: hardcoded — not a token** |
+| `'Barlow Condensed', Impact, 'Arial Narrow', sans-serif` | `sections/invicta-promo-banners.liquid` | 229 | **FLAG: hardcoded — not a token** |
+| `'DM Sans', sans-serif` | `sections/invicta-trust-reviews.liquid` | 313, 380, 458 | **FLAG: hardcoded — not a token** |
+| `'DM Sans', sans-serif` | `sections/invicta-product-wall.liquid` | 150 | **FLAG: hardcoded — not a token** |
+| `Georgia, "Times New Roman", Times, serif` | `assets/invicta-print.css` | 83 | **FLAG: serif — print context only, but non-brand** |
+| `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif` | `assets/invicta-print.css` | 99, 169 | **FLAG: system stack — print context** |
+| `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif` | `assets/section-trade-landing.css` | 19 | **FLAG: system stack — not brand font** |
+
+**Summary:** The codebase uses `var(--font-body-family)` and `inherit` in most CSS files. Barlow Condensed and DM Sans appear only as hardcoded strings in 4 section files. There are no `--inv-font-*` tokens in the CSS variables file — font family is delegated entirely to the Shopify base `--font-*` system. `invicta-print.css` uses Georgia serif and system UI stacks (acceptable for print but should be noted).
+
+---
+
+### 2B. Font Loading
+
+| Type | URL / Value | File | Line | Notes |
+|---|---|---|---|---|
+| `<link rel="preconnect">` | `https://fonts.googleapis.com` | `sections/invicta-hero-v3.liquid` | 22 | Loads Barlow Condensed |
+| `<link href="...">` | `https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&display=swap` | `sections/invicta-hero-v3.liquid` | 24 | Weights 700 + 800 |
+| `<link rel="preconnect">` | `https://fonts.googleapis.com` | `sections/invicta-promo-banners.liquid` | 23 | **DUPLICATE preconnect** |
+| `<link href="...">` | `https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&display=swap` | `sections/invicta-promo-banners.liquid` | 25 | **DUPLICATE font load** |
+
+**Flags:**
+- The same Google Fonts stylesheet is loaded twice — once in `invicta-hero-v3.liquid` and once in `invicta-promo-banners.liquid`. If both sections appear on the same page, browsers will de-duplicate the request, but this represents sloppy dependency management.
+- DM Sans is referenced in `invicta-trust-reviews.liquid` and `invicta-product-wall.liquid` with no corresponding `<link>` tag in those files — it will only render correctly if DM Sans happens to be the Shopify theme's `--font-body-family`. There is no explicit load guarantee for DM Sans in the Invicta layer.
+- No `@font-face` declarations exist anywhere in the codebase — all font loading is via Google Fonts or the Shopify font system.
+
+---
+
+### 2C. Font Sizes
+
+#### Headings (h1–h6 and heading-equivalent elements)
+
+| Value | Element / Class | File | Line |
+|---|---|---|---|
+| `clamp(18px, 3.5vw, 24px)` | `.inv-pdp__title` (product page title) | `assets/invicta-product-v2.css` | 127 |
+| `clamp(26px, 3.5vw, 36px)` | Trust reviews heading | `sections/invicta-trust-reviews.liquid` | 314 |
+| `clamp(28px, 3vw, 36px)` | Trust reviews alt heading | `sections/invicta-trust-reviews.liquid` | 381 |
+| `clamp(24px, 3vw, 32px)` | Product wall heading | `sections/invicta-product-wall.liquid` | 151 |
+| `clamp(28px, 4vw, 36px)` | Trust bar heading | `sections/invicta-trust-bar.liquid` | 214 |
+| `clamp(28px, 4vw, 40px)` | Trust bar alt heading | `sections/invicta-trust-bar.liquid` | 315 |
+| `clamp(28px, 4vw, 42px)` | Trade CTA heading | `sections/invicta-trade-cta.liquid` | 46 |
+| `clamp(1.75rem, 3vw, 2.5rem)` | FAQ heading | `sections/invicta-faq.liquid` | 62 |
+| `clamp(1.75rem, 4vw, 2.5rem)` | Delivery info heading | `sections/invicta-delivery-info.liquid` | 59 |
+| `clamp(20px, 2.5vw, {schema}px)` | Brand strip heading | `sections/invicta-brand-strip.liquid` | 72 |
+| `clamp(26px, 5vw, 32px)` | PDP price (current) | `assets/invicta-product-v2.css` | 705 |
+| `clamp(18px, 2vw, 22px)` | Hero split sub-heading | `sections/invicta-hero-split.liquid` | 539 |
+| `clamp(18px, 5vw, 24px)` | Product wall mobile heading | `sections/invicta-product-wall.liquid` | 468 |
+| `54px` | Hero v3 desktop headline | `sections/invicta-hero-v3.liquid` | 326 |
+| `40px` | Hero v3 mobile headline | `sections/invicta-hero-v3.liquid` | 304 |
+| `28px` | Hero v3 / spotlight heading | `sections/invicta-hero-v3.liquid:175`; `sections/invicta-spotlight.liquid:140` | — |
+| `26px` | Hero v3 mobile sub-heading | `sections/invicta-hero-v3.liquid` | 279 |
+| `24px` | Newsletter heading | `sections/invicta-newsletter.liquid` | 216 |
+| `22px` | Trust reviews card title; spotlight alt; hero-split mobile | Multiple | — |
+| `2rem` | Returns page section title | `sections/invicta-returns.liquid` | 72 |
+| `2.5rem` | Returns desktop section title | `sections/invicta-returns.liquid` | 81 |
+| `2.8rem` | Cart section title | `assets/invicta-cart.css` | 52 |
+| `3.2rem` | Cart large total | `assets/invicta-cart.css` | 120 |
+| `72px` | Newsletter decorative letter | `sections/invicta-newsletter.liquid` | 179 |
+| `48px` | Trust bar stat number; newsletter mobile deco | Multiple | — |
+| `1.9rem` | Search results header | `assets/invicta-search.css` | 64 |
+| `24px` | Related products heading | `assets/invicta-related-products.css` | 35 |
+
+#### Body Text
+
+| Value | Element / Class | File | Line |
+|---|---|---|---|
+| `1.5rem` | `body` base (mobile) | `layout/theme.liquid` | 323 |
+| `1.6rem` | `body` base (desktop ≥750px) | `layout/theme.liquid` | 333 |
+| `14px` | Generic body / description text | Many files | — |
+| `15px` | Body copy in several sections | Several | — |
+| `1.0625rem` (17px) | FAQ section subtitle | `sections/invicta-faq.liquid` | 72 |
+| `1.05rem` | Delivery info body | `sections/invicta-delivery-info.liquid` | 68, 98 |
+| `1rem` | FAQ answer, delivery info text | Multiple | — |
+| `0.9375rem` (15px) | Product grid body, FAQ, returns | Multiple | — |
+| `0.95rem` | Cart sub-text | `assets/invicta-cx-improvements.css` | 648 |
+| `0.9rem` | Cart/CX text | `assets/invicta-cx-improvements.css` | 668, 686 |
+| `0.875rem` (14px) | Product grid body text | Several | — |
+
+#### Small / Caption Text
+
+| Value | Element / Class | File | Line |
+|---|---|---|---|
+| `11px` | Labels, small badges, sub-labels | Many files | — |
+| `10px` | Very small labels | Many files | — |
+| `9px` | Tiny badge text (search, product wall) | Multiple | — |
+| `8px` | Micro text (product wall, search) | Multiple | — |
+| `0.75rem` | Small text (delivery info, returns) | Several | — |
+| `0.8125rem` (13px) | Small labels (product grid) | Several | — |
+| `0.85rem` | CX improvement small text | `assets/invicta-cx-improvements.css` | 718, 733 |
+| `0.75rem` | CX small text | `assets/invicta-cx-improvements.css` | 738, 751 |
+
+#### Badges / Labels
+
+| Value | Element / Class | File | Line |
+|---|---|---|---|
+| `9px` | Product card badge | `assets/invicta-product-card.css` | 123 |
+| `11px` | Product card secondary badge | `assets/invicta-product-card.css` | 208 |
+| `10px` | Search badge | `assets/invicta-search.css` | 259 |
+| `9px` | Search tiny label | `assets/invicta-search.css` | 320 |
+| `11px` | PDP status badge | `assets/invicta-product-v2.css` | 90, 256, 299 |
+| `12px` | PDP variant label | `assets/invicta-product-v2.css` | 271, 606 |
+| `10px` | Hero v3 badge label | `sections/invicta-hero-v3.liquid` | 163, 271 |
+| `11px` | Product wall badge | `sections/invicta-product-wall.liquid` | 191 |
+| `0.72rem` | Brand pill text (small) | `assets/invicta-brand-pill.css` | 138, 152 |
+| `0.68rem` | Brand pill text (tiny) | `assets/invicta-brand-pill.css` | 172, 177 |
+| `0.65rem` | Brand pill text (x-small) | `assets/invicta-brand-pill.css` | 209, 214 |
+
+#### Prices
+
+| Value | Element / Class | File | Line |
+|---|---|---|---|
+| `clamp(26px, 5vw, 32px)` | `.inv-pdp__price-current` | `assets/invicta-product-v2.css` | 705 |
+| `20px` | `.inv-pdp-product-card__price` | `assets/invicta-product-card.css` | 291 |
+| `18px` | PDP was-price | `assets/invicta-product-v2.css` | 734 |
+| `16px` | PDP secondary price | `assets/invicta-product-v2.css` | 720 |
+| `14px` | PDP price label | `assets/invicta-product-v2.css` | 713 |
+| `13px` | PDP secondary label | `assets/invicta-product-v2.css` | 727 |
+| `12px` | PDP price save badge | `assets/invicta-product-v2.css` | 757 |
+| `2.4rem` | Cart total price | `assets/invicta-cart.css` | 534 |
+| `1.7rem` | Cart item price | `assets/invicta-cart.css` | 285 |
+| `17px` | Search result price | `assets/invicta-product-card.css` | 498 |
+
+#### Navigation
+
+| Value | Element / Class | File | Line |
+|---|---|---|---|
+| `{{ ss.font_size }}px` | `.inv-simple-nav__link` | `sections/invicta-simple-nav.liquid` | 92 |
+| `{{ ss.font_size | times: 0.9 | round }}px` | Mobile nav link | `sections/invicta-simple-nav.liquid` | 172 |
+| `13px` | Collection filter chip text | `sections/invicta-collection.liquid` | 76 |
+| `15px` | Collection result count text | `sections/invicta-collection.liquid` | 88 |
+
+#### Buttons
+
+| Value | Element / Class | File | Line |
+|---|---|---|---|
+| `16px` | `.inv-pdp__atc-btn` (PDP Add to Cart) | `assets/invicta-product-v2.css` | 958 |
+| `14px` | Various CTA buttons | Multiple | — |
+| `15px` | Various secondary buttons | Multiple | — |
+| `{{ section.settings.button_font_size }}px` | Hero split CTA button | `sections/invicta-hero-split.liquid` | 913 |
+| `13px` | Small/link buttons | Multiple | — |
+
+#### Form Inputs
+
+| Value | Element / Class | File | Line |
+|---|---|---|---|
+| `16px` | Newsletter email input (iOS anti-zoom) | `sections/invicta-newsletter.liquid` | 288 |
+| `16px` | PDP variant select (iOS anti-zoom) | `assets/invicta-ux-improvements.css` | 395 |
+| `14px` | `.inv-pdp__variant-select` | `assets/invicta-product-v2.css` | 787 |
+| `15px` | Quantity input | `assets/invicta-product-v2.css` | 928 |
+| `0.9375rem` | Search input | `assets/invicta-search.css` | 433, 567 |
+
+---
+
+### 2D. Font Weights
+
+All unique values found:
+
+| Weight | Context | Key Files |
+|---|---|---|
+| `400` | Body text, was-price, search header | `invicta-product-v2.css:468`, `invicta-search.css:81`, `invicta-product-grid.liquid:480` |
+| `500` | Muted labels, secondary body, sub-labels | Many files across assets and sections |
+| `600` | Semi-bold labels, section subtitles, secondary CTA | Many files — common weight across components |
+| `700` | Primary headings, buttons, card titles, active states | Most dominant weight across all files |
+| `800` | Strong section headings, stat numbers, cart totals | Many sections: newsletter, trust-reviews, cart |
+| `900` | Hero headlines, trust bar stat numbers, trust reviews main headings | `invicta-hero-v3.liquid:176`, `invicta-trust-bar.liquid:215`, `invicta-trust-reviews.liquid:315` |
+
+**Flag:** Weight 900 is used for key marketing headline elements but Barlow Condensed only loads weights 700 and 800 via Google Fonts. If the Shopify `--font-heading-family` is not a 900-weight font, `font-weight: 900` will silently fall back to the nearest available weight, causing rendering inconsistency.
+
+---
+
+### 2E. Line Heights
+
+All unique values found:
+
+| Value | Context | Key Files |
+|---|---|---|
+| `0.9` | Newsletter decorative letter | `sections/invicta-newsletter.liquid:181` |
+| `1` | Price displays, trust bar numbers, brand pill text | Many files |
+| `1.1` | Hero headlines, trust reviews heading | Multiple |
+| `1.15` | h1 global; hero v3; delivery info heading | `invicta-ux-improvements.css:321`, `invicta-hero-v3.liquid:169` |
+| `1.2` | h2 global; headings, FAQ, returns, brand pill | `invicta-ux-improvements.css:322`, many files |
+| `1.25` | h3 global | `invicta-ux-improvements.css:323` |
+| `1.3` | Subheadings, quick cats, promo banners | Multiple |
+| `1.35` | Cart product title | `assets/invicta-cart.css:288` |
+| `1.4` | Body copy context, FAQ answers | Multiple |
+| `1.45` | Product card title | `assets/invicta-product-card.css:249` |
+| `1.5` | Body text, delivery info, FAQ | Most common for body text |
+| `1.55` | Hero v3 subtitle; delivery info text | `invicta-hero-v3.liquid:188`, `invicta-delivery-info.liquid:325` |
+| `1.6` | Base body (`invicta-product-v2.css`); footer nav; trust reviews body | Multiple |
+| `1.7` | FAQ answer content; returns body text; PDP description | Multiple |
+| `calc(1 + 0.8 / var(--font-body-scale))` | `body` base | `layout/theme.liquid:325` |
+
+---
+
+### 2F. Letter Spacing
+
+All unique values found:
+
+| Value | Context | Key Files |
+|---|---|---|
+| `-4px` | Newsletter decorative large letter | `sections/invicta-newsletter.liquid:182` |
+| `-0.5px` | Hero v3 headline | `sections/invicta-hero-v3.liquid:180` |
+| `-0.025em` | PDP product title | `assets/invicta-product-v2.css:132` |
+| `-0.02em` | PDP price, FAQ heading, delivery info heading, trust bar | Multiple |
+| `-0.01em` | FAQ subheading, USP strip, hero-split | Multiple |
+| `0` | Cart subtitle | `assets/invicta-cart.css:67` |
+| `0.02em` | PDP SKU text, comparison, brand strip | Multiple |
+| `0.03em` | Brand pill, recently-viewed badge | Multiple |
+| `0.04em` | Buttons (uppercase labels), cart, comparison, CX improvements | Most common for uppercase text |
+| `0.05em` | Footer nav, cart free shipping, search headers, delivery info | Multiple |
+| `0.06em` | Cart tabs, brand pill, trust reviews | Multiple |
+| `0.08em` | Hero-split eyebrow, hero-split CTA | `sections/invicta-hero-split.liquid:101,448` |
+| `0.1em` | Cart free shipping badge, trust bar, trust reviews | Multiple |
+| `0.15em` | Trust reviews / trust bar eyebrow label | Multiple |
+| `0.3em` | Trust bar accent number label | `sections/invicta-trust-bar.liquid:282` |
+| `0.3px` | Quick cats nav text | `sections/invicta-quick-cats.liquid:152` |
+| `0.5px` | Spotlight badge, hero-v3 badge, promo banner, product wall | Multiple |
+| `1px` | Hero v3 eyebrow; trust reviews badge | Multiple |
+| `2px` | Trust reviews stat label, newsletter uppercase | Multiple |
+| `0.06rem` | Base body letter-spacing | `layout/theme.liquid:324` |
+| `{{ ss.letter_spacing }}em` | Simple nav (schema-controlled) | `sections/invicta-simple-nav.liquid:95` |
+
+**Flag:** The range spans from `-4px` to `0.3em` — a total of 20+ distinct values with no token structure for letter-spacing. The base body letter-spacing (`0.06rem`) conflicts with many component overrides that reset it to `0` or a different em value.
+
+---
+
+### 2G. Text Transform
+
+All instances found:
+
+| Value | Context | Key Files |
+|---|---|---|
+| `uppercase` | Buttons (ATC, CTA, nav), badge labels, eyebrow text, cart tabs, section section headers | **Dominant** — used in 50+ declarations across every major file |
+| `none` | Cart heading reset (overrides inherited uppercase) | `assets/invicta-cart.css:59` |
+| `{{ section.settings.heading_transform }}` | Category grid heading (schema-controlled) | `sections/invicta-category-grid.liquid:166` |
+| `{{ section.settings.card_title_transform }}` | Category grid card title (schema-controlled) | `sections/invicta-category-grid.liquid:268` |
+| `{{ ss.text_transform }}` | Simple nav text (schema-controlled) | `sections/invicta-simple-nav.liquid:94` |
+
+**Note:** `capitalize` and `lowercase` are never used. `uppercase` is the exclusive applied transform. Two sections (category-grid) and one snippet (simple-nav) expose text-transform as a merchant-configurable schema setting, while all other components hardcode it.
+
