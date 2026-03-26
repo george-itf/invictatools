@@ -1775,3 +1775,358 @@ All unique `@media` breakpoint values found:
 
 **Summary:** Most interactive elements meet the 44px minimum touch target guideline. Three confirmed failures: lightbox close button (`40px`), gallery thumbnails on small mobile (`36px`), and pagination buttons on mobile (`36px`).
 
+
+---
+
+## 11. Component Patterns
+
+### §11A — Product Card
+
+**Source files:** `assets/invicta-product-card.css` (v8.0), `snippets/invicta-product-card.liquid` (v7.7)
+
+#### Card Shell
+
+| Property | Value | File | Line |
+|---|---|---|---|
+| `border-radius` | `12px` | `invicta-product-card.css` | 27 |
+| `border` | `1px solid var(--inv-border)` | `invicta-product-card.css` | 26 |
+| `background` | `var(--inv-white)` | `invicta-product-card.css` | 25 |
+| `box-shadow` (default) | `0 1px 3px rgba(0,0,0,0.04)` | `invicta-product-card.css` | 32 |
+| `box-shadow` (hover) | `0 12px 28px var(--inv-shadow-color), 0 4px 10px rgba(0,0,0,0.04)` | `invicta-product-card.css` | 39 |
+| Hover transform | `translateY(-4px)` | `invicta-product-card.css` | 37 |
+| Hover border | `var(--inv-border-dark)` | `invicta-product-card.css` | 38 |
+| Transition | `transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease` | `invicta-product-card.css` | 29 |
+| Mobile `border-radius` | `10px` | `invicta-product-card.css` | 472 |
+
+> **Flag:** `border-radius: 12px` directly contradicts `--inv-radius-card: 0` set in `invicta-radius-reset.css`. The radius reset has no effect on this card because the card uses a hardcoded pixel value, not the token.
+
+#### Image Area
+
+| Property | Value | File | Line |
+|---|---|---|---|
+| `aspect-ratio` | `1 / 1` | `invicta-product-card.css` | 49 |
+| `object-fit` | `contain` | `invicta-product-card.css` | 63 |
+| Image padding | `16px` (12px mobile) | `invicta-product-card.css` | 64, 480 |
+| Hover scale | `transform: scale(1.05)` | `invicta-product-card.css` | 70 |
+| Faded (OOS) opacity | `0.4` | `invicta-product-card.css` | 75 |
+
+#### Stock Bar & Label
+
+| Element | Value | File | Line |
+|---|---|---|---|
+| Stock bar height | `3px` at top edge | `invicta-product-card.css` | 97 |
+| In-stock colour | `var(--inv-stock-in, var(--inv-success))` | `invicta-product-card.css` | 102 |
+| Low-stock colour | `var(--inv-stock-low, var(--inv-warning))` | `invicta-product-card.css` | 106 |
+| OOS colour | `var(--inv-stock-out, var(--inv-fg-subtle))` | `invicta-product-card.css` | 104 |
+| Supplier stock colour | `var(--inv-stock-supplier, var(--inv-info))` | `invicta-product-card.css` | 109 |
+| Stock label font-size | `9px` | `invicta-product-card.css` | 123 |
+| Stock label font-weight | `700`, uppercase | `invicta-product-card.css` | 124–125 |
+| Stock label border-radius | `4px` | `invicta-product-card.css` | 127 |
+| Stock label position | `top: 10px; left: 10px` | `invicta-product-card.css` | 118–119 |
+
+#### Sale Badge
+
+| Property | Value | File | Line |
+|---|---|---|---|
+| Background | `var(--inv-accent)` | `invicta-product-card.css` | 206 |
+| Colour | `var(--inv-white)` | `invicta-product-card.css` | 207 |
+| `font-size` | `11px` | `invicta-product-card.css` | 208 |
+| `font-weight` | `700` | `invicta-product-card.css` | 209 |
+| `border-radius` | `6px` | `invicta-product-card.css` | 210 |
+| Position | `bottom: 10px; left: 10px` | `invicta-product-card.css` | 202–203 |
+
+#### Card Body
+
+| Property | Value | File | Line |
+|---|---|---|---|
+| Padding | `14px 16px 16px` (desktop), `12px 12px 14px` (mobile) | `invicta-product-card.css` | 221, 484 |
+| Background | `var(--inv-bg-card-body)` | `invicta-product-card.css` | 223 |
+| Top border | `1px solid var(--inv-bg-card-border)` | `invicta-product-card.css` | 224 |
+
+#### Title
+
+| Property | Value | File | Line |
+|---|---|---|---|
+| `font-size` | `14px` (13px mobile) | `invicta-product-card.css` | 246, 491 |
+| `font-weight` | `600` | `invicta-product-card.css` | 247 |
+| `color` | `var(--inv-dark)` | `invicta-product-card.css` | 248 |
+| `line-height` | `1.45` | `invicta-product-card.css` | 249 |
+| Line clamp | `-webkit-line-clamp: 2` | `invicta-product-card.css` | 251 |
+| `min-height` | `42px` (38px mobile) | `invicta-product-card.css` | 255, 493 |
+| Hover colour | `var(--inv-accent)` | `invicta-product-card.css` | 265 |
+
+#### Pricing
+
+| Element | Property | Value | File | Line |
+|---|---|---|---|---|
+| Current price | `font-size` | `20px` (17px mobile) | `invicta-product-card.css` | 291, 497 |
+| Current price | `font-weight` | `800` | `invicta-product-card.css` | 292 |
+| Current price (sale) | `color` | `var(--inv-accent)` | `invicta-product-card.css` | 298 |
+| Was price | `font-size` | `13px` (12px mobile) | `invicta-product-card.css` | 302, 501 |
+| Was price | `color` | `var(--inv-grey-was)`, `text-decoration: line-through` | `invicta-product-card.css` | 303–304 |
+| VAT label | `font-size` | `11px` (10px mobile) | `invicta-product-card.css` | 308, 505 |
+| VAT label | `color` | `var(--inv-grey-vat)` | `invicta-product-card.css` | 309 |
+| Volume hint | `font-size` | `12px` | `invicta-product-card.css` | 320 |
+| Volume hint | `color` | `var(--inv-fg-muted)` | `invicta-product-card.css` | 321 |
+
+#### Action Button
+
+| Variant | Property | Value | File | Line |
+|---|---|---|---|---|
+| All buttons | `min-height` | `44px` | `invicta-product-card.css` | 344 |
+| All buttons | `border-radius` | `8px` (6px mobile) | `invicta-product-card.css` | 351, 513 |
+| All buttons | `font-size` | `13px` (12px mobile) | `invicta-product-card.css` | 347, 511 |
+| All buttons | `font-weight` | `700` | `invicta-product-card.css` | 348 |
+| All buttons | `text-transform` | `uppercase` | `invicta-product-card.css` | 349 |
+| All buttons | `letter-spacing` | `0.04em` | `invicta-product-card.css` | 350 |
+| Add to cart | `background` | `var(--inv-accent)`, `color: var(--inv-white)` | `invicta-product-card.css` | 364–365 |
+| Select options | `background` | `var(--inv-white)`, `color: var(--inv-accent)`, `border: 1.5px solid var(--inv-accent)` | `invicta-product-card.css` | 374–376 |
+| Notify me | `background` | `var(--inv-white)`, `border: 1.5px solid var(--inv-border-notify)` | `invicta-product-card.css` | 388–391 |
+
+> **Flag:** Card buttons use hardcoded `border-radius: 8px` rather than `var(--inv-radius-button)`. `invicta-radius-reset.css` does not override `.inv-card__btn`.
+
+#### Compare Toggle
+
+| Property | Value | File | Line |
+|---|---|---|---|
+| Size | `32px × 32px` (28px mobile) | `invicta-product-card.css` | 139–140 |
+| `border-radius` | `6px` | `invicta-product-card.css` | 147 |
+| Opacity (default) | `0` — revealed on card hover | `invicta-product-card.css` | 149 |
+| Opacity (mobile) | `1` always visible | `invicta-product-card.css` | 185 |
+
+#### Brand Pill Placement
+
+The brand pill renders in `.inv-card__header` with `margin-bottom: 8px`. The card template passes `pill_context: 'card', pill_size: 'compact'` to the pill snippet (`snippets/invicta-product-card.liquid:185`).
+
+---
+
+### §11B — Brand Pill
+
+**Source files:** `assets/invicta-brand-pill.css` (v4.0), `snippets/invicta-brand-pill.liquid` (v6.0)
+
+#### Pill Dimensions
+
+| Size Variant | Height | Logo height | Padding | File | Line |
+|---|---|---|---|---|---|
+| Base / `--md` | `30px` | `22px` | `4px 14px` | `invicta-brand-pill.css` | 35–37, 50 |
+| `--lg` | `34px` | `24px` | `4px` × `18px inline` | `invicta-brand-pill.css` | 188–191 |
+| `--compact` | `26px` | `20px` | `4px` × `12px inline` | `invicta-brand-pill.css` | 203–206 |
+| Mobile (≤749px) | `28px` | `20px` | `4px 12px` | `invicta-brand-pill.css` | 221–226 |
+| Desktop hero (≥990px) | `34px` | `24px` | `4px` × `20px inline` | `invicta-brand-pill.css` | 243–247 |
+
+#### Core Visual Properties
+
+| Property | Value | File | Line |
+|---|---|---|---|
+| `border-radius` | `999px` (full pill) | `invicta-brand-pill.css` | 52 |
+| `background` | `var(--pill-bg)` = `var(--inv-white)` | `invicta-brand-pill.css` | 31, 53 |
+| `border` | `1px solid var(--pill-border)` = `var(--inv-white)` | `invicta-brand-pill.css` | 54 |
+| `box-shadow` (default) | `0 2px 8px rgba(0,0,0,0.06)` | `invicta-brand-pill.css` | 64 |
+| `box-shadow` (hover) | `0 4px 12px rgba(0,0,0,0.10)` | `invicta-brand-pill.css` | 77 |
+| Hover transform | `translateY(-2px)` | `invicta-brand-pill.css` | 76 |
+| Focus outline | `2px solid var(--inv-white)` | `invicta-brand-pill.css` | 81 |
+| Logo area width | `60px` | `invicta-brand-pill.css` | 109 |
+| Logo rendering | `background-image` (CSS), `<img>` hidden for SEO | `invicta-brand-pill.css` | 107–128 |
+
+#### Text Mode (`--text` modifier)
+
+| Context | Font size | Padding | File | Line |
+|---|---|---|---|---|
+| Default | `0.72rem` | `4px 16px` | `invicta-brand-pill.css` | 138, 144 |
+| Strip (`.invicta-brand-strip__item`) | `0.82rem` | `4px 22px` | `invicta-brand-pill.css` | 162–163 |
+| Card (`.invicta-brand-pill-wrapper--card`) | `0.68rem` | `4px 12px` | `invicta-brand-pill.css` | 172–173 |
+| Compact (`--compact`) | `0.65rem` | `4px 10px` | `invicta-brand-pill.css` | 209–210 |
+| Large (`--lg`) | `0.78rem` | `4px 20px` | `invicta-brand-pill.css` | 194–195 |
+| Hero (≥990px) | `0.82rem` | `4px 22px` | `invicta-brand-pill.css` | 250, 252 |
+| Mobile (≤749px) | `0.68rem` | `4px 14px` | `invicta-brand-pill.css` | 229, 231 |
+
+All font-size overrides in text mode use `!important` to override the base `font-size: 0` logo mode rule.
+
+> **Focus flag:** `outline: 2px solid var(--inv-white)` is only visible on dark/coloured backgrounds. On white or light-grey pages the focus ring is invisible — fails WCAG 2.1 SC 2.4.7.
+
+#### Pill Snippet Architecture (v6.0)
+
+The snippet uses a JSON data block to resolve brand metadata (logo path, background colour, text colour). An alias map (`brand_aliases`) handles alternate vendor names mapping to canonical brand keys. Supports three output modes:
+- `type: 'pill'` — logo pill (default)
+- `type: 'dot'` — coloured 10px circle
+- `type: 'text'` — text-only pill with brand colour background
+
+---
+
+### §11C — Trust / USP Components
+
+Four distinct trust UI components exist in this theme.
+
+#### 1. Trust Strip — `sections/invicta-trust-strip.liquid` (v1.1)
+
+Dark-background strip (configurable colour, default `#1a1a1a`) with icon + title + subtitle per item.
+
+| Property | Value | File | Line |
+|---|---|---|---|
+| Layout | `grid` — 1 col mobile / 2 col tablet / 4 col desktop | `invicta-trust-strip.liquid` | 175, 194 |
+| Item padding | `14px 20px` | `invicta-trust-strip.liquid` | 124 |
+| Icon container | `36px × 36px`, `border-radius: 50%`, transparent bg | `invicta-trust-strip.liquid` | 135–138 |
+| Icon SVG size | `16px × 16px`, `color: var(--inv-accent)` | `invicta-trust-strip.liquid` | 146–148 |
+| Title font | `13px`, `font-weight: 700`, `color: var(--inv-bg-elevated)` | `invicta-trust-strip.liquid` | 159–161 |
+| Subtitle font | `11px`, `rgba(255,255,255,0.8)` | `invicta-trust-strip.liquid` | 166–167 |
+| Column dividers | `60%` height hairline, `rgba(255,255,255,0.08)` | `invicta-trust-strip.liquid` | 209–216 |
+| Row bottom border | `1px solid rgba(255,255,255,0.06)` | `invicta-trust-strip.liquid` | 101 |
+
+#### 2. Trust Bar — `sections/invicta-trust-bar.liquid` + `snippets/invicta-trust-bar.liquid` + `assets/component-trust-bar.css`
+
+A fuller trust section with an optional heading and two style variants.
+
+| Variant | Background | Padding | Border | File | Line |
+|---|---|---|---|---|---|
+| `--full` | `linear-gradient(135deg, #fafafa 0%, #f3f4f6 100%)` | `var(--inv-space-md) var(--inv-space-lg)` | `border-top: 3px solid var(--inv-accent)` | `component-trust-bar.css` | 8–12 |
+| `--compact` | `var(--inv-bg-muted)` | `var(--inv-space-sm) var(--inv-space-md)` | `1px solid var(--inv-border)`, `border-radius: var(--inv-radius-md, 8px)` | `component-trust-bar.css` | 16–21 |
+
+| Item property | Full variant | Compact variant | File | Line |
+|---|---|---|---|---|
+| `font-size` | `13px` | `12px` | `component-trust-bar.css` | 52, 60 |
+| `font-weight` | `600` | `500` | `component-trust-bar.css` | 53, 61 |
+| `color` | `var(--inv-fg)` | `var(--inv-fg-muted)` | `component-trust-bar.css` | 54, 62 |
+| Icon colour | `var(--inv-accent)` | `var(--inv-accent)`, `15px × 15px` | `component-trust-bar.css` | 74, 78 |
+| Mobile `font-size` | `11px` (full) / `10px` (compact) | — | `component-trust-bar.css` | 94, 110 |
+
+The section heading (`.inv-trust__heading`) uses `clamp(28px, 4vw, 40px)`, `font-weight: 900` (24px on mobile ≤749px) — `invicta-trust-bar.liquid:314–316, 595`.
+
+> **Architecture note:** `invicta-product-v2-trust.css` is a 1-line tombstone file (89 bytes) with comment: *"Trust bar removed — trust strip (.inv-pdp__trust-strip) is now the sole trust UI."* This file should be deleted.
+
+#### 3. USP Strip v2 — `sections/invicta-usp-strip-v2.liquid` (v2.0)
+
+Bold industrial strip with circular icon containers and editable colours via theme settings.
+
+| Property | Value | File | Line |
+|---|---|---|---|
+| Strip background | `#f5f5f5` (overridable via `--inv-usp2-bg`) | `invicta-usp-strip-v2.liquid` | 101 |
+| Min height | `84px` | `invicta-usp-strip-v2.liquid` | 116 |
+| Item padding | `20px 16px` (16px/20px mobile, 14px/12px small) | `invicta-usp-strip-v2.liquid` | 125, 198, 217 |
+| Item gap | `14px` (12px mobile) | `invicta-usp-strip-v2.liquid` | 124, 219 |
+| Icon container | `44px × 44px`, `border-radius: 50%`, `var(--inv-usp2-accent)` bg | `invicta-usp-strip-v2.liquid` | 151–155 |
+| Icon SVG size | `22px × 22px`, `color: #fff` | `invicta-usp-strip-v2.liquid` | 162–164 |
+| Title font | `14px`, `font-weight: 800`, `letter-spacing: -0.01em` (13px mobile) | `invicta-usp-strip-v2.liquid` | 175–179 |
+| Subtitle font | `13px`, `font-weight: 500` (12px mobile) | `invicta-usp-strip-v2.liquid` | 182–185 |
+| Mobile grid | 2 columns (from dynamic column count) | `invicta-usp-strip-v2.liquid` | 194 |
+| Vertical dividers | `1px × 36px`, `var(--inv-usp2-divider)` | `invicta-usp-strip-v2.liquid` | 139–146 |
+
+> **Duplication note:** Two `@media (max-width: 749px)` blocks exist in this file (lines 192 and 215) — the second overrides the first for padding and icon sizing, but they could be merged.
+
+#### 4. PDP Trust Strip — `assets/invicta-product-v2.css`
+
+Inline trust strip within the product buy box.
+
+| Property | Value | File | Line |
+|---|---|---|---|
+| Layout | `grid`, `2 columns`, `gap: 10px 16px` | `invicta-product-v2.css` | 1073–1075 |
+| `font-size` | `13px` | `invicta-product-v2.css` | 1081 |
+| Border | `1px solid var(--inv-grey-200)` top and bottom | `invicta-product-v2.css` | 1077–1078 |
+| Link colour | `var(--inv-grey-600)` | `invicta-product-v2.css` | 1088 |
+| Link hover | `var(--inv-fg-near-black)` | `invicta-product-v2.css` | 1102 |
+| Focus outline | `2px solid var(--inv-dark)`, `border-radius: 2px` | `invicta-product-v2.css` | 1106–1108 |
+
+Trust badges (full version — `.inv-pdp__trust-badges`): 3-column grid, `background: var(--inv-grey-200)`, `border-radius: var(--inv-radius-md)`, badge icon `font-size: 11px/10px` (`invicta-product-v2.css:1158–1168`).
+
+---
+
+### §11D — Section Headers
+
+Section heading styles are inconsistent across components — no shared heading class or token is used.
+
+| Component | Element | Font size | Font weight | Notes | File | Line |
+|---|---|---|---|---|---|---|
+| Product Wall | `.inv-pw-header__title` | `clamp(24px, 3vw, 32px)` | `800` | `font-family: 'DM Sans'`, uppercase, `letter-spacing: 0.5px` | `invicta-product-wall.liquid` | 151–157 |
+| Trust Bar | `.inv-trust__heading` | `clamp(28px, 4vw, 40px)` (24px mobile) | `900` | — | `invicta-trust-bar.liquid` | 314–316, 595 |
+| Trust Reviews | `.inv-tr5__heading` | `clamp(26px, 3.5vw, 36px)` (22px mobile) | `900` | `font-family: 'DM Sans'` | `invicta-trust-reviews.liquid` | 312–315, 738 |
+| Related Products | `.inv-related__title` | `24px` (20px mobile) | `800` | `letter-spacing: -0.02em`, underline bar via `::after` | `invicta-related-products.css` | 34–40, 156 |
+| Category Grid | `.inv-cat-grid__heading` | (inline style block) | — | Uses `h1`, centre aligned | `invicta-category-grid.liquid` | 161 |
+| USP Strip v2 | `.inv-usp2__title` | `14px` (13px mobile) | `800` | Not a section heading — item title | `invicta-usp-strip-v2.liquid` | 175 |
+
+**Observations:**
+- Font weight ranges from `800` to `900` across section headings with no shared token.
+- `clamp()` scales differ per section: `3vw`, `4vw`, `3.5vw` — no consistent fluid scale.
+- `font-family: 'DM Sans'` is hardcoded in two section heading rules but not declared in a token.
+- No shared `.inv-section-heading` utility class exists.
+
+---
+
+### §11E — Price Display
+
+Price display exists in three distinct contexts, each with its own class namespace and sizing.
+
+#### Context 1: Product Card (`assets/invicta-product-card.css`)
+
+| Element | Font size | Weight | Colour | Notes |
+|---|---|---|---|---|
+| Current price | `20px` (17px mobile) | `800` | `var(--inv-dark)` / `var(--inv-accent)` sale | `inv-card__price` |
+| Was price | `13px` | — | `var(--inv-grey-was)`, struck-through | `inv-card__was` |
+| VAT label | `11px` | `600` | `var(--inv-grey-vat)` | `inv-card__vat` |
+| Volume hint | `12px` | — | `var(--inv-fg-muted)` | `inv-card__volume-hint` |
+
+#### Context 2: PDP Buy Box (`assets/invicta-product-v2.css`)
+
+| Element | Font size | Weight | Colour | Notes |
+|---|---|---|---|---|
+| Current (inc VAT) | `clamp(26px, 5vw, 32px)` | `700` | `var(--inv-fg-near-black)` | `inv-pdp__price-current` |
+| Current (ex VAT secondary) | `16px` | `600` | `var(--inv-fg-medium)` | `inv-pdp__price-secondary` |
+| Label (inc/ex) | `14px` / `13px` | `600` / `500` | `var(--inv-grey-500)` | `inv-pdp__price-label` |
+| Was price | `18px` (14px secondary) | `500` | `var(--inv-grey-400)`, struck-through | `inv-pdp__price-was` |
+| Savings badge | `12px` | `600` | `var(--inv-accent)` | `border-left: 3px solid var(--inv-accent)`, `border-radius: 0` |
+
+#### Context 3: Cart (`assets/invicta-cart.css`)
+
+Cart uses Shopify's native price formatting (`.price`) with minor overrides — no custom `invicta-` price classes observed at this scale.
+
+**Observations:**
+- Card uses `font-weight: 800` for price; PDP uses `font-weight: 700` — inconsistent weight.
+- Card price is a fixed `20px`; PDP price is fluid `clamp(26px, 5vw, 32px)` — no shared token.
+- Both contexts use `var(--inv-accent)` for sale state — consistent.
+- Both show inc/ex VAT dual prices controlled by `[data-price-inc]` / `[data-price-ex]` + JS visibility.
+
+---
+
+## 12. Dead Code & Redundancy
+
+### §12A — Duplicate Section Purposes
+
+| Purpose | Section A | Section B | Difference |
+|---|---|---|---|
+| Trust USP strip | `sections/invicta-trust-strip.liquid` (v1.1) | `sections/invicta-usp-strip-v2.liquid` (v2.0) | Trust Strip = dark bg, 4-col grid; USP v2 = light bg, dynamic columns, more icon options |
+| Trust with heading | `sections/invicta-trust-bar.liquid` | `snippets/invicta-trust-bar.liquid` | Section is a standalone page section; snippet is rendered inside other sections (product grid, cart drawer) |
+| CSS trust bar styles | `assets/component-trust-bar.css` | `assets/invicta-product-v2-trust.css` | `invicta-product-v2-trust.css` is a 1-line tombstone — entirely dead |
+
+### §12B — CSS Load Redundancies
+
+The following CSS files are loaded globally in `layout/theme.liquid` **and** also loaded redundantly inside individual section files:
+
+| CSS file | Global load (theme.liquid) | Redundant loads | Line |
+|---|---|---|---|
+| `invicta-brand-pill.css` | Yes (`theme.liquid`) | `sections/invicta-brand-strip.liquid:8` | 8 |
+| `invicta-product-card.css` | Yes (`theme.liquid`) | `sections/invicta-brand-collection.liquid:57`, `sections/invicta-collection.liquid:58` | 57, 58 |
+
+Shopify's CDN de-duplicates stylesheet tags with identical `href`, so these cause no double-parse in the browser — but they add noise to the source and create a misleading picture of load dependencies.
+
+### §12C — Duplicate or Conflicting Class Definitions
+
+| Class / Rule | File A | Line A | File B | Line B | Conflict |
+|---|---|---|---|---|---|
+| `*:focus-visible { outline: 3px solid var(--inv-dark) }` | `invicta-ux-improvements.css` | 51–53 | `invicta-cx-improvements.css` | 395–397 | Identical rule duplicated in two files — last loaded wins |
+| `a:focus-visible, button:focus-visible { outline: 3px solid var(--inv-accent) }` | `invicta-ux-improvements.css` | 57–63 | `invicta-cx-improvements.css` | 401–404 | Near-identical; cx version adds `[role="button"]`, drops `input/select/textarea/[tabindex]` |
+| `.invicta-header *:focus-visible { outline-color: var(--inv-white) }` | `invicta-ux-improvements.css` | 68–70 | `invicta-cx-improvements.css` | 408–412 | cx version has wider selector and adds `outline-offset: 3px` |
+| `border-radius: 12px` on `.inv-card` | `invicta-product-card.css` | 27 | `invicta-radius-reset.css` sets `--inv-radius-card: 0` | — | Token intent = sharp; card = rounded. Token has no effect because card hardcodes px value |
+| `border-radius: 8px` on `.inv-card__btn` | `invicta-product-card.css` | 351 | `invicta-radius-reset.css` targets `button.button` (Dawn class), not `.inv-card__btn` | — | Card button radius not governed by radius token |
+| `invicta-product-v2-trust.css` | Tombstone file (1 line, 89 bytes) | — | Loaded by `sections/invicta-product-v2.liquid` via `section-invicta-product-v2.css` reference | — | File is effectively dead — referenced but contains only a comment |
+
+### §12D — Undefined Token Reference
+
+| Token | Referenced in | Defined in | Status |
+|---|---|---|---|
+| `--inv-duration-slow` | `invicta-product-v2.css` (FAQ transitions), `invicta-collection.liquid` | `invicta-css-variables.css` | **NOT DEFINED** — no fallback value — resolves to `initial` |
+| `--inv-shadow-sm` | Defined | Never used in any `invicta-*.css` or section file | **Defined but unused** |
+| `--inv-shadow-lg` | Defined | Never used | **Defined but unused** |
+| `--inv-shadow-soft` | Defined | Never used | **Defined but unused** |
+| `--inv-shadow-xl` | Defined | Never used | **Defined but unused** |
+
+---
+
+*Pass 6 complete — audit finished.*
