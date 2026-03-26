@@ -1,0 +1,825 @@
+/**
+ * Invicta Predictive Search — Consolidated Styles v2.0
+ *
+ * Merges:
+ *   - invicta-predictive-search.css (visual design, stock badges, portal)
+ *   - component-predictive-search.css (ARIA/keyboard state styles)
+ *
+ * v2.0 adds: search-term highlighting, recent searches, skeleton loading,
+ *            no-results state, enhanced "view all" button.
+ *
+ * Replaces both files. section-main-search.css is untouched.
+ */
+
+/* ================================================================
+ * SEARCH WRAPPER
+ * ================================================================ */
+.inv-search-wrapper {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: var(--inv-z-overlay);
+}
+
+.inv-search-wrapper:focus-within {
+  z-index: calc(var(--inv-z-overlay) + 1);
+}
+
+.inv-search-form {
+  width: 100%;
+  position: relative;
+}
+
+/* ================================================================
+ * INPUT WRAPPER
+ * ================================================================ */
+.inv-search-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--inv-grey-50);
+  border: 2px solid var(--inv-border);
+  border-radius: 0;
+  height: 54px;
+  overflow: hidden;
+  box-shadow: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.inv-search-input-wrap:focus-within {
+  border-color: var(--inv-accent);
+  box-shadow: 0 0 0 3px var(--inv-accent-ring);
+}
+
+/* ================================================================
+ * INPUT
+ * ================================================================ */
+.inv-search-input {
+  flex: 1;
+  height: 100%;
+  padding: 0 110px 0 22px;
+  border: none;
+  background: transparent;
+  font-size: 1.9rem;
+  font-weight: 500;
+  color: var(--inv-fg-strong);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.inv-search-input:focus,
+.inv-search-input:focus-visible,
+.inv-search-input:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.inv-search-input::placeholder {
+  color: var(--inv-fg-subtle);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.4rem;
+}
+
+.inv-search-input::-webkit-search-decoration,
+.inv-search-input::-webkit-search-cancel-button,
+.inv-search-input::-webkit-search-results-button,
+.inv-search-input::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  display: none;
+}
+
+/* ================================================================
+ * CLEAR BUTTON
+ * ================================================================ */
+.inv-search-clear.inv-search-clear {
+  position: absolute;
+  right: 64px;
+  width: 32px;
+  height: 32px;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--inv-radius-pill);
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 150ms ease, visibility 150ms ease;
+  color: inherit;
+  font-size: inherit;
+}
+
+.inv-search-input:not(:placeholder-shown) ~ .inv-search-clear {
+  opacity: 1;
+  visibility: visible;
+}
+
+.inv-search-clear:hover {
+  background: var(--inv-bg-soft);
+}
+
+.inv-search-clear svg {
+  width: 14px;
+  height: 14px;
+  color: var(--inv-fg-muted);
+}
+
+/* ================================================================
+ * SUBMIT BUTTON
+ * ================================================================ */
+.inv-search-submit.inv-search-submit {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  background: var(--inv-accent);
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 150ms ease;
+  outline: none;
+  -webkit-appearance: none;
+  z-index: 1;
+  color: var(--inv-bg-elevated);
+  font-size: inherit;
+}
+
+.inv-search-submit:hover {
+  background: var(--inv-accent-hover, var(--inv-accent-hover));
+}
+
+.inv-search-submit:focus-visible {
+  background: var(--inv-accent-hover, var(--inv-accent-hover));
+  outline: 2px solid var(--inv-accent);
+  outline-offset: -2px;
+}
+
+.inv-search-submit svg {
+  width: 22px;
+  height: 22px;
+  color: var(--inv-bg-elevated);
+  stroke: var(--inv-bg-elevated);
+}
+
+/* ================================================================
+ * RESULTS DROPDOWN (portalled to #ps-root, positioned with JS)
+ * ================================================================ */
+.inv-search-results {
+  position: fixed;
+  z-index: var(--inv-z-search-active);
+  background: var(--inv-bg-elevated);
+  border: 1px solid var(--inv-border-dark);
+  border-radius: 0;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(0, 0, 0, 0.04);
+  padding: 6px;
+  max-height: 520px;
+  overflow-y: auto;
+  display: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--inv-border-dark) transparent;
+}
+
+.inv-search-results::-webkit-scrollbar { width: 6px; }
+.inv-search-results::-webkit-scrollbar-track { background: transparent; }
+.inv-search-results::-webkit-scrollbar-thumb { background: var(--inv-border-dark); border-radius: 3px; }
+
+/* ================================================================
+ * RESULT ITEM
+ * ================================================================ */
+.inv-search-results__item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  text-decoration: none;
+  color: var(--inv-fg-strong);
+  border-radius: 0;
+  margin-bottom: 2px;
+}
+
+.inv-search-results__item:last-of-type {
+  margin-bottom: 0;
+}
+
+.inv-search-results__item:active {
+  background: var(--inv-border);
+}
+
+/* Keyboard-selected title highlight */
+.inv-search-results__item[aria-selected="true"] .inv-search-results__title {
+  color: var(--inv-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* ================================================================
+ * PRODUCT IMAGE
+ * ================================================================ */
+.inv-search-results__image {
+  width: 68px;
+  height: 68px;
+  padding: 4px;
+  object-fit: contain;
+  background: var(--inv-bg-elevated);
+  border: 1px solid var(--inv-border);
+  border-radius: 0;
+  flex-shrink: 0;
+}
+
+/* ================================================================
+ * RESULT INFO
+ * ================================================================ */
+.inv-search-results__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.inv-search-results__vendor {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--inv-fg-muted);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.inv-search-results__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--inv-fg-strong);
+  margin: 0;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.inv-search-results__sku {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--inv-fg-muted);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.inv-search-results__item:hover .inv-search-results__title {
+  color: var(--inv-accent);
+}
+
+/* ================================================================
+ * META ROW (price + ex-VAT + stock badge)
+ * ================================================================ */
+.inv-search-results__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.inv-search-results__price {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--inv-fg-strong);
+  margin: 0;
+  line-height: 1;
+}
+
+.inv-search-results__price-ex-vat {
+  font-size: 11px;
+  color: var(--inv-fg-muted);
+  white-space: nowrap;
+}
+
+/* ================================================================
+ * STOCK BADGES
+ * ================================================================ */
+.inv-search-results__stock {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  border-radius: 0;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.inv-search-results__stock--in-stock {
+  background: var(--inv-success-bg-light);
+  color: var(--inv-success-heading);
+}
+
+.inv-search-results__stock--out-of-stock {
+  background: var(--inv-bg-soft);
+  color: var(--inv-fg-muted);
+}
+
+.inv-search-results__stock--supplier {
+  background: var(--inv-info-bg);
+  color: var(--inv-info-dark);
+}
+
+/* ================================================================
+ * SEARCH TERM HIGHLIGHTING
+ * ================================================================ */
+.inv-search-highlight {
+  background: var(--inv-accent-light);
+  color: inherit;
+  padding: 0 1px;
+  border-radius: 0;
+}
+
+/* ================================================================
+ * RECENT SEARCHES
+ * ================================================================ */
+.inv-search-recent__header {
+  padding: 10px 14px 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--inv-fg-muted);
+}
+
+.inv-search-recent__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 14px;
+  background: none;
+  border: none;
+  border-radius: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--inv-fg-strong);
+  cursor: pointer;
+  text-align: left;
+  transition: background 120ms ease;
+}
+
+.inv-search-recent__item:hover,
+.inv-search-recent__item[aria-selected="true"] {
+  background: var(--inv-bg-soft);
+}
+
+.inv-search-recent__icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--inv-fg-subtle);
+}
+
+.inv-search-recent__clear {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--inv-border);
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--inv-fg-muted);
+  cursor: pointer;
+  text-align: center;
+  transition: color 120ms ease;
+}
+
+.inv-search-recent__clear:hover {
+  color: var(--inv-accent);
+}
+
+/* ================================================================
+ * NO RESULTS / EMPTY STATE
+ * ================================================================ */
+.inv-search-empty {
+  padding: 36px 24px;
+  text-align: center;
+  color: var(--inv-fg-muted);
+}
+
+.inv-search-empty__icon {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 12px;
+  stroke: var(--inv-border-dark);
+}
+
+.inv-search-empty__text {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: var(--inv-fg-dim);
+}
+
+.inv-search-empty__hint {
+  font-size: 13px;
+  font-weight: 400;
+  margin: 0 0 16px;
+  color: var(--inv-fg-subtle);
+}
+
+.inv-search-empty__browse {
+  display: inline-block;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--inv-bg-elevated);
+  background: var(--inv-accent);
+  border-radius: 0;
+  text-decoration: none;
+  transition: background 120ms ease;
+}
+
+.inv-search-empty__browse:hover {
+  background: var(--inv-accent-hover);
+}
+
+.inv-search-empty__categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.inv-search-empty__cat-link {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--inv-fg-dim);
+  background: var(--inv-bg-soft);
+  border: 1px solid var(--inv-border);
+  border-radius: 0;
+  text-decoration: none;
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+
+.inv-search-empty__cat-link:hover {
+  background: var(--inv-accent-light);
+  border-color: var(--inv-accent);
+  color: var(--inv-accent);
+}
+
+/* ================================================================
+ * SKELETON LOADING STATE
+ * ================================================================ */
+.inv-search-skeleton {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+}
+
+.inv-search-skeleton__image {
+  width: 68px;
+  height: 68px;
+  border-radius: 0;
+  flex-shrink: 0;
+  background: var(--inv-border);
+}
+
+.inv-search-skeleton__text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inv-search-skeleton__bar {
+  height: 10px;
+  border-radius: 0;
+  background: var(--inv-border);
+}
+
+.inv-search-skeleton__bar--wide {
+  height: 12px;
+}
+
+.inv-search-skeleton__pulse {
+  animation: inv-skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes inv-skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ================================================================
+ * VIEW ALL BUTTON (enhanced)
+ * ================================================================ */
+.inv-search-view-all {
+  display: block;
+  padding: 12px;
+  text-align: center;
+  background: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0;
+  margin-top: 4px;
+  transition: background 120ms ease;
+  letter-spacing: 0.01em;
+}
+
+.inv-search-view-all:hover,
+.inv-search-view-all[aria-selected="true"] {
+  background: var(--inv-accent-hover);
+  color: var(--inv-bg-elevated);
+}
+
+/* ================================================================
+ * LEGACY — kept for error state compatibility
+ * ================================================================ */
+.inv-search-results__empty {
+  padding: 32px 24px;
+  text-align: center;
+  color: var(--inv-fg-muted);
+}
+
+.inv-search-results__empty-text {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  margin: 0;
+  color: var(--inv-fg-dim);
+}
+
+/* ================================================================
+ * FOCUS-VISIBLE — Accessibility (all interactive elements)
+ * ================================================================ */
+.inv-search-results__item:focus-visible,
+.inv-search-recent__item:focus-visible,
+.inv-search-recent__clear:focus-visible,
+.inv-search-view-all:focus-visible,
+.inv-search-empty__browse:focus-visible,
+.inv-search-clear:focus-visible {
+  outline: 2px solid var(--inv-accent);
+  outline-offset: 2px;
+}
+
+/* ================================================================
+ * DROPDOWN ANIMATION (CSS class-driven, not JS animation)
+ * ================================================================ */
+.inv-search-results {
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 150ms ease-out, transform 150ms ease-out;
+}
+
+.inv-search-results.inv-search-results--open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.inv-search-results.inv-search-results--closing {
+  opacity: 0;
+  transform: translateY(0);
+  transition: opacity 100ms ease-in;
+}
+
+/* ================================================================
+ * RESULT HOVER STATES — Desktop polish
+ * ================================================================ */
+.inv-search-results__item {
+  border-left: 3px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.inv-search-results__item:hover,
+.inv-search-results__item[aria-selected="true"] {
+  background: var(--inv-bg-soft);
+  border-left-color: var(--inv-accent);
+}
+
+/* ================================================================
+ * MOBILE CLOSE BUTTON (visible X at top-right of dropdown)
+ * ================================================================ */
+.inv-search-results__close {
+  display: none;
+}
+
+/* ================================================================
+ * MOBILE
+ * ================================================================ */
+@media (max-width: 749px) {
+  .inv-search-input-wrap {
+    height: 48px;
+    border-radius: 0;
+    border: 2px solid var(--inv-border);
+    background: var(--inv-bg-elevated);
+    box-shadow: none;
+  }
+
+  .inv-search-input-wrap:focus-within {
+    border-color: var(--inv-accent);
+    box-shadow: 0 0 0 3px var(--inv-accent-ring);
+  }
+
+  /* Sticky input shadow when dropdown is open */
+  .inv-search-wrapper.inv-search--dropdown-open .inv-search-input-wrap {
+    box-shadow: 0 2px 8px var(--inv-shadow-color);
+    position: relative;
+    z-index: 2;
+  }
+
+  .inv-search-input {
+    padding: 0 80px 0 14px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--inv-fg-strong);
+  }
+
+  .inv-search-input::placeholder {
+    font-size: 14px;
+    color: var(--inv-fg-subtle);
+    font-style: italic;
+    opacity: 1;
+  }
+
+  /* SHOW clear + submit on mobile (were hidden) */
+  .inv-search-clear.inv-search-clear {
+    display: flex;
+    position: absolute;
+    right: 44px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--inv-bg-soft);
+  }
+
+  .inv-search-clear svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .inv-search-submit.inv-search-submit {
+    display: flex;
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: auto;
+    width: 36px;
+    height: 36px;
+    border-radius: 0;
+    background: var(--inv-accent, var(--inv-accent));
+  }
+
+  .inv-search-submit svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* DROPDOWN — full width, taller on mobile
+     Force-override needed: JS positions the dropdown with inline style attributes
+     (left, right, width) — CSS cannot override inline styles without it. */
+  .inv-search-results {
+    max-height: calc(100vh - 120px);
+    padding: 0;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    left: 0 !important; /* overrides JS-set inline style */
+    right: 0 !important; /* overrides JS-set inline style */
+    width: 100% !important; /* overrides JS-set inline style */
+  }
+
+  /* Mobile close button */
+  .inv-search-results__close {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px 16px 8px;
+    border-bottom: 1px solid var(--inv-border);
+  }
+
+  .inv-search-results__close-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    background: none;
+    border: 1px solid var(--inv-border);
+    border-radius: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--inv-fg-muted);
+    cursor: pointer;
+  }
+
+  .inv-search-results__close-btn:hover {
+    background: var(--inv-bg-soft);
+    color: var(--inv-fg-strong);
+  }
+
+  .inv-search-results__close-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* TOUCH-FRIENDLY RESULTS */
+  .inv-search-results__item {
+    min-height: 64px;
+    padding: 12px 16px;
+    gap: 12px;
+    border-radius: 0;
+    border-left: none;
+    border-bottom: 1px solid var(--inv-bg-soft);
+    margin-bottom: 0;
+  }
+
+  .inv-search-results__item:last-of-type {
+    border-bottom: 1px solid var(--inv-bg-soft);
+  }
+
+  .inv-search-results__item:hover,
+  .inv-search-results__item[aria-selected="true"] {
+    border-left: none;
+  }
+
+  .inv-search-results__image {
+    width: 56px;
+    height: 56px;
+    padding: 3px;
+    border-radius: 0;
+  }
+
+  .inv-search-results__vendor {
+    font-size: 9px;
+  }
+
+  .inv-search-results__title {
+    font-size: 13px;
+  }
+
+  .inv-search-results__price {
+    font-size: 13px;
+  }
+
+  .inv-search-results__stock {
+    font-size: 8px;
+    padding: 2px 5px;
+  }
+
+  .inv-search-view-all {
+    padding: 14px 16px;
+    font-size: 13px;
+    border-radius: 0;
+    margin-top: 0;
+  }
+
+  .inv-search-skeleton__image {
+    width: 56px;
+    height: 56px;
+    border-radius: 0;
+  }
+
+  .inv-search-skeleton {
+    padding: 12px 16px;
+    gap: 12px;
+    min-height: 64px;
+    border-bottom: 1px solid var(--inv-bg-soft);
+  }
+
+  /* Recent searches touch targets */
+  .inv-search-recent__item {
+    min-height: 48px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--inv-bg-soft);
+    border-radius: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

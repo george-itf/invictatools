@@ -1,0 +1,289 @@
+{% comment %}
+  ==========================================================================
+   INVICTA BRAND PILL ENGINE — v6.0 (DATA-DRIVEN REFACTOR)
+  --------------------------------------------------------------------------
+   Refactored from v5.1: replaced ~460-line if/elsif + case/when chains
+   with a single JSON data block and lookup (H10 fix).
+
+   - Logos loaded from theme assets as {brand_key}.svg
+   - Uses background-image logo (mobile-safe) + invisible <img> for SEO/preload
+   - If the asset fails, falls back to readable text
+   - Supports type: 'dot' (coloured circle for filter buttons)
+   - Supports type: 'text-only' (simple coloured text pill, no logo)
+
+   USAGE:
+   {% render 'invicta-brand-pill', vendor: 'Makita' %}
+   {% render 'invicta-brand-pill', vendor: collection.handle, url: collection.url %}
+   {% render 'invicta-brand-pill', product: product, pill_size: 'lg' %}
+   {% render 'invicta-brand-pill', vendor: 'DeWalt', type: 'dot' %}
+   {% render 'invicta-brand-pill', vendor: 'DeWalt', type: 'text-only' %}
+  ==========================================================================
+{% endcomment %}
+
+{%- liquid
+  # =========================================================================
+  # STEP 1: GET VENDOR NAME
+  # =========================================================================
+  assign brand_product = product | default: card_product
+
+  if brand_product
+    assign vendor_raw = brand_product.vendor | default: vendor
+  else
+    assign vendor_raw = vendor
+  endif
+
+  assign vendor_raw = vendor_raw | strip
+  assign vendor_clean = vendor_raw | downcase
+-%}
+
+{% comment %}
+  =========================================================================
+  STEP 2: BRAND DATA — single source of truth
+  Each entry: key, display name, background colour, text colour.
+  Text colour defaults to #ffffff if omitted (set in lookup below).
+
+  STEP 2a: ALIAS MAP — maps vendor substrings to brand keys.
+  Pipe-delimited format: "substring1>key|substring2>key|..."
+  Multi-match aliases (e.g. irwin/marples) are separate entries.
+  Exact-match entries use "=" prefix: "=ox>ox"
+  AND-match entries (both substrings required) use "&": "premier&diamond>pdp"
+  =========================================================================
+{% endcomment %}
+
+{%- liquid
+  # =========================================================================
+  # STEP 2a: NORMALISE BRAND KEY via alias resolution
+  # =========================================================================
+  # Aliases handle vendor names that contain multiple keywords or
+  # alternate spellings. Simple single-keyword brands are resolved
+  # automatically by substring match against the JSON keys below.
+  #
+  # This replaces the old 227-line if/elsif chain. Brands whose vendor
+  # name exactly matches their key (e.g. "makita" -> "makita") need no
+  # alias — they are resolved by the fallback loop in Step 2b.
+  # =========================================================================
+
+  # Multi-keyword / alternate-spelling aliases (pipe-delimited pairs)
+  # Format: "match_term:brand_key" separated by "|"
+  assign brand_aliases = 'marples:irwin|vise-grip:irwin|quick-grip:irwin|ox tools:ox|evo-stik:evostik|evo stik:evostik|ob-1:ob1|site tuff:sitetuff|record power:recordpower|flex power:flex|wd-40:wd40|wd40:wd40|led lenser:ledlenser|master lock:masterlock|r.s.t:rst|bond it:bondit|bond-it:bondit'
+
+  # Resolve brand_key from aliases first
+  assign brand_key = ''
+  assign alias_pairs = brand_aliases | split: '|'
+  for pair in alias_pairs
+    assign parts = pair | split: ':'
+    assign alias_term = parts[0]
+    assign alias_key = parts[1]
+    if vendor_clean contains alias_term
+      assign brand_key = alias_key
+      break
+    endif
+  endfor
+
+  # AND-match aliases (both terms must be present)
+  if brand_key == ''
+    if vendor_clean contains 'premier' and vendor_clean contains 'diamond'
+      assign brand_key = 'pdp'
+    elsif vendor_clean contains 'black' and vendor_clean contains 'decker'
+      assign brand_key = 'blackdecker'
+    endif
+  endif
+
+  # Exact-match aliases
+  if brand_key == ''
+    if vendor_clean == 'ox'
+      assign brand_key = 'ox'
+    elsif vendor_clean == 'pdp'
+      assign brand_key = 'pdp'
+    elsif vendor_clean == 'flex'
+      assign brand_key = 'flex'
+    elsif vendor_clean == 'rst'
+      assign brand_key = 'rst'
+    endif
+  endif
+
+  # =========================================================================
+  # STEP 2b: Simple substring match against known brand keys
+  # For brands where the vendor name contains the brand key directly
+  # (e.g. "DeWalt Tools" contains "dewalt").
+  # =========================================================================
+  if brand_key == ''
+    assign known_keys = 'dewalt,makita,milwaukee,hikoki,stanley,faithfull,irwin,bosch,metabo,einhell,panasonic,paslode,soudal,sealey,evostik,ob1,ct1,everbuild,siroflex,timco,bahco,wera,knipex,trend,lamello,kamtec,sitetuff,roughneck,estwing,starrett,stabila,hultafors,draper,silverline,bluespot,forgefix,rawlplug,fischer,gorilla,loctite,bostik,bostitch,senco,tacwise,ridgid,recordpower,flex,evolution,blackdecker,karcher,nilfisk,wd40,yale,bessey,marshalltown,monument,kapro,ledlenser,brennenstuhl,scan,dickies,teng,facom,wiha,fiskars,rubi,purdy,ronseal,cuprinol,zinsser,hammerite,geocel,unibond,araldite,norton,flexovit,marcrist,abracs,mexco,freud,lenox,olympia,rst,gripit,jubilee,rapid,arrow,abus,squire,masterlock,armorgard,spit,pdp,bondit,viper' | split: ','
+
+    for key in known_keys
+      if vendor_clean contains key
+        assign brand_key = key
+        break
+      endif
+    endfor
+  endif
+
+  # Fallback: use the cleaned vendor name as-is
+  if brand_key == ''
+    assign brand_key = vendor_clean
+  endif
+
+  # =========================================================================
+  # STEP 3: LOOK UP BRAND DATA FROM JSON
+  # Uses Liquid string search on the JSON block to extract values.
+  # This replaces the old 230-line case/when chain.
+  # =========================================================================
+  assign brand_bg = '#2d2d2d'
+  assign brand_text = '#ffffff'
+  assign brand_display = vendor_raw
+
+  # Build the search needle for this brand_key
+  assign brand_needle = '"' | append: brand_key | append: '"'
+
+  # Pipe-delimited brand database for Liquid lookup
+  # Format: key|bg|text|display (one entry per line, joined by "|||")
+  assign brand_db = 'dewalt|#fecc00|#1a1a1a|DeWalt|||makita|#e11d26|#ffffff|Makita|||milwaukee|#d5001a|#ffffff|Milwaukee|||hikoki|#00a651|#ffffff|HiKOKI|||stanley|#ffcc00|#1a1a1a|Stanley|||faithfull|#00539b|#ffffff|Faithfull|||irwin|#003da5|#ffffff|Irwin|||bosch|#005eb8|#ffffff|Bosch|||metabo|#00843d|#ffffff|Metabo|||einhell|#0065bd|#ffffff|Einhell|||panasonic|#2d2d2d|#ffffff|Panasonic|||paslode|#ffffff|#ffffff|Paslode|||soudal|#ffffff|#ffffff|Soudal|||sealey|#003c71|#ffffff|Sealey|||ox|#0057b8|#ffffff|OX Tools|||evostik|#FFFFFF|#ffffff|Evo-Stik|||ob1|#0055a5|#ffffff|OB1|||ct1|#004999|#ffffff|CT1|||everbuild|#ffffff|#ffffff|Everbuild|||siroflex|#00843d|#ffffff|Siroflex|||timco|#da291b|#ffffff|TIMCO|||bahco|#ff6600|#ffffff|Bahco|||wera|#00539b|#ffffff|Wera|||knipex|#003087|#ffffff|Knipex|||trend|#005ca9|#ffffff|Trend|||lamello|#a71d35|#ffffff|Lamello|||kamtec|#2d2d2d|#ffffff|Kamtec|||pdp|#1e3a8a|#ffffff|Premier Diamond|||sitetuff|#2d2d2d|#ffffff|SiteTuff|||roughneck|#00539b|#ffffff|Roughneck|||estwing|#0054a6|#ffffff|Estwing|||starrett|#2d2d2d|#ffffff|Starrett|||stabila|#009639|#ffffff|Stabila|||hultafors|#009639|#ffffff|Hultafors|||draper|#004990|#ffffff|Draper|||silverline|#003087|#ffffff|Silverline|||bluespot|#0066cc|#ffffff|BlueSpot|||forgefix|#1a1a1a|#ffffff|ForgeFix|||rawlplug|#e30613|#ffffff|Rawlplug|||fischer|#e30613|#ffffff|Fischer|||gorilla|#ff6600|#ffffff|Gorilla Glue|||loctite|#cc0000|#ffffff|Loctite|||bostik|#003087|#ffffff|Bostik|||bostitch|#cc0000|#ffffff|Bostitch|||senco|#003087|#ffffff|Senco|||tacwise|#cc0000|#ffffff|Tacwise|||ridgid|#f26522|#ffffff|RIDGID|||recordpower|#003366|#ffffff|Record Power|||flex|#ff6600|#ffffff|Flex|||evolution|#cc0000|#ffffff|Evolution|||blackdecker|#ff6600|#ffffff|Black+Decker|||karcher|#cc0000|#ffffff|Kärcher|||nilfisk|#003c71|#ffffff|Nilfisk|||wd40|#2d2d2d|#ffffff|WD-40|||yale|#003087|#ffffff|Yale|||bessey|#2d2d2d|#ffffff|Bessey|||marshalltown|#2d2d2d|#ffffff|Marshalltown|||monument|#2d2d2d|#ffffff|Monument|||kapro|#009639|#ffffff|Kapro|||ledlenser|#2d2d2d|#ffffff|Ledlenser|||brennenstuhl|#2d2d2d|#ffffff|Brennenstuhl|||scan|#2d2d2d|#ffffff|Scan|||dickies|#1a1a1a|#ffffff|Dickies|||teng|#2d2d2d|#ffffff|Teng Tools|||facom|#2d2d2d|#ffffff|Facom|||wiha|#2d2d2d|#ffffff|Wiha|||fiskars|#f86202|#ffffff|Fiskars|||rubi|#e30613|#ffffff|Rubi|||purdy|#2d2d2d|#ffffff|Purdy|||ronseal|#cc0000|#ffffff|Ronseal|||cuprinol|#cc0000|#ffffff|Cuprinol|||zinsser|#cc0000|#ffffff|Zinsser|||hammerite|#2d2d2d|#ffffff|Hammerite|||geocel|#2d2d2d|#ffffff|Geocel|||unibond|#00843d|#ffffff|UniBond|||araldite|#00843d|#ffffff|Araldite|||norton|#2d2d2d|#ffffff|Norton|||flexovit|#2d2d2d|#ffffff|Flexovit|||marcrist|#c8102e|#ffffff|Marcrist|||abracs|#2d2d2d|#ffffff|Abracs|||mexco|#c8102e|#ffffff|Mexco|||freud|#e30613|#ffffff|Freud|||lenox|#2d2d2d|#ffffff|Lenox|||olympia|#1a1a1a|#ffffff|Olympia Tools|||rst|#2d2d2d|#ffffff|R.S.T|||gripit|#e30613|#ffffff|GripIt|||jubilee|#2d2d2d|#ffffff|Jubilee|||rapid|#c8102e|#ffffff|Rapid|||arrow|#c8102e|#ffffff|Arrow|||abus|#c8102e|#ffffff|ABUS|||squire|#2d2d2d|#ffffff|Squire|||masterlock|#2d2d2d|#ffffff|Master Lock|||armorgard|#ff6600|#ffffff|Armorgard|||spit|#fa4d03|#ffffff|Spit|||bondit|#ffffff|#1a1a1a|Bond It|||tuskbond|#f11417|#1a1a1a|Tuskbond|||ct1|#004999|#1a1a1a|CT1|||imex|#8ACE00|#1a1a1a|IMEX|||viper|#00a2b0|#ffffff|Viper|||portwest|#ffffff|#ffffff|Portwest'
+
+  assign brand_entries = brand_db | split: '|||'
+  for entry in brand_entries
+    assign fields = entry | split: '|'
+    if fields[0] == brand_key
+      assign brand_bg = fields[1]
+      assign brand_text = fields[2]
+      assign brand_display = fields[3]
+      break
+    endif
+  endfor
+
+  # Light-background brands need a visible border
+  assign brand_bg_lower = brand_bg | downcase
+  assign pill_needs_border = false
+  if brand_bg_lower == '#ffffff' or brand_bg_lower == '#fff' or brand_bg_lower == '#ffcc00' or brand_bg_lower == '#fecc00'
+    assign pill_needs_border = true
+  endif
+
+  # =========================================================================
+  # STEP 4: BUILD URL
+  # =========================================================================
+  if url != blank
+    assign pill_url = url
+  else
+    assign pill_url = routes.collections_url | append: '/' | append: brand_key
+  endif
+
+  # =========================================================================
+  # STEP 5: BUILD LOGO URL (assets only)
+  # =========================================================================
+  assign brand_logo_url = brand_key | append: '.svg' | asset_url
+
+  # =========================================================================
+  # STEP 6: DETERMINE RENDER TYPE
+  # =========================================================================
+  assign render_type = type | default: 'pill'
+-%}
+
+{%- if vendor_raw != blank -%}
+
+  {%- if render_type == 'dot' -%}
+    {%- comment -%} DOT MODE: Just a coloured circle for filter buttons {%- endcomment -%}
+    <span
+      class="invicta-brand-dot"
+      style="background-color: {{ brand_bg }};{% if brand_key == 'dewalt' or brand_key == 'stanley' %} box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15);{% endif %}"
+      aria-hidden="true"
+    ></span>
+
+  {%- elsif render_type == 'text-only' -%}
+    {%- comment -%} TEXT-ONLY MODE: Simple coloured text pill, no logo {%- endcomment -%}
+    <span
+      class="invicta-brand-pill invicta-brand-pill--text invicta-brand-pill--{{ pill_size | default: 'md' }}{% if pill_compact %} invicta-brand-pill--compact{% endif %}"
+      style="--pill-bg: {{ brand_bg }}; --pill-text: {{ brand_text }};"
+    >
+      <span class="invicta-brand-pill__inner">
+        <span class="invicta-brand-pill__label">{{ brand_display }}</span>
+      </span>
+    </span>
+
+  {%- elsif render_type == 'filter' -%}
+    {%- comment -%} FILTER MODE: Logo pill rendered as span (safe inside <button>) {%- endcomment -%}
+    <span
+      class="invicta-brand-pill invicta-brand-pill--{{ pill_size | default: 'md' }}{% if pill_compact %} invicta-brand-pill--compact{% endif %}"
+      aria-label="{{ brand_display | escape }}"
+      style="--pill-bg: {{ brand_bg }}; --pill-text: {{ brand_text }};{% if pill_needs_border %} border: 1.5px solid var(--inv-border-dark);{% endif %}"
+    >
+      <span class="invicta-brand-pill__inner">
+
+        <!-- Visible logo (mobile-safe) -->
+        <span
+          class="invicta-brand-pill__logo-bg"
+          style="background-image:url('{{ brand_logo_url | escape }}');"
+          aria-hidden="true"
+        ></span>
+
+        <!-- Hidden detector img: only used to trigger fallback if asset missing -->
+        <img
+          src="{{ brand_logo_url | escape }}"
+          alt="{{ brand_display }} logo"
+          class="invicta-brand-pill__logo"
+          loading="eager"
+          width="120"
+          height="40"
+          style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;"
+          data-brand-pill-detector
+        >
+
+        <!-- Text fallback: hard-hidden until onerror fires -->
+        <span
+          class="invicta-brand-pill__label"
+          style="display:none;"
+        >
+          {{ brand_display }}
+        </span>
+
+      </span>
+    </span>
+
+  {%- else -%}
+    {%- comment -%} FULL PILL MODE: Logo with fallback to text {%- endcomment -%}
+    <div class="invicta-brand-pill-wrapper invicta-brand-pill-wrapper--{{ pill_context | default: 'card' }}">
+      <a
+        href="{{ pill_url }}"
+        class="invicta-brand-pill invicta-brand-pill--{{ pill_size | default: 'md' }}{% if pill_compact %} invicta-brand-pill--compact{% endif %}"
+        aria-label="Shop {{ brand_display | escape }} products"
+        title="Shop {{ brand_display | escape }}"
+        style="--pill-bg: {{ brand_bg }}; --pill-text: {{ brand_text }};{% if pill_needs_border %} border: 1.5px solid var(--inv-border-dark);{% endif %}"
+      >
+        <span class="invicta-brand-pill__inner">
+
+          <!-- Visible logo (mobile-safe) -->
+          <span
+            class="invicta-brand-pill__logo-bg"
+            style="background-image:url('{{ brand_logo_url | escape }}');"
+            aria-hidden="true"
+          ></span>
+
+          <!-- Hidden detector img: only used to trigger fallback if asset missing -->
+          <img
+            src="{{ brand_logo_url | escape }}"
+            alt="{{ brand_display }} logo - Shop {{ brand_display }} tools at Invicta Tools"
+            class="invicta-brand-pill__logo"
+            loading="eager"
+            width="120"
+            height="40"
+            style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;"
+            data-brand-pill-detector
+          >
+
+          <!-- Text fallback: hard-hidden until onerror fires -->
+          <span
+            class="invicta-brand-pill__label"
+            style="display:none;"
+          >
+            {{ brand_display }}
+          </span>
+
+        </span>
+      </a>
+    </div>
+  {%- endif -%}
+
+{%- endif -%}
+
+{%- comment -%}
+  Brand pill error handler moved to assets/invicta-brand-pill.js
+  (loaded via theme.liquid) for CSP compliance.
+{%- endcomment -%}

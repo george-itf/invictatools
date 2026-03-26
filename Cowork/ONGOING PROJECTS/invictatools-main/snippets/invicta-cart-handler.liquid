@@ -1,0 +1,14 @@
+{% comment %}
+  ============================================================================
+  INVICTA CART HANDLER
+  ============================================================================
+  Handles add-to-cart functionality for product cards.
+
+  Include this once in your theme.liquid or a layout file:
+  {% render 'invicta-cart-handler' %}
+
+  JavaScript extracted to assets/invicta-cart-handler.js for CSP compliance.
+  ============================================================================
+{% endcomment %}
+
+<script src="{{ 'invicta-cart-handler.js' | asset_url }}" defer></script>

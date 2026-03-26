@@ -1,0 +1,561 @@
+{%- comment -%}
+  TRADE LANDING PAGE v2.0
+  Conversion-focused landing page for Google Ads campaigns
+{%- endcomment -%}
+
+{{ 'section-trade-landing.css' | asset_url | stylesheet_tag }}
+
+<div class="trade-landing">
+
+  {%- comment -%} HERO {%- endcomment -%}
+  <section class="tl-hero">
+    <div class="trade-landing__container">
+      <div class="tl-hero__inner">
+        <div class="tl-hero__content">
+          <span class="tl-hero__eyebrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            {{ section.settings.hero_eyebrow }}
+          </span>
+          <h1 class="tl-hero__heading">{{ section.settings.hero_heading }}</h1>
+          <p class="tl-hero__subheading">{{ section.settings.hero_subheading }}</p>
+          <div class="tl-hero__ctas">
+            <a href="#trade-form" class="tl-hero__btn tl-hero__btn--primary">
+              {{ section.settings.hero_cta_text }}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="tel:{{ section.settings.phone_number | remove: ' ' }}" class="tl-hero__btn tl-hero__btn--secondary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              {{ section.settings.phone_number }}
+            </a>
+          </div>
+          <div class="tl-hero__trust">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'trust_badge' -%}
+                <div class="tl-hero__trust-item" {{ block.shopify_attributes }}>
+                  <svg class="tl-hero__trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                  <span>{{ block.settings.text }}</span>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+        {%- if section.settings.hero_image != blank -%}
+          <div class="tl-hero__visual">
+            <img
+              src="{{ section.settings.hero_image | image_url: width: 700 }}"
+              srcset="{{ section.settings.hero_image | image_url: width: 400 }} 400w, {{ section.settings.hero_image | image_url: width: 600 }} 600w, {{ section.settings.hero_image | image_url: width: 700 }} 700w"
+              sizes="(max-width: 749px) 100vw, 45vw"
+              alt="{{ section.settings.hero_image.alt | default: 'Invicta Tools & Fixings' }}"
+              class="tl-hero__image"
+              loading="eager"
+              width="{{ section.settings.hero_image.width }}"
+              height="{{ section.settings.hero_image.height }}"
+            >
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} WHY CHOOSE US - Compact Strip {%- endcomment -%}
+  <section class="tl-why">
+    <div class="trade-landing__container">
+      <div class="tl-why__grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'why_item' -%}
+            <div class="tl-why__item" {{ block.shopify_attributes }}>
+              <div class="tl-why__icon">
+                {%- case block.settings.icon -%}
+                  {%- when 'price' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><text x="6" y="18" font-size="16" font-weight="bold" fill="currentColor" stroke="none">£</text></svg>
+                  {%- when 'truck' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                  {%- when 'headphones' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                  {%- when 'package' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                  {%- when 'calendar' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  {%- when 'shield' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                {%- endcase -%}
+              </div>
+              <h3 class="tl-why__label">{{ block.settings.text }}</h3>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} CATEGORIES {%- endcomment -%}
+  <section class="tl-categories">
+    <div class="trade-landing__container">
+      <div class="tl-section-header">
+        <span class="tl-section-header__eyebrow">What We Stock</span>
+        <h2 class="tl-section-header__heading">{{ section.settings.categories_heading }}</h2>
+      </div>
+      <div class="tl-categories__grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'category' -%}
+            <a href="{{ block.settings.link }}" class="tl-categories__item" {{ block.shopify_attributes }}>
+              <div class="tl-categories__icon">
+                {%- case block.settings.icon -%}
+                  {%- when 'hand_tools' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                  {%- when 'power_tools' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  {%- when 'fixings' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  {%- when 'workwear' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>
+                  {%- when 'site_equipment' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                {%- endcase -%}
+              </div>
+              <h3 class="tl-categories__name">{{ block.settings.name }}</h3>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} BRANDS {%- endcomment -%}
+  <section class="tl-brands">
+    <div class="trade-landing__container">
+      <div class="tl-section-header">
+        <span class="tl-section-header__eyebrow">Authorised Dealer</span>
+        <h2 class="tl-section-header__heading">{{ section.settings.brands_heading }}</h2>
+      </div>
+      <div class="tl-brands__strip">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'brand' -%}
+            {% render 'invicta-brand-pill', vendor: block.settings.brand_name, pill_size: 'md', pill_context: 'strip' %}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} BENEFITS {%- endcomment -%}
+  <section class="tl-benefits">
+    <div class="trade-landing__container">
+      <div class="tl-section-header">
+        <span class="tl-section-header__eyebrow">Website Accounts</span>
+        <h2 class="tl-section-header__heading">{{ section.settings.benefits_heading }}</h2>
+      </div>
+      <div class="tl-benefits__grid">
+        <div class="tl-benefits__card">
+          <span class="tl-benefits__step">1</span>
+          <h3 class="tl-benefits__title">Apply Online</h3>
+          <p class="tl-benefits__text">Fill in the quick form below with your business details. Takes less than 2 minutes.</p>
+        </div>
+        <div class="tl-benefits__card">
+          <span class="tl-benefits__step">2</span>
+          <h3 class="tl-benefits__title">Quick Approval</h3>
+          <p class="tl-benefits__text">We review applications fast. Most are approved within 24 hours.</p>
+        </div>
+        <div class="tl-benefits__card">
+          <span class="tl-benefits__step">3</span>
+          <h3 class="tl-benefits__title">Start Saving</h3>
+          <p class="tl-benefits__text">Access trade pricing, credit terms, and dedicated account support.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} TRUST {%- endcomment -%}
+  <section class="tl-trust">
+    <div class="trade-landing__container">
+      <div class="tl-trust__inner">
+        <div class="tl-trust__quote">
+          <svg class="tl-trust__quote-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+          <blockquote class="tl-trust__quote-text">{{ section.settings.testimonial_text }}</blockquote>
+          <p class="tl-trust__quote-author">{{ section.settings.testimonial_author }}</p>
+          <p class="tl-trust__quote-role">{{ section.settings.testimonial_role }}</p>
+        </div>
+        <div class="tl-trust__badges">
+          <div class="tl-trust__badge">
+            <div class="tl-trust__badge-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div>
+              <p class="tl-trust__badge-text">{{ section.settings.google_rating }}</p>
+              <p class="tl-trust__badge-sub">Google Reviews</p>
+            </div>
+          </div>
+          <div class="tl-trust__badge">
+            <div class="tl-trust__badge-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            </div>
+            <div>
+              <p class="tl-trust__badge-text">Authorised Dealer</p>
+              <p class="tl-trust__badge-sub">Major Tool Brands</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} FORM {%- endcomment -%}
+  <section class="tl-form-section" id="trade-form">
+    <div class="trade-landing__container">
+      <div class="tl-form-section__inner">
+        <div class="tl-form-section__content">
+          <h2>{{ section.settings.form_heading }}</h2>
+          <p>{{ section.settings.form_subheading }}</p>
+          <ul class="tl-form-section__benefits">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Trade pricing on all products</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>30-day credit terms available</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Dedicated account manager</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Priority order processing</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Exclusive trade-only deals</li>
+          </ul>
+        </div>
+        <div class="tl-form">
+          <h3 class="tl-form__title">Apply for a Website Account</h3>
+          {% form 'contact', id: 'trade-account-form' %}
+            {%- if form.posted_successfully? -%}
+              <script>window.location.href = '{{ shop.url }}/pages/thank-you-trade';</script>
+            {%- endif -%}
+            {%- if form.errors -%}
+              <div style="background:#fef2f2;border:1px solid #e11d26;padding:14px;margin-bottom:20px;color:#e11d26;border-radius:6px;font-size:14px;">{{ form.errors | default_errors }}</div>
+            {%- endif -%}
+            <input type="hidden" name="contact[tags]" value="website-account-application, landing-page">
+            <div class="tl-form__grid">
+              <div class="tl-form__group">
+                <label for="business_name" class="tl-form__label tl-form__label--required">Business Name</label>
+                <input type="text" name="contact[business_name]" id="business_name" class="tl-form__input" placeholder="Your company name" required>
+              </div>
+              <div class="tl-form__group">
+                <label for="contact_name" class="tl-form__label tl-form__label--required">Contact Name</label>
+                <input type="text" name="contact[name]" id="contact_name" class="tl-form__input" placeholder="Your full name" required>
+              </div>
+              <div class="tl-form__group">
+                <label for="email" class="tl-form__label tl-form__label--required">Email</label>
+                <input type="email" name="contact[email]" id="email" class="tl-form__input" placeholder="you@company.co.uk" required>
+              </div>
+              <div class="tl-form__group">
+                <label for="phone" class="tl-form__label tl-form__label--required">Phone</label>
+                <input type="tel" name="contact[phone]" id="phone" class="tl-form__input" placeholder="07XXX XXXXXX" required>
+              </div>
+              <div class="tl-form__group tl-form__group--full">
+                <label for="address" class="tl-form__label tl-form__label--required">Address / Postcode</label>
+                <input type="text" name="contact[address]" id="address" class="tl-form__input" placeholder="Business address or postcode" required>
+              </div>
+              <div class="tl-form__group tl-form__group--full">
+                <label for="business_type" class="tl-form__label tl-form__label--required">Type of Business</label>
+                <select name="contact[business_type]" id="business_type" class="tl-form__select" required>
+                  <option value="">Select your business type</option>
+                  <option value="Contractor">Contractor</option>
+                  <option value="Retailer">Retailer</option>
+                  <option value="Merchant">Merchant</option>
+                  <option value="Manufacturer">Manufacturer</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="tl-form__submit">
+              Submit Application
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <p class="tl-form__disclaimer">By submitting this form, you agree to be contacted about your website account application. We'll never share your details with third parties.</p>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} FINAL CTA {%- endcomment -%}
+  <section class="tl-final-cta">
+    <div class="trade-landing__container">
+      <h2 class="tl-final-cta__heading">{{ section.settings.final_cta_heading }}</h2>
+      <p class="tl-final-cta__text">{{ section.settings.final_cta_text }}</p>
+      <div class="tl-final-cta__actions">
+        <a href="#trade-form" class="tl-hero__btn tl-hero__btn--primary">
+          Open a Website Account
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="tel:{{ section.settings.phone_number | remove: ' ' }}" class="tl-hero__btn tl-hero__btn--secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Call Us
+        </a>
+      </div>
+      <div class="tl-final-cta__contact">
+        <a href="tel:{{ section.settings.phone_number | remove: ' ' }}" class="tl-final-cta__contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          {{ section.settings.phone_number }}
+        </a>
+        <a href="mailto:{{ section.settings.email }}" class="tl-final-cta__contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          {{ section.settings.email }}
+        </a>
+        <span class="tl-final-cta__contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          {{ section.settings.address }}
+        </span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+{% schema %}
+{
+  "name": "Trade Landing Page",
+  "tag": "section",
+  "class": "section-trade-landing",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image",
+      "info": "Recommended: 700x500px or larger"
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Eyebrow text",
+      "default": "Kent-Based Trade Supplier"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Main heading",
+      "default": "Looking for a New Trade Tool Supplier?"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subheading",
+      "label": "Subheading",
+      "default": "Kent-based. Trade-focused. Fast UK delivery. Trusted by contractors across the South East since 1985."
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_text",
+      "label": "Primary CTA text",
+      "default": "Open a Website Account"
+    },
+    {
+      "type": "header",
+      "content": "Section Headings"
+    },
+    {
+      "type": "text",
+      "id": "categories_heading",
+      "label": "Categories heading",
+      "default": "Everything You Need, In Stock"
+    },
+    {
+      "type": "text",
+      "id": "brands_heading",
+      "label": "Brands heading",
+      "default": "Brands You Trust"
+    },
+    {
+      "type": "text",
+      "id": "benefits_heading",
+      "label": "Account Benefits heading",
+      "default": "Getting Started is Easy"
+    },
+    {
+      "type": "header",
+      "content": "Testimonial"
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_text",
+      "label": "Testimonial quote",
+      "default": "Switched to Invicta after our previous supplier closed. Best decision we made - better prices, faster delivery, and they actually pick up the phone when you call."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_author",
+      "label": "Author name",
+      "default": "Mark Thompson"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_role",
+      "label": "Author role",
+      "default": "Thompson Building Services, Canterbury"
+    },
+    {
+      "type": "text",
+      "id": "google_rating",
+      "label": "Google rating",
+      "default": "4.9 Star Rating"
+    },
+    {
+      "type": "header",
+      "content": "Form Section"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form section heading",
+      "default": "Ready to Switch?"
+    },
+    {
+      "type": "textarea",
+      "id": "form_subheading",
+      "label": "Form section text",
+      "default": "Open a website account today and get access to competitive pricing, fast delivery, and dedicated support."
+    },
+    {
+      "type": "header",
+      "content": "Final CTA"
+    },
+    {
+      "type": "text",
+      "id": "final_cta_heading",
+      "label": "Final CTA heading",
+      "default": "Ready to Get Started?"
+    },
+    {
+      "type": "textarea",
+      "id": "final_cta_text",
+      "label": "Final CTA text",
+      "default": "Join hundreds of trade customers who've made the switch. Apply online or give us a call."
+    },
+    {
+      "type": "header",
+      "content": "Contact Details"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Phone number",
+      "default": "01843 593 440"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email address",
+      "default": "sales@invictatools.co.uk"
+    },
+    {
+      "type": "text",
+      "id": "address",
+      "label": "Address",
+      "default": "Ramsgate, Kent"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_badge",
+      "name": "Trust Badge",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Badge text",
+          "default": "40+ Years Trading"
+        }
+      ]
+    },
+    {
+      "type": "why_item",
+      "name": "Why Choose Item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "price",
+          "options": [
+            { "value": "price", "label": "Price tag (£)" },
+            { "value": "truck", "label": "Delivery truck" },
+            { "value": "headphones", "label": "Support" },
+            { "value": "package", "label": "Package / Stock" },
+            { "value": "calendar", "label": "Calendar / Years" },
+            { "value": "shield", "label": "Shield / Trust" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Label",
+          "default": "Trade Pricing"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "name": "Product Category",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "hand_tools",
+          "options": [
+            { "value": "hand_tools", "label": "Hand Tools" },
+            { "value": "power_tools", "label": "Power Tools" },
+            { "value": "fixings", "label": "Fixings & Fasteners" },
+            { "value": "workwear", "label": "Workwear & PPE" },
+            { "value": "site_equipment", "label": "Site Equipment" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Category name",
+          "default": "Hand Tools"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "brand",
+      "name": "Brand Pill",
+      "settings": [
+        {
+          "type": "text",
+          "id": "brand_name",
+          "label": "Brand name",
+          "info": "Enter the brand name exactly (e.g. Makita, DeWalt, HiKOKI)",
+          "default": "Makita"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trade Landing Page",
+      "blocks": [
+        { "type": "trust_badge", "settings": { "text": "40+ Years Trading" } },
+        { "type": "trust_badge", "settings": { "text": "UK-Based Support" } },
+        { "type": "trust_badge", "settings": { "text": "Next-Day Delivery" } },
+        { "type": "why_item", "settings": { "icon": "price", "text": "Trade Pricing" } },
+        { "type": "why_item", "settings": { "icon": "truck", "text": "Next-Day Delivery" } },
+        { "type": "why_item", "settings": { "icon": "headphones", "text": "UK-Based Support" } },
+        { "type": "why_item", "settings": { "icon": "package", "text": "No Minimum Order" } },
+        { "type": "why_item", "settings": { "icon": "calendar", "text": "Est. 1985" } },
+        { "type": "category", "settings": { "icon": "hand_tools", "name": "Hand Tools" } },
+        { "type": "category", "settings": { "icon": "power_tools", "name": "Power Tools" } },
+        { "type": "category", "settings": { "icon": "fixings", "name": "Fixings & Fasteners" } },
+        { "type": "category", "settings": { "icon": "workwear", "name": "Workwear & PPE" } },
+        { "type": "category", "settings": { "icon": "site_equipment", "name": "Site Equipment" } },
+        { "type": "brand", "settings": { "brand_name": "Makita" } },
+        { "type": "brand", "settings": { "brand_name": "DeWalt" } },
+        { "type": "brand", "settings": { "brand_name": "HiKOKI" } },
+        { "type": "brand", "settings": { "brand_name": "Milwaukee" } },
+        { "type": "brand", "settings": { "brand_name": "Bosch" } },
+        { "type": "brand", "settings": { "brand_name": "Stanley" } },
+        { "type": "brand", "settings": { "brand_name": "Faithfull" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

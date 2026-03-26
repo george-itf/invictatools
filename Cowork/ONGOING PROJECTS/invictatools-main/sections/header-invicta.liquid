@@ -1,0 +1,301 @@
+{% comment %}
+  =========================================================
+  Invicta Header v6.0 — UX Audit Overhaul
+  ---------------------------------------------------------
+  LAYOUT:
+  • Mobile: Hamburger + Logo | Search | VAT Toggle + Cart
+  • Desktop: Logo left | Search centre | VAT Toggle + Account + Cart right
+  • Hamburger menu on mobile with full navigation
+  • VAT toggle visible on all breakpoints
+  • Sticky header with slim profile on scroll
+  • Full accessibility (aria-current, nav landmark, focus states)
+  =========================================================
+{% endcomment %}
+
+{% assign ss = section.settings %}
+
+{{ 'section-header-invicta.css' | asset_url | stylesheet_tag }}
+
+<header class="invicta-header" role="banner">
+  <nav class="invicta-header__inner" aria-label="Main navigation">
+
+    <!-- HAMBURGER MENU BUTTON (Mobile/Tablet) -->
+    <button
+      type="button"
+      class="invicta-header__menu-btn"
+      aria-label="{{ 'sections.header.menu' | t | default: 'Menu' }}"
+      aria-expanded="false"
+      aria-controls="invicta-mobile-drawer"
+      data-drawer-open
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+
+    <!-- LOGO (Left) -->
+    <div class="invicta-header__logo">
+      <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
+        {%- if settings.logo != blank -%}
+          {{ settings.logo | image_url: width: 400 | image_tag: class: 'header__heading-logo', alt: settings.logo.alt | default: shop.name, loading: 'eager' }}
+        {%- else -%}
+          <span class="h2 invicta-header__logo-text">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+
+    <!-- SEARCH (Centre) -->
+    <div class="invicta-header__search">
+      {% render 'predictive-search-inline' %}
+    </div>
+
+    <!-- ICONS (Right) — VAT Toggle + Account + Cart -->
+    <div class="invicta-header__icons">
+
+      <!-- VAT Toggle (Button Style — visible on all breakpoints) -->
+      <div class="invicta-header__vat-toggle" data-vat-toggle role="group" aria-label="VAT display toggle">
+        <button
+          type="button"
+          class="invicta-header__vat-btn"
+          data-vat-btn="ex"
+          aria-pressed="false"
+        >
+          {{ 'invicta.header.vat_ex' | t }}
+        </button>
+        <button
+          type="button"
+          class="invicta-header__vat-btn invicta-header__vat-btn--active"
+          data-vat-btn="inc"
+          aria-pressed="true"
+        >
+          {{ 'invicta.header.vat_inc' | t }}
+        </button>
+      </div>
+
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="invicta-header__icon invicta-header__icon--account" aria-label="{% if customer %}Account{% else %}Sign in{% endif %}">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="7" r="4"></circle>
+            <path d="M4 21c0-4 4-7 8-7s8 3 8 7"></path>
+          </svg>
+        </a>
+      {%- endif -%}
+
+      <a id="cart-icon-bubble" href="{{ routes.cart_url }}" class="invicta-header__icon header__icon--cart link focus-inset" aria-label="Cart ({{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }})">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6h15l-1.5 9h-12z"></path>
+          <circle cx="9" cy="19" r="1.5"></circle>
+          <circle cx="17" cy="19" r="1.5"></circle>
+          <path d="M3 3h2l.4 2"></path>
+        </svg>
+        <span class="invicta-header__badge{% if cart == empty or cart.item_count == 0 %} hidden{% endif %}" data-cart-count="{{ cart.item_count }}">{{ cart.item_count }}</span>
+      </a>
+    </div>
+
+  </nav>
+</header>
+
+{%- comment -%} ========== MOBILE DRAWER NAVIGATION ========== {%- endcomment -%}
+<div id="invicta-mobile-drawer" class="invicta-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="invicta-drawer__backdrop" data-drawer-close></div>
+  <div class="invicta-drawer__panel">
+    <div class="invicta-drawer__header">
+      <span class="invicta-drawer__title">{{ 'invicta.header.menu' | t }}</span>
+      <button type="button" class="invicta-drawer__close" data-drawer-close aria-label="Close menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <div class="invicta-drawer__nav">
+      <ul class="invicta-drawer__nav-list" role="list">
+        {%- for link in ss.menu.links -%}
+          <li class="invicta-drawer__nav-item">
+            {%- if link.links != blank -%}
+              <button
+                type="button"
+                class="invicta-drawer__submenu-toggle"
+                aria-expanded="false"
+                aria-controls="invicta-submenu-{{ forloop.index }}"
+              >
+                {{ link.title | escape }}
+                <svg class="invicta-drawer__chevron" viewBox="0 0 24 24" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+              <ul id="invicta-submenu-{{ forloop.index }}" class="invicta-drawer__submenu" role="list">
+                {%- for childlink in link.links -%}
+                  <li>
+                    <a
+                      href="{{ childlink.url }}"
+                      {% if childlink.current %}aria-current="page"{% endif %}
+                    >
+                      {{ childlink.title | escape }}
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- else -%}
+              <a
+                href="{{ link.url }}"
+                class="invicta-drawer__nav-link"
+                {% if link.current %}aria-current="page"{% endif %}
+              >
+                {{ link.title | escape }}
+              </a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    {%- comment -%} VAT toggle inside drawer for mobile {%- endcomment -%}
+    <div class="invicta-drawer__vat">
+      <span class="invicta-drawer__vat-label">{{ 'invicta.header.prices_label' | t }}</span>
+      <div class="invicta-drawer__vat-pills" data-vat-toggle>
+        <button type="button" class="invicta-drawer__vat-pill" data-vat-btn="ex" aria-pressed="false">{{ 'invicta.header.vat_ex' | t }}</button>
+        <button type="button" class="invicta-drawer__vat-pill invicta-drawer__vat-pill--active" data-vat-btn="inc" aria-pressed="true">{{ 'invicta.header.vat_inc' | t }}</button>
+      </div>
+    </div>
+
+    {%- if shop.customer_accounts_enabled -%}
+      <div class="invicta-drawer__footer">
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="invicta-drawer__account-link">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="7" r="4"></circle>
+            <path d="M4 21c0-4 4-7 8-7s8 3 8 7"></path>
+          </svg>
+          {% if customer %}{{ 'invicta.header.my_account' | t }}{% else %}{{ 'invicta.header.sign_in_register' | t }}{% endif %}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- comment -%}
+  Drawer JS v6.1 — lightweight, accessible, focus-trapped
+  v6.1: Relocated drawer to <body> to escape parent overflow:hidden clipping
+        on iOS Safari. Uses event delegation for reliable mobile tap handling.
+{%- endcomment -%}
+<script>
+(function() {
+  function initDrawer() {
+    var drawer = document.getElementById('invicta-mobile-drawer');
+    if (!drawer) return;
+
+    /* Move drawer to <body> so it escapes any parent overflow:hidden / stacking
+       context issues (iOS WebKit clips fixed children of overflow:hidden ancestors) */
+    if (drawer.parentNode !== document.body) {
+      document.body.appendChild(drawer);
+    }
+
+    var panel = drawer.querySelector('.invicta-drawer__panel');
+    var previousFocus = null;
+
+    function openDrawer(e) {
+      if (e) e.preventDefault();
+      previousFocus = document.activeElement;
+      drawer.setAttribute('open', '');
+      document.body.style.overflow = 'hidden';
+      document.querySelectorAll('[data-drawer-open]').forEach(function(b) {
+        b.setAttribute('aria-expanded', 'true');
+      });
+      setTimeout(function() {
+        var firstFocusable = panel.querySelector('button, a, input');
+        if (firstFocusable) firstFocusable.focus();
+      }, 100);
+    }
+
+    function closeDrawer() {
+      drawer.removeAttribute('open');
+      document.body.style.overflow = '';
+      document.querySelectorAll('[data-drawer-open]').forEach(function(b) {
+        b.setAttribute('aria-expanded', 'false');
+      });
+      if (previousFocus) previousFocus.focus();
+    }
+
+    /* Event delegation on document — guaranteed to work even if button
+       is re-rendered (e.g. Shopify theme editor) or IIFE runs early */
+    document.addEventListener('click', function(e) {
+      /* Open button */
+      if (e.target.closest('[data-drawer-open]')) {
+        openDrawer(e);
+        return;
+      }
+      /* Close button / backdrop */
+      if (e.target.closest('[data-drawer-close]')) {
+        closeDrawer();
+        return;
+      }
+    });
+
+    /* Submenu accordion toggles */
+    drawer.addEventListener('click', function(e) {
+      var toggle = e.target.closest('.invicta-drawer__submenu-toggle');
+      if (!toggle) return;
+      var expanded = toggle.getAttribute('aria-expanded') === 'true';
+      var submenu = document.getElementById(toggle.getAttribute('aria-controls'));
+      if (!submenu) return;
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      if (!expanded) {
+        submenu.setAttribute('data-open', '');
+      } else {
+        submenu.removeAttribute('data-open');
+      }
+    });
+
+    /* Escape key closes drawer */
+    drawer.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeDrawer();
+    });
+  }
+
+  /* Ensure DOM is ready before running */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDrawer);
+  } else {
+    initDrawer();
+  }
+})();
+
+// Sticky scroll shadow
+(function() {
+  var header = document.querySelector('.invicta-header');
+  if (!header) return;
+  var cls = 'invicta-header--scrolled';
+  var last = false;
+  window.addEventListener('scroll', function() {
+    var scrolled = window.scrollY > 10;
+    if (scrolled !== last) {
+      header.classList.toggle(cls, scrolled);
+      last = scrolled;
+    }
+  }, { passive: true });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Invicta Header",
+  "class": "section-header-invicta",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation menu",
+      "default": "main-menu",
+      "info": "Used for the mobile drawer and mega menu"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Invicta Header"
+    }
+  ]
+}
+{% endschema %}

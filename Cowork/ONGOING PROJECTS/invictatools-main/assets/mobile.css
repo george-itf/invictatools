@@ -1,0 +1,4327 @@
+/* ============================================================================
+   MOBILE.CSS — Invicta Tools PWA Mobile Styles v6.0 (REFACTORED)
+   ============================================================================
+
+   This file loads ONLY on mobile devices (≤749px)
+   All styles are root-level — no @media queries needed
+
+   REFACTORED: 2025-01-12
+   - Removed force-override declarations by using proper CSS specificity
+   - Uses html.js prefix for higher specificity without force-overrides
+   - Maintains same visual output with cleaner, more maintainable code
+
+   CONTENTS:
+   1. Global Mobile Overrides (from invicta-mobile-overrides.css)
+   2. Product Page Mobile (from invicta-product-mobile.css)
+   3. Collection Page Mobile (from invicta-collection-mobile.css)
+   4. Extracted Mobile Blocks:
+      - From invicta-overrides.css
+      - From invicta-product.css
+      - From invicta-collection.css
+      - From invicta-account.css
+      - From invicta-cart.css
+
+   ============================================================================ */
+
+
+/* ============================================================================
+   SECTION 1: GLOBAL MOBILE OVERRIDES
+   Source: invicta-mobile-overrides.css
+   ============================================================================ */
+
+/* ============================================================================
+   INVICTA TOOLS — MOBILE OVERRIDES v6.0 (REFACTORED)
+   ============================================================================
+
+   PURPOSE: App-like mobile experience
+   SCOPE: Only affects screens ≤749px
+   CONSTRAINT: Desktop layout remains 100% unchanged
+
+   REFACTORING NOTES:
+   - Replaced force-overrides with increased CSS specificity
+   - Uses html.js prefix to win specificity battles
+   - Functional behavior is identical to v5.2
+
+   DEPENDENCIES: Works WITH updated section/snippet files:
+   - snippets/predictive-search-inline.liquid (v7.4) — search bar fix
+   - sections/review-carousel.liquid (v2.0) — padding fix
+   - sections/image-banner.liquid (v2.0) — whitespace fix
+   - sections/invicta-product.liquid (v8.2) — product page
+   - sections/invicta-collection.liquid (v8.1) — collection page
+   - assets/invicta-product-mobile.css (v3.0) — product mobile styles
+   - assets/invicta-collection-mobile.css (v1.0) — collection mobile styles
+
+   CHANGELOG:
+   v6.0 — 2025-01-12 — Removed force-overrides, increased specificity instead
+   v5.2 — 2025-11-28 — Added collection page exclusions (section 26)
+   v5.1 — 2025-11-28 — Added product page exclusions (section 25)
+   v5.0 — 2025-11-28 — Requires updated Liquid files for search/whitespace fixes
+   ============================================================================ */
+
+
+/* ============================================================================
+   1. MOBILE VARIABLES
+   ============================================================================ */
+
+/* Mobile tokens consolidated into invicta-css-variables.css v3.0 */
+
+
+/* ============================================================================
+   2. PREVENT HORIZONTAL OVERFLOW — GLOBAL
+   High specificity selectors to override base styles without force-overrides
+   ============================================================================ */
+
+html.js,
+html.js body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+html.js .page-width,
+html.js .container,
+html.js main,
+html.js #MainContent {
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+html.js .shopify-section:not(.section-header-invicta),
+html.js section:not(.invicta-header),
+html.js .section-template {
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Header section needs overflow visible for predictive search */
+html.js .section-header-invicta {
+  max-width: 100vw;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+
+/* ============================================================================
+   2B. REMOVE EXCESS WHITESPACE — TIGHT SECTIONS
+   ============================================================================ */
+
+/* All Shopify sections — tight mobile internal padding (app-like feel) */
+/* EXCLUDES product page and collection page (handled separately) */
+html.js body .shopify-section:not(.section-invicta-product):not(:has(.inv-product)):not(.section-invicta-collection):not(:has(.inv-collection)) {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin: 0;
+}
+
+/* Section padding classes — override inline Liquid padding (except product/collection) */
+html.js body [class*="-padding"]:not(.inv-product *):not(.inv-collection *),
+html.js body [class*="section-"][class*="-padding"]:not(.inv-product *):not(.inv-collection *) {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* ========== HERO BANNER — ZERO WHITESPACE ========== */
+
+/* Hero split — zero padding so it sits flush against header */
+html.js body .shopify-section:has(.inv-hero-split) {
+  padding: 0;
+  margin: 0;
+}
+
+/* Promo banners — zero vertical padding */
+html.js body .shopify-section:has(.inv-promos) {
+  padding: 0;
+  margin: 0;
+}
+
+/* Quick categories — tight padding */
+html.js body .shopify-section:has(.inv-quick-cats) {
+  padding: 4px 0 4px;
+  margin: 0;
+}
+
+/* The banner section itself — full-bleed, zero padding */
+html.js body [id*="image-banner"],
+html.js body [id*="image_banner"],
+html.js body .shopify-section--image-banner,
+html.js body .shopify-section:has(.banner),
+html.js body .shopify-section:has(.image-banner) {
+  padding: 0;
+  margin: 0;
+}
+
+/* Banner element */
+html.js .banner,
+html.js .image-banner,
+html.js [class*="image-banner"],
+html.js #Banner-template,
+html.js [id^="Banner-"] {
+  padding: 0;
+  margin: 0;
+}
+
+/* Banner content box */
+html.js .banner__box,
+html.js .banner__content {
+  padding: 16px;
+  margin: 0;
+}
+
+/* Section AFTER the first section (banner) — handled by base.css flush-stack rules */
+html.js .shopify-section:first-of-type + .shopify-section {
+  margin-top: 0;
+}
+
+/* USP strip — prevent invisible whitespace if collapsed */
+html.js body .shopify-section:has(.inv-usp2),
+html.js body .shopify-section:has([class*="usp-strip"]) {
+  padding: 0;
+  margin: 0;
+}
+
+/* Review carousel — consistent padding */
+html.js [class^="review-carousel-"],
+html.js [class*="review-carousel"] {
+  padding: 8px 0 8px;
+  margin: 0;
+}
+
+/* Brand strip — compact padding */
+html.js .invicta-brand-strip,
+html.js [class*="brand-strip"] {
+  padding: 8px 0 8px;
+  margin: 0;
+}
+
+/* Brand strip shopify-section wrapper */
+html.js body .shopify-section:has(.invicta-brand-strip) {
+  padding: 4px 0 4px;
+  margin: 0;
+}
+
+/* Featured collections — tight padding */
+html.js .featured-collection,
+html.js [class*="featured-collection"] {
+  padding: 8px 0 4px;
+  margin: 0;
+}
+
+/* Featured collections shopify-section wrapper */
+html.js body .shopify-section:has(.inv-featured-collection) {
+  padding: 4px 0 4px;
+  margin: 0;
+}
+
+/* Collection list — tight */
+html.js .collection-list-wrapper {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* Page width containers — tighter gutters (except product) */
+html.js .page-width:not(.inv-product .page-width) {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* Full-bleed sections on mobile — remove side padding from containers */
+html.js .inv-hero-split__container,
+html.js .inv-promos > .inv-container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Inv-container — tighter gutters on mobile */
+html.js .inv-container {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* Quick-cats container — tighter gutters on mobile */
+html.js .inv-quick-cats__container {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+
+
+/* Also hide Trade's default header drawer/hamburger */
+html.js .header__icon--menu,
+html.js header-drawer,
+html.js .menu-drawer-container,
+html.js details#Details-menu-drawer-container > summary {
+  display: none;
+}
+
+
+/* ============================================================================
+   4. ANNOUNCEMENT BAR
+   ============================================================================ */
+
+html.js .utility-bar {
+  padding-block: 6px;
+}
+
+html.js .announcement-bar__message {
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+html.js .announcement-bar-slider .slider-button {
+  display: none;
+}
+
+
+/* ============================================================================
+   5. HEADER — COMPACT + INVITING SEARCH BAR
+   ============================================================================ */
+
+/* Sticky app-style header */
+html.js .invicta-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Tighter padding */
+html.js .invicta-header__inner {
+  padding: 8px 12px;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Compact logo */
+html.js .invicta-header__logo {
+  flex-shrink: 0;
+}
+
+html.js .invicta-header__logo img,
+html.js .invicta-header__logo .header__heading-logo {
+  height: 44px;
+  max-height: 44px;
+}
+
+/* ========== SEARCH BAR — INVITING DESIGN ========== */
+
+html.js .invicta-header__search {
+  flex: 1;
+  min-width: 0;
+}
+
+html.js .inv-search-wrapper {
+  width: 100%;
+}
+
+html.js .inv-search-form {
+  width: 100%;
+}
+
+/* Input wrapper — white background, visible */
+html.js .inv-search-input-wrap {
+  height: 42px;
+  border-radius: 21px;
+  border: none;
+  background: var(--inv-bg-elevated);
+  display: flex;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Input field — VISIBLE with placeholder */
+html.js .inv-search-input {
+  flex: 1;
+  height: 100%;
+  padding: 0 46px 0 16px;
+  font-size: 14px;
+  border: none;
+  background: transparent;
+  color: var(--inv-fg);
+  border-radius: 21px;
+}
+
+/* Placeholder — visible and inviting */
+html.js .inv-search-input::placeholder {
+  font-size: 14px;
+  color: var(--inv-fg-muted);
+  opacity: 1;
+}
+
+/* Submit button — small icon inside the bar */
+html.js .inv-search-submit {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #1f2937; /* TODO: consider adding --inv-fg-dark token for #1f2937 */
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+html.js .inv-search-submit svg {
+  width: 16px;
+  height: 16px;
+  color: var(--inv-bg-elevated);
+  stroke: var(--inv-bg-elevated);
+}
+
+/* Clear button */
+html.js .inv-search-clear {
+  position: absolute;
+  right: 42px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+}
+
+html.js .inv-search-clear svg {
+  width: 14px;
+  height: 14px;
+  color: var(--inv-fg-subtle);
+}
+
+/* ========== ICONS ========== */
+
+html.js .invicta-header__icons {
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+html.js .invicta-header__icon {
+  width: 44px;
+  height: 44px;
+}
+
+html.js .invicta-header__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Cart badge */
+html.js .invicta-header__badge {
+  min-width: 18px;
+  height: 18px;
+  font-size: 10px;
+  top: -3px;
+  right: -3px;
+}
+
+/* Remove section margins */
+html.js .section-header-invicta,
+html.js [class*="header-invicta"] {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ============================================================================
+   5B. SECTION HEADINGS — READABLE SIZE + NO OVERFLOW
+   ============================================================================ */
+
+/* Word wrap for all headings - but DON'T change size */
+html.js .title,
+html.js .title-wrapper h2,
+html.js .inline-richtext {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* FEATURED COLLECTION HEADINGS — BIG and readable! */
+html.js .featured-collection .title,
+html.js .title.h1.inline-richtext,
+html.js .title.inline-richtext.h1,
+html.js h2.title.inline-richtext,
+html.js .collection__title .title,
+html.js .title-wrapper .title,
+html.js .title-wrapper h2,
+html.js .collection-list-title {
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 700;
+  padding: 0 12px;
+}
+
+/* Title wrapper padding — tight gap between heading and content */
+html.js .title-wrapper,
+html.js .title-wrapper-with-link,
+html.js .title-wrapper--self-padded-mobile,
+html.js .title-wrapper--self-padded-tablet-down {
+  padding-left: 12px;
+  padding-right: 12px;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+  margin-top: 0;
+}
+
+
+/* ============================================================================
+   6. HERO / IMAGE BANNER
+   ============================================================================ */
+
+html.js .banner,
+html.js .image-banner {
+  min-height: auto;
+}
+
+html.js .banner__box,
+html.js .banner__content,
+html.js [class*="banner"] [class*="content-wrapper"],
+html.js [class*="banner"] [class*="box"] {
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  padding: 16px;
+}
+
+html.js .banner__heading {
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+html.js .banner__text {
+  font-size: 14px;
+}
+
+html.js .banner__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: transparent;
+}
+
+html.js .banner__buttons .button,
+html.js .banner .btn,
+html.js [class*="banner"] a.button {
+  width: 100%;
+  max-width: 260px;
+  margin-inline: auto;
+  padding: 12px 20px;
+  min-height: 44px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 8px;
+  background: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+  border: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ============================================================================
+   7. PRODUCT CARDS — 2×2 GRID LAYOUT (STRICT CONTAINMENT)
+   ============================================================================ */
+
+/* ========== FORCE 2×2 GRID WITH STRICT WIDTH ========== */
+
+html.js .product-grid,
+html.js .collection-product-list,
+html.js .grid--2-col-tablet-down,
+html.js .featured-collection .grid,
+html.js .collection .grid,
+html.js [class*="product"] .grid,
+html.js .slider.slider--mobile,
+html.js .slider--tablet,
+html.js .product-grid.slider,
+html.js .slider--mobile,
+html.js [class*="collection"] ul.grid,
+html.js ul.contains-card {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  scroll-snap-type: none;
+  box-sizing: border-box;
+}
+
+/* Grid items — STRICT width control */
+html.js .product-grid > *,
+html.js .grid__item,
+html.js .slider__slide,
+html.js li.grid__item {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  flex: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Hide slider controls on mobile */
+html.js .slider-buttons,
+html.js .slider-counter,
+html.js .slider-button,
+html.js [class*="slider-button"],
+html.js .slideshow__controls {
+  display: none;
+}
+
+
+/* ============================================================================
+   8. INVICTA PRODUCT CARD STRUCTURE
+   ============================================================================ */
+
+/* ========== CARD WRAPPER ========== */
+
+html.js .invicta-card-wrapper,
+html.js .card-wrapper {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html.js .invicta-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  background: var(--inv-bg-elevated);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+
+/* ========== CARD IMAGE ========== */
+
+html.js .invicta-card-image-wrapper {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  padding: 8px;
+  background: #f8f8f8;
+  border-radius: 10px 10px 0 0;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+html.js .invicta-card-image {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Sale badge — top left */
+html.js .invicta-card-sale-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 3px 8px;
+  background: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 4px;
+  z-index: 3;
+}
+
+
+/* ========== BRAND PILL — PULL UP ONTO IMAGE ========== */
+
+html.js .invicta-card-brand-row {
+  position: relative;
+  margin-top: -38px;
+  margin-bottom: 6px;
+  padding: 0 8px;
+  z-index: 10;
+}
+
+html.js .invicta-card-brand-row .invicta-brand-pill-wrapper {
+  display: inline-flex;
+}
+
+html.js .invicta-card-brand-row .invicta-brand-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  height: 30px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+html.js .invicta-card-brand-row .invicta-brand-pill__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* BRAND LOGO ON CARDS — using background-image span */
+html.js .invicta-card-brand-row .invicta-brand-pill__logo-bg {
+  display: block;
+  width: 55px;
+  height: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Hide the img tag on cards too */
+html.js .invicta-card-brand-row .invicta-brand-pill__logo {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+}
+
+
+/* ========== CARD CONTENT ========== */
+
+html.js .invicta-card-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  padding: 6px 10px 10px;
+  gap: 4px;
+  box-sizing: border-box;
+}
+
+
+/* ========== PRODUCT TITLE — STRICT 2 LINES ========== */
+
+html.js .invicta-card-title {
+  margin: 0;
+  padding: 0;
+  min-height: 34px;
+  max-height: 34px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+html.js .invicta-card-title a {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--inv-fg);
+  text-decoration: none;
+  max-height: 34px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+
+/* ========== PRICE ROW ========== */
+
+html.js .invicta-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 4px 0;
+}
+
+html.js .invicta-price-main {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--inv-fg);
+}
+
+html.js .invicta-price-main--sale {
+  color: var(--inv-accent);
+}
+
+html.js .invicta-price-compare {
+  font-size: 11px;
+  color: var(--inv-fg-subtle);
+  text-decoration: line-through;
+}
+
+
+/* ========== BUTTONS — HIDE "SEE MORE", STYLE "ADD" ========== */
+
+html.js .invicta-card-buttons {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 6px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* HIDE See More button */
+html.js .invicta-card-buttons .invicta-btn--outline,
+html.js .invicta-card-buttons a.invicta-btn--outline,
+html.js a.invicta-btn.invicta-btn--outline {
+  display: none;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  position: absolute;
+  left: -9999px;
+}
+
+/* STYLE Add button */
+html.js .invicta-card-buttons .invicta-btn--solid,
+html.js button.invicta-quick-add-pill,
+html.js button.invicta-btn.invicta-btn--solid.invicta-quick-add-pill {
+  display: inline-flex;
+  visibility: visible;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  max-width: 100%;
+  height: 38px;
+  padding: 0 12px;
+  background: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  left: auto;
+  top: auto;
+  opacity: 1;
+  box-sizing: border-box;
+}
+
+html.js .invicta-card-buttons .invicta-btn--solid:active,
+html.js .invicta-quick-add-pill:active {
+  background: #c91920;
+}
+
+html.js .invicta-quick-add-pill svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--inv-bg-elevated);
+  fill: none;
+}
+
+html.js .invicta-quick-add-pill span {
+  color: var(--inv-bg-elevated);
+  font-size: 13px;
+}
+
+
+/* ============================================================================
+   9. TRADE THEME DEFAULT CARD STYLING (Fallback)
+   ============================================================================ */
+
+html.js .card-wrapper,
+html.js .card,
+html.js .product-card {
+  border-radius: var(--inv-mobile-radius);
+  overflow: hidden;
+  background: var(--inv-bg-elevated);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+html.js .card__media,
+html.js .card__inner {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--inv-mobile-radius) var(--inv-mobile-radius) 0 0;
+  overflow: hidden;
+}
+
+html.js .card__content,
+html.js .card-information {
+  padding: 10px;
+}
+
+html.js .card__heading,
+html.js .card__heading a,
+html.js .card-information__text {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 34px;
+  margin-bottom: 4px;
+  color: var(--inv-fg);
+}
+
+/* Price */
+html.js .price-item,
+html.js .price__regular .price-item--regular {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--inv-fg);
+}
+
+html.js .price__sale .price-item--sale {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--inv-accent);
+}
+
+html.js .price__sale .price-item--regular,
+html.js .price s,
+html.js .compare-price {
+  font-size: 11px;
+  color: var(--inv-fg-subtle);
+  text-decoration: line-through;
+}
+
+/* Badge */
+html.js .badge,
+html.js .card__badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 6px;
+  border-radius: 4px;
+  z-index: 2;
+}
+
+/* Hide secondary buttons */
+html.js .quick-add__secondary,
+html.js .card__button--secondary,
+html.js .button--secondary,
+html.js [class*="see-more"],
+html.js [class*="view-product"] {
+  display: none;
+}
+
+/* Add to cart button */
+html.js .quick-add__submit,
+html.js button[name="add"],
+html.js .add-to-cart-button {
+  width: 100%;
+  height: 38px;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 6px;
+  background: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+
+/* ============================================================================
+   10. FEATURED COLLECTION SECTIONS
+   ============================================================================ */
+
+html.js .featured-collection,
+html.js [class*="featured-collection"] {
+  padding: 20px 0 16px;
+}
+
+html.js .featured-collection .title,
+html.js .collection-title,
+html.js .section-header__title {
+  font-size: 20px;
+  padding-inline: var(--inv-mobile-gutter);
+  margin-bottom: 12px;
+}
+
+html.js .featured-collection .view-all,
+html.js .collection__view-all {
+  font-size: 13px;
+  padding-inline: var(--inv-mobile-gutter);
+  margin-top: 16px;
+}
+
+
+/* ========== FEATURED COLLECTION: TIGHTEN INTERNALS ========== */
+
+/* Reduce gap between section title bar and first product row */
+html.js .featured-collection .title-wrapper,
+html.js .featured-collection .title-wrapper-with-link {
+  margin-bottom: 12px;
+}
+
+/* Reduce gap between last product card row and "VIEW ALL" button */
+html.js .featured-collection .collection__view-all,
+html.js .featured-collection .view-all {
+  margin-top: 16px;
+}
+
+/* Product grid row-gap and column-gap explicitly set */
+html.js .featured-collection .grid,
+html.js .featured-collection ul.contains-card {
+  row-gap: 10px;
+  column-gap: 10px;
+}
+
+
+/* ============================================================================
+   11. COLLECTION LIST (Category Grid) — SQUARE IMAGES + VISIBLE TITLES
+   ============================================================================ */
+
+/* Wrapper — ensure visible */
+html.js .collection-list-wrapper {
+  display: block;
+  visibility: visible;
+  padding: 0 12px;
+}
+
+/* Grid layout — 2 columns */
+html.js ul.collection-list,
+html.js .collection-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+
+/* Each item */
+html.js .collection-list__item,
+html.js .collection-list > li {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  width: 100%;
+  position: static;
+  left: auto;
+  padding: 0;
+}
+
+/* Card wrapper */
+html.js .collection-list__item .card-wrapper,
+html.js .collection-card-wrapper {
+  display: block;
+  width: 100%;
+}
+
+/* Card */
+html.js .collection-list__item .card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--inv-bg-elevated);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Card inner */
+html.js .collection-list__item .card__inner {
+  aspect-ratio: 1 / 1;
+  --ratio-percent: 100%;
+}
+
+/* FORCE SQUARE IMAGE */
+html.js .collection-list__item .card__media,
+html.js .collection-list__item .media {
+  aspect-ratio: 1 / 1;
+  height: auto;
+  overflow: hidden;
+}
+
+html.js .collection-list__item .card__media img,
+html.js .collection-list__item .media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* TITLE — VISIBLE and readable */
+html.js .collection-list__item .card__content,
+html.js .collection-list__item .card__information {
+  display: block;
+  visibility: visible;
+  padding: 10px;
+  background: var(--inv-bg-elevated);
+}
+
+html.js .collection-list__item .card__heading,
+html.js .collection-list__item .card__heading a {
+  display: block;
+  visibility: visible;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--inv-fg);
+  text-decoration: none;
+  line-height: 1.3;
+}
+
+/* Hide slider controls */
+html.js .collection-list-wrapper .slider-buttons,
+html.js .section-collection-list .slider-buttons {
+  display: none;
+}
+
+/* Disable slider behaviour */
+html.js .collection-list.slider,
+html.js .collection-list.slider--tablet {
+  display: grid;
+  overflow: visible;
+  scroll-snap-type: none;
+}
+
+
+/* ============================================================================
+   12. BRAND PILL STRIP (Top of page - 3 COLUMN GRID)
+   ============================================================================ */
+
+/* 3-column grid layout */
+html.js .invicta-brand-strip__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 12px;
+  justify-items: center;
+}
+
+/* Each item centered in cell */
+html.js .invicta-brand-strip__item {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Container */
+html.js .invicta-brand-strip__container {
+  padding: 0 8px;
+  max-width: 100%;
+}
+
+html.js .invicta-brand-strip {
+  padding-top: 20px;
+  padding-bottom: 16px;
+}
+
+/* Pill wrapper in strip */
+html.js .invicta-brand-strip__item .invicta-brand-pill-wrapper {
+  margin: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Individual brand pills in strip — compact for 3-col */
+html.js .invicta-brand-strip__item .invicta-brand-pill,
+html.js .invicta-brand-strip .invicta-brand-pill,
+html.js .invicta-brand-pill--lg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 110px;
+  min-width: 80px;
+  height: 34px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  overflow: visible;
+}
+
+html.js .invicta-brand-pill__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* BRAND LOGOS IN STRIP — using background-image span */
+html.js .invicta-brand-strip .invicta-brand-pill__logo-bg,
+html.js .invicta-brand-strip__item .invicta-brand-pill__logo-bg {
+  display: block;
+  width: 55px;
+  height: 18px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Hide the img tag (we're using background now) */
+html.js .invicta-brand-strip .invicta-brand-pill__logo,
+html.js .invicta-brand-strip__item .invicta-brand-pill__logo {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+}
+
+
+/* ============================================================================
+   13. REVIEW CAROUSEL — COMPACT CARDS
+   ============================================================================ */
+
+/* Section padding — consistent with other content sections */
+html.js [class*="review-carousel-"] {
+  padding-top: 20px;
+  padding-bottom: 16px;
+}
+
+/* Track — tighter gap */
+html.js [class*="review-carousel__track"] {
+  gap: 8px;
+}
+
+/* Cards — COMPACT size to match smaller content */
+html.js [class*="review-carousel__slide-"] {
+  min-width: 180px;
+  max-width: 220px;
+  padding: 8px 10px;
+  gap: 8px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+/* Smaller avatar */
+html.js [class*="review-carousel__avatar-"] {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  flex-shrink: 0;
+}
+
+html.js [class*="review-carousel__avatar-"] img {
+  width: 32px;
+  height: 32px;
+}
+
+/* Content area */
+html.js [class*="review-carousel__content-"] {
+  min-width: 0;
+  flex: 1;
+}
+
+/* Smaller text */
+html.js [class*="review-carousel__text-"] {
+  font-size: 11px;
+  line-height: 1.3;
+  margin: 0 0 3px 0;
+}
+
+/* Smaller author name */
+html.js [class*="review-carousel__author-name-"] {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* Generic review/testimonial cards */
+html.js .review-carousel,
+html.js .testimonials,
+html.js .testimonials-slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  gap: 8px;
+  padding: 0 12px;
+}
+
+html.js .review-card,
+html.js .testimonial-card {
+  flex: 0 0 auto;
+  width: 180px;
+  min-width: 180px;
+  max-width: 220px;
+  scroll-snap-align: start;
+  border-radius: 8px;
+  padding: 10px;
+  background: var(--inv-bg-elevated);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+html.js .review-card__text,
+html.js .testimonial__text {
+  font-size: 11px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+html.js .review-card__author {
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+
+/* ============================================================================
+   14. MULTICOLUMN
+   ============================================================================ */
+
+html.js .multicolumn .grid,
+html.js .multicolumn-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+html.js .multicolumn-card__info {
+  padding: 12px;
+}
+
+html.js .multicolumn-card__title {
+  font-size: 14px;
+}
+
+
+/* ============================================================================
+   15. NEWSLETTER SIGNUP
+   ============================================================================ */
+
+html.js .newsletter {
+  padding: 32px var(--inv-mobile-gutter);
+}
+
+html.js .newsletter__heading {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+html.js .newsletter__subheading {
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+html.js .newsletter-form {
+  flex-direction: column;
+  gap: 10px;
+}
+
+html.js .newsletter-form__field-wrapper {
+  width: 100%;
+}
+
+html.js .newsletter-form__field-wrapper input {
+  width: 100%;
+  height: 48px;
+  font-size: 16px; /* Prevents iOS zoom */
+  padding: 0 16px;
+  border-radius: 8px;
+}
+
+html.js .newsletter-form button {
+  width: 100%;
+  height: 48px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 8px;
+}
+
+
+/* ============================================================================
+   16. FOOTER
+   ============================================================================ */
+
+html.js .footer {
+  padding: 32px var(--inv-mobile-gutter);
+}
+
+html.js .footer__content-top {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+html.js .footer-block {
+  width: 100%;
+}
+
+html.js .footer-block__heading {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+
+html.js .footer-block__details-content a,
+html.js .footer__list-social a {
+  font-size: 14px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+}
+
+html.js .footer__list-social {
+  display: flex;
+  gap: 12px;
+}
+
+html.js .footer__list-social .icon {
+  width: 32px;
+  height: 32px;
+}
+
+html.js .footer__copyright {
+  font-size: 12px;
+  text-align: center;
+  padding-top: 24px;
+  margin-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+
+/* ============================================================================
+   17. CART DRAWER
+   ============================================================================ */
+
+/* Cart drawer mobile: use Dawn defaults */
+
+
+/* ============================================================================
+   18. PREDICTIVE SEARCH
+   ============================================================================ */
+
+html.js .predictive-search,
+html.js .predictive-search__results {
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 0 0 8px 8px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+html.js .predictive-search__result-group {
+  padding: 12px;
+}
+
+html.js .predictive-search__item {
+  padding: 10px;
+  gap: 12px;
+}
+
+html.js .predictive-search__item-content {
+  font-size: 14px;
+}
+
+
+/* ============================================================================
+   19. SECTION SPACING & PAGE WIDTH
+   ============================================================================ */
+
+/* Page width — except product page */
+html.js .page-width:not(.inv-product .page-width) {
+  padding-inline: var(--inv-mobile-gutter);
+  max-width: 100%;
+}
+
+/* Shopify sections — except product page */
+html.js .shopify-section:not(.section-invicta-product):not(:has(.inv-product)),
+html.js .section-template:not(:has(.inv-product)) {
+  padding-block: var(--inv-mobile-section-gap);
+}
+
+
+/* ============================================================================
+   20. TOUCH TARGET & ACCESSIBILITY
+   ============================================================================ */
+
+/* Ensure all interactive elements meet 44px minimum */
+/* Exclude product page elements which have their own sizing */
+html.js a:not(.inv-product a):not(.inv-gallery__dot):not(.inv-zoom-modal__dot),
+html.js button:not(.inv-product button):not(.inv-gallery__dot):not(.inv-zoom-modal__dot):not(.inv-sticky-atc__qty-btn),
+html.js input:not(.inv-product input),
+html.js select:not(.inv-product select),
+html.js textarea:not(.inv-product textarea),
+html.js [role="button"]:not(.inv-product [role="button"]),
+html.js [role="link"]:not(.inv-product [role="link"]) {
+  min-height: var(--inv-touch-target-min);
+}
+
+/* Input fields prevent iOS zoom */
+html.js input[type="text"],
+html.js input[type="email"],
+html.js input[type="search"],
+html.js input[type="tel"],
+html.js input[type="number"],
+html.js textarea {
+  font-size: 16px;
+}
+
+
+/* ============================================================================
+   21. SHOPIFY EDITOR ARTIFACTS — HIDE
+   ============================================================================ */
+
+html.js .shopify-section-editor-preview-mode,
+html.js [data-shopify-editor-block],
+html.js .shopify-section-group-header-group ~ svg:not([class]),
+html.js header ~ svg.icon-plus,
+html.js .section-header__add {
+  display: none;
+}
+
+
+/* ============================================================================
+   22. QUICK ADD BUTTON LOADING STATE
+   ============================================================================ */
+
+html.js .invicta-quick-add-pill.loading,
+html.js .invicta-quick-add-pill[disabled] {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+html.js .invicta-quick-add-pill.loading span {
+  visibility: hidden;
+}
+
+html.js .invicta-quick-add-pill.loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--inv-bg-elevated);
+  border-radius: 50%;
+  animation: invicta-spin 600ms linear infinite;
+}
+
+@keyframes invicta-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* ============================================================================
+   23. HIDE BROKEN IMAGES / ERROR STATES
+   ============================================================================ */
+
+html.js .invicta-card img[src=""],
+html.js .invicta-card img:not([src]),
+html.js .invicta-card img[src*="data:"],
+html.js img.broken {
+  display: none;
+}
+
+html.js .quick-add__error,
+html.js .error-icon,
+html.js [class*="error"] svg {
+  display: none;
+}
+
+
+/* ============================================================================
+   24. BRAND PILL LOGOS — BACKGROUND IMAGE APPROACH
+   ============================================================================
+   Using CSS background-image instead of <img> for better mobile compatibility.
+   The brand-pill.liquid now outputs a <span class="invicta-brand-pill__logo-bg">
+   with inline background-image style.
+   ============================================================================ */
+
+/* Ensure the background span is visible and sized correctly */
+html.js .invicta-brand-pill__logo-bg {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Brand strip logos — larger */
+html.js .invicta-brand-strip .invicta-brand-pill__logo-bg,
+html.js .invicta-brand-strip__item .invicta-brand-pill__logo-bg,
+html.js .invicta-brand-pill--lg .invicta-brand-pill__logo-bg {
+  width: 70px;
+  height: 22px;
+  min-width: 50px;
+}
+
+/* Product card logos — smaller */
+html.js .invicta-card-brand-row .invicta-brand-pill__logo-bg,
+html.js .invicta-card .invicta-brand-pill__logo-bg {
+  width: 55px;
+  height: 16px;
+  min-width: 40px;
+}
+
+/* Hide the actual <img> tag since we're using background */
+html.js .invicta-brand-pill__logo,
+html.js img.invicta-brand-pill__logo {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  clip: rect(0, 0, 0, 0);
+}
+
+/* Ensure inner container shows the background span */
+html.js .invicta-brand-pill__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  min-height: 16px;
+  overflow: visible;
+}
+
+/* Ensure pill has proper size */
+html.js .invicta-brand-pill {
+  min-width: 80px;
+  min-height: 30px;
+  padding: 6px 12px;
+  overflow: visible;
+}
+
+html.js .invicta-brand-pill--lg {
+  min-width: 100px;
+  min-height: 38px;
+  padding: 8px 16px;
+}
+
+
+/* ============================================================================
+   25. PRODUCT PAGE — EXCLUDE FROM GLOBAL OVERRIDES
+   ============================================================================
+   The product page has its own dedicated CSS file (invicta-product-mobile.css)
+   which handles all mobile styling. These exclusions prevent conflicts.
+   ============================================================================ */
+
+/* Product section controls its own padding */
+html.js .section-invicta-product,
+html.js .shopify-section:has(.inv-product),
+html.js [class*="section-invicta-product"] {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
+}
+
+/* Product page controls its own gutters */
+html.js .inv-product .page-width {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* Product gallery dots — smaller than touch target minimum */
+html.js .inv-gallery__dot,
+html.js .inv-zoom-modal__dot {
+  min-height: auto;
+  height: 8px;
+}
+
+/* Sticky bar quantity buttons — custom sizing */
+html.js .inv-sticky-atc__qty-btn {
+  min-height: auto;
+  height: 100%;
+}
+
+/* Product page buttons have their own sizing */
+html.js .inv-product button,
+html.js .inv-product a,
+html.js .inv-product input,
+html.js .inv-product select {
+  min-height: auto;
+}
+
+/* Ensure sticky ATC bar has correct z-index above other elements */
+html.js .inv-sticky-atc {
+  z-index: 999;
+}
+
+/* Zoom modal above everything */
+html.js .inv-zoom-modal {
+  z-index: 9999;
+}
+
+/* Sticky bar safe area — ensure it's not cut off */
+html.js .inv-sticky-atc {
+  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+}
+
+/* Product section bottom padding for sticky bar clearance */
+html.js .inv-product {
+  padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px));
+}
+
+
+/* ============================================================================
+   HEADER — REMOVE WHITE GAP BELOW
+   ============================================================================ */
+
+  /* Kill white gap between header and content */
+  html.js .shopify-section-header,
+  html.js .section-header,
+  html.js #shopify-section-header,
+  html.js header.header,
+  html.js .header-wrapper {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  /* Sticky header container */
+  html.js .shopify-section-header-sticky,
+  html.js .header-wrapper--border-bottom {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  /* Main content flush to header */
+  html.js main#MainContent,
+  html.js #MainContent,
+  html.js .main-content,
+  html.js main {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  /* First section after header */
+  html.js main .shopify-section:first-child,
+  html.js #MainContent .shopify-section:first-child {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+/* ============================================================================
+   HEADER — KILL WHITE GAP ON MOBILE
+   ============================================================================ */
+
+  /* Announcement bar */
+  html.js .announcement-bar-section,
+  html.js .shopify-section-announcement-bar,
+  html.js #shopify-section-announcement-bar {
+    margin-bottom: 0;
+  }
+
+  /* Header section */
+  html.js .shopify-section-header,
+  html.js #shopify-section-header,
+  html.js .section-header {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    background: var(--inv-accent);
+  }
+
+  /* Header wrapper */
+  html.js .header-wrapper,
+  html.js header.header,
+  html.js .header {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  /* Main content — no top gap */
+  html.js #MainContent,
+  html.js main#MainContent,
+  html.js .main-content {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  /* First section flush */
+  html.js #MainContent > .shopify-section:first-child,
+  html.js main > .shopify-section:first-child {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+
+/* ============================================================================
+   ANNOUNCEMENT BAR — HIDE ON MOBILE
+   ============================================================================ */
+
+  html.js .announcement-bar-section,
+  html.js .shopify-section-announcement-bar,
+  html.js #shopify-section-announcement-bar,
+  html.js [class*="announcement-bar"],
+  html.js .announcement-bar {
+    display: none;
+  }
+
+
+/* ============================================================================
+   HOMEPAGE HERO — HIDE BUTTON, IMAGE CLICKABLE
+   ============================================================================ */
+
+  /* Hide Shop Now button */
+  html.js .banner__buttons,
+  html.js .banner__button,
+  html.js .banner .button,
+  html.js .slideshow__buttons,
+  html.js .hero__buttons,
+  html.js .hero .button,
+  html.js [class*="banner"] .btn,
+  html.js [class*="banner"] .button,
+  html.js [class*="hero"] .btn,
+  html.js [class*="hero"] .button,
+  html.js .image-with-text .button,
+  html.js .image-with-text__buttons {
+    display: none;
+  }
+
+  /* Make banner image clickable */
+  .banner__media,
+  .banner__box,
+  .banner,
+  .slideshow__slide,
+  .hero__media,
+  .hero,
+  .image-with-text__media {
+    cursor: pointer;
+  }
+
+  /* Ensure the link wrapper covers the whole image */
+  .banner a,
+  .hero a,
+  .slideshow a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+/* ============================================================================
+   HOMEPAGE HERO — COLLAPSE WHITE SPACE
+   ============================================================================ */
+
+  /* Hide button container AND collapse space */
+  html.js .banner__buttons,
+  html.js .banner__button,
+  html.js .banner .button,
+  html.js .banner__content,
+  html.js .banner__box,
+  html.js .banner__text,
+  html.js .slideshow__text,
+  html.js .slideshow__text-wrapper,
+  html.js .hero__buttons,
+  html.js .hero__text,
+  html.js .hero__content {
+    display: none;
+    height: 0;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Banner — image only, no padding */
+  html.js .banner,
+  html.js .slideshow,
+  html.js .hero,
+  html.js .image-banner,
+  html.js [class*="banner"],
+  html.js [class*="slideshow"],
+  html.js [class*="hero"] {
+    padding: 0;
+    margin: 0;
+    min-height: 0;
+  }
+
+  /* Banner inner wrapper */
+  html.js .banner__media,
+  html.js .slideshow__media,
+  html.js .hero__media {
+    position: relative;
+    height: auto;
+    min-height: 0;
+  }
+
+  /* Image takes natural height */
+  html.js .banner img,
+  html.js .slideshow img,
+  html.js .hero img,
+  html.js .banner__media img,
+  html.js .slideshow__media img {
+    position: relative;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* Kill any overlay/content wrapper */
+  html.js .banner__content-wrapper,
+  html.js .banner__inner,
+  html.js .slideshow__content,
+  html.js .hero__inner {
+    display: none;
+  }
+
+  /* Section wrapper — no extra padding */
+  html.js .shopify-section:has(.banner),
+  html.js .shopify-section:has(.slideshow),
+  html.js .shopify-section:has(.hero) {
+    padding: 0;
+    margin: 0;
+  }
+
+
+/* ============================================================================
+   SECTION 2: PRODUCT PAGE MOBILE
+   Source: invicta-product-mobile.css
+   ============================================================================ */
+
+/* ============================================================================
+   INVICTA PRODUCT PAGE — MOBILE APP DESIGN v3.0
+   ============================================================================
+
+   PURPOSE: Native app-like mobile shopping experience
+   SCOPE: Only affects screens ≤749px (mobile)
+
+   DESIGN PRINCIPLES:
+   • Edge-to-edge imagery (full bleed)
+   • Centered, card-based content
+   • Thumb-zone optimised buttons
+   • Clear visual hierarchy
+   • Generous touch targets
+
+   DEPENDENCIES: invicta-product.css (loads first)
+
+   ============================================================================ */
+
+
+/* ============================================================================
+   1. CSS VARIABLES
+   ============================================================================ */
+
+  .inv-product {
+    --inv-gutter: 16px;
+    --inv-radius: 12px;
+    --inv-radius-lg: 20px;
+    --inv-shadow: 0 -8px 30px rgba(0, 0, 0, 0.1);
+    --inv-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --inv-transition: 0.2s ease;
+    --inv-red: var(--inv-accent);
+    --inv-red-dark: #c91b22;
+    --inv-gray-50: var(--inv-bg-soft);
+    --inv-gray-100: var(--inv-bg-soft);
+    --inv-gray-200: var(--inv-border);
+    --inv-gray-500: var(--inv-fg-muted);
+    --inv-gray-700: var(--inv-fg-secondary);
+    --inv-gray-900: var(--inv-fg-strong);
+  }
+
+
+/* ============================================================================
+   2. SECTION CONTAINER — FULL WIDTH, NO SIDE PADDING
+   ============================================================================ */
+
+  html.js .inv-product {
+    padding: 0 0 130px 0;
+    margin: 0;
+    background: var(--inv-gray-50);
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Remove page-width constraints for product page */
+  html.js .inv-product .page-width {
+    padding: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+
+
+/* ============================================================================
+   3. MAIN GRID — VERTICAL STACK
+   ============================================================================ */
+
+  html.js .inv-product__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+  }
+
+
+/* ============================================================================
+   4. IMAGE GALLERY — FULL BLEED, APP STYLE
+   ============================================================================ */
+
+
+  .inv-product__media {
+    position: relative;
+    width: 100%;
+    background: var(--inv-bg-elevated);
+  }
+
+  .inv-gallery {
+    position: relative;
+    width: 100%;
+  }
+
+  /* Main image — full width, white background */
+  .inv-gallery__main {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: var(--inv-bg-elevated);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+  }
+
+  .inv-gallery__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 0;
+  }
+
+  /* Image counter — top right pill */
+  .inv-gallery__counter {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    color: var(--inv-bg-elevated);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Dot indicators — bottom center */
+  .inv-gallery__dots {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .inv-gallery__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all var(--inv-transition);
+  }
+
+  .inv-gallery__dot.is-active {
+    background: var(--inv-bg-elevated);
+    width: 24px;
+    border-radius: 4px;
+  }
+
+  /* Zoom button — bottom right pill */
+  .inv-gallery__zoom {
+    position: absolute;
+    bottom: 16px;
+    right: 12px;
+    height: 40px;
+    padding: 0 14px;
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 10px;
+    box-shadow: var(--inv-shadow-sm);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+
+  .inv-gallery__zoom:active {
+    transform: scale(0.98);
+  }
+
+  .inv-gallery__zoom svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--inv-gray-700);
+  }
+
+  .inv-gallery__zoom span {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--inv-gray-700);
+  }
+
+  /* Thumbnails — horizontal scroll below image */
+  .inv-gallery__thumbs {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--inv-bg-elevated);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    border-bottom: 1px solid var(--inv-gray-100);
+  }
+
+  .inv-gallery__thumbs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .inv-gallery__thumbs {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .inv-gallery__thumb {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    border-radius: 8px;
+    border: 2px solid var(--inv-gray-200);
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--inv-bg-elevated);
+    padding: 4px;
+    transition: border-color var(--inv-transition);
+  }
+
+  .inv-gallery__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .inv-gallery__thumb.is-active {
+    border-color: var(--inv-red);
+  }
+
+
+/* ============================================================================
+   5. BUY BOX — CARD THAT OVERLAPS IMAGE
+   ============================================================================ */
+
+  .inv-product__info {
+    position: relative;
+    background: var(--inv-bg-elevated);
+    border-radius: 0 0 0 0;
+    padding: 24px var(--inv-gutter) 32px;
+    margin-top: -20px;
+    width: 100%;
+    box-shadow: var(--inv-shadow);
+    z-index: 5;
+    border: none;
+  }
+
+
+/* ============================================================================
+   6C. HANDLING TIME NOTE (for non-stocked products)
+   ============================================================================ */
+
+  .inv-card__handling {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.7rem;
+    color: var(--inv-gray-500, #888);
+    margin-top: 2px;
+  }
+
+  .inv-card__handling svg {
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    opacity: 0.7;
+  }
+
+
+/* ============================================================================
+   7. BRAND PILL — CENTERED OR LEFT ALIGNED
+   ============================================================================ */
+
+  .inv-product__brand-pill {
+    margin-bottom: 12px;
+  }
+
+  .inv-product__brand-pill .invicta-brand-pill {
+    height: 36px;
+    padding: 6px 16px;
+  }
+
+  .inv-product__brand-pill .invicta-brand-pill__logo,
+  .inv-product__brand-pill .invicta-brand-pill__logo-bg {
+    height: 20px;
+  }
+
+
+/* ============================================================================
+   8. PRODUCT TITLE — BOLD, READABLE
+   ============================================================================ */
+
+  .inv-product__title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--inv-gray-900);
+    margin: 0 0 16px 0;
+    letter-spacing: -0.02em;
+  }
+
+
+/* ============================================================================
+   9. PRICE BLOCK — HIGH IMPACT
+   ============================================================================ */
+
+  .inv-price {
+    margin-bottom: 16px;
+  }
+
+  .inv-price__row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .inv-price__current {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--inv-gray-900);
+    letter-spacing: -0.02em;
+  }
+
+  .inv-price__current--sale {
+    color: var(--inv-red);
+  }
+
+  .inv-price__was {
+    font-size: 1.1rem;
+    color: var(--inv-gray-500);
+    text-decoration: line-through;
+  }
+
+  /* Savings badge */
+  .inv-price__saving {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 8px 14px;
+    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #15803d;
+  }
+
+  .inv-price__saving svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ============================================================================
+   10. STOCK BADGE — CLEAR STATUS
+   ============================================================================ */
+
+  .inv-stock {
+    margin-bottom: 20px;
+  }
+
+  .inv-stock__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 10px;
+  }
+
+  .inv-stock__badge svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .inv-stock__badge--in {
+    background: #ecfdf5;
+    color: #047857;
+  }
+
+  .inv-stock__badge--out {
+    background: #fef2f2;
+    color: var(--inv-accent);
+  }
+
+  .inv-stock__badge--low {
+    background: #fffbeb;
+    color: #b45309;
+  }
+
+
+/* ============================================================================
+   11. VARIANT PICKER — FULL WIDTH SELECT
+   ============================================================================ */
+
+  .inv-variants {
+    margin-bottom: 20px;
+  }
+
+  .inv-variant-group {
+    margin-bottom: 16px;
+  }
+
+  .inv-variant-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .inv-variant-group__label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--inv-gray-700);
+    margin-bottom: 8px;
+    text-transform: lowercase;
+  }
+
+  .inv-variant-group__label::first-letter {
+    text-transform: uppercase;
+  }
+
+  .inv-variant-group__select-wrap {
+    position: relative;
+  }
+
+  .inv-variant-group__select {
+    width: 100%;
+    height: 54px;
+    padding: 0 48px 0 16px;
+    font-size: 16px; /* Prevents iOS zoom */
+    font-weight: 600;
+    color: var(--inv-gray-900);
+    background: var(--inv-gray-50);
+    border: 2px solid var(--inv-gray-200);
+    border-radius: var(--inv-radius);
+    appearance: none;
+    cursor: pointer;
+    transition: border-color var(--inv-transition);
+  }
+
+  .inv-variant-group__select:focus {
+    outline: none;
+    border-color: var(--inv-red);
+    background: var(--inv-bg-elevated);
+  }
+
+  .inv-variant-group__chevron {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    stroke: var(--inv-gray-500);
+  }
+
+
+/* ============================================================================
+   12. QUANTITY + ADD TO CART — STACKED LAYOUT
+   ============================================================================ */
+
+  .inv-buy-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  /* Quantity selector — full width */
+  .inv-qty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 56px;
+    border: 2px solid var(--inv-gray-200);
+    border-radius: var(--inv-radius);
+    background: var(--inv-bg-elevated);
+    overflow: hidden;
+  }
+
+  .inv-qty__btn {
+    width: 64px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--inv-gray-700);
+    cursor: pointer;
+    transition: background var(--inv-transition);
+  }
+
+  .inv-qty__btn:active {
+    background: var(--inv-gray-100);
+  }
+
+  .inv-qty__input {
+    flex: 1;
+    height: 100%;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--inv-gray-900);
+    border: none;
+    border-left: 1px solid var(--inv-gray-200);
+    border-right: 1px solid var(--inv-gray-200);
+    background: transparent;
+    max-width: 80px;
+    -moz-appearance: textfield;
+  }
+
+  .inv-qty__input::-webkit-outer-spin-button,
+  .inv-qty__input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Add to Cart button — BIG and prominent */
+  .inv-atc-btn {
+    width: 100%;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--inv-red, var(--inv-accent)); /* Solid colour - no gradient */
+    color: var(--inv-bg-elevated);
+    border: none;
+    border-radius: var(--inv-radius);
+    cursor: pointer;
+    font-size: 1.15rem;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12); /* Clean subtle shadow */
+    transition: all var(--inv-transition);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .inv-atc-btn:active:not(:disabled) {
+    transform: scale(0.98);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .inv-atc-btn:disabled {
+    background: var(--inv-gray-200);
+    color: var(--inv-gray-500);
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  .inv-atc-btn__icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .inv-atc-btn__price {
+    display: none; /* Hide on mobile for cleaner look */
+  }
+
+
+/* ============================================================================
+   13. BUY NOW BUTTON
+   ============================================================================ */
+
+  .inv-buy-now {
+    width: 100%;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--inv-gray-900);
+    border: 2px solid var(--inv-gray-900);
+    border-radius: var(--inv-radius);
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    transition: all var(--inv-transition);
+  }
+
+  .inv-buy-now:active {
+    background: var(--inv-gray-900);
+    color: var(--inv-bg-elevated);
+  }
+
+
+/* ============================================================================
+   14. TRUST BADGES — 2 COLUMN GRID
+   ============================================================================ */
+
+  .inv-trust {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .inv-trust__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: var(--inv-gray-50);
+    border-radius: 10px;
+  }
+
+  .inv-trust__item svg {
+    width: 28px;
+    height: 28px;
+    stroke: var(--inv-red);
+    flex-shrink: 0;
+  }
+
+  .inv-trust__item span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--inv-gray-700);
+    line-height: 1.3;
+  }
+
+
+/* ============================================================================
+   15. DELIVERY INFO — HIGHLIGHTED BOX
+   ============================================================================ */
+
+  .inv-delivery {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    background: #fffbeb;
+    border-radius: var(--inv-radius);
+    border: 1px solid #fef08a;
+  }
+
+  .inv-delivery__row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.85rem;
+    color: #92400e;
+    line-height: 1.4;
+  }
+
+  .inv-delivery__row svg {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    stroke: #d97706;
+    margin-top: 1px;
+  }
+
+
+/* ============================================================================
+   16. SHARE BUTTON
+   ============================================================================ */
+
+  .inv-share {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    height: 48px;
+    margin-top: 16px;
+    background: transparent;
+    border: 1px solid var(--inv-gray-200);
+    border-radius: 10px;
+    color: var(--inv-gray-500);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--inv-transition);
+  }
+
+  .inv-share:active {
+    background: var(--inv-gray-50);
+  }
+
+  .inv-share svg {
+    width: 18px;
+    height: 18px;
+  }
+
+
+/* ============================================================================
+   17. LOWER SECTION — DESCRIPTION + ACCORDIONS
+   ============================================================================ */
+
+  .inv-product__lower {
+    margin-top: 0;
+    padding: 24px var(--inv-gutter);
+    background: var(--inv-gray-50);
+  }
+
+
+/* ============================================================================
+   18. DESCRIPTION CARD
+   ============================================================================ */
+
+  .inv-description {
+    background: var(--inv-bg-elevated);
+    border-radius: var(--inv-radius);
+    border: none;
+    box-shadow: var(--inv-shadow-sm);
+    padding: 0;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+
+  .inv-description__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    margin: 0;
+    border-bottom: 1px solid var(--inv-gray-100);
+  }
+
+  .inv-description__header svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--inv-red);
+    flex-shrink: 0;
+  }
+
+  .inv-description__header h2 {
+    flex: 1;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--inv-gray-900);
+    margin: 0;
+  }
+
+  .inv-description__body {
+    padding: 16px;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--inv-gray-700);
+  }
+
+  .inv-description__body p {
+    margin-bottom: 1em;
+  }
+
+  .inv-description__body p:last-child {
+    margin-bottom: 0;
+  }
+
+
+/* ============================================================================
+   19. ACCORDION GRID
+   ============================================================================ */
+
+  .inv-accordions__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+@media screen and (min-width: 750px) and (max-width: 999px) {
+  .inv-accordions__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+
+/* ============================================================================
+   20. INDIVIDUAL ACCORDIONS
+   ============================================================================ */
+
+  .inv-accordion {
+    background: var(--inv-bg-elevated);
+    border: none;
+    border-radius: var(--inv-radius);
+    box-shadow: var(--inv-shadow-sm);
+    overflow: hidden;
+  }
+
+  .inv-accordion__header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px;
+    min-height: 56px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .inv-accordion__header:active {
+    background: var(--inv-gray-50);
+  }
+
+  .inv-accordion__title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+  }
+
+  .inv-accordion__icon {
+    width: 22px;
+    height: 22px;
+    stroke: var(--inv-red);
+    flex-shrink: 0;
+  }
+
+  .inv-accordion__title span {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--inv-gray-900);
+  }
+
+  .inv-accordion__chevron {
+    width: 20px;
+    height: 20px;
+    stroke: var(--inv-gray-500);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .inv-accordion.is-open .inv-accordion__chevron {
+    transform: rotate(180deg);
+  }
+
+  .inv-accordion__content {
+    display: none;
+    padding: 0 16px 16px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--inv-gray-700);
+    border-top: 1px solid var(--inv-gray-100);
+  }
+
+  .inv-accordion.is-open .inv-accordion__content {
+    display: block;
+    padding-top: 16px;
+  }
+
+  .inv-accordion__content ul,
+  .inv-accordion__content ol {
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  .inv-accordion__content li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+
+  .inv-accordion__content li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Spec table */
+  .inv-spec-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .inv-spec-table tr:not(:last-child) {
+    border-bottom: 1px solid var(--inv-gray-100);
+  }
+
+  .inv-spec-table td {
+    padding: 10px 0;
+    font-size: 0.85rem;
+    vertical-align: top;
+  }
+
+  .inv-spec-table td:first-child {
+    font-weight: 600;
+    color: var(--inv-gray-900);
+    padding-right: 16px;
+    width: 40%;
+  }
+
+  .inv-spec-table td:last-child {
+    color: var(--inv-gray-700);
+  }
+
+
+/* ============================================================================
+   21. RECOMMENDATIONS
+   ============================================================================ */
+
+  .inv-recs {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--inv-gray-200);
+  }
+
+  .inv-recs__title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--inv-gray-900);
+  }
+
+  .inv-recs__title::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: var(--inv-red);
+    margin: 10px auto 0;
+    border-radius: 2px;
+  }
+
+  /* ============================================================================
+   22. STICKY MOBILE ATC BAR
+   ============================================================================ */
+
+  .inv-sticky-atc {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--inv-bg-elevated);
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12);
+    border-top: 1px solid var(--inv-gray-200);
+  }
+
+  .inv-sticky-atc.is-visible {
+    transform: translateY(0);
+  }
+
+  .inv-sticky-atc__inner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* Price */
+  .inv-sticky-atc__price {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: var(--inv-gray-900);
+    white-space: nowrap;
+    letter-spacing: -0.02em;
+  }
+
+  /* Mini quantity */
+  .inv-sticky-atc__qty {
+    display: flex;
+    align-items: center;
+    background: var(--inv-gray-100);
+    border-radius: 8px;
+    overflow: hidden;
+    height: 44px;
+  }
+
+  .inv-sticky-atc__qty-btn {
+    width: 36px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--inv-gray-700);
+    cursor: pointer;
+  }
+
+  .inv-sticky-atc__qty-btn:active {
+    background: var(--inv-gray-200);
+  }
+
+  .inv-sticky-atc__qty-value {
+    width: 32px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--inv-gray-900);
+  }
+
+  /* Add button */
+  .inv-sticky-atc__btn {
+    flex: 1;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--inv-red, var(--inv-accent)); /* Solid colour - no gradient */
+    color: var(--inv-bg-elevated);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: all 0.15s ease;
+  }
+
+  .inv-sticky-atc__btn:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  .inv-sticky-atc__btn:disabled {
+    background: var(--inv-gray-200);
+    color: var(--inv-gray-500);
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  .inv-sticky-atc__btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+
+/* ============================================================================
+   23. LOADING & SUCCESS STATES
+   ============================================================================ */
+
+  .inv-atc-btn.is-loading,
+  .inv-sticky-atc__btn.is-loading {
+    position: relative;
+    pointer-events: none;
+  }
+
+  .inv-atc-btn.is-loading .inv-atc-btn__text,
+  .inv-atc-btn.is-loading .inv-atc-btn__icon,
+  .inv-sticky-atc__btn.is-loading span,
+  .inv-sticky-atc__btn.is-loading svg {
+    opacity: 0;
+  }
+
+  .inv-atc-btn.is-loading::after,
+  .inv-sticky-atc__btn.is-loading::after {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: var(--inv-bg-elevated);
+    border-radius: 50%;
+    animation: inv-spin 0.6s linear infinite;
+  }
+
+  html.js .inv-atc-btn.is-success,
+  html.js .inv-sticky-atc__btn.is-success {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    box-shadow: 0 2px 10px rgba(5, 150, 105, 0.35);
+  }
+
+
+/* ============================================================================
+   24. ZOOM MODAL
+   ============================================================================ */
+
+  html.js .inv-zoom-modal {
+    position: fixed;
+    inset: 0;
+    background: #000000;
+    z-index: 9999;
+    display: none;
+    flex-direction: column;
+  }
+
+  html.js .inv-zoom-modal.is-open {
+    display: flex;
+  }
+
+  .inv-zoom-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    padding-top: calc(16px + env(safe-area-inset-top, 0px));
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .inv-zoom-modal__counter {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--inv-bg-elevated);
+  }
+
+  .inv-zoom-modal__close {
+    height: 40px;
+    padding: 0 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--inv-bg-elevated);
+  }
+
+  .inv-zoom-modal__close svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--inv-bg-elevated);
+  }
+
+  .inv-zoom-modal__body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    touch-action: pinch-zoom;
+  }
+
+  .inv-zoom-modal__img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .inv-zoom-modal__nav {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px;
+    padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .inv-zoom-modal__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .inv-zoom-modal__dot.is-active {
+    background: var(--inv-bg-elevated);
+  }
+
+
+/* ============================================================================
+   25. SAFE AREA INSETS
+   ============================================================================ */
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .inv-sticky-atc {
+      padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    }
+
+    html.js .inv-product {
+      padding-bottom: calc(130px + env(safe-area-inset-bottom));
+    }
+}
+
+
+/* ============================================================================
+   26. iOS INPUT ZOOM PREVENTION
+   ============================================================================ */
+
+  html.js .inv-qty__input,
+  html.js .inv-variant-group__select,
+  html.js .inv-product input,
+  html.js .inv-product select {
+    font-size: 16px;
+  }
+
+
+/* ============================================================================
+   27. ACCESSIBILITY
+   ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .inv-sticky-atc,
+  .inv-accordion__chevron,
+  .inv-gallery__dot,
+  .inv-atc-btn,
+  .inv-sticky-atc__btn {
+    transition: none;
+  }
+
+  html.js .inv-atc-btn.is-loading::after,
+  html.js .inv-sticky-atc__btn.is-loading::after {
+    animation: none;
+  }
+}
+
+  .inv-atc-btn:focus-visible,
+  .inv-sticky-atc__btn:focus-visible,
+  .inv-buy-now:focus-visible,
+  .inv-accordion__header:focus-visible {
+    outline: 2px solid var(--inv-red);
+    outline-offset: 2px;
+  }
+
+  .inv-gallery__dot:focus-visible,
+  .inv-gallery__zoom:focus-visible {
+    outline: 2px solid var(--inv-bg-elevated);
+    outline-offset: 2px;
+  }
+
+
+/* ============================================================================
+   28. PRINT
+   ============================================================================ */
+
+@media print {
+  html.js .inv-sticky-atc,
+  html.js .inv-gallery__dots,
+  html.js .inv-gallery__counter,
+  html.js .inv-gallery__zoom,
+  html.js .inv-zoom-modal,
+  html.js .inv-share {
+    display: none;
+  }
+}
+
+
+
+/* ============================================================================
+   SECTION 4: EXTRACTED MOBILE BLOCKS
+   ============================================================================ */
+
+/* --- From invicta-overrides.css --- */
+
+  html.js body .collection-list-wrapper .page-width {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  html.js body .collection-list-wrapper .title {
+    padding-left: 32px;
+  }
+
+  html.js body .collection-list .card__heading a {
+    font-size: 1.4rem;
+  }
+
+  html.js body .collection-list {
+    overflow-x: auto;
+  }
+
+  html.js body .collection-list__item {
+    flex: 0 0 30%;
+  }
+  html.js body .collection-list-wrapper .page-width {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  html.js body .collection-list-wrapper .title {
+    font-size: 1.6rem;
+    padding-left: 20px;
+  }
+
+  html.js body .collection-list .card__heading a {
+    font-size: 1.3rem;
+  }
+
+  html.js body .collection-list__item {
+    flex: 0 0 45%;
+  }
+
+  html.js body .collection-list {
+    gap: 20px;
+  }
+  html.js body .template-search .facets-wrapper,
+  html.js body .template-collection .facets-wrapper {
+    border-bottom: 1px solid var(--inv-border);
+  }
+  /* Kill white gap between header and content */
+  html.js .shopify-section-header,
+  html.js .section-header,
+  html.js #shopify-section-header,
+  html.js header.header,
+  html.js .header-wrapper {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  /* Sticky header container */
+  html.js .shopify-section-header-sticky,
+  html.js .header-wrapper--border-bottom {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  /* Main content flush to header */
+  html.js main#MainContent,
+  html.js #MainContent,
+  html.js .main-content,
+  html.js main {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  /* First section after header */
+  html.js main .shopify-section:first-child,
+  html.js #MainContent .shopify-section:first-child {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  /* Target the Shopify section wrapper */
+  html.js .section-header-invicta,
+  html.js .shopify-section:has(.invicta-header),
+  html.js #shopify-section-sections--header,
+  html.js [id*="shopify-section"][id*="header"] {
+    background: var(--inv-accent);
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Header group wrapper (if using header group) */
+  html.js #shopify-section-group-header-group,
+  html.js .shopify-section-group-header-group,
+  html.js [class*="header-group"] {
+    background: var(--inv-accent);
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  /* The header itself */
+  html.js .invicta-header {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Space between announcement bar and header */
+  html.js .shopify-section-announcement-bar + .section-header-invicta,
+  html.js .shopify-section-announcement-bar + .shopify-section:has(.invicta-header) {
+    margin-top: 0;
+  }
+
+  /* Main content flush */
+  html.js #MainContent {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+
+/* --- From invicta-product.css --- */
+
+  .inv-product__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .inv-product__info {
+    padding: 24px 20px;
+  }
+  .inv-accordions__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .inv-accordions__grid {
+    grid-template-columns: 1fr;
+  }
+  .inv-recs__title {
+    font-size: 1.8rem;
+  }
+  .inv-sticky-atc {
+    display: block;
+  }
+  .inv-product__media {
+    position: relative;
+    top: 0;
+  }
+
+  .inv-gallery__thumbs {
+    justify-content: flex-start;
+  }
+
+  .inv-gallery__thumb {
+    width: 64px;
+    height: 64px;
+  }
+
+  .inv-buy-row {
+    flex-direction: column;
+  }
+
+  .inv-qty {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .inv-qty__input {
+    width: 80px;
+  }
+
+  .inv-atc-btn {
+    height: 56px;
+    font-size: 1.05rem;
+  }
+
+  .inv-trust {
+    gap: 12px;
+  }
+
+  .inv-trust__item {
+    font-size: 0.9rem;
+  }
+
+  .inv-description {
+    padding: 20px;
+  }
+
+  .inv-description__body {
+    font-size: 1rem;
+  }
+
+  .inv-product__title {
+    font-size: 1.5rem;
+  }
+
+  .inv-price__current {
+    font-size: 1.8rem;
+  }
+
+  .inv-accordion__content {
+    padding: 16px 20px 24px;
+    font-size: 0.95rem;
+  }
+
+  .inv-accordion__title span {
+    font-size: 0.9rem;
+  }
+
+  .inv-product__lower {
+    margin-top: 32px;
+    padding-top: 32px;
+  }
+
+  .inv-recs {
+    margin-top: 48px;
+    padding-top: 48px;
+  }
+
+
+
+
+/* --- From invicta-account.css --- */
+@media screen and (max-width: 749px) {
+  .inv-account {
+    padding: 20px 16px 60px;
+  }
+  .inv-account__header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px;
+  }
+
+  .inv-account__header-right {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .inv-account__stats {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .inv-account__avatar {
+    width: 56px;
+    height: 56px;
+    font-size: 1.3rem;
+  }
+
+  .inv-account__name {
+    font-size: 1.5rem;
+  }
+  .inv-account__grid {
+    grid-template-columns: 1fr;
+  }
+  .inv-orders-table thead {
+    display: none;
+  }
+
+  .inv-orders-table tbody tr {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: 12px 16px;
+    border: 1px solid var(--inv-border);
+    border-radius: 12px;
+    background: var(--inv-bg-elevated);
+  }
+
+  .inv-orders-table tbody tr:hover {
+    background: var(--inv-bg-elevated);
+  }
+
+  .inv-orders-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border: none;
+  }
+
+  .inv-orders-table tbody td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: var(--inv-fg-strong);
+    font-size: 0.9rem;
+  }
+
+  .inv-orders-table tbody td:first-child {
+    justify-content: flex-start;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--inv-bg-soft);
+  }
+
+  .inv-orders-table tbody td:first-child::before {
+    display: none;
+  }
+  .inv-recently-viewed__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .inv-recently-viewed__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .customer.order > div:nth-of-type(2) {
+    grid-template-columns: 1fr;
+  }
+
+
+}
+
+/* --- Cart mobile: minimal --- */
+
+
+/* ============================================================================
+   FIXES — Collection Page Bug Fixes (Nov 2024)
+   ============================================================================ */
+
+/* === FIX: Sold Out button accessibility ===
+   Darker text for small mobile screens to ensure readability.
+   var(--inv-fg-dim) on var(--inv-border) = 5.74:1 contrast (PASSES WCAG AA & AAA)
+*/
+html.js .invicta-btn--disabled,
+html.js .invicta-card-buttons .invicta-btn--disabled {
+  background: var(--inv-border);
+  color: var(--inv-fg-dim);
+  border: 1px solid var(--inv-border-dark);
+  font-weight: 600;
+  cursor: not-allowed;
+}
+
+/* === FIX: Position mobile filter FAB correctly ===
+   Ensure the Trade mobile filter button sits properly in bottom-left
+*/
+html.js .mobile-facets__open-wrapper {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  z-index: 100;
+}
+
+html.js .mobile-facets__open {
+  background: var(--color-button, var(--inv-accent));
+  color: var(--inv-bg-elevated);
+  border-radius: 999px;
+  padding: 12px 20px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+
+/* === FIX: Hide broken zoom modal image (empty src) === */
+html.js .inv-zoom-modal__img[src=""],
+html.js .inv-zoom-modal__img:not([src]) {
+  display: none;
+}
+
+
+/* ============================================================================
+   FIX v2.4: Search Bar, Sticky ATC, and Recommendations Cards
+   ============================================================================ */
+
+/* === FIX 1: Search bar text overflow ===
+   Prevent placeholder and input text from overflowing on narrow screens
+*/
+html.js body .inv-search-input-wrap {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+html.js body .inv-search-input {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: calc(100% - 46px);
+}
+
+html.js body .inv-search-input::placeholder {
+  text-overflow: ellipsis;
+}
+
+/* === FIX 2: Sticky ATC bar quantity controls ===
+   Ensure all quantity elements are visible and properly sized
+*/
+html.js body .inv-sticky-atc__qty {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-width: 104px;
+  background: var(--inv-bg-soft);
+  border-radius: 8px;
+  overflow: visible;
+  height: 44px;
+}
+
+html.js body .inv-sticky-atc__qty-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  min-width: 36px;
+  height: 100%;
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--inv-fg-secondary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+html.js body .inv-sticky-atc__qty-value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  min-width: 32px;
+  height: 100%;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--inv-fg-strong);
+  flex-shrink: 0;
+}
+
+/* === FIX 3: Recommendations section cards ===
+   Ensure product cards in "You May Also Like" render correctly
+*/
+
+/* Grid item wrapper */
+html.js body .inv-recs__item {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Card image in recs — fill container properly */
+html.js body .inv-recs__item .invicta-card-image-wrapper {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  padding: 12px;
+  background: var(--inv-bg-elevated);
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+html.js body .inv-recs__item .invicta-card-image {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Brand pill in recs — ensure logo background renders */
+html.js body .inv-recs__item .invicta-brand-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  height: 30px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background-color: var(--pill-bg, var(--inv-accent));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+html.js body .inv-recs__item .invicta-brand-pill__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Force logo-bg to show with proper dimensions */
+html.js body .inv-recs__item .invicta-brand-pill__logo-bg {
+  display: block;
+  width: 55px;
+  height: 18px;
+  min-width: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Card content spacing in recs */
+html.js body .inv-recs__item .invicta-card-content {
+  padding: 12px;
+}
+
+html.js body .inv-recs__item .invicta-card-title {
+  font-size: 0.85rem;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+/* Card buttons in recs */
+html.js body .inv-recs__item .invicta-card-buttons {
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+html.js body .inv-recs__item .invicta-btn--outline {
+  height: 40px;
+  font-size: 0.8rem;
+}
+
+
+/* ============================================================================
+   FIX v2.5: Recommendations Cards — Titles, Prices, Brand Logos, Sticky Bar
+   ============================================================================ */
+
+/* === TITLES — Make them larger and readable === */
+html.js body .inv-recs__item .invicta-card-title,
+html.js body .inv-recs .invicta-card-title {
+  min-height: 44px;
+  max-height: 44px;
+  margin-bottom: 8px;
+}
+
+html.js body .inv-recs__item .invicta-card-title a,
+html.js body .inv-recs .invicta-card-title a {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--inv-fg);
+  -webkit-line-clamp: 2;
+  max-height: 44px;
+}
+
+/* === SALE PRICE — Force red color === */
+html.js body .inv-recs__item .invicta-price-main--sale,
+html.js body .inv-recs .invicta-price-main--sale,
+html.js body .inv-recs__item .invicta-price-row--sale .invicta-price-main {
+  color: var(--inv-accent);
+}
+
+html.js body .inv-recs__item .invicta-price-main,
+html.js body .inv-recs .invicta-price-main {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+html.js body .inv-recs__item .invicta-price-compare,
+html.js body .inv-recs .invicta-price-compare {
+  font-size: 0.85rem;
+  color: var(--inv-fg-subtle);
+  text-decoration: line-through;
+}
+
+/* === BRAND PILL LOGO — Nuclear option to force visibility === */
+html.js body .inv-recs__item .invicta-brand-pill__logo-bg,
+html.js body .inv-recs .invicta-brand-pill__logo-bg,
+html.js body .inv-recs__item .invicta-card-brand-row .invicta-brand-pill__logo-bg {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  width: 60px;
+  height: 20px;
+  min-width: 50px;
+  min-height: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* Ensure inline style background-image is not blocked */
+  filter: none;
+  -webkit-filter: none;
+}
+
+/* Ensure the pill container shows properly */
+html.js body .inv-recs__item .invicta-brand-pill,
+html.js body .inv-recs .invicta-brand-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 85px;
+  min-height: 32px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  overflow: visible;
+}
+
+html.js body .inv-recs__item .invicta-brand-pill__inner,
+html.js body .inv-recs .invicta-brand-pill__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-width: 50px;
+  height: auto;
+  min-height: 16px;
+  overflow: visible;
+}
+
+/* === STICKY BAR ADD BUTTON — Ensure proper fit === */
+html.js body .inv-sticky-atc__inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+html.js body .inv-sticky-atc__btn {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+html.js body .inv-sticky-atc__btn span {
+  display: inline;
+}
+
+html.js body .inv-sticky-atc__btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+
+/* === BRAND PILL LOGO — Show IMG instead of BG for better compatibility === */
+html.js body .inv-recs__item .invicta-brand-pill__logo,
+html.js body .inv-recs .invicta-brand-pill__logo,
+html.js body .inv-recs__item .invicta-card-brand-row .invicta-brand-pill__logo,
+html.js body .inv-recs .invicta-card-brand-row .invicta-brand-pill__logo {
+  position: relative;
+  display: block;
+  width: 55px;
+  height: 18px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  clip: auto;
+  object-fit: contain;
+}
+
+/* Hide the bg span in recs since we're using img */
+html.js body .inv-recs__item .invicta-brand-pill__logo-bg,
+html.js body .inv-recs .invicta-brand-pill__logo-bg {
+  display: none;
+}
+
+/* ==========================================================================
+   LOGIN / CUSTOMER FORM FIXES (v2.6)
+   Issue: Labels showing twice - as placeholder AND beside input
+   Fix: Hide the label when placeholder is visible, show as floating label on focus
+   ========================================================================== */
+
+/* Hide labels by default on customer forms - placeholder handles empty state */
+html.js .customer .field label:not(.field__label) {
+  position: absolute;
+  top: 50%;
+  left: 1.5rem;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  color: rgba(var(--color-foreground), 0.6);
+  pointer-events: none;
+  transition: all 0.2s ease;
+  /* Hide when placeholder is showing */
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Show label as floating when input has value or focus */
+html.js .customer .field input:focus ~ label:not(.field__label),
+html.js .customer .field input:not(:placeholder-shown) ~ label:not(.field__label) {
+  top: 0.8rem;
+  transform: translateY(0);
+  font-size: 1.1rem;
+  opacity: 1;
+  visibility: visible;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+/* Ensure field container is positioned for absolute label */
+html.js .customer .field {
+  position: relative;
+}
+
+/* Adjust input padding to make room for floating label */
+html.js .customer .field input {
+  padding: 1.8rem 1.5rem 0.8rem;
+}
+
+/* Fix placeholder color */
+html.js .customer .field input::placeholder {
+  color: rgba(var(--color-foreground), 0.5);
+}
+
+/* Sign in with Shop button - ensure proper width */
+html.js .customer .shopify-cleanslate {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Login form button styling */
+html.js .customer form button[type="submit"],
+html.js .customer form button:not([type]) {
+  width: 100%;
+  max-width: 280px;
+  margin: 2rem auto;
+  display: block;
+}
+
+/* Create account / Cancel links */
+html.js .customer a {
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+/* ==========================================================================
+   PART 1: VAT TOGGLE, QUANTITY ENHANCER, CART BREAKDOWN (v2.7)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Quick Quantity Selector
+   -------------------------------------------------------------------------- */
+
+.invicta-quick-qty {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.invicta-quick-qty__label {
+  font-size: 0.85rem;
+  color: var(--inv-fg-muted);
+  font-weight: 500;
+}
+
+.invicta-quick-qty__buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.invicta-quick-qty__btn {
+  min-width: 44px;
+  height: 36px;
+  padding: 0 12px;
+  background: var(--inv-bg-soft);
+  border: 1px solid var(--inv-border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--inv-fg-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.invicta-quick-qty__btn:hover {
+  background: var(--inv-border);
+  border-color: var(--inv-border-dark);
+}
+
+.invicta-quick-qty__btn:active,
+.invicta-quick-qty__btn--clicked {
+  transform: scale(0.95);
+}
+
+html.js .invicta-quick-qty__btn--active {
+  background: var(--inv-accent);
+  border-color: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+}
+
+/* --------------------------------------------------------------------------
+   Dynamic Quantity Total
+   -------------------------------------------------------------------------- */
+
+.invicta-qty-total {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+}
+
+.invicta-qty-total__label {
+  font-size: 0.9rem;
+  color: var(--inv-fg-muted);
+  font-weight: 500;
+}
+
+.invicta-qty-total__value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--inv-accent);
+}
+
+/* --------------------------------------------------------------------------
+   Cart — Mobile Overrides
+   -------------------------------------------------------------------------- */
+
+/* Kill Dawn's spacing and flex constraints on mobile */
+cart-items .cart__footer.cart__footer {
+  display: block;
+}
+cart-items .cart__footer > * {
+  width: 100%;
+}
+cart-items .cart__footer > * + * {
+  margin-top: 0;
+}
+cart-items .cart__items {
+  padding-bottom: 0;
+}
+cart-items .cart__ctas.cart__ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Cart header: full width, compact */
+.inv-cart-header {
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+.inv-cart-header__title {
+  font-size: 17px;
+}
+.inv-cart-header__count {
+  font-size: 13px;
+}
+.inv-cart-header__continue {
+  font-size: 12px;
+}
+
+/* Info strip: stack vertically on mobile */
+.inv-cart-info-strip {
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  margin-bottom: 16px;
+}
+
+/* Footer grid: single column on mobile */
+.inv-cart-footer-grid {
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+/* Checkout total */
+.inv-cart-checkout-total__price {
+  font-size: 20px;
+}
+
+/* Checkout button: full width */
+.cart__checkout-button,
+#checkout,
+button[name="checkout"] {
+  width: 100%;
+  max-width: none;
+  height: 52px;
+}
+
+/* Dynamic checkout buttons: full width */
+.cart__dynamic-checkout-buttons {
+  max-width: none;
+  width: 100%;
+}
+.cart__dynamic-checkout-buttons [data-shopify-buttoncontainer] {
+  justify-content: center;
+}
+.cart__dynamic-checkout-buttons .dynamic-checkout__buttons.dynamic-checkout__buttons {
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Trust signals: horizontal on mobile */
+.inv-cart-trust {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.inv-cart-trust__item {
+  font-size: 12px;
+}
+
+/* Ex-VAT pricing */
+.inv-cart-item__ex-vat {
+  font-size: 11px;
+}
+.inv-cart-item__line-ex-vat {
+  font-size: 10px;
+}
+
+/* Cart breakdown — mobile sizing */
+.invicta-cart-breakdown {
+  padding: 12px 0;
+}
+.invicta-cart-breakdown__row {
+  padding: 3px 0;
+  font-size: 13px;
+}
+.invicta-cart-breakdown__row--total {
+  font-size: 15px;
+}
+
+/* VAT mode indicator */
+.invicta-vat-indicator {
+  font-size: 11px;
+  padding: 4px 0 6px;
+}
+
+/* Cart note */
+.cart__note {
+  margin-bottom: 16px;
+}
+
+/* Empty cart */
+.cart__warnings {
+  padding: 32px 0;
+}
+.cart__warnings .cart__empty-text {
+  font-size: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   Body VAT Mode Classes
+   -------------------------------------------------------------------------- */
+
+body.vat-mode-ex .invicta-vat-indicator::after {
+  content: ' (showing ex VAT)';
+}
+
+body.vat-mode-inc .invicta-vat-indicator::after {
+  content: ' (showing inc VAT)';
+}
+
+/* ==========================================================================
+   PART 4: ACCOUNT PAGE - COMPANY SETTINGS & INVOICES (v2.7)
+   ========================================================================== */
+
+/* Company Settings Form */
+.inv-account__company,
+.inv-account__invoices {
+  margin-top: 20px;
+}
+
+.inv-detail-group--editable {
+  margin-bottom: 16px;
+}
+
+.inv-detail-group--editable .inv-detail-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.inv-detail-group--editable .inv-detail-label small {
+  font-weight: 400;
+  color: var(--inv-fg-subtle);
+}
+
+.inv-detail-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--inv-border-dark);
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.inv-detail-input:focus {
+  outline: none;
+  border-color: var(--inv-accent);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.inv-company-form__note {
+  margin: 16px 0 0;
+  padding: 10px 12px;
+  background: var(--inv-bg-soft);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: var(--inv-fg-muted);
+}
+
+/* Invoice Downloads */
+.inv-invoices__intro {
+  margin: 0 0 16px;
+  font-size: 0.95rem;
+  color: var(--inv-fg-dim);
+}
+
+.inv-invoices__intro a {
+  color: var(--inv-accent);
+  text-decoration: underline;
+}
+
+.inv-invoices__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.inv-invoice-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--inv-border);
+}
+
+.inv-invoice-row:last-child {
+  border-bottom: none;
+}
+
+.inv-invoice-row__info {
+  flex: 1;
+  min-width: 120px;
+}
+
+.inv-invoice-row__order {
+  display: block;
+  font-weight: 600;
+  color: var(--inv-fg);
+}
+
+.inv-invoice-row__date {
+  font-size: 0.85rem;
+  color: var(--inv-fg-muted);
+}
+
+.inv-invoice-row__total {
+  font-weight: 600;
+  color: #059669;
+}
+
+.inv-invoice-row__actions {
+  display: flex;
+  gap: 8px;
+}
+
+html.js .inv-btn--sm {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.inv-invoices__note {
+  margin: 16px 0 0;
+  font-size: 0.85rem;
+  color: var(--inv-fg-muted);
+  text-align: center;
+}
+/* ==========================================================================
+   INVICTA TRADE FEATURES v2.8 - CSS FIXES
+   ==========================================================================
+
+   This file patches the following issues:
+   1. VAT toggle - compact button pair style
+   2. Cart breakdown - horizontal grid layout with bold typography
+   3. Cart quantity buttons - matching Trade's native sizing
+   4. Cart footer - proper 3-column grid layout
+
+   ADD THIS TO THE END OF mobile.css AND desktop.css
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. VAT TOGGLE - Compact Button Pair
+   -------------------------------------------------------------------------- */
+
+.inv-vat-toggle {
+  display: inline-flex;
+  border: 1px solid var(--inv-border-dark);
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 0.75rem;
+}
+
+.inv-vat-toggle__btn {
+  padding: 6px 12px;
+  border: none;
+  background: var(--inv-bg-soft);
+  color: var(--inv-fg-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.inv-vat-toggle__btn:first-child {
+  border-right: 1px solid var(--inv-border-dark);
+}
+
+.inv-vat-toggle__btn[aria-pressed="true"],
+.inv-vat-toggle__btn--active {
+  background: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+}
+
+.inv-vat-toggle__btn:hover:not([aria-pressed="true"]) {
+  background: var(--inv-bg-soft);
+}
+
+/* Placement on product page - inline with price */
+.product .inv-vat-toggle {
+  margin-left: 12px;
+  vertical-align: middle;
+}
+
+/* Cart quantity and footer: use Dawn defaults on mobile */
+
+
+/* --------------------------------------------------------------------------
+   6. QUICK QTY BUTTONS - Product Page
+   -------------------------------------------------------------------------- */
+
+.invicta-quick-qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.invicta-quick-qty__label {
+  font-size: 0.85rem;
+  color: var(--inv-fg-muted);
+}
+
+.invicta-quick-qty__buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.invicta-quick-qty__btn {
+  padding: 8px 14px;
+  border: 1px solid var(--inv-border-dark);
+  border-radius: 6px;
+  background: var(--inv-bg-soft);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--inv-fg-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.invicta-quick-qty__btn:hover {
+  background: var(--inv-bg-soft);
+  border-color: var(--inv-fg-subtle);
+}
+
+.invicta-quick-qty__btn--active {
+  background: var(--inv-accent);
+  border-color: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+}
+
+/* Dynamic total display */
+.invicta-dynamic-total {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 12px;
+  padding: 6px 12px;
+  background: #fef2f2;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--inv-accent);
+}

@@ -1,0 +1,289 @@
+{% comment %}
+  ============================================
+  INVICTA PRODUCT CARD v7.7 (P1.3 FIX)
+  ============================================
+  Clean, professional design with sharp corners
+
+  Updates in v7.7:
+  - P1.3: Removed CSS injection per card (now loaded once in theme.liquid)
+  - P0.4: Fixed ex-VAT rounding to nearest penny
+
+  Styles: assets/invicta-product-card.css (loaded globally in theme.liquid)
+  Trade 15.4.0 Compatible
+
+  Usage: {% render 'invicta-product-card', product: product %}
+  ============================================
+{% endcomment %}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign featured_image = product.featured_image
+  assign has_multiple_variants = false
+  if product.has_only_default_variant == false and product.variants.size > 1
+    assign has_multiple_variants = true
+  endif
+  assign product_url = product.url | within: collection
+  
+  # -------------------------
+  # Pricing
+  # -------------------------
+  assign price = current_variant.price
+  assign compare_price = current_variant.compare_at_price
+  assign on_sale = false
+  
+  if compare_price > price
+    assign on_sale = true
+    assign saving = compare_price | minus: price
+    assign saving_percent = saving | times: 100.0 | divided_by: compare_price | round
+  endif
+  
+  # VAT calculations (prices include VAT)
+  # Uses centralised VAT rate from theme settings (Invicta Trade Settings)
+  # Integer-safe rounding: times: 100 | plus: rounding | divided_by: divisor
+  assign inv_vat_rate = settings.inv_vat_rate | default: 20
+  assign inv_vat_divisor = 100 | plus: inv_vat_rate
+  assign inv_vat_rounding = inv_vat_divisor | divided_by: 2
+  assign price_ex_vat = price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor
+  assign compare_price_ex_vat = compare_price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor
+  
+  # -------------------------
+  # Stock status + supplier source + brand (single tag loop)
+  # -------------------------
+  assign available = current_variant.available
+  assign inventory_qty = current_variant.inventory_quantity | default: 0
+  assign stock_status = 'in-stock'
+  assign stock_label = 'invicta.product.stock_in_stock' | t
+  assign stock_source = 'invicta'
+  assign supplier_key = ''
+  assign product_brand = ''
+
+  for tag in product.tags
+    assign tag_lower = tag | downcase | strip
+    if tag_lower == 'invicta-stock'
+      assign stock_source = 'invicta'
+      assign supplier_key = ''
+      break
+    elsif tag_lower == 'trend-stock'
+      assign stock_source = 'supplier'
+      assign supplier_key = 'trend'
+    elsif tag_lower == 'toolbank-stock'
+      assign stock_source = 'supplier'
+      assign supplier_key = 'toolbank'
+    elsif tag_lower == 'timco-stock'
+      assign stock_source = 'supplier'
+      assign supplier_key = 'timco'
+    elsif tag_lower == 'pdp-stock'
+      assign stock_source = 'supplier'
+      assign supplier_key = 'pdp'
+    endif
+    if tag_lower contains 'brand-'
+      assign product_brand = tag_lower | remove: 'brand-'
+    endif
+  endfor
+
+  assign is_supplier_stock = false
+  if stock_source == 'supplier'
+    assign is_supplier_stock = true
+  endif
+
+  if available == false
+    assign stock_status = 'out'
+    assign stock_label = 'invicta.product.stock_sold_out' | t
+  elsif is_supplier_stock
+    assign stock_status = 'supplier'
+    assign stock_label = 'invicta.product.supplier_delivery' | t
+  elsif inventory_qty > 0 and inventory_qty <= 5
+    assign stock_status = 'low'
+    assign stock_label = 'invicta.product.stock_low' | t: quantity: inventory_qty
+  endif
+
+  # -------------------------
+  # Brand
+  # -------------------------
+  assign brand = product.vendor | default: ''
+-%}
+
+<article class="inv-card" data-product-id="{{ product.id }}">
+  
+  {%- comment -%} ========================
+      IMAGE AREA
+      ======================== {%- endcomment -%}
+  <div class="inv-card__media" style="aspect-ratio:1/1">
+    
+    {%- comment -%} Stock bar (top edge) {%- endcomment -%}
+    <div class="inv-card__stock-bar inv-card__stock-bar--{{ stock_status }}"></div>
+
+    {%- comment -%} Stock label {%- endcomment -%}
+    <span class="inv-card__stock inv-card__stock--{{ stock_status }}">
+      {{ stock_label }}
+    </span>
+    
+    {%- comment -%} Compare toggle {%- endcomment -%}
+    <button
+      type="button"
+      class="inv-card__compare"
+      data-compare-toggle
+      data-product-handle="{{ product.handle }}"
+      data-product-id="{{ product.id }}"
+      aria-label="Add {{ product.title | escape }} to comparison"
+      aria-pressed="false"
+      title="Compare"
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="20" x2="18" y2="10"></line>
+        <line x1="12" y1="20" x2="12" y2="4"></line>
+        <line x1="6" y1="20" x2="6" y2="14"></line>
+      </svg>
+    </button>
+
+    {%- comment -%} Sale badge {%- endcomment -%}
+    {%- if on_sale -%}
+      <span class="inv-card__sale">-{{ saving_percent }}%</span>
+    {%- endif -%}
+
+    {%- comment -%} Image link {%- endcomment -%}
+    <a href="{{ product_url }}" class="inv-card__img-link" aria-label="{{ product.title | escape }}">
+      {%- if featured_image -%}
+        {%- assign img_200 = featured_image | image_url: width: 200 -%}
+        {%- assign img_400 = featured_image | image_url: width: 400 -%}
+        {%- assign img_600 = featured_image | image_url: width: 600 -%}
+        <img
+          src="{{ img_400 }}"
+          srcset="{{ img_200 }} 200w,
+                  {{ img_400 }} 400w,
+                  {{ img_600 }} 600w"
+          sizes="(max-width: 749px) 50vw, (max-width: 989px) 25vw, 20vw"
+          alt="{{ featured_image.alt | escape | default: product.title }}"
+          loading="{% if card_index <= 4 %}eager{% else %}lazy{% endif %}"
+          {% if card_index <= 4 %}fetchpriority="high"{% endif %}
+          width="{{ featured_image.width | default: 400 }}"
+          height="{{ featured_image.height | default: 400 }}"
+          class="inv-card__img{% unless available %} inv-card__img--faded{% endunless %}"
+        >
+      {%- else -%}
+        <div class="inv-card__placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+        </div>
+      {%- endif -%}
+    </a>
+    
+  </div>
+  
+  {%- comment -%} ========================
+      CARD BODY
+      ======================== {%- endcomment -%}
+  <div class="inv-card__body">
+    
+    {%- comment -%} Header row: Brand {%- endcomment -%}
+    {%- if brand != blank -%}
+      <div class="inv-card__header">
+        {%- assign card_pill_type = brand_pill_type | default: 'pill' -%}
+        {% render 'invicta-brand-pill', vendor: brand, pill_context: 'card', pill_size: 'compact', type: card_pill_type %}
+      </div>
+    {%- endif -%}
+    
+    {%- comment -%} Title {%- endcomment -%}
+    <h3 class="inv-card__title">
+      <a href="{{ product_url }}">{{ product.title | escape }}</a>
+    </h3>
+    
+    {%- comment -%} ========================
+        PRICING (Inline Compact)
+        ======================== {%- endcomment -%}
+    <div class="inv-card__pricing">
+      
+      {%- comment -%} Inc VAT view (default) {%- endcomment -%}
+      <div class="inv-card__price-block" data-price-inc>
+        <div class="inv-card__price-row">
+          <span class="inv-card__price{% if on_sale %} inv-card__price--sale{% endif %}">
+            {{ price | money }}
+          </span>
+          {%- if on_sale -%}
+            <span class="inv-card__was">{{ compare_price | money }}</span>
+          {%- endif -%}
+          <span class="inv-card__vat">({{ price_ex_vat | money }} ex)</span>
+        </div>
+      </div>
+      
+      {%- comment -%} Ex VAT view (JS controls visibility) {%- endcomment -%}
+      <div class="inv-card__price-block inv-vat--hidden" data-price-ex>
+        <div class="inv-card__price-row">
+          <span class="inv-card__price{% if on_sale %} inv-card__price--sale{% endif %}">
+            {{ price_ex_vat | money }}
+          </span>
+          {%- if on_sale -%}
+            <span class="inv-card__was">{{ compare_price_ex_vat | money }}</span>
+          {%- endif -%}
+          <span class="inv-card__vat">({{ price | money }} inc)</span>
+        </div>
+      </div>
+      
+    </div>
+    
+    {%- comment -%} Volume pricing hint (best price break) {%- endcomment -%}
+    {%- if current_variant.quantity_price_breaks.size > 0 -%}
+      {%- assign inv_pb_sorted = current_variant.quantity_price_breaks | sort: 'minimum_quantity' | reverse -%}
+      {%- assign inv_best_pb = inv_pb_sorted[0] -%}
+      {%- assign inv_pb_price_ex = inv_best_pb.price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor -%}
+      <div class="inv-card__volume-hint" data-price-inc>
+        Buy {{ inv_best_pb.minimum_quantity }}+ @ {{ inv_best_pb.price | money }} each
+      </div>
+      <div class="inv-card__volume-hint inv-vat--hidden" data-price-ex>
+        Buy {{ inv_best_pb.minimum_quantity }}+ @ {{ inv_pb_price_ex | money }} each
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Action button {%- endcomment -%}
+    {%- assign default_qty = 1 -%}
+    {%- if current_variant.quantity_rule.min > 1 -%}
+      {%- assign default_qty = current_variant.quantity_rule.min -%}
+    {%- endif -%}
+    <div class="inv-card__action">
+      {%- if available -%}
+        {%- if has_multiple_variants -%}
+          {%- comment -%} Multi-variant: link to PDP so customer can choose {%- endcomment -%}
+          <a
+            href="{{ product_url }}"
+            class="inv-card__btn inv-card__btn--options"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+            {{ 'invicta.product.select_options' | t | default: 'Select Options' }}
+          </a>
+        {%- else -%}
+          {%- comment -%} Single-variant: direct add-to-cart is safe {%- endcomment -%}
+          <button
+            type="button"
+            class="inv-card__btn inv-card__btn--add"
+            data-add-to-cart
+            data-variant-id="{{ current_variant.id }}"
+            data-quantity="{{ default_qty }}"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+            {{ 'invicta.product.add_to_cart' | t }}
+          </button>
+        {%- endif -%}
+      {%- else -%}
+        <button type="button" class="inv-card__btn inv-card__btn--notify" data-product-id="{{ product.id }}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0"/>
+          </svg>
+          {{ 'invicta.product.notify_me' | t }}
+        </button>
+      {%- endif -%}
+    </div>
+    
+  </div>
+  
+</article>

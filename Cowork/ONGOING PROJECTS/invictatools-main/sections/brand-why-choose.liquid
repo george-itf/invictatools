@@ -1,0 +1,162 @@
+{% comment %}
+  ============================================
+  BRAND WHY CHOOSE v1.5
+  ============================================
+  6-card benefits grid - NO ICONS
+  Stats and content carry the weight
+  Trade 15.4.0 Compatible
+  ============================================
+{% endcomment %}
+
+{{ 'brand-page.css' | asset_url | stylesheet_tag }}
+
+<section class="brand-why" id="why-{{ section.id }}">
+  <div class="page-width">
+
+    {%- comment -%} Section Header {%- endcomment -%}
+    <div class="brand-why__header">
+      {%- if section.settings.section_label != blank -%}
+        <span class="brand-why__label">
+          <span class="brand-why__label-dash"></span>
+          {{ section.settings.section_label }}
+        </span>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="brand-why__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="brand-why__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Benefits Grid {%- endcomment -%}
+    <div class="brand-why__grid">
+      {%- for block in section.blocks -%}
+        <div class="brand-why__card" {{ block.shopify_attributes }}>
+
+          {%- comment -%} Stat Value (optional) {%- endcomment -%}
+          {%- if block.settings.stat_value != blank -%}
+            <span class="brand-why__stat">{{ block.settings.stat_value }}</span>
+          {%- endif -%}
+
+          {%- comment -%} Title {%- endcomment -%}
+          {%- if block.settings.title != blank -%}
+            <h3 class="brand-why__card-title">{{ block.settings.title }}</h3>
+          {%- endif -%}
+
+          {%- comment -%} Description {%- endcomment -%}
+          {%- if block.settings.description != blank -%}
+            <p class="brand-why__card-desc">{{ block.settings.description }}</p>
+          {%- endif -%}
+
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand Why Choose",
+  "tag": "section",
+  "class": "section-brand-why",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_label",
+      "label": "Section Label",
+      "default": "The Lamello Advantage"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Why Professionals Choose Lamello"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Trusted by furniture makers, kitchen fitters, and joiners worldwide"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "stat_value",
+          "label": "Stat Value",
+          "info": "Optional - large number like 25% or 80+"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Faster Assembly"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Save up to 25% assembly time compared to traditional cam fittings."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Why Choose",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "25%",
+            "title": "Faster Assembly",
+            "description": "Save up to 25% assembly time compared to traditional cam fittings. No alignment issues, no callbacks."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Invisible Joints",
+            "description": "No visible fixings on finished furniture. Clean lines and professional aesthetics every time."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Detachable Connections",
+            "description": "Clamex connectors allow tool-free disassembly. Perfect for flat-pack delivery and on-site assembly."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "All Materials",
+            "description": "Works with MDF, plywood, solid wood, HPL, solid surface, and even metals. One system for every job."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Self-Clamping",
+            "description": "Tenso connectors eliminate clamps during glue-up. Apply glue, insert, and walk away."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Swiss Quality",
+            "description": "Every tool designed and built in Bubendorf, Switzerland. 3-year manufacturer warranty as standard."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

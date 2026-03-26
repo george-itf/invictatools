@@ -1,0 +1,110 @@
+{
+  "sections": {
+    "main": {
+      "type": "invicta-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What payment methods do you accept?",
+            "answer": "<p>We accept all major credit and debit cards (Visa, Mastercard, American Express), PayPal, and bank transfer for trade accounts. All payments are processed securely.</p>",
+            "category": "ordering"
+          }
+        },
+        "faq_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is there a minimum order value?",
+            "answer": "<p>There is no minimum order value for online orders. However, some products may have minimum order quantities — these are clearly displayed on the product page.</p>",
+            "category": "ordering"
+          }
+        },
+        "faq_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does delivery take?",
+            "answer": "<p>Standard delivery is 2-3 working days. Next-day delivery is available on orders placed before 2pm Monday to Friday. Orders over £30 qualify for free next-day delivery to UK Mainland addresses.</p>",
+            "category": "delivery"
+          }
+        },
+        "faq_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you deliver to Scotland, Northern Ireland, or the Channel Islands?",
+            "answer": "<p>Yes, we deliver across the UK. Scottish Highlands, Northern Ireland, and Channel Islands may have longer delivery times (3-5 working days) and a small surcharge may apply. See our <a href=\"/pages/delivery-information\">Delivery Information</a> page for full details.</p>",
+            "category": "delivery"
+          }
+        },
+        "faq_5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is your returns policy?",
+            "answer": "<p>We offer a 30-day returns policy on most items. Products must be unused, in their original packaging, and in resalable condition. See our <a href=\"/pages/returns\">Returns & Refunds</a> page for the full process.</p>",
+            "category": "returns"
+          }
+        },
+        "faq_6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I get a refund?",
+            "answer": "<p>Once we receive and inspect your returned item, refunds are processed within 1-2 business days. Funds typically appear in your account within 3-5 business days depending on your bank.</p>",
+            "category": "returns"
+          }
+        },
+        "faq_7": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I apply for a trade account?",
+            "answer": "<p>You can apply for a trade account through our <a href=\"/pages/trade-landing\">Trade Account</a> page. Trade accounts offer exclusive pricing, dedicated account management, and flexible payment terms. Applications are typically processed within 1-2 business days.</p>",
+            "category": "trade"
+          }
+        },
+        "faq_8": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What benefits do trade account holders get?",
+            "answer": "<p>Trade account holders enjoy tiered volume pricing, dedicated account management, 30-day payment terms, priority dispatch, and access to exclusive trade-only products and promotions.</p>",
+            "category": "trade"
+          }
+        },
+        "faq_9": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are all products in stock?",
+            "answer": "<p>Stock availability is shown in real time on every product page. Items marked 'In Stock' are available for immediate dispatch. If an item is out of stock, you can sign up for notifications to be alerted when it's back.</p>",
+            "category": "products"
+          }
+        },
+        "faq_10": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do your products come with a warranty?",
+            "answer": "<p>Yes, all products come with the full manufacturer's warranty. If a product develops a fault within the warranty period, contact us with your order number and we'll help resolve it. See our <a href=\"/pages/returns\">Returns page</a> for warranty claim details.</p>",
+            "category": "products"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6",
+        "faq_7",
+        "faq_8",
+        "faq_9",
+        "faq_10"
+      ],
+      "settings": {
+        "heading": "Frequently Asked Questions",
+        "subheading": "Find answers to common questions about ordering, delivery, returns, and trade accounts.",
+        "show_search": true,
+        "contact_url": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
