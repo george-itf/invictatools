@@ -1022,3 +1022,368 @@ All instances found:
 
 **Note:** `capitalize` and `lowercase` are never used. `uppercase` is the exclusive applied transform. Two sections (category-grid) and one snippet (simple-nav) expose text-transform as a merchant-configurable schema setting, while all other components hardcode it.
 
+
+---
+
+## 3. Buttons
+
+### 3A. Button Inventory
+
+#### `.inv-pdp__atc-btn` — PDP Add to Cart (primary)
+
+| Property | Value |
+|---|---|
+| Class | `.inv-pdp__atc-btn` |
+| File | `assets/invicta-product-v2.css:951` |
+| Height | `52px` (desktop), `50px` mobile (line 1399), `56px` small mobile (line 1503) |
+| Padding | `0 20px` |
+| Font size | `16px` |
+| Font weight | `700` |
+| Font family | `inherit` (overridden to `var(--font-body-family)` by `invicta-ux-improvements.css:117`) |
+| Text transform | `uppercase` (`invicta-ux-improvements.css:119`) |
+| Letter spacing | `0.04em` (`invicta-ux-improvements.css:120`) |
+| Background | `var(--inv-accent)` |
+| Color | `var(--inv-white)` |
+| Border | `none` |
+| Border radius | `0` |
+| :hover | `background: var(--inv-accent-hover)` |
+| :focus-visible | `outline: none; box-shadow: 0 0 0 3px rgba(220,38,38,0.4)` |
+| :active | `transform: scale(0.98)` (`invicta-ux-improvements.css:125`) |
+| :disabled | `background: var(--inv-fg-subtle); opacity: 0.5; cursor: not-allowed` |
+| Transition | `background-color 0.15s ease` |
+| Used for | PDP Add to Cart |
+
+---
+
+#### `.inv-pdp__buy-now-btn` — PDP Buy Now (secondary ghost)
+
+| Property | Value |
+|---|---|
+| File | `assets/invicta-product-v2.css:1030` |
+| Height | `48px` (desktop), `46px` mobile (line 1405), `44px` small mobile (line 1544) |
+| Padding | `0 20px` (from wrapper context) |
+| Font size | `14px` |
+| Font weight | `600` |
+| Font family | `inherit` |
+| Text transform | Not set (not uppercase) |
+| Background | `transparent` |
+| Color | `var(--inv-fg-near-black)` |
+| Border | `2px solid var(--inv-grey-200)` |
+| Border radius | `0` |
+| :hover | `border-color: var(--inv-dark); background: var(--inv-grey-50)` |
+| :focus-visible | `outline: none; border-color: var(--inv-dark); box-shadow: var(--inv-focus-shadow)` |
+| Transition | `border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease` |
+| Used for | PDP secondary buy now / checkout shortcut |
+
+---
+
+#### `.inv-btn-primary` — Global Primary CTA utility
+
+| Property | Value |
+|---|---|
+| File | `assets/invicta-ux-improvements.css:134` |
+| Height | Not set (implicit via padding) |
+| Padding | `14px 28px` |
+| Font size | `14px` |
+| Font weight | `700` |
+| Font family | `var(--font-body-family)` |
+| Text transform | `uppercase` |
+| Letter spacing | `0.04em` |
+| Background | `var(--inv-accent)` |
+| Color | `var(--inv-white)` |
+| Border | `none` |
+| Border radius | `var(--buttons-radius, 4px)` |
+| :hover | `background: var(--inv-accent-hover); gap: 12px` |
+| :focus-visible | `outline: 2px solid var(--inv-white); outline-offset: 2px` |
+| Transition | `background 0.2s ease, gap 0.2s ease` |
+| Used for | Generic section CTA links (hero, trade, spotlight) |
+
+---
+
+#### `.inv-btn-secondary` — Global Secondary CTA utility
+
+| Property | Value |
+|---|---|
+| File | `assets/invicta-ux-improvements.css:164` |
+| Height | Not set |
+| Padding | `14px 28px` |
+| Font size | `14px` |
+| Font weight | `700` |
+| Font family | `var(--font-body-family)` |
+| Text transform | `uppercase` |
+| Letter spacing | `0.04em` |
+| Background | `var(--inv-dark)` |
+| Color | `var(--inv-white)` |
+| Border | `none` |
+| Border radius | `var(--buttons-radius, 4px)` |
+| :hover | `background: var(--inv-dark-hover); gap: 12px` |
+| :focus-visible | `outline: 2px solid var(--inv-accent); outline-offset: 2px` |
+| Transition | `background 0.2s ease, gap 0.2s ease` |
+| Used for | Generic section secondary CTAs |
+
+---
+
+#### `.inv-card__btn` / `.inv-card__btn--add` — Product Card ATC
+
+| Property | Value |
+|---|---|
+| File | `assets/invicta-product-card.css:338` |
+| Min-height | `44px` |
+| Padding | `10px 14px` |
+| Font size | `13px` |
+| Font weight | `700` |
+| Font family | `inherit` |
+| Text transform | `uppercase` |
+| Letter spacing | `0.04em` |
+| Background | `var(--inv-accent)` (add variant) |
+| Color | `var(--inv-white)` |
+| Border | `none` |
+| Border radius | `8px` |
+| :hover | `background: var(--inv-accent-hover); box-shadow: 0 4px 12px var(--inv-accent-glow)` |
+| Transition | `background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease` |
+| Used for | Product card Add to Cart |
+
+**Note:** Border radius is `8px` on product card buttons but `0` on PDP ATC button — inconsistency.
+
+---
+
+#### `.inv-card__btn--options` — Product Card View Options
+
+| Property | Value |
+|---|---|
+| File | `assets/invicta-product-card.css:373` |
+| Background | `var(--inv-white)` |
+| Color | `var(--inv-accent)` |
+| Border | `1.5px solid var(--inv-accent)` |
+| Border radius | `8px` |
+| Used for | Product card "View Options" CTA |
+
+---
+
+#### `.cart__checkout-button` (cart page) — Checkout CTA
+
+| Property | Value |
+|---|---|
+| File | `assets/invicta-cart.css:551` |
+| Min-height | `5.4rem` (~54px) |
+| Padding | `1.6rem 2.4rem` |
+| Font size | `1.6rem` |
+| Font weight | `700` |
+| Text transform | `uppercase` |
+| Letter spacing | `0.04em` |
+| Background | `var(--inv-accent)` |
+| Color | `var(--inv-white)` |
+| Border | `none` |
+| Border radius | `8px` |
+| :hover | `background: var(--inv-accent-hover)` |
+| :active | `transform: scale(0.98)` |
+| Transition | `background 0.15s ease, transform 0.1s ease` |
+| Used for | Cart page checkout |
+
+---
+
+#### `.cart__checkout-button` (drawer) — Drawer Checkout CTA
+
+| Property | Value |
+|---|---|
+| File | `assets/invicta-cart.css:919` |
+| Min-height | `5rem` (~50px) |
+| Padding | `1.4rem 2rem` |
+| Font size | `1.5rem` |
+| Font weight | `700` |
+| Text transform | `uppercase` |
+| Letter spacing | `0.04em` |
+| Background | `var(--inv-accent)` |
+| Border radius | `8px` |
+| :hover | `background: var(--inv-accent-hover)` |
+| Used for | Slide-in cart drawer checkout |
+
+---
+
+#### `.inv-pdp__sticky-atc-btn` — Mobile Sticky ATC
+
+| Property | Value |
+|---|---|
+| File | `assets/invicta-ux-improvements.css:270` |
+| Height | Not explicit |
+| Padding | `12px 24px` |
+| Font size | `14px` |
+| Font weight | `700` |
+| Text transform | `uppercase` |
+| Letter spacing | `0.04em` |
+| Background | `var(--inv-accent)` |
+| Border radius | `var(--buttons-radius, 4px)` |
+| :hover | `background: var(--inv-accent-hover)` |
+| :disabled | `background: var(--inv-fg-subtle)` |
+| Transition | `background 0.2s` |
+| Used for | Mobile sticky bar ATC |
+
+---
+
+#### `.inv-hero-v3__btn--primary` — Hero V3 Primary CTA
+
+| Property | Value |
+|---|---|
+| File | `sections/invicta-hero-v3.liquid:222` |
+| Min-height | `var(--inv-touch-target-min)` |
+| Padding | `13px 28px` |
+| Font size | `13px` |
+| Font weight | `700` |
+| Text transform | `uppercase` |
+| Background | `var(--inv-accent)` |
+| Color | `var(--inv-bg-elevated)` |
+| Border | `none` |
+| :hover | `background: var(--inv-accent-hover)` |
+| :focus-visible | `outline: 2px solid var(--inv-accent); outline-offset: 2px` |
+| Transition | `background var(--inv-duration-normal) ease` |
+| Used for | Hero section primary CTA |
+
+---
+
+#### `.inv-hero-v3__btn--secondary` — Hero V3 Ghost CTA
+
+| Property | Value |
+|---|---|
+| File | `sections/invicta-hero-v3.liquid:233` |
+| Background | `transparent` |
+| Color | `var(--inv-bg-elevated)` |
+| Border | `1.5px solid rgba(255,255,255,0.3)` |
+| :hover | `border-color: var(--inv-bg-elevated)` |
+| Used for | Hero section secondary ghost CTA |
+
+---
+
+#### `.inv-newsletter-v2__btn` — Newsletter Subscribe
+
+| Property | Value |
+|---|---|
+| File | `sections/invicta-newsletter.liquid:305` |
+| Min-height | `44px` |
+| Padding | `14px 28px` |
+| Font size | `14px` |
+| Font weight | `700` |
+| Text transform | `uppercase` |
+| Letter spacing | `0.5px` |
+| Background | `var(--inv-nl-accent)` |
+| Color | `#fff` (hardcoded) |
+| Border | `none` |
+| Border radius | `0` |
+| :hover | `background: var(--inv-nl-accent-hover)` |
+| :focus-visible | `outline: 2px solid #fff; outline-offset: 2px` |
+| Transition | `background 0.2s` |
+| Used for | Newsletter form subscribe CTA |
+
+---
+
+#### `.inv-pdp__notify-btn` — Out of Stock Notify Button
+
+| Property | Value |
+|---|---|
+| File | `assets/invicta-cx-improvements.css:680` |
+| Padding | `10px 20px` |
+| Font size | `0.9rem` |
+| Font weight | `600` |
+| Background | `var(--inv-warning-dark)` |
+| Color | `var(--inv-white)` |
+| Border radius | `0` |
+| :hover | `background: var(--inv-warning-darker)` |
+| Used for | OOS notify me button on PDP |
+
+---
+
+### 3B. Button Dimensions Table
+
+| Button | Height | Padding | Context |
+|---|---|---|---|
+| `.inv-pdp__atc-btn` (desktop) | `52px` | `0 20px` | PDP Add to Cart |
+| `.inv-pdp__atc-btn` (mobile) | `50px` → `56px` | token-derived | PDP ATC mobile |
+| `.inv-pdp__buy-now-btn` (desktop) | `48px` | `0 20px` | PDP Buy Now |
+| `.inv-pdp__buy-now-btn` (mobile) | `46px` → `44px` | — | PDP Buy Now mobile |
+| `.inv-btn-primary` | implicit (~45px) | `14px 28px` | Global primary CTA |
+| `.inv-btn-secondary` | implicit | `14px 28px` | Global secondary CTA |
+| `.inv-card__btn` | min `44px` | `10px 14px` | Product card ATC |
+| `.cart__checkout-button` (page) | min `54px` | `1.6rem 2.4rem` | Cart checkout |
+| `.cart__checkout-button` (drawer) | min `50px` | `1.4rem 2rem` | Drawer checkout |
+| `.inv-pdp__sticky-atc-btn` | no explicit height | `12px 24px` | Mobile sticky ATC |
+| `.inv-hero-v3__btn` | min `var(--inv-touch-target-min)` | `13px 28px` | Hero CTA |
+| `.inv-newsletter-v2__btn` | min `44px` | `14px 28px` | Newsletter CTA |
+| `.inv-pdp__notify-btn` | no explicit height | `10px 20px` | OOS notify |
+
+**Flag:** PDP ATC (`52px`) vs product card button (`min-height: 44px`) vs hero CTA (`var(--inv-touch-target-min)`) — three different height patterns. Checkout button in cart page (`54px`) and drawer (`50px`) also differ. No single canonical button height is used consistently.
+
+**Flag:** Border radius is inconsistent — `0` on PDP ATC and buy-now, `4px` (via `--buttons-radius`) on hero/utility, `8px` on product card and checkout buttons. The `invicta-radius-reset.css` enforces `border-radius: 0` globally on `.button.button` to counter Dawn theme's rounded buttons, but the Invicta-namespaced buttons override this back to `8px`.
+
+---
+
+## 4. Icons
+
+### 4A. Inline SVG Inventory
+
+All icons use `viewBox="0 0 24 24"`, `fill="none"`, `stroke="currentColor"` unless noted. All have `aria-hidden="true"`.
+
+| Icon | Depicts | File | Line | W×H | stroke-width | Colour Method |
+|---|---|---|---|---|---|---|
+| Arrow right | `→` line + arrowhead | `sections/invicta-spotlight.liquid` | 305,356,407 | no attr (CSS sized) | 2.5 | `currentColor` |
+| Arrow right chevron | `>` right chevron | `snippets/invicta-section-header.liquid` | 45 | 10×10 | 3 | `currentColor` |
+| Arrow right (14px) | `→` | `sections/invicta-trust-reviews.liquid` | 119 | 14×14 | 2.5 | `currentColor` |
+| Checkmark (on filled circle) | USP verified checkmark | `sections/invicta-trust-reviews.liquid` | 49 | 20×20 | 2.5 | Hardcoded `#fff` stroke on filled background |
+| Facebook logo | Social platform icon | `sections/invicta-trust-reviews.liquid` | 83 | 22×22 | — | Hardcoded `fill="#1877F2"` |
+| Trustpilot star | Rating star | `sections/invicta-trust-reviews.liquid` | 87 | 22×22 | — | Hardcoded `fill="#00b67a"` |
+| Shield + checkmark | Trust / secure | `snippets/invicta-trust-bar.liquid` | 30 | 18×18 | 2 | `currentColor` |
+| Delivery truck | Delivery | `snippets/invicta-trust-bar.liquid` | 37 | 18×18 | 2 | `currentColor` |
+| Shield outline | Warranty | `snippets/invicta-trust-bar.liquid` | 44 | 18×18 | 2 | `currentColor` |
+| Map pin | Location | `snippets/invicta-trust-bar.liquid` | 51 | 18×18 | 2 | `currentColor` |
+| Clock | Dispatch time | `snippets/invicta-trust-bar.liquid` | 58 | 18×18 | 2 | `currentColor` |
+| Checkmark circle | Success / delivery done | `snippets/invicta-free-delivery-bar.liquid` | 35 | 18×18 | 2.5 | `currentColor` |
+| Delivery truck (small) | Delivery progress | `snippets/invicta-free-delivery-bar.liquid` | 40 | 16×16 | 2 | `currentColor` |
+| Delivery truck (USP strip) | USP: Free delivery | `sections/invicta-usp-strip-v2.liquid` | 22 | no attr | 2.5 | `currentColor` |
+| Shield / padlock variants | USP: Security, warranty etc | `sections/invicta-usp-strip-v2.liquid` | 29–63 | no attr | 2.5 | `currentColor` |
+| Chevron right (nav arrow) | Link indicator | `snippets/invicta-brand-hero.liquid` | 97 | 14×14 | 2 | `currentColor` |
+| Shield | Brand hero trust icon | `snippets/invicta-brand-hero.liquid` | 82 | no attr | 2 | `currentColor` |
+| Delivery truck | Brand hero trust icon | `snippets/invicta-brand-hero.liquid` | 86 | no attr | 2 | `currentColor` |
+| Map pin | Brand hero trust icon | `snippets/invicta-brand-hero.liquid` | 90 | no attr | 2 | `currentColor` |
+| Truck (delivery estimate) | Delivery status | `snippets/invicta-delivery-estimate.liquid` | 22 | no attr | 2 | `currentColor` |
+| Magnifier (search) | FAQ search | `sections/invicta-faq.liquid` | 387 | no attr | 2 | `currentColor` |
+| X / close | FAQ clear search | `sections/invicta-faq.liquid` | 405 | 16×16 | 2 | `currentColor` |
+| Plus (+) expand | FAQ accordion toggle | `sections/invicta-faq.liquid` | 459 | no attr | 2.5 | `currentColor` |
+| Arrow up | FAQ scroll top | `sections/invicta-faq.liquid` | 488 | 16×16 | 2.5 | `currentColor` |
+| Tag / label | Product badge on PDP | `sections/invicta-product-v2.liquid` | 601 | 18×18 | 2 | `currentColor` |
+| Grid (4 squares) | Collection grid toggle | `sections/invicta-collection.liquid` | 149 | 14×14 | 2 | `currentColor` |
+| Tag | Collection badge filter | `sections/invicta-collection.liquid` | 172 | 14×14 | 2 | `currentColor` |
+| Checkmark (ring) | Spinner / loading | `sections/invicta-product-v2.liquid` | 737 | 16×16 | 2 | `currentColor` |
+| Checkmark (solid) | ATC success | `sections/invicta-product-v2.liquid` | 742 | 16×16 | 2.5 | `currentColor` |
+| Checkmark (in-stock, green) | In stock indicator | `sections/invicta-product-v2.liquid` | 770 | 16×16 | 2 | Hardcoded `stroke="#16a34a"` |
+| Shield (in-stock) | Secure / in stock | `sections/invicta-product-v2.liquid` | 774,778 | 16×16 | 2 | Hardcoded `stroke="#16a34a"` |
+| Padlock | Security / in-stock | `sections/invicta-product-v2.liquid` | 782 | 16×16 | 2 | Hardcoded `stroke="#16a34a"` |
+| Bell | Notify me OOS | `sections/invicta-product-v2.liquid` | 720 | 18×18 | 2 | `currentColor` |
+| Chevron (accordion) | Info tab toggle | `sections/invicta-product-v2.liquid` | 399–437 | no attr | 2 | `currentColor` |
+| Compare (scale/image) | Comparison toggle on card | `snippets/invicta-product-card.liquid` | 132 | no attr | 2 | `currentColor` |
+| Empty / placeholder product | No-image placeholder | `snippets/invicta-product-card.liquid` | 165 | 40×40 | 1 (thin) | `currentColor` |
+| Cart add | Card add icon | `snippets/invicta-product-card.liquid` | 253,269 | no attr | 2 | `currentColor` |
+| Facebook logo (footer) | Social footer link | `sections/invicta-footer.liquid` | 93,106,148 | 14×14 / 20×20 | — | `fill="currentColor"` |
+| LinkedIn logo | Social footer link | `sections/invicta-footer.liquid` | 154 | 20×20 | — | `fill="currentColor"` |
+| Instagram logo | Social footer link | `sections/invicta-footer.liquid` | 160 | 20×20 | — | `fill="currentColor"` |
+| Trustpilot star (small) | Review platform inline | JS-generated (`invicta-trust-reviews.liquid`) | 858,861 | 14×14 | — | Hardcoded `fill="#00b67a"`, `fill="#1877F2"` |
+| Nav indicator chevron | Simple nav item link | `sections/invicta-simple-nav.liquid` | 205 | no attr | 2 | `currentColor` |
+
+---
+
+### 4B. Icon Sizing Table
+
+| Size | Context | Files |
+|---|---|---|
+| No explicit `width`/`height` attrs (CSS sized) | USP strip icons, spotlight arrows, FAQ search, collection chevrons, product card compare | `invicta-usp-strip-v2.liquid`, `invicta-spotlight.liquid`, `invicta-collection.liquid`, `snippets/` |
+| 10×10 | Section header breadcrumb chevron | `snippets/invicta-section-header.liquid:45` |
+| 14×14 | Collection badges, social icons (footer small), review platform markers | Multiple sections |
+| 15×15 | Product card button icon | `assets/invicta-product-card.css:358` |
+| 16×16 | Inline icons (ATC state, close, FAQ, PDP in-stock), utility nav | Many files |
+| 18×18 | Trust bar icons, free delivery bar, PDP bell/tag, delivery estimate | Multiple |
+| 20×20 | Trust reviews point icon, social footer icons (medium) | Multiple |
+| 22×22 | Trust reviews platform logos | `sections/invicta-trust-reviews.liquid:76,83,87` |
+| 24×24 | PDP expand/lightbox close | `sections/invicta-product-v2.liquid:857` |
+| 26×26 | Footer large social icon | `sections/invicta-footer.liquid:137` |
+| 40×40 | Product card no-image placeholder | `snippets/invicta-product-card.liquid:165` |
+| 48×48 | Recently viewed empty state placeholder | `sections/invicta-recently-viewed.liquid:77` |
+
+**Flag:** Icons without explicit `width`/`height` attributes rely on CSS sizing — if CSS fails to load or is overridden, icons will collapse to zero size. Hardcoded `stroke="#16a34a"` and `fill="#1877F2"` / `fill="#00b67a"` appear in multiple places and bypass the colour token system. Two distinct `stroke-width` values (`2` and `2.5`) are used across the system with no consistent rule — heavier icons appear in USP strips and FAQ, lighter in navigation and social.
+
