@@ -241,6 +241,13 @@
             "brand_name": "Hikoki",
             "collection": "hikoki"
           }
+        },
+        "brand_HfBHJJ": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Stanley",
+            "collection": "stanley"
+          }
         }
       },
       "block_order": [
@@ -250,7 +257,8 @@
         "brand_viper",
         "brand_JHcBmt",
         "brand_FtBpt4",
-        "brand_n9TbLA"
+        "brand_n9TbLA",
+        "brand_HfBHJJ"
       ],
       "settings": {
         "title": "Explore Our Brands",
