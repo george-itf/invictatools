@@ -4,9 +4,10 @@ class CartDrawer extends HTMLElement {
   constructor() {
     super();
 
+    this.boundClose = this.close.bind(this);
     this.addEventListener('keyup', (evt) => evt.code === 'Escape' && this.close());
     const overlay = this.querySelector('#CartDrawer-Overlay');
-    if (overlay) overlay.addEventListener('click', this.close.bind(this));
+    if (overlay) overlay.addEventListener('click', this.boundClose);
     this.setHeaderCartIconAccessibility();
   }
 
@@ -90,7 +91,10 @@ class CartDrawer extends HTMLElement {
 
     setTimeout(() => {
       const overlay = this.querySelector('#CartDrawer-Overlay');
-      if (overlay) overlay.addEventListener('click', this.close.bind(this));
+      if (overlay) {
+        overlay.removeEventListener('click', this.boundClose);
+        overlay.addEventListener('click', this.boundClose);
+      }
       this.open();
     });
   }

@@ -48,6 +48,7 @@
      * @returns {void}
      */
     destroy() {
+      clearTimeout(this.enhanceTimeout);
       if (this.abortController) {
         this.abortController.abort();
         this.abortController = null;

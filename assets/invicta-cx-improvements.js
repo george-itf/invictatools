@@ -123,11 +123,24 @@
       if (document.hidden) {
         searchResultsObserver.disconnect();
         expandedObserver.disconnect();
-      } else {
+      } else if (document.body.contains(results)) {
         searchResultsObserver.observe(results, { childList: true });
         expandedObserver.observe(results, { attributes: true, childList: true, attributeFilter: ['style'] });
       }
     });
+
+    // Disconnect observers when the wrapper is removed from the DOM
+    var removalObserver = new MutationObserver(function() {
+      if (!document.body.contains(wrapper)) {
+        searchResultsObserver.disconnect();
+        expandedObserver.disconnect();
+        removalObserver.disconnect();
+      }
+    });
+
+    if (wrapper.parentNode) {
+      removalObserver.observe(wrapper.parentNode, { childList: true });
+    }
   }
 
   function updateSearchFocus(items) {

@@ -165,7 +165,14 @@ class CartItems extends HTMLElement {
         return response.text();
       })
       .then((state) => {
-        const parsedState = JSON.parse(state);
+        let parsedState;
+        try {
+          parsedState = JSON.parse(state);
+        } catch (e) {
+          console.error('Cart: failed to parse response', e);
+          this.updateLiveRegions(line, 'An error occurred. Please try again.');
+          return;
+        }
 
         CartPerformance.measure(`${eventTarget}:paint-updated-sections"`, () => {
           const quantityElement =
