@@ -114,7 +114,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--inv-space-sm, 0.5rem);
-    background: var(--inv-success, #16a34a);
+    background: var(--inv-success, #15803d);
     color: #fff;
     padding: var(--inv-space-md, 1rem) var(--inv-space-lg, 1.5rem);
     margin-bottom: var(--inv-space-2xl, 3rem);
@@ -194,7 +194,7 @@
   }
 
   #shopify-section-{{ section.id }} .inv-delivery-info__table .inv-delivery-info__price--free {
-    color: var(--inv-success, #16a34a);
+    color: var(--inv-success, #15803d);
     font-weight: 700;
   }
 
@@ -416,7 +416,7 @@
 
   {%- comment -%} --- Same-Day Dispatch Callout --- {%- endcomment -%}
   <div class="inv-delivery-info__dispatch" role="status">
-    <svg class="inv-delivery-info__dispatch-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <svg class="inv-delivery-info__dispatch-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
       <rect x="1" y="3" width="15" height="13"></rect>
       <path d="M16 8h4l3 3v5h-7V8z"></path>
       <circle cx="5.5" cy="18.5" r="2.5"></circle>
@@ -435,7 +435,7 @@
   {%- comment -%} --- Free Shipping Banner --- {%- endcomment -%}
   {%- if threshold_pence > 0 -%}
     <div class="inv-delivery-info__free-shipping" aria-label="{{ 'invicta.delivery_info.free_shipping_aria' | t | default: 'Free shipping information' }}">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
         <polyline points="22 4 12 14.01 9 11.01"></polyline>
       </svg>
@@ -511,7 +511,7 @@
             <p class="inv-delivery-info__area-timeframe">{{ area_timeframe | escape }}</p>
             {%- if area_surcharge != blank -%}
               <p class="inv-delivery-info__area-note">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
                   <circle cx="12" cy="12" r="10"></circle>
                   <line x1="12" y1="8" x2="12" y2="12"></line>
                   <line x1="12" y1="16" x2="12.01" y2="16"></line>
@@ -531,7 +531,7 @@
       {{ 'invicta.delivery_info.tracking_heading' | t | default: 'Order Tracking' }}
     </h2>
     <div class="inv-delivery-info__tracking">
-      <svg class="inv-delivery-info__tracking-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <svg class="inv-delivery-info__tracking-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
         <circle cx="12" cy="10" r="3"></circle>
       </svg>
@@ -556,7 +556,7 @@
     </p>
     {%- if contact_url != blank -%}
       <a href="{{ contact_url }}" class="inv-delivery-info__cta-button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
           <polyline points="22,6 12,13 2,6"></polyline>
         </svg>

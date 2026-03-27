@@ -28,7 +28,7 @@
       aria-controls="invicta-mobile-drawer"
       data-drawer-open
     >
-      <svg viewBox="0 0 24 24" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
         <line x1="3" y1="6" x2="21" y2="6"></line>
         <line x1="3" y1="12" x2="21" y2="12"></line>
         <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -76,7 +76,7 @@
 
       {%- if shop.customer_accounts_enabled -%}
         <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="invicta-header__icon invicta-header__icon--account" aria-label="{% if customer %}Account{% else %}Sign in{% endif %}">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
             <circle cx="12" cy="7" r="4"></circle>
             <path d="M4 21c0-4 4-7 8-7s8 3 8 7"></path>
           </svg>
@@ -84,7 +84,7 @@
       {%- endif -%}
 
       <a id="cart-icon-bubble" href="{{ routes.cart_url }}" class="invicta-header__icon header__icon--cart link focus-inset" aria-label="Cart ({{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }})">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
+        <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
           <path d="M6 6h15l-1.5 9h-12z"></path>
           <circle cx="9" cy="19" r="1.5"></circle>
           <circle cx="17" cy="19" r="1.5"></circle>
@@ -104,7 +104,7 @@
     <div class="invicta-drawer__header">
       <span class="invicta-drawer__title">{{ 'invicta.header.menu' | t }}</span>
       <button type="button" class="invicta-drawer__close" data-drawer-close aria-label="Close menu">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
+        <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
@@ -123,7 +123,7 @@
                 aria-controls="invicta-submenu-{{ forloop.index }}"
               >
                 {{ link.title | escape }}
-                <svg class="invicta-drawer__chevron" viewBox="0 0 24 24" aria-hidden="true">
+                <svg class="invicta-drawer__chevron" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
               </button>
@@ -165,7 +165,7 @@
     {%- if shop.customer_accounts_enabled -%}
       <div class="invicta-drawer__footer">
         <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="invicta-drawer__account-link">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
             <circle cx="12" cy="7" r="4"></circle>
             <path d="M4 21c0-4 4-7 8-7s8 3 8 7"></path>
           </svg>

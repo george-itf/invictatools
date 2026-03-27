@@ -8,6 +8,15 @@
   ============================================
 {% endcomment %}
 
+{%- comment -%} ===== Meta Description Fallback ===== {%- endcomment -%}
+{%- unless page_description != blank -%}
+  {%- if section.settings.brand_description != blank -%}
+    <meta name="description" content="{{ section.settings.brand_description | strip_html | truncate: 160 | escape }}">
+  {%- else -%}
+    <meta name="description" content="Shop {{ section.settings.brand_name }} tools at Invicta Tools. Browse our range of professional {{ section.settings.brand_name }} power tools, accessories and consumables with trade prices and fast delivery.">
+  {%- endif -%}
+{%- endunless -%}
+
 {%- comment -%} ===== BreadcrumbList Schema ===== {%- endcomment -%}
 {%- if section.settings.brand_name != blank -%}
 <script type="application/ld+json">

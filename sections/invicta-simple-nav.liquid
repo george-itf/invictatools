@@ -210,7 +210,7 @@
           
           {%- comment -%} Show dropdown icon if link has children and setting enabled {%- endcomment -%}
           {%- if link.links.size > 0 and ss.show_dropdown_icon -%}
-            <svg class="inv-simple-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg class="inv-simple-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           {%- endif -%}

@@ -54,7 +54,7 @@
         </div>
         {%- if show_view_all -%}
           <a href="#" class="inv-pw-header__cta" data-pw-cta style="display:none;">
-            <span>View All</span>
+            <span>{{ 'invicta.general.view_all' | t }}</span>
             <span class="inv-pw-header__count" data-pw-count></span>
             <span aria-hidden="true">&rarr;</span>
           </a>
@@ -100,7 +100,7 @@
                 </li>
               {%- endfor -%}
             {%- else -%}
-              <li class="inv-pw-grid__empty"><p>No products found.</p></li>
+              <li class="inv-pw-grid__empty"><p>{{ 'invicta.general.no_products_found' | t }}</p></li>
             {%- endif -%}
           </ul>
         {%- endif -%}

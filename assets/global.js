@@ -8,67 +8,7 @@ function getFocusableElements(container) {
   );
 }
 
-class SectionId {
-  static #separator = '__';
-
-  // for a qualified section id (e.g. 'template--22224696705326__main'), return just the section id (e.g. 'template--22224696705326')
-  static parseId(qualifiedSectionId) {
-    return qualifiedSectionId.split(SectionId.#separator)[0];
-  }
-
-  // for a qualified section id (e.g. 'template--22224696705326__main'), return just the section name (e.g. 'main')
-  static parseSectionName(qualifiedSectionId) {
-    return qualifiedSectionId.split(SectionId.#separator)[1];
-  }
-
-  // for a section id (e.g. 'template--22224696705326') and a section name (e.g. 'recommended-products'), return a qualified section id (e.g. 'template--22224696705326__recommended-products')
-  static getIdForSection(sectionId, sectionName) {
-    return `${sectionId}${SectionId.#separator}${sectionName}`;
-  }
-}
-
-class HTMLUpdateUtility {
-  /**
-   * Used to swap an HTML node with a new node.
-   * The new node is inserted as a previous sibling to the old node, the old node is hidden, and then the old node is removed.
-   *
-   * The function currently uses a double buffer approach, but this should be replaced by a view transition once it is more widely supported https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API
-   */
-  static viewTransition(oldNode, newContent, preProcessCallbacks = [], postProcessCallbacks = []) {
-    preProcessCallbacks?.forEach((callback) => callback(newContent));
-
-    const newNodeWrapper = document.createElement('div');
-    HTMLUpdateUtility.setInnerHTML(newNodeWrapper, newContent.outerHTML);
-    const newNode = newNodeWrapper.firstChild;
-
-    // dedupe IDs
-    const uniqueKey = Date.now();
-    oldNode.querySelectorAll('[id], [form]').forEach((element) => {
-      element.id && (element.id = `${element.id}-${uniqueKey}`);
-      element.form && element.setAttribute('form', `${element.form.getAttribute('id')}-${uniqueKey}`);
-    });
-
-    oldNode.parentNode.insertBefore(newNode, oldNode);
-    oldNode.style.display = 'none';
-
-    postProcessCallbacks?.forEach((callback) => callback(newNode));
-
-    setTimeout(() => oldNode.remove(), 500);
-  }
-
-  // Sets inner HTML and reinjects the script tags to allow execution. By default, scripts are disabled when using element.innerHTML.
-  static setInnerHTML(element, html) {
-    element.innerHTML = html;
-    element.querySelectorAll('script').forEach((oldScriptTag) => {
-      const newScriptTag = document.createElement('script');
-      Array.from(oldScriptTag.attributes).forEach((attribute) => {
-        newScriptTag.setAttribute(attribute.name, attribute.value);
-      });
-      newScriptTag.appendChild(document.createTextNode(oldScriptTag.innerHTML));
-      oldScriptTag.parentNode.replaceChild(newScriptTag, oldScriptTag);
-    });
-  }
-}
+/* SectionId and HTMLUpdateUtility classes removed — unused dead code (Gate 7.1) */
 
 document.querySelectorAll('[id^="Details-"] summary').forEach((summary) => {
   summary.setAttribute('role', 'button');
@@ -134,54 +74,7 @@ function trapFocus(container, elementToFocus = container) {
   }
 }
 
-// Here run the querySelector to figure out if the browser supports :focus-visible or not and run code based on it.
-try {
-  document.querySelector(':focus-visible');
-} catch (e) {
-  focusVisiblePolyfill();
-}
-
-function focusVisiblePolyfill() {
-  const navKeys = [
-    'ARROWUP',
-    'ARROWDOWN',
-    'ARROWLEFT',
-    'ARROWRIGHT',
-    'TAB',
-    'ENTER',
-    'SPACE',
-    'ESCAPE',
-    'HOME',
-    'END',
-    'PAGEUP',
-    'PAGEDOWN',
-  ];
-  let currentFocusedElement = null;
-  let mouseClick = null;
-
-  window.addEventListener('keydown', (event) => {
-    if (navKeys.includes(event.code.toUpperCase())) {
-      mouseClick = false;
-    }
-  });
-
-  window.addEventListener('mousedown', (event) => {
-    mouseClick = true;
-  });
-
-  window.addEventListener(
-    'focus',
-    () => {
-      if (currentFocusedElement) currentFocusedElement.classList.remove('focused');
-
-      if (mouseClick) return;
-
-      currentFocusedElement = document.activeElement;
-      currentFocusedElement.classList.add('focused');
-    },
-    true
-  );
-}
+/* focusVisiblePolyfill removed — :focus-visible is natively supported in all modern browsers (Gate 7.1) */
 
 function pauseAllMedia() {
   document.querySelectorAll('.js-youtube').forEach((video) => {
@@ -317,55 +210,14 @@ if (typeof window.Shopify == 'undefined') {
   window.Shopify = {};
 }
 
-Shopify.bind = function (fn, scope) {
-  return function () {
-    return fn.apply(scope, arguments);
-  };
-};
-
-Shopify.setSelectorByValue = function (selector, value) {
-  for (var i = 0, count = selector.options.length; i < count; i++) {
-    var option = selector.options[i];
-    if (value == option.value || value == option.innerHTML) {
-      selector.selectedIndex = i;
-      return i;
-    }
-  }
-};
-
-Shopify.addListener = function (target, eventName, callback) {
-  target.addEventListener
-    ? target.addEventListener(eventName, callback, false)
-    : target.attachEvent('on' + eventName, callback);
-};
-
-Shopify.postLink = function (path, options) {
-  options = options || {};
-  var method = options['method'] || 'post';
-  var params = options['parameters'] || {};
-
-  var form = document.createElement('form');
-  form.setAttribute('method', method);
-  form.setAttribute('action', path);
-
-  for (var key in params) {
-    var hiddenField = document.createElement('input');
-    hiddenField.setAttribute('type', 'hidden');
-    hiddenField.setAttribute('name', key);
-    hiddenField.setAttribute('value', params[key]);
-    form.appendChild(hiddenField);
-  }
-  document.body.appendChild(form);
-  form.submit();
-  document.body.removeChild(form);
-};
+/* Shopify.bind, setSelectorByValue, addListener, postLink removed — replaced with native APIs (Gate 7.1) */
 
 Shopify.CountryProvinceSelector = function (country_domid, province_domid, options) {
   this.countryEl = document.getElementById(country_domid);
   this.provinceEl = document.getElementById(province_domid);
   this.provinceContainer = document.getElementById(options['hideElement'] || province_domid);
 
-  Shopify.addListener(this.countryEl, 'change', Shopify.bind(this.countryHandler, this));
+  this.countryEl.addEventListener('change', this.countryHandler.bind(this));
 
   this.initCountry();
   this.initProvince();
@@ -374,14 +226,14 @@ Shopify.CountryProvinceSelector = function (country_domid, province_domid, optio
 Shopify.CountryProvinceSelector.prototype = {
   initCountry: function () {
     var value = this.countryEl.getAttribute('data-default');
-    Shopify.setSelectorByValue(this.countryEl, value);
+    if (value) this.countryEl.value = value;
     this.countryHandler();
   },
 
   initProvince: function () {
     var value = this.provinceEl.getAttribute('data-default');
     if (value && this.provinceEl.options.length > 0) {
-      Shopify.setSelectorByValue(this.provinceEl, value);
+      this.provinceEl.value = value;
     }
   },
 
@@ -563,6 +415,10 @@ class HeaderDrawer extends MenuDrawer {
     super();
   }
 
+  disconnectedCallback() {
+    window.removeEventListener('resize', this.onResize);
+  }
+
   openMenuDrawer(summaryElement) {
     this.header = this.header || document.querySelector('.section-header');
     const headerWrapper = this.closest('.header-wrapper');
@@ -668,15 +524,22 @@ class BulkModal extends HTMLElement {
             const sourceQty = html.querySelector('.quick-order-list-container');
             if (sourceQty && sourceQty.parentNode) this.innerHTML = sourceQty.parentNode.innerHTML;
           })
-          .catch((e) => {
-            DEBUG && console.error(e);
-          });
+          .catch(console.error);
       }
     };
 
-    new IntersectionObserver(handleIntersection.bind(this)).observe(
-      document.querySelector(`#QuickBulk-${this.dataset.productId}-${this.dataset.sectionId}`)
-    );
+    const target = document.querySelector(`#QuickBulk-${this.dataset.productId}-${this.dataset.sectionId}`);
+    if (target) {
+      this._observer = new IntersectionObserver(handleIntersection.bind(this));
+      this._observer.observe(target);
+    }
+  }
+
+  disconnectedCallback() {
+    if (this._observer) {
+      this._observer.disconnect();
+      this._observer = null;
+    }
   }
 }
 

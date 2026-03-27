@@ -3562,3 +3562,147 @@ body.inv-zoom-open {
   color: inherit;
   box-shadow: none;
 }
+
+
+/* ============================================================================
+   SHARED: VAT Toggle, Quick Qty, Cart Breakdown
+   Extracted from mobile.css and desktop.css (shared between both)
+   ============================================================================ */
+
+.inv-vat-toggle {
+  display: inline-flex;
+  border: 1px solid var(--inv-border-dark);
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 0.75rem;
+}
+
+.inv-vat-toggle__btn {
+  padding: 6px 12px;
+  border: none;
+  background: var(--inv-bg-soft);
+  color: var(--inv-fg-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.inv-vat-toggle__btn:first-child {
+  border-right: 1px solid var(--inv-border-dark);
+}
+
+.inv-vat-toggle__btn[aria-pressed="true"],
+.inv-vat-toggle__btn--active {
+  background: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+}
+
+.inv-vat-toggle__btn:hover:not([aria-pressed="true"]) {
+  background: var(--inv-bg-soft);
+}
+
+/* Placement on product page - inline with price */
+.product .inv-vat-toggle {
+  margin-left: 12px;
+  vertical-align: middle;
+}
+
+.invicta-quick-qty {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.invicta-quick-qty__label {
+  font-size: 0.9rem;
+  color: var(--inv-fg-muted);
+  font-weight: 500;
+}
+
+.invicta-quick-qty__buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.invicta-quick-qty__btn {
+  min-width: 48px;
+  height: 38px;
+  padding: 0 14px;
+  background: var(--inv-bg-soft);
+  border: 1px solid var(--inv-border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--inv-fg-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.invicta-quick-qty__btn:hover {
+  background: var(--inv-border);
+  border-color: var(--inv-border-dark);
+}
+
+.invicta-quick-qty__btn--active {
+  background: var(--inv-accent);
+  border-color: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+}
+
+/* --------------------------------------------------------------------------
+   Dynamic Quantity Total
+   -------------------------------------------------------------------------- */
+
+.invicta-qty-total {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+}
+
+.invicta-qty-total__label {
+  font-size: 0.95rem;
+  color: var(--inv-fg-muted);
+}
+
+.invicta-qty-total__value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--inv-accent);
+}
+
+.invicta-cart-breakdown {
+  padding: 16px 0;
+  border-top: 1px solid var(--inv-border);
+  margin-top: 16px;
+}
+
+.invicta-cart-breakdown__row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 13px;
+}
+
+.invicta-cart-breakdown__row--total {
+  font-size: 15px;
+  font-weight: 700;
+  padding-top: 10px;
+  margin-top: 8px;
+  border-top: 1px solid var(--inv-border);
+}
+
+body.vat-mode-ex .invicta-vat-indicator::after {
+  content: ' (showing ex VAT)';
+}
+
+body.vat-mode-inc .invicta-vat-indicator::after {
+  content: ' (showing inc VAT)';
+}
+
