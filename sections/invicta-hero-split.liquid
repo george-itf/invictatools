@@ -222,6 +222,10 @@
     transition: opacity 200ms ease, background 200ms ease;
   }
 
+  .inv-hero-split__arrow[hidden] {
+    display: none !important;
+  }
+
   .inv-hero-split__main:hover .inv-hero-split__arrow {
     opacity: 1;
   }
@@ -927,12 +931,12 @@
 
       {%- comment -%} Arrow controls (hidden if single slide) {%- endcomment -%}
       {%- if slide_count > 1 -%}
-        <button class="inv-hero-split__arrow inv-hero-split__arrow--prev" data-slide-prev aria-label="Previous slide">
+        <button class="inv-hero-split__arrow inv-hero-split__arrow--prev" data-slide-prev aria-label="Previous slide" hidden>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
             <path d="M15 18l-6-6 6-6"/>
           </svg>
         </button>
-        <button class="inv-hero-split__arrow inv-hero-split__arrow--next" data-slide-next aria-label="Next slide">
+        <button class="inv-hero-split__arrow inv-hero-split__arrow--next" data-slide-next aria-label="Next slide" hidden>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
             <path d="M9 18l6-6-6-6"/>
           </svg>
@@ -1136,6 +1140,10 @@
     // Arrow buttons
     if (prevBtn) prevBtn.addEventListener('click', function() { prev(); startAutoplay(); });
     if (nextBtn) nextBtn.addEventListener('click', function() { next(); startAutoplay(); });
+
+    // Unhide arrows (hidden attribute prevents FOUC)
+    if (prevBtn) prevBtn.removeAttribute('hidden');
+    if (nextBtn) nextBtn.removeAttribute('hidden');
 
     // Dot buttons
     dots.forEach(function(dot) {
