@@ -2,7 +2,6 @@
     padding: var(--inv-space-sm, 0.5rem) var(--inv-space-md, 1rem);
     background: var(--inv-bg-muted, #f9fafb);
     border: 1px solid var(--inv-border, #e5e7eb);
-    border-radius: 0;
     margin: var(--inv-space-sm, 0.5rem) 0;
   }
   .inv-delivery-bar__message {

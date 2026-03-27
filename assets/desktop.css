@@ -652,7 +652,7 @@ html.js body .invicta-card-sale-badge {
   text-transform: uppercase;
   letter-spacing: 0.02em;
   z-index: 5;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--inv-shadow-md);
 }
 
 /* -------------------------------------------------------
@@ -1539,7 +1539,7 @@ html.js body .slider-counter {
   cursor: pointer;
   font-size: 1.15rem;
   font-weight: 800;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Clean subtle shadow */
+  box-shadow: var(--inv-shadow-md); /* Clean subtle shadow */
   transition: all 0.2s ease;
 }
 
@@ -2093,7 +2093,7 @@ html.js body .slider-counter {
   color: var(--inv-bg-elevated);
   letter-spacing: 0.02em;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--inv-shadow-md);
 }
 
 /* Welcome text */
@@ -2201,7 +2201,7 @@ html.js body .slider-counter {
   background: var(--inv-bg-elevated);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--inv-shadow-sm);
 }
 
 .inv-account__card-header {
@@ -2296,7 +2296,7 @@ html.js body .slider-counter {
 .inv-order-link:hover {
   background: var(--inv-accent-hover);
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--inv-shadow-md);
 }
 
 /* Status badges */
@@ -2394,7 +2394,7 @@ html.js body .slider-counter {
 .inv-empty-state__btn:hover {
   background: var(--inv-accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12); /* Clean subtle shadow */
+  box-shadow: var(--inv-shadow-md); /* Clean subtle shadow */
 }
 
 .inv-empty-state__btn svg {
@@ -2521,7 +2521,7 @@ html.js body .slider-counter {
 
 .inv-rv-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--inv-shadow-lg);
 }
 
 .inv-rv-card__image {
@@ -2700,7 +2700,7 @@ html.js body .slider-counter {
 .customer.register button:hover {
   background: var(--inv-accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12); /* Clean subtle shadow */
+  box-shadow: var(--inv-shadow-md); /* Clean subtle shadow */
 }
 
 .customer.login a,
@@ -2797,7 +2797,7 @@ html.js body .slider-counter {
 .customer.addresses [data-address] > button[aria-expanded]:hover {
   background: var(--inv-accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12); /* Clean subtle shadow */
+  box-shadow: var(--inv-shadow-md); /* Clean subtle shadow */
 }
 
 .customer.addresses ul {
@@ -2813,7 +2813,7 @@ html.js body .slider-counter {
   background: var(--inv-bg-elevated);
   border-radius: 16px;
   padding: 28px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--inv-shadow-sm);
   margin: 0;
 }
 
@@ -2957,7 +2957,7 @@ html.js body .slider-counter {
   background: var(--inv-bg-elevated);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--inv-shadow-sm);
 }
 
 .customer.order > div:nth-of-type(2) > div:first-of-type h2 {
@@ -3019,7 +3019,7 @@ html.js body .slider-counter {
   background: var(--inv-bg-elevated);
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--inv-shadow-sm);
 }
 
 .customer.order > div:nth-of-type(2) > div:last-of-type h2 {

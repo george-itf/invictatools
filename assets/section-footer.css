@@ -403,7 +403,7 @@
 
 .footer-block__image-wrapper {
   margin-bottom: 2rem;
-  overflow: hidden !important;
+  overflow: hidden;
 }
 
 .footer-block__image-wrapper img {
