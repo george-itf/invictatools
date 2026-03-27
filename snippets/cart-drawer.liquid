@@ -9,8 +9,36 @@
 <link rel="stylesheet" href="{{ 'component-card.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'invicta-cart.css' | asset_url }}" media="print" onload="this.media='all'">
 
-<script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
+<script>
+  /* Lazy-load cart.js and quantity-popover.js on first cart interaction (Gate 7.2) */
+  (function() {
+    var loaded = false;
+    function loadCartJS() {
+      if (loaded) return;
+      loaded = true;
+      var s1 = document.createElement('script');
+      s1.src = {{ 'cart.js' | asset_url | json }};
+      s1.defer = true;
+      document.head.appendChild(s1);
+      var s2 = document.createElement('script');
+      s2.src = {{ 'quantity-popover.js' | asset_url | json }};
+      s2.defer = true;
+      document.head.appendChild(s2);
+    }
+    /* Load on first hover/focus of cart icon, or on page idle */
+    var cartIcon = document.querySelector('a[href*="/cart"], .header__icon--cart, [data-cart-icon]');
+    if (cartIcon) {
+      cartIcon.addEventListener('mouseenter', loadCartJS, { once: true });
+      cartIcon.addEventListener('focus', loadCartJS, { once: true });
+    }
+    /* Fallback: load during idle time or after 3s */
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadCartJS, { timeout: 3000 });
+    } else {
+      setTimeout(loadCartJS, 3000);
+    }
+  })();
+</script>
 
 <style>
   .drawer {
@@ -303,6 +331,7 @@
                                       {{- 'icon-minus.svg' | inline_asset_content -}}
                                     </span>
                                   </button>
+                                  <label class="visually-hidden" for="Drawer-quantity-{{ item.index | plus: 1 }}">{{ 'products.product.quantity.label' | t }}</label>
                                   <input
                                     class="quantity__input"
                                     type="number"

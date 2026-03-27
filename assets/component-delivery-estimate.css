@@ -1,6 +1,6 @@
   .inv-del-est {
     border: 1px solid var(--inv-border, #e5e7eb);
-    border-left: 3px solid var(--inv-success, #16a34a);
+    border-left: 3px solid var(--inv-success, #15803d);
     padding: 10px 14px;
     background: #fff;
     margin: 0 0 20px 0;
@@ -35,7 +35,7 @@
     width: 20px;
     height: 20px;
     flex-shrink: 0;
-    color: var(--inv-success, #16a34a);
+    color: var(--inv-success, #15803d);
   }
   .inv-del-est__icon--muted {
     color: var(--inv-fg-muted, #6b7280);
@@ -43,7 +43,7 @@
     height: 18px;
   }
   .inv-del-est__day {
-    color: var(--inv-success, #16a34a);
+    color: var(--inv-success, #15803d);
     font-weight: 700;
   }
   .inv-del-est__returns {

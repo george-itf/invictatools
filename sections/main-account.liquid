@@ -15,6 +15,7 @@
 {% endcomment %}
 
 {{ 'customer.css' | asset_url | stylesheet_tag }}
+{{ 'section-account.css' | asset_url | stylesheet_tag }}
 
 
 {%- style -%}
@@ -79,18 +80,18 @@
         <div class="inv-account__stat-divider"></div>
         <div class="inv-account__stat">
           <span class="inv-account__stat-value">{{ member_since }}</span>
-          <span class="inv-account__stat-label">Member since</span>
+          <span class="inv-account__stat-label">{{ 'invicta.account.member_since' | t }}</span>
         </div>
       </div>
       
       <!-- Logout -->
       <a href="{{ routes.account_logout_url }}" class="inv-account__logout">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
           <polyline points="16 17 21 12 16 7"/>
           <line x1="21" y1="12" x2="9" y2="12"/>
         </svg>
-        Log out
+        {{ 'invicta.account.log_out' | t }}
       </a>
     </div>
   </header>
@@ -104,12 +105,12 @@
     <!-- ORDER HISTORY -->
     <section class="inv-account__card inv-account__orders">
       <div class="inv-account__card-header">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
           <line x1="3" y1="6" x2="21" y2="6"/>
           <path d="M16 10a4 4 0 01-8 0"/>
         </svg>
-        <h2>Order History</h2>
+        <h2>{{ 'invicta.account.order_history' | t }}</h2>
       </div>
       
       <div class="inv-account__card-body">
@@ -170,7 +171,7 @@
               <nav class="inv-pagination" aria-label="Pagination">
                 {%- if paginate.previous -%}
                   <a href="{{ paginate.previous.url }}" class="inv-pagination__btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="m15 18-6-6 6-6"/>
                     </svg>
                   </a>
@@ -182,7 +183,7 @@
                 
                 {%- if paginate.next -%}
                   <a href="{{ paginate.next.url }}" class="inv-pagination__btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="m9 18 6-6-6-6"/>
                     </svg>
                   </a>
@@ -194,21 +195,21 @@
             <!-- Empty State -->
             <div class="inv-empty-state">
               <div class="inv-empty-state__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                   <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
                   <line x1="3" y1="6" x2="21" y2="6"/>
                   <path d="M16 10a4 4 0 01-8 0"/>
                 </svg>
               </div>
-              <h3 class="inv-empty-state__title">No orders yet</h3>
-              <p class="inv-empty-state__text">When you place your first order, it will appear here.</p>
+              <h3 class="inv-empty-state__title">{{ 'invicta.account.no_orders' | t }}</h3>
+              <p class="inv-empty-state__text">{{ 'invicta.account.no_orders_desc' | t }}</p>
               <a href="{{ routes.all_products_collection_url }}" class="inv-empty-state__btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <circle cx="9" cy="21" r="1"/>
                   <circle cx="20" cy="21" r="1"/>
                   <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
                 </svg>
-                Start Shopping
+                {{ 'invicta.account.start_shopping' | t }}
               </a>
             </div>
           {%- endif -%}
@@ -220,11 +221,11 @@
     <!-- ACCOUNT DETAILS -->
     <aside class="inv-account__card inv-account__details">
       <div class="inv-account__card-header">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
           <circle cx="12" cy="7" r="4"/>
         </svg>
-        <h2>Account Details</h2>
+        <h2>{{ 'invicta.account.account_details' | t }}</h2>
       </div>
       
       <div class="inv-account__card-body">
@@ -273,11 +274,11 @@
         <!-- Actions -->
         <div class="inv-detail-actions">
           <a href="{{ routes.account_addresses_url }}" class="inv-btn inv-btn--outline">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
               <circle cx="12" cy="10" r="3"/>
             </svg>
-            Manage Addresses ({{ customer.addresses_count }})
+            {{ 'invicta.account.manage_addresses' | t }} ({{ customer.addresses_count }})
           </a>
         </div>
       </div>
@@ -287,13 +288,13 @@
     <!-- COMPANY & INVOICE SETTINGS (v2.7) -->
     <aside class="inv-account__card inv-account__company">
       <div class="inv-account__card-header">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
           <polyline points="14 2 14 8 20 8"/>
           <line x1="16" y1="13" x2="8" y2="13"/>
           <line x1="16" y1="17" x2="8" y2="17"/>
         </svg>
-        <h2>Company & Invoice</h2>
+        <h2>{{ 'invicta.account.company_invoice' | t }}</h2>
       </div>
       
       <div class="inv-account__card-body">
@@ -363,12 +364,12 @@
           
           <div class="inv-detail-actions">
             <button type="submit" class="inv-btn inv-btn--primary" data-company-save>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
                 <polyline points="17 21 17 13 7 13 7 21"/>
                 <polyline points="7 3 7 8 15 8"/>
               </svg>
-              Save Settings
+              {{ 'invicta.account.save_settings' | t }}
             </button>
           </div>
           
@@ -384,12 +385,12 @@
     {%- if customer.orders.size > 0 -%}
     <aside class="inv-account__card inv-account__invoices">
       <div class="inv-account__card-header">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
           <polyline points="7 10 12 15 17 10"/>
           <line x1="12" y1="15" x2="12" y2="3"/>
         </svg>
-        <h2>VAT Invoices</h2>
+        <h2>{{ 'invicta.account.vat_invoices' | t }}</h2>
       </div>
       
       <div class="inv-account__card-body">
@@ -414,7 +415,7 @@
                   class="inv-btn inv-btn--sm inv-btn--outline"
                   target="_blank"
                 >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                     <polyline points="14 2 14 8 20 8"/>
                   </svg>
@@ -441,7 +442,7 @@
        ===================================================================== -->
   <section class="inv-account__card inv-recently-viewed" id="InvRecentlyViewed" style="display: none;">
     <div class="inv-account__card-header">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="12" cy="12" r="10"/>
         <polyline points="12 6 12 12 16 14"/>
       </svg>

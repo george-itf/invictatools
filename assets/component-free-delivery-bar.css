@@ -18,11 +18,11 @@
     color: var(--inv-fg-muted, #6b7280);
   }
   .inv-delivery-bar__message--qualified {
-    color: var(--inv-success, #16a34a);
+    color: var(--inv-success, #15803d);
     font-weight: 500;
   }
   .inv-delivery-bar__message--qualified svg {
-    color: var(--inv-success, #16a34a);
+    color: var(--inv-success, #15803d);
   }
   .inv-delivery-bar__track {
     height: 6px;
@@ -40,5 +40,5 @@
   }
   .inv-delivery-bar__message--qualified + .inv-delivery-bar__track .inv-delivery-bar__fill,
   .inv-delivery-bar__message--qualified ~ .inv-delivery-bar__track .inv-delivery-bar__fill {
-    background: var(--inv-success, #16a34a);
+    background: var(--inv-success, #15803d);
   }

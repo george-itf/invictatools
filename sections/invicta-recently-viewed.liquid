@@ -50,8 +50,8 @@
         <h2 class="inv-recent__title">{{ section.settings.title_logged_in }}</h2>
         {%- if section.settings.show_view_all -%}
         <a href="{{ section.settings.view_all_link }}" class="inv-recent__view-all">
-          View All
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          {{ 'invicta.general.view_all' | t }}
+          <svg focusable="false" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </a>
         {%- endif -%}
       </div>
@@ -74,7 +74,7 @@
 
         {%- comment -%} Empty state — shown when no browsing history {%- endcomment -%}
         <div class="inv-recent__empty hidden" id="inv-recent-empty">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+          <svg focusable="false" aria-hidden="true" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/>
             <polyline points="12 6 12 12 16 14"/>
           </svg>

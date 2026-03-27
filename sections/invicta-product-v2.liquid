@@ -22,6 +22,7 @@
 
 {{ 'invicta-product-v2.css' | asset_url | stylesheet_tag }}
 {{ 'section-invicta-product-v2.css' | asset_url | stylesheet_tag }}
+{{ 'section-invicta-product-mobile.css' | asset_url | stylesheet_tag }}
 
 {% liquid
   comment
@@ -266,7 +267,7 @@
           {%- comment -%} Image counter pill {%- endcomment -%}
           {% if product.images.size > 1 %}
             <div class="inv-pdp__gallery-counter" aria-live="polite" aria-atomic="true">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
                 <rect x="3" y="3" width="18" height="18" rx="2"></rect>
                 <circle cx="8.5" cy="8.5" r="1.5"></circle>
                 <polyline points="21 15 16 10 5 21"></polyline>
@@ -304,7 +305,7 @@
             aria-label="Zoom image"
             data-zoom-trigger
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
               <circle cx="11" cy="11" r="8"></circle>
               <path d="m21 21-4.35-4.35"></path>
               <path d="M11 8v6M8 11h6"></path>
@@ -326,7 +327,7 @@
           <div class="inv-pdp__key-specs" role="list" aria-label="Key specifications">
             {% if mf_voltage != blank %}
               <span class="inv-pdp__key-spec" role="listitem">
-                <svg class="inv-pdp__key-spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <svg class="inv-pdp__key-spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
                   <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
                 </svg>
                 {{ mf_voltage }}
@@ -334,7 +335,7 @@
             {% endif %}
             {% if mf_max_torque != blank %}
               <span class="inv-pdp__key-spec" role="listitem">
-                <svg class="inv-pdp__key-spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <svg class="inv-pdp__key-spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
                   <circle cx="12" cy="12" r="10"/>
                   <path d="M12 6v6l4 2"/>
                 </svg>
@@ -343,7 +344,7 @@
             {% endif %}
             {% if mf_motor_type != blank %}
               <span class="inv-pdp__key-spec" role="listitem">
-                <svg class="inv-pdp__key-spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <svg class="inv-pdp__key-spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
                   <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
                 </svg>
                 {{ mf_motor_type }}
@@ -396,7 +397,7 @@
         <div class="inv-pdp__info-section inv-pdp__info-section--open inv-pdp--hidden" data-row="description">
           <button class="inv-pdp__info-toggle" type="button" aria-expanded="true" data-accordion-toggle>
             <span>Description</span>
-            <svg class="inv-pdp__info-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            <svg class="inv-pdp__info-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
           </button>
           <div class="inv-pdp__info-content" data-content></div>
         </div>
@@ -404,7 +405,7 @@
         <div class="inv-pdp__info-section inv-pdp--hidden" data-row="why-buy">
           <button class="inv-pdp__info-toggle" type="button" aria-expanded="false" data-accordion-toggle>
             <span>Key Features</span>
-            <svg class="inv-pdp__info-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            <svg class="inv-pdp__info-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
           </button>
           <div class="inv-pdp__info-content">
             <ul class="inv-pdp__info-list" data-content></ul>
@@ -414,7 +415,7 @@
         <div class="inv-pdp__info-section inv-pdp--hidden" data-row="used-for">
           <button class="inv-pdp__info-toggle" type="button" aria-expanded="false" data-accordion-toggle>
             <span>Ideal For</span>
-            <svg class="inv-pdp__info-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            <svg class="inv-pdp__info-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
           </button>
           <div class="inv-pdp__info-content">
             <ul class="inv-pdp__info-list" data-content></ul>
@@ -424,7 +425,7 @@
         <div class="inv-pdp__info-section inv-pdp--hidden" data-row="specifications">
           <button class="inv-pdp__info-toggle" type="button" aria-expanded="false" data-accordion-toggle>
             <span>Specifications</span>
-            <svg class="inv-pdp__info-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            <svg class="inv-pdp__info-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
           </button>
           <div class="inv-pdp__info-content">
             <div class="inv-pdp__info-specs" data-content></div>
@@ -434,7 +435,7 @@
         <div class="inv-pdp__info-section inv-pdp--hidden" data-row="whats-included">
           <button class="inv-pdp__info-toggle" type="button" aria-expanded="false" data-accordion-toggle>
             <span>What's in the Box</span>
-            <svg class="inv-pdp__info-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            <svg class="inv-pdp__info-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
           </button>
           <div class="inv-pdp__info-content">
             <ul class="inv-pdp__info-list inv-pdp__info-list--included" data-content></ul>
@@ -521,7 +522,7 @@
           %}
           <div class="inv-pdp__dealer-row">
             <div class="inv-pdp__dealer-badge" style="--dealer-bg: {{ dealer_bg }}; --dealer-text: {{ dealer_text }};">
-              <svg class="inv-pdp__dealer-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <svg class="inv-pdp__dealer-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                 <path d="m9 12 2 2 4-4"/>
               </svg>
@@ -602,7 +603,7 @@
           {%- if current_variant.quantity_price_breaks.size > 0 -%}
             <div class="invicta-tiered-pricing" data-tiered-pricing>
               <h3 class="invicta-tiered-pricing__title">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
                 Buy More, Save More
               </h3>
               <div class="invicta-tiered-pricing__table" role="table" aria-label="Volume pricing tiers">
@@ -655,7 +656,7 @@
                   data-qty-decrease 
                   aria-label="Decrease quantity"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                   </svg>
                 </button>
@@ -676,7 +677,7 @@
                   data-qty-increase 
                   aria-label="Increase quantity"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
                     <line x1="12" y1="5" x2="12" y2="19"></line>
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                   </svg>
@@ -693,13 +694,13 @@
                   {% if is_in_stock %}{{ section.settings.atc_text | default: 'Add to Cart' }}{% else %}{{ section.settings.oos_text | default: 'Out of Stock' }}{% endif %}
                 </span>
                 <span class="inv-pdp__atc-loading" aria-hidden="true">
-                  <svg class="inv-pdp__spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg focusable="false" aria-hidden="true" class="inv-pdp__spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="12"></circle>
                   </svg>
                   Adding...
                 </span>
                 <span class="inv-pdp__atc-success" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg focusable="false" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M20 6L9 17l-5-5"></path>
                   </svg>
                   Added!
@@ -721,7 +722,7 @@
           <div class="inv-pdp__notify{% if is_in_stock %} inv-pdp--hidden{% endif %}" data-notify-wrap>
             <div class="inv-pdp__notify-inner">
               <p class="inv-pdp__notify-heading">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
                 Notify me when back in stock
               </p>
               <form class="inv-pdp__notify-form" data-notify-form data-product-title="{{ product.title | escape }}" data-product-handle="{{ product.handle }}">
@@ -738,12 +739,12 @@
                   <button type="submit" class="inv-pdp__notify-btn" data-notify-submit>
                     <span data-notify-btn-text>Notify Me</span>
                     <span class="inv-pdp__notify-spinner inv-pdp--hidden" data-notify-spinner aria-hidden="true">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="12"/></svg>
+                      <svg focusable="false" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="12"/></svg>
                     </span>
                   </button>
                 </div>
                 <p class="inv-pdp__notify-success inv-pdp--hidden" data-notify-success role="status">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  <svg focusable="false" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                   We'll email you when this item is available again.
                 </p>
                 <p class="inv-pdp__notify-error inv-pdp--hidden" data-notify-error role="alert"></p>
@@ -760,7 +761,7 @@
                 class="inv-pdp__buy-now-btn"
                 data-buy-now
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
                   <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
                 </svg>
                 {{ section.settings.buy_now_text | default: 'Add & Checkout' }}
@@ -771,19 +772,19 @@
           {%- comment -%} TRUST STRIP — 2x2 grid below Buy Now {%- endcomment -%}
           <div class="inv-pdp__trust-strip">
             <span class="inv-pdp__trust-link">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" focusable="false" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
               <span>Free UK Delivery</span>
             </span>
             <span class="inv-pdp__trust-link">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" focusable="false" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
               <span>Authorised Dealer</span>
             </span>
             <span class="inv-pdp__trust-link">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" focusable="false" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
               <span>Full Manufacturer Warranty</span>
             </span>
             <span class="inv-pdp__trust-link">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" focusable="false" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               <span>Secure Checkout</span>
             </span>
           </div>
@@ -858,7 +859,7 @@
       aria-label="Close zoom" 
       data-lightbox-close
     >
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg focusable="false" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <line x1="18" y1="6" x2="6" y2="18"></line>
         <line x1="6" y1="6" x2="18" y2="18"></line>
       </svg>

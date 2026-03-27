@@ -83,7 +83,7 @@
           >
           <button type="submit" class="inv-newsletter-v2__btn" name="commit">
             {{ section.settings.button_text }}
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </button>
@@ -91,7 +91,7 @@
 
         {%- if form.errors -%}
           <p id="{{ form_id }}-error" class="inv-newsletter-v2__message inv-newsletter-v2__message--error">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
               <circle cx="12" cy="12" r="10"/>
               <line x1="12" y1="8" x2="12" y2="12"/>
               <line x1="12" y1="16" x2="12.01" y2="16"/>
@@ -102,7 +102,7 @@
 
         {%- if form.posted_successfully? -%}
           <p id="{{ form_id }}-success" class="inv-newsletter-v2__message inv-newsletter-v2__message--success">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
               <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
               <polyline points="22 4 12 14.01 9 11.01"/>
             </svg>
@@ -118,7 +118,7 @@
           {% for block in section.blocks %}
             {% if block.type == 'trust_badge' and block.settings.text != blank %}
               <span class="inv-newsletter-v2__trust-item" {{ block.shopify_attributes }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" focusable="false" aria-hidden="true">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
                 {{ block.settings.text }}

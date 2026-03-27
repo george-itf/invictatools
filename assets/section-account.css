@@ -1,0 +1,1308 @@
+/* ============================================================================
+   SECTION-ACCOUNT.CSS — Invicta Account Pages
+   Extracted from desktop.css and mobile.css for page-level loading
+   ============================================================================ */
+
+/* ============================================================================
+   DESKTOP STYLES (min-width: 750px)
+   ============================================================================ */
+@media screen and (min-width: 750px) {
+
+  .inv-account {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+  background: #f8f9fa;
+  min-height: 60vh;
+  }
+
+
+  /* ============================================================================
+   2. HEADER — Avatar, Welcome, Stats, Logout
+   ============================================================================ */
+
+  .inv-account__header {
+  background: linear-gradient(135deg, var(--inv-dark) 0%, var(--inv-fg-near-black) 100%);
+  border-radius: 20px;
+  padding: 32px 40px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  }
+
+  .inv-account__header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  }
+
+  .inv-account__header-right {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  }
+
+  /* Avatar */
+  .inv-account__avatar {
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, var(--inv-accent) 0%, var(--inv-accent-hover) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--inv-bg-elevated);
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+  box-shadow: var(--inv-shadow-md);
+  }
+
+  /* Welcome text */
+  .inv-account__welcome {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  }
+
+  .inv-account__greeting {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  }
+
+  .inv-account__name {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--inv-bg-elevated);
+  margin: 0;
+  letter-spacing: -0.02em;
+  }
+
+  /* Quick stats */
+  .inv-account__stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  }
+
+  .inv-account__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  }
+
+  .inv-account__stat-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--inv-bg-elevated);
+  }
+
+  .inv-account__stat-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  }
+
+  .inv-account__stat-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Logout button */
+  .inv-account__logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  color: var(--inv-bg-elevated);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 200ms ease;
+  }
+
+  .inv-account__logout:hover {
+  background: var(--inv-bg-elevated);
+  color: var(--inv-accent);
+  border-color: var(--inv-bg-elevated);
+  }
+
+  .inv-account__logout svg {
+  width: 18px;
+  height: 18px;
+  }
+
+
+  /* ============================================================================
+   3. MAIN GRID
+   ============================================================================ */
+
+  .inv-account__grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 28px;
+  }
+
+
+  /* ============================================================================
+   4. CARDS — Shared styles
+   ============================================================================ */
+
+  .inv-account__card {
+  background: var(--inv-bg-elevated);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--inv-shadow-sm);
+  }
+
+  .inv-account__card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--inv-border);
+  }
+
+  .inv-account__card-header svg {
+  width: 26px;
+  height: 26px;
+  stroke: var(--inv-accent);
+  flex-shrink: 0;
+  }
+
+  .inv-account__card-header h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--inv-fg-strong);
+  margin: 0;
+  }
+
+  .inv-account__card-body {
+  padding: 24px 28px;
+  }
+
+
+  /* ============================================================================
+   5. ORDER HISTORY TABLE
+   ============================================================================ */
+
+  .inv-account__orders .inv-account__card-body {
+  padding: 0;
+  }
+
+  .inv-orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  }
+
+  .inv-orders-table thead {
+  background: var(--inv-bg-soft);
+  }
+
+  .inv-orders-table thead th {
+  padding: 14px 16px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--inv-fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: left;
+  border-bottom: 1px solid var(--inv-border);
+  }
+
+  .inv-orders-table tbody tr {
+  border-bottom: 1px solid var(--inv-bg-soft);
+  transition: background 150ms ease;
+  }
+
+  .inv-orders-table tbody tr:hover {
+  background: var(--inv-bg-soft);
+  }
+
+  .inv-orders-table tbody tr:last-child {
+  border-bottom: none;
+  }
+
+  .inv-orders-table tbody td {
+  padding: 18px 16px;
+  font-size: 1.05rem;
+  color: var(--inv-fg-secondary);
+  vertical-align: middle;
+  }
+
+  /* Order link */
+  .inv-order-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 150ms ease;
+  }
+
+  .inv-order-link:hover {
+  background: var(--inv-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--inv-shadow-md);
+  }
+
+  /* Status badges */
+  .inv-status {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 6px;
+  text-transform: capitalize;
+  }
+
+  .inv-status--default,
+  .inv-status--pending {
+  background: #fef3c7;
+  color: #92400e;
+  }
+
+  .inv-status--success,
+  .inv-status--paid,
+  .inv-status--fulfilled {
+  background: #d1fae5;
+  color: #065f46;
+  }
+
+  .inv-status--warning,
+  .inv-status--partial {
+  background: #fed7aa;
+  color: #9a3412;
+  }
+
+  .inv-status--error,
+  .inv-status--refunded,
+  .inv-status--voided {
+  background: #fee2e2;
+  color: #991b1b;
+  }
+
+  /* Mobile table */
+
+
+  /* ============================================================================
+   6. EMPTY STATE
+   ============================================================================ */
+
+  .inv-empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  }
+
+  .inv-empty-state__icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: var(--inv-bg-soft);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+
+  .inv-empty-state__icon svg {
+  width: 40px;
+  height: 40px;
+  stroke: var(--inv-fg-subtle);
+  }
+
+  .inv-empty-state__title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--inv-fg-strong);
+  margin: 0 0 8px;
+  }
+
+  .inv-empty-state__text {
+  font-size: 1.1rem;
+  color: var(--inv-fg-muted);
+  margin: 0 0 24px;
+  }
+
+  .inv-empty-state__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 150ms ease;
+  }
+
+  .inv-empty-state__btn:hover {
+  background: var(--inv-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--inv-shadow-md); /* Clean subtle shadow */
+  }
+
+  .inv-empty-state__btn svg {
+  width: 20px;
+  height: 20px;
+  }
+
+
+  /* ============================================================================
+   7. ACCOUNT DETAILS CARD
+   ============================================================================ */
+
+  .inv-account__details {
+  height: fit-content;
+  position: sticky;
+  top: 24px;
+  }
+
+  .inv-account__details .inv-account__card-body {
+  padding: 0;
+  }
+
+  .inv-detail-group {
+  padding: 18px 28px;
+  border-bottom: 1px solid var(--inv-bg-soft);
+  }
+
+  .inv-detail-group:last-of-type {
+  border-bottom: none;
+  }
+
+  .inv-detail-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--inv-fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+  }
+
+  .inv-detail-value {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--inv-fg-strong);
+  }
+
+  .inv-detail-address {
+  font-size: 1.05rem;
+  font-style: normal;
+  line-height: 1.7;
+  color: var(--inv-fg-secondary);
+  }
+
+  .inv-detail-address strong {
+  color: var(--inv-fg-strong);
+  font-weight: 700;
+  }
+
+  .inv-detail-actions {
+  padding: 20px 28px 28px;
+  }
+
+  .inv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 24px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 150ms ease;
+  }
+
+  .inv-btn svg {
+  width: 20px;
+  height: 20px;
+  }
+
+  .inv-btn--outline {
+  background: var(--inv-bg-soft);
+  color: var(--inv-fg-secondary);
+  border: 1px solid var(--inv-border);
+  }
+
+  .inv-btn--outline:hover {
+  background: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+  border-color: var(--inv-accent);
+  }
+
+
+  /* ============================================================================
+   8. RECENTLY VIEWED SECTION
+   ============================================================================ */
+
+  .inv-recently-viewed {
+  margin-top: 28px;
+  grid-column: 1 / -1;
+  }
+
+  .inv-recently-viewed__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  }
+
+
+  /* Recently viewed card */
+  .inv-rv-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--inv-bg-soft);
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: all 200ms ease;
+  }
+
+  .inv-rv-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--inv-shadow-lg);
+  }
+
+  .inv-rv-card__image {
+  aspect-ratio: 1;
+  background: var(--inv-bg-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  }
+
+  .inv-rv-card__image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  }
+
+  .inv-rv-card__info {
+  padding: 16px;
+  }
+
+  .inv-rv-card__vendor {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--inv-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+  }
+
+  .inv-rv-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--inv-fg-strong);
+  margin: 0 0 8px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  }
+
+  .inv-rv-card__price {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--inv-fg-strong);
+  }
+
+
+  /* ============================================================================
+   9. PAGINATION
+   ============================================================================ */
+
+  .inv-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 24px 16px 0;
+  border-top: 1px solid var(--inv-border);
+  }
+
+  .inv-pagination__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--inv-bg-soft);
+  border: 1px solid var(--inv-border);
+  border-radius: 10px;
+  color: var(--inv-fg-secondary);
+  text-decoration: none;
+  transition: all 150ms ease;
+  }
+
+  .inv-pagination__btn:hover {
+  background: var(--inv-accent);
+  border-color: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+  }
+
+  .inv-pagination__btn svg {
+  width: 20px;
+  height: 20px;
+  }
+
+  .inv-pagination__info {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--inv-fg-muted);
+  }
+
+
+  /* ============================================================================
+   10. LOGIN / REGISTER / RECOVER PAGES
+   ============================================================================ */
+
+  .customer.login,
+  .customer.register,
+  .customer:has(form[action*="recover"]) {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 60px 24px 80px;
+  text-align: center;
+  }
+
+  .customer.login h1,
+  .customer.register h1 {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--inv-fg-strong);
+  margin: 0 0 8px;
+  }
+
+  .customer.login form,
+  .customer.register form {
+  background: var(--inv-bg-elevated);
+  border-radius: 20px;
+  padding: 36px;
+  margin-top: 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  }
+
+  .customer.login .field,
+  .customer.register .field {
+  margin: 0 0 20px;
+  }
+
+  .customer.login .field input,
+  .customer.register .field input {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid var(--inv-border);
+  border-radius: 12px;
+  font-size: 1.1rem;
+  background: var(--inv-bg-elevated);
+  transition: border-color 150ms ease;
+  }
+
+  .customer.login .field input:focus,
+  .customer.register .field input:focus {
+  outline: none;
+  border-color: var(--inv-accent);
+  box-shadow: 0 0 0 2px rgba(45, 45, 45, 0.2);
+  }
+
+  .customer.login .field label,
+  .customer.register .field label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--inv-fg-secondary);
+  }
+
+  .customer.login button,
+  .customer.register button {
+  width: 100%;
+  padding: 18px 24px;
+  background: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+  border: none;
+  border-radius: 12px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  cursor: pointer;
+  margin: 24px 0 16px;
+  transition: all 150ms ease;
+  }
+
+  .customer.login button:hover,
+  .customer.register button:hover {
+  background: var(--inv-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--inv-shadow-md); /* Clean subtle shadow */
+  }
+
+  .customer.login a,
+  .customer.register a {
+  color: var(--inv-fg-muted);
+  font-size: 1.05rem;
+  text-decoration: none;
+  }
+
+  .customer.login a:hover,
+  .customer.register a:hover {
+  color: var(--inv-accent);
+  }
+
+  .customer.login a[href="#recover"] {
+  display: block;
+  margin-top: 20px;
+  color: var(--inv-accent);
+  font-weight: 700;
+  }
+
+  .customer.login #customer_login_guest {
+  margin-top: 36px;
+  padding-top: 36px;
+  border-top: 1px solid var(--inv-border);
+  }
+
+  .customer.login #customer_login_guest h3 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--inv-fg-strong);
+  margin-bottom: 16px;
+  text-align: center;
+  }
+
+  .customer.login #customer_login_guest button {
+  background: var(--inv-bg-soft);
+  color: var(--inv-fg-secondary);
+  border: 1px solid var(--inv-border);
+  }
+
+  .customer.login #customer_login_guest button:hover {
+  background: var(--inv-dark);
+  color: var(--inv-bg-elevated);
+  border-color: var(--inv-dark);
+  box-shadow: none;
+  }
+
+
+  /* ============================================================================
+   11. ADDRESSES PAGE
+   ============================================================================ */
+
+  .customer.addresses {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+  background: #f8f9fa;
+  }
+
+  .customer.addresses > h1 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--inv-fg-strong);
+  margin: 0 0 8px;
+  }
+
+  .customer.addresses > a {
+  color: var(--inv-fg-muted);
+  font-size: 1.05rem;
+  text-decoration: none;
+  }
+
+  .customer.addresses > a:hover {
+  color: var(--inv-accent);
+  }
+
+  .customer.addresses [data-address] > button[aria-expanded] {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 24px 0;
+  padding: 14px 28px;
+  background: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+  border: none;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 150ms ease;
+  }
+
+  .customer.addresses [data-address] > button[aria-expanded]:hover {
+  background: var(--inv-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--inv-shadow-md); /* Clean subtle shadow */
+  }
+
+  .customer.addresses ul {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+  }
+
+  .customer.addresses li[data-address] {
+  background: var(--inv-bg-elevated);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: var(--inv-shadow-sm);
+  margin: 0;
+  }
+
+  .customer.addresses li[data-address] h2 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase ;
+  letter-spacing: 0.04em ;
+  color: var(--inv-bg-elevated);
+  background: var(--inv-accent);
+  margin: 0 0 16px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  display: inline-block;
+  }
+
+  .customer.addresses li[data-address] p {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--inv-fg-secondary);
+  }
+
+  .customer.addresses li[data-address] > button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 150ms ease;
+  }
+
+  .customer.addresses li[data-address] > button[aria-expanded] {
+  background: var(--inv-bg-soft);
+  border: 1px solid var(--inv-border);
+  color: var(--inv-fg-secondary);
+  margin: 20px 8px 0 0;
+  }
+
+  .customer.addresses li[data-address] > button[data-confirm-message] {
+  background: transparent;
+  border: 1px solid #fecaca;
+  color: var(--inv-accent);
+  }
+
+  .customer.addresses form {
+  margin-top: 24px;
+  padding: 24px;
+  background: var(--inv-bg-soft);
+  border-radius: 12px;
+  }
+
+  .customer.addresses form .field {
+  margin: 0 0 16px;
+  }
+
+  .customer.addresses form input,
+  .customer.addresses form select {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid var(--inv-border);
+  border-radius: 10px;
+  font-size: 1.05rem;
+  background: var(--inv-bg-elevated);
+  }
+
+  .customer.addresses form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--inv-fg-secondary);
+  }
+
+  .customer.addresses form button {
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin: 8px 8px 0 0;
+  }
+
+  .customer.addresses form button:not([type="reset"]) {
+  background: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+  border: none;
+  }
+
+  .customer.addresses form button[type="reset"] {
+  background: var(--inv-bg-soft);
+  color: var(--inv-fg-secondary);
+  border: 1px solid var(--inv-border);
+  }
+
+
+  /* ============================================================================
+   12. ORDER DETAIL PAGE
+   ============================================================================ */
+
+  .customer.order {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+  background: #f8f9fa;
+  }
+
+  .customer.order > div:first-child {
+  background: linear-gradient(135deg, var(--inv-dark) 0%, var(--inv-fg-near-black) 100%);
+  border-radius: 20px;
+  padding: 32px 40px;
+  margin-bottom: 28px;
+  }
+
+  .customer.order > div:first-child h1 {
+  color: var(--inv-bg-elevated);
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 8px;
+  }
+
+  .customer.order > div:first-child > a {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.05rem;
+  text-decoration: none;
+  }
+
+  .customer.order > div:first-child > a:hover {
+  color: var(--inv-bg-elevated);
+  }
+
+  .customer.order > div:nth-of-type(2) {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 28px;
+  }
+
+
+  .customer.order > div:nth-of-type(2) > div:first-of-type {
+  background: var(--inv-bg-elevated);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--inv-shadow-sm);
+  }
+
+  .customer.order > div:nth-of-type(2) > div:first-of-type h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--inv-fg-strong);
+  margin: 0;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--inv-border);
+  }
+
+  .customer.order table {
+  width: 100%;
+  border: none;
+  box-shadow: none;
+  }
+
+  .customer.order table thead {
+  background: var(--inv-bg-soft);
+  }
+
+  .customer.order table thead th {
+  padding: 14px 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--inv-fg-muted);
+  text-transform: uppercase ;
+  }
+
+  .customer.order table tbody td {
+  padding: 18px 20px;
+  font-size: 1.05rem;
+  color: var(--inv-fg-secondary);
+  }
+
+  .customer.order table tbody td a {
+  color: var(--inv-fg-strong);
+  font-weight: 600;
+  }
+
+  .customer.order table tbody td a:hover {
+  color: var(--inv-accent);
+  }
+
+  .customer.order table tfoot tr:last-of-type td {
+  font-size: 1.4rem;
+  font-weight: 800;
+  padding-top: 20px;
+  border-top: 2px solid var(--inv-border);
+  }
+
+  .customer.order > div:nth-of-type(2) > div:last-of-type {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  }
+
+  .customer.order > div:nth-of-type(2) > div:last-of-type > div {
+  background: var(--inv-bg-elevated);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--inv-shadow-sm);
+  }
+
+  .customer.order > div:nth-of-type(2) > div:last-of-type h2 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin: 0 0 16px;
+  }
+
+  .customer.order > div:nth-of-type(2) > div:last-of-type p {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  }
+
+}
+
+/* ============================================================================
+   CUSTOMER FORM FIXES — DESKTOP
+   ============================================================================ */
+@media screen and (min-width: 750px) {
+  /* Hide labels by default - placeholder handles empty state */
+  .customer .field label:not(.field__label) {
+  position: absolute;
+  top: 50%;
+  left: 1.5rem;
+  transform: translateY(-50%) ;
+  font-size: 1.4rem;
+  color: rgba(var(--color-foreground), 0.6);
+  pointer-events: none ;
+  transition: all 0.2s ease ;
+  opacity: 0 ;
+  visibility: hidden ;
+  }
+
+  /* Show label as floating when input has value or focus */
+  .customer .field input:focus ~ label:not(.field__label),
+  .customer .field input:not(:placeholder-shown) ~ label:not(.field__label) {
+  top: 0.8rem;
+  transform: translateY(0) ;
+  font-size: 1.1rem;
+  opacity: 1 ;
+  visibility: visible ;
+  }
+
+  /* Field positioning */
+  .customer .field {
+  position: relative;
+  }
+
+  /* Input padding for floating label */
+  .customer .field input {
+  padding: 1.8rem 1.5rem 0.8rem;
+  }
+}
+
+/* ============================================================================
+   MOBILE STYLES (max-width: 749px)
+   ============================================================================ */
+/* --- From invicta-account.css --- */
+@media screen and (max-width: 749px) {
+  .inv-account {
+    padding: 20px 16px 60px;
+  }
+  .inv-account__header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px;
+  }
+
+  .inv-account__header-right {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .inv-account__stats {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .inv-account__avatar {
+    width: 56px;
+    height: 56px;
+    font-size: 1.3rem;
+  }
+
+  .inv-account__name {
+    font-size: 1.5rem;
+  }
+  .inv-account__grid {
+    grid-template-columns: 1fr;
+  }
+  .inv-orders-table thead {
+    display: none;
+  }
+
+  .inv-orders-table tbody tr {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: 12px 16px;
+    border: 1px solid var(--inv-border);
+    border-radius: 12px;
+    background: var(--inv-bg-elevated);
+  }
+
+  .inv-orders-table tbody tr:hover {
+    background: var(--inv-bg-elevated);
+  }
+
+  .inv-orders-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border: none;
+  }
+
+  .inv-orders-table tbody td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: var(--inv-fg-strong);
+    font-size: 0.9rem;
+  }
+
+  .inv-orders-table tbody td:first-child {
+    justify-content: flex-start;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--inv-bg-soft);
+  }
+
+  .inv-orders-table tbody td:first-child::before {
+    display: none;
+  }
+  .inv-recently-viewed__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .inv-recently-viewed__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .customer.order > div:nth-of-type(2) {
+    grid-template-columns: 1fr;
+  }
+
+
+}
+
+/* --- Customer form fixes — Mobile --- */
+@media screen and (max-width: 749px) {
+  /* Hide labels by default on customer forms - placeholder handles empty state */
+  html.js .customer .field label:not(.field__label) {
+  position: absolute;
+  top: 50%;
+  left: 1.5rem;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  color: rgba(var(--color-foreground), 0.6);
+  pointer-events: none;
+  transition: all 0.2s ease;
+  /* Hide when placeholder is showing */
+  opacity: 0;
+  visibility: hidden;
+  }
+
+  /* Show label as floating when input has value or focus */
+  html.js .customer .field input:focus ~ label:not(.field__label),
+  html.js .customer .field input:not(:placeholder-shown) ~ label:not(.field__label) {
+  top: 0.8rem;
+  transform: translateY(0);
+  font-size: 1.1rem;
+  opacity: 1;
+  visibility: visible;
+  color: rgba(var(--color-foreground), 0.7);
+  }
+
+  /* Ensure field container is positioned for absolute label */
+  html.js .customer .field {
+  position: relative;
+  }
+
+  /* Adjust input padding to make room for floating label */
+  html.js .customer .field input {
+  padding: 1.8rem 1.5rem 0.8rem;
+  }
+
+  /* Fix placeholder color */
+  html.js .customer .field input::placeholder {
+  color: rgba(var(--color-foreground), 0.5);
+  }
+
+  /* Sign in with Shop button - ensure proper width */
+  html.js .customer .shopify-cleanslate {
+    width: 100%;
+  }
+} /* end @media max-width: 749px */
+
+/* --- Account company settings & invoices --- */
+/* ==========================================================================
+   PART 4: ACCOUNT PAGE - COMPANY SETTINGS & INVOICES (v2.7)
+   ========================================================================== */
+
+/* Company Settings Form */
+.inv-account__company,
+.inv-account__invoices {
+  margin-top: 20px;
+}
+
+.inv-detail-group--editable {
+  margin-bottom: 16px;
+}
+
+.inv-detail-group--editable .inv-detail-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.inv-detail-group--editable .inv-detail-label small {
+  font-weight: 400;
+  color: var(--inv-fg-subtle);
+}
+
+.inv-detail-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--inv-border-dark);
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.inv-detail-input:focus {
+  outline: none;
+  border-color: var(--inv-accent);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.inv-company-form__note {
+  margin: 16px 0 0;
+  padding: 10px 12px;
+  background: var(--inv-bg-soft);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: var(--inv-fg-muted);
+}
+
+/* Invoice Downloads */
+.inv-invoices__intro {
+  margin: 0 0 16px;
+  font-size: 0.95rem;
+  color: var(--inv-fg-dim);
+}
+
+.inv-invoices__intro a {
+  color: var(--inv-accent);
+  text-decoration: underline;
+}
+
+.inv-invoices__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.inv-invoice-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--inv-border);
+}
+
+.inv-invoice-row:last-child {
+  border-bottom: none;
+}
+
+.inv-invoice-row__info {
+  flex: 1;
+  min-width: 120px;
+}
+
+.inv-invoice-row__order {
+  display: block;
+  font-weight: 600;
+  color: var(--inv-fg);
+}
+
+.inv-invoice-row__date {
+  font-size: 0.85rem;
+  color: var(--inv-fg-muted);
+}
+
+.inv-invoice-row__total {
+  font-weight: 600;
+  color: #059669;
+}
+
+.inv-invoice-row__actions {
+  display: flex;
+  gap: 8px;
+}
+
+html.js .inv-btn--sm {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.inv-invoices__note {
+  margin: 16px 0 0;
+  font-size: 0.85rem;
+  color: var(--inv-fg-muted);
+  text-align: center;
+}
+

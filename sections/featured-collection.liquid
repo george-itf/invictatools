@@ -93,7 +93,7 @@
               
               {%- if section.settings.show_view_all and section.settings.collection != blank -%}
                 <a href="{{ section.settings.collection.url }}" class="inv-fc-header__cta inv-fc-header__cta--bar">
-                  <span>View All</span>
+                  <span>{{ 'invicta.general.view_all' | t }}</span>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                   </svg>
@@ -196,7 +196,7 @@
             {%- if products_shown >= section.settings.products_to_show -%}{%- break -%}{%- endif -%}
             {%- if product.available -%}
               <li class="inv-featured-collection__item{% if show_mobile_slider or show_desktop_slider %} inv-featured-collection__slide{% endif %}">
-                {% render 'invicta-product-card', product: product %}
+                {% render 'invicta-product-card', product: product, card_index: forloop.index %}
               </li>
               {%- assign products_shown = products_shown | plus: 1 -%}
             {%- endif -%}
@@ -206,7 +206,7 @@
               {%- if products_shown >= section.settings.products_to_show -%}{%- break -%}{%- endif -%}
               {%- unless product.available -%}
                 <li class="inv-featured-collection__item{% if show_mobile_slider or show_desktop_slider %} inv-featured-collection__slide{% endif %}">
-                  {% render 'invicta-product-card', product: product %}
+                  {% render 'invicta-product-card', product: product, card_index: forloop.index %}
                 </li>
                 {%- assign products_shown = products_shown | plus: 1 -%}
               {%- endunless -%}
@@ -271,7 +271,7 @@
     <div class="inv-featured-collection__mobile-cta">
       <div class="inv-container">
         <a href="{{ section.settings.collection.url }}" class="inv-featured-collection__mobile-btn">
-          View All {{ section.settings.collection.title }}
+          {{ 'invicta.general.view_all' | t }} {{ section.settings.collection.title }}
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
             <path d="M5 12h14M12 5l7 7-7 7"/>
           </svg>
