@@ -35,12 +35,21 @@
             "title": "",
             "link": ""
           }
+        },
+        "category_dggnzk": {
+          "type": "category",
+          "settings": {
+            "collection": "clothing-accessories",
+            "title": "",
+            "link": ""
+          }
         }
       },
       "block_order": [
         "category_TF7EDy",
         "category_QdWkyJ",
-        "category_3DNNam"
+        "category_3DNNam",
+        "category_dggnzk"
       ],
       "settings": {
         "heading": "Workwear & Safety",
