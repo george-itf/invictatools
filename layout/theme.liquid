@@ -39,9 +39,29 @@
     <link rel="dns-prefetch" href="{{ request.origin }}">
 
     <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+      @font-face {
+        font-family: 'Barlow Condensed';
+        src: url({{ 'barlow-condensed-700.woff2' | asset_url }}) format('woff2');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Barlow Condensed';
+        src: url({{ 'barlow-condensed-800.woff2' | asset_url }}) format('woff2');
+        font-weight: 800;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Barlow Condensed';
+        src: url({{ 'barlow-condensed-900.woff2' | asset_url }}) format('woff2');
+        font-weight: 900;
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
 
     {%- if template contains 'page' or template contains 'product' -%}
       <link rel="preconnect" href="https://www.youtube.com" crossorigin>
