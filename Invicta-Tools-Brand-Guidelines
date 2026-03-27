@@ -1,0 +1,567 @@
+# INVICTA TOOLS & FIXINGS — BRAND GUIDELINES
+
+**Version 1.0 — March 2026**
+Design Token Source: `assets/invicta-css-variables.css` v3.0
+Shopify · Amazon FBM · eBay
+
+---
+
+## 1. Brand Overview
+
+### Company Identity
+
+Invicta Tools & Fixings is an independent trade tool supplier based in Kent, UK, with locations in Canterbury and Ramsgate. Trading since 1996. The business serves tradespeople directly: electricians, plumbers, carpenters, builders, and marine contractors.
+
+Invicta is not a faceless marketplace. It is a specialist supplier with curated stock, trade-level pricing, and product knowledge that comes from three decades in the industry. The brand carries DeWalt, Makita, Milwaukee, Lamello, Bond It, Sika, Soudal, OB1, Siroflex, Viper, and Tuskbond, among others.
+
+### Brand Personality
+
+Direct. Competent. No-nonsense. Not corporate. Not trendy. Reliable. The brand speaks with authority because it knows the products and the people who use them. There is no fluff, no aspiration marketing, no lifestyle imagery. Everything is functional.
+
+### Brand Voice
+
+- Short sentences. Active voice. Lead with the answer.
+- British English throughout. Colour, not color. Authorised, not authorized.
+- No exclamation marks in product copy or UI text.
+- No filler phrases. Never write "we're passionate about tools" or "your trusted partner."
+- Talk like a tradesperson talks to another tradesperson. Specs first, features second, marketing last.
+- Numbers are concrete. "12 in stock" not "plenty available." "Next-day delivery" not "fast shipping."
+
+### Tagline / Positioning
+
+No formal tagline is currently defined in the theme codebase. The trust bar communicates the core positioning: Authorised Dealer, Free Delivery, Full Warranty, Two Locations, 29+ Years Trading. A tagline should be defined and added to the theme settings. Recommended direction: short, factual, trade-focused. Example: *"Trade tools. Trade prices. Since 1996."*
+
+---
+
+## 2. Logo & Identity
+
+### Primary Logo
+
+The Invicta logo is loaded from Shopify theme settings (`settings.logo`) and rendered in the header via an `<img>` tag at a maximum width of 400px. The logo appears left-aligned in the header on desktop and centred between the hamburger menu and action icons on mobile.
+
+If no logo image is uploaded, the theme falls back to the shop name rendered as an `h2` element with class `invicta-header__logo-text`.
+
+### Favicon
+
+The favicon is served from Shopify theme settings (`settings.favicon`) as a 32x32 PNG via the Shopify CDN `image_url` filter.
+
+### Usage Rules
+
+- Minimum clear space around the logo: equal to the height of the letter "I" in INVICTA on all sides.
+- The logo must always appear on a white or very light background (`#f5f5f6` or lighter), or reversed out to white on the dark (`#2d2d2d`) background.
+- Never place the logo on the red accent colour.
+- Never rotate, stretch, add effects to, or recolour the logo beyond the approved mono/reversed variants.
+- Never reduce the logo below 120px wide on screen or 30mm wide in print.
+
+### Brand SVG Library
+
+The following brand logos are available as SVG files in the `assets/` directory. All should be used as monochrome where possible to maintain visual consistency:
+
+Bahco, CT1, DeWalt, Dormer, Einhell, Everbuild, Evo-Stik, Faithfull, Gorilla, HiKOKI, Irwin, Kamtec, Lamello, Makita, Metabo, Milwaukee, Paslode, Siroflex, SiteTuff, Soudal, Spit, Stanley, Starrett, TengTools, Timco.
+
+---
+
+## 3. Colour System
+
+All colour values are defined in `assets/invicta-css-variables.css` v3.0. Every colour used in code must reference its token name. No hardcoded hex values are permitted.
+
+### Primary Brand Colours
+
+| Swatch | Name | Hex | Token |
+|--------|------|-----|-------|
+| 🟥 | Accent Red | `#E11D26` | `--inv-accent` |
+| 🟥 | Accent Hover | `#B91C1C` | `--inv-accent-hover` |
+| | Accent Soft | `rgba(225,29,38,0.08)` | `--inv-accent-soft` |
+| | Accent Ring | `rgba(225,29,38,0.1)` | `--inv-accent-ring` |
+| | Accent Light | `rgba(225,29,38,0.12)` | `--inv-accent-light` |
+| | Accent Glow | `rgba(225,29,38,0.25)` | `--inv-accent-glow` |
+| ⬛ | Dark | `#2D2D2D` | `--inv-dark` |
+| ⬛ | Deep Dark | `#1A1A1A` | `--inv-dark-deep` |
+| ⬛ | Dark Hover | `#404040` | `--inv-dark-hover` |
+
+### Background Palette
+
+| Swatch | Name | Hex | Token |
+|--------|------|-----|-------|
+| ⬜ | Page Background | `#F5F5F6` | `--inv-bg` |
+| ⬜ | Elevated (Cards) | `#FFFFFF` | `--inv-bg-elevated` |
+| ⬜ | Soft (Sections) | `#F3F4F6` | `--inv-bg-soft` |
+| ⬜ | Card Body | `#F7F7F8` | `--inv-bg-card-body` |
+| ⬜ | Card Border | `#ECECEC` | `--inv-bg-card-border` |
+
+### Text Palette
+
+| Swatch | Name | Hex | Token |
+|--------|------|-----|-------|
+| ⬛ | Primary Text | `#0F172A` | `--inv-fg` |
+| ⬛ | Secondary Text | `#374151` | `--inv-fg-secondary` |
+| ⬛ | Strong Text | `#111827` | `--inv-fg-strong` |
+| ⬛ | Dim Text | `#4B5563` | `--inv-fg-dim` |
+| ⬛ | Muted Text | `#6B7280` | `--inv-fg-muted` |
+| ⬛ | Subtle Text | `#9CA3AF` | `--inv-fg-subtle` |
+| ⬛ | Near Black | `#1A1A1A` | `--inv-fg-near-black` |
+
+### Semantic Colours — Success
+
+| Name | Hex | Token |
+|------|-----|-------|
+| Success | `#15803D` | `--inv-success` |
+| Success Light | `#F0FDF4` | `--inv-success-light` |
+| Success Border | `#BBF7D0` | `--inv-success-border` |
+| Success Dark | `#166534` | `--inv-success-dark` |
+| Success Bright | `#22C55E` | `--inv-success-bright` |
+| Success Text | `#065F46` | `--inv-success-text` |
+
+### Semantic Colours — Warning
+
+| Name | Hex | Token |
+|------|-----|-------|
+| Warning | `#F59E0B` | `--inv-warning` |
+| Warning Dark | `#D97706` | `--inv-warning-dark` |
+| Warning Darker | `#B45309` | `--inv-warning-darker` |
+| Warning Text | `#92400E` | `--inv-warning-text` |
+| Warning Background | `#FEF3C7` | `--inv-warning-bg` |
+| Warning Border | `#FBBF24` | `--inv-warning-border` |
+
+### Semantic Colours — Error
+
+| Name | Hex | Token |
+|------|-----|-------|
+| Error | `#DC2626` | `--inv-error` |
+| Error Background | `#FEF2F2` | `--inv-error-bg` |
+| Error Light | `#FEE2E2` | `--inv-error-light` |
+| Error Border | `#FECACA` | `--inv-error-border` |
+| Error Dark | `#991B1B` | `--inv-error-dark` |
+| Error Text | `#EF4444` | `--inv-error-text` |
+
+### Semantic Colours — Info
+
+| Name | Hex | Token |
+|------|-----|-------|
+| Info | `#3B82F6` | `--inv-info` |
+| Info Background | `#DBEAFE` | `--inv-info-bg` |
+| Info Dark | `#1D4ED8` | `--inv-info-dark` |
+
+### Neutral Grey Scale
+
+| Name | Hex | Token |
+|------|-----|-------|
+| Grey 50 | `#FAFAFA` | `--inv-grey-50` |
+| Grey 100 | `#F5F5F5` | `--inv-grey-100` |
+| Grey 200 | `#E5E5E5` | `--inv-grey-200` |
+| Grey 300 | `#D4D4D4` | `--inv-grey-300` |
+| Grey 400 | `#A3A3A3` | `--inv-grey-400` |
+| Grey 500 | `#737373` | `--inv-grey-500` |
+| Grey 600 | `#525252` | `--inv-grey-600` |
+
+### Border Colours
+
+| Name | Value | Token |
+|------|-------|-------|
+| Default Border | `#E5E7EB` | `--inv-border` |
+| Dark Border | `#D1D5DB` | `--inv-border-dark` |
+| Subtle Border | `#EEEEEE` | `--inv-border-subtle` |
+| Strong Border | `rgba(15,23,42,0.25)` | `--inv-border-strong` |
+
+### Colour Rules
+
+- Red (`#E11D26`) is an accent colour, not a background. Never fill large areas with it. Use it for buttons, eyebrow tags, links on hover, and small highlights.
+- Dark (`#2D2D2D`) is the primary dark. Use it for hero backgrounds, header, footer, and dark-mode buttons.
+- The page background is light grey (`#F5F5F6`), not white. White (`#FFFFFF`) is reserved for elevated surfaces: cards, modals, panels, inputs.
+- All colours in code must be referenced by their `--inv-*` token name. No hardcoded hex values anywhere in CSS or Liquid.
+- When creating new semantic colours, add them to `invicta-css-variables.css` with the `--inv-` prefix. Do not define colours inline or in component-scoped files.
+
+---
+
+## 4. Typography
+
+### Display Font: Barlow Condensed
+
+Self-hosted WOFF2 files. Weights: 700 (Bold), 800 (ExtraBold), 900 (Black). Loaded with `font-display: swap` for performance.
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--inv-font-display` | `'Barlow Condensed', Impact, 'Arial Narrow', sans-serif` | Hero headlines, section titles, price callouts |
+
+- Always uppercase. Always condensed. Tight tracking (`-0.02em`). Tight leading (`1.1`).
+- Never use Barlow Condensed for body text, navigation, UI labels, or any text smaller than 18px.
+- Weights 800 and 900 are preferred for hero headlines. Weight 700 for section titles.
+
+### Body Font: Shopify Theme Font
+
+The body font is configured through Shopify theme settings and referenced via `--font-body-family`. The Invicta token aliases it for consistency.
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--inv-font-body` | `var(--font-body-family)` | All body text, descriptions, UI labels, navigation |
+
+- Sentence case for all body text. Normal tracking (`0`). Normal leading (`1.5`).
+- Never override the body font with a hardcoded `font-family` declaration.
+
+### Type Scale
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--inv-text-xs` | `11px` | Fine print, legal text, timestamps |
+| `--inv-text-sm` | `13px` | Captions, secondary labels, meta text |
+| `--inv-text-base` | `15px` | Default body text size |
+| `--inv-text-md` | `17px` | Slightly emphasised body text, card titles |
+| `--inv-text-lg` | `clamp(18px, 2vw, 22px)` | Subheadings, featured text |
+| `--inv-text-xl` | `clamp(22px, 2.5vw, 28px)` | Section titles |
+| `--inv-text-2xl` | `clamp(28px, 3vw, 40px)` | Major section headlines |
+| `--inv-text-3xl` | `clamp(36px, 4vw, 56px)` | Hero headlines |
+
+- No font sizes outside the defined scale. If a new size is genuinely needed, add it to the token file.
+- The `clamp()` values provide fluid scaling between mobile and desktop. Do not override with fixed px values.
+
+### Letter Spacing
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--inv-tracking-tight` | `-0.02em` | Headlines (Barlow Condensed) |
+| `--inv-tracking-normal` | `0` | Body text |
+| `--inv-tracking-wide` | `0.05em` | Labels, eyebrow text |
+| `--inv-tracking-ultra` | `0.15em` | Category badges, uppercase small text |
+
+### Line Height
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--inv-leading-tight` | `1.1` | Headlines |
+| `--inv-leading-snug` | `1.3` | Subheadings |
+| `--inv-leading-normal` | `1.5` | Body text |
+| `--inv-leading-relaxed` | `1.7` | Long-form content |
+
+### Typography Rules
+
+- Headlines: Barlow Condensed, uppercase, `--inv-tracking-tight`, `--inv-leading-tight`. No exceptions.
+- Body text: theme font, sentence case, `--inv-tracking-normal`, `--inv-leading-normal`.
+- Price text: Barlow Condensed for large callout prices on product pages and heroes. Body font for inline/card prices.
+
+---
+
+## 5. Spacing & Layout
+
+### Spacing Scale
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--inv-space-xs` | `0.25rem (4px)` | Tight internal padding, icon gaps |
+| `--inv-space-sm` | `0.5rem (8px)` | Compact spacing, small gaps |
+| `--inv-space-sm-plus` | `12px` | Between sm and md, card internal spacing |
+| `--inv-space-md` | `1rem (16px)` | Default spacing unit |
+| `--inv-space-lg` | `1.5rem (24px)` | Section internal padding, larger gaps |
+| `--inv-space-xl` | `2rem (32px)` | Major section padding |
+| `--inv-space-2xl` | `3rem (48px)` | Large vertical spacing |
+| `--inv-space-3xl` | `4rem (64px)` | Maximum spacing, hero padding |
+
+### Grid Gaps
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--inv-gap-sm` | `12px` | Tight grid (badges, pills, small lists) |
+| `--inv-gap-md` | `20px` | Default product grid gap |
+| `--inv-gap-lg` | `32px` | Spacious grid (feature sections) |
+
+### Container Widths
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--inv-container` | `var(--page-width, 1400px)` | Primary layout container, synced to Shopify page_width |
+| `--inv-container-narrow` | `1200px` | Narrower content: text blocks, trust bars |
+
+### Page Gutters
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--inv-mobile-gutter` | `12px` | Mobile left/right page padding |
+| `--inv-page-gutter` | `1.5rem (mobile) / 3rem (desktop)` | Responsive page gutter |
+| `--inv-page-gutter-desktop` | `3rem (48px)` | Desktop left/right page padding |
+
+### Breakpoints
+
+Four breakpoints only. No others are permitted.
+
+| Name | Value | Usage |
+|------|-------|-------|
+| Mobile | `max-width: 749px` | Single column, stacked layout |
+| Tablet | `750px to 989px` | Two columns, adapted grid |
+| Desktop | `min-width: 990px` | Full layout, multi-column grids |
+| Wide | `min-width: 1200px` | Extended layout, maximum container |
+
+Media query format: `@media screen and (max-width: 749px) { }`
+
+### Spacing Rules
+
+- All spacing must use `--inv-space-*` tokens. No hardcoded pixel values in padding, margin, or gap properties.
+- Section gaps are 0px (`--inv-section-gap: 0px`). Sections are flush against each other. Internal padding within each section handles visual separation.
+- Minimum touch target: 44px (`--inv-touch-target-min`). All interactive elements must meet this minimum.
+- Mobile section gap: 24px (`--inv-mobile-section-gap`). Mobile card gap: 10px (`--inv-mobile-card-gap`).
+
+---
+
+## 6. Borders, Shadows & Radius
+
+### Border Radius
+
+Sharp corners are the brand identity. Industrial, not soft.
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--inv-radius-none` | `0` | Default for most elements |
+| `--inv-radius-button` | `0` | All buttons |
+| `--inv-radius-card` | `0` | All cards |
+| `--inv-radius-input` | `0` | All form inputs |
+| `--inv-radius-modal` | `12px` | Modal/dialog corners |
+| `--inv-radius-pill` | `9999px` | Tags, badges, pills |
+| `--inv-radius-toggle-outer` | `8px` | Toggle switch outer |
+| `--inv-radius-toggle-inner` | `4px` | Toggle switch inner |
+| `--inv-mobile-radius` | `8px` | Mobile-specific rounding |
+
+- No border-radius on buttons, cards, or inputs. This is non-negotiable.
+- The only rounded elements are pills (tags/badges), modals, and toggles.
+
+### Shadows
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--inv-shadow-sm` | `0 1px 3px rgba(0,0,0,0.08)` | Subtle lift, resting state |
+| `--inv-shadow-card` | `0 1px 3px rgba(0,0,0,0.08)` | Product cards, content cards |
+| `--inv-shadow-md` | `0 4px 12px rgba(0,0,0,0.12)` | Hover states, active elements |
+| `--inv-shadow-elevated` | `0 4px 12px rgba(0,0,0,0.1)` | Floating panels, popovers |
+| `--inv-shadow-lg` | `0 8px 24px rgba(0,0,0,0.16)` | Modals, large overlays |
+| `--inv-shadow-dropdown` | `0 4px 20px rgba(0,0,0,0.08)` | Dropdown menus, search results |
+
+- All shadows must use `--inv-shadow-*` tokens. Custom one-off shadow values are not permitted.
+- Shadows are subtle. This is a tools site, not a SaaS dashboard. Use `--inv-shadow-sm` as the default.
+
+---
+
+## 7. Motion & Animation
+
+### Duration Scale
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--inv-duration-instant` | `50ms` | Micro-interactions, hover colour change |
+| `--inv-duration-fast` | `100ms` | Button press feedback, active states |
+| `--inv-duration-normal` | `150ms` | Default transitions |
+| `--inv-duration-moderate` | `200ms` | Panel slides, reveals, drawer open |
+| `--inv-duration-slow` | `300ms` | Larger transitions, page-level |
+| `--inv-duration-slower` | `500ms` | Complex multi-step animations |
+| `--inv-duration-slowest` | `600ms` | Full-page transitions (rare) |
+
+### Easing Functions
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--inv-ease-default` | `ease` | Standard easing for most transitions |
+| `--inv-ease-out-slow` | `cubic-bezier(0, 0, 0.3, 1)` | Natural deceleration, drawer slides |
+| `--inv-ease-bounce` | `cubic-bezier(0.68, -0.55, 0.265, 1.55)` | Very sparingly: cart count badge |
+
+### Animation Rules
+
+- All animations must respect `prefers-reduced-motion`. The theme already has 22+ media queries for this. New animations must include a reduced-motion override.
+- Hover states: `--inv-duration-fast` (100ms). Drawer slides: `--inv-duration-moderate` (200ms). Page transitions: `--inv-duration-slow` (300ms).
+- No decorative animations. Every animation must communicate a state change (hover, open/close, loading, success/error).
+- The bounce easing is reserved for the cart count badge and similar micro-feedback. Do not use it on large elements.
+
+---
+
+## 8. Z-Index Scale
+
+The z-index hierarchy is fixed. No values outside this scale are permitted. If a new layer is needed, add it to the token file between existing values.
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--inv-z-base` | `0` | Default stacking context |
+| `--inv-z-dropdown` | `100` | Dropdown menus, tooltips |
+| `--inv-z-sticky` | `500` | Sticky elements (not header) |
+| `--inv-z-header` | `999` | Site header |
+| `--inv-z-overlay` | `1000` | Background overlays, scrims |
+| `--inv-z-drawer` | `2000` | Cart drawer, mobile nav drawer |
+| `--inv-z-search-dropdown` | `9999` | Search results dropdown |
+| `--inv-z-modal` | `10000` | Modal dialogs |
+| `--inv-z-search-active` | `99999` | Active search overlay |
+| `--inv-z-toast` | `100000` | Toast notifications (highest) |
+
+- Never use arbitrary z-index values (`z-index: 50`, `z-index: 5000`, etc.). Always reference `--inv-z-*` tokens.
+- If two elements need different stacking within the same tier, use stacking context isolation (`position: relative; z-index: 0`) rather than inventing new z-index values.
+
+---
+
+## 9. Component Patterns
+
+### Hero (invicta-hero-v3)
+
+- Dark `#2D2D2D` background, full-bleed width.
+- Two-column layout: text content left, product image right.
+- Red eyebrow tag (small uppercase label above headline).
+- Barlow Condensed uppercase headline, 54px desktop / 40px tablet / 28px mobile.
+- Description text at 16px, opacity 0.7 for subtle legibility on dark backgrounds.
+- Two CTAs: primary (red background, white text) + secondary (outline, white border/text).
+- Background texture via `::before` pseudo-element. Bottom accent line via `::after`.
+- Product image: 380px max, clean on transparent/dark background, right-aligned.
+- Optional price callout badge on the product image.
+
+### Product Card (invicta-product-card v7.7)
+
+- White card (`#FFFFFF`) on the grey page background (`#F5F5F6`).
+- Sharp corners (`--inv-radius-card: 0`). Subtle shadow (`--inv-shadow-card`).
+- 1:1 aspect ratio image container.
+- Brand pill badge (rounded, brand-coloured background).
+- Dual pricing: VAT-inclusive (primary) and ex-VAT (secondary), toggled by site-wide VAT switch.
+- Compare-at price with percentage saving when on sale.
+- Quick-add button.
+- Trust indicators: stock status and delivery estimate.
+- Supplier source tags control stock display (`invicta-stock`, `toolbank-stock`, `trend-stock`, etc.).
+
+### Trust Elements
+
+- Trust bar (`invicta-trust-bar` v2.0): horizontal strip with red accent icons. Five items: Authorised Dealer, Free Delivery, Full Warranty, Two Locations, Years Trading.
+- Compact variant for product pages, full variant for cart and footer areas.
+- Free delivery bar with progress indicator toward threshold.
+- Delivery estimate component with next-day cutoff logic.
+
+### Buttons
+
+- **Primary:** red `#E11D26` background, white text, sharp corners, uppercase. Hover: `#B91C1C`.
+- **Secondary:** dark `#2D2D2D` background, white text, sharp corners. Hover: `#404040`.
+- **Outline:** transparent background, dark border (`#2D2D2D`), dark text. Hover: dark fill, white text.
+- All buttons: 44px minimum height (touch target), no border-radius, font-weight bold.
+
+### Forms
+
+- Sharp corners on all inputs (`--inv-radius-input: 0`).
+- Clear label-input association via `<label for="">` on every field.
+- Error states use the `--inv-error` colour system (red border, light red background, red text).
+- Focus states: 2px ring in `--inv-focus-ring-color` with 2px offset.
+
+### Navigation
+
+- Header v6.0: Mobile layout is hamburger + logo | search | VAT toggle + cart. Desktop: logo left | search centre | VAT toggle + account + cart right.
+- Sticky header with slim profile on scroll.
+- Nav colours: white background (`#FFFFFF`), text `#444444`, hover/active state uses accent red.
+- Nav tokens: `--inv-nav-bg`, `--inv-nav-fg`, `--inv-nav-hover-fg`, `--inv-nav-active-fg`, `--inv-nav-border`, `--inv-nav-indicator`.
+
+---
+
+## 10. Photography & Imagery
+
+- Product images: clean white background, consistent lighting, no lifestyle props. The product is the subject.
+- Hero images: product on transparent or dark background, placed on the right side of the hero layout.
+- Brand logos: all supplied as SVG. Use monochrome (dark on light, or white on dark) where possible for consistency.
+- No stock photography. No lifestyle shots of people holding tools unless from Invicta's own photo shoots.
+- All product images should be square (1:1 aspect ratio) for grid consistency.
+- Image alt text must be meaningful and specific: "DeWalt DCD776 18V Combi Drill" not just "Drill" or the product title repeated.
+
+---
+
+## 11. Channel Consistency
+
+### Cross-Channel Standards
+
+Shopify, Amazon FBM, and eBay listings share the same product descriptions and specifications. A product is a single commercial entity across all channels. Wording can be adapted for platform requirements, but the core content stays consistent.
+
+### Titles
+
+- SEO-optimised, under 60 characters.
+- Format: Brand + Product Name + Key Spec. Example: "DeWalt DCD776 18V Combi Drill 2x 1.3Ah".
+- No promotional text in titles ("BEST SELLER", "FREE DELIVERY", "SALE").
+
+### Meta Descriptions
+
+- Under 160 characters.
+- Action verb opener. Delivery mention closer.
+- Example: "Order the DeWalt DCD776 18V combi drill with 2x 1.3Ah batteries. In stock, next-day delivery available."
+
+### Product Body Copy
+
+- Trade-focused. Specs first, features second, marketing last.
+- Lead with what the tradesperson needs to know: voltage, capacity, weight, compatibility.
+- HTML body content in Shopify should use semantic headings and spec tables where appropriate.
+
+---
+
+## 12. Accessibility Requirements
+
+WCAG AA compliance is the minimum standard across all pages.
+
+### Core Requirements
+
+- All interactive elements: 44px minimum touch target (`--inv-touch-target-min`).
+- All images: meaningful alt text. Not just the product title; describe what is shown.
+- All form fields: associated `<label>` elements. No placeholder-only labels.
+- Colour contrast: 4.5:1 minimum ratio for normal text, 3:1 minimum for large text (18px+ or 14px+ bold).
+- `prefers-reduced-motion` must be respected on all animations. Every `@keyframes` or transition must have a corresponding `@media (prefers-reduced-motion: reduce)` override.
+
+### Focus States
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--inv-focus-ring-width` | `2px` | Focus ring thickness |
+| `--inv-focus-ring-color` | `rgba(225, 29, 38, 0.5)` | Red-tinted focus ring |
+| `--inv-focus-ring-offset` | `2px` | Gap between element and ring |
+| `--inv-focus-shadow` | `0 0 0 3px rgba(45, 45, 45, 0.3)` | Alternative focus shadow |
+
+- Every interactive element must have a visible focus indicator. The default is a 2px ring in `--inv-focus-ring-color` with 2px offset.
+- Skip-to-content link is present in the theme and must be maintained.
+- ARIA landmarks are used: `role="banner"` on header, `role="complementary"` on trust bar, `aria-label` on navigation.
+
+---
+
+## 13. Code Standards
+
+These rules apply to all developers working on the Invicta Shopify theme and related channel assets.
+
+### Design Token Usage
+
+- All colours: `--inv-*` token. Never hardcode hex values in CSS.
+- All spacing (padding, margin, gap): `--inv-space-*` token. Never hardcode px values.
+- All shadows: `--inv-shadow-*` token.
+- All z-index values: `--inv-z-*` token.
+- All border-radius: `--inv-radius-*` token.
+- All animation durations: `--inv-duration-*` token.
+
+### New Tokens
+
+- Must be added to `assets/invicta-css-variables.css`.
+- Must use the `--inv-` prefix.
+- No component-scoped prefixes (`--pdp-*`, `--cart-*`, `--hero-*`). Everything goes in the global token file.
+
+### Breakpoints
+
+- Only four breakpoints. Mobile: `max-width 749px`. Tablet: `750px-989px`. Desktop: `min-width 990px`. Wide: `min-width 1200px`.
+- Media query format: `@media screen and (max-width: 749px) { }`
+- Device-specific CSS is split into `mobile.css` and `desktop.css`, loaded conditionally via media attributes.
+
+### JavaScript
+
+- Custom elements with `connectedCallback` / `disconnectedCallback` lifecycle methods.
+- `AbortController` for all fetch requests (cleanup on disconnect).
+- PubSub pattern (`pubsub.js`) for cross-component communication.
+- No inline `onclick` handlers. Use `data-action` attributes with delegated event listeners.
+- All scripts loaded with `defer` attribute.
+
+### Liquid
+
+- Semantic HTML. No div soup. Use `<section>`, `<nav>`, `<header>`, `<footer>`, `<article>` appropriately.
+- Customer-facing strings via `{{ 'key' | t }}` translation filter.
+- VAT calculations use the centralised `settings.inv_vat_rate`, not hardcoded divisors.
+- Comments at the top of every section and snippet file: component name, version, purpose.
+
+### File Organisation
+
+CSS files follow a load-order hierarchy defined in `layout/theme.liquid`:
+
+1. **Critical CSS:** inlined in `<style>` tag for instant above-fold render.
+2. **Base theme CSS** (`base.css`): deferred via `media="print"` onload pattern.
+3. **Shared components** (`invicta-brand-pill.css`, `invicta-product-card.css`): deferred.
+4. **Device-specific** (`mobile.css`, `desktop.css`): conditionally loaded via media queries.
+5. **UX improvements and cart components:** deferred, not critical path.
+6. **Print styles** (`invicta-print.css`): `media="print"` only, zero render cost.
+
+---
+
+*Source of truth: `assets/invicta-css-variables.css` v3.0*
+*Invicta Tools & Fixings · Canterbury & Ramsgate, Kent · Since 1996*
