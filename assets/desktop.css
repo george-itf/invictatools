@@ -780,7 +780,7 @@ html.js body .invicta-card-stars {
   display: flex;
   align-items: center;
   gap: 2px;
-  color: #f59e0b;
+  color: var(--inv-warning);
 }
 
 html.js body .invicta-card-stars .star {

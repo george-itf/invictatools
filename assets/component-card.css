@@ -457,7 +457,7 @@
 .card .icon-wrap {
   margin-left: 0.8rem;
   white-space: nowrap;
-  transition: transform var(--duration-short) ease;
+  transition: transform var(--inv-duration-fast) ease;
   overflow: hidden;
 }
 

@@ -2285,8 +2285,8 @@ html.js .inv-product {
   }
 
   .inv-stock__badge--low {
-    background: #fffbeb;
-    color: #b45309;
+    background: var(--inv-warning-bg);
+    color: var(--inv-warning-darker);
   }
 
 
@@ -2667,7 +2667,7 @@ html.js .inv-product {
     gap: 12px;
   }
 
-@media screen and (min-width: 750px) and (max-width: 999px) {
+@media screen and (min-width: 750px) and (max-width: 989px) {
   .inv-accordions__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
