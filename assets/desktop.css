@@ -270,7 +270,7 @@ html.js body .utility-bar span {
   font-weight: 800;
   letter-spacing: 0.03em ;
   text-transform: uppercase ;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   text-align: center;
   margin: 0 auto;
   padding: 0;
@@ -329,8 +329,8 @@ html.js body .invicta-header__icon {
 
 html.js body a.invicta-header__icon svg,
 html.js body .invicta-header__icon svg {
-  stroke: var(--inv-white);
-  color: var(--inv-white);
+  stroke: var(--inv-bg-elevated);
+  color: var(--inv-bg-elevated);
   fill: none;
   width: 22px;
   height: 22px;
@@ -351,8 +351,8 @@ html.js body a.header__icon--cart {
 }
 
 html.js body .header__icon--cart svg {
-  stroke: var(--inv-white);
-  color: var(--inv-white);
+  stroke: var(--inv-bg-elevated);
+  color: var(--inv-bg-elevated);
   fill: none;
   width: 22px;
   height: 22px;
@@ -370,8 +370,8 @@ html.js body .search-modal__form button {
 html.js body .search__button svg,
 html.js body .header__search button svg,
 html.js body button[class*="search"] svg {
-  stroke: var(--inv-white);
-  color: var(--inv-white);
+  stroke: var(--inv-bg-elevated);
+  color: var(--inv-bg-elevated);
 }
 
 /* Cart count badge */
@@ -383,7 +383,7 @@ html.js body .cart-count-bubble {
   height: 18px;
   padding: 0 5px;
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 0.7rem;
   font-weight: 700;
   line-height: 18px;
@@ -473,7 +473,7 @@ html.js body .predictive-search li img {
   height: 72px;
   object-fit: contain ;
   border-radius: 8px ;
-  background: var(--inv-bg-muted);
+  background: var(--inv-bg-soft);
   border: 1px solid var(--inv-border);
 }
 
@@ -531,7 +531,7 @@ html.js body .predictive-search__heading {
   color: var(--inv-fg-muted);
   padding: 12px 20px 8px;
   border-bottom: 1px solid var(--inv-border);
-  background: var(--inv-bg-muted);
+  background: var(--inv-bg-soft);
 }
 
 /* View all results link */
@@ -644,7 +644,7 @@ html.js body .invicta-card-sale-badge {
   top: 12px;
   left: 12px;
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 1.1rem;
   font-weight: 800;
   padding: 6px 10px;
@@ -663,7 +663,7 @@ html.js body .invicta-card-sold-out-badge {
   bottom: 12px;
   right: 12px;
   background: var(--inv-fg-secondary);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 1.1rem;
   font-weight: 700;
   padding: 8px 14px;
@@ -713,7 +713,7 @@ html.js body .invicta-btn--outline:hover {
 /* Solid style — Add to Cart */
 html.js body .invicta-btn--solid {
   background: var(--inv-fg-strong);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 html.js body .invicta-btn--solid:hover {
@@ -752,7 +752,7 @@ html.js body .invicta-btn--solid.is-loading::after {
   width: 14px;
   height: 14px;
   border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: var(--inv-white);
+  border-top-color: var(--inv-bg-elevated);
   border-radius: 50%;
   animation: invicta-spin 0.6s linear infinite;
 }
@@ -1004,7 +1004,7 @@ html.js body .card .invicta-btn--outline:hover {
 /* Solid button (Add) */
 html.js body .card .invicta-btn--solid {
   background: var(--inv-dark);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border: 1.5px solid var(--inv-dark);
 }
 
@@ -1135,7 +1135,7 @@ html.js body .slider-counter {
 
 .inv-product {
   padding: 32px 0 60px;
-  background: var(--inv-bg-soft, var(--inv-bg-muted));
+  background: var(--inv-bg-soft);
 }
 
 .inv-product .page-width {
@@ -1186,7 +1186,7 @@ html.js body .slider-counter {
 .inv-gallery__placeholder {
   width: 100%;
   aspect-ratio: 1 / 1;
-  background: var(--inv-bg-soft, var(--inv-bg-soft));
+  background: var(--inv-bg-soft);
 }
 
 /* Zoom Button */
@@ -1207,7 +1207,7 @@ html.js body .slider-counter {
 }
 
 .inv-gallery__zoom:hover {
-  background: var(--inv-bg-soft, var(--inv-bg-soft));
+  background: var(--inv-bg-soft);
   transform: scale(1.05);
 }
 
@@ -1496,7 +1496,7 @@ html.js body .slider-counter {
 }
 
 .inv-qty__btn:hover {
-  background: var(--inv-bg-soft, var(--inv-bg-soft));
+  background: var(--inv-bg-soft);
 }
 
 .inv-qty__input {
@@ -1533,7 +1533,7 @@ html.js body .slider-counter {
   height: 60px;
   padding: 0 32px;
   background: var(--inv-accent, var(--inv-accent)); /* Solid colour - no gradient */
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border: none;
   border-radius: 999px;
   cursor: pointer;
@@ -1554,7 +1554,7 @@ html.js body .slider-counter {
 
 .inv-atc-btn--disabled,
 .inv-atc-btn:disabled {
-  background: var(--inv-bg-soft, var(--inv-bg-soft));
+  background: var(--inv-bg-soft);
   color: var(--inv-fg-muted, var(--inv-fg-muted));
   cursor: not-allowed;
   box-shadow: none;
@@ -1598,7 +1598,7 @@ html.js body .slider-counter {
 
 .inv-buy-now:hover {
   background: var(--inv-fg, var(--inv-fg-strong));
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 
@@ -1926,7 +1926,7 @@ html.js body .slider-counter {
   display: inline-block;
   padding: 6px 14px;
   background: var(--inv-fg-strong);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -1999,7 +1999,7 @@ html.js body .slider-counter {
   align-items: center;
   justify-content: center;
   background: var(--inv-accent, var(--inv-accent)); /* Solid colour - no gradient */
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border: none;
   border-radius: 999px;
   cursor: pointer;
@@ -2008,7 +2008,7 @@ html.js body .slider-counter {
 }
 
 .inv-sticky-atc__btn:disabled {
-  background: var(--inv-bg-soft, var(--inv-bg-soft));
+  background: var(--inv-bg-soft);
   color: var(--inv-fg-muted, var(--inv-fg-muted));
   cursor: not-allowed;
 }
@@ -2083,14 +2083,14 @@ html.js body .slider-counter {
 .inv-account__avatar {
   width: 72px;
   height: 72px;
-  background: linear-gradient(135deg, var(--inv-accent) 0%, #c4191f 100%);
+  background: linear-gradient(135deg, var(--inv-accent) 0%, var(--inv-accent-hover) 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.6rem;
   font-weight: 800;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   letter-spacing: 0.02em;
   flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
@@ -2112,7 +2112,7 @@ html.js body .slider-counter {
 .inv-account__name {
   font-size: 1.8rem;
   font-weight: 800;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   margin: 0;
   letter-spacing: -0.02em;
 }
@@ -2137,7 +2137,7 @@ html.js body .slider-counter {
 .inv-account__stat-value {
   font-size: 1.4rem;
   font-weight: 800;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 .inv-account__stat-label {
@@ -2163,7 +2163,7 @@ html.js body .slider-counter {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
@@ -2173,7 +2173,7 @@ html.js body .slider-counter {
 .inv-account__logout:hover {
   background: var(--inv-bg-elevated);
   color: var(--inv-accent);
-  border-color: var(--inv-white);
+  border-color: var(--inv-bg-elevated);
 }
 
 .inv-account__logout svg {
@@ -2245,7 +2245,7 @@ html.js body .slider-counter {
 }
 
 .inv-orders-table thead {
-  background: var(--inv-bg-muted);
+  background: var(--inv-bg-soft);
 }
 
 .inv-orders-table thead th {
@@ -2265,7 +2265,7 @@ html.js body .slider-counter {
 }
 
 .inv-orders-table tbody tr:hover {
-  background: var(--inv-bg-muted);
+  background: var(--inv-bg-soft);
 }
 
 .inv-orders-table tbody tr:last-child {
@@ -2285,7 +2285,7 @@ html.js body .slider-counter {
   align-items: center;
   padding: 8px 16px;
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 0.95rem;
   font-weight: 700;
   border-radius: 8px;
@@ -2294,7 +2294,7 @@ html.js body .slider-counter {
 }
 
 .inv-order-link:hover {
-  background: #c4191f;
+  background: var(--inv-accent-hover);
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
@@ -2383,7 +2383,7 @@ html.js body .slider-counter {
   gap: 10px;
   padding: 14px 28px;
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 1.1rem;
   font-weight: 700;
   border-radius: 10px;
@@ -2392,7 +2392,7 @@ html.js body .slider-counter {
 }
 
 .inv-empty-state__btn:hover {
-  background: #c4191f;
+  background: var(--inv-accent-hover);
   transform: translateY(-2px);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12); /* Clean subtle shadow */
 }
@@ -2487,7 +2487,7 @@ html.js body .slider-counter {
 
 .inv-btn--outline:hover {
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border-color: var(--inv-accent);
 }
 
@@ -2512,7 +2512,7 @@ html.js body .slider-counter {
 .inv-rv-card {
   display: flex;
   flex-direction: column;
-  background: var(--inv-bg-muted);
+  background: var(--inv-bg-soft);
   border-radius: 12px;
   overflow: hidden;
   text-decoration: none;
@@ -2603,7 +2603,7 @@ html.js body .slider-counter {
 .inv-pagination__btn:hover {
   background: var(--inv-accent);
   border-color: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 .inv-pagination__btn svg {
@@ -2686,7 +2686,7 @@ html.js body .slider-counter {
   width: 100%;
   padding: 18px 24px;
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border: none;
   border-radius: 12px;
   font-size: 1.15rem;
@@ -2698,7 +2698,7 @@ html.js body .slider-counter {
 
 .customer.login button:hover,
 .customer.register button:hover {
-  background: #c4191f;
+  background: var(--inv-accent-hover);
   transform: translateY(-2px);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12); /* Clean subtle shadow */
 }
@@ -2744,7 +2744,7 @@ html.js body .slider-counter {
 
 .customer.login #customer_login_guest button:hover {
   background: var(--inv-dark);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border-color: var(--inv-dark);
   box-shadow: none;
 }
@@ -2785,7 +2785,7 @@ html.js body .slider-counter {
   margin: 24px 0;
   padding: 14px 28px;
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border: none;
   border-radius: 10px;
   font-size: 1.05rem;
@@ -2795,7 +2795,7 @@ html.js body .slider-counter {
 }
 
 .customer.addresses [data-address] > button[aria-expanded]:hover {
-  background: #c4191f;
+  background: var(--inv-accent-hover);
   transform: translateY(-2px);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12); /* Clean subtle shadow */
 }
@@ -2822,7 +2822,7 @@ html.js body .slider-counter {
   font-weight: 700;
   text-transform: uppercase ;
   letter-spacing: 0.04em ;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   background: var(--inv-accent);
   margin: 0 0 16px;
   padding: 8px 14px;
@@ -2863,7 +2863,7 @@ html.js body .slider-counter {
 .customer.addresses form {
   margin-top: 24px;
   padding: 24px;
-  background: var(--inv-bg-muted);
+  background: var(--inv-bg-soft);
   border-radius: 12px;
 }
 
@@ -2900,7 +2900,7 @@ html.js body .slider-counter {
 
 .customer.addresses form button:not([type="reset"]) {
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border: none;
 }
 
@@ -2930,7 +2930,7 @@ html.js body .slider-counter {
 }
 
 .customer.order > div:first-child h1 {
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 2rem;
   font-weight: 800;
   margin: 0 0 8px;
@@ -2943,7 +2943,7 @@ html.js body .slider-counter {
 }
 
 .customer.order > div:first-child > a:hover {
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 .customer.order > div:nth-of-type(2) {
@@ -2976,7 +2976,7 @@ html.js body .slider-counter {
 }
 
 .customer.order table thead {
-  background: var(--inv-bg-muted);
+  background: var(--inv-bg-soft);
 }
 
 .customer.order table thead th {
@@ -3046,7 +3046,7 @@ html.js body .slider-counter {
   align-items: center;
   justify-content: space-between;
   background: #282c31;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   padding: 16px 24px;
   margin-bottom: 24px;
 }
@@ -3060,7 +3060,7 @@ html.js body .slider-counter {
   font-weight: 800;
   letter-spacing: -0.02em;
   margin: 0;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 .inv-cart-header__count {
   font-size: 14px;
@@ -3073,7 +3073,7 @@ html.js body .slider-counter {
   gap: 6px;
   font-size: 13px;
   font-weight: 600;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   text-decoration: none;
 }
 .inv-cart-header__continue:hover {
@@ -3194,7 +3194,7 @@ html.js body .slider-counter {
 #checkout,
 button[name="checkout"] {
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border: none;
   border-radius: 8px;
   height: 52px;
@@ -3206,7 +3206,7 @@ button[name="checkout"] {
 }
 .cart__checkout-button:hover,
 #checkout:hover {
-  background: #c81a22;
+  background: var(--inv-accent-hover);
 }
 
 /* --- Additional checkout buttons (PayPal etc) --- */
@@ -3343,7 +3343,7 @@ button[name="checkout"] {
 }
 .cart__warnings .button {
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border: none;
   border-radius: 8px;
   height: 48px;
@@ -3390,7 +3390,7 @@ button[name="checkout"] {
   bottom: 16px;
   left: 16px;
   background: rgba(0, 0, 0, 0.6);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 0.8rem;
   font-weight: 600;
   padding: 6px 14px;
@@ -3508,7 +3508,7 @@ button[name="checkout"] {
   background: var(--inv-accent);
   border: none;
   border-radius: 12px;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
@@ -3717,7 +3717,7 @@ button[name="checkout"] {
 .invicta-quick-qty__btn--active {
   background: var(--inv-accent);
   border-color: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 /* --------------------------------------------------------------------------
@@ -3802,7 +3802,7 @@ button[name="checkout"] {
 .inv-vat-toggle__btn {
   padding: 6px 12px;
   border: none;
-  background: var(--inv-bg-muted);
+  background: var(--inv-bg-soft);
   color: var(--inv-fg-muted);
   font-size: 0.75rem;
   font-weight: 500;
@@ -3817,7 +3817,7 @@ button[name="checkout"] {
 .inv-vat-toggle__btn[aria-pressed="true"],
 .inv-vat-toggle__btn--active {
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 .inv-vat-toggle__btn:hover:not([aria-pressed="true"]) {

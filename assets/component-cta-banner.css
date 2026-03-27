@@ -68,7 +68,7 @@
     color: #ffffff;
   }
   .inv-cta-banner--subtle .inv-cta-banner__btn:hover {
-    background: var(--inv-accent-hover, #c4191f);
+    background: var(--inv-accent-hover);
     transform: translateY(-1px);
   }
 
@@ -82,7 +82,7 @@
     color: #ffffff;
   }
   .inv-cta-banner--dark .inv-cta-banner__btn:hover {
-    background: var(--inv-accent-hover, #c4191f);
+    background: var(--inv-accent-hover);
     transform: translateY(-1px);
   }
 

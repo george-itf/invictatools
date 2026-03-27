@@ -132,14 +132,14 @@
   background: var(--inv-accent);
   color: #ffffff;
   font-weight: 700;
-  border-radius: 6px;
+  border-radius: 0;
   margin: 4px 0 4px 8px;
   padding: 8px 18px;
   border-bottom: none;
 }
 
 .inv-simple-nav__item--highlight .inv-simple-nav__link:hover {
-  background: var(--inv-accent-hover, #c9181f);
+  background: var(--inv-accent-hover);
   color: #ffffff;
 }
 
@@ -170,6 +170,14 @@
   .inv-simple-nav__link {
     padding: 9px 12px;
     font-size: {{ ss.font_size | times: 0.9 | round }}px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 </style>
@@ -216,7 +224,7 @@
 {%- else -%}
   {%- comment -%} Theme editor placeholder when no menu selected {%- endcomment -%}
   {%- if request.design_mode -%}
-    <div class="inv-simple-nav" style="padding: 16px; text-align: center; background: #f4f4f4; color: #666;">
+    <div class="inv-simple-nav" style="padding: 16px; text-align: center; background: var(--inv-bg-soft); color: var(--inv-fg-muted);">
       <p style="margin: 0;">Select a menu in section settings to populate this navigation.</p>
     </div>
   {%- endif -%}

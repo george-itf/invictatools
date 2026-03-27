@@ -41,10 +41,6 @@
   --inv-accent-light: rgba(225, 29, 38, 0.12);
   --inv-accent-glow: rgba(225, 29, 38, 0.25);
 
-  /* Legacy aliases */
-  --inv-primary: var(--inv-accent);
-  --inv-primary-hover: var(--inv-accent-hover);
-
   /* Semantic Colors */
   --inv-success: #16a34a;
   --inv-success-light: #f0fdf4;
@@ -72,18 +68,12 @@
   --inv-info-bg: #dbeafe;
   --inv-info-dark: #1d4ed8;
 
-  /* Legacy aliases */
-  --inv-green: var(--inv-success);
-  --inv-amber: var(--inv-warning);
-
   /* ========================================
      BACKGROUND COLORS
      ======================================== */
   --inv-bg: #f5f5f6;
   --inv-bg-elevated: #ffffff;
   --inv-bg-soft: #f3f4f6;
-  --inv-bg-muted: #f9fafb;
-  --inv-bg-subtle: #f8fafc;
 
   /* Card / Component backgrounds */
   --inv-bg-card-body: #f7f7f8;
@@ -91,10 +81,6 @@
   --inv-bg-skeleton: #f0f0f0;
   --inv-bg-skeleton-highlight: #e0e0e0;
   --inv-bg-skeleton-border: #e8e8e8;
-
-  /* Legacy alias */
-  --inv-white: var(--inv-bg-elevated);
-  --inv-black: #000000;
 
   /* ========================================
      TEXT COLORS
@@ -109,13 +95,9 @@
 
   /* Near-black text (from PDP) */
   --inv-fg-near-black: #1a1a1a;
-  --inv-fg-medium: #525252;
 
-  /* Legacy aliases */
-  --inv-text: var(--inv-fg);
-  --inv-text-muted: var(--inv-fg-muted);
-  --inv-text-light: var(--inv-fg-subtle);
   --inv-dark: #2d2d2d;
+  --inv-dark-deep: #1a1a1a;
   --inv-dark-hover: #404040;
   --inv-dark-hover-deep: #1a1a1a;
 
@@ -124,10 +106,8 @@
      ======================================== */
   --inv-border: #e5e7eb;
   --inv-border-dark: #d1d5db;
-  --inv-border-subtle: rgba(148, 163, 184, 0.4);
+  --inv-border-subtle: #eeeeee;
   --inv-border-strong: rgba(15, 23, 42, 0.25);
-  --inv-border-light: #e5e7eb;
-  --inv-border-muted: #e2e8f0;
   --inv-border-notify: #d0d0d0;
   --inv-border-skeleton: #e5e5e5;
   --inv-border-skeleton-dark: #ddd;
@@ -142,7 +122,6 @@
   --inv-grey-400: #a3a3a3;
   --inv-grey-500: #737373;
   --inv-grey-600: #525252;
-  --inv-grey-700: #404040;
   --inv-grey-placeholder: #ccc;
   --inv-grey-was: #999;
   --inv-grey-vat: #666;
@@ -151,31 +130,66 @@
      SHADOWS
      ======================================== */
   --inv-shadow-color: rgba(0, 0, 0, 0.1);
-  --inv-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --inv-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
   --inv-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --inv-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --inv-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
   --inv-shadow-elevated: 0 4px 12px rgba(0, 0, 0, 0.1);
-  --inv-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --inv-shadow-soft: 0 18px 40px -28px rgba(15, 23, 42, 0.35);
-  --inv-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --inv-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16);
 
   /* ========================================
      BORDER RADIUS
      ======================================== */
   --inv-radius-none: 0;
-  --inv-radius-sm: 4px;
-  --inv-radius-md: 8px;
-  --inv-radius-lg: 12px;
-  --inv-radius-xl: 16px;
-  --inv-radius-pill: 999px;
+  --inv-radius-pill: 9999px;
 
   /* Component-specific radii (enforced site-wide) */
   --inv-radius-button: 0;
   --inv-radius-card: 0;
   --inv-radius-input: 0;
-  --inv-radius-modal: var(--inv-radius-lg);
-  --inv-radius-toggle-outer: var(--inv-radius-md);
-  --inv-radius-toggle-inner: var(--inv-radius-sm);
+  --inv-radius-modal: 12px;
+  --inv-radius-toggle-outer: 8px;
+  --inv-radius-toggle-inner: 4px;
+
+  /* ========================================
+     FONT FAMILIES
+     ======================================== */
+  --inv-font-display: 'Barlow Condensed', Impact, 'Arial Narrow', sans-serif;
+  --inv-font-body: var(--font-body-family);
+
+  /* ========================================
+     TYPE SCALE
+     ======================================== */
+  --inv-text-xs: 11px;
+  --inv-text-sm: 13px;
+  --inv-text-base: 15px;
+  --inv-text-md: 17px;
+  --inv-text-lg: clamp(18px, 2vw, 22px);
+  --inv-text-xl: clamp(22px, 2.5vw, 28px);
+  --inv-text-2xl: clamp(28px, 3vw, 40px);
+  --inv-text-3xl: clamp(36px, 4vw, 56px);
+
+  /* ========================================
+     LETTER SPACING
+     ======================================== */
+  --inv-tracking-tight: -0.02em;
+  --inv-tracking-normal: 0;
+  --inv-tracking-wide: 0.05em;
+  --inv-tracking-ultra: 0.15em;
+
+  /* ========================================
+     LINE HEIGHT
+     ======================================== */
+  --inv-leading-tight: 1.1;
+  --inv-leading-snug: 1.3;
+  --inv-leading-normal: 1.5;
+  --inv-leading-relaxed: 1.7;
+
+  /* ========================================
+     GRID & SPACING
+     ======================================== */
+  --inv-gap-sm: 12px;
+  --inv-gap-md: 20px;
+  --inv-gap-lg: 32px;
 
   /* ========================================
      SPACING
@@ -190,7 +204,7 @@
   --inv-space-3xl: 4rem;    /* 64px */
 
   /* Page Layout */
-  --inv-page-width: 1320px;              /* Narrower content width (text blocks, trust bars) */
+  --inv-container-narrow: 1200px;              /* Narrower content width (text blocks, trust bars) */
   --inv-container: var(--page-width, 1400px);  /* Primary layout container — synced to Shopify page_width setting */
   --inv-page-gutter: 1.5rem;
   --inv-page-gutter-desktop: 3rem;
@@ -274,16 +288,6 @@
   --z-search-dropdown: var(--inv-z-search-dropdown);
   --z-search-active: var(--inv-z-search-active);
   --z-modal: var(--inv-z-modal);
-
-  /* ========================================
-     HEADER (Invicta Red)
-     ======================================== */
-  --inv-header-bg: var(--inv-accent, #e11d26);
-  --inv-header-fg: #ffffff;
-  --inv-header-border: none;
-  --inv-header-icon-bg: rgba(255, 255, 255, 0.15);
-  --inv-header-icon-fg: #ffffff;
-  --inv-header-icon-hover-bg: rgba(255, 255, 255, 0.25);
 
   /* NAV */
   --inv-nav-bg: #ffffff;

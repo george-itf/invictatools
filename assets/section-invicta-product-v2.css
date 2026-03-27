@@ -8,7 +8,7 @@
   align-items: center;
   gap: 6px;
   background: var(--inv-grey-100, #f5f5f5);
-  border-radius: 20px;
+  border-radius: var(--inv-radius-pill);
   padding: 5px 12px;
   margin-top: 6px;
 }
@@ -31,7 +31,7 @@
   height: 16px;
   background: var(--inv-grey-200);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--inv-radius-toggle-outer);
   cursor: pointer;
   padding: 0;
   transition: background 0.2s ease;
@@ -66,9 +66,10 @@
   padding: 12px 14px;
   background: #f0f9ff;
   border: 1px solid #bae6fd;
-  border-radius: var(--inv-radius-md);
+  border-radius: 0;
   margin-bottom: var(--inv-space-md);
 }
+/* click-collect accent — intentionally distinct from --inv-info */
 .inv-pdp__collect-icon {
   flex-shrink: 0;
   color: #0284c7;
@@ -86,10 +87,10 @@
   margin-bottom: 2px;
 }
 .inv-pdp__collect-text span {
-  color: var(--inv-fg-medium);
+  color: var(--inv-fg-dim);
 }
 .inv-pdp__collect-text a {
-  color: #0284c7;
+  color: #0284c7; /* click-collect accent — intentionally distinct from --inv-info */
   font-weight: 600;
   text-decoration: none;
 }
@@ -105,10 +106,10 @@
   padding: 12px 14px;
   background: var(--inv-grey-50);
   border: 1px dashed var(--inv-grey-300);
-  border-radius: var(--inv-radius-md);
+  border-radius: 0;
   margin-top: var(--inv-space-md);
   font-size: 13px;
-  color: var(--inv-fg-medium);
+  color: var(--inv-fg-dim);
 }
 .inv-pdp__trade-callout svg {
   flex-shrink: 0;
@@ -140,7 +141,7 @@
 /* --- Supplier Stock Banner — blue to differentiate from in-stock green --- */
 .inv-pdp__stock-banner--supplier-stock {
   background: #dbeafe;
-  color: #1e40af;
+  color: #1e40af; /* click-collect accent — intentionally distinct from --inv-info */
 }
 .inv-pdp__stock-banner--supplier-stock .inv-pdp__stock-dot {
   background: #3b82f6;

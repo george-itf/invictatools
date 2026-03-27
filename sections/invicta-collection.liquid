@@ -55,7 +55,6 @@
 
 {%- comment -%} ===== STYLES ===== {%- endcomment -%}
 {{ 'section-invicta-collection.css' | asset_url | stylesheet_tag }}
-{{ 'invicta-product-card.css' | asset_url | stylesheet_tag }}
 
 <style>
   .inv-empty__active-filters {
@@ -70,9 +69,9 @@
     align-items: center;
     gap: 6px;
     padding: 6px 12px;
-    background: #f1f1f1;
-    border: 1px solid #ddd;
-    border-radius: 999px;
+    background: var(--inv-bg-soft);
+    border: 1px solid var(--inv-border-dark);
+    border-radius: var(--inv-radius-pill);
     font-size: 13px;
     line-height: 1;
     color: #333;
@@ -80,8 +79,8 @@
     transition: background 0.15s ease, border-color 0.15s ease;
   }
   .inv-empty__filter-tag:hover {
-    background: #e4e4e4;
-    border-color: #bbb;
+    background: var(--inv-border);
+    border-color: var(--inv-border-dark);
     color: #111;
   }
   .inv-empty__filter-tag span {
@@ -93,13 +92,21 @@
     display: inline-block;
     margin-top: 4px;
     font-size: 14px;
-    color: #555;
+    color: var(--inv-fg-dim);
     text-decoration: underline;
     text-underline-offset: 3px;
     transition: color 0.15s ease;
   }
   .inv-empty__clear-all:hover {
     color: #000;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 </style>
 
@@ -636,7 +643,7 @@
      8. SCROLL TO TOP
   ================================================================ {%- endcomment -%}
   <button type="button" class="inv-scroll-top" id="InvScrollTop" aria-label="Back to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <path d="m18 15-6-6-6 6"/>
     </svg>
     <span>Top</span>

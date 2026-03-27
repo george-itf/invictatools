@@ -367,8 +367,8 @@ html.js .inv-search-submit {
 html.js .inv-search-submit svg {
   width: 16px;
   height: 16px;
-  color: var(--inv-white);
-  stroke: var(--inv-white);
+  color: var(--inv-bg-elevated);
+  stroke: var(--inv-bg-elevated);
 }
 
 /* Clear button */
@@ -511,7 +511,7 @@ html.js [class*="banner"] a.button {
   font-weight: 700;
   border-radius: 8px;
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border: none;
   text-decoration: none;
   display: inline-flex;
@@ -632,7 +632,7 @@ html.js .invicta-card-sale-badge {
   left: 8px;
   padding: 3px 8px;
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 10px;
   font-weight: 700;
   border-radius: 4px;
@@ -800,7 +800,7 @@ html.js button.invicta-btn.invicta-btn--solid.invicta-quick-add-pill {
   height: 38px;
   padding: 0 12px;
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 13px;
   font-weight: 600;
   border: none;
@@ -821,12 +821,12 @@ html.js .invicta-quick-add-pill:active {
 html.js .invicta-quick-add-pill svg {
   width: 14px;
   height: 14px;
-  stroke: var(--inv-white);
+  stroke: var(--inv-bg-elevated);
   fill: none;
 }
 
 html.js .invicta-quick-add-pill span {
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 13px;
 }
 
@@ -928,7 +928,7 @@ html.js .add-to-cart-button {
   font-weight: 700;
   border-radius: 6px;
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border: none;
   display: flex;
   align-items: center;
@@ -1506,7 +1506,7 @@ html.js .invicta-quick-add-pill.loading::after {
   width: 16px;
   height: 16px;
   border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: var(--inv-white);
+  border-top-color: var(--inv-bg-elevated);
   border-radius: 50%;
   animation: invicta-spin 600ms linear infinite;
 }
@@ -1917,7 +1917,7 @@ html.js .inv-product {
     --inv-transition: 0.2s ease;
     --inv-red: var(--inv-accent);
     --inv-red-dark: #c91b22;
-    --inv-gray-50: var(--inv-bg-muted);
+    --inv-gray-50: var(--inv-bg-soft);
     --inv-gray-100: var(--inv-bg-soft);
     --inv-gray-200: var(--inv-border);
     --inv-gray-500: var(--inv-fg-muted);
@@ -2003,7 +2003,7 @@ html.js .inv-product {
     top: 12px;
     right: 12px;
     background: rgba(0, 0, 0, 0.6);
-    color: var(--inv-white);
+    color: var(--inv-bg-elevated);
     font-size: 0.75rem;
     font-weight: 600;
     padding: 6px 12px;
@@ -2136,7 +2136,7 @@ html.js .inv-product {
   .inv-product__info {
     position: relative;
     background: var(--inv-bg-elevated);
-    border-radius: var(--inv-radius-lg) var(--inv-radius-lg) 0 0;
+    border-radius: 0 0 0 0;
     padding: 24px var(--inv-gutter) 32px;
     margin-top: -20px;
     width: 100%;
@@ -2429,7 +2429,7 @@ html.js .inv-product {
     justify-content: center;
     gap: 10px;
     background: var(--inv-red, var(--inv-accent)); /* Solid colour - no gradient */
-    color: var(--inv-white);
+    color: var(--inv-bg-elevated);
     border: none;
     border-radius: var(--inv-radius);
     cursor: pointer;
@@ -2487,7 +2487,7 @@ html.js .inv-product {
 
   .inv-buy-now:active {
     background: var(--inv-gray-900);
-    color: var(--inv-white);
+    color: var(--inv-bg-elevated);
   }
 
 
@@ -2909,7 +2909,7 @@ html.js .inv-product {
     justify-content: center;
     gap: 8px;
     background: var(--inv-red, var(--inv-accent)); /* Solid colour - no gradient */
-    color: var(--inv-white);
+    color: var(--inv-bg-elevated);
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -2960,7 +2960,7 @@ html.js .inv-product {
     width: 22px;
     height: 22px;
     border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top-color: var(--inv-white);
+    border-top-color: var(--inv-bg-elevated);
     border-radius: 50%;
     animation: inv-spin 0.6s linear infinite;
   }
@@ -3001,7 +3001,7 @@ html.js .inv-product {
   .inv-zoom-modal__counter {
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--inv-white);
+    color: var(--inv-bg-elevated);
   }
 
   .inv-zoom-modal__close {
@@ -3017,13 +3017,13 @@ html.js .inv-product {
     cursor: pointer;
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--inv-white);
+    color: var(--inv-bg-elevated);
   }
 
   .inv-zoom-modal__close svg {
     width: 20px;
     height: 20px;
-    stroke: var(--inv-white);
+    stroke: var(--inv-bg-elevated);
   }
 
   .inv-zoom-modal__body {
@@ -3121,7 +3121,7 @@ html.js .inv-product {
 
   .inv-gallery__dot:focus-visible,
   .inv-gallery__zoom:focus-visible {
-    outline: 2px solid var(--inv-white);
+    outline: 2px solid var(--inv-bg-elevated);
     outline-offset: 2px;
   }
 
@@ -3487,7 +3487,7 @@ html.js .mobile-facets__open-wrapper {
 
 html.js .mobile-facets__open {
   background: var(--color-button, var(--inv-accent));
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border-radius: 999px;
   padding: 12px 20px;
   font-weight: 600;
@@ -3920,7 +3920,7 @@ html.js .customer a {
 html.js .invicta-quick-qty__btn--active {
   background: var(--inv-accent);
   border-color: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 /* --------------------------------------------------------------------------
@@ -4135,7 +4135,7 @@ body.vat-mode-inc .invicta-vat-indicator::after {
 .inv-company-form__note {
   margin: 16px 0 0;
   padding: 10px 12px;
-  background: var(--inv-bg-muted);
+  background: var(--inv-bg-soft);
   border-radius: 6px;
   font-size: 0.85rem;
   color: var(--inv-fg-muted);
@@ -4237,7 +4237,7 @@ html.js .inv-btn--sm {
 .inv-vat-toggle__btn {
   padding: 6px 12px;
   border: none;
-  background: var(--inv-bg-muted);
+  background: var(--inv-bg-soft);
   color: var(--inv-fg-muted);
   font-size: 0.75rem;
   font-weight: 500;
@@ -4252,7 +4252,7 @@ html.js .inv-btn--sm {
 .inv-vat-toggle__btn[aria-pressed="true"],
 .inv-vat-toggle__btn--active {
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 .inv-vat-toggle__btn:hover:not([aria-pressed="true"]) {
@@ -4293,7 +4293,7 @@ html.js .inv-btn--sm {
   padding: 8px 14px;
   border: 1px solid var(--inv-border-dark);
   border-radius: 6px;
-  background: var(--inv-bg-muted);
+  background: var(--inv-bg-soft);
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--inv-fg-secondary);
@@ -4309,7 +4309,7 @@ html.js .inv-btn--sm {
 .invicta-quick-qty__btn--active {
   background: var(--inv-accent);
   border-color: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 /* Dynamic total display */

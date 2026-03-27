@@ -18,7 +18,7 @@
    BASE
    ============================================ */
 .inv-pdp {
-  max-width: 1400px;
+  max-width: var(--inv-container, 1400px);
   margin: 0 auto;
   padding: 0 var(--inv-space-lg) 60px;
   font-family: inherit;
@@ -73,7 +73,7 @@
 .inv-pdp__breadcrumb a:focus-visible {
   outline: 2px solid var(--inv-dark);
   outline-offset: 2px;
-  border-radius: 2px;
+  border-radius: 0;
 }
 
 .inv-pdp__breadcrumb-sep {
@@ -162,7 +162,7 @@
 .inv-pdp__gallery-thumbs:focus-visible {
   outline: 2px solid var(--inv-dark);
   outline-offset: 2px;
-  border-radius: var(--inv-radius-sm);
+  border-radius: 0;
 }
 
 .inv-pdp__gallery-thumb {
@@ -170,7 +170,7 @@
   height: 72px;
   border: 2px solid var(--inv-grey-200);
   border-radius: 0;
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
   cursor: pointer;
   padding: 4px;
   transition: border-color 0.15s ease;
@@ -210,9 +210,9 @@
   flex: 1;
   min-width: 0;
   height: 560px;
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
   border: 1px solid var(--inv-grey-200);
-  border-radius: var(--inv-radius-md);
+  border-radius: 0;
   position: relative;
   display: flex;
   align-items: center;
@@ -250,7 +250,7 @@
   top: 12px;
   left: 12px;
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   padding: 6px 12px;
   border-radius: 0;
   font-size: 11px;
@@ -264,7 +264,7 @@
   bottom: 12px;
   right: 12px;
   background: var(--inv-dark);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border: none;
   padding: 8px 14px;
   border-radius: 0;
@@ -293,9 +293,9 @@
   bottom: 12px;
   left: 12px;
   background: rgba(0, 0, 0, 0.65);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   padding: 4px 10px;
-  border-radius: 100px;
+  border-radius: var(--inv-radius-pill);
   font-size: 11px;
   font-weight: 600;
   z-index: 2;
@@ -323,7 +323,7 @@
   background: var(--inv-grey-100);
   border: 1px solid var(--inv-grey-200);
   padding: 8px 14px;
-  border-radius: 100px;
+  border-radius: var(--inv-radius-pill);
   font-size: 13px;
   font-weight: 600;
   color: var(--inv-fg-near-black);
@@ -349,10 +349,10 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
   border: 1px solid var(--inv-grey-200);
   padding: 8px 14px;
-  border-radius: 100px;
+  border-radius: var(--inv-radius-pill);
   font-size: 12px;
   color: var(--inv-grey-600);
 }
@@ -367,7 +367,7 @@
    ============================================ */
 .inv-pdp__info {
   background: var(--inv-grey-50);
-  border-radius: var(--inv-radius-md);
+  border-radius: 0;
   overflow: hidden;
   border: 1px solid var(--inv-grey-200);
 }
@@ -377,7 +377,7 @@
   display: flex;
   gap: var(--inv-space-lg);
   padding: 14px 20px;
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
   border-bottom: 1px solid var(--inv-grey-200);
 }
 .inv-pdp__info-meta-item {
@@ -408,7 +408,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
   border: none;
   font-size: 14px;
   font-weight: 700;
@@ -535,7 +535,7 @@
   align-items: baseline;
   padding: 8px 12px;
   background: var(--inv-grey-100);
-  border-radius: var(--inv-radius-sm);
+  border-radius: 0;
   font-size: 13px;
   gap: var(--inv-space-sm-plus);
 }
@@ -570,9 +570,9 @@
 }
 
 .inv-pdp__buybox {
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
   border: 2px solid var(--inv-grey-200);
-  border-radius: var(--inv-radius-lg);
+  border-radius: 0;
   overflow: hidden;
 }
 
@@ -719,14 +719,14 @@
 .inv-pdp__price-secondary {
   font-size: 16px;
   font-weight: 600;
-  color: var(--inv-fg-medium);
+  color: var(--inv-fg-dim);
   line-height: 1;
 }
 
 .inv-pdp__price-label--secondary {
   font-size: 13px;
   font-weight: 500;
-  color: var(--inv-fg-medium);
+  color: var(--inv-fg-dim);
   margin-right: 0;
 }
 
@@ -787,7 +787,7 @@
   font-size: 14px;
   font-weight: 500;
   font-family: inherit;
-  background: var(--inv-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23525252' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center;
+  background: var(--inv-bg-elevated) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23525252' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center;
   color: var(--inv-fg-near-black);
   cursor: pointer;
   appearance: none;
@@ -818,7 +818,7 @@
   gap: 14px;
   background: var(--inv-success-light);
   border: 1px solid var(--inv-success-border);
-  border-radius: var(--inv-radius-md);
+  border-radius: 0;
   padding: var(--inv-space-md);
 }
 
@@ -876,7 +876,7 @@
   width: 120px;
   min-width: 120px;
   max-width: 120px;
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
 }
 
 .inv-pdp .inv-pdp__buybox .inv-pdp__qty-btn {
@@ -888,7 +888,7 @@
   max-width: 36px;
   height: 100%;
   border: none;
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
   cursor: pointer;
   color: var(--inv-fg-near-black);
   padding: 0;
@@ -929,7 +929,7 @@
   font-weight: 700;
   font-family: inherit;
   color: var(--inv-fg-near-black);
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
   padding: 0;
   -moz-appearance: textfield;
 }
@@ -941,7 +941,8 @@
 }
 
 .inv-pdp .inv-pdp__buybox .inv-pdp__qty-input:focus-visible {
-  outline: none;
+  outline: 2px solid var(--inv-accent);
+  outline-offset: -2px;
   background: var(--inv-grey-50);
 }
 
@@ -950,9 +951,9 @@
    ============================================ */
 .inv-pdp .inv-pdp__buybox .inv-pdp__atc-btn {
   flex: 1 1 auto;
-  height: 52px;
+  height: 48px;
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border: none;
   border-radius: 0;
   font-size: 16px;
@@ -1105,7 +1106,7 @@
 .inv-pdp__trust-link:focus-visible {
   outline: 2px solid var(--inv-dark);
   outline-offset: 2px;
-  border-radius: 2px;
+  border-radius: 0;
 }
 
 .inv-pdp__trust-link svg {
@@ -1136,7 +1137,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1px;
   background: var(--inv-grey-200);
-  border-radius: var(--inv-radius-md);
+  border-radius: 0;
   overflow: hidden;
 }
 
@@ -1216,18 +1217,18 @@
   max-width: 100%;
   max-height: 85vh;
   object-fit: contain;
-  border-radius: var(--inv-radius-md);
+  border-radius: 0;
 }
 
 .inv-pdp__lightbox-close {
   position: absolute;
   top: -48px;
   right: 0;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   background: transparent;
   border: none;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -1242,7 +1243,7 @@
 
 .inv-pdp__lightbox-close:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--inv-white);
+  box-shadow: 0 0 0 2px var(--inv-bg-elevated);
 }
 
 
@@ -1360,7 +1361,7 @@
   }
   
   .inv-pdp__buybox {
-    border-radius: var(--inv-radius-lg);
+    border-radius: 0;
   }
   
   .inv-pdp__buybox-body {
@@ -1488,6 +1489,7 @@
 /* ============================================
    MOBILE RESPONSIVE — Small phones (480px)
    ============================================ */
+/* small-phone override — intentional sub-breakpoint */
 @media (max-width: 480px) {
   
   .inv-pdp {

@@ -16,12 +16,12 @@
   --brand-red-light: #ef5350;
   --brand-dark: var(--inv-dark, #2d2d2d);
   --brand-dark-mid: #404040;
-  --brand-grey: var(--inv-text-muted, #6b7280);
+  --brand-grey: var(--inv-fg-muted);
   --brand-grey-light: #9ca3af;
   --brand-border: var(--inv-border, #e5e7eb);
   --brand-bg: #f9fafb;
   --brand-white: var(--inv-white, #ffffff);
-  --brand-text: var(--inv-text, #1a1a1a);
+  --brand-text: var(--inv-fg);
 }
 
 /* ============================================

@@ -1316,7 +1316,7 @@
   }
 
   .inv-filter-sheet__apply:hover {
-    background: #c9181f;
+    background: var(--inv-accent-hover);
   }
 
   .inv-filter-sheet__apply:focus-visible {

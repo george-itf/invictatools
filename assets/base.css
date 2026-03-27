@@ -737,7 +737,7 @@ slider-component {
 }
 
 .slider-button:hover:not([disabled]) {
-  background: var(--inv-bg-muted);
+  background: var(--inv-bg-soft);
   border-color: var(--inv-border-dark);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -1996,13 +1996,13 @@ html.inv-vat-ex .inv-pdp__price-line[data-price-ex].inv-vat--hidden { display: f
 
 /* Header icons on red background — WHITE */
 .invicta-header__icon svg {
-  stroke: var(--inv-white);
+  stroke: var(--inv-bg-elevated);
 }
 
 /* Cart badge — RED bg, WHITE text */
 .invicta-header__badge {
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 /* Remove white gaps between header sections */
@@ -2053,7 +2053,7 @@ html.inv-vat-ex .inv-pdp__price-line[data-price-ex].inv-vat--hidden { display: f
   height: 20px;
   padding: 0 6px;
   background: var(--inv-accent, var(--inv-accent));
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 0.75rem;
   font-weight: 700;
   line-height: 20px;
@@ -2446,7 +2446,7 @@ h1.product__title,
   gap: 8px;
   padding: 14px 16px;
   margin-bottom: 12px;
-  background-color: var(--inv-bg-muted);
+  background-color: var(--inv-bg-soft);
   border-radius: 8px;
 }
 
@@ -2563,7 +2563,7 @@ h1.product__title,
   font-size: 1.25rem;
   font-weight: 500;
   color: var(--inv-fg-secondary);
-  background: var(--inv-bg-muted);
+  background: var(--inv-bg-soft);
   border: none;
   cursor: pointer;
   transition: background-color 0.15s ease;
@@ -2631,7 +2631,7 @@ button.inv-atc-btn {
   padding: 14px 20px;
   font-size: 1rem;
   font-weight: 700;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   background: var(--inv-accent);
   background-color: var(--inv-accent);
   background-image: none;
@@ -2713,7 +2713,7 @@ button.inv-atc-btn {
 
 .inv-buy-now:hover {
   background-color: var(--inv-dark);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 
@@ -2970,7 +2970,7 @@ details li {
 }
 
 .inv-accordion__header:hover {
-  background-color: var(--inv-bg-muted);
+  background-color: var(--inv-bg-soft);
 }
 
 .inv-accordion__title {
@@ -3015,7 +3015,7 @@ details li {
 }
 
 .inv-spec-table tr:nth-child(odd) {
-  background-color: var(--inv-bg-muted);
+  background-color: var(--inv-bg-soft);
 }
 
 .inv-spec-table td {
@@ -3053,7 +3053,7 @@ details li {
 .inv-stock__skeleton {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, var(--inv-bg-muted) 25%, var(--inv-border) 50%, var(--inv-bg-muted) 75%);
+  background: linear-gradient(90deg, var(--inv-bg-soft) 25%, var(--inv-border) 50%, var(--inv-bg-soft) 75%);
   background-size: 200% 100%;
   border-radius: 6px;
   opacity: 0;
@@ -3142,7 +3142,7 @@ nav.breadcrumb {
   position: relative;
   aspect-ratio: 1 / 1;
   margin-bottom: 10px;
-  background-color: var(--inv-bg-muted);
+  background-color: var(--inv-bg-soft);
   border-radius: 12px;
   overflow: hidden;
 }
@@ -3177,7 +3177,7 @@ nav.breadcrumb {
   width: 72px;
   height: 72px;
   padding: 0;
-  background-color: var(--inv-bg-muted);
+  background-color: var(--inv-bg-soft);
   border: 2px solid transparent;
   border-radius: 8px;
   overflow: hidden;
@@ -3249,7 +3249,7 @@ nav.breadcrumb {
 
 .inv-share:hover {
   border-color: var(--inv-fg-subtle);
-  background: var(--inv-bg-muted);
+  background: var(--inv-bg-soft);
 }
 
 .inv-share svg {
@@ -3348,7 +3348,7 @@ body.inv-zoom-open {
   align-items: center;
   justify-content: space-between;
   padding: 14px 18px;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 .inv-zoom-modal__counter {
@@ -3363,7 +3363,7 @@ body.inv-zoom-open {
   padding: 8px 14px;
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 6px;

@@ -83,7 +83,7 @@
           >
           <button type="submit" class="inv-newsletter-v2__btn" name="commit">
             {{ section.settings.button_text }}
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </button>
@@ -290,7 +290,7 @@
     font-family: inherit;
     outline: none;
     transition: border-color 0.2s, background 0.2s;
-    border-radius: 4px;
+    border-radius: 0;
   }
 
   .inv-newsletter-v2__input::placeholder {
@@ -303,7 +303,8 @@
   }
 
   .inv-newsletter-v2__btn {
-    padding: 14px 28px;
+    height: 48px;
+    padding: 0 28px;
     background: var(--inv-nl-accent);
     color: #fff;
     font-size: 14px;
@@ -313,10 +314,9 @@
     letter-spacing: 0.5px;
     border: none;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background var(--inv-duration-moderate) ease;
     white-space: nowrap;
     border-radius: 0;
-    min-height: 44px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -350,11 +350,11 @@
   }
 
   .inv-newsletter-v2__message--error {
-    color: #fca5a5;
+    color: var(--inv-error-text);
   }
 
   .inv-newsletter-v2__message--success {
-    color: #4ade80;
+    color: var(--inv-success-bright);
   }
 
   .inv-newsletter-v2__message svg {
@@ -379,7 +379,7 @@
   }
 
   .inv-newsletter-v2__trust-item svg {
-    color: #4ade80;
+    color: var(--inv-success-bright);
     flex-shrink: 0;
   }
 

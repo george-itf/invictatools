@@ -34,7 +34,7 @@
   font-weight: 600;
   letter-spacing: 0.02em;
   padding: 2px 6px;
-  border-radius: 3px;
+  border-radius: 0;
   line-height: 1.2;
 }
 
@@ -118,7 +118,7 @@
   text-decoration: none;
   color: inherit;
   border: 1px solid var(--inv-border);
-  border-radius: 6px;
+  border-radius: 0;
   overflow: hidden;
   transition: border-color 0.2s;
 }
@@ -205,9 +205,9 @@
 
 /* Delivery urgency styling */
 .inv-del-est--urgent {
-  background: linear-gradient(135deg, var(--inv-error-bg), var(--inv-white));
+  background: linear-gradient(135deg, var(--inv-error-bg), var(--inv-bg-elevated));
   border: 1px solid var(--inv-error-border);
-  border-radius: 8px;
+  border-radius: 0;
   padding: 12px 16px;
 }
 
@@ -251,8 +251,8 @@
     gap: 4px;
     min-width: 72px;
     padding: 10px 8px;
-    background: var(--inv-bg-muted);
-    border-radius: 8px;
+    background: var(--inv-bg-soft);
+    border-radius: 0;
     text-decoration: none;
     color: var(--inv-fg-secondary);
     font-size: 11px;
@@ -276,10 +276,10 @@
     height: 20px;
     padding: 0 6px;
     background: var(--inv-accent, var(--inv-accent));
-    color: var(--inv-white);
+    color: var(--inv-bg-elevated);
     font-size: 11px;
     font-weight: 700;
-    border-radius: 10px;
+    border-radius: 0;
     margin-left: 6px;
   }
 
@@ -306,21 +306,21 @@
   align-items: center;
   gap: 8px;
   padding: 14px 32px;
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
   border: 2px solid var(--inv-dark);
-  border-radius: var(--buttons-radius, 4px);
+  border-radius: 0;
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--inv-dark);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: color var(--inv-duration-moderate) ease, background-color var(--inv-duration-moderate) ease, opacity var(--inv-duration-moderate) ease;
 }
 
 .inv-load-more__btn:hover {
   background: var(--inv-dark);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 .inv-load-more__btn--loading {
@@ -345,10 +345,10 @@
   gap: 6px;
   padding: 6px 12px;
   background: var(--inv-accent, var(--inv-accent));
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 12px;
   font-weight: 600;
-  border-radius: 20px;
+  border-radius: 0;
   margin-bottom: 8px;
 }
 
@@ -391,26 +391,7 @@
    AREA 7: ACCESSIBILITY — Enhanced Focus & Motion
    ======================================================= */
 
-/* Higher contrast focus ring — passes WCAG AAA on white backgrounds */
-*:focus-visible {
-  outline: 3px solid var(--inv-dark);
-  outline-offset: 2px;
-}
-
-/* Brand color focus on interactive controls */
-a:focus-visible,
-button:focus-visible,
-[role="button"]:focus-visible {
-  outline-color: var(--inv-accent, var(--inv-accent));
-}
-
-/* Ensure focus ring is visible on dark backgrounds */
-.invicta-header *:focus-visible,
-.inv-dark-section *:focus-visible,
-[style*="background"][style*="var(--inv-dark)"] *:focus-visible {
-  outline-color: var(--inv-white);
-  outline-offset: 3px;
-}
+/* Focus rules consolidated into invicta-ux-improvements.css */
 
 /* ARIA live region for dynamic announcements */
 .inv-sr-announce {
@@ -471,10 +452,10 @@ button:focus-visible,
   left: 24px;
   z-index: var(--inv-z-header);
   max-width: 340px;
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
   border: 1px solid var(--inv-border);
-  border-radius: 10px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border-radius: 0;
+  box-shadow: var(--inv-shadow-md);
   padding: 14px 16px;
   display: flex;
   align-items: center;
@@ -494,7 +475,7 @@ button:focus-visible,
 .inv-social-proof__image {
   width: 52px;
   height: 52px;
-  border-radius: 6px;
+  border-radius: 0;
   object-fit: cover;
   flex-shrink: 0;
 }
@@ -547,7 +528,7 @@ button:focus-visible,
 /* Trade account CTA banner */
 .inv-trade-cta {
   background: linear-gradient(135deg, var(--inv-dark), var(--inv-dark));
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   padding: 14px 20px;
   border-radius: 0;
   display: flex;
@@ -570,7 +551,7 @@ button:focus-visible,
 .inv-trade-cta__icon svg {
   width: 18px;
   height: 18px;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 .inv-trade-cta__body {
@@ -595,7 +576,7 @@ button:focus-visible,
   gap: 4px;
   padding: 8px 16px;
   background: var(--inv-accent, var(--inv-accent));
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
@@ -667,7 +648,7 @@ button:focus-visible,
   border-radius: 0;
   font-size: 0.9rem;
   font-family: inherit;
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
   min-width: 0;
 }
 
@@ -680,7 +661,7 @@ button:focus-visible,
 .inv-pdp__notify-btn {
   padding: 10px 20px;
   background: var(--inv-warning-dark);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border: none;
   border-radius: 0;
   font-size: 0.9rem;
@@ -713,7 +694,7 @@ button:focus-visible,
   margin: 10px 0 0;
   padding: 10px 14px;
   background: var(--inv-success-bg);
-  border-radius: 6px;
+  border-radius: 0;
   color: var(--inv-success-text);
   font-size: 0.85rem;
   font-weight: 600;
@@ -728,7 +709,7 @@ button:focus-visible,
   margin: 8px 0 0;
   padding: 8px 12px;
   background: var(--inv-error-bg);
-  border-radius: 6px;
+  border-radius: 0;
   color: var(--inv-error-dark);
   font-size: 0.85rem;
 }

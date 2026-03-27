@@ -147,7 +147,7 @@
   }
 
   #shopify-section-{{ section.id }} .inv-pw-header__title {
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--inv-font-body);
     font-size: clamp(24px, 3vw, 32px);
     font-weight: 800;
     color: var(--inv-fg, #0f172a);
@@ -191,7 +191,7 @@
     font-size: 11px;
     font-weight: 700;
     padding: 2px 8px;
-    border-radius: 12px;
+    border-radius: 0;
     min-width: 24px;
   }
 
@@ -223,7 +223,7 @@
 
   #shopify-section-{{ section.id }} .inv-pw-brands__scroll::-webkit-scrollbar-thumb {
     background: var(--inv-border, #e5e7eb);
-    border-radius: 3px;
+    border-radius: 0;
   }
 
   #shopify-section-{{ section.id }} .inv-pw-brand-btn {
@@ -231,7 +231,7 @@
     border: none;
     padding: 0;
     cursor: pointer;
-    border-radius: 24px;
+    border-radius: var(--inv-radius-pill);
     overflow: hidden;
     flex-shrink: 0;
     transition: transform 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
@@ -307,7 +307,7 @@
     background: var(--inv-bg, #f5f5f6);
     padding: 10px 20px;
     min-height: 44px;
-    transition: all 0.15s ease;
+    transition: color var(--inv-duration-normal) ease, background-color var(--inv-duration-normal) ease, border-color var(--inv-duration-normal) ease;
   }
 
   #shopify-section-{{ section.id }} .inv-pw-brand-btn:hover {
@@ -445,7 +445,7 @@
   /* ----------------------------------------
      RESPONSIVE — Tablet
      ---------------------------------------- */
-  @media (max-width: 1100px) {
+  @media (max-width: 989px) {
     #shopify-section-{{ section.id }} .inv-pw-grid {
       grid-template-columns: repeat(4, 1fr);
     }
@@ -454,7 +454,7 @@
   /* ----------------------------------------
      RESPONSIVE — Mobile
      ---------------------------------------- */
-  @media (max-width: 768px) {
+  @media (max-width: 749px) {
     #shopify-section-{{ section.id }} .inv-pw-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;

@@ -36,7 +36,7 @@
   width: 160px;
   height: 60px;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 0;
   padding: 8px 16px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.15);
 }
@@ -86,7 +86,7 @@
   padding: 3px 10px;
   background: var(--brand-accent, #e11d26);
   color: #fff;
-  border-radius: 999px;
+  border-radius: var(--inv-radius-pill);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   white-space: nowrap;
@@ -98,7 +98,7 @@
   padding: 3px 12px;
   background: rgba(255,255,255,0.12);
   border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 999px;
+  border-radius: var(--inv-radius-pill);
   color: rgba(255,255,255,0.7);
 }
 
@@ -130,7 +130,7 @@
   color: rgba(255,255,255,0.85);
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 999px;
+  border-radius: var(--inv-radius-pill);
   white-space: nowrap;
 }
 

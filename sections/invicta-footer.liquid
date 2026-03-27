@@ -212,7 +212,7 @@ Canterbury, CT1 3TB' | newline_to_br }}<br>Tel: {{ ss.canterbury_phone | default
 
 /***********  GENERAL  ***********/
 #footer-{{ section.id }} {
-  background: #101010;
+  background: var(--inv-dark-deep);
   color: rgb(255 255 255 / 0.9);
   overflow-x: hidden;
 }
@@ -278,7 +278,7 @@ Canterbury, CT1 3TB' | newline_to_br }}<br>Tel: {{ ss.canterbury_phone | default
 }
 
 #footer-{{ section.id }} a {
-  transition: .15s;
+  transition: color var(--inv-duration-moderate) ease, transform var(--inv-duration-moderate) ease;
 }
 #footer-{{ section.id }} a:hover {
   color: {{ ss.accent_red }};
@@ -319,7 +319,7 @@ Canterbury, CT1 3TB' | newline_to_br }}<br>Tel: {{ ss.canterbury_phone | default
   display: inline-flex;
   padding: 10px 20px;
   background: {{ ss.accent_red }};
-  border-radius: 999px;
+  border-radius: var(--inv-radius-pill);
   color: #fff;
   text-transform: uppercase;
   font-size: 13px;
@@ -336,7 +336,7 @@ Canterbury, CT1 3TB' | newline_to_br }}<br>Tel: {{ ss.canterbury_phone | default
   gap: 8px;
   padding: 0 16px;
   height: 36px;
-  border-radius: 999px;
+  border-radius: var(--inv-radius-pill);
   background: #00b67a;
   color: #fff;
   font-size: 12px;
@@ -349,7 +349,7 @@ Canterbury, CT1 3TB' | newline_to_br }}<br>Tel: {{ ss.canterbury_phone | default
   align-items: center;
   gap: 8px;
   padding: 0 16px;
-  border-radius: 999px;
+  border-radius: var(--inv-radius-pill);
   background: #1877f2;
   color: #fff;
   height: 36px;
@@ -366,7 +366,7 @@ Canterbury, CT1 3TB' | newline_to_br }}<br>Tel: {{ ss.canterbury_phone | default
 #footer-{{ section.id }} .social-link {
   width: 40px;
   height: 40px;
-  border-radius: 8px;
+  border-radius: 0;
   background: rgb(255 255 255 / 0.09);
   display: flex;
   justify-content: center;
@@ -404,12 +404,12 @@ Canterbury, CT1 3TB' | newline_to_br }}<br>Tel: {{ ss.canterbury_phone | default
   height: 44px;
   min-width: 260px;
   padding: 0 14px;
-  border-radius: 8px;
+  border-radius: 0;
 }
 #footer-{{ section.id }} .nl-form button {
   height: 44px;
   padding: 0 18px;
-  border-radius: 8px;
+  border-radius: 0;
   background: {{ ss.subscribe_bg }};
   color: {{ ss.subscribe_text }};
 }
@@ -460,6 +460,14 @@ Canterbury, CT1 3TB' | newline_to_br }}<br>Tel: {{ ss.canterbury_phone | default
 }
 #footer-{{ section.id }} .footer-payments__icon:hover {
   opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 {%- endstyle -%}
@@ -540,7 +548,7 @@ Canterbury, CT1 3TB' | newline_to_br }}<br>Tel: {{ ss.canterbury_phone | default
       "type": "color",
       "id": "newsletter_bg",
       "label": "Newsletter background colour",
-      "default": "#1f1f1f"
+      "default": "#1f1f1f" /* maps to --inv-dark-deep */
     },
     {
       "type": "color",
@@ -773,7 +781,7 @@ Canterbury, CT1 3TB' | newline_to_br }}<br>Tel: {{ ss.canterbury_phone | default
       "type": "color",
       "id": "bottom_bg",
       "label": "Bottom bar background",
-      "default": "#121212"
+      "default": "#121212" /* maps to --inv-dark-deep */
     }
   ],
   "presets": [

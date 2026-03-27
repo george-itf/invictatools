@@ -17,12 +17,12 @@
   z-index: var(--inv-z-modal);
   padding: 12px 28px;
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.02em;
   border: none;
-  border-radius: 999px;
+  border-radius: var(--inv-radius-pill);
   cursor: pointer;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), 0 0 0 3px var(--inv-accent-ring);
   transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
@@ -47,11 +47,11 @@
   z-index: var(--inv-z-toast);
   padding: 10px 20px;
   background: var(--inv-fg-strong);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 13px;
   font-weight: 600;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  box-shadow: var(--inv-shadow-md);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease, transform 0.2s ease;
@@ -93,8 +93,8 @@
   right: 0;
   z-index: calc(var(--inv-z-modal) + 1);
   max-height: 90vh;
-  background: var(--inv-white);
-  border-radius: 16px 16px 0 0;
+  background: var(--inv-bg-elevated);
+  border-radius: var(--inv-radius-modal) var(--inv-radius-modal) 0 0;
   box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.15);
   overflow-y: auto;
   transform: translateY(100%);
@@ -119,7 +119,7 @@
   border-bottom: 1px solid var(--inv-border);
   position: sticky;
   top: 0;
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
   z-index: 2;
 }
 
@@ -143,7 +143,7 @@
   color: var(--inv-fg-muted);
   background: none;
   border: 1px solid var(--inv-border);
-  border-radius: 6px;
+  border-radius: 0;
   cursor: pointer;
   font-family: inherit;
   transition: color 0.15s ease, border-color 0.15s ease;
@@ -163,7 +163,7 @@
   justify-content: center;
   background: none;
   border: 1px solid var(--inv-border);
-  border-radius: 8px;
+  border-radius: 0;
   cursor: pointer;
   color: var(--inv-fg-muted);
   transition: background 0.15s ease, color 0.15s ease;
@@ -224,7 +224,7 @@
   justify-content: center;
   background: var(--inv-bg-soft);
   border: none;
-  border-radius: 6px;
+  border-radius: 0;
   cursor: pointer;
   color: var(--inv-fg-muted);
   transition: background 0.15s ease, color 0.15s ease;
@@ -256,10 +256,10 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  border-radius: 8px;
+  border-radius: 0;
   border: 1px solid var(--inv-border);
   padding: 8px;
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
 }
 
 /* -----------------------------------------------------------------------
@@ -304,7 +304,7 @@
   letter-spacing: 0.05em;
   color: var(--inv-fg-muted);
   background: var(--inv-bg-soft);
-  border-radius: 4px;
+  border-radius: 0;
 }
 
 /* -----------------------------------------------------------------------
@@ -347,7 +347,7 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding: 3px 8px;
-  border-radius: 4px;
+  border-radius: 0;
   margin-bottom: 12px;
 }
 
@@ -418,9 +418,9 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border: none;
-  border-radius: 8px;
+  border-radius: 0;
   cursor: pointer;
   transition: background 0.15s ease;
   margin-top: auto;
@@ -471,7 +471,7 @@
 
   .inv-compare__drawer {
     max-height: 85vh;
-    border-radius: 12px 12px 0 0;
+    border-radius: var(--inv-radius-modal) var(--inv-radius-modal) 0 0;
   }
 
   .inv-compare__header {

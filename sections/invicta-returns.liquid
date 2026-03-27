@@ -35,7 +35,7 @@
 
   #shopify-section-{{ section.id }} {
     --inv-returns-accent: var(--inv-accent, #e11d26);
-    --inv-returns-accent-hover: var(--inv-accent-hover, #c4191f);
+    --inv-returns-accent-hover: var(--inv-accent-hover);
     --inv-returns-fg: var(--inv-fg, #0f172a);
     --inv-returns-fg-muted: var(--inv-fg-muted, #6b7280);
     --inv-returns-bg: var(--inv-bg-elevated, #ffffff);
@@ -564,6 +564,14 @@
 
   .inv-returns__cta-contact a:hover {
     opacity: 0.9;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 </style>
 

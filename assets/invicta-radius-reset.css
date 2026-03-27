@@ -105,7 +105,7 @@ select,
 .label.label,
 [class*="badge"][class*="badge"],
 [class*="tag"][class*="tag"] {
-  border-radius: var(--inv-radius-md);
+  border-radius: 0;
 }
 
 /* Toggles (VAT, filters, etc.) */
@@ -126,7 +126,7 @@ select,
 .quantity__button.quantity__button,
 .quick-add__submit.quick-add__submit,
 [class*="quantity"][class*="quantity"] {
-  border-radius: var(--inv-radius-md);
+  border-radius: 0;
 }
 
 /* Search components */
@@ -136,14 +136,14 @@ select,
 .predictive-search__results.predictive-search__results,
 [class*="search-modal"][class*="search-modal"],
 [class*="predictive-search"][class*="predictive-search"] {
-  border-radius: var(--inv-radius-md);
+  border-radius: 0;
 }
 
 /* Navigation dropdowns */
 .header__menu-item.header__menu-item,
 .nav-dropdown.nav-dropdown,
 [class*="nav-dropdown"][class*="nav-dropdown"] {
-  border-radius: var(--inv-radius-md);
+  border-radius: 0;
 }
 
 /* Image overlays & zoom */
@@ -151,7 +151,7 @@ select,
 .product-media-modal.product-media-modal,
 [class*="gallery"][class*="gallery"],
 [class*="lightbox"][class*="lightbox"] {
-  border-radius: var(--inv-radius-lg);
+  border-radius: 0;
 }
 
 /* =======================================================
@@ -183,7 +183,7 @@ select,
 *[style*="border-radius:9999"][style*="border-radius:9999"],
 *[style*="border-radius: 50%"][style*="border-radius: 50%"],
 *[style*="border-radius:50%"][style*="border-radius:50%"] {
-  border-radius: var(--inv-radius-md);
+  border-radius: 0;
 }
 
 /* =======================================================
@@ -222,9 +222,9 @@ select,
 }
 
 .invicta-drawer__vat-pills.invicta-drawer__vat-pills {
-  border-radius: 8px;
+  border-radius: 0;
 }
 
 .invicta-drawer__vat-pill.invicta-drawer__vat-pill {
-  border-radius: 6px;
+  border-radius: 0;
 }

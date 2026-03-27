@@ -46,7 +46,7 @@
   height: 3px;
   background: var(--inv-accent, var(--inv-accent));
   margin: 12px auto 0;
-  border-radius: 2px;
+  border-radius: 0;
 }
 
 /* -----------------------------------------------------------------------

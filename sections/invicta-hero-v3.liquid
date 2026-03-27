@@ -19,10 +19,6 @@
   ============================================================================
 {% endcomment %}
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
-
 <section
   class="inv-hero-v3"
   id="hero-v3-{{ section.id }}"
@@ -171,7 +167,7 @@
 
   /* Heading */
   #hero-v3-{{ section.id }} .inv-hero-v3__heading {
-    font-family: 'Barlow Condensed', Impact, 'Arial Narrow', sans-serif;
+    font-family: var(--inv-font-display);
     font-size: 28px;
     font-weight: 900;
     text-transform: uppercase;
@@ -207,10 +203,10 @@
     font-weight: 700;
     text-transform: uppercase;
     text-decoration: none;
-    padding: 13px 28px;
+    height: 48px;
+    padding: 0 28px;
     transition: background var(--inv-duration-normal) ease,
                 border-color var(--inv-duration-normal) ease;
-    min-height: var(--inv-touch-target-min);
   }
 
   #hero-v3-{{ section.id }} .inv-hero-v3__btn:focus-visible {

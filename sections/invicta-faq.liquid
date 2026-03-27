@@ -328,7 +328,7 @@
   }
 
   #shopify-section-{{ section.id }} .inv-faq__cta-button:hover {
-    background: var(--inv-accent-hover, #c4191f);
+    background: var(--inv-accent-hover);
   }
 
   #shopify-section-{{ section.id }} .inv-faq__cta-button:focus-visible {
@@ -384,7 +384,7 @@
     {%- comment -%} ===== SEARCH ===== {%- endcomment -%}
     {%- if show_search -%}
       <div class="inv-faq__search">
-        <svg class="inv-faq__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <svg class="inv-faq__search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
           <circle cx="11" cy="11" r="8"/>
           <line x1="21" y1="21" x2="16.65" y2="16.65"/>
         </svg>
@@ -456,7 +456,7 @@
                     data-faq-trigger
                   >
                     <span class="inv-faq__question-text">{{ question | escape }}</span>
-                    <svg class="inv-faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                    <svg class="inv-faq__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
                       <polyline points="6 9 12 15 18 9"/>
                     </svg>
                   </button>
@@ -485,7 +485,7 @@
       <p class="inv-faq__cta-text">{{ 'invicta.faq.cta_text' | t | default: 'Our team is here to help. Get in touch and we will get back to you as soon as possible.' }}</p>
       <a href="{{ contact_url }}" class="inv-faq__cta-button">
         {{ 'invicta.faq.cta_button' | t | default: 'Contact Us' }}
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
           <line x1="5" y1="12" x2="19" y2="12"/>
           <polyline points="12 5 19 12 12 19"/>
         </svg>

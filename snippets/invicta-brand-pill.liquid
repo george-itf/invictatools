@@ -203,7 +203,7 @@
     <span
       class="invicta-brand-pill invicta-brand-pill--{{ pill_size | default: 'md' }}{% if pill_compact %} invicta-brand-pill--compact{% endif %}"
       aria-label="{{ brand_display | escape }}"
-      style="--pill-bg: {{ brand_bg }}; --pill-text: {{ brand_text }};{% if pill_needs_border %} border: 1.5px solid #c5c5c5;{% endif %}"
+      style="--pill-bg: {{ brand_bg }}; --pill-text: {{ brand_text }};{% if pill_needs_border %} border: 1.5px solid var(--inv-border-dark);{% endif %}"
     >
       <span class="invicta-brand-pill__inner">
 
@@ -245,7 +245,7 @@
         class="invicta-brand-pill invicta-brand-pill--{{ pill_size | default: 'md' }}{% if pill_compact %} invicta-brand-pill--compact{% endif %}"
         aria-label="Shop {{ brand_display | escape }} products"
         title="Shop {{ brand_display | escape }}"
-        style="--pill-bg: {{ brand_bg }}; --pill-text: {{ brand_text }};{% if pill_needs_border %} border: 1.5px solid #c5c5c5;{% endif %}"
+        style="--pill-bg: {{ brand_bg }}; --pill-text: {{ brand_text }};{% if pill_needs_border %} border: 1.5px solid var(--inv-border-dark);{% endif %}"
       >
         <span class="invicta-brand-pill__inner">
 

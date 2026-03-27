@@ -496,11 +496,15 @@
           <h1 class="inv-pdp__title">{{ product.title | escape }}</h1>
 
           {%- comment -%} DEALER BADGE + BRAND PILL {%- endcomment -%}
+          {%- comment -%}
+            Dealer brand colours (#00a0aa Makita, #febd17 DeWalt, #006b3f HiKOKI,
+            #db0032 Milwaukee, #111111 DeWalt text) — exempt from token system.
+          {%- endcomment -%}
           {% liquid
             assign dealer_vendor = product.vendor | downcase
             assign dealer_bg = '#2d2d2d'
             assign dealer_text = '#ffffff'
-            
+
             if dealer_vendor contains 'makita'
               assign dealer_bg = '#00a0aa'
               assign dealer_text = '#ffffff'
@@ -651,7 +655,7 @@
                   data-qty-decrease 
                   aria-label="Decrease quantity"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                   </svg>
                 </button>
@@ -672,7 +676,7 @@
                   data-qty-increase 
                   aria-label="Increase quantity"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <line x1="12" y1="5" x2="12" y2="19"></line>
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                   </svg>
@@ -739,7 +743,7 @@
                   </button>
                 </div>
                 <p class="inv-pdp__notify-success inv-pdp--hidden" data-notify-success role="status">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                   We'll email you when this item is available again.
                 </p>
                 <p class="inv-pdp__notify-error inv-pdp--hidden" data-notify-error role="alert"></p>

@@ -19,6 +19,31 @@
 }
 
 /* =======================================================
+   BUTTON BASE — Shared foundation for all button tiers
+   ======================================================= */
+
+.inv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+  font-family: var(--inv-font-body);
+  font-size: var(--inv-text-sm);
+  letter-spacing: var(--inv-tracking-wide);
+  text-transform: uppercase;
+  line-height: 1;
+  transition: background-color var(--inv-duration-normal) ease,
+              color var(--inv-duration-normal) ease,
+              border-color var(--inv-duration-normal) ease;
+  cursor: pointer;
+  border-radius: var(--inv-radius-none);
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* =======================================================
    1. SKIP TO CONTENT — Visible on Focus
    ======================================================= */
 .skip-to-content-link {
@@ -29,11 +54,11 @@
   z-index: var(--inv-z-toast);
   padding: 12px 24px;
   background: var(--inv-dark);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 14px;
   font-weight: 700;
   text-decoration: none;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0;
   transition: top 0.2s ease;
 }
 
@@ -47,27 +72,14 @@
    2. FOCUS STATES — Global Accessibility
    ======================================================= */
 
-/* CX v1.0: Higher contrast focus ring — 3px solid for WCAG AAA compliance */
 *:focus-visible {
-  outline: 3px solid var(--inv-dark);
+  outline: 2px solid var(--inv-accent);
   outline-offset: 2px;
 }
 
-/* Interactive elements use brand accent color for focus */
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible,
-[tabindex]:focus-visible {
-  outline: 3px solid var(--inv-accent, var(--inv-accent));
-  outline-offset: 2px;
-}
-
-/* On dark backgrounds, use white outline */
-.invicta-header a:focus-visible,
-.invicta-header button:focus-visible {
-  outline-color: var(--inv-white);
+.invicta-header *:focus-visible,
+[data-dark-bg] *:focus-visible {
+  outline-color: #fff;
 }
 
 /* Disabled buttons */
@@ -109,7 +121,7 @@ button:disabled:hover {
    4. BUTTON CONSISTENCY — Unified System
    ======================================================= */
 
-/* Primary buttons share a consistent style */
+/* Legacy multi-class rule — zero radius on all primary action buttons */
 .inv-pdp__atc-btn,
 .inv-checkout-btn,
 .inv-card__btn--add,
@@ -118,8 +130,8 @@ button:disabled:hover {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  border-radius: var(--buttons-radius, 4px);
-  transition: background 0.2s ease, transform 0.1s ease;
+  border-radius: 0;
+  transition: background-color var(--inv-duration-normal) ease, transform var(--inv-duration-fast) ease;
 }
 
 .inv-pdp__atc-btn:active:not(:disabled),
@@ -128,64 +140,143 @@ button:disabled:hover {
   transform: scale(0.98);
 }
 
-/* ---- Shared Button Utilities ---- */
+/* ---- Button Tiers ---- */
 
 /* Primary CTA — red brand button */
 .inv-btn-primary {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px 28px;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 28px;
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border: none;
-  border-radius: var(--buttons-radius, 4px);
-  font-family: var(--font-body-family);
+  border-radius: 0;
+  font-family: var(--inv-font-body);
+  font-size: var(--inv-text-sm);
   font-weight: 700;
-  font-size: 14px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--inv-tracking-wide);
   text-decoration: none;
   cursor: pointer;
-  transition: background 0.2s ease, gap 0.2s ease;
+  white-space: nowrap;
+  transition: background-color var(--inv-duration-normal) ease;
 }
 
 .inv-btn-primary:hover {
   background: var(--inv-accent-hover);
-  gap: 12px;
 }
 
 .inv-btn-primary:focus-visible {
-  outline: 2px solid var(--inv-white);
+  outline: 2px solid var(--inv-accent);
   outline-offset: 2px;
+}
+
+.inv-btn-primary:active {
+  transform: scale(0.98);
+}
+
+.inv-btn-primary:disabled {
+  background: var(--inv-fg-subtle);
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Secondary CTA — dark button */
 .inv-btn-secondary {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px 28px;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 28px;
   background: var(--inv-dark);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   border: none;
-  border-radius: var(--buttons-radius, 4px);
-  font-family: var(--font-body-family);
+  border-radius: 0;
+  font-family: var(--inv-font-body);
+  font-size: var(--inv-text-sm);
   font-weight: 700;
-  font-size: 14px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--inv-tracking-wide);
   text-decoration: none;
   cursor: pointer;
-  transition: background 0.2s ease, gap 0.2s ease;
+  white-space: nowrap;
+  transition: background-color var(--inv-duration-normal) ease;
 }
 
 .inv-btn-secondary:hover {
   background: var(--inv-dark-hover);
-  gap: 12px;
 }
 
 .inv-btn-secondary:focus-visible {
+  outline: 2px solid var(--inv-accent);
+  outline-offset: 2px;
+}
+
+/* Outline CTA — bordered button */
+.inv-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 28px;
+  background: transparent;
+  color: var(--inv-fg);
+  border: 1.5px solid var(--inv-border-dark);
+  border-radius: 0;
+  font-family: var(--inv-font-body);
+  font-size: var(--inv-text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--inv-tracking-wide);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--inv-duration-normal) ease,
+              border-color var(--inv-duration-normal) ease;
+}
+
+.inv-btn-outline:hover {
+  border-color: var(--inv-dark);
+  background: var(--inv-grey-50);
+}
+
+.inv-btn-outline:focus-visible {
+  outline: 2px solid var(--inv-accent);
+  outline-offset: 2px;
+}
+
+/* Ghost CTA — minimal button */
+.inv-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  background: transparent;
+  color: var(--inv-fg);
+  border: none;
+  border-radius: 0;
+  font-family: var(--inv-font-body);
+  font-size: var(--inv-text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--inv-tracking-wide);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.inv-btn-ghost:hover {
+  text-decoration: underline;
+}
+
+.inv-btn-ghost:focus-visible {
   outline: 2px solid var(--inv-accent);
   outline-offset: 2px;
 }
@@ -195,18 +286,12 @@ button:disabled:hover {
 .inv-btn-secondary svg {
   width: 16px;
   height: 16px;
-  transition: transform 0.2s ease;
+  transition: transform var(--inv-duration-normal) ease;
 }
 
 .inv-btn-primary:hover svg,
 .inv-btn-secondary:hover svg {
   transform: translateX(3px);
-}
-
-/* On dark section backgrounds, focus ring should be white */
-[style*="background"][style*="var(--inv-dark)"] .inv-btn-primary:focus-visible,
-.inv-dark-section .inv-btn-primary:focus-visible {
-  outline-color: var(--inv-white);
 }
 
 /* =======================================================
@@ -224,7 +309,7 @@ button:disabled:hover {
     left: 0;
     right: 0;
     z-index: var(--inv-z-header);
-    background: var(--inv-white);
+    background: var(--inv-bg-elevated);
     border-top: 1px solid var(--inv-border);
     padding: 10px 16px;
     box-shadow: 0 -2px 10px var(--inv-shadow-color);
@@ -241,7 +326,7 @@ button:disabled:hover {
     display: flex;
     align-items: center;
     gap: 12px;
-    max-width: 1400px;
+    max-width: var(--inv-container, 1400px);
     margin: 0 auto;
   }
 
@@ -269,17 +354,18 @@ button:disabled:hover {
 
   .inv-pdp__sticky-atc-btn {
     flex-shrink: 0;
-    padding: 12px 24px;
+    height: 48px;
+    padding: 0 24px;
     background: var(--inv-accent);
-    color: var(--inv-white);
+    color: var(--inv-bg-elevated);
     border: none;
-    border-radius: var(--buttons-radius, 4px);
+    border-radius: 0;
     font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background-color var(--inv-duration-normal) ease;
   }
 
   .inv-pdp__sticky-atc-btn:hover {
@@ -295,7 +381,7 @@ button:disabled:hover {
     width: 40px;
     height: 40px;
     border: 1px solid var(--inv-grey-200);
-    border-radius: var(--inv-radius-sm);
+    border-radius: 0;
     overflow: hidden;
     flex-shrink: 0;
   }
@@ -357,7 +443,7 @@ h3, .h3 { line-height: 1.25; }
 }
 
 .inv-card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--inv-shadow-md);
   transform: translateY(-2px);
 }
 
@@ -435,7 +521,7 @@ img {
   color: var(--inv-accent-hover);
   background: var(--inv-error-bg);
   border: 1px solid var(--inv-error-border);
-  border-radius: var(--buttons-radius, 4px);
+  border-radius: 0;
   text-align: center;
 }
 
@@ -448,4 +534,19 @@ img {
   .inv-pdp__sticky-atc {
     display: none;
   }
+}
+
+/* =======================================================
+   UTILITIES — Shared pattern classes
+   ======================================================= */
+
+.inv-section-heading {
+  font-family: var(--inv-font-display);
+  font-weight: 800;
+  font-size: var(--inv-text-2xl);
+  line-height: var(--inv-leading-tight);
+  letter-spacing: var(--inv-tracking-tight);
+  text-transform: uppercase;
+  color: var(--inv-fg);
+  margin: 0;
 }

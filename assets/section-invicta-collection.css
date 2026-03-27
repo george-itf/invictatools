@@ -9,7 +9,7 @@
    ============================================================================ */
 
 .inv-collection {
-  --inv-c-bg: var(--inv-white);
+  --inv-c-bg: var(--inv-bg-elevated);
   --inv-c-surface: #f5f5f5;
   --inv-c-border: #e5e5e5;
   --inv-c-text: var(--inv-fg-near-black);
@@ -27,7 +27,7 @@
 .inv-hero {
   position: relative;
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   padding: 32px 0 28px;
   overflow: hidden;
 }
@@ -105,7 +105,7 @@
 }
 
 .inv-hero__breadcrumb a:hover {
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 .inv-hero__breadcrumb [aria-current] {
@@ -124,7 +124,7 @@
 .inv-hero__title {
   font-size: clamp(1.75rem, 5vw, 2.5rem);
   font-weight: 800;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 30px;
   margin: 0;
   line-height: 1.15;
@@ -140,7 +140,7 @@
   height: 3px;
   margin-top: 10px;
   background: var(--inv-c-accent, var(--inv-accent));
-  border-radius: 2px;
+  border-radius: 0;
 }
 
 .inv-hero__count {
@@ -153,7 +153,7 @@
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.12);
   padding: 5px 12px;
-  border-radius: 20px;
+  border-radius: var(--inv-radius-pill);
   white-space: nowrap;
   letter-spacing: 0.02em;
 }
@@ -209,11 +209,11 @@
   color: rgba(255, 255, 255, 0.9);
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 6px;
+  border-radius: var(--inv-radius-pill);
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  transition: all 0.2s ease;
+  transition: background var(--inv-c-transition), border-color var(--inv-c-transition), color var(--inv-c-transition), transform var(--inv-c-transition);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
@@ -221,14 +221,14 @@
 .inv-brand-pill:hover {
   background: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.3);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   transform: translateY(-1px);
 }
 
 .inv-brand-pill.is-active {
   background: var(--inv-c-accent);
   border-color: var(--inv-c-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   box-shadow: 0 2px 8px rgba(225, 29, 38, 0.3);
 }
 
@@ -238,7 +238,7 @@
   color: rgba(255, 255, 255, 0.4);
   background: rgba(255, 255, 255, 0.08);
   padding: 1px 6px;
-  border-radius: 10px;
+  border-radius: var(--inv-radius-pill);
 }
 
 .inv-brand-pill:hover .inv-brand-pill__count {
@@ -286,7 +286,7 @@
   color: #a16207;
   padding: 2px 8px;
   background: rgba(146, 64, 14, 0.08);
-  border-radius: 4px;
+  border-radius: 0;
 }
 
 .inv-full-catalogue-banner__link {
@@ -299,7 +299,7 @@
   text-decoration: none;
   padding: 6px 12px;
   background: rgba(146, 64, 14, 0.08);
-  border-radius: 6px;
+  border-radius: 0;
   transition: background var(--inv-c-transition);
 }
 
@@ -369,9 +369,9 @@
   color: var(--inv-c-text);
   background: var(--inv-bg-elevated);
   border: 1px solid var(--inv-c-border);
-  border-radius: 6px;
+  border-radius: 0;
   cursor: pointer;
-  transition: all var(--inv-c-transition);
+  transition: border-color var(--inv-c-transition), color var(--inv-c-transition);
   font-family: inherit;
 }
 
@@ -395,9 +395,9 @@
   padding: 0 5px;
   font-size: 10px;
   font-weight: 700;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   background: var(--inv-c-accent);
-  border-radius: 999px;
+  border-radius: var(--inv-radius-pill);
 }
 
 /* Sort dropdown */
@@ -429,7 +429,7 @@
   color: var(--inv-c-text);
   background: var(--inv-bg-elevated);
   border: 1px solid var(--inv-c-border);
-  border-radius: 6px;
+  border-radius: 0;
   cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
@@ -473,9 +473,9 @@
   min-height: 36px;
   font-size: 12px;
   font-weight: 600;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   background: var(--inv-c-accent);
-  border-radius: 6px;
+  border-radius: 0;
   text-decoration: none;
   transition: opacity var(--inv-c-transition);
 }
@@ -501,13 +501,13 @@
   display: inline-flex;
   align-items: center;
   border: 1px solid var(--inv-c-accent);
-  border-radius: 6px;
-  transition: all var(--inv-c-transition);
+  border-radius: 0;
+  transition: background var(--inv-c-transition), color var(--inv-c-transition);
 }
 
 .inv-clear-all:hover {
   background: var(--inv-c-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 /* ============================================================================
@@ -575,10 +575,10 @@
   font-size: 13px;
   font-weight: 700;
   font-family: inherit;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   background: var(--inv-c-accent);
   border: none;
-  border-radius: 6px;
+  border-radius: 0;
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -684,7 +684,7 @@
   height: 18px;
   flex-shrink: 0;
   border: 2px solid #d0d0d0;
-  border-radius: 3px;
+  border-radius: 0;
   background: var(--inv-bg-elevated);
   cursor: pointer;
   transition: border-color var(--inv-c-transition), background var(--inv-c-transition);
@@ -707,7 +707,7 @@
   top: 1px;
   width: 5px;
   height: 10px;
-  border: solid var(--inv-white);
+  border: solid var(--inv-bg-elevated);
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
@@ -740,7 +740,7 @@
   flex: 1;
   background: var(--inv-bg-elevated);
   border: 1px solid var(--inv-c-border);
-  border-radius: 6px;
+  border-radius: 0;
   overflow: hidden;
 }
 
@@ -824,9 +824,9 @@
   color: var(--inv-c-text);
   background: var(--inv-bg-elevated);
   border: 1px solid var(--inv-c-border);
-  border-radius: 6px;
+  border-radius: 0;
   text-decoration: none;
-  transition: all var(--inv-c-transition);
+  transition: border-color var(--inv-c-transition), color var(--inv-c-transition);
 }
 
 .inv-pagination__item:hover:not(.inv-pagination__item--current):not(.inv-pagination__item--ellipsis) {
@@ -837,7 +837,7 @@
 .inv-pagination__item--current {
   background: var(--inv-c-accent);
   border-color: var(--inv-c-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-weight: 700;
 }
 
@@ -906,9 +906,9 @@
   padding: 12px 24px;
   font-size: 14px;
   font-weight: 700;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   background: var(--inv-c-dark);
-  border-radius: 6px;
+  border-radius: 0;
   text-decoration: none;
   transition: background var(--inv-c-transition);
 }
@@ -951,7 +951,7 @@ body.inv-drawer-open {
   right: 0;
   z-index: var(--inv-z-overlay);
   background: var(--inv-bg-elevated);
-  border-radius: 16px 16px 0 0;
+  border-radius: var(--inv-radius-modal) var(--inv-radius-modal) 0 0;
   max-height: 85vh;
   display: none;
   flex-direction: column;
@@ -1064,8 +1064,8 @@ body.inv-drawer-open {
   color: var(--inv-c-muted);
   text-decoration: none;
   border: 1px solid var(--inv-c-border);
-  border-radius: 8px;
-  transition: all var(--inv-c-transition);
+  border-radius: 0;
+  transition: border-color var(--inv-c-transition), color var(--inv-c-transition);
 }
 
 .inv-drawer__reset:hover {
@@ -1080,10 +1080,10 @@ body.inv-drawer-open {
   font-size: 14px;
   font-weight: 700;
   font-family: inherit;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   background: var(--inv-c-accent);
   border: none;
-  border-radius: 8px;
+  border-radius: 0;
   cursor: pointer;
   transition: background var(--inv-c-transition);
 }
@@ -1110,10 +1110,10 @@ body.inv-drawer-open {
   font-size: 14px;
   font-weight: 700;
   font-family: inherit;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   background: var(--inv-c-dark);
   border: none;
-  border-radius: 999px;
+  border-radius: var(--inv-radius-pill);
   cursor: pointer;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.25s ease;
@@ -1135,9 +1135,9 @@ body.inv-drawer-open {
   padding: 0 5px;
   font-size: 10px;
   font-weight: 700;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   background: var(--inv-c-accent);
-  border-radius: 999px;
+  border-radius: var(--inv-radius-pill);
 }
 
 /* ============================================================================
@@ -1159,10 +1159,10 @@ body.inv-drawer-open {
   font-size: 10px;
   font-weight: 700;
   font-family: inherit;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   background: var(--inv-c-dark);
   border: none;
-  border-radius: 10px;
+  border-radius: var(--inv-radius-pill);
   cursor: pointer;
   opacity: 0;
   transform: translateY(20px);

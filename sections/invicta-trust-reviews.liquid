@@ -48,7 +48,7 @@
                   <li class="inv-tr5__point" {{ block.shopify_attributes }}>
                     <svg class="inv-tr5__point-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                       <circle cx="12" cy="12" r="12" fill="#16a34a"/>
-                      <path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <span>{{ block.settings.text }}</span>
                   </li>
@@ -116,7 +116,7 @@
           {%- if section.settings.cta_text != blank and section.settings.cta_link != blank -%}
             <a href="{{ section.settings.cta_link }}" class="inv-tr5__cta">
               {{ section.settings.cta_text }}
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           {%- endif -%}
         </div>
@@ -266,7 +266,7 @@
     --itr5-fg: var(--inv-fg, #0f172a);
     --itr5-fg-muted: var(--inv-fg-muted, #6b7280);
     --itr5-border: var(--inv-border, #e5e7eb);
-    --itr5-card-bg: #f8f9fa;
+    --itr5-card-bg: var(--inv-bg-soft);
     --itr5-reviews-bg: #f5f5f5;
   }
 
@@ -310,7 +310,7 @@
   }
 
   .inv-tr5__heading {
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--inv-font-body);
     font-size: clamp(26px, 3.5vw, 36px);
     font-weight: 900;
     color: var(--itr5-fg);
@@ -377,7 +377,7 @@
 
   .inv-tr5__stat-num {
     display: block;
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--inv-font-body);
     font-size: clamp(28px, 3vw, 36px);
     font-weight: 900;
     color: var(--itr5-accent);
@@ -455,7 +455,7 @@
   }
 
   .inv-tr5__rating-score {
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--inv-font-body);
     font-size: 22px;
     font-weight: 900;
     color: var(--itr5-fg);
@@ -660,7 +660,7 @@
   /* ----------------------------------------
      RESPONSIVE
      ---------------------------------------- */
-  @media (max-width: 960px) {
+  @media (max-width: 989px) {
     .inv-tr5__hero-grid {
       grid-template-columns: 1fr;
       gap: 20px;
@@ -678,7 +678,7 @@
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 749px) {
     .inv-tr5__branches-grid {
       grid-template-columns: 1fr;
       gap: 10px;
@@ -727,6 +727,7 @@
     }
   }
 
+  /* small-phone override */
   @media (max-width: 420px) {
     .inv-tr5__stat {
       border-right: none;

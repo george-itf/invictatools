@@ -28,9 +28,9 @@
    ====================================================================== */
 
 .invicta-brand-pill {
-  --pill-bg: var(--inv-white);
+  --pill-bg: var(--inv-bg-elevated);
   --pill-border: var(--pill-bg);
-  --pill-text: var(--inv-white);
+  --pill-text: var(--inv-bg-elevated);
 
   --pill-height: 30px;
   --pill-logo-height: 22px;
@@ -49,7 +49,7 @@
   height: var(--pill-height);
   padding: 4px 14px;
 
-  border-radius: 999px;
+  border-radius: var(--inv-radius-pill);
   background: var(--pill-bg);
   border: 1px solid var(--pill-border);
   color: var(--pill-text);
@@ -74,12 +74,12 @@
 .invicta-brand-pill:hover,
 .invicta-brand-pill:focus-visible {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+  box-shadow: var(--inv-shadow-md);
 }
 
 .invicta-brand-pill:focus-visible {
-  outline: 2px solid var(--inv-white);
-  outline-offset: 3px;
+  outline: 2px solid var(--inv-accent);
+  outline-offset: 2px;
 }
 
 /* ACTIVE */
@@ -289,17 +289,17 @@
   gap: 8px;
 
   background: var(--inv-fg-strong);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 
   padding: 8px 14px;
-  border-radius: 999px;
+  border-radius: var(--inv-radius-pill);
   white-space: nowrap;
 
   font-size: 0.82rem;
   font-weight: 600;
   line-height: 1;
 
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--inv-shadow-md);
   opacity: 0;
   pointer-events: none;
 
@@ -320,5 +320,12 @@
   height: 16px;
   display: block;
   flex-shrink: 0;
-  fill: var(--inv-white);
+  fill: var(--inv-bg-elevated);
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

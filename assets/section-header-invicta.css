@@ -11,7 +11,7 @@
    mobile drawer (iOS Safari clips fixed children of overflow:hidden
    ancestors in some scroll states). */
 .section-header-invicta {
-  background: var(--inv-header-bg, var(--inv-accent));
+  background: var(--inv-accent);
   margin: 0;
   padding: 0;
   position: relative;
@@ -24,7 +24,7 @@
   top: 0;
   z-index: var(--inv-z-header);
   width: 100%;
-  background: var(--inv-header-bg, var(--inv-accent));
+  background: var(--inv-accent);
   border-bottom: none;
   padding-top: var(--inv-safe-area-top);
   padding-left: var(--inv-safe-area-left);
@@ -72,7 +72,7 @@
   display: none;
   width: 44px;
   height: 44px;
-  border-radius: 999px;
+  border-radius: var(--inv-radius-pill);
   align-items: center;
   justify-content: center;
   background: rgba(255, 255, 255, 0.15);
@@ -88,14 +88,14 @@
 }
 
 .invicta-header__menu-btn:focus-visible {
-  outline: 2px solid var(--inv-white);
+  outline: 2px solid var(--inv-bg-elevated);
   outline-offset: 2px;
 }
 
 .invicta-header__menu-btn svg {
   width: 20px;
   height: 20px;
-  stroke: var(--inv-white);
+  stroke: var(--inv-bg-elevated);
   stroke-width: 2;
   fill: none;
 }
@@ -181,7 +181,7 @@
   min-height: 44px;
   border: none;
   background: var(--inv-bg-soft);
-  border-radius: 999px;
+  border-radius: var(--inv-radius-pill);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -234,7 +234,7 @@
 }
 
 .invicta-drawer__nav-link:hover {
-  background: var(--inv-bg-muted);
+  background: var(--inv-bg-soft);
   color: var(--inv-accent);
 }
 
@@ -277,7 +277,7 @@
 }
 
 .invicta-drawer__submenu-toggle:hover {
-  background: var(--inv-bg-muted);
+  background: var(--inv-bg-soft);
   color: var(--inv-accent);
 }
 
@@ -303,7 +303,7 @@
   list-style: none;
   margin: 0;
   padding: 0 0 8px 0;
-  background: var(--inv-bg-muted);
+  background: var(--inv-bg-soft);
   display: none;
 }
 
@@ -384,7 +384,7 @@
 
 .invicta-drawer__vat-pill--active {
   background: var(--inv-accent);
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
@@ -441,11 +441,11 @@
 }
 
 .invicta-header__logo a:focus-visible {
-  outline: 2px solid var(--inv-white);
+  outline: 2px solid var(--inv-bg-elevated);
   outline-offset: 2px;
 }
 
-.invicta-header__logo-text { color: var(--inv-white); font-weight: 800; }
+.invicta-header__logo-text { color: var(--inv-bg-elevated); font-weight: 800; }
 
 .invicta-header__logo img,
 .invicta-header__logo .header__heading-logo {
@@ -581,7 +581,7 @@
 }
 
 .invicta-header__vat-btn:focus-visible {
-  outline: 2px solid var(--inv-white);
+  outline: 2px solid var(--inv-bg-elevated);
   outline-offset: 1px;
 }
 
@@ -589,7 +589,7 @@
   position: relative;
   width: 44px;
   height: 44px;
-  border-radius: 999px;
+  border-radius: var(--inv-radius-pill);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -606,14 +606,14 @@
 }
 
 .invicta-header__icon:focus-visible {
-  outline: 2px solid var(--inv-white);
+  outline: 2px solid var(--inv-bg-elevated);
   outline-offset: 2px;
 }
 
 .invicta-header__icon svg {
   width: 22px;
   height: 22px;
-  stroke: var(--inv-white);
+  stroke: var(--inv-bg-elevated);
   stroke-width: 2;
   fill: none;
 }
@@ -635,7 +635,7 @@
   min-width: 20px;
   height: 20px;
   padding: 0 6px;
-  border-radius: 999px;
+  border-radius: var(--inv-radius-pill);
   background: var(--inv-bg-elevated);
   color: var(--inv-accent, var(--inv-accent));
   border: 2px solid var(--inv-accent, var(--inv-accent));

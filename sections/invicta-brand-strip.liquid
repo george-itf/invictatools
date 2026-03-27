@@ -5,8 +5,6 @@
   ============================================================================
 {% endcomment %}
 
-{{ 'invicta-brand-pill.css' | asset_url | stylesheet_tag }}
-
 {%- liquid
   assign bg_color = section.settings.background_color | default: '#ffffff'
   assign pad_top = section.settings.padding_top | default: 48
@@ -198,6 +196,14 @@
       --pill-height: clamp(38px, 10vw, 52px);
       --pill-logo-height: clamp(24px, 6vw, 34px);
       padding-inline: clamp(12px, 4vw, 20px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
     }
   }
 </style>

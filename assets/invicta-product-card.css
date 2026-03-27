@@ -22,14 +22,14 @@
 .inv-card {
   display: flex;
   flex-direction: column;
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
   border: 1px solid var(--inv-border);
-  border-radius: 12px;
+  border-radius: 0;
   overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   height: 100%;
   width: 100%;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--inv-shadow-sm);
 }
 
 @media (hover: hover) {
@@ -47,7 +47,7 @@
 .inv-card__media {
   position: relative;
   aspect-ratio: 1 / 1;
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
   overflow: hidden;
 }
 
@@ -107,7 +107,7 @@
 .inv-card__stock--low { background-color: var(--inv-stock-low, var(--inv-warning)); }
 /* Supplier stock — blue bar + visible label */
 .inv-card__stock-bar--supplier { background-color: var(--inv-stock-supplier, var(--inv-info)); }
-.inv-card__stock--supplier { display: inline-block; background-color: var(--inv-info); color: var(--inv-white); }
+.inv-card__stock--supplier { display: inline-block; background-color: var(--inv-info); color: var(--inv-bg-elevated); }
 
 /* -----------------------------------------------------------------------
    4. STOCK LABEL
@@ -119,12 +119,12 @@
   left: 10px;
   z-index: 10;
   padding: 3px 8px;
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 9px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  border-radius: 4px;
+  border-radius: 0;
 }
 
 /* -----------------------------------------------------------------------
@@ -142,13 +142,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
   border: 1.5px solid var(--inv-border);
-  border-radius: 6px;
+  border-radius: 0;
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.2s ease, background 0.15s ease, border-color 0.15s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--inv-shadow-sm);
 }
 
 .inv-card__compare svg {
@@ -178,7 +178,7 @@
 }
 
 .inv-card__compare[aria-pressed="true"] svg {
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 @media (max-width: 749px) {
@@ -204,10 +204,10 @@
   z-index: 10;
   padding: 5px 10px;
   background: var(--inv-accent, var(--inv-accent));
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   font-size: 11px;
   font-weight: 700;
-  border-radius: 6px;
+  border-radius: 0;
 }
 
 /* -----------------------------------------------------------------------
@@ -341,14 +341,14 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 44px;
-  padding: 10px 14px;
+  height: 48px;
+  padding: 0 14px;
   font-family: inherit;
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  border-radius: 8px;
+  border-radius: 0;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
   border: none;
@@ -362,7 +362,7 @@
 
 .inv-card__btn--add {
   background: var(--inv-accent, var(--inv-accent));
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
 }
 
 .inv-card__btn--add:hover {
@@ -371,7 +371,7 @@
 }
 
 .inv-card__btn--options {
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
   color: var(--inv-accent, var(--inv-accent));
   border: 1.5px solid var(--inv-accent, var(--inv-accent));
   text-decoration: none;
@@ -380,12 +380,12 @@
 
 .inv-card__btn--options:hover {
   background: var(--inv-accent, var(--inv-accent));
-  color: var(--inv-white);
+  color: var(--inv-bg-elevated);
   box-shadow: 0 4px 12px var(--inv-accent-glow);
 }
 
 .inv-card__btn--notify {
-  background: var(--inv-white);
+  background: var(--inv-bg-elevated);
   color: var(--inv-dark);
   border: 1.5px solid var(--inv-border-notify);
 }
@@ -469,7 +469,7 @@
 
 @media (max-width: 749px) {
   .inv-card {
-    border-radius: 10px;
+    border-radius: 0;
   }
 
   .inv-card__media {
@@ -510,7 +510,7 @@
     min-height: 44px;
     padding: 10px 10px;
     font-size: 12px;
-    border-radius: 6px;
+    border-radius: 0;
   }
 
   /* List view mobile - stack */
