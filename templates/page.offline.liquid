@@ -30,23 +30,29 @@
       It looks like you've lost your internet connection. Check your connection and try again.
     </p>
     
-    <button 
-      type="button" 
+    <button
+      type="button"
       class="button button--primary"
-      onclick="window.location.reload();"
+      id="offline-retry-btn"
       style="min-width: 200px;"
     >
       Try Again
     </button>
-    
+
     <p style="margin-top: 2rem; font-size: 0.875rem; color: rgba(var(--color-foreground), 0.5);">
       Some pages you've visited before may still be available.
     </p>
-    
+
     <a href="/" class="link" style="font-size: 0.875rem;">
       Go to Homepage
     </a>
-    
+
   </div>
-  
+
 </div>
+
+<script>
+  document.querySelector('#offline-retry-btn').addEventListener('click', function() {
+    window.location.reload();
+  });
+</script>
