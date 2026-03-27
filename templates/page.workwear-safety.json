@@ -12,6 +12,14 @@
     "main": {
       "type": "invicta-category-grid",
       "blocks": {
+        "category_TF7EDy": {
+          "type": "category",
+          "settings": {
+            "collection": "jackets-coats",
+            "title": "",
+            "link": ""
+          }
+        },
         "category_QdWkyJ": {
           "type": "category",
           "settings": {
@@ -30,6 +38,7 @@
         }
       },
       "block_order": [
+        "category_TF7EDy",
         "category_QdWkyJ",
         "category_3DNNam"
       ],
