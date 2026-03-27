@@ -39,9 +39,29 @@
     <link rel="dns-prefetch" href="{{ request.origin }}">
 
     <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+      @font-face {
+        font-family: 'Barlow Condensed';
+        src: url({{ 'barlow-condensed-700.woff2' | asset_url }}) format('woff2');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Barlow Condensed';
+        src: url({{ 'barlow-condensed-800.woff2' | asset_url }}) format('woff2');
+        font-weight: 800;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Barlow Condensed';
+        src: url({{ 'barlow-condensed-900.woff2' | asset_url }}) format('woff2');
+        font-weight: 900;
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
 
     {%- if template contains 'page' or template contains 'product' -%}
       <link rel="preconnect" href="https://www.youtube.com" crossorigin>
@@ -349,14 +369,67 @@
     <!-- =============================================
          INVICTA CSS — PWA-Ready Load Order
          ============================================= -->
-    
-    <!-- 1. Base Theme CSS (foundations — high priority) -->
-    <link rel="stylesheet" href="{{ 'base.css' | asset_url }}" fetchpriority="high">
-    
-    <!-- 2. Shared Components (synchronous — layout-critical, prevents CLS on product cards/pills) -->
-    <link rel="stylesheet" href="{{ 'invicta-brand-pill.css' | asset_url }}">
-    <link rel="stylesheet" href="{{ 'invicta-product-card.css' | asset_url }}">
-    <link rel="stylesheet" href="{{ 'invicta-radius-reset.css' | asset_url }}">
+
+    <!-- 0. Critical CSS — inlined for instant above-fold render -->
+    <style id="critical-css">
+      /* Container system */
+      .page-width{max-width:var(--page-width);margin:0 auto;padding:0 1.5rem}
+      @media screen and (min-width:750px){.page-width{padding:0 var(--inv-page-gutter-desktop,3rem)}}
+      @media screen and (min-width:990px){.page-width--narrow{max-width:72.6rem;padding:0}.page-width-desktop{max-width:var(--page-width);padding:0 var(--inv-page-gutter-desktop,3rem)}}
+      .page-width-desktop{padding:0;margin:0 auto}
+
+      /* Layout utilities */
+      .isolate{position:relative;z-index:0}
+      .section+.section{margin-top:var(--spacing-sections-mobile)}
+      @media screen and (min-width:750px){.section+.section{margin-top:var(--spacing-sections-desktop)}}
+      .list-unstyled{margin:0;padding:0;list-style:none}
+      .center{text-align:center}
+
+      /* Typography scale */
+      .text-body{font-size:1.5rem;letter-spacing:.06rem;line-height:calc(1 + .8/var(--font-body-scale));font-family:var(--font-body-family);font-style:var(--font-body-style);font-weight:var(--font-body-weight)}
+      h1,h2,h3,h4,h5,.h0,.h1,.h2,.h3,.h4,.h5{font-family:var(--font-heading-family);font-style:var(--font-heading-style);font-weight:var(--font-heading-weight);letter-spacing:calc(var(--font-heading-scale)*.06rem);color:rgb(var(--color-foreground));line-height:calc(1 + .3/max(1,var(--font-heading-scale)));word-break:break-word}
+      .h0{font-size:calc(var(--font-heading-scale)*4rem)}
+      h1,.h1{font-size:calc(var(--font-heading-scale)*3rem)}
+      h2,.h2{font-size:calc(var(--font-heading-scale)*2rem)}
+      h3,.h3{font-size:calc(var(--font-heading-scale)*1.7rem)}
+      @media screen and (min-width:750px){.h0{font-size:calc(var(--font-heading-scale)*5.2rem)}h1,.h1{font-size:calc(var(--font-heading-scale)*4rem)}h2,.h2{font-size:calc(var(--font-heading-scale)*2.4rem)}h3,.h3{font-size:calc(var(--font-heading-scale)*1.8rem)}}
+
+      /* Grid basics */
+      .grid{display:flex;flex-wrap:wrap;margin-bottom:2rem;padding:0;list-style:none;column-gap:var(--grid-mobile-horizontal-spacing);row-gap:var(--grid-mobile-vertical-spacing)}
+      @media screen and (min-width:750px){.grid{column-gap:var(--grid-desktop-horizontal-spacing);row-gap:var(--grid-desktop-vertical-spacing)}}
+      .grid:last-child{margin-bottom:0}
+      .grid__item{width:calc(25% - var(--grid-mobile-horizontal-spacing)*3/4);max-width:calc(50% - var(--grid-mobile-horizontal-spacing)/2);flex-grow:1;flex-shrink:0}
+      @media screen and (min-width:750px){.grid__item{width:calc(25% - var(--grid-desktop-horizontal-spacing)*3/4);max-width:calc(50% - var(--grid-desktop-horizontal-spacing)/2)}}
+
+      /* Visibility & responsive helpers */
+      .hidden{display:none}
+      .visually-hidden{position:absolute;overflow:hidden;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0);word-wrap:normal}
+      @media screen and (max-width:749px){.small-hide{display:none}}
+      @media screen and (min-width:750px) and (max-width:989px){.medium-hide{display:none}}
+      @media screen and (min-width:990px){.large-up-hide{display:none}}
+
+      /* VAT toggle visibility — prevent FOUC */
+      .inv-vat--hidden{display:none!important}
+      html.inv-vat-ex [data-price-inc]:not([data-price-ex]){display:none!important}
+      html.inv-vat-ex [data-price-ex].inv-vat--hidden{display:revert!important}
+
+      /* Skip to content */
+      .skip-to-content-link:focus{z-index:9999;position:inherit;overflow:auto;width:auto;height:auto;clip:auto}
+    </style>
+
+    <!-- 1. Base Theme CSS (deferred — critical styles inlined above) -->
+    <link rel="stylesheet" href="{{ 'base.css' | asset_url }}" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="{{ 'base.css' | asset_url }}"></noscript>
+
+    <!-- 2. Shared Components (deferred — below-fold on most pages) -->
+    <link rel="stylesheet" href="{{ 'invicta-brand-pill.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'invicta-product-card.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'invicta-radius-reset.css' | asset_url }}" media="print" onload="this.media='all'">
+    <noscript>
+      <link rel="stylesheet" href="{{ 'invicta-brand-pill.css' | asset_url }}">
+      <link rel="stylesheet" href="{{ 'invicta-product-card.css' | asset_url }}">
+      <link rel="stylesheet" href="{{ 'invicta-radius-reset.css' | asset_url }}">
+    </noscript>
     
 
     <!-- 3. Device-Specific Styles (PWA optimised) -->

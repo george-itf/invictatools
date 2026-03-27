@@ -15,7 +15,7 @@
   --tl-text: #374151;
   --tl-text-muted: #6b7280;
   --tl-border: #e5e7eb;
-  --tl-success: #16a34a;
+  --tl-success: var(--inv-success);
   font-family: var(--inv-font-body);
 }
 
@@ -715,7 +715,7 @@
    RESPONSIVE
    ============================================ */
 
-@media (max-width: 1024px) {
+@media screen and (max-width: 989px) {
   .tl-hero__inner {
     grid-template-columns: 1fr;
     gap: 32px;
@@ -808,7 +808,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media screen and (max-width: 749px) {
   .tl-why__grid {
     grid-template-columns: 1fr 1fr;
   }

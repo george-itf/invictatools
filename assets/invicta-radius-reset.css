@@ -175,6 +175,12 @@ select,
   border-radius: var(--inv-radius-toggle-outer);
 }
 
+/* Delivery bar & delivery estimate — sharp edges */
+.inv-delivery-bar.inv-delivery-bar,
+.inv-del-est.inv-del-est {
+  border-radius: 0;
+}
+
 /* =======================================================
    KILL PILL SHAPES — Nuclear option for 9999px offenders
    ======================================================= */

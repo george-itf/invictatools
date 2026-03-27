@@ -17,7 +17,7 @@
   }
 
   .invicta-tiered-pricing__title svg {
-    color: #22c55e;
+    color: var(--inv-success-bright);
   }
 
   .invicta-tiered-pricing__table {
@@ -74,7 +74,7 @@
   .invicta-tiered-pricing__badge {
     display: inline-block;
     padding: 3px 8px;
-    background: #22c55e;
+    background: var(--inv-success-bright);
     color: #fff;
     font-size: 13px;
     font-weight: 600;

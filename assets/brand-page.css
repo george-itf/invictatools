@@ -20,7 +20,7 @@
   --brand-grey-light: #9ca3af;
   --brand-border: var(--inv-border, #e5e7eb);
   --brand-bg: #f9fafb;
-  --brand-white: var(--inv-white, #ffffff);
+  --brand-white: var(--inv-bg-elevated);
   --brand-text: var(--inv-fg);
 }
 
@@ -126,7 +126,7 @@
 }
 
 .brand-hero__badge svg {
-  color: #22c55e;
+  color: var(--inv-success-bright);
 }
 
 .brand-hero__headline {
@@ -1136,7 +1136,7 @@
    RESPONSIVE
    ============================================ */
 
-@media (max-width: 992px) {
+@media screen and (max-width: 989px) {
   .brand-why__grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1164,7 +1164,7 @@
   }
 }
 
-@media (max-width: 600px) {
+@media screen and (max-width: 749px) {
   .brand-why__grid {
     grid-template-columns: 1fr;
   }
@@ -1252,11 +1252,11 @@
 }
 
 .brand-new-products__card:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--inv-shadow-lg);
   transform: translateY(-2px);
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 750px) {
   .brand-new-products__card {
     grid-template-columns: 1fr 1fr;
   }
@@ -1280,7 +1280,7 @@
   background: var(--brand-bg);
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 750px) {
   .brand-new-products__card-image {
     aspect-ratio: auto;
     min-height: 360px;
@@ -1332,7 +1332,7 @@
   justify-content: center;
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 750px) {
   .brand-new-products__card-content {
     padding: 40px 36px;
   }
@@ -1355,7 +1355,7 @@
   line-height: 1.2;
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 750px) {
   .brand-new-products__card-title {
     font-size: 28px;
   }
@@ -1625,7 +1625,7 @@
 /* ============================================
    RESPONSIVE - Tablet (max-width: 992px)
    ============================================ */
-@media (max-width: 992px) {
+@media screen and (max-width: 989px) {
   /* Hero */
   .brand-hero {
     min-height: auto;
@@ -1888,9 +1888,9 @@
 }
 
 /* ============================================
-   RESPONSIVE - Small Mobile (max-width: 480px)
+   RESPONSIVE - Small Mobile
    ============================================ */
-@media (max-width: 480px) {
+@media screen and (max-width: 749px) {
   .brand-products__grid {
     grid-template-columns: 1fr;
   }
@@ -1904,7 +1904,7 @@
   }
 }
 
-@media (max-width: 600px) {
+@media screen and (max-width: 749px) {
   .brand-why__grid {
     grid-template-columns: 1fr;
   }
@@ -1972,7 +1972,7 @@
 .brand-faq__subheading {
   font-size: 1.0625rem;
   line-height: 1.6;
-  color: #666;
+  color: var(--inv-grey-vat);
   margin: 0;
   max-width: 600px;
   margin-left: auto;
@@ -2032,7 +2032,7 @@
   height: 28px;
   border-radius: 50%;
   background: #f0f0f0;
-  color: #666;
+  color: var(--inv-grey-vat);
   transition: transform 0.25s ease, background 0.25s ease;
 }
 

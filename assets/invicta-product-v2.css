@@ -1487,10 +1487,9 @@
 
 
 /* ============================================
-   MOBILE RESPONSIVE — Small phones (480px)
+   MOBILE RESPONSIVE
    ============================================ */
-/* small-phone override — intentional sub-breakpoint */
-@media (max-width: 480px) {
+@media screen and (max-width: 749px) {
   
   .inv-pdp {
     padding: 0 var(--inv-space-sm-plus) var(--inv-space-xl);

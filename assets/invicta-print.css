@@ -75,11 +75,11 @@
   /* --- Main content full width --- */
   body {
     display: block !important;
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    background: #fff !important;
-    color: #000 !important;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    color: #000;
     font-family: Georgia, "Times New Roman", Times, serif;
     font-size: 11pt;
     line-height: 1.5;
@@ -88,22 +88,22 @@
   #MainContent,
   .content-for-layout,
   main {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
   }
 
   /* --- Typography --- */
   h1, h2, h3, h4, h5, h6 {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    color: #000 !important;
+    color: #000;
     page-break-after: avoid;
     break-after: avoid;
   }
 
   p, li, td, th, dd, dt {
-    color: #000 !important;
+    color: #000;
   }
 
   /* --- Visual resets --- */
@@ -119,7 +119,7 @@
   .inv-pdp__info,
   [class*="card"] {
     border-radius: 0 !important;
-    background-color: transparent !important;
+    background-color: transparent;
   }
 
   /* --- Links: show URL for external links only --- */
@@ -132,14 +132,14 @@
   }
 
   a {
-    color: #000 !important;
+    color: #000;
     text-decoration: underline;
   }
 
   /* --- Images --- */
   img {
-    max-width: 300px !important;
-    height: auto !important;
+    max-width: 300px;
+    height: auto;
     page-break-inside: avoid;
     break-inside: avoid;
   }
@@ -172,7 +172,7 @@
     padding: 8pt 0;
     margin-bottom: 12pt;
     border-bottom: 2pt solid #000;
-    color: #000 !important;
+    color: #000;
   }
 
   body::after {
@@ -192,13 +192,13 @@
   }
 
   .inv-pdp__left {
-    width: 100% !important;
-    max-width: 100% !important;
+    width: 100%;
+    max-width: 100%;
   }
 
   .inv-pdp__right {
     position: static !important;
-    width: 100% !important;
+    width: 100%;
   }
 
   /* --- Gallery: show first 2 images only --- */
@@ -216,7 +216,7 @@
   }
 
   .inv-pdp__gallery-main .inv-pdp__gallery-image-wrap img {
-    max-width: 250px !important;
+    max-width: 250px;
     margin: 0 auto 8pt;
   }
 
@@ -235,18 +235,18 @@
 
   /* --- PDP: Show key info --- */
   .inv-pdp__title {
-    font-size: 18pt !important;
+    font-size: 18pt;
     margin-bottom: 4pt;
   }
 
   .inv-pdp__sku {
     display: block !important;
     font-size: 10pt;
-    color: #333 !important;
+    color: #333;
   }
 
   .inv-pdp__price {
-    font-size: 14pt !important;
+    font-size: 14pt;
   }
 
   .inv-pdp__price-line {
@@ -323,13 +323,13 @@
   .cart__contents,
   .cart__items,
   cart-items {
-    width: 100% !important;
+    width: 100%;
     display: block !important;
   }
 
   cart-items table,
   .cart-items {
-    width: 100% !important;
+    width: 100%;
     border-collapse: collapse;
   }
 
@@ -349,12 +349,12 @@
   /* --- Cart item: show key details --- */
   .cart-item__name {
     font-weight: 600;
-    color: #000 !important;
+    color: #000;
   }
 
   .cart-item__image {
-    max-width: 60px !important;
-    height: auto !important;
+    max-width: 60px;
+    height: auto;
   }
 
   /* --- Cart: hide interactive controls --- */
@@ -379,8 +379,8 @@
 
   /* --- Cart: show quantity as plain text --- */
   .quantity__input {
-    border: none !important;
-    background: transparent !important;
+    border: none;
+    background: transparent;
     text-align: center;
     font-size: 10pt;
     padding: 0;
@@ -422,10 +422,10 @@
 
   .cart__note textarea,
   .cart__note .field__input {
-    border: none !important;
-    background: transparent !important;
+    border: none;
+    background: transparent;
     font-size: 10pt;
-    color: #000 !important;
+    color: #000;
     width: 100%;
   }
 
@@ -464,9 +464,9 @@
 
   /* --- Collection: show title and active filters --- */
   .inv-hero {
-    padding: 0 !important;
+    padding: 0;
     margin-bottom: 8pt;
-    background: transparent !important;
+    background: transparent;
   }
 
   .inv-hero__image-wrap,
@@ -475,13 +475,13 @@
   }
 
   .inv-hero__title {
-    font-size: 16pt !important;
-    color: #000 !important;
+    font-size: 16pt;
+    color: #000;
   }
 
   .inv-hero__count {
     font-size: 10pt;
-    color: #333 !important;
+    color: #333;
   }
 
   .inv-active-filters {
@@ -504,9 +504,9 @@
 
   .inv-product-grid {
     display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 8pt !important;
-    padding: 0 !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8pt;
+    padding: 0;
   }
 
   /* --- Collection: product card print --- */
@@ -522,12 +522,12 @@
   }
 
   .inv-card__img {
-    max-width: 120px !important;
-    height: auto !important;
+    max-width: 120px;
+    height: auto;
   }
 
   .inv-card__title {
-    font-size: 9pt !important;
+    font-size: 9pt;
     font-weight: 600;
     margin: 2pt 0;
   }
@@ -538,17 +538,17 @@
 
   .inv-card__price {
     font-weight: 700;
-    color: #000 !important;
+    color: #000;
   }
 
   .inv-card__vat {
     font-size: 8pt;
-    color: #555 !important;
+    color: #555;
   }
 
   .inv-card__volume-hint {
     font-size: 8pt;
-    color: #333 !important;
+    color: #333;
   }
 
   .inv-card__sale {
@@ -571,7 +571,7 @@
 
   /* --- Order: clean layout --- */
   .customer .order-details {
-    width: 100% !important;
+    width: 100%;
     border-collapse: collapse;
   }
 
@@ -626,11 +626,11 @@
   .page-width,
   .section-template--*,
   [class*="page-width"] {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    margin: 0 !important;
+    width: 100%;
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0;
   }
 
   /* --- Clean typography for content pages --- */
@@ -639,7 +639,7 @@
   .rte li {
     font-size: 11pt;
     line-height: 1.6;
-    color: #000 !important;
+    color: #000;
   }
 
   .rte h2,
@@ -650,7 +650,7 @@
   }
 
   .rte img {
-    max-width: 250px !important;
+    max-width: 250px;
     margin: 8pt 0;
   }
 
@@ -689,29 +689,29 @@
   }
 
   .inv-hero-v3__content {
-    width: 100% !important;
-    padding: 8pt 0 !important;
+    width: 100%;
+    padding: 8pt 0;
   }
 
   .inv-hero-v3 {
-    background: transparent !important;
+    background: transparent;
   }
 
   .inv-hero-v3__heading {
-    color: #000 !important;
-    font-size: 18pt !important;
+    color: #000;
+    font-size: 18pt;
   }
 
   .inv-hero-v3__eyebrow {
     display: inline-block;
-    background: #000 !important;
-    color: #fff !important;
+    background: #000;
+    color: #fff;
     font-size: 8pt;
     padding: 1pt 4pt;
   }
 
   .inv-hero-v3__desc {
-    color: #333 !important;
+    color: #333;
     font-size: 10pt;
   }
 
@@ -727,8 +727,8 @@
 
   /* Print as a simple text list, hide circle icons */
   .inv-trust-strip {
-    background: transparent !important;
-    padding: 4pt 0 !important;
+    background: transparent;
+    padding: 4pt 0;
     border-top: 1pt solid #ccc;
     border-bottom: 1pt solid #ccc;
   }
@@ -739,8 +739,8 @@
 
   .inv-trust-strip__item {
     display: inline !important;
-    padding: 0 !important;
-    border: none !important;
+    padding: 0;
+    border: none;
   }
 
   .inv-trust-strip__item:not(:last-child)::after {
@@ -753,12 +753,12 @@
   }
 
   .inv-trust-strip__title {
-    color: #000 !important;
+    color: #000;
     font-size: 9pt;
   }
 
   .inv-trust-strip__subtitle {
-    color: #666 !important;
+    color: #666;
     font-size: 8pt;
   }
 
@@ -772,7 +772,7 @@
      ========================================================================= */
 
   .inv-promos__card {
-    background: transparent !important;
+    background: transparent;
     border-bottom: 0.5pt solid #ccc;
   }
 
@@ -781,24 +781,24 @@
   }
 
   .inv-promos__footer {
-    background: transparent !important;
-    padding: 4pt 0 !important;
+    background: transparent;
+    padding: 4pt 0;
   }
 
   .inv-promos__tag {
-    background: #000 !important;
-    color: #fff !important;
+    background: #000;
+    color: #fff;
     font-size: 8pt;
     padding: 0 2pt;
   }
 
   .inv-promos__title {
-    color: #000 !important;
-    font-size: 12pt !important;
+    color: #000;
+    font-size: 12pt;
   }
 
   .inv-promos__subtitle {
-    color: #333 !important;
+    color: #333;
     font-size: 9pt;
   }
 }

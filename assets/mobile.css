@@ -326,7 +326,7 @@ html.js .inv-search-input-wrap {
   display: flex;
   align-items: center;
   position: relative;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: var(--inv-shadow-sm);
 }
 
 /* Input field — VISIBLE with placeholder */
@@ -841,7 +841,7 @@ html.js .product-card {
   border-radius: var(--inv-mobile-radius);
   overflow: hidden;
   background: var(--inv-bg-elevated);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  box-shadow: var(--inv-shadow-sm);
   max-width: 100%;
   box-sizing: border-box;
 }
@@ -2285,8 +2285,8 @@ html.js .inv-product {
   }
 
   .inv-stock__badge--low {
-    background: #fffbeb;
-    color: #b45309;
+    background: var(--inv-warning-bg);
+    color: var(--inv-warning-darker);
   }
 
 
@@ -2435,7 +2435,7 @@ html.js .inv-product {
     cursor: pointer;
     font-size: 1.15rem;
     font-weight: 700;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12); /* Clean subtle shadow */
+    box-shadow: var(--inv-shadow-md); /* Clean subtle shadow */
     transition: all var(--inv-transition);
     position: relative;
     overflow: hidden;
@@ -2443,7 +2443,7 @@ html.js .inv-product {
 
   .inv-atc-btn:active:not(:disabled) {
     transform: scale(0.98);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--inv-shadow-md);
   }
 
   .inv-atc-btn:disabled {
@@ -2667,7 +2667,7 @@ html.js .inv-product {
     gap: 12px;
   }
 
-@media screen and (min-width: 750px) and (max-width: 999px) {
+@media screen and (min-width: 750px) and (max-width: 989px) {
   .inv-accordions__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -2915,7 +2915,7 @@ html.js .inv-product {
     cursor: pointer;
     font-size: 1rem;
     font-weight: 700;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--inv-shadow-md);
     transition: all 0.15s ease;
   }
 
