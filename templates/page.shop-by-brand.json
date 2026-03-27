@@ -12,38 +12,60 @@
     "main": {
       "type": "invicta-category-grid",
       "blocks": {
-        "category_CMty6G": {
+        "category_itAc6j": {
           "type": "category",
           "settings": {
-            "collection": "jackets-coats",
+            "collection": "makita",
             "title": "",
+            "link": "",
+            "image": "shopify://shop_images/makita_5c6ce50a-8652-4bfb-b5e5-71f846878208.png"
+          }
+        },
+        "category_f7yHUq": {
+          "type": "category",
+          "settings": {
+            "collection": "dewalt",
+            "title": "",
+            "link": "",
+            "image": "shopify://shop_images/images_1.png"
+          }
+        },
+        "category_Ex8hfj": {
+          "type": "category",
+          "settings": {
+            "collection": "premier-diamond-products",
+            "title": "Premier Diamond",
             "link": ""
           }
         },
-        "category_9Cjbyi": {
+        "category_Nf74fy": {
           "type": "category",
           "settings": {
-            "collection": "clothing-1",
+            "collection": "viper",
             "title": "",
-            "link": ""
+            "link": "",
+            "image": "shopify://shop_images/viper.png"
           }
         },
-        "category_CwtpaA": {
+        "category_q63pPA": {
           "type": "category",
           "settings": {
-            "collection": "hi-visibility",
+            "collection": "lamello",
             "title": "",
-            "link": ""
+            "link": "",
+            "image": "shopify://shop_images/lamello-sq.png"
           }
         }
       },
       "block_order": [
-        "category_CMty6G",
-        "category_9Cjbyi",
-        "category_CwtpaA"
+        "category_itAc6j",
+        "category_f7yHUq",
+        "category_Ex8hfj",
+        "category_Nf74fy",
+        "category_q63pPA"
       ],
       "settings": {
-        "heading": "Workwear, PPE and Clothing",
+        "heading": "SHOP BY BRAND",
         "description": "Shop from trusted brands across our site.",
         "header_align": "center",
         "columns_desktop": 5,
