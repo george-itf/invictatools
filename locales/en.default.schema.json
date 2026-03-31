@@ -610,6 +610,21 @@
         "name": "Apps"
       }
     },
+    "brand-new-products": {
+      "name": "Brand New Products"
+    },
+    "brand-video": {
+      "name": "Brand Video"
+    },
+    "brand-why-choose": {
+      "name": "Brand Why Choose"
+    },
+    "breadcrumb-simple": {
+      "name": "Breadcrumb"
+    },
+    "cta-bar": {
+      "name": "CTA Bar"
+    },
     "collage": {
       "name": "Collage",
       "settings": {
@@ -3498,6 +3513,21 @@
       "presets": {
         "name": "Collapsible content"
       }
+    },
+    "brand-about": {
+      "name": "Brand About"
+    },
+    "brand-applications": {
+      "name": "Brand Applications"
+    },
+    "brand-categories": {
+      "name": "Brand Categories"
+    },
+    "brand-faq": {
+      "name": "Brand FAQ"
+    },
+    "brand-hero": {
+      "name": "Brand Hero"
     }
   }
 }
