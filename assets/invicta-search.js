@@ -331,38 +331,15 @@
      * Loading state — skeleton placeholders
      * ---------------------------------------------------------------- */
     _showLoading() {
-      this._clearElement(this.resultsContainer);
-
-      for (let i = 0; i < 3; i++) {
-        const skeleton = document.createElement('div');
-        skeleton.className = 'inv-search-skeleton';
-
-        const imgPlaceholder = document.createElement('div');
-        imgPlaceholder.className = 'inv-search-skeleton__image inv-search-skeleton__pulse';
-        skeleton.appendChild(imgPlaceholder);
-
-        const textWrap = document.createElement('div');
-        textWrap.className = 'inv-search-skeleton__text';
-
-        const bar1 = document.createElement('div');
-        bar1.className = 'inv-search-skeleton__bar inv-search-skeleton__pulse';
-        bar1.style.width = '35%';
-        textWrap.appendChild(bar1);
-
-        const bar2 = document.createElement('div');
-        bar2.className = 'inv-search-skeleton__bar inv-search-skeleton__bar--wide inv-search-skeleton__pulse';
-        bar2.style.width = '80%';
-        textWrap.appendChild(bar2);
-
-        const bar3 = document.createElement('div');
-        bar3.className = 'inv-search-skeleton__bar inv-search-skeleton__pulse';
-        bar3.style.width = '50%';
-        textWrap.appendChild(bar3);
-
-        skeleton.appendChild(textWrap);
-        this.resultsContainer.appendChild(skeleton);
-      }
-
+      const item = `<div class="inv-search-skeleton">
+        <div class="inv-search-skeleton__image inv-search-skeleton__pulse"></div>
+        <div class="inv-search-skeleton__text">
+          <div class="inv-search-skeleton__bar inv-search-skeleton__pulse" style="width:35%"></div>
+          <div class="inv-search-skeleton__bar inv-search-skeleton__bar--wide inv-search-skeleton__pulse" style="width:80%"></div>
+          <div class="inv-search-skeleton__bar inv-search-skeleton__pulse" style="width:50%"></div>
+        </div>
+      </div>`;
+      this.resultsContainer.innerHTML = item.repeat(3);
       this._open();
     }
 
