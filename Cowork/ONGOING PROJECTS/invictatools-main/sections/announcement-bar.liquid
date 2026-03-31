@@ -34,6 +34,82 @@
   font-size: 1.1rem;
   letter-spacing: 0.03em;
 }
+
+/* ===================================================================
+   CRITICAL: Prevent FOUC on slider before external CSS/JS loads.
+   Without this, all 3 slides + huge SVG icons flash on first paint.
+   These rules are intentionally duplicated from component-slider.css
+   so they apply instantly (inline) before the external sheet loads.
+   Once component-slider.css loads, its rules merge harmlessly.
+   =================================================================== */
+
+/* slideshow-component is an unknown element until JS registers it —
+   give it block/flex layout immediately so children size correctly */
+slideshow-component {
+  display: flex;
+  flex-direction: column;
+}
+
+/* The slider wrapper: flex row, hide overflow so only 1 slide visible */
+.announcement-bar-slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.announcement-bar-slider .slider {
+  overflow: hidden;
+  flex-wrap: nowrap;
+  scroll-snap-type: x mandatory;
+  margin-bottom: 0;
+}
+
+/* Each slide must not shrink/wrap — full width, side by side */
+.announcement-bar-slider .slider__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 100%;
+  scroll-snap-align: center;
+}
+
+/* Constrain slider nav buttons to a sensible size */
+.announcement-bar-slider .slider-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Lock SVG wrapper + icon sizes so they can never blow out */
+.announcement-bar-slider .slider-button .svg-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+}
+
+.announcement-bar-slider .slider-button .svg-wrapper svg,
+.announcement-bar-slider .slider-button .icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* Arrow icon inside each announcement link — keep it small */
+.announcement-bar__message .icon,
+.announcement-bar__message .icon-arrow {
+  width: 1rem;
+  height: 1rem;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
 </style>
 
 {%- liquid
