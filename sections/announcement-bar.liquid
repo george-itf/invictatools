@@ -1,5 +1,11 @@
-{{ 'component-slideshow.css' | asset_url | stylesheet_tag }}
-{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+<link rel="preload" href="{{ 'component-slideshow.css' | asset_url }}" as="style">
+<link rel="preload" href="{{ 'component-slider.css' | asset_url }}" as="style">
+<link rel="stylesheet" href="{{ 'component-slideshow.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>
+  <link rel="stylesheet" href="{{ 'component-slideshow.css' | asset_url }}">
+  <link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}">
+</noscript>
 
 <style>
 /* Dark Grey Hybrid — announcement bar matches header #1a1a1a
@@ -7,20 +13,20 @@
    This survives customizer saves since we don't touch header-group.json. */
 .utility-bar.color-{{ section.settings.color_scheme }},
 .utility-bar.color-{{ section.settings.color_scheme }}.gradient {
-  background: #1a1a1a !important;
+  background: var(--inv-dark-deep) !important;
   background-image: none !important;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.6); /* TODO: token — no overlay alpha token exists */
   --color-foreground: 255, 255, 255;
   --color-background: 26, 26, 26;
 }
 
 .utility-bar.color-{{ section.settings.color_scheme }} strong,
 .utility-bar.color-{{ section.settings.color_scheme }} a {
-  color: #ffffff;
+  color: var(--inv-bg-elevated);
 }
 
 .utility-bar.color-{{ section.settings.color_scheme }} a:hover {
-  color: #ffffff;
+  color: var(--inv-bg-elevated);
   opacity: 1;
 }
 
@@ -33,6 +39,80 @@
 .announcement-bar__message {
   font-size: 1.1rem;
   letter-spacing: 0.03em;
+}
+
+/* ===================================================================
+   CRITICAL: Prevent FOUC on slider before external CSS/JS loads.
+   Without this, all 3 slides + huge SVG icons flash on first paint.
+   These rules are intentionally duplicated from component-slider.css
+   so they apply instantly (inline) before the external sheet loads.
+   =================================================================== */
+
+/* slideshow-component is an unknown element until JS registers it */
+slideshow-component {
+  display: flex;
+  flex-direction: column;
+}
+
+/* The slider wrapper: flex row, hide overflow so only 1 slide visible */
+.announcement-bar-slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.announcement-bar-slider .slider {
+  overflow: hidden;
+  flex-wrap: nowrap;
+  scroll-snap-type: x mandatory;
+  margin-bottom: 0;
+}
+
+/* Each slide: full width, side by side, clipped by overflow */
+.announcement-bar-slider .slider__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 100%;
+  scroll-snap-align: center;
+}
+
+/* Constrain slider nav buttons */
+.announcement-bar-slider .slider-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Lock SVG icon sizes so they can never blow out */
+.announcement-bar-slider .slider-button .svg-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+}
+
+.announcement-bar-slider .slider-button .svg-wrapper svg,
+.announcement-bar-slider .slider-button .icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* Arrow icon inside each announcement link */
+.announcement-bar__message .icon,
+.announcement-bar__message .icon-arrow {
+  width: 1rem;
+  height: 1rem;
+  vertical-align: middle;
+  flex-shrink: 0;
 }
 </style>
 

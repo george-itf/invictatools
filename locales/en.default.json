@@ -617,24 +617,6 @@
       "trust_warranty": "Full Warranty",
       "trust_returns": "30-Day Returns"
     },
-    "compare": {
-      "max_message": "Remove a product to add another",
-      "badge_label": "Open product comparison",
-      "add": "Add to comparison",
-      "remove": "Remove from comparison",
-      "loading": "Loading comparison\u2026",
-      "error": "Failed to load products. Please try again.",
-      "timeout_error": "Products took too long to load. Please try again.",
-      "title": "Compare Products",
-      "clear_all": "Clear All",
-      "close": "Close comparison",
-      "in_stock": "In Stock",
-      "out_of_stock": "Out of Stock",
-      "supplier_stock": "Available from Supplier",
-      "inc_vat": "inc VAT",
-      "ex_vat": "ex VAT",
-      "add_to_cart": "Add to Cart"
-    },
     "header": {
       "vat_ex": "Ex VAT",
       "vat_inc": "Inc VAT",
@@ -804,6 +786,35 @@
       "additional_details": "Additional Details",
       "cancel": "Cancel",
       "submit": "Submit Quote Request"
+    },
+    "account": {
+      "member_since": "Member since",
+      "log_out": "Log out",
+      "order_history": "Order History",
+      "account_details": "Account Details",
+      "no_orders": "No orders yet",
+      "no_orders_desc": "When you place your first order, it will appear here.",
+      "start_shopping": "Start Shopping",
+      "manage_addresses": "Manage Addresses",
+      "company_invoice": "Company & Invoice",
+      "vat_invoices": "VAT Invoices",
+      "save_settings": "Save Settings"
+    },
+    "cart_footer": {
+      "secure_checkout": "Secure checkout",
+      "free_delivery_over": "Free delivery over {{ amount }}",
+      "kent_support": "Kent-based support"
+    },
+    "general": {
+      "view_all": "View All",
+      "learn_more": "Learn More",
+      "apply_filters": "Apply Filters",
+      "next": "Next",
+      "previous": "Previous",
+      "no_products_found": "No products found.",
+      "no_products_adjust": "Try adjusting your filters.",
+      "free_delivery": "Free Delivery",
+      "next_day_delivery": "Next-Day Delivery"
     }
   }
 }
