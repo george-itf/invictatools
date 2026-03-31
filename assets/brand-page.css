@@ -11,15 +11,15 @@
    Extends existing theme variables
    ============================================ */
 :root {
-  --brand-red: var(--inv-primary, #e11d26);
-  --brand-red-dark: var(--inv-primary-hover, #b91c1c);
-  --brand-red-light: #ef5350;
+  --brand-red: var(--inv-accent);
+  --brand-red-dark: var(--inv-accent-hover);
+  --brand-red-light: var(--inv-accent-light);
   --brand-dark: var(--inv-dark, #2d2d2d);
-  --brand-dark-mid: #404040;
+  --brand-dark-mid: var(--inv-dark-hover);
   --brand-grey: var(--inv-fg-muted);
-  --brand-grey-light: #9ca3af;
+  --brand-grey-light: var(--inv-fg-subtle);
   --brand-border: var(--inv-border, #e5e7eb);
-  --brand-bg: #f9fafb;
+  --brand-bg: var(--inv-bg-soft);
   --brand-white: var(--inv-bg-elevated);
   --brand-text: var(--inv-fg);
 }
@@ -75,7 +75,7 @@
    BRAND HERO
    ============================================ */
 .brand-hero {
-  background: linear-gradient(135deg, #1a1a1a 0%, var(--brand-dark) 100%);
+  background: linear-gradient(135deg, var(--inv-dark-deep) 0%, var(--brand-dark) 100%);
   min-height: 460px;
   padding: 56px 0;
   position: relative;
@@ -408,7 +408,7 @@
 }
 
 .brand-about__btn:hover {
-  background: #1a1a1a;
+  background: var(--inv-dark-deep);
   transform: translateY(-1px);
 }
 
@@ -486,7 +486,7 @@
 .brand-categories__card-image {
   aspect-ratio: 16/10;
   overflow: hidden;
-  background: #fafafa;
+  background: var(--inv-grey-50);
 }
 
 .brand-categories__img {
@@ -614,7 +614,7 @@
 }
 
 .brand-connectors__card:hover {
-  background: #4a4a4a;
+  background: #4a4a4a; /* no --inv-* token for this value */
   border-color: var(--brand-red);
 }
 
@@ -714,7 +714,7 @@
 }
 
 .brand-products__view-all:hover {
-  background: #1a1a1a;
+  background: var(--inv-dark-deep);
   transform: translateY(-1px);
 }
 
@@ -745,11 +745,11 @@
 
 .brand-products__placeholder-img {
   aspect-ratio: 4/3;
-  background: #fafafa;
+  background: var(--inv-grey-50);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ddd;
+  color: var(--inv-border-skeleton-dark);
 }
 
 .brand-products__placeholder-body {
@@ -759,14 +759,14 @@
 .brand-products__placeholder-brand {
   height: 10px;
   width: 40%;
-  background: #eee;
+  background: var(--inv-border-subtle);
   border-radius: 4px;
   margin-bottom: 8px;
 }
 
 .brand-products__placeholder-title {
   height: 14px;
-  background: #eee;
+  background: var(--inv-border-subtle);
   border-radius: 4px;
   margin-bottom: 8px;
 }
@@ -774,7 +774,7 @@
 .brand-products__placeholder-price {
   height: 20px;
   width: 60%;
-  background: #eee;
+  background: var(--inv-border-subtle);
   border-radius: 4px;
 }
 
@@ -810,7 +810,7 @@
 }
 
 .brand-products__mobile-btn:hover {
-  background: #1a1a1a;
+  background: var(--inv-dark-deep);
 }
 
 /* ============================================
@@ -1021,7 +1021,7 @@
 }
 
 .brand-cta__btn--primary:hover {
-  background: #f5f5f5;
+  background: var(--inv-grey-100);
   transform: translateY(-1px);
 }
 
@@ -1044,7 +1044,7 @@
 
 .brand-why {
   padding: 64px 0;
-  background: linear-gradient(135deg, #1a1a1a 0%, var(--brand-dark) 100%);
+  background: linear-gradient(135deg, var(--inv-dark-deep) 0%, var(--brand-dark) 100%);
 }
 
 .brand-why__header {
@@ -1104,7 +1104,7 @@
 }
 
 .brand-why__card:hover {
-  background: #4a4a4a;
+  background: #4a4a4a; /* no --inv-* token for this value */
   transform: translateY(-2px);
 }
 
@@ -1411,7 +1411,7 @@
 }
 
 .brand-new-products__btn:hover {
-  background: #1a1a1a;
+  background: var(--inv-dark-deep);
   transform: translateY(-1px);
 }
 
@@ -1424,7 +1424,7 @@
 
 .brand-applications {
   padding: 64px 0;
-  background: linear-gradient(135deg, #1a1a1a 0%, var(--brand-dark) 100%);
+  background: linear-gradient(135deg, var(--inv-dark-deep) 0%, var(--brand-dark) 100%);
 }
 
 .brand-applications__header {
@@ -1951,7 +1951,7 @@
 
 .brand-faq {
   padding: 4rem 0;
-  background: #fafafa;
+  background: var(--inv-grey-50);
 }
 
 .brand-faq__header {
@@ -1985,11 +1985,11 @@
 }
 
 .brand-faq__item {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid var(--inv-grey-200);
 }
 
 .brand-faq__item:first-child {
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid var(--inv-grey-200);
 }
 
 .brand-faq__question {
@@ -2031,7 +2031,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #f0f0f0;
+  background: var(--inv-bg-skeleton);
   color: var(--inv-grey-vat);
   transition: transform 0.25s ease, background 0.25s ease;
 }
@@ -2039,7 +2039,7 @@
 .brand-faq__item[open] .brand-faq__chevron {
   transform: rotate(180deg);
   background: var(--brand-red, #e11d26);
-  color: #fff;
+  color: var(--brand-white);
 }
 
 .brand-faq__answer {
@@ -2049,7 +2049,7 @@
 .brand-faq__answer-inner {
   font-size: 0.9375rem;
   line-height: 1.7;
-  color: #555;
+  color: #555; /* no --inv-* token for this value */
   max-width: 720px;
 }
 
