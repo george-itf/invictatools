@@ -63,11 +63,6 @@
   .skip-to-content-link,
   .shopify-section--announcement-bar,
   .inv-pdp__sticky-atc,
-  [data-compare-toggle],
-  .inv-compare__badge,
-  .inv-compare__drawer,
-  .inv-compare__overlay,
-  .inv-compare__max-msg,
   .no-print {
     display: none !important;
   }
@@ -457,7 +452,6 @@
   .inv-empty__clear-all,
   .inv-card__action,
   .inv-card__btn,
-  .inv-card__compare,
   .inv-card__stock-bar {
     display: none !important;
   }
