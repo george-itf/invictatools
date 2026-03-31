@@ -49,8 +49,12 @@ if (!customElements.get('quick-order-list')) {
       }
 
       handleResize() {
-        if (this.totalBar) this.totalBarPosition = window.innerHeight - this.totalBar.offsetHeight;
-        if (this.stickyHeader) this.stickyHeader.height = this.stickyHeaderElement ? this.stickyHeaderElement.offsetHeight : 0;
+        if (this._resizeRaf) return;
+        this._resizeRaf = requestAnimationFrame(() => {
+          if (this.totalBar) this.totalBarPosition = window.innerHeight - this.totalBar.offsetHeight;
+          if (this.stickyHeader) this.stickyHeader.height = this.stickyHeaderElement ? this.stickyHeaderElement.offsetHeight : 0;
+          this._resizeRaf = null;
+        });
       }
 
       initEventListeners() {
