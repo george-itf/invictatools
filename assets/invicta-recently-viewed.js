@@ -7,8 +7,8 @@ const DEBUG = false;
   'use strict';
 
   function fetchWithTimeout(url, timeoutMs) {
-    var controller = new AbortController();
-    var id = setTimeout(function() { controller.abort(); }, timeoutMs || 8000);
+    const controller = new AbortController();
+    const id = setTimeout(function() { controller.abort(); }, timeoutMs || 8000);
     return fetch(url, { signal: controller.signal }).finally(function() { clearTimeout(id); });
   }
 
@@ -138,7 +138,7 @@ const DEBUG = false;
       });
 
       // Reveal the section now that content is ready (prevents CLS)
-      var section = document.querySelector('.inv-recent[data-section-id]');
+      const section = document.querySelector('.inv-recent[data-section-id]');
       if (section) {
         section.classList.remove('inv-recent--loading');
       }
@@ -149,7 +149,7 @@ const DEBUG = false;
         this.loadingEl.classList.add('hidden');
       }
       // Hide the entire section when empty to avoid wasting vertical space
-      var section = document.querySelector('.inv-recent[data-section-id]');
+      const section = document.querySelector('.inv-recent[data-section-id]');
       if (section) {
         section.style.display = 'none';
       }
@@ -162,23 +162,23 @@ const DEBUG = false;
       const priceFormatted = this.formatMoney(price * 100);
       const svgNS = 'http://www.w3.org/2000/svg';
 
-      var anchor = document.createElement('a');
+      const anchor = document.createElement('a');
       anchor.href = product.url || '';
       anchor.className = 'inv-recent__card';
       anchor.setAttribute('aria-label', product.title || '');
 
-      var imageDiv = document.createElement('div');
+      const imageDiv = document.createElement('div');
       imageDiv.className = 'inv-recent__card-image';
 
       if (onSale) {
-        var badge = document.createElement('span');
+        const badge = document.createElement('span');
         badge.className = 'inv-recent__card-badge';
         badge.textContent = 'Sale';
         imageDiv.appendChild(badge);
       }
 
       if (product.image) {
-        var img = document.createElement('img');
+        const img = document.createElement('img');
         img.src = this.getOptimizedImageUrl(product.image, 400);
         img.alt = product.title || '';
         img.loading = 'lazy';
@@ -186,24 +186,24 @@ const DEBUG = false;
         img.height = 400;
         imageDiv.appendChild(img);
       } else {
-        var placeholder = document.createElement('div');
+        const placeholder = document.createElement('div');
         placeholder.className = 'inv-recent__card-placeholder';
-        var svg = document.createElementNS(svgNS, 'svg');
+        const svg = document.createElementNS(svgNS, 'svg');
         svg.setAttribute('width', '48');
         svg.setAttribute('height', '48');
         svg.setAttribute('viewBox', '0 0 24 24');
         svg.setAttribute('fill', 'none');
         svg.setAttribute('stroke', 'currentColor');
         svg.setAttribute('stroke-width', '1');
-        var rect = document.createElementNS(svgNS, 'rect');
+        const rect = document.createElementNS(svgNS, 'rect');
         rect.setAttribute('x', '3'); rect.setAttribute('y', '3');
         rect.setAttribute('width', '18'); rect.setAttribute('height', '18');
         rect.setAttribute('rx', '2'); rect.setAttribute('ry', '2');
         svg.appendChild(rect);
-        var circle = document.createElementNS(svgNS, 'circle');
+        const circle = document.createElementNS(svgNS, 'circle');
         circle.setAttribute('cx', '8.5'); circle.setAttribute('cy', '8.5'); circle.setAttribute('r', '1.5');
         svg.appendChild(circle);
-        var polyline = document.createElementNS(svgNS, 'polyline');
+        const polyline = document.createElementNS(svgNS, 'polyline');
         polyline.setAttribute('points', '21 15 16 10 5 21');
         svg.appendChild(polyline);
         placeholder.appendChild(svg);
@@ -212,24 +212,24 @@ const DEBUG = false;
 
       anchor.appendChild(imageDiv);
 
-      var bodyDiv = document.createElement('div');
+      const bodyDiv = document.createElement('div');
       bodyDiv.className = 'inv-recent__card-body';
 
       if (product.vendor) {
-        var vendorSpan = document.createElement('span');
+        const vendorSpan = document.createElement('span');
         vendorSpan.className = 'inv-recent__card-vendor';
         vendorSpan.textContent = product.vendor;
         bodyDiv.appendChild(vendorSpan);
       }
 
-      var titleH3 = document.createElement('h3');
+      const titleH3 = document.createElement('h3');
       titleH3.className = 'inv-recent__card-title';
       titleH3.textContent = product.title || '';
       bodyDiv.appendChild(titleH3);
 
-      var priceDiv = document.createElement('div');
+      const priceDiv = document.createElement('div');
       priceDiv.className = 'inv-recent__card-price';
-      var priceSpan = document.createElement('span');
+      const priceSpan = document.createElement('span');
       priceSpan.className = onSale
         ? 'inv-recent__card-price-current inv-recent__card-price-current--sale'
         : 'inv-recent__card-price-current';
@@ -237,7 +237,7 @@ const DEBUG = false;
       priceDiv.appendChild(priceSpan);
 
       if (onSale) {
-        var compareSpan = document.createElement('span');
+        const compareSpan = document.createElement('span');
         compareSpan.className = 'inv-recent__card-price-compare';
         compareSpan.textContent = this.formatMoney(comparePrice * 100);
         priceDiv.appendChild(compareSpan);

@@ -19,17 +19,17 @@
   'use strict';
 
   function fetchWithTimeout(url, options, timeoutMs) {
-    var controller = new AbortController();
-    var id = setTimeout(function() { controller.abort(); }, timeoutMs || 10000);
-    var opts = Object.assign({}, options, { signal: controller.signal });
+    const controller = new AbortController();
+    const id = setTimeout(function() { controller.abort(); }, timeoutMs || 10000);
+    const opts = Object.assign({}, options, { signal: controller.signal });
     return fetch(url, opts).finally(function() { clearTimeout(id); });
   }
 
   /** @type {Set<string>} Variant IDs currently in-flight */
-  var _inFlight = new Set();
+  const _inFlight = new Set();
 
   /** @type {string[]} Canonical cart count selectors */
-  var CART_COUNT_SELECTORS = [
+  const CART_COUNT_SELECTORS = [
     '.cart-count-bubble span[aria-hidden="true"]',
     '.header__cart-count',
     '[data-cart-count]',
@@ -44,19 +44,19 @@
    */
   function add(item, options) {
     options = options || {};
-    var dedupKey = String(item.id);
+    const dedupKey = String(item.id);
 
     if (_inFlight.has(dedupKey)) {
       return Promise.reject(new Error('Request already in flight for variant ' + dedupKey));
     }
     _inFlight.add(dedupKey);
 
-    var cartAddUrl = ((window.routes && window.routes.cart_add_url) || '/cart/add') + '.js';
-    var fetchOptions;
+    const cartAddUrl = ((window.routes && window.routes.cart_add_url) || '/cart/add') + '.js';
+    let fetchOptions;
 
     if (options.formData) {
       // FormData mode (used by PDP form with sections)
-      var fd = options.formData;
+      const fd = options.formData;
       if (options.sections) {
         fd.append('sections', options.sections);
       }
@@ -69,7 +69,7 @@
       };
     } else {
       // JSON mode (used by product cards, quick-add)
-      var body = {
+      const body = {
         id: parseInt(String(item.id), 10),
         quantity: item.quantity || 1
       };
@@ -127,7 +127,7 @@
    * @returns {Promise<void>}
    */
   function updateCartCount() {
-    var cartUrl = ((window.routes && window.routes.cart_url) || '/cart') + '.js';
+    const cartUrl = ((window.routes && window.routes.cart_url) || '/cart') + '.js';
 
     return fetchWithTimeout(cartUrl, {
       headers: { 'Accept': 'application/json' }
@@ -138,13 +138,13 @@
     })
     .then(function(cart) {
       if (!cart) return;
-      var count = cart.item_count;
+      const count = cart.item_count;
 
       CART_COUNT_SELECTORS.forEach(function(selector) {
-        var elements = document.querySelectorAll(selector);
+        const elements = document.querySelectorAll(selector);
         elements.forEach(function(el) {
           el.textContent = count;
-          var bubble = el.closest('.cart-count-bubble, [data-cart-bubble]');
+          const bubble = el.closest('.cart-count-bubble, [data-cart-bubble]');
           if (bubble) {
             bubble.style.display = count > 0 ? '' : 'none';
           }

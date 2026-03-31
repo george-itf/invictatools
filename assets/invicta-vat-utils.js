@@ -1,8 +1,8 @@
 (function() {
   'use strict';
-  var config = window.invictaConfig || {};
-  var rate = config.vatRate || (config.vatDivisor ? (config.vatDivisor - 100) : 20);
-  var divisor = 100 + rate;
+  const config = window.invictaConfig || {};
+  const rate = config.vatRate || (config.vatDivisor ? (config.vatDivisor - 100) : 20);
+  const divisor = 100 + rate;
 
   window.invictaVat = {
     rate: rate,

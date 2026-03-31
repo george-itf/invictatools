@@ -2,26 +2,26 @@
   'use strict';
 
   document.querySelectorAll('[data-inv-delivery-estimate]').forEach(function(el) {
-    var stockSource = el.dataset.stockSource || 'invicta';
+    const stockSource = el.dataset.stockSource || 'invicta';
 
     // Supplier-sourced items show a static estimate — no countdown needed
     if (stockSource === 'supplier') return;
 
-    var dayEl = el.querySelector('[data-inv-del-day]');
-    var countdownEl = el.querySelector('[data-inv-del-countdown]');
-    var orderTextEl = el.querySelector('[data-inv-del-order-text]');
-    var forTextEl = el.querySelector('[data-inv-del-for-text]');
+    const dayEl = el.querySelector('[data-inv-del-day]');
+    const countdownEl = el.querySelector('[data-inv-del-countdown]');
+    const orderTextEl = el.querySelector('[data-inv-del-order-text]');
+    const forTextEl = el.querySelector('[data-inv-del-for-text]');
     if (!dayEl) return;
 
-    var cutoffHour = window.invictaConfig ? window.invictaConfig.deliveryCutoffHour : 14;
-    var timerId = null;
+    const cutoffHour = window.invictaConfig ? window.invictaConfig.deliveryCutoffHour : 14;
+    let timerId = null;
 
     function getDeliveryDay() {
-      var now = new Date();
-      var day = now.getDay();
-      var hour = now.getHours();
-      var pastCutoff = hour >= cutoffHour;
-      var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const now = new Date();
+      const day = now.getDay();
+      const hour = now.getHours();
+      const pastCutoff = hour >= cutoffHour;
+      const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
       if (day >= 1 && day <= 4 && !pastCutoff) {
         return days[day + 1];
@@ -39,21 +39,21 @@
     }
 
     function update() {
-      var now = new Date();
-      var hour = now.getHours();
-      var day = now.getDay();
-      var isWeekday = day >= 1 && day <= 5;
-      var beforeCutoff = hour < cutoffHour;
+      const now = new Date();
+      const hour = now.getHours();
+      const day = now.getDay();
+      const isWeekday = day >= 1 && day <= 5;
+      const beforeCutoff = hour < cutoffHour;
 
       dayEl.textContent = getDeliveryDay();
 
       if (isWeekday && beforeCutoff && countdownEl) {
-        var cutoff = new Date();
+        const cutoff = new Date();
         cutoff.setHours(cutoffHour, 0, 0, 0);
-        var diff = cutoff - now;
-        var h = Math.floor(diff / 3600000);
-        var m = Math.floor((diff % 3600000) / 60000);
-        var s = Math.floor((diff % 60000) / 1000);
+        const diff = cutoff - now;
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
         countdownEl.textContent = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
         countdownEl.style.display = 'inline';
         if (orderTextEl) orderTextEl.textContent = 'Order within ';
@@ -84,8 +84,8 @@
 
     update();
     // Only run the timer during business hours when countdown is visible
-    var now = new Date();
-    var isWeekday = now.getDay() >= 1 && now.getDay() <= 5;
+    const now = new Date();
+    const isWeekday = now.getDay() >= 1 && now.getDay() <= 5;
     if (isWeekday && now.getHours() < cutoffHour) {
       timerId = setInterval(update, 1000);
     }
