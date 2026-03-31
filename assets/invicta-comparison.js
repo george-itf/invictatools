@@ -17,27 +17,27 @@
    * Fetch with timeout helper
    * ================================================================ */
   function fetchWithTimeout(url, timeoutMs) {
-    var controller = new AbortController();
-    var id = setTimeout(function() { controller.abort(); }, timeoutMs || 8000);
+    const controller = new AbortController();
+    const id = setTimeout(function() { controller.abort(); }, timeoutMs || 8000);
     return fetch(url, { signal: controller.signal }).finally(function() { clearTimeout(id); });
   }
 
   /* ================================================================
    * Configuration
    * ================================================================ */
-  var strings = window.invictaCompareStrings || {};
+  const strings = window.invictaCompareStrings || {};
 
-  var STORAGE_KEY = 'invicta-compare';
-  var CACHE_PREFIX = 'invicta-compare-cache:';
-  var MAX_PRODUCTS = 4;
-  var EVENT_NAME = 'invicta:compare:updated';
+  const STORAGE_KEY = 'invicta-compare';
+  const CACHE_PREFIX = 'invicta-compare-cache:';
+  const MAX_PRODUCTS = 4;
+  const EVENT_NAME = 'invicta:compare:updated';
 
   /* ================================================================
    * State helpers
    * ================================================================ */
   function getCompareList() {
     try {
-      var raw = localStorage.getItem(STORAGE_KEY);
+      const raw = localStorage.getItem(STORAGE_KEY);
       return raw ? JSON.parse(raw) : [];
     } catch (_) {
       return [];
@@ -52,7 +52,7 @@
   }
 
   function addToCompare(handle) {
-    var list = getCompareList();
+    const list = getCompareList();
     if (list.indexOf(handle) !== -1) return true;
     if (list.length >= MAX_PRODUCTS) return false;
     list.push(handle);
@@ -61,8 +61,8 @@
   }
 
   function removeFromCompare(handle) {
-    var list = getCompareList();
-    var idx = list.indexOf(handle);
+    const list = getCompareList();
+    const idx = list.indexOf(handle);
     if (idx === -1) return;
     list.splice(idx, 1);
     saveCompareList(list);
@@ -79,8 +79,8 @@
   /* ================================================================
    * Floating badge
    * ================================================================ */
-  var badge = null;
-  var maxMessage = null;
+  let badge = null;
+  let maxMessage = null;
 
   function createBadge() {
     badge = document.createElement('button');
@@ -102,7 +102,7 @@
 
   function updateBadge() {
     if (!badge) return;
-    var count = getCompareList().length;
+    const count = getCompareList().length;
     if (count === 0) {
       badge.style.display = 'none';
     } else {
@@ -124,10 +124,10 @@
    * Toggle buttons on product cards
    * ================================================================ */
   function syncAllToggles() {
-    var toggles = document.querySelectorAll('[data-compare-toggle]');
-    for (var i = 0; i < toggles.length; i++) {
-      var handle = toggles[i].getAttribute('data-product-handle');
-      var pressed = isInCompare(handle);
+    const toggles = document.querySelectorAll('[data-compare-toggle]');
+    for (let i = 0; i < toggles.length; i++) {
+      const handle = toggles[i].getAttribute('data-product-handle');
+      const pressed = isInCompare(handle);
       toggles[i].setAttribute('aria-pressed', String(pressed));
       toggles[i].setAttribute('aria-label',
         pressed
@@ -138,14 +138,14 @@
   }
 
   function onToggleClick(e) {
-    var btn = e.currentTarget;
-    var handle = btn.getAttribute('data-product-handle');
+    const btn = e.currentTarget;
+    const handle = btn.getAttribute('data-product-handle');
     if (!handle) return;
 
     if (isInCompare(handle)) {
       removeFromCompare(handle);
     } else {
-      var added = addToCompare(handle);
+      const added = addToCompare(handle);
       if (!added) {
         showMaxMessage();
         return;
@@ -157,7 +157,7 @@
 
   function bindToggles() {
     document.addEventListener('click', function (e) {
-      var btn = e.target.closest('[data-compare-toggle]');
+      const btn = e.target.closest('[data-compare-toggle]');
       if (!btn) return;
       e.preventDefault();
       e.stopPropagation();
@@ -169,16 +169,16 @@
    * Data fetching (with sessionStorage cache)
    * ================================================================ */
   function fetchProduct(handle) {
-    var cacheKey = CACHE_PREFIX + handle;
+    const cacheKey = CACHE_PREFIX + handle;
     try {
-      var cached = sessionStorage.getItem(cacheKey);
+      const cached = sessionStorage.getItem(cacheKey);
       if (cached) return Promise.resolve(JSON.parse(cached));
     } catch (_) {}
 
     return fetchWithTimeout('/products/' + handle + '.json', 8000)
       .then(function (res) { return res.json(); })
       .then(function (data) {
-        var product = data.product;
+        const product = data.product;
         try {
           sessionStorage.setItem(cacheKey, JSON.stringify(product));
         } catch (_) {}
@@ -193,9 +193,9 @@
   /* ================================================================
    * Drawer / Modal
    * ================================================================ */
-  var overlay = null;
-  var drawer = null;
-  var previousFocus = null;
+  let overlay = null;
+  let drawer = null;
+  let previousFocus = null;
 
   function createDrawer() {
     overlay = document.createElement('div');
@@ -211,10 +211,10 @@
     /* Focus trap: keep Tab cycling within drawer */
     drawer.addEventListener('keydown', function (e) {
       if (e.key !== 'Tab') return;
-      var focusable = drawer.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      const focusable = drawer.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
       if (focusable.length === 0) return;
-      var first = focusable[0];
-      var last = focusable[focusable.length - 1];
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
       if (e.shiftKey && document.activeElement === first) {
         e.preventDefault();
         last.focus();
@@ -229,7 +229,7 @@
   }
 
   function openDrawer() {
-    var handles = getCompareList();
+    const handles = getCompareList();
     if (handles.length === 0) return;
 
     previousFocus = document.activeElement;
@@ -245,10 +245,10 @@
     fetchAllProducts(handles).then(function (products) {
       renderDrawerContent(products);
       /* Focus first focusable element in drawer */
-      var firstFocusable = drawer.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      const firstFocusable = drawer.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
       if (firstFocusable) firstFocusable.focus();
     }).catch(function (err) {
-      var msg = (err && err.name === 'AbortError')
+      const msg = (err && err.name === 'AbortError')
         ? (strings.timeoutError || 'Products took too long to load. Please try again.')
         : (strings.error || 'Failed to load products. Please try again.');
       drawer.innerHTML = '<div class="inv-compare__loading">' + msg + '</div>';
@@ -270,9 +270,9 @@
    * Render comparison content
    * ================================================================ */
   function renderDrawerContent(products) {
-    var vat = window.invictaVat || { exFromInc: function(p) { return Math.round(p * 100 / 120); }, formatPounds: function(p) { return (p / 100).toFixed(2); } };
+    const vat = window.invictaVat || { exFromInc: function(p) { return Math.round(p * 100 / 120); }, formatPounds: function(p) { return (p / 100).toFixed(2); } };
 
-    var html = '';
+    let html = '';
 
     /* Header */
     html += '<div class="inv-compare__header">';
@@ -288,28 +288,28 @@
     /* Grid */
     html += '<div class="inv-compare__grid inv-compare__grid--cols-' + products.length + '">';
 
-    for (var i = 0; i < products.length; i++) {
-      var p = products[i];
-      var variant = p.variants && p.variants[0] ? p.variants[0] : {};
-      var priceInc = variant.price ? parseFloat(variant.price).toFixed(2) : '0.00';
-      var priceInPence = Math.round(parseFloat(variant.price || 0) * 100);
-      var priceExPence = vat.exFromInc(priceInPence);
-      var priceEx = vat.formatPounds(priceExPence);
-      var available = variant.available !== false;
-      var imgSrc = p.image ? p.image.src : '';
+    for (let i = 0; i < products.length; i++) {
+      const p = products[i];
+      const variant = p.variants && p.variants[0] ? p.variants[0] : {};
+      const priceInc = variant.price ? parseFloat(variant.price).toFixed(2) : '0.00';
+      const priceInPence = Math.round(parseFloat(variant.price || 0) * 100);
+      const priceExPence = vat.exFromInc(priceInPence);
+      const priceEx = vat.formatPounds(priceExPence);
+      const available = variant.available !== false;
+      const imgSrc = p.image ? p.image.src : '';
 
       /* Stock from tags */
-      var tags = p.tags || [];
-      var stockSource = 'invicta';
-      for (var t = 0; t < tags.length; t++) {
-        var tag = tags[t].toLowerCase().trim();
+      const tags = p.tags || [];
+      let stockSource = 'invicta';
+      for (let t = 0; t < tags.length; t++) {
+        const tag = tags[t].toLowerCase().trim();
         if (tag === 'invicta-stock') { stockSource = 'invicta'; break; }
         if (tag === 'trend-stock' || tag === 'toolbank-stock' || tag === 'timco-stock' || tag === 'pdp-stock') {
           stockSource = 'supplier';
         }
       }
 
-      var stockLabel, stockClass;
+      let stockLabel, stockClass;
       if (!available) {
         stockLabel = strings.outOfStock || 'Out of Stock'; stockClass = 'out';
       } else if (stockSource === 'supplier') {
@@ -319,10 +319,10 @@
       }
 
       /* Metafields (custom namespace) */
-      var meta = p.metafields || {};
-      var custom = {};
+      const meta = p.metafields || {};
+      const custom = {};
       if (Array.isArray(meta)) {
-        for (var m = 0; m < meta.length; m++) {
+        for (let m = 0; m < meta.length; m++) {
           if (meta[m].namespace === 'custom') {
             custom[meta[m].key] = meta[m].value;
           }
@@ -338,7 +338,7 @@
 
       /* Image */
       if (imgSrc) {
-        var imgSmall = imgSrc.replace(/\.([a-z]+)\?/, '_400x.$1?');
+        const imgSmall = imgSrc.replace(/\.([a-z]+)\?/, '_400x.$1?');
         html += '<a href="/products/' + escapeAttr(p.handle) + '" class="inv-compare__img-link">';
         html += '<img src="' + escapeAttr(imgSmall) + '" alt="' + escapeAttr(p.title) + '" class="inv-compare__img" loading="lazy">';
         html += '</a>';
@@ -368,7 +368,7 @@
       html += '<span class="inv-compare__stock inv-compare__stock--' + stockClass + '">' + stockLabel + '</span>';
 
       /* Specs table (from metafields if available) */
-      var specs = [];
+      const specs = [];
       if (custom.voltage) specs.push(['Voltage', custom.voltage]);
       if (custom.max_torque) specs.push(['Max Torque', custom.max_torque]);
       if (custom.motor_type) specs.push(['Motor Type', custom.motor_type]);
@@ -377,7 +377,7 @@
 
       if (specs.length > 0) {
         html += '<table class="inv-compare__specs">';
-        for (var s = 0; s < specs.length; s++) {
+        for (let s = 0; s < specs.length; s++) {
           html += '<tr><td class="inv-compare__spec-label">' + escapeHtml(specs[s][0]) + '</td>';
           html += '<td class="inv-compare__spec-value">' + escapeHtml(specs[s][1]) + '</td></tr>';
         }
@@ -403,11 +403,11 @@
     /* Bind drawer buttons */
     drawer.querySelectorAll('[data-compare-remove]').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var handle = btn.getAttribute('data-compare-remove');
+        const handle = btn.getAttribute('data-compare-remove');
         removeFromCompare(handle);
         syncAllToggles();
         updateBadge();
-        var remaining = getCompareList();
+        const remaining = getCompareList();
         if (remaining.length === 0) {
           closeDrawer();
         } else {
@@ -416,10 +416,10 @@
       });
     });
 
-    var closeBtn = drawer.querySelector('[data-compare-close]');
+    const closeBtn = drawer.querySelector('[data-compare-close]');
     if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
 
-    var clearBtn = drawer.querySelector('[data-compare-clear]');
+    const clearBtn = drawer.querySelector('[data-compare-clear]');
     if (clearBtn) {
       clearBtn.addEventListener('click', function () {
         clearCompare();
@@ -439,7 +439,7 @@
    * Escape helpers
    * ================================================================ */
   function escapeHtml(str) {
-    var div = document.createElement('div');
+    const div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
   }

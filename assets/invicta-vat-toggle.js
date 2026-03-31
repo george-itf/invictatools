@@ -34,11 +34,11 @@
 (function() {
   'use strict';
 
-  var STORAGE_KEY = 'invicta-vat-mode';
+  const STORAGE_KEY = 'invicta-vat-mode';
   /* CX v1.1: Default to 'ex' for trade customers who haven't set a preference */
-  var isTradeCustomer = window.invictaConfig && window.invictaConfig.isTradeCustomer;
-  var DEFAULT_MODE = isTradeCustomer ? 'ex' : 'inc';
-  var HIDDEN_CLASS = 'inv-vat--hidden';
+  const isTradeCustomer = window.invictaConfig && window.invictaConfig.isTradeCustomer;
+  const DEFAULT_MODE = isTradeCustomer ? 'ex' : 'inc';
+  const HIDDEN_CLASS = 'inv-vat--hidden';
 
   /**
    * Get current VAT mode from localStorage
@@ -46,7 +46,7 @@
    */
   function getVatMode() {
     try {
-      var stored = localStorage.getItem(STORAGE_KEY);
+      const stored = localStorage.getItem(STORAGE_KEY);
       if (stored === 'inc' || stored === 'ex') return stored;
       return DEFAULT_MODE;
     } catch (e) {
@@ -83,10 +83,10 @@
    */
   function updateToggleButtons(mode) {
     document.querySelectorAll('[data-vat-btn]').forEach(function(btn) {
-      var btnMode = btn.getAttribute('data-vat-btn');
+      const btnMode = btn.getAttribute('data-vat-btn');
 
       if (btnMode === 'inc' || btnMode === 'ex') {
-        var isActive = btnMode === mode;
+        const isActive = btnMode === mode;
         btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
 
         // Toggle the correct BEM active class for each button type
@@ -161,10 +161,10 @@
    * @param {Event} e - Click event
    */
   function handleToggleClick(e) {
-    var btn = e.target.closest('[data-vat-btn]');
+    const btn = e.target.closest('[data-vat-btn]');
     if (!btn) return;
 
-    var btnMode = btn.getAttribute('data-vat-btn');
+    const btnMode = btn.getAttribute('data-vat-btn');
 
     if (btnMode === 'inc' || btnMode === 'ex') {
       // Button with explicit mode (e.g. header "Inc" / "Ex" buttons)
@@ -172,7 +172,7 @@
       applyVatMode(btnMode);
     } else {
       // Generic toggle (e.g. PDP switch) — flip current mode
-      var current = getVatMode();
+      const current = getVatMode();
       applyVatMode(current === 'inc' ? 'ex' : 'inc');
     }
   }
@@ -181,7 +181,7 @@
    * Initialise VAT toggle on page load
    */
   function init() {
-    var mode = getVatMode();
+    const mode = getVatMode();
 
     // Set initial state (html class, buttons, prices)
     updateHtmlClass(mode);
@@ -196,7 +196,7 @@
     // Re-apply VAT mode when collection filters update the DOM via AJAX —
     // intentionally persistent: must survive AJAX collection page transitions.
     document.addEventListener('invicta:collection:updated', function() {
-      var currentMode = getVatMode();
+      const currentMode = getVatMode();
       updatePriceDisplays(currentMode);
       updateToggleButtons(currentMode);
     });
@@ -204,7 +204,7 @@
     // Also re-apply on generic cart refresh / section render —
     // intentionally persistent: Shopify design-mode events fire throughout the session.
     document.addEventListener('shopify:section:load', function() {
-      var currentMode = getVatMode();
+      const currentMode = getVatMode();
       updatePriceDisplays(currentMode);
       updateToggleButtons(currentMode);
     });
@@ -228,7 +228,7 @@
       applyVatMode(mode);
     },
     reapply: function() {
-      var mode = getVatMode();
+      const mode = getVatMode();
       updatePriceDisplays(mode);
       updateToggleButtons(mode);
     }

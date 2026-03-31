@@ -543,12 +543,12 @@ html.js body .predictive-search a[href*="/search"] {
   font-size: 1rem;
   font-weight: 700;
   color: var(--inv-accent);
-  background: #fef2f2;
+  background: var(--inv-error-bg);
   border-top: 1px solid var(--inv-border);
 }
 
 html.js body .predictive-search__view-all:hover {
-  background: #fee2e2;
+  background: var(--inv-error-light);
 }
 
 
@@ -1359,7 +1359,7 @@ html.js body .slider-counter {
   margin-top: 8px;
   font-size: 1rem;
   font-weight: 600;
-  color: #059669;
+  color: var(--inv-success-medium);
 }
 
 .inv-price__saving svg {
@@ -1393,12 +1393,12 @@ html.js body .slider-counter {
 }
 
 .inv-stock__badge--in {
-  background: #d1fae5;
+  background: var(--inv-success-bg);
   color: #047857;
 }
 
 .inv-stock__badge--out {
-  background: #fee2e2;
+  background: var(--inv-error-light);
   color: var(--inv-accent-hover);
 }
 
@@ -1767,12 +1767,12 @@ html.js body .slider-counter {
 }
 
 .inv-accordion__header:hover {
-  background: #fafafa;
+  background: var(--inv-grey-50);
 }
 
 /* When accordion is open, subtle bottom border on header */
 .inv-accordion.is-open .inv-accordion__header {
-  border-bottom-color: #f0f0f0;
+  border-bottom-color: var(--inv-bg-skeleton);
 }
 
 /* Title row with icon */
@@ -2073,7 +2073,7 @@ html.js body .slider-counter {
   gap: 16px;
   margin-bottom: 24px;
   padding: 12px 16px;
-  background: #f5f5f5;
+  background: var(--inv-grey-100);
   border: 1px solid var(--inv-border);
 }
 .inv-cart-info-strip > * {
@@ -2253,7 +2253,7 @@ button[name="checkout"] {
 .invicta-cart-breakdown__row--subtotal { color: var(--inv-fg-secondary); }
 .invicta-cart-breakdown__row--vat { color: var(--inv-fg-muted); font-size: 13px; }
 .invicta-cart-breakdown__row--shipping { color: var(--inv-fg-muted); font-size: 13px; }
-.invicta-cart-breakdown__row--discount { color: #059669; font-weight: 600; }
+.invicta-cart-breakdown__row--discount { color: var(--inv-success-medium); font-weight: 600; }
 .invicta-cart-breakdown__row--total {
   font-weight: 700;
   font-size: 16px;
@@ -2264,8 +2264,8 @@ button[name="checkout"] {
 }
 .invicta-cart-breakdown__label { flex: 1; white-space: nowrap; margin-right: 12px; }
 .invicta-cart-breakdown__value { font-weight: 500; text-align: right; }
-.invicta-cart-breakdown__value--negative { color: #059669; }
-.invicta-cart-breakdown__free-label { color: #059669; font-weight: 600; }
+.invicta-cart-breakdown__value--negative { color: var(--inv-success-medium); }
+.invicta-cart-breakdown__free-label { color: var(--inv-success-medium); font-weight: 600; }
 .invicta-cart-breakdown__shipping-progress { margin-top: 8px; }
 .invicta-cart-breakdown__shipping-bar {
   height: 4px;
@@ -2276,7 +2276,7 @@ button[name="checkout"] {
 }
 .invicta-cart-breakdown__shipping-fill {
   height: 100%;
-  background: #d97706;
+  background: var(--inv-warning-dark);
   border-radius: 2px;
 }
 .invicta-cart-breakdown__shipping-text { font-size: 12px; color: var(--inv-fg-muted); }

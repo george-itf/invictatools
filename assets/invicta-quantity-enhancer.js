@@ -101,15 +101,15 @@
       const quickQtyContainer = document.createElement('div');
       quickQtyContainer.className = 'invicta-quick-qty';
 
-      var qqLabel = document.createElement('span');
+      const qqLabel = document.createElement('span');
       qqLabel.className = 'invicta-quick-qty__label';
       qqLabel.textContent = 'Quick add:';
       quickQtyContainer.appendChild(qqLabel);
 
-      var qqButtons = document.createElement('div');
+      const qqButtons = document.createElement('div');
       qqButtons.className = 'invicta-quick-qty__buttons';
       this.quickQtys.forEach(function(qty) {
-        var btn = document.createElement('button');
+        const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'invicta-quick-qty__btn';
         btn.setAttribute('data-quick-qty', String(qty));
@@ -155,11 +155,11 @@
       // Create total display
       const totalDisplay = document.createElement('div');
       totalDisplay.className = 'invicta-qty-total';
-      var totalLabel = document.createElement('span');
+      const totalLabel = document.createElement('span');
       totalLabel.className = 'invicta-qty-total__label';
       totalLabel.textContent = 'Total:';
       totalDisplay.appendChild(totalLabel);
-      var totalValue = document.createElement('span');
+      const totalValue = document.createElement('span');
       totalValue.className = 'invicta-qty-total__value';
       totalValue.setAttribute('data-qty-total', '');
       totalValue.textContent = '\u00a3' + basePrice.toFixed(2);
@@ -317,7 +317,7 @@
         }
       });
 
-      var observeTarget = document.querySelector('#MainContent') || document.body;
+      const observeTarget = document.querySelector('#MainContent') || document.body;
       this.mutationObserver.observe(observeTarget, {
         childList: true,
         subtree: true

@@ -12,7 +12,7 @@
      ======================================== */
 
   function boot() {
-    var sections = document.querySelectorAll('.inv-pdp[data-section-id]');
+    const sections = document.querySelectorAll('.inv-pdp[data-section-id]');
     if (!sections.length) return false;
     sections.forEach(function(section) { initSection(section); });
     return true;
@@ -378,9 +378,9 @@
        ======================================== */
     section.querySelectorAll('[data-accordion-toggle]').forEach(function(btn) {
       btn.addEventListener('click', function() {
-        var sec = btn.closest('.inv-pdp__info-section');
+        const sec = btn.closest('.inv-pdp__info-section');
         if (!sec) return;
-        var isOpen = sec.classList.contains('inv-pdp__info-section--open');
+        const isOpen = sec.classList.contains('inv-pdp__info-section--open');
         sec.classList.toggle('inv-pdp__info-section--open');
         btn.setAttribute('aria-expanded', !isOpen);
       });
@@ -413,13 +413,13 @@
        THUMBNAIL GALLERY
        ======================================== */
 
-    var activeThumbIndex = 0;
-    var thumbArray = Array.prototype.slice.call(thumbs);
+    let activeThumbIndex = 0;
+    const thumbArray = Array.prototype.slice.call(thumbs);
 
     function setActiveThumb(thumb) {
       if (!thumb || !mainImage) return;
 
-      var prevActive = thumbsContainer && thumbsContainer.querySelector('.inv-pdp__gallery-thumb--active');
+      const prevActive = thumbsContainer && thumbsContainer.querySelector('.inv-pdp__gallery-thumb--active');
       if (prevActive && prevActive !== thumb) {
         prevActive.classList.remove('inv-pdp__gallery-thumb--active');
         prevActive.setAttribute('aria-selected', 'false');
@@ -430,15 +430,15 @@
       activeThumbIndex = parseInt(thumb.dataset.index, 10) || 0;
 
       /* Update image counter */
-      var counter = section.querySelector('[data-image-counter]');
+      const counter = section.querySelector('[data-image-counter]');
       if (counter) {
         counter.textContent = (activeThumbIndex + 1) + ' / ' + thumbArray.length;
       }
 
-      var newSrc = thumb.dataset.imageSrc;
+      const newSrc = thumb.dataset.imageSrc;
       if (newSrc && mainImage.src !== newSrc) {
         mainImage.style.opacity = '0.3';
-        var baseSrc = newSrc.replace(/width=\d+/, '');
+        const baseSrc = newSrc.replace(/width=\d+/, '');
         mainImage.srcset = baseSrc + 'width=400 400w, ' + baseSrc + 'width=600 600w, ' + baseSrc + 'width=800 800w, ' + baseSrc + 'width=1200 1200w';
         mainImage.src = newSrc;
         mainImage.addEventListener('load', function onLoad() {
@@ -457,8 +457,8 @@
 
     if (thumbsContainer) {
       thumbsContainer.addEventListener('keydown', function(e) {
-        var nextIndex = activeThumbIndex;
-        var len = thumbArray.length;
+        let nextIndex = activeThumbIndex;
+        const len = thumbArray.length;
 
         if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
           e.preventDefault();
@@ -549,7 +549,7 @@
 
       function isRealSku(sku) {
         if (!sku) return false;
-        var s = sku.trim();
+        const s = sku.trim();
         if (!s) return false;
         if (/^[a-z0-9]+(-[a-z0-9]+){2,}$/.test(s) && s.length > 15) return false;
         return true;
@@ -579,7 +579,7 @@
       }
 
       /* Keep sticky ATC button in sync with selected variant */
-      var stickyAtcBtn = document.querySelector('[data-sticky-atc-btn]');
+      const stickyAtcBtn = document.querySelector('[data-sticky-atc-btn]');
       if (stickyAtcBtn) {
         stickyAtcBtn.setAttribute('data-variant-id', matchingVariant.id);
         stickyAtcBtn.disabled = !matchingVariant.available;
@@ -587,10 +587,10 @@
       }
 
       /* Update sticky price display */
-      var stickyPrice = document.querySelector('[data-sticky-price]');
+      const stickyPrice = document.querySelector('[data-sticky-price]');
       if (stickyPrice) {
-        var vat = window.invictaVat || { exFromInc: function(p) { return Math.round(p * 100 / 120); } };
-        var stickyExVat = vat.exFromInc(matchingVariant.price);
+        const vat = window.invictaVat || { exFromInc: function(p) { return Math.round(p * 100 / 120); } };
+        const stickyExVat = vat.exFromInc(matchingVariant.price);
         stickyPrice.innerHTML = formatMoney(stickyExVat) + ' <span class="inv-pdp__sticky-atc-vat">ex VAT</span>';
       }
 
@@ -653,8 +653,8 @@
       const stockText = section.querySelector('[data-stock-text]');
       const dispatchText = section.querySelector('[data-dispatch-text]');
       const lowStockThreshold = parseInt(section.dataset.lowStockThreshold, 10) || 5;
-      var stockSource = stockBanner ? (stockBanner.dataset.stockSource || 'invicta') : 'invicta';
-      var supplierBannerText = stockBanner ? (stockBanner.dataset.supplierBannerText || 'In Stock with Supplier \u2014 Usually Dispatched within 2\u20133 Working Days') : '';
+      const stockSource = stockBanner ? (stockBanner.dataset.stockSource || 'invicta') : 'invicta';
+      const supplierBannerText = stockBanner ? (stockBanner.dataset.supplierBannerText || 'In Stock with Supplier \u2014 Usually Dispatched within 2\u20133 Working Days') : '';
 
       if (stockBanner && stockText) {
         stockBanner.classList.remove(
@@ -669,8 +669,8 @@
             stockBanner.classList.add('inv-pdp__stock-banner--supplier-stock');
             stockText.textContent = supplierBannerText;
           } else {
-            var qty = variant && variant.inventory_quantity;
-            var tracked = variant && variant.inventory_management === 'shopify';
+            const qty = variant && variant.inventory_quantity;
+            const tracked = variant && variant.inventory_management === 'shopify';
 
             if (tracked && qty > 0 && qty <= lowStockThreshold) {
               stockBanner.classList.add('inv-pdp__stock-banner--low-stock');
@@ -705,7 +705,7 @@
       }
 
       /* CX v1.1: Show/hide back-in-stock notification form */
-      var notifyWrap = section.querySelector('[data-notify-wrap]');
+      const notifyWrap = section.querySelector('[data-notify-wrap]');
       if (notifyWrap) {
         if (available) {
           notifyWrap.classList.add('inv-pdp--hidden');
@@ -734,8 +734,8 @@
 
         if (atcBtn.disabled) return;
 
-        var variantInput = productForm.querySelector('[name="id"]');
-        var variantId = variantInput ? variantInput.value : '';
+        const variantInput = productForm.querySelector('[name="id"]');
+        const variantId = variantInput ? variantInput.value : '';
         if (!variantId) return;
 
         // Dedup via shared API
@@ -743,7 +743,7 @@
 
         atcBtn.classList.add('is-loading');
 
-        var formData = new FormData(productForm);
+        const formData = new FormData(productForm);
 
         window.InvictaCartAPI.add(
           { id: variantId, quantity: parseInt(formData.get('quantity') || '1', 10) },
@@ -769,8 +769,8 @@
           atcBtn.classList.remove('is-loading');
           atcBtn.classList.add('is-error');
 
-          var message = (error && (error.description || error.message)) || 'Sorry, couldn\'t add to cart. Please try again.';
-          var errorEl = section.querySelector('[data-atc-error]');
+          const message = (error && (error.description || error.message)) || 'Sorry, couldn\'t add to cart. Please try again.';
+          const errorEl = section.querySelector('[data-atc-error]');
           if (errorEl) {
             errorEl.textContent = message;
             errorEl.classList.remove('inv-pdp--hidden');
@@ -789,22 +789,22 @@
      * @param {Object} data - Response from /cart/add.js with sections
      */
     function refreshCartDrawer(data) {
-      var cartDrawer = document.querySelector('cart-drawer');
+      const cartDrawer = document.querySelector('cart-drawer');
       if (!cartDrawer) {
         document.dispatchEvent(new CustomEvent('cart:open'));
         return;
       }
 
       if (data.sections && data.sections['cart-drawer']) {
-        var parser = new DOMParser();
-        var doc = parser.parseFromString(data.sections['cart-drawer'], 'text/html');
-        var newDrawer = doc.querySelector('#CartDrawer');
-        var existingDrawer = document.getElementById('CartDrawer');
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data.sections['cart-drawer'], 'text/html');
+        const newDrawer = doc.querySelector('#CartDrawer');
+        const existingDrawer = document.getElementById('CartDrawer');
         if (newDrawer && existingDrawer) {
           existingDrawer.innerHTML = newDrawer.innerHTML;
         }
         cartDrawer.classList.remove('is-empty');
-        var overlay = cartDrawer.querySelector('#CartDrawer-Overlay');
+        const overlay = cartDrawer.querySelector('#CartDrawer-Overlay');
         if (overlay) {
           overlay.addEventListener('click', function() { cartDrawer.close(); });
         }
@@ -819,11 +819,11 @@
      */
     function updateCartBubble(data) {
       if (data.sections && data.sections['cart-icon-bubble']) {
-        var bubbleEl = document.getElementById('cart-icon-bubble');
+        const bubbleEl = document.getElementById('cart-icon-bubble');
         if (bubbleEl) {
-          var parser = new DOMParser();
-          var doc = parser.parseFromString(data.sections['cart-icon-bubble'], 'text/html');
-          var newBubble = doc.querySelector('.shopify-section');
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(data.sections['cart-icon-bubble'], 'text/html');
+          const newBubble = doc.querySelector('.shopify-section');
           if (newBubble) {
             bubbleEl.innerHTML = newBubble.innerHTML;
           }
@@ -842,8 +842,8 @@
       buyNowBtn.addEventListener('click', function() {
         if (buyNowBtn.disabled || !productForm) return;
 
-        var variantInput = productForm.querySelector('[name="id"]');
-        var variantId = variantInput ? variantInput.value : '';
+        const variantInput = productForm.querySelector('[name="id"]');
+        const variantId = variantInput ? variantInput.value : '';
         if (!variantId) return;
 
         if (window.InvictaCartAPI && window.InvictaCartAPI.isInFlight(variantId)) return;
@@ -862,8 +862,8 @@
           buyNowBtn.classList.remove('is-loading');
           buyNowBtn.disabled = false;
 
-          var message = (error && (error.description || error.message)) || 'Sorry, couldn\'t proceed to checkout.';
-          var errorEl = section.querySelector('[data-atc-error]');
+          const message = (error && (error.description || error.message)) || 'Sorry, couldn\'t proceed to checkout.';
+          const errorEl = section.querySelector('[data-atc-error]');
           if (errorEl) {
             errorEl.textContent = message;
             errorEl.classList.remove('inv-pdp--hidden');
@@ -921,7 +921,7 @@
       if (!lightbox || !lightboxImg || !mainImage) return;
 
       previouslyFocused = document.activeElement;
-      var lightboxWidth = window.innerWidth <= 749 ? 800 : 1200;
+      const lightboxWidth = window.innerWidth <= 749 ? 800 : 1200;
       lightboxImg.src = mainImage.src.replace(/width=\d+/, 'width=' + lightboxWidth);
       lightboxImg.alt = mainImage.alt || productHandle;
       lightbox.hidden = false;

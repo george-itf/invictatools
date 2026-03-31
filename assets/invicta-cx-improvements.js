@@ -14,9 +14,9 @@
   function fetchWithTimeout(url, options, timeoutMs) {
     if (typeof options === 'number') { timeoutMs = options; options = {}; }
     options = options || {};
-    var controller = new AbortController();
-    var id = setTimeout(function() { controller.abort(); }, timeoutMs || 8000);
-    var opts = Object.assign({}, options, { signal: controller.signal });
+    const controller = new AbortController();
+    const id = setTimeout(function() { controller.abort(); }, timeoutMs || 8000);
+    const opts = Object.assign({}, options, { signal: controller.signal });
     return fetch(url, opts).finally(function() { clearTimeout(id); });
   }
 
@@ -57,17 +57,17 @@
      ======================================== */
 
   function enhanceSearch() {
-    var wrapper = document.querySelector('.inv-search-wrapper');
+    const wrapper = document.querySelector('.inv-search-wrapper');
     if (!wrapper) return;
 
-    var input = wrapper.querySelector('.inv-search-input');
-    var results = wrapper.querySelector('.inv-search-results');
+    const input = wrapper.querySelector('.inv-search-input');
+    const results = wrapper.querySelector('.inv-search-results');
     if (!input || !results) return;
 
-    var focusIndex = -1;
+    let focusIndex = -1;
 
     input.addEventListener('keydown', function(e) {
-      var items = results.querySelectorAll('.inv-search-results__item');
+      const items = results.querySelectorAll('.inv-search-results__item');
       if (!items.length) return;
 
       if (e.key === 'ArrowDown') {
@@ -90,9 +90,9 @@
     });
 
     // Reset focus index when results change
-    var searchResultsObserver = new MutationObserver(function() {
+    const searchResultsObserver = new MutationObserver(function() {
       focusIndex = -1;
-      var items = results.querySelectorAll('.inv-search-results__item');
+      const items = results.querySelectorAll('.inv-search-results__item');
       if (items.length > 0) {
         InvictaAnnouncer.announce(items.length + ' search results found. Use arrow keys to navigate.');
       }
@@ -111,8 +111,8 @@
     if (!results.id) results.id = 'inv-search-results';
 
     // Update aria-expanded when results show/hide
-    var expandedObserver = new MutationObserver(function() {
-      var isVisible = results.style.display !== 'none' && results.childNodes.length > 0;
+    const expandedObserver = new MutationObserver(function() {
+      const isVisible = results.style.display !== 'none' && results.childNodes.length > 0;
       input.setAttribute('aria-expanded', isVisible ? 'true' : 'false');
     });
 
@@ -130,7 +130,7 @@
     });
 
     // Disconnect observers when the wrapper is removed from the DOM
-    var removalObserver = new MutationObserver(function() {
+    const removalObserver = new MutationObserver(function() {
       if (!document.body.contains(wrapper)) {
         searchResultsObserver.disconnect();
         expandedObserver.disconnect();
@@ -144,8 +144,8 @@
   }
 
   function updateSearchFocus(items) {
-    for (var i = 0; i < items.length; i++) {
-      var isFocused = i === focusIndex;
+    for (let i = 0; i < items.length; i++) {
+      const isFocused = i === focusIndex;
       items[i].classList.toggle('inv-search-results__item--focused', isFocused);
       if (isFocused) {
         items[i].setAttribute('aria-selected', 'true');
@@ -163,20 +163,20 @@
      ======================================== */
 
   function enhanceDeliveryBar() {
-    var bar = document.querySelector('[data-delivery-bar]');
+    const bar = document.querySelector('[data-delivery-bar]');
     if (!bar) return;
 
     bar.classList.add('inv-delivery-bar--animated');
 
-    var threshold = parseInt(bar.dataset.threshold, 10);
+    const threshold = parseInt(bar.dataset.threshold, 10);
 
     // Listen for cart updates to add "almost there" state
     document.addEventListener('cart:updated', function(e) {
       if (!e.detail || e.detail.total_price == null) return;
 
-      var total = e.detail.total_price;
-      var remaining = threshold - total;
-      var percentComplete = (total / threshold) * 100;
+      const total = e.detail.total_price;
+      const remaining = threshold - total;
+      const percentComplete = (total / threshold) * 100;
 
       // "Almost there" state when 75-99% of the way
       if (percentComplete >= 75 && percentComplete < 100) {
@@ -199,30 +199,30 @@
      ======================================== */
 
   function initLoadMore() {
-    var loadMoreBtn = document.querySelector('[data-load-more]');
+    const loadMoreBtn = document.querySelector('[data-load-more]');
     if (!loadMoreBtn) return;
 
     loadMoreBtn.addEventListener('click', function() {
-      var nextUrl = loadMoreBtn.dataset.nextUrl;
+      const nextUrl = loadMoreBtn.dataset.nextUrl;
       if (!nextUrl) return;
 
       loadMoreBtn.classList.add('inv-load-more__btn--loading');
-      var loadMoreText = loadMoreBtn.querySelector('.inv-load-more__text');
+      const loadMoreText = loadMoreBtn.querySelector('.inv-load-more__text');
       if (loadMoreText) loadMoreText.textContent = 'Loading...';
 
       fetchWithTimeout(nextUrl, 8000)
         .then(function(response) { return response.text(); })
         .then(function(html) {
-          var parser = new DOMParser();
-          var doc = parser.parseFromString(html, 'text/html');
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
 
           // Append new product cards
-          var newGrid = doc.querySelector('.inv-grid__items, .inv-product-grid__items');
-          var currentGrid = document.querySelector('.inv-grid__items, .inv-product-grid__items');
+          const newGrid = doc.querySelector('.inv-grid__items, .inv-product-grid__items');
+          const currentGrid = document.querySelector('.inv-grid__items, .inv-product-grid__items');
 
           if (newGrid && currentGrid) {
-            var newItems = newGrid.children;
-            var count = newItems.length;
+            const newItems = newGrid.children;
+            const count = newItems.length;
 
             while (newItems.length > 0) {
               currentGrid.appendChild(newItems[0]);
@@ -232,20 +232,20 @@
           }
 
           // Update next URL or hide button
-          var newLoadMore = doc.querySelector('[data-load-more]');
+          const newLoadMore = doc.querySelector('[data-load-more]');
           if (newLoadMore && newLoadMore.dataset.nextUrl) {
             loadMoreBtn.dataset.nextUrl = newLoadMore.dataset.nextUrl;
             loadMoreBtn.classList.remove('inv-load-more__btn--loading');
-            var loadMoreText = loadMoreBtn.querySelector('.inv-load-more__text');
+            const loadMoreText = loadMoreBtn.querySelector('.inv-load-more__text');
             if (loadMoreText) loadMoreText.textContent = 'Load More Products';
           } else {
-            var loadMoreContainer = loadMoreBtn.closest('.inv-load-more');
+            const loadMoreContainer = loadMoreBtn.closest('.inv-load-more');
             if (loadMoreContainer) loadMoreContainer.style.display = 'none';
           }
         })
         .catch(function() {
           loadMoreBtn.classList.remove('inv-load-more__btn--loading');
-          var loadMoreText = loadMoreBtn.querySelector('.inv-load-more__text');
+          const loadMoreText = loadMoreBtn.querySelector('.inv-load-more__text');
           if (loadMoreText) loadMoreText.textContent = 'Load More Products';
         });
     });
@@ -256,7 +256,7 @@
      Shows recent purchase activity to build trust
      ======================================== */
 
-  var InvictaSocialProof = {
+  const InvictaSocialProof = {
     container: null,
     dismissed: false,
     timer: null,
@@ -274,7 +274,7 @@
 
     init: function() {
       // Don't show on checkout, cart, or account pages
-      var path = window.location.pathname;
+      const path = window.location.pathname;
       if (path.indexOf('/checkout') > -1 ||
           path.indexOf('/cart') > -1 ||
           path.indexOf('/account') > -1) {
@@ -292,7 +292,7 @@
       this.createContainer();
 
       // Show first notification after 8 seconds
-      var self = this;
+      const self = this;
       setTimeout(function() {
         self.showNotification();
       }, 8000);
@@ -304,23 +304,23 @@
       this.container.setAttribute('role', 'complementary');
       this.container.setAttribute('aria-label', 'Recent customer activity');
 
-      var closeBtn = document.createElement('button');
+      const closeBtn = document.createElement('button');
       closeBtn.className = 'inv-social-proof__close';
       closeBtn.setAttribute('aria-label', 'Dismiss notification');
-      var svgNS = 'http://www.w3.org/2000/svg';
-      var closeSvg = document.createElementNS(svgNS, 'svg');
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const closeSvg = document.createElementNS(svgNS, 'svg');
       closeSvg.setAttribute('width', '14');
       closeSvg.setAttribute('height', '14');
       closeSvg.setAttribute('viewBox', '0 0 24 24');
       closeSvg.setAttribute('fill', 'none');
       closeSvg.setAttribute('stroke', 'currentColor');
       closeSvg.setAttribute('stroke-width', '2');
-      var closePath = document.createElementNS(svgNS, 'path');
+      const closePath = document.createElementNS(svgNS, 'path');
       closePath.setAttribute('d', 'M18 6L6 18M6 6l12 12');
       closeSvg.appendChild(closePath);
       closeBtn.appendChild(closeSvg);
 
-      var self = this;
+      const self = this;
       closeBtn.addEventListener('click', function() {
         self.hide();
         self.dismissed = true;
@@ -334,24 +334,24 @@
     showNotification: function() {
       if (this.dismissed) return;
 
-      var proof = this.PROOF_MESSAGES[Math.floor(Math.random() * this.PROOF_MESSAGES.length)];
+      const proof = this.PROOF_MESSAGES[Math.floor(Math.random() * this.PROOF_MESSAGES.length)];
 
       // Build content from DOM (not innerHTML)
-      var content = this.container.querySelector('.inv-social-proof__content');
+      let content = this.container.querySelector('.inv-social-proof__content');
       if (content) content.remove();
 
       content = document.createElement('div');
       content.className = 'inv-social-proof__content';
 
-      var text = document.createElement('p');
+      const text = document.createElement('p');
       text.className = 'inv-social-proof__text';
 
-      var strong = document.createElement('strong');
+      const strong = document.createElement('strong');
       strong.textContent = 'Someone in ' + proof.location;
       text.appendChild(strong);
       text.appendChild(document.createTextNode(' just placed an order'));
 
-      var time = document.createElement('p');
+      const time = document.createElement('p');
       time.className = 'inv-social-proof__time';
       time.textContent = proof.time;
 
@@ -359,18 +359,18 @@
       content.appendChild(time);
 
       // Insert before close button
-      var closeBtn = this.container.querySelector('.inv-social-proof__close');
+      const closeBtn = this.container.querySelector('.inv-social-proof__close');
       this.container.insertBefore(content, closeBtn);
 
       this.container.classList.add('inv-social-proof--visible');
 
       // Auto-hide after 6 seconds
-      var self = this;
+      const self = this;
       this.timer = setTimeout(function() {
         self.hide();
 
         // Show another one after 45-90 seconds
-        var nextDelay = 45000 + Math.random() * 45000;
+        const nextDelay = 45000 + Math.random() * 45000;
         setTimeout(function() {
           self.showNotification();
         }, nextDelay);
@@ -395,63 +395,63 @@
 
   function initTradeCTA() {
     // Only show if customer is not logged in and we're on a product page
-    var productPage = document.querySelector('.inv-pdp[data-section-id]');
+    const productPage = document.querySelector('.inv-pdp[data-section-id]');
     if (!productPage) return;
 
     // Check if customer is logged in (Shopify adds customer data to the page)
-    var isLoggedIn = document.querySelector('.customer-logged-in') ||
+    const isLoggedIn = document.querySelector('.customer-logged-in') ||
                      document.cookie.indexOf('_shopify_s=') > -1;
     if (isLoggedIn) return;
 
     // Find the add-to-cart area to insert after
-    var atcArea = productPage.querySelector('[data-product-form]');
+    const atcArea = productPage.querySelector('[data-product-form]');
     if (!atcArea) return;
 
     // Check if trade CTA already exists
     if (productPage.querySelector('.inv-trade-cta')) return;
 
-    var cta = document.createElement('div');
+    const cta = document.createElement('div');
     cta.className = 'inv-trade-cta';
 
-    var icon = document.createElement('div');
+    const icon = document.createElement('div');
     icon.className = 'inv-trade-cta__icon';
-    var svgNS2 = 'http://www.w3.org/2000/svg';
-    var tradeSvg = document.createElementNS(svgNS2, 'svg');
+    const svgNS2 = 'http://www.w3.org/2000/svg';
+    const tradeSvg = document.createElementNS(svgNS2, 'svg');
     tradeSvg.setAttribute('viewBox', '0 0 24 24');
     tradeSvg.setAttribute('fill', 'none');
     tradeSvg.setAttribute('stroke', 'currentColor');
     tradeSvg.setAttribute('stroke-width', '2');
     tradeSvg.setAttribute('stroke-linecap', 'round');
     tradeSvg.setAttribute('stroke-linejoin', 'round');
-    var tp1 = document.createElementNS(svgNS2, 'path');
+    const tp1 = document.createElementNS(svgNS2, 'path');
     tp1.setAttribute('d', 'M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2');
     tradeSvg.appendChild(tp1);
-    var tc1 = document.createElementNS(svgNS2, 'circle');
+    const tc1 = document.createElementNS(svgNS2, 'circle');
     tc1.setAttribute('cx', '8.5'); tc1.setAttribute('cy', '7'); tc1.setAttribute('r', '4');
     tradeSvg.appendChild(tc1);
-    var tl1 = document.createElementNS(svgNS2, 'line');
+    const tl1 = document.createElementNS(svgNS2, 'line');
     tl1.setAttribute('x1', '20'); tl1.setAttribute('y1', '8'); tl1.setAttribute('x2', '20'); tl1.setAttribute('y2', '14');
     tradeSvg.appendChild(tl1);
-    var tl2 = document.createElementNS(svgNS2, 'line');
+    const tl2 = document.createElementNS(svgNS2, 'line');
     tl2.setAttribute('x1', '23'); tl2.setAttribute('y1', '11'); tl2.setAttribute('x2', '17'); tl2.setAttribute('y2', '11');
     tradeSvg.appendChild(tl2);
     icon.appendChild(tradeSvg);
 
-    var body = document.createElement('div');
+    const body = document.createElement('div');
     body.className = 'inv-trade-cta__body';
 
-    var title = document.createElement('p');
+    const title = document.createElement('p');
     title.className = 'inv-trade-cta__title';
     title.textContent = 'Trade Account';
 
-    var desc = document.createElement('p');
+    const desc = document.createElement('p');
     desc.className = 'inv-trade-cta__desc';
     desc.textContent = 'Get exclusive trade pricing & faster checkout';
 
     body.appendChild(title);
     body.appendChild(desc);
 
-    var link = document.createElement('a');
+    const link = document.createElement('a');
     link.className = 'inv-trade-cta__link';
     link.href = '/pages/trade-account';
     link.textContent = 'Apply Now';
@@ -475,8 +475,8 @@
    * @returns {SVGElement}
    */
   function safeSvgIcon(markup) {
-    var svgNS = 'http://www.w3.org/2000/svg';
-    var doc = new DOMParser().parseFromString(
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const doc = new DOMParser().parseFromString(
       '<svg xmlns="' + svgNS + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' + markup + '</svg>',
       'image/svg+xml'
     );
@@ -491,16 +491,16 @@
   function addMobileShortcuts() {
     if (window.innerWidth > 749) return;
 
-    var drawerNav = document.querySelector('.invicta-drawer__nav') || document.querySelector('.menu-drawer__navigation-container');
+    const drawerNav = document.querySelector('.invicta-drawer__nav') || document.querySelector('.menu-drawer__navigation-container');
     if (!drawerNav) return;
 
     // Check if shortcuts already exist
     if (drawerNav.querySelector('.inv-mobile-shortcuts')) return;
 
-    var shortcuts = document.createElement('div');
+    const shortcuts = document.createElement('div');
     shortcuts.className = 'inv-mobile-shortcuts';
 
-    var shortcutData = [
+    const shortcutData = [
       { href: '/collections/all', paths: '<path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>', label: 'Shop All' },
       { href: '/pages/trade-account', paths: '<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>', label: 'Trade' },
       { href: '/collections', paths: '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>', label: 'Categories' },
@@ -508,12 +508,12 @@
     ];
 
     shortcutData.forEach(function(item) {
-      var link = document.createElement('a');
+      const link = document.createElement('a');
       link.className = 'inv-mobile-shortcut';
       link.href = item.href;
       link.appendChild(safeSvgIcon(item.paths));
 
-      var label = document.createElement('span');
+      const label = document.createElement('span');
       label.textContent = item.label;
       link.appendChild(label);
 
@@ -547,13 +547,13 @@
       form.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        var emailInput = form.querySelector('[data-notify-email]');
-        var submitBtn = form.querySelector('[data-notify-submit]');
-        var btnText = form.querySelector('[data-notify-btn-text]');
-        var spinner = form.querySelector('[data-notify-spinner]');
-        var successMsg = form.querySelector('[data-notify-success]');
-        var errorMsg = form.querySelector('[data-notify-error]');
-        var email = emailInput ? emailInput.value.trim() : '';
+        const emailInput = form.querySelector('[data-notify-email]');
+        const submitBtn = form.querySelector('[data-notify-submit]');
+        const btnText = form.querySelector('[data-notify-btn-text]');
+        const spinner = form.querySelector('[data-notify-spinner]');
+        const successMsg = form.querySelector('[data-notify-success]');
+        const errorMsg = form.querySelector('[data-notify-error]');
+        const email = emailInput ? emailInput.value.trim() : '';
 
         if (!email) return;
 
@@ -563,11 +563,11 @@
         if (spinner) spinner.classList.remove('inv-pdp--hidden');
         if (errorMsg) errorMsg.classList.add('inv-pdp--hidden');
 
-        var productTitle = form.getAttribute('data-product-title') || '';
-        var productHandle = form.getAttribute('data-product-handle') || '';
+        const productTitle = form.getAttribute('data-product-title') || '';
+        const productHandle = form.getAttribute('data-product-handle') || '';
 
         /* Submit to Shopify customer API (creates a contact form entry) */
-        var formData = new FormData();
+        const formData = new FormData();
         formData.append('form_type', 'customer');
         formData.append('utf8', '\u2713');
         formData.append('customer[email]', email);
@@ -584,12 +584,12 @@
           if (successMsg) successMsg.classList.remove('inv-pdp--hidden');
           if (submitBtn) submitBtn.style.display = 'none';
           if (emailInput) emailInput.style.display = 'none';
-          var notifyField = form.closest('.inv-pdp__notify-field');
+          const notifyField = form.closest('.inv-pdp__notify-field');
           if (notifyField) notifyField.style.display = 'none';
 
           /* Store in localStorage so we don't pester them again */
           try {
-            var notified = JSON.parse(localStorage.getItem('invicta-notify') || '[]');
+            const notified = JSON.parse(localStorage.getItem('invicta-notify') || '[]');
             notified.push(productHandle);
             localStorage.setItem('invicta-notify', JSON.stringify(notified));
           } catch (err) { /* silent */ }
@@ -608,17 +608,17 @@
 
     /* Check if user already signed up for this product */
     try {
-      var notified = JSON.parse(localStorage.getItem('invicta-notify') || '[]');
+      const notified = JSON.parse(localStorage.getItem('invicta-notify') || '[]');
       document.querySelectorAll('[data-notify-form]').forEach(function(form) {
-        var handle = form.getAttribute('data-product-handle');
+        const handle = form.getAttribute('data-product-handle');
         if (handle && notified.indexOf(handle) > -1) {
-          var field = form.querySelector('.inv-pdp__notify-field');
-          var success = form.querySelector('[data-notify-success]');
+          const field = form.querySelector('.inv-pdp__notify-field');
+          const success = form.querySelector('[data-notify-success]');
           if (field) field.style.display = 'none';
           if (success) {
             success.classList.remove('inv-pdp--hidden');
             while (success.firstChild) success.removeChild(success.firstChild);
-            var notifySvg = safeSvgIcon('<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>');
+            const notifySvg = safeSvgIcon('<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>');
             notifySvg.setAttribute('width', '16');
             notifySvg.setAttribute('height', '16');
             notifySvg.setAttribute('stroke-width', '2.5');

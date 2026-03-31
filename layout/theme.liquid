@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-    <meta name="theme-color" content="">
+    <meta name="theme-color" content="#e11d26">
     {%- liquid
       assign inv_canonical = canonical_url
       if request.page_type == 'collection' and collection
@@ -39,6 +39,11 @@
     <link rel="dns-prefetch" href="{{ request.origin }}">
 
     <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+
+    <link rel="preload" as="font" type="font/woff2" href="{{ 'barlow-condensed-700.woff2' | asset_url }}" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="{{ 'barlow-condensed-800.woff2' | asset_url }}" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="{{ 'barlow-condensed-900.woff2' | asset_url }}" crossorigin>
+
     <style>
       @font-face {
         font-family: 'Barlow Condensed';

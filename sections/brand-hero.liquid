@@ -26,6 +26,7 @@
               width="120"
               height="{{ 120 | divided_by: section.settings.brand_logo.aspect_ratio | default: 120 | round }}"
               loading="eager"
+              fetchpriority="high"
               class="brand-hero__logo"
             >
           </div>
@@ -132,7 +133,7 @@
 
 {% schema %}
 {
-  "name": "Brand Hero",
+  "name": "t:sections.brand-hero.name",
   "tag": "section",
   "class": "section-brand-hero",
   "settings": [

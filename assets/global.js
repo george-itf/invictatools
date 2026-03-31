@@ -29,9 +29,9 @@ document.querySelectorAll('[id^="Details-"] summary').forEach((summary) => {
 const trapFocusHandlers = {};
 
 function trapFocus(container, elementToFocus = container) {
-  var elements = getFocusableElements(container);
-  var first = elements[0];
-  var last = elements[elements.length - 1];
+  const elements = getFocusableElements(container);
+  const first = elements[0];
+  const last = elements[elements.length - 1];
 
   removeTrapFocus();
 
@@ -225,32 +225,32 @@ Shopify.CountryProvinceSelector = function (country_domid, province_domid, optio
 
 Shopify.CountryProvinceSelector.prototype = {
   initCountry: function () {
-    var value = this.countryEl.getAttribute('data-default');
+    const value = this.countryEl.getAttribute('data-default');
     if (value) this.countryEl.value = value;
     this.countryHandler();
   },
 
   initProvince: function () {
-    var value = this.provinceEl.getAttribute('data-default');
+    const value = this.provinceEl.getAttribute('data-default');
     if (value && this.provinceEl.options.length > 0) {
       this.provinceEl.value = value;
     }
   },
 
   countryHandler: function (e) {
-    var opt = this.countryEl.options[this.countryEl.selectedIndex];
-    var raw = opt.getAttribute('data-provinces');
-    var provinces = JSON.parse(raw);
+    const opt = this.countryEl.options[this.countryEl.selectedIndex];
+    const raw = opt.getAttribute('data-provinces');
+    const provinces = JSON.parse(raw);
 
     this.clearOptions(this.provinceEl);
     if (provinces && provinces.length == 0) {
       this.provinceContainer.style.display = 'none';
     } else {
-      for (var i = 0; i < provinces.length; i++) {
-        var opt = document.createElement('option');
-        opt.value = provinces[i][0];
-        opt.innerHTML = provinces[i][1];
-        this.provinceEl.appendChild(opt);
+      for (let i = 0; i < provinces.length; i++) {
+        const newOpt = document.createElement('option');
+        newOpt.value = provinces[i][0];
+        newOpt.innerHTML = provinces[i][1];
+        this.provinceEl.appendChild(newOpt);
       }
 
       this.provinceContainer.style.display = '';
@@ -264,8 +264,8 @@ Shopify.CountryProvinceSelector.prototype = {
   },
 
   setOptions: function (selector, values) {
-    for (var i = 0, count = values.length; i < values.length; i++) {
-      var opt = document.createElement('option');
+    for (let i = 0, count = values.length; i < values.length; i++) {
+      const opt = document.createElement('option');
       opt.value = values[i];
       opt.innerHTML = values[i];
       selector.appendChild(opt);
