@@ -89,16 +89,18 @@
       }
     });
 
-    // Reset focus index when results change
+    // Single observer: handles focus reset, announcement, and aria-expanded
     const searchResultsObserver = new MutationObserver(function() {
       focusIndex = -1;
       const items = results.querySelectorAll('.inv-search-results__item');
+      const isVisible = results.style.display !== 'none' && results.childNodes.length > 0;
+      input.setAttribute('aria-expanded', isVisible ? 'true' : 'false');
       if (items.length > 0) {
         InvictaAnnouncer.announce(items.length + ' search results found. Use arrow keys to navigate.');
       }
     });
 
-    searchResultsObserver.observe(results, { childList: true });
+    searchResultsObserver.observe(results, { childList: true, attributes: true, attributeFilter: ['style'] });
 
     // Set ARIA attributes for accessibility
     results.setAttribute('role', 'listbox');
@@ -110,30 +112,19 @@
 
     if (!results.id) results.id = 'inv-search-results';
 
-    // Update aria-expanded when results show/hide
-    const expandedObserver = new MutationObserver(function() {
-      const isVisible = results.style.display !== 'none' && results.childNodes.length > 0;
-      input.setAttribute('aria-expanded', isVisible ? 'true' : 'false');
-    });
-
-    expandedObserver.observe(results, { attributes: true, childList: true, attributeFilter: ['style'] });
-
-    // Disconnect observers when page is hidden to save resources
+    // Disconnect observer when page is hidden to save resources
     document.addEventListener('visibilitychange', function() {
       if (document.hidden) {
         searchResultsObserver.disconnect();
-        expandedObserver.disconnect();
       } else if (document.body.contains(results)) {
-        searchResultsObserver.observe(results, { childList: true });
-        expandedObserver.observe(results, { attributes: true, childList: true, attributeFilter: ['style'] });
+        searchResultsObserver.observe(results, { childList: true, attributes: true, attributeFilter: ['style'] });
       }
     });
 
-    // Disconnect observers when the wrapper is removed from the DOM
+    // Disconnect observer when the wrapper is removed from the DOM
     const removalObserver = new MutationObserver(function() {
       if (!document.body.contains(wrapper)) {
         searchResultsObserver.disconnect();
-        expandedObserver.disconnect();
         removalObserver.disconnect();
       }
     });

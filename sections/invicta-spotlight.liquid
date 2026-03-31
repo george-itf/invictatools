@@ -257,6 +257,15 @@
   }
 </style>
 
+{%- if section.settings.card2_image != blank -%}
+  <link rel="preload" as="image"
+    imagesrcset="{{ section.settings.card2_image | image_url: width: 300 }} 300w,
+                 {{ section.settings.card2_image | image_url: width: 450 }} 450w,
+                 {{ section.settings.card2_image | image_url: width: 600 }} 600w"
+    imagesizes="(max-width: 989px) 100vw, 33vw"
+    fetchpriority="high">
+{%- endif -%}
+
 <section class="inv-spotlight" id="spotlight-{{ section.id }}">
   <div class="inv-spotlight__container">
     <div class="inv-spotlight__grid">
@@ -275,7 +284,8 @@
                       {{ section.settings.primary_image | image_url: width: 800 }} 800w"
               sizes="(max-width: 989px) 100vw, 33vw"
               alt="{{ section.settings.primary_image.alt | escape }}"
-              loading="lazy"
+              loading="eager"
+              fetchpriority="auto"
               width="{{ section.settings.primary_image.width }}"
               height="{{ section.settings.primary_image.height }}"
               class="inv-spotlight__img"
@@ -321,7 +331,8 @@
                       {{ section.settings.card2_image | image_url: width: 600 }} 600w"
               sizes="(max-width: 989px) 100vw, 33vw"
               alt="{{ section.settings.card2_image.alt | escape }}"
-              loading="lazy"
+              loading="eager"
+              fetchpriority="high"
               width="{{ section.settings.card2_image.width }}"
               height="{{ section.settings.card2_image.height }}"
               class="inv-spotlight__img"
@@ -372,7 +383,8 @@
                       {{ section.settings.card3_image | image_url: width: 600 }} 600w"
               sizes="(max-width: 989px) 100vw, 33vw"
               alt="{{ section.settings.card3_image.alt | escape }}"
-              loading="lazy"
+              loading="eager"
+              fetchpriority="auto"
               width="{{ section.settings.card3_image.width }}"
               height="{{ section.settings.card3_image.height }}"
               class="inv-spotlight__img"

@@ -20,7 +20,12 @@
 {% endcomment %}
 
 {%- if section.settings.hero_image != blank -%}
-  <link rel="preload" as="image" href="{{ section.settings.hero_image | image_url: width: 800 }}" fetchpriority="high">
+  <link rel="preload" as="image"
+    imagesrcset="{{ section.settings.hero_image | image_url: width: 340 }} 340w,
+                 {{ section.settings.hero_image | image_url: width: 500 }} 500w,
+                 {{ section.settings.hero_image | image_url: width: 680 }} 680w"
+    imagesizes="(max-width: 749px) 100vw, (max-width: 989px) 50vw, 380px"
+    fetchpriority="high">
 {%- endif -%}
 
 <section
