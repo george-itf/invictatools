@@ -448,12 +448,16 @@ class HeaderDrawer extends MenuDrawer {
   }
 
   onResize = () => {
-    this.header &&
-      document.documentElement.style.setProperty(
-        '--header-bottom-position',
-        `${parseInt(this.header.getBoundingClientRect().bottom - this.borderOffset)}px`
-      );
-    document.documentElement.style.setProperty('--viewport-height', `${window.innerHeight}px`);
+    if (this._resizeRaf) return;
+    this._resizeRaf = requestAnimationFrame(() => {
+      this.header &&
+        document.documentElement.style.setProperty(
+          '--header-bottom-position',
+          `${parseInt(this.header.getBoundingClientRect().bottom - this.borderOffset)}px`
+        );
+      document.documentElement.style.setProperty('--viewport-height', `${window.innerHeight}px`);
+      this._resizeRaf = null;
+    });
   };
 }
 
