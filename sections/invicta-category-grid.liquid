@@ -231,7 +231,10 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: {{ section.settings.image_fit | default: 'cover' }};
+    {% if section.settings.image_fit == 'contain' %}
+    padding: 16px;
+    {% endif %}
     transition: transform 0.3s ease;
   }
   
@@ -456,6 +459,17 @@
       "default": 75,
       "unit": "%",
       "info": "75% = landscape, 100% = square"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image fit",
+      "options": [
+        { "value": "cover", "label": "Cover (crop to fill)" },
+        { "value": "contain", "label": "Contain (fit with padding)" }
+      ],
+      "default": "cover",
+      "info": "Use 'Contain' for logos, 'Cover' for photos."
     },
     {
       "type": "checkbox",

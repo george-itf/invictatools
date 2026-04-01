@@ -17,7 +17,7 @@
           "settings": {
             "collection": "bahco",
             "title": "Bahco",
-            "link": "",
+            "link": "/pages/bahco",
             "image": "shopify://shop_images/bahco.svg"
           }
         },
@@ -26,7 +26,7 @@
           "settings": {
             "collection": "dewalt",
             "title": "DeWalt",
-            "link": "",
+            "link": "/pages/dewalt",
             "image": "shopify://shop_images/images_1.png"
           }
         },
@@ -35,7 +35,7 @@
           "settings": {
             "collection": "dormer",
             "title": "Dormer Pramet",
-            "link": "",
+            "link": "/pages/dormer",
             "image": "shopify://shop_images/dormer.svg"
           }
         },
@@ -44,7 +44,7 @@
           "settings": {
             "collection": "einhell",
             "title": "Einhell",
-            "link": "",
+            "link": "/pages/einhell",
             "image": "shopify://shop_images/einhell.svg"
           }
         },
@@ -53,7 +53,7 @@
           "settings": {
             "collection": "everbuild",
             "title": "Everbuild",
-            "link": "",
+            "link": "/pages/everbuild",
             "image": "shopify://shop_images/everbuild.svg"
           }
         },
@@ -62,7 +62,7 @@
           "settings": {
             "collection": "evostik",
             "title": "Evo-Stik",
-            "link": "",
+            "link": "/pages/evo-stik",
             "image": "shopify://shop_images/evostik.svg"
           }
         },
@@ -71,7 +71,7 @@
           "settings": {
             "collection": "faithfull",
             "title": "Faithfull",
-            "link": "",
+            "link": "/pages/faithfull",
             "image": "shopify://shop_images/faithfull.svg"
           }
         },
@@ -80,7 +80,7 @@
           "settings": {
             "collection": "gorilla",
             "title": "Gorilla",
-            "link": "",
+            "link": "/pages/gorilla",
             "image": "shopify://shop_images/gorilla.svg"
           }
         },
@@ -89,7 +89,7 @@
           "settings": {
             "collection": "hikoki",
             "title": "HiKOKI",
-            "link": "",
+            "link": "/pages/hikoki",
             "image": "shopify://shop_images/hikoki.svg"
           }
         },
@@ -98,7 +98,7 @@
           "settings": {
             "collection": "irwin",
             "title": "Irwin",
-            "link": "",
+            "link": "/pages/irwin",
             "image": "shopify://shop_images/irwin.svg"
           }
         },
@@ -107,7 +107,7 @@
           "settings": {
             "collection": "kamtec",
             "title": "Kamtec",
-            "link": "",
+            "link": "/pages/kamtec",
             "image": "shopify://shop_images/kamtec.svg"
           }
         },
@@ -116,7 +116,7 @@
           "settings": {
             "collection": "lamello",
             "title": "Lamello",
-            "link": "",
+            "link": "/pages/lamello",
             "image": "shopify://shop_images/lamello-sq.png"
           }
         },
@@ -125,7 +125,7 @@
           "settings": {
             "collection": "makita",
             "title": "Makita",
-            "link": "",
+            "link": "/pages/makita",
             "image": "shopify://shop_images/makita_5c6ce50a-8652-4bfb-b5e5-71f846878208.png"
           }
         },
@@ -134,7 +134,7 @@
           "settings": {
             "collection": "metabo",
             "title": "Metabo",
-            "link": "",
+            "link": "/pages/metabo",
             "image": "shopify://shop_images/metabo.svg"
           }
         },
@@ -143,7 +143,7 @@
           "settings": {
             "collection": "milwaukee",
             "title": "Milwaukee",
-            "link": "",
+            "link": "/pages/milwaukee",
             "image": "shopify://shop_images/milwaukee.svg"
           }
         },
@@ -152,7 +152,7 @@
           "settings": {
             "collection": "paslode",
             "title": "Paslode",
-            "link": "",
+            "link": "/pages/paslode",
             "image": "shopify://shop_images/paslode.svg"
           }
         },
@@ -161,7 +161,7 @@
           "settings": {
             "collection": "premier-diamond-products",
             "title": "Premier Diamond",
-            "link": "",
+            "link": "/pages/premier-diamond-products",
             "image": ""
           }
         },
@@ -170,7 +170,7 @@
           "settings": {
             "collection": "siroflex",
             "title": "Siroflex",
-            "link": "",
+            "link": "/pages/siroflex",
             "image": "shopify://shop_images/siroflex.svg"
           }
         },
@@ -179,7 +179,7 @@
           "settings": {
             "collection": "sitetuff",
             "title": "SiteTuff",
-            "link": "",
+            "link": "/pages/sitetuff",
             "image": "shopify://shop_images/sitetuff.svg"
           }
         },
@@ -188,7 +188,7 @@
           "settings": {
             "collection": "soudal",
             "title": "Soudal",
-            "link": "",
+            "link": "/pages/soudal",
             "image": "shopify://shop_images/soudal.svg"
           }
         },
@@ -197,7 +197,7 @@
           "settings": {
             "collection": "spit",
             "title": "Spit",
-            "link": "",
+            "link": "/pages/spit",
             "image": "shopify://shop_images/spit.svg"
           }
         },
@@ -206,7 +206,7 @@
           "settings": {
             "collection": "stanley",
             "title": "Stanley",
-            "link": "",
+            "link": "/pages/stanley",
             "image": "shopify://shop_images/stanley.svg"
           }
         },
@@ -215,7 +215,7 @@
           "settings": {
             "collection": "starrett",
             "title": "Starrett",
-            "link": "",
+            "link": "/pages/starrett",
             "image": "shopify://shop_images/starrett.svg"
           }
         },
@@ -224,7 +224,7 @@
           "settings": {
             "collection": "tengtools",
             "title": "Teng Tools",
-            "link": "",
+            "link": "/pages/teng-tools",
             "image": "shopify://shop_images/tengtools.svg"
           }
         },
@@ -233,7 +233,7 @@
           "settings": {
             "collection": "timco",
             "title": "Timco",
-            "link": "",
+            "link": "/pages/timco",
             "image": "shopify://shop_images/timco.svg"
           }
         },
@@ -242,7 +242,7 @@
           "settings": {
             "collection": "viper",
             "title": "Viper",
-            "link": "",
+            "link": "/pages/viper",
             "image": "shopify://shop_images/viper.png"
           }
         }
@@ -286,6 +286,7 @@
         "card_radius": 12,
         "card_padding": 16,
         "image_ratio": 75,
+        "image_fit": "contain",
         "show_arrow": true,
         "padding_top": 48,
         "padding_bottom": 48,
