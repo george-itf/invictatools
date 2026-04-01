@@ -514,39 +514,31 @@
       <div class="drawer__footer drawer__footer--scrollable">
         {% render 'invicta-delivery-estimate', compact: true %}
 
-        {%- comment -%} CX v1.0: Cross-sell "You might also need" section {%- endcomment -%}
-        {%- if cart != empty and settings.cart_drawer_collection != blank -%}
-          <div class="inv-cart-crosssell">
-            <h3 class="inv-cart-crosssell__title">You might also need</h3>
+        {%- comment -%} CX v2.0: Dynamic cross-sell via Recommendations API {%- endcomment -%}
+        {%- if cart != empty -%}
+          <div class="inv-cart-crosssell"
+               data-crosssell
+               data-first-product-id="{{ cart.items.first.product.id }}"
+               {%- if settings.cart_drawer_collection != blank -%}
+                 data-fallback-collection="{{ settings.cart_drawer_collection | default: '' }}"
+               {%- endif -%}
+               data-money-format="{{ shop.money_format }}"
+               data-vat-rate="{{ settings.inv_vat_rate | default: 20 }}">
+            <h3 class="inv-cart-crosssell__title">You'll Also Need</h3>
             <div class="inv-cart-crosssell__grid" role="list" aria-label="Recommended products">
-              {%- for product in settings.cart_drawer_collection.products limit: 4 -%}
-                {%- assign already_in_cart = false -%}
-                {%- for item in cart.items -%}
-                  {%- if item.product.id == product.id -%}
-                    {%- assign already_in_cart = true -%}
-                    {%- break -%}
-                  {%- endif -%}
-                {%- endfor -%}
-                {%- unless already_in_cart -%}
-                  <a href="{{ product.url }}" class="inv-cart-crosssell__item" role="listitem">
-                    {%- if product.featured_image -%}
-                      <img
-                        src="{{ product.featured_image | image_url: width: 200 }}"
-                        alt="{{ product.featured_image.alt | escape }}"
-                        loading="lazy"
-                        width="120"
-                        height="120"
-                      >
-                    {%- endif -%}
-                    <div class="inv-cart-crosssell__item-info">
-                      <p class="inv-cart-crosssell__item-title">{{ product.title }}</p>
-                      <p class="inv-cart-crosssell__item-price">{{ product.price | money }}</p>
-                    </div>
-                  </a>
-                {%- endunless -%}
+              {%- comment -%} Skeleton placeholders — replaced by JS {%- endcomment -%}
+              {%- for i in (1..4) -%}
+                <div class="inv-cart-crosssell__skeleton" role="listitem">
+                  <div class="inv-cart-crosssell__skeleton-img"></div>
+                  <div class="inv-cart-crosssell__skeleton-lines">
+                    <div class="inv-cart-crosssell__skeleton-line"></div>
+                    <div class="inv-cart-crosssell__skeleton-line inv-cart-crosssell__skeleton-line--short"></div>
+                  </div>
+                </div>
               {%- endfor -%}
             </div>
           </div>
+          <script src="{{ 'cart-drawer-crosssell.js' | asset_url }}" defer="defer"></script>
         {%- endif -%}
         <div class="inv-cart-note">
           <cart-note class="cart__note">
