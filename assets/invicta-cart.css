@@ -1,12 +1,10 @@
 /* ============================================================
-   INVICTA CART — Visual Overhaul v3.1
-   Cohesive, confident cart page styling
-   Uses Invicta design system: var(--inv-accent) (brand), var(--inv-fg) (text)
+   INVICTA CART — Visual Overhaul v4.0
+   Two-column layout with sticky order summary sidebar.
+   Uses Invicta design system tokens throughout.
 
-   NOTE: v3.1 — Removed force-override flags by increasing selector specificity.
-   Uses parent wrappers (cart-items, .cart-drawer, .inv-cart-footer-grid)
-   and doubled classes to beat Shopify's rgba(var(--color-foreground), ...)
-   specificity without brute-force overrides.
+   NOTE: v4.0 — Two-column grid layout. Sidebar on right (desktop),
+   sticky bottom bar on mobile. Stock status indicators on line items.
    ============================================================ */
 
 /* ────────────────────────────────────────────────────────────
@@ -122,8 +120,172 @@ cart-items .inv-cart-header__continue.inv-cart-header__continue:hover {
 }
 
 /* ────────────────────────────────────────────────────────────
-   INFO STRIP (free delivery bar + delivery estimate)
-   Subtle, professional — light gray, not screaming yellow
+   TWO-COLUMN CART GRID
+   ──────────────────────────────────────────────────────────── */
+
+.inv-cart-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 3rem;
+  align-items: start;
+}
+
+@media screen and (max-width: 989px) {
+  .inv-cart-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   LEFT COLUMN: LINE ITEMS
+   ──────────────────────────────────────────────────────────── */
+
+.inv-cart-grid__items {
+  min-width: 0;
+}
+
+/* ────────────────────────────────────────────────────────────
+   RIGHT COLUMN: ORDER SUMMARY SIDEBAR
+   ──────────────────────────────────────────────────────────── */
+
+.inv-cart-grid__sidebar {
+  position: sticky;
+  top: 2rem;
+  background: var(--inv-bg-elevated);
+  border: 1px solid var(--inv-border);
+  padding: 2rem;
+}
+
+.inv-cart-sidebar__heading {
+  font-family: var(--inv-font-heading);
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0 0 var(--inv-space-md);
+  color: var(--inv-fg);
+  letter-spacing: 0.04em;
+}
+
+.inv-cart-sidebar__delivery-estimate {
+  margin-top: var(--inv-space-sm);
+}
+
+.inv-cart-sidebar__delivery-bar {
+  margin-top: var(--inv-space-sm);
+}
+
+/* Cart note in sidebar */
+.inv-cart-note {
+  margin-top: var(--inv-space-md);
+}
+
+.inv-cart-sidebar__note {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--inv-border);
+  border-radius: 0;
+  padding: 1rem 1.2rem;
+  font-family: var(--inv-font-body);
+  font-size: 1.3rem;
+  color: var(--inv-fg);
+  background: var(--inv-bg-elevated);
+  resize: vertical;
+  min-height: 48px;
+  transition: border-color var(--inv-transition-normal);
+}
+
+.inv-cart-sidebar__note:focus {
+  outline: none;
+  border-color: var(--inv-accent);
+}
+
+.inv-cart-sidebar__note::placeholder {
+  color: var(--inv-fg-subtle);
+}
+
+/* Checkout button — bold, unmissable */
+.inv-cart-sidebar__checkout-btn {
+  display: block;
+  width: 100%;
+  height: 48px;
+  background: var(--inv-accent);
+  color: #fff;
+  border: none;
+  border-radius: 0;
+  font-family: var(--inv-font-body);
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background-color var(--inv-transition-normal);
+  margin-top: var(--inv-space-md);
+}
+
+.inv-cart-sidebar__checkout-btn:hover {
+  background: var(--inv-accent-hover);
+}
+
+.inv-cart-sidebar__checkout-btn:active {
+  transform: scale(0.98);
+}
+
+.inv-cart-sidebar__checkout-btn:disabled {
+  background: var(--inv-border-dark);
+  cursor: not-allowed;
+}
+
+/* Dynamic checkout buttons in sidebar */
+.inv-cart-grid__sidebar .cart__dynamic-checkout-buttons {
+  border-top: 1px solid var(--inv-border);
+  padding-top: 1.6rem;
+  margin-top: 1.2rem;
+  position: relative;
+}
+
+.inv-cart-grid__sidebar .cart__dynamic-checkout-buttons::before {
+  content: 'Or pay with';
+  display: block;
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--inv-fg-subtle);
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ────────────────────────────────────────────────────────────
+   STOCK STATUS INDICATORS
+   ──────────────────────────────────────────────────────────── */
+
+.inv-cart-item__stock {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 1.1rem;
+  margin-top: 4px;
+  color: var(--inv-fg-muted);
+}
+
+.inv-cart-item__stock-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.inv-cart-item__stock-dot--invicta {
+  background: #15803d;
+}
+
+.inv-cart-item__stock-dot--supplier {
+  background: #2563eb;
+}
+
+/* ────────────────────────────────────────────────────────────
+   INFO STRIP (mobile-only — desktop uses sidebar)
    ──────────────────────────────────────────────────────────── */
 
 cart-items .inv-cart-info-strip.inv-cart-info-strip {
@@ -158,6 +320,13 @@ cart-items .inv-cart-info-strip strong {
   font-weight: 700;
 }
 
+/* Desktop: hide mobile-only info strip */
+@media screen and (min-width: 990px) {
+  .inv-cart-info-strip--mobile-only {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 749px) {
   .inv-cart-info-strip {
     flex-direction: column;
@@ -166,6 +335,108 @@ cart-items .inv-cart-info-strip strong {
 
   .inv-cart-info-strip > * {
     min-width: 0;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   MOBILE: SIDEBAR BECOMES HIDDEN, FOOTER IS STICKY BAR
+   ──────────────────────────────────────────────────────────── */
+
+@media screen and (max-width: 989px) {
+  .inv-cart-grid__sidebar {
+    display: none;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   CART FOOTER — AJAX SOURCE / MOBILE STICKY BAR
+   ──────────────────────────────────────────────────────────── */
+
+/* Desktop: hide the footer section entirely (sidebar has it all) */
+@media screen and (min-width: 990px) {
+  .inv-cart-footer-source {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* Mobile: sticky bottom checkout bar */
+@media screen and (max-width: 989px) {
+  .inv-cart-footer-source {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    background: var(--inv-bg-elevated);
+    border-top: 1px solid var(--inv-border);
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .inv-cart-footer-mobile {
+    padding: var(--inv-space-md);
+  }
+
+  .inv-cart-footer-mobile__total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--inv-space-sm);
+  }
+
+  .inv-cart-footer-mobile__label {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--inv-fg);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .inv-cart-footer-mobile__price {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--inv-fg);
+    letter-spacing: -0.02em;
+  }
+
+  .inv-cart-footer-mobile__checkout-btn {
+    display: block;
+    width: 100%;
+    height: 48px;
+    background: var(--inv-accent);
+    color: #fff;
+    border: none;
+    border-radius: 0;
+    font-family: var(--inv-font-body);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: background-color var(--inv-transition-normal);
+  }
+
+  .inv-cart-footer-mobile__checkout-btn:hover {
+    background: var(--inv-accent-hover);
+  }
+
+  .inv-cart-footer-mobile__checkout-btn:disabled {
+    background: var(--inv-border-dark);
+    cursor: not-allowed;
+  }
+
+  /* Hidden breakdown kept for AJAX refresh data */
+  .inv-cart-footer-mobile__breakdown {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }
 
@@ -469,153 +740,6 @@ cart-items cart-remove-button .icon-remove {
 }
 
 /* ────────────────────────────────────────────────────────────
-   CART FOOTER GRID — two-column card layout
-   ──────────────────────────────────────────────────────────── */
-
-.inv-cart-footer-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: start;
-}
-
-@media screen and (max-width: 749px) {
-  .inv-cart-footer-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-}
-
-.inv-cart-footer-grid__breakdown {
-  background: var(--inv-bg-elevated);
-  border: 1px solid var(--inv-border);
-  border-radius: 0;
-  padding: 2rem;
-}
-
-.inv-cart-footer-grid__checkout {
-  background: var(--inv-bg-elevated);
-  border: 1px solid var(--inv-border);
-  border-radius: 0;
-  padding: 2rem;
-  position: sticky;
-  top: 2rem;
-}
-
-@media screen and (max-width: 749px) {
-  .inv-cart-footer-grid__checkout {
-    position: static;
-  }
-}
-
-/* ────────────────────────────────────────────────────────────
-   CHECKOUT TOTAL (right column)
-   ──────────────────────────────────────────────────────────── */
-
-.inv-cart-checkout-total {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 1.6rem;
-  margin-bottom: 1.6rem;
-  border-bottom: 2px solid var(--inv-fg);
-}
-
-.inv-cart-footer-grid .inv-cart-checkout-total__label.inv-cart-checkout-total__label {
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: var(--inv-fg);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  opacity: 1;
-}
-
-.inv-cart-footer-grid .inv-cart-checkout-total__price.inv-cart-checkout-total__price {
-  font-size: 2.4rem;
-  font-weight: 800;
-  color: var(--inv-fg);
-  letter-spacing: -0.02em;
-  opacity: 1;
-}
-
-@media screen and (max-width: 749px) {
-  .inv-cart-footer-grid .inv-cart-checkout-total__price.inv-cart-checkout-total__price {
-    font-size: 2rem;
-  }
-}
-
-/* ────────────────────────────────────────────────────────────
-   CHECKOUT BUTTON — bold red, unmissable
-   ──────────────────────────────────────────────────────────── */
-
-.inv-cart-footer-grid__checkout .cart__checkout-button,
-.inv-cart-footer-grid__checkout .cart__checkout-button.button,
-.inv-cart-footer-grid__checkout button#checkout {
-  background: var(--inv-accent);
-  color: var(--inv-bg-elevated);
-  border: none;
-  border-radius: 0;
-  padding: 0 2.4rem;
-  font-size: 1.6rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background-color var(--inv-transition-normal) ease, transform var(--inv-transition-normal) ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.8rem;
-  width: 100%;
-  height: 48px;
-  box-shadow: none;
-}
-
-.inv-cart-footer-grid__checkout .cart__checkout-button:hover,
-.inv-cart-footer-grid__checkout .cart__checkout-button.button:hover {
-  background: var(--inv-accent-hover);
-  box-shadow: none;
-}
-
-.inv-cart-footer-grid__checkout .cart__checkout-button:active {
-  transform: scale(0.98);
-}
-
-.inv-cart-footer-grid__checkout .cart__checkout-button:disabled {
-  background: var(--inv-border-dark);
-  box-shadow: none;
-  cursor: not-allowed;
-}
-
-.inv-cart-footer-grid__checkout .cart__ctas {
-  margin-bottom: 1.6rem;
-}
-
-.inv-cart-footer-grid__checkout .cart__ctas > * + * {
-  margin-top: 0.8rem;
-}
-
-/* Dynamic checkout buttons — "Or pay with" separator */
-.inv-cart-footer-grid__checkout .cart__dynamic-checkout-buttons {
-  border-top: 1px solid var(--inv-border);
-  padding-top: 1.6rem;
-  margin-top: 1.2rem;
-  position: relative;
-}
-
-.inv-cart-footer-grid__checkout .cart__dynamic-checkout-buttons::before {
-  content: 'Or pay with';
-  display: block;
-  text-align: center;
-  font-size: 1.2rem;
-  color: var(--inv-fg-subtle);
-  font-weight: 500;
-  margin-bottom: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-/* ────────────────────────────────────────────────────────────
    TRUST SIGNALS — clear, confident
    ──────────────────────────────────────────────────────────── */
 
@@ -628,7 +752,7 @@ cart-items cart-remove-button .icon-remove {
   padding-top: 1.4rem;
 }
 
-.inv-cart-footer-grid .inv-cart-trust__item.inv-cart-trust__item {
+.inv-cart-grid__sidebar .inv-cart-trust__item.inv-cart-trust__item {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -639,12 +763,12 @@ cart-items cart-remove-button .icon-remove {
   opacity: 1;
 }
 
-.inv-cart-footer-grid .inv-cart-trust__item span {
+.inv-cart-grid__sidebar .inv-cart-trust__item span {
   color: var(--inv-fg-secondary);
   opacity: 1;
 }
 
-.inv-cart-footer-grid .inv-cart-trust__item svg {
+.inv-cart-grid__sidebar .inv-cart-trust__item svg {
   flex-shrink: 0;
   color: var(--inv-success);
   width: 18px;
@@ -653,6 +777,7 @@ cart-items cart-remove-button .icon-remove {
 
 /* ────────────────────────────────────────────────────────────
    CART BREAKDOWN — readable, hierarchical
+   Scoped to sidebar context
    ──────────────────────────────────────────────────────────── */
 
 .invicta-cart-breakdown {
@@ -664,19 +789,19 @@ cart-items cart-remove-button .icon-remove {
   font-size: 1.4rem;
 }
 
-.inv-cart-footer-grid .invicta-cart-breakdown__label.invicta-cart-breakdown__label {
+.inv-cart-grid__sidebar .invicta-cart-breakdown__label.invicta-cart-breakdown__label {
   color: var(--inv-fg-secondary);
   font-weight: 500;
   opacity: 1;
 }
 
-.inv-cart-footer-grid .invicta-cart-breakdown__value.invicta-cart-breakdown__value {
+.inv-cart-grid__sidebar .invicta-cart-breakdown__value.invicta-cart-breakdown__value {
   font-weight: 600;
   color: var(--inv-fg);
   opacity: 1;
 }
 
-.inv-cart-footer-grid .invicta-cart-breakdown__row--total.invicta-cart-breakdown__row--total {
+.inv-cart-grid__sidebar .invicta-cart-breakdown__row--total.invicta-cart-breakdown__row--total {
   border-top: 2px solid var(--inv-fg);
   padding-top: 1.2rem;
   margin-top: 0.8rem;
@@ -684,22 +809,22 @@ cart-items cart-remove-button .icon-remove {
   font-weight: 800;
 }
 
-.inv-cart-footer-grid .invicta-cart-breakdown__row--total .invicta-cart-breakdown__label {
+.inv-cart-grid__sidebar .invicta-cart-breakdown__row--total .invicta-cart-breakdown__label {
   font-weight: 800;
   color: var(--inv-fg);
 }
 
-.inv-cart-footer-grid .invicta-cart-breakdown__row--total .invicta-cart-breakdown__value {
+.inv-cart-grid__sidebar .invicta-cart-breakdown__row--total .invicta-cart-breakdown__value {
   font-weight: 800;
   font-size: 1.8rem;
 }
 
-.inv-cart-footer-grid .invicta-cart-breakdown__value--negative {
+.inv-cart-grid__sidebar .invicta-cart-breakdown__value--negative {
   color: var(--inv-success);
   font-weight: 700;
 }
 
-.inv-cart-footer-grid .invicta-cart-breakdown__free-label {
+.inv-cart-grid__sidebar .invicta-cart-breakdown__free-label {
   color: var(--inv-success);
   font-weight: 700;
   text-transform: uppercase;
@@ -707,7 +832,7 @@ cart-items cart-remove-button .icon-remove {
   letter-spacing: 0.04em;
 }
 
-.inv-cart-footer-grid .invicta-vat-indicator.invicta-vat-indicator {
+.inv-cart-grid__sidebar .invicta-vat-indicator.invicta-vat-indicator {
   font-size: 1.2rem;
   color: var(--inv-fg-muted);
   padding: 0.4rem 0 1rem;
@@ -725,7 +850,7 @@ cart-items cart-remove-button .icon-remove {
   margin: 0.8rem 0;
 }
 
-.inv-cart-footer-grid .invicta-cart-breakdown__shipping-text.invicta-cart-breakdown__shipping-text {
+.inv-cart-grid__sidebar .invicta-cart-breakdown__shipping-text.invicta-cart-breakdown__shipping-text {
   font-size: 1.2rem;
   color: var(--inv-fg-secondary);
   font-weight: 600;
@@ -748,7 +873,7 @@ cart-items cart-remove-button .icon-remove {
 }
 
 /* ────────────────────────────────────────────────────────────
-   CART NOTE
+   CART NOTE (label in footer context — legacy compat)
    ──────────────────────────────────────────────────────────── */
 
 .cart__footer .cart-note__label.cart-note__label {
@@ -780,6 +905,11 @@ cart-items .cart__warnings .button {
 
 cart-items .cart__warnings .button:hover {
   background: var(--inv-accent-hover);
+}
+
+/* Hide sidebar when cart is empty */
+cart-items.is-empty .inv-cart-grid__sidebar {
+  display: none;
 }
 
 /* ────────────────────────────────────────────────────────────
