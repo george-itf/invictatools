@@ -1004,6 +1004,34 @@ cart-items .discounts__discount svg {
   color: var(--inv-accent);
 }
 
+/* Cart note — always visible textarea in drawer */
+.inv-cart-note {
+  padding: 0 var(--inv-space-md);
+  margin-top: var(--inv-space-md);
+}
+
+.inv-cart-note__textarea {
+  width: 100%;
+  border: 1px solid var(--inv-border);
+  border-radius: 0;
+  padding: var(--inv-space-sm) var(--inv-space-md);
+  font: inherit;
+  font-size: 1.3rem;
+  color: var(--inv-fg);
+  background: var(--inv-bg-elevated);
+  resize: vertical;
+  min-height: 44px;
+}
+
+.inv-cart-note__textarea::placeholder {
+  color: var(--inv-fg-muted);
+}
+
+.inv-cart-note__textarea:focus {
+  outline: 2px solid var(--inv-accent);
+  outline-offset: -2px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
