@@ -428,11 +428,11 @@
       "settings": {
         "title": "Need Help Choosing the Right Lamello System?",
         "subtitle": "Our team knows Lamello inside out — call us for expert advice",
-        "primary_text": "01843 210 459",
-        "primary_url": "tel:01843210459",
+        "primary_text": "01843 593 440",
+        "primary_url": "tel:01843593440",
         "primary_icon": "phone",
-        "secondary_text": "Send Enquiry",
-        "secondary_url": "/pages/contact",
+        "secondary_text": "sales@invictatools.co.uk",
+        "secondary_url": "mailto:sales@invictatools.co.uk",
         "secondary_icon": "email"
       }
     },

@@ -1,0 +1,464 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "brand-hero",
+      "settings": {
+        "brand_logo": "shopify://shop_images/kamtec.svg",
+        "dealer_badge": "Official UK Stockist",
+        "headline_line_1": "German Engineered.",
+        "headline_line_2": "Built for the Trade.",
+        "subtitle": "Professional-grade power tool accessories, protective gloves and telescopic ladders engineered to German standards. Quality tools and consumables for construction, trade and industry.",
+        "stat_1_value": "DE",
+        "stat_1_label": "German Quality",
+        "stat_2_value": "3",
+        "stat_2_label": "Product Ranges",
+        "stat_3_value": "40+",
+        "stat_3_label": "Countries Served",
+        "primary_cta_text": "Shop All Kamtec",
+        "primary_cta_url": "",
+        "secondary_cta_text": "Browse by Category",
+        "secondary_cta_url": "#categories",
+        "hero_image": ""
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £99"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Official Stockist",
+            "subtitle": "Full product range"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 593 440"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#e41e25",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "about": {
+      "type": "brand-about",
+      "settings": {
+        "image": "",
+        "badge_label": "Origin",
+        "badge_value": "Germany",
+        "section_label": "The Kamtec Story",
+        "title": "German-Engineered Quality for the Trade",
+        "paragraph_1": "Kamtec GmbH was founded in Metzingen, Germany, with a specialisation in circular saw blades. From that focused beginning, Kamtec has expanded into a comprehensive supplier of professional power tool accessories, protective gloves and access equipment — all built to exacting German engineering standards at competitive trade prices.",
+        "paragraph_2": "Today, Kamtec supplies specialist wholesalers and professional trade stores across the UK and Europe. The Click 'n' Climb telescopic ladder range, professional cutting and drilling accessories, and comprehensive protective glove range give tradespeople everything they need from a single, trusted source. The Kamtec name stands for proven quality, reliability and value.",
+        "stat_1_value": "DE",
+        "stat_1_label": "German Standards",
+        "stat_2_value": "EU",
+        "stat_2_label": "Europe-Wide",
+        "stat_3_value": "PRO",
+        "stat_3_label": "Trade Focused",
+        "feature_1": "Professional cutting and drilling accessories",
+        "feature_2": "Click 'n' Climb telescopic ladders",
+        "feature_3": "Comprehensive protective glove range",
+        "feature_4": "German quality at trade prices",
+        "cta_text": "Learn More",
+        "cta_url": ""
+      }
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "kamtec",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Featured Kamtec Products",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "brand_applications": {
+      "type": "brand-applications",
+      "blocks": {
+        "app_1": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": true,
+            "title": "Construction & Building",
+            "description": "Abrasive cutting discs, diamond blades and SDS drill bits for concrete, masonry and steel on commercial and residential construction sites. Built to withstand heavy daily use.",
+            "connector_used": ""
+          }
+        },
+        "app_2": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Metal Fabrication",
+            "description": "Precision cutting discs, grinding wheels and countersink drill bits for clean, accurate metalwork. German-engineered tolerances for professional results.",
+            "connector_used": ""
+          }
+        },
+        "app_3": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Maintenance & Renovation",
+            "description": "Step drills, bolt cutters, multi-purpose blades and hand protection for strip-out, refurbishment and general maintenance tasks across all trades.",
+            "connector_used": ""
+          }
+        },
+        "app_4": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Working at Height",
+            "description": "Click 'n' Climb telescopic extension ladders in 2.9m and 3.8m configurations. Compact transport, one-handed operation and soft-close mechanisms for safe access on any site.",
+            "connector_used": ""
+          }
+        },
+        "app_5": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Hand Protection",
+            "description": "Comprehensive range of protective gloves for every industry — from cut-resistant construction gloves to precision-grip assembly gloves. EN-rated for workplace safety compliance.",
+            "connector_used": ""
+          }
+        }
+      },
+      "block_order": [
+        "app_1",
+        "app_2",
+        "app_3",
+        "app_4",
+        "app_5"
+      ],
+      "settings": {
+        "section_label": "Real World Applications",
+        "title": "Where Kamtec Delivers",
+        "subtitle": "German-engineered tools, accessories and safety equipment for every trade"
+      }
+    },
+    "brand_new_products": {
+      "type": "brand-new-products",
+      "blocks": {
+        "new_1": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "POPULAR",
+            "launch_date": "",
+            "title": "Click 'n' Climb Telescopic Extension Ladder",
+            "description": "The professional telescopic ladder that fits in the van and extends to full working height in seconds. Soft-close mechanism, one-rung-at-a-time extension and EN 131 compliance for safe working at height.",
+            "feature_1": "2.9m and 3.8m options",
+            "feature_2": "Soft-close mechanism",
+            "feature_3": "EN 131 compliant",
+            "feature_4": "Compact transport size",
+            "cta_text": "Shop Ladders",
+            "cta_url": ""
+          }
+        },
+        "new_2": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "TRADE ESSENTIAL",
+            "launch_date": "",
+            "title": "Professional Cutting & Drilling Accessories",
+            "description": "High-performance abrasive cutting discs, circular saw blades and drill bits engineered in Germany for consistent results across concrete, masonry, steel and timber. Quality you can trust on every cut.",
+            "feature_1": "German-engineered precision",
+            "feature_2": "Full range of sizes",
+            "feature_3": "Consistent cut quality",
+            "feature_4": "Competitive trade pricing",
+            "cta_text": "Shop Accessories",
+            "cta_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "new_1",
+        "new_2"
+      ],
+      "settings": {
+        "section_label": "Latest Products",
+        "title": "Top Products from Kamtec",
+        "subtitle": "Professional-grade accessories and equipment for the UK trade"
+      }
+    },
+    "brand_why_choose": {
+      "type": "brand-why-choose",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "DE",
+            "title": "German Engineering",
+            "description": "Every Kamtec product is engineered to exacting German quality standards. From raw material selection to finished product testing, the Kamtec name stands for proven quality and reliability."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "PRO",
+            "title": "Trade Focused",
+            "description": "Kamtec supplies exclusively through specialist wholesalers and professional trade stores — not DIY sheds. Products are designed for daily professional use, not occasional weekend projects."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "EN",
+            "title": "Safety Standards",
+            "description": "Click 'n' Climb ladders are EN 131 compliant. Protective gloves carry appropriate EN ratings for cut resistance, abrasion and puncture. Full compliance with UK and European workplace safety regulations."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "3-IN-1",
+            "title": "Complete Range",
+            "description": "Cutting and drilling accessories, protective gloves and access equipment from a single trusted brand. Simplify your purchasing and know that every product meets the same quality standard."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "SAFE",
+            "title": "Soft-Close Ladders",
+            "description": "Click 'n' Climb telescopic ladders feature a patented soft-close mechanism — each rung retracts individually and gently, preventing finger traps and ensuring safe, controlled operation every time."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "VALUE",
+            "title": "Trade Pricing",
+            "description": "German quality does not have to mean premium prices. Kamtec delivers professional-grade performance at competitive trade prices, making quality accessible for everyday use on site."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6"
+      ],
+      "settings": {
+        "section_label": "Why Kamtec",
+        "title": "Why Professionals Choose Kamtec",
+        "subtitle": "German-engineered quality at trade prices — tools and accessories that deliver"
+      }
+    },
+    "categories": {
+      "type": "brand-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Cutting & Drilling Accessories",
+            "description": "Abrasive cutting discs, diamond blades, SDS drill bits, step drills, countersinks and circular saw blades — engineered in Germany for the professional trade.",
+            "url": ""
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Ladders & Access",
+            "description": "Click 'n' Climb telescopic extension ladders and multi-purpose ladders — compact, safe and EN 131 compliant for professional working at height.",
+            "url": ""
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Protective Gloves",
+            "description": "A comprehensive range of EN-rated work gloves for construction, fabrication, maintenance and general trade use — from cut-resistant to precision-grip.",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3"
+      ],
+      "settings": {
+        "section_label": "Shop By Category",
+        "title": "Explore the Kamtec Range",
+        "subtitle": "From cutting accessories to telescopic ladders and protective gloves"
+      }
+    },
+    "video": {
+      "type": "brand-video",
+      "settings": {
+        "thumbnail": "",
+        "video_url": "",
+        "section_label": "See It In Action",
+        "title": "Kamtec Click 'n' Climb Telescopic Ladders",
+        "description": "See how the Click 'n' Climb telescopic ladder deploys and retracts safely with its soft-close mechanism.",
+        "feature_1": "One-rung-at-a-time extension",
+        "feature_2": "Soft-close retraction",
+        "feature_3": "Compact van storage",
+        "feature_4": "EN 131 safety compliance"
+      }
+    },
+    "faq": {
+      "type": "brand-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "Where are Kamtec products manufactured?",
+            "answer": "<p>Kamtec GmbH is a <strong>German company</strong> headquartered in Metzingen, Baden-Wurttemberg. The brand was founded in Germany with a specialisation in circular saw blades and has since expanded to offer a comprehensive range of power tool accessories, protective gloves and telescopic ladders — all engineered to German quality standards.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "Are Click 'n' Climb ladders safe for professional use?",
+            "answer": "<p>Yes. Click 'n' Climb telescopic extension ladders are <strong>EN 131 compliant</strong>, meeting European safety standards for professional use. The patented soft-close mechanism retracts each rung individually and gently, preventing finger traps. Available in 2.9m and 3.8m extended heights with a maximum load rating suitable for trade use.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "What cutting discs does Kamtec offer?",
+            "answer": "<p>Kamtec offers a comprehensive range of <strong>abrasive cutting discs</strong> for metal and stone, <strong>diamond blades</strong> for concrete and masonry, and <strong>circular saw blades</strong> for timber and sheet materials. All products are engineered to German standards for consistent performance and long service life.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "Are Kamtec protective gloves EN-rated?",
+            "answer": "<p>Kamtec offers a comprehensive range of protective gloves that carry appropriate <strong>EN ratings</strong> for mechanical risks including cut resistance, abrasion, tear and puncture. The range covers everything from heavy-duty construction gloves to precision-grip assembly gloves, suitable for every industry and application.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "How compact are Click 'n' Climb ladders for van storage?",
+            "answer": "<p>Click 'n' Climb telescopic ladders collapse to a <strong>compact transport size</strong> that fits easily in a van, car boot or on a roof rack. The 2.9m ladder and 3.8m ladder both retract to a fraction of their extended height, making them ideal for tradespeople who need access equipment without sacrificing van space.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer trade pricing on Kamtec products?",
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Kamtec range including cutting accessories, ladders and protective gloves. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. We also provide free next-day delivery on all orders over £99.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6"
+      ],
+      "settings": {
+        "heading": "Kamtec FAQs",
+        "subheading": "Common questions about Kamtec tools, ladders and safety equipment"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Help Choosing the Right Kamtec Product?",
+        "subtitle": "Our team can recommend the best tools and accessories for your trade",
+        "primary_text": "01843 593 440",
+        "primary_url": "tel:01843593440",
+        "primary_icon": "phone",
+        "secondary_text": "sales@invictatools.co.uk",
+        "secondary_url": "mailto:sales@invictatools.co.uk",
+        "secondary_icon": "email"
+      }
+    },
+    "schema": {
+      "type": "brand-schema",
+      "settings": {
+        "brand_name": "Kamtec",
+        "brand_description": "Kamtec is a German manufacturer of professional power tool accessories, protective gloves and telescopic ladders. Headquartered in Metzingen, Germany, Kamtec delivers German-engineered quality at competitive trade prices across the UK and Europe.",
+        "brand_url": "https://www.kamtecgroup.com",
+        "brand_founding_year": "",
+        "brand_country": "Germany",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "usp_strip",
+    "about",
+    "featured-products",
+    "brand_applications",
+    "brand_new_products",
+    "brand_why_choose",
+    "categories",
+    "video",
+    "faq",
+    "cta",
+    "schema"
+  ]
+}

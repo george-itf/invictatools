@@ -12,7 +12,7 @@
     "hero": {
       "type": "brand-hero",
       "settings": {
-        "brand_logo": "",
+        "brand_logo": "shopify://shop_images/timco.svg",
         "dealer_badge": "Authorised Stockist",
         "headline_line_1": "Every Fix.",
         "headline_line_2": "Every Fastener.",
@@ -423,11 +423,11 @@
       "settings": {
         "title": "Need Help Choosing the Right Fixing?",
         "subtitle": "Our team can recommend the right Timco product for your application",
-        "primary_text": "01843 210 459",
-        "primary_url": "tel:01843210459",
+        "primary_text": "01843 593 440",
+        "primary_url": "tel:01843593440",
         "primary_icon": "phone",
-        "secondary_text": "Send Enquiry",
-        "secondary_url": "/pages/contact",
+        "secondary_text": "sales@invictatools.co.uk",
+        "secondary_url": "mailto:sales@invictatools.co.uk",
         "secondary_icon": "email"
       }
     },

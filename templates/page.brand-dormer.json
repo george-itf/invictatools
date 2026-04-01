@@ -1,0 +1,464 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "brand-hero",
+      "settings": {
+        "brand_logo": "shopify://shop_images/dormer.svg",
+        "dealer_badge": "Official UK Stockist",
+        "headline_line_1": "Precision Ground.",
+        "headline_line_2": "Sheffield Made Since 1913.",
+        "subtitle": "Professional-grade HSS, cobalt and solid carbide cutting tools engineered for precision metalworking. Backed by Sandvik and trusted by engineers across the UK for over a century.",
+        "stat_1_value": "1913",
+        "stat_1_label": "Founded",
+        "stat_2_value": "40k+",
+        "stat_2_label": "Products",
+        "stat_3_value": "100+",
+        "stat_3_label": "Countries",
+        "primary_cta_text": "Shop All Dormer",
+        "primary_cta_url": "",
+        "secondary_cta_text": "Browse by Category",
+        "secondary_cta_url": "#categories",
+        "hero_image": ""
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £99"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Official Stockist",
+            "subtitle": "Full product range"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 593 440"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#e41e25",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "about": {
+      "type": "brand-about",
+      "settings": {
+        "image": "",
+        "badge_label": "Since",
+        "badge_value": "1913",
+        "section_label": "The Dormer Pramet Story",
+        "title": "Precision Cutting Tools Since 1913",
+        "paragraph_1": "Dormer was founded in 1913 as The Sheffield Twist Drill Co. Ltd on the corner of Solferino Street and Cemetery Road in Sheffield, England, with a workforce of around 20. From that small start in the heart of Britain's steel capital, Dormer grew into one of the world's most respected names in precision cutting tools for the engineering and metalworking trades.",
+        "paragraph_2": "Acquired by the Sandvik Group in 1992 and merged with the Pramet brand in 2014, Dormer Pramet now offers a programme of over 40,000 products covering drilling, milling, threading and turning. With 30 offices worldwide serving over 100 countries, the Sheffield heritage lives on in every precision-ground tool that leaves the factory.",
+        "stat_1_value": "110+",
+        "stat_1_label": "Years of Heritage",
+        "stat_2_value": "40k+",
+        "stat_2_label": "Products",
+        "stat_3_value": "100+",
+        "stat_3_label": "Countries Served",
+        "feature_1": "HSS, cobalt and solid carbide drill bits",
+        "feature_2": "Comprehensive taps and dies programme",
+        "feature_3": "End mills, reamers and countersinks",
+        "feature_4": "Backed by Sandvik Group engineering",
+        "cta_text": "Learn More",
+        "cta_url": ""
+      }
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "dormer",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Featured Dormer Products",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "brand_applications": {
+      "type": "brand-applications",
+      "blocks": {
+        "app_1": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": true,
+            "title": "Metalworking",
+            "description": "HSS, cobalt and solid carbide drill bits, end mills and reamers for precision hole-making and milling in steel, stainless, aluminium and cast iron.",
+            "connector_used": ""
+          }
+        },
+        "app_2": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Engineering",
+            "description": "Threading taps, dies and end mills for workshop and production environments demanding repeatable accuracy and tight tolerances.",
+            "connector_used": ""
+          }
+        },
+        "app_3": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Maintenance",
+            "description": "General-purpose HSS drill bit sets, tap and die kits and countersinks for plant maintenance, repair and overhaul across all industries.",
+            "connector_used": ""
+          }
+        },
+        "app_4": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Construction Drilling",
+            "description": "Multi-material drill bits and step drills for on-site metalwork, steelwork and fabrication where durability and speed matter.",
+            "connector_used": ""
+          }
+        },
+        "app_5": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Fabrication",
+            "description": "Solid carbide burrs, deburring tools and hole saws for sheet metal fabrication, welding preparation and finishing work.",
+            "connector_used": ""
+          }
+        }
+      },
+      "block_order": [
+        "app_1",
+        "app_2",
+        "app_3",
+        "app_4",
+        "app_5"
+      ],
+      "settings": {
+        "section_label": "Real World Applications",
+        "title": "Where Dormer Delivers",
+        "subtitle": "Precision cutting tools for every engineering and metalworking application"
+      }
+    },
+    "brand_new_products": {
+      "type": "brand-new-products",
+      "blocks": {
+        "new_1": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "RANGE",
+            "launch_date": "Available Now",
+            "title": "Dormer A002 HSS-TiN Jobber Drill Bits",
+            "description": "The industry-standard HSS jobber drill bit with titanium nitride coating for extended tool life. Precision-ground 118-degree split point for accurate starting without a centre punch. Available in every metric and imperial size.",
+            "feature_1": "TiN coating for longer life",
+            "feature_2": "118-degree split point",
+            "feature_3": "All metric and imperial sizes",
+            "feature_4": "Suitable for steel and non-ferrous metals",
+            "cta_text": "Shop HSS Drill Bits",
+            "cta_url": ""
+          }
+        },
+        "new_2": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "BESTSELLER",
+            "launch_date": "",
+            "title": "Dormer Tap and Die Sets",
+            "description": "Complete threading solutions for the workshop and jobsite. HSS taps and dies in metric coarse and fine threads, presented in robust cases. The trade standard for thread cutting and repair.",
+            "feature_1": "HSS ground thread for precision",
+            "feature_2": "Metric coarse and fine available",
+            "feature_3": "Spiral flute and straight flute options",
+            "feature_4": "Robust storage case included",
+            "cta_text": "Shop Taps & Dies",
+            "cta_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "new_1",
+        "new_2"
+      ],
+      "settings": {
+        "section_label": "Latest Products",
+        "title": "Top Products from Dormer",
+        "subtitle": "Precision-ground cutting tools trusted by engineers and tradespeople"
+      }
+    },
+    "brand_why_choose": {
+      "type": "brand-why-choose",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "1913",
+            "title": "Sheffield Heritage",
+            "description": "Founded in Sheffield, the world capital of steel and cutting tools. Over 110 years of continuous manufacturing expertise in precision-ground HSS, cobalt and carbide tools."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "SANDVIK",
+            "title": "Sandvik Group Backing",
+            "description": "Part of the Sandvik Group since 1992 — a global engineering leader in materials technology. Dormer Pramet benefits from world-class R&D, metallurgy and manufacturing infrastructure."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "HSS",
+            "title": "Precision-Ground HSS",
+            "description": "Dormer's HSS drill bits are precision-ground to exacting tolerances, delivering consistent hole quality and extended tool life. Available in HSS, HSS-E (cobalt) and solid carbide grades."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "40k+",
+            "title": "Comprehensive Range",
+            "description": "Over 40,000 products covering drill bits, taps, dies, end mills, reamers, countersinks and carbide burrs. Whatever the material or application, Dormer has the right tool."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "TiN",
+            "title": "Advanced Coatings",
+            "description": "TiN, TiAlN and other advanced coatings extend tool life, reduce friction and enable higher cutting speeds. Matched to material and application for optimum performance."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "UK",
+            "title": "Trade Support",
+            "description": "As an official Dormer stockist, we carry the full range and can advise on the right tool for your application. Competitive trade pricing and next-day delivery on orders over £99."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6"
+      ],
+      "settings": {
+        "section_label": "Why Dormer",
+        "title": "Why Professionals Choose Dormer",
+        "subtitle": "Sheffield-made precision cutting tools backed by over a century of engineering excellence"
+      }
+    },
+    "categories": {
+      "type": "brand-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Drill Bits",
+            "description": "HSS, cobalt and solid carbide drill bits in jobber, stub and long series. TiN and TiAlN coated options for extended life in steel, stainless and non-ferrous metals.",
+            "url": ""
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Taps & Dies",
+            "description": "Spiral flute, straight flute and spiral point taps in HSS and HSS-E. Complete tap and die sets in metric coarse and fine threads for workshop and site use.",
+            "url": ""
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "End Mills & Accessories",
+            "description": "Solid carbide and HSS end mills, reamers, countersinks, counterbores and carbide burrs for milling, finishing and deburring applications.",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3"
+      ],
+      "settings": {
+        "section_label": "Shop By Category",
+        "title": "Explore the Dormer Range",
+        "subtitle": "From precision HSS drill bits to complete threading solutions"
+      }
+    },
+    "video": {
+      "type": "brand-video",
+      "settings": {
+        "thumbnail": "",
+        "video_url": "",
+        "section_label": "See It In Action",
+        "title": "Dormer Pramet Cutting Tools",
+        "description": "Discover how Dormer Pramet's precision-ground cutting tools deliver consistent performance across steel, stainless, aluminium and cast iron.",
+        "feature_1": "HSS, cobalt and solid carbide",
+        "feature_2": "TiN and TiAlN coatings",
+        "feature_3": "Over 40,000 products",
+        "feature_4": "Sheffield heritage since 1913"
+      }
+    },
+    "faq": {
+      "type": "brand-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the difference between HSS, cobalt and carbide drill bits?",
+            "answer": "<p><strong>HSS (High Speed Steel)</strong> is the standard material for general-purpose drilling in mild steel, aluminium and plastics. <strong>Cobalt (HSS-E)</strong> contains 5-8% cobalt for improved heat resistance — ideal for stainless steel and harder metals. <strong>Solid carbide</strong> is the hardest and most wear-resistant, suited to high-volume production and CNC machining at higher speeds.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I choose the right tap for thread cutting?",
+            "answer": "<p>Consider three factors: <strong>material</strong> (HSS for mild steel, HSS-E for stainless), <strong>hole type</strong> (spiral flute for blind holes, spiral point for through holes, straight flute for general purpose), and <strong>thread form</strong> (metric coarse M, metric fine MF, or BSP/BSW for pipe and legacy threads). For hand tapping, use a set of taper, second and bottoming taps.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "What do drill bit coatings like TiN and TiAlN do?",
+            "answer": "<p><strong>TiN (Titanium Nitride)</strong> is the gold-coloured coating that increases surface hardness and reduces friction, extending tool life by up to 3x in steel. <strong>TiAlN (Titanium Aluminium Nitride)</strong> offers higher heat resistance for faster cutting speeds and is ideal for stainless steel and harder alloys. Uncoated HSS is suitable for softer metals and general-purpose work.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "Is Dormer the same as Dormer Pramet?",
+            "answer": "<p><strong>Dormer Pramet</strong> was formed in 2014 by merging Dormer Tools (founded 1913 in Sheffield) with the Pramet brand. Both are part of the <strong>Sandvik Group</strong>. Dormer products focus on rotary tools — drill bits, taps, dies, end mills and reamers — while Pramet covers indexable inserts and toolholders. Both brands are now united under the Dormer Pramet name.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "What drill bit do I need for stainless steel?",
+            "answer": "<p>For stainless steel, use a <strong>cobalt (HSS-E) drill bit</strong> with a 135-degree split point. Cobalt's superior heat resistance prevents the work-hardening that causes standard HSS bits to fail in stainless. For higher volumes, consider a <strong>TiAlN-coated solid carbide</strong> drill. Use a slow speed, steady feed rate and cutting fluid for best results.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer trade pricing on Dormer cutting tools?",
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Dormer range including drill bits, taps, dies and end mills. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. Free next-day delivery on all orders over £99.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6"
+      ],
+      "settings": {
+        "heading": "Dormer FAQs",
+        "subheading": "Common questions about Dormer drill bits, taps, dies and cutting tools"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Help Choosing the Right Dormer Cutting Tool?",
+        "subtitle": "Our team can recommend the best drill bits, taps and tooling for your application",
+        "primary_text": "01843 593 440",
+        "primary_url": "tel:01843593440",
+        "primary_icon": "phone",
+        "secondary_text": "sales@invictatools.co.uk",
+        "secondary_url": "mailto:sales@invictatools.co.uk",
+        "secondary_icon": "email"
+      }
+    },
+    "schema": {
+      "type": "brand-schema",
+      "settings": {
+        "brand_name": "Dormer Pramet",
+        "brand_description": "Dormer Pramet is a global manufacturer of precision cutting tools for the engineering and metalworking industries. Founded in Sheffield in 1913 and part of the Sandvik Group, Dormer produces HSS, cobalt and solid carbide drill bits, taps, dies, end mills and reamers.",
+        "brand_url": "https://www.dormerpramet.com",
+        "brand_founding_year": "1913",
+        "brand_country": "United Kingdom",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "usp_strip",
+    "about",
+    "featured-products",
+    "brand_applications",
+    "brand_new_products",
+    "brand_why_choose",
+    "categories",
+    "video",
+    "faq",
+    "cta",
+    "schema"
+  ]
+}

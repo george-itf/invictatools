@@ -1,3 +1,466 @@
 /*
- * AUTO-GENERATED
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
  */
+{
+  "sections": {
+    "hero": {
+      "type": "brand-hero",
+      "settings": {
+        "brand_logo": "shopify://shop_images/irwin.svg",
+        "dealer_badge": "Official UK Stockist",
+        "headline_line_1": "Built to Grip.",
+        "headline_line_2": "Engineered to Last.",
+        "subtitle": "Professional hand tools and power tool accessories from the makers of Vise-Grip locking pliers. Trusted by metalworkers, joiners and contractors since 1885.",
+        "stat_1_value": "1885",
+        "stat_1_label": "Founded",
+        "stat_2_value": "100+",
+        "stat_2_label": "Years of Vise-Grip",
+        "stat_3_value": "#1",
+        "stat_3_label": "Locking Pliers",
+        "primary_cta_text": "Shop All Irwin",
+        "primary_cta_url": "",
+        "secondary_cta_text": "Browse by Category",
+        "secondary_cta_url": "#categories",
+        "hero_image": ""
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £99"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Official Stockist",
+            "subtitle": "Full product range"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 593 440"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#e41e25",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "about": {
+      "type": "brand-about",
+      "settings": {
+        "image": "",
+        "badge_label": "Since",
+        "badge_value": "1885",
+        "section_label": "The Irwin Story",
+        "title": "American Innovation Since 1885",
+        "paragraph_1": "Irwin's story began in 1885 when Charles Irwin patented the solid-centre auger bit in Wilmington, Ohio — a drill bit design so effective it set the standard for decades. But it was Danish immigrant William Petersen who, in 1924 in DeWitt, Nebraska, invented the locking pliers that would become the brand's most iconic product: the Vise-Grip.",
+        "paragraph_2": "Today, Irwin is part of Stanley Black & Decker and combines heritage brands including Vise-Grip locking pliers, Quick-Grip clamps, Speedbor drill bits, Marathon saw blades and Marples woodworking tools. From metalworking shops to construction sites, Irwin tools are engineered for professionals who demand grip, precision and durability from their hand tools and accessories.",
+        "stat_1_value": "140+",
+        "stat_1_label": "Years of Heritage",
+        "stat_2_value": "#1",
+        "stat_2_label": "Locking Pliers",
+        "stat_3_value": "6",
+        "stat_3_label": "Iconic Sub-Brands",
+        "feature_1": "Home of the original Vise-Grip locking pliers",
+        "feature_2": "Quick-Grip one-handed clamp system",
+        "feature_3": "Speedbor and Unibit drill bit technology",
+        "feature_4": "Lifetime warranty on hand tools",
+        "cta_text": "Learn More",
+        "cta_url": ""
+      }
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "irwin",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Featured Irwin Products",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "brand_applications": {
+      "type": "brand-applications",
+      "blocks": {
+        "app_1": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": true,
+            "title": "Metalworking",
+            "description": "Vise-Grip locking pliers, locking C-clamps, Unibit step drill bits and Marathon cutting blades for fabrication, welding and sheet metal work.",
+            "connector_used": ""
+          }
+        },
+        "app_2": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Woodworking",
+            "description": "Quick-Grip bar clamps, Marples chisels, Speedbor spade bits and precision saw blades for joinery, cabinetmaking and on-site carpentry.",
+            "connector_used": ""
+          }
+        },
+        "app_3": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Plumbing",
+            "description": "Groovelock water pump pliers, locking pliers and pipe wrenches for gripping, clamping and assembling pipework in confined spaces.",
+            "connector_used": ""
+          }
+        },
+        "app_4": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Electrical",
+            "description": "Wire strippers, long-nose pliers, diagonal cutters and precision screwdrivers for electrical installation and maintenance work.",
+            "connector_used": ""
+          }
+        },
+        "app_5": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "General Construction",
+            "description": "Drill bits, saw blades, clamps and locking tools that cover drilling, cutting, clamping and fastening across every construction trade.",
+            "connector_used": ""
+          }
+        }
+      },
+      "block_order": [
+        "app_1",
+        "app_2",
+        "app_3",
+        "app_4",
+        "app_5"
+      ],
+      "settings": {
+        "section_label": "Real World Applications",
+        "title": "Where Irwin Delivers",
+        "subtitle": "Professional hand tools and accessories built for every trade",
+        "cta_text": "View All Irwin Products",
+        "cta_url": ""
+      }
+    },
+    "brand_new_products": {
+      "type": "brand-new-products",
+      "blocks": {
+        "new_1": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "ICONIC",
+            "launch_date": "Available Now",
+            "title": "Vise-Grip Original Locking Pliers",
+            "description": "The tool William Petersen invented in 1924, refined over 100 years. Hardened alloy steel jaws, the original turn-screw pressure adjustment and the classic easy-release trigger — the locking pliers that defined the category.",
+            "feature_1": "Hardened alloy steel jaws",
+            "feature_2": "Turn-screw pressure adjustment",
+            "feature_3": "Easy-release trigger",
+            "feature_4": "Built-in wire cutter",
+            "cta_text": "Shop Vise-Grip",
+            "cta_url": ""
+          }
+        },
+        "new_2": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "BESTSELLER",
+            "launch_date": "",
+            "title": "Quick-Grip One-Handed Bar Clamp",
+            "description": "Squeeze the trigger, set the clamp — one-handed operation leaves your other hand free to position the workpiece. Non-marring pads protect surfaces while the quick-release trigger allows instant repositioning.",
+            "feature_1": "One-handed trigger operation",
+            "feature_2": "Non-marring contact pads",
+            "feature_3": "Quick-release trigger",
+            "feature_4": "Converts to spreader",
+            "cta_text": "Shop Quick-Grip",
+            "cta_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "new_1",
+        "new_2"
+      ],
+      "settings": {
+        "section_label": "Latest Products",
+        "title": "Top Products from Irwin",
+        "subtitle": "Professional-grade hand tools from the home of Vise-Grip and Quick-Grip"
+      }
+    },
+    "brand_why_choose": {
+      "type": "brand-why-choose",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "1924",
+            "title": "Vise-Grip Heritage",
+            "description": "William Petersen invented the locking pliers in 1924. Over 100 years later, Vise-Grip remains the world's number one locking plier — imitated by many, matched by none."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "GRIP",
+            "title": "Quick-Grip Innovation",
+            "description": "Irwin's one-handed Quick-Grip clamps revolutionised clamping for professionals. Squeeze the trigger, set the clamp, keep your other hand free — faster and more precise than traditional bar clamps."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "SPEED",
+            "title": "Speedbor Drill Technology",
+            "description": "Speedbor spade bits and Unibit step drills cut faster and cleaner than standard bits. Tri-flute designs clear chips efficiently, reducing binding and extending bit life in demanding materials."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "6",
+            "title": "Iconic Sub-Brands",
+            "description": "Vise-Grip, Quick-Grip, Speedbor, Marathon, Marples and Unibit — six specialist brands under one roof, each a category leader in its own right."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "LIFE",
+            "title": "Lifetime Warranty",
+            "description": "Irwin hand tools are backed by a lifetime warranty against defects in materials and workmanship. Professional tools built to last — and guaranteed to prove it."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "UK",
+            "title": "Trade Support",
+            "description": "As an official UK stockist, Invicta Tools carries the full Irwin range with trade pricing, next-day delivery and direct warranty support for professionals."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6"
+      ],
+      "settings": {
+        "section_label": "Why Irwin",
+        "title": "Why Professionals Choose Irwin",
+        "subtitle": "The brand behind Vise-Grip, Quick-Grip and over 140 years of trade innovation"
+      }
+    },
+    "categories": {
+      "type": "brand-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Pliers & Vise-Grips",
+            "description": "The original Vise-Grip locking pliers, Groovelock water pump pliers, long-nose pliers, diagonal cutters and specialist gripping tools for every trade.",
+            "url": ""
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Drill Bits & Accessories",
+            "description": "Speedbor spade bits, Unibit step drills, SDS masonry bits, multi-material bits and complete drill accessory sets for professional use.",
+            "url": ""
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Clamps",
+            "description": "Quick-Grip one-handed bar clamps, C-clamps, locking C-clamps and specialty clamps for woodworking, metalworking and construction.",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3"
+      ],
+      "settings": {
+        "section_label": "Shop By Category",
+        "title": "Explore the Irwin Range",
+        "subtitle": "From Vise-Grip locking pliers to Quick-Grip clamps and Speedbor drill bits"
+      }
+    },
+    "video": {
+      "type": "brand-video",
+      "settings": {
+        "thumbnail": "",
+        "video_url": "",
+        "section_label": "See It In Action",
+        "title": "Irwin Vise-Grip: 100 Years of Locking Pliers",
+        "description": "Discover the history and engineering behind the world's original and best-selling locking pliers, from William Petersen's 1924 invention to today.",
+        "feature_1": "Original 1924 locking mechanism",
+        "feature_2": "Easy-release trigger design",
+        "feature_3": "Hardened alloy steel construction",
+        "feature_4": "Over 100 years of refinement"
+      }
+    },
+    "faq": {
+      "type": "brand-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the history of Irwin Vise-Grip locking pliers?",
+            "answer": "<p><strong>Vise-Grip</strong> locking pliers were invented in <strong>1924</strong> by Danish immigrant <strong>William Petersen</strong> in DeWitt, Nebraska. He initially sold them from the boot of his car to farmers and mechanics. In 1934, he formed the Petersen Manufacturing Company, and in 1957 added the easy-release trigger that defines the modern design. After over 100 years, Vise-Grip remains the world's best-selling locking plier.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "What types of drill bits does Irwin make?",
+            "answer": "<p>Irwin produces a comprehensive range of professional drill bits including <strong>Speedbor</strong> spade bits for fast wood boring, <strong>Unibit</strong> step drills for sheet metal, SDS-Plus masonry bits, multi-material bits, HSS metal bits, and brad-point wood bits. The Speedbor Tri-Flute design clears chips faster and reduces binding in deep holes.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "What warranty do Irwin tools carry?",
+            "answer": "<p>Irwin hand tools carry a <strong>lifetime warranty</strong> against defects in materials and workmanship under normal use. Power tool accessories such as drill bits and saw blades are warranted against manufacturing defects. As an official UK stockist, Invicta Tools can process warranty claims directly on your behalf.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the difference between Vise-Grip and standard locking pliers?",
+            "answer": "<p><strong>Vise-Grip</strong> is the original locking plier — invented by William Petersen and refined continuously for over 100 years. The key differences are the precision-machined turn-screw adjustment, hardened alloy steel jaws that grip without slipping, and the patented easy-release trigger. Many brands imitate the design, but Vise-Grip remains the trade standard for a reason.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "Who owns Irwin Tools?",
+            "answer": "<p>Irwin is owned by <strong>Stanley Black & Decker</strong>, who acquired the brand in 2017. The Irwin brand portfolio includes Vise-Grip, Quick-Grip, Speedbor, Marathon, Marples and Unibit — each a category leader. The brand traces its origins to <strong>1885</strong> when Charles Irwin patented the solid-centre auger bit in Ohio.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer trade pricing on Irwin?",
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Irwin range including Vise-Grip, Quick-Grip and Speedbor products. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. We also provide free next-day delivery on all orders over \u00a399.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6"
+      ],
+      "settings": {
+        "heading": "Irwin FAQs",
+        "subheading": "Common questions about Irwin Vise-Grip, drill bits and professional hand tools"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Help Choosing the Right Irwin Tool?",
+        "subtitle": "Our team can recommend the best tools and accessories for your trade",
+        "primary_text": "01843 593 440",
+        "primary_url": "tel:01843593440",
+        "primary_icon": "phone",
+        "secondary_text": "sales@invictatools.co.uk",
+        "secondary_url": "mailto:sales@invictatools.co.uk",
+        "secondary_icon": "email"
+      }
+    },
+    "schema": {
+      "type": "brand-schema",
+      "settings": {
+        "brand_name": "Irwin",
+        "brand_description": "Irwin is an American manufacturer of professional hand tools and power tool accessories, founded in 1885. Home of the iconic Vise-Grip locking pliers, Quick-Grip clamps and Speedbor drill bits, trusted by tradespeople worldwide.",
+        "brand_url": "https://www.irwin.eu",
+        "brand_founding_year": "1885",
+        "brand_country": "United States",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "usp_strip",
+    "about",
+    "featured-products",
+    "brand_applications",
+    "brand_new_products",
+    "brand_why_choose",
+    "categories",
+    "video",
+    "faq",
+    "cta",
+    "schema"
+  ]
+}

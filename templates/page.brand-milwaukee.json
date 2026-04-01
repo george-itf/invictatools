@@ -1,0 +1,467 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "brand-hero",
+      "settings": {
+        "brand_logo": "shopify://shop_images/milwaukee.svg",
+        "dealer_badge": "Official UK Stockist",
+        "headline_line_1": "Nothing But Heavy Duty.",
+        "headline_line_2": "Built for the Trades.",
+        "subtitle": "Professional-grade cordless power tools, hand tools and storage systems engineered for demanding jobsite conditions. Trusted by contractors and tradespeople across the UK since 1924.",
+        "stat_1_value": "1924",
+        "stat_1_label": "Founded",
+        "stat_2_value": "18V",
+        "stat_2_label": "M18 Platform",
+        "stat_3_value": "275+",
+        "stat_3_label": "M18 Solutions",
+        "primary_cta_text": "Shop All Milwaukee",
+        "primary_cta_url": "",
+        "secondary_cta_text": "Browse by Category",
+        "secondary_cta_url": "#categories",
+        "hero_image": "shopify://shop_images/8f8a7ed07c4a40689e8efe34c2007130.webp"
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £99"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Official Stockist",
+            "subtitle": "Full product range"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 593 440"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#e41e25",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "about": {
+      "type": "brand-about",
+      "settings": {
+        "image": "shopify://shop_images/39ed32a1a03e4712bdff315b570832e4.webp",
+        "badge_label": "Since",
+        "badge_value": "1924",
+        "section_label": "The Milwaukee Story",
+        "title": "Nothing But Heavy Duty Since 1924",
+        "paragraph_1": "Milwaukee Tool was born in 1924 when Albert F. Siebert acquired the assets of the A.H. Petersen Company in Brookfield, Wisconsin, and formed the Milwaukee Electric Tool Corporation. The company's first breakthrough was the Hole-Shooter — a lightweight, one-handed quarter-inch power drill that transformed how electricians and tradespeople worked on-site. That commitment to solving real problems for the trades has driven every product since.",
+        "paragraph_2": "Today, Milwaukee's M18 FUEL platform — powered by POWERSTATE brushless motors, REDLITHIUM battery packs and REDLINK PLUS intelligence — delivers over 275 cordless solutions that outperform corded alternatives. Combined with the PACKOUT modular storage system and ONE-KEY digital tracking platform, Milwaukee gives contractors a complete, connected ecosystem built around one battery system.",
+        "stat_1_value": "100+",
+        "stat_1_label": "Years of Innovation",
+        "stat_2_value": "275+",
+        "stat_2_label": "M18 Solutions",
+        "stat_3_value": "#1",
+        "stat_3_label": "Cordless Platform",
+        "feature_1": "POWERSTATE brushless motor technology",
+        "feature_2": "REDLITHIUM battery intelligence system",
+        "feature_3": "PACKOUT modular storage ecosystem",
+        "feature_4": "ONE-KEY digital tool tracking",
+        "cta_text": "Learn More",
+        "cta_url": ""
+      }
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "milwaukee",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Featured Milwaukee Products",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "brand_applications": {
+      "type": "brand-applications",
+      "blocks": {
+        "app_1": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": true,
+            "title": "Construction",
+            "description": "M18 FUEL rotary hammers, circular saws and combi drills that deliver corded performance on the most demanding construction sites. POWERSTATE motors power through concrete, steel and timber.",
+            "connector_used": ""
+          }
+        },
+        "app_2": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Electrical",
+            "description": "Compact M12 and M18 drills, cable cutters, crimpers and fish tapes designed for tight spaces. ONE-KEY tracking ensures no tools go missing across multiple sites.",
+            "connector_used": ""
+          }
+        },
+        "app_3": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Plumbing",
+            "description": "M18 FUEL press tools, pipe cutters and ProPEX expansion tools that reduce install times. Purpose-built for professional plumbing and heating installations.",
+            "connector_used": ""
+          }
+        },
+        "app_4": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "HVAC",
+            "description": "Copper cutters, threaders, press tools and refrigerant recovery machines built for HVAC contractors. M18 FUEL handles the heavy work, M12 fits the tight spaces.",
+            "connector_used": ""
+          }
+        },
+        "app_5": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Metalworking",
+            "description": "Band saws, angle grinders, magnetic drill presses and cut-off saws that cut, grind and fabricate metal on-site or in the workshop. Built for steel fixers and fabricators.",
+            "connector_used": ""
+          }
+        }
+      },
+      "block_order": [
+        "app_1",
+        "app_2",
+        "app_3",
+        "app_4",
+        "app_5"
+      ],
+      "settings": {
+        "section_label": "Real World Applications",
+        "title": "Where Milwaukee Delivers",
+        "subtitle": "Purpose-built tools for every trade, engineered for the most demanding conditions",
+        "cta_text": "View All Milwaukee Products",
+        "cta_url": ""
+      }
+    },
+    "brand_new_products": {
+      "type": "brand-new-products",
+      "blocks": {
+        "new_1": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "FLAGSHIP",
+            "launch_date": "Available Now",
+            "title": "M18 FUEL Gen 4 Combi Drill",
+            "description": "The most advanced cordless combi drill Milwaukee has ever built. Fourth-generation POWERSTATE brushless motor with REDLINK PLUS intelligence delivers class-leading torque and runtime in a compact form factor built for all-day trade use.",
+            "feature_1": "135Nm maximum torque",
+            "feature_2": "POWERSTATE brushless motor",
+            "feature_3": "REDLINK PLUS overload protection",
+            "feature_4": "All-metal gear train",
+            "cta_text": "Shop M18 FUEL Drills",
+            "cta_url": ""
+          }
+        },
+        "new_2": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "SYSTEM",
+            "launch_date": "",
+            "title": "PACKOUT Modular Storage System",
+            "description": "The industry-leading modular storage system that has redefined how tradespeople organise, transport and access tools on the jobsite. IP65-rated, impact-resistant and fully interlocking — from compact organisers to rolling tool chests.",
+            "feature_1": "IP65 weather-sealed construction",
+            "feature_2": "200 lb load capacity per box",
+            "feature_3": "Reinforced hinge points",
+            "feature_4": "Full system interlock compatibility",
+            "cta_text": "Shop PACKOUT",
+            "cta_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "new_1",
+        "new_2"
+      ],
+      "settings": {
+        "section_label": "Latest Products",
+        "title": "Top Products from Milwaukee",
+        "subtitle": "The latest M18 FUEL tools and PACKOUT storage for professional tradespeople"
+      }
+    },
+    "brand_why_choose": {
+      "type": "brand-why-choose",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "M18",
+            "title": "One Battery Platform",
+            "description": "The M18 system powers over 275 cordless solutions from a single battery platform. One charger, one battery type, maximum versatility — from combi drills to concrete saws."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "FUEL",
+            "title": "Brushless Performance",
+            "description": "M18 FUEL tools feature POWERSTATE brushless motors delivering up to 20% more power and 40% faster application speed than previous generations. Purpose-built for the most demanding trade applications."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "ONE-KEY",
+            "title": "Digital Tool Management",
+            "description": "ONE-KEY is the first digital platform for tools and equipment — track tool locations in real-time, customise tool performance settings and manage inventory across sites from one app."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "PACKOUT",
+            "title": "Modular Storage System",
+            "description": "PACKOUT is the most versatile modular storage system in the trades. Impact-resistant, weather-sealed boxes that interlock and stack securely — organise your tools from workshop to van to jobsite."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "REDLITHIUM",
+            "title": "Intelligent Batteries",
+            "description": "REDLITHIUM battery packs with REDLINK PLUS intelligence communicate with tools in real-time — optimising power delivery, preventing overload and extending battery and tool life."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "3 Yr",
+            "title": "Extended Warranty",
+            "description": "Milwaukee power tools come with a standard warranty, extendable to 3 years when registered within 30 days of purchase. As an official UK stockist, Invicta Tools supports all warranty claims directly."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6"
+      ],
+      "settings": {
+        "section_label": "Why Milwaukee",
+        "title": "Why Professionals Choose Milwaukee",
+        "subtitle": "The red tools that set the standard for heavy-duty performance on the jobsite"
+      }
+    },
+    "categories": {
+      "type": "brand-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Cordless Power Tools",
+            "description": "M18 and M18 FUEL drills, impact drivers, saws, grinders, rotary hammers and more — 275+ solutions powered by one battery platform.",
+            "url": ""
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Hand Tools",
+            "description": "Pliers, cutters, screwdrivers, tape measures, levels and marking tools — built to the same Heavy Duty standard as Milwaukee power tools.",
+            "url": ""
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Storage & PACKOUT",
+            "description": "PACKOUT modular tool boxes, organisers, rolling chests, bags and mounting systems — the trades' most versatile storage ecosystem.",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3"
+      ],
+      "settings": {
+        "section_label": "Shop By Category",
+        "title": "Explore the Milwaukee Range",
+        "subtitle": "From M18 FUEL power tools to PACKOUT modular storage"
+      }
+    },
+    "video": {
+      "type": "brand-video",
+      "settings": {
+        "thumbnail": "",
+        "video_url": "https://www.youtube.com/watch?v=PLACEHOLDER",
+        "section_label": "See It In Action",
+        "title": "Milwaukee M18 FUEL System Explained",
+        "description": "See how Milwaukee's POWERSTATE brushless motor, REDLITHIUM batteries and REDLINK PLUS intelligence work together to deliver unmatched cordless performance.",
+        "feature_1": "POWERSTATE brushless motor",
+        "feature_2": "REDLITHIUM battery intelligence",
+        "feature_3": "275+ compatible M18 solutions",
+        "feature_4": "ONE-KEY digital connectivity",
+        "disabled": false
+      }
+    },
+    "faq": {
+      "type": "brand-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the difference between Milwaukee M18 and M12?",
+            "answer": "<p><strong>M18</strong> is Milwaukee's 18-volt platform — the primary system for heavy-duty trade applications with over 275 cordless solutions including drills, saws, grinders and rotary hammers. <strong>M12</strong> is the compact 12-volt platform designed for tight-space work and lighter-duty applications like inspection cameras, sub-compact drills and pipe cutters. Both systems use REDLITHIUM batteries, but they are not cross-compatible — M18 batteries only fit M18 tools and M12 batteries only fit M12 tools.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "What does FUEL mean on Milwaukee tools?",
+            "answer": "<p><strong>M18 FUEL</strong> is Milwaukee's top-tier professional range within the M18 platform. FUEL tools feature three exclusive technologies: the <strong>POWERSTATE brushless motor</strong> for maximum power and durability, <strong>REDLITHIUM battery packs</strong> for extended runtime, and <strong>REDLINK PLUS intelligence</strong> for real-time communication between tool and battery. FUEL tools deliver up to 20% more power and 40% faster cutting speed than non-FUEL equivalents.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "What is Milwaukee ONE-KEY and how does it work?",
+            "answer": "<p><strong>ONE-KEY</strong> is Milwaukee's digital platform for tools and equipment. It allows you to <strong>track tool locations</strong> via Bluetooth, <strong>customise tool settings</strong> such as speed and torque for specific applications, and <strong>manage your entire inventory</strong> across multiple jobsites from one app. ONE-KEY is built into compatible M18 FUEL tools and can also be added to non-ONE-KEY tools via a ONE-KEY TICK tracker.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the PACKOUT system and is it worth it?",
+            "answer": "<p><strong>PACKOUT</strong> is Milwaukee's modular storage system — the most versatile on the market. Every PACKOUT box, organiser, tote and rolling chest <strong>interlocks securely</strong> so you can stack and transport your entire kit as one unit. Boxes are <strong>IP65 weather-sealed</strong> and built with impact-resistant polymer. For tradespeople moving between sites daily, PACKOUT eliminates loose tool bags and disorganised vans. It is the industry standard for professional tool storage.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "What warranty do Milwaukee tools come with in the UK?",
+            "answer": "<p>Milwaukee power tools come with a standard manufacturer warranty. By <strong>registering your tool within 30 days of purchase</strong> on the Milwaukee warranty portal, you can extend this to a <strong>3-year warranty</strong>. As an official UK stockist, Invicta Tools can assist with all warranty claims and support. Register at <strong>warranty.milwaukeetool.eu</strong> with your proof of purchase.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer trade pricing on Milwaukee tools?",
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Milwaukee range including M18 FUEL, M12, PACKOUT and accessories. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. We also provide free next-day delivery on all orders over £99.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6"
+      ],
+      "settings": {
+        "heading": "Milwaukee FAQs",
+        "subheading": "Common questions about Milwaukee M18 FUEL, PACKOUT and ONE-KEY"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Help Choosing the Right Milwaukee Tool?",
+        "subtitle": "Our team can recommend the best tools for your trade and budget",
+        "primary_text": "01843 593 440",
+        "primary_url": "tel:01843593440",
+        "primary_icon": "phone",
+        "secondary_text": "sales@invictatools.co.uk",
+        "secondary_url": "mailto:sales@invictatools.co.uk",
+        "secondary_icon": "email"
+      }
+    },
+    "schema": {
+      "type": "brand-schema",
+      "settings": {
+        "brand_name": "Milwaukee",
+        "brand_description": "Milwaukee Tool is a global manufacturer of heavy-duty power tools, hand tools and storage solutions. Founded in 1924 in Brookfield, Wisconsin, Milwaukee's M18 FUEL and PACKOUT systems are trusted by contractors and tradespeople on jobsites worldwide.",
+        "brand_url": "https://uk.milwaukeetool.eu/",
+        "brand_founding_year": "1924",
+        "brand_country": "United States",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "usp_strip",
+    "about",
+    "featured-products",
+    "brand_applications",
+    "brand_new_products",
+    "brand_why_choose",
+    "categories",
+    "video",
+    "faq",
+    "cta",
+    "schema"
+  ]
+}

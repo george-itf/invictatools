@@ -1,7 +1,11 @@
 /*
- * ------------------
- * Auto-generated file
- * ------------------
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
  */
 {
   "sections": {
@@ -12,8 +16,451 @@
         "dealer_badge": "Official UK Stockist",
         "headline_line_1": "Britain's No.1 Adhesive.",
         "headline_line_2": "Trusted by the Trade.",
-        "subtitle": "Professional-grade adhesives, sealants and tiling products formulated for UK tradespeople. From contact adhesives to tile solutions, Evo-Stik has been the go-to brand on British sites for decades."
+        "subtitle": "Professional-grade adhesives, sealants and tiling products formulated for UK tradespeople. From contact adhesives to tile solutions, Evo-Stik has been the go-to brand on British sites for decades.",
+        "stat_1_value": "No.1",
+        "stat_1_label": "UK Adhesive Brand",
+        "stat_2_value": "50+",
+        "stat_2_label": "Years in UK Trade",
+        "stat_3_value": "100+",
+        "stat_3_label": "Trade Products",
+        "primary_cta_text": "Shop All Evo-Stik",
+        "primary_cta_url": "",
+        "secondary_cta_text": "Browse by Category",
+        "secondary_cta_url": "#categories",
+        "hero_image": ""
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £99"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Official Stockist",
+            "subtitle": "Full product range"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 593 440"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#e41e25",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "about": {
+      "type": "brand-about",
+      "settings": {
+        "image": "",
+        "badge_label": "Heritage",
+        "badge_value": "UK",
+        "section_label": "The Evo-Stik Story",
+        "title": "Britain's Leading Adhesive Brand",
+        "paragraph_1": "Evo-Stik is the UK's number one adhesive manufacturer, with a heritage rooted in decades of British trade. A trademark of Bostik, part of the global Arkema Group, Evo-Stik products have been formulated specifically for UK conditions and construction practices. The brand became synonymous with contact adhesives when Evo-Stik Impact Adhesive became a staple on every tradesperson's van from the 1960s onwards.",
+        "paragraph_2": "Today, Evo-Stik's range extends far beyond contact adhesives. From rapid-set tile adhesives and flexible grouts to specialist wood glues, grab adhesives, pipe cement and silicone sealants, the brand covers virtually every bonding challenge on site. The majority of the range is manufactured in Evo-Stik's own UK factories, ensuring formulations are designed for British substrates, temperatures and building regulations.",
+        "stat_1_value": "No.1",
+        "stat_1_label": "UK Adhesive Brand",
+        "stat_2_value": "UK",
+        "stat_2_label": "Manufactured",
+        "stat_3_value": "100+",
+        "stat_3_label": "Trade Products",
+        "feature_1": "UK's number one adhesive manufacturer",
+        "feature_2": "Part of Bostik (Arkema Group)",
+        "feature_3": "Majority manufactured in UK factories",
+        "feature_4": "Specialist formulations for every substrate",
+        "cta_text": "Learn More",
+        "cta_url": ""
+      }
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "evostik",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Featured Evo-Stik Products",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "brand_applications": {
+      "type": "brand-applications",
+      "blocks": {
+        "app_1": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": true,
+            "title": "Flooring & Tiling",
+            "description": "Rapid-set floor and wall tile adhesives, flexible grouts and waterproof formulations for ceramic, porcelain and natural stone installations in wet and dry environments.",
+            "connector_used": ""
+          }
+        },
+        "app_2": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Woodworking",
+            "description": "Interior and exterior wood adhesives including PVA, polyurethane and contact formulations for joinery, carpentry and furniture assembly.",
+            "connector_used": ""
+          }
+        },
+        "app_3": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "General Bonding",
+            "description": "Impact contact adhesives and grab adhesives for bonding laminates, worktops, panels, rubber, metal and plastics on site and in the workshop.",
+            "connector_used": ""
+          }
+        },
+        "app_4": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Plumbing",
+            "description": "Solvent cement and pipe adhesives for joining PVC, ABS and polypropylene pipework in plumbing, drainage and waste water installations.",
+            "connector_used": ""
+          }
+        },
+        "app_5": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Decorating",
+            "description": "Sealants, fillers and adhesives for finishing work including coving adhesive, border adhesive and mould-resistant bathroom sealants.",
+            "connector_used": ""
+          }
+        }
+      },
+      "block_order": [
+        "app_1",
+        "app_2",
+        "app_3",
+        "app_4",
+        "app_5"
+      ],
+      "settings": {
+        "section_label": "Real World Applications",
+        "title": "Where Evo-Stik Delivers",
+        "subtitle": "Specialist adhesives and sealants formulated for every trade",
+        "cta_text": "View All Evo-Stik Products",
+        "cta_url": ""
+      }
+    },
+    "brand_new_products": {
+      "type": "brand-new-products",
+      "blocks": {
+        "new_1": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "TRADE FAVOURITE",
+            "launch_date": "",
+            "title": "Evo-Stik 528 Instant Contact Adhesive",
+            "description": "The industry-standard contact adhesive trusted by tradespeople for decades. High shear strength, good temperature resistance and bonds immediately on contact. Ideal for laminates, worktops, panels and leather goods.",
+            "feature_1": "Bonds immediately on contact",
+            "feature_2": "High shear strength",
+            "feature_3": "Good temperature resistance",
+            "feature_4": "Multi-surface compatibility",
+            "cta_text": "Shop Contact Adhesives",
+            "cta_url": ""
+          }
+        },
+        "new_2": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "BESTSELLER",
+            "launch_date": "",
+            "title": "Rapid Set Floor & Wall Tile Adhesive",
+            "description": "Cement-based flexible tile adhesive that sets in just 2 hours. Suitable for wood, concrete and plaster substrates with waterproof performance for interior and exterior use.",
+            "feature_1": "Sets in just 2 hours",
+            "feature_2": "Flexible formulation",
+            "feature_3": "Interior and exterior use",
+            "feature_4": "Waterproof when set",
+            "cta_text": "Shop Tile Adhesives",
+            "cta_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "new_1",
+        "new_2"
+      ],
+      "settings": {
+        "section_label": "Latest Products",
+        "title": "Top Products from Evo-Stik",
+        "subtitle": "Trade-proven adhesives and tiling solutions from Britain's number one"
+      }
+    },
+    "brand_why_choose": {
+      "type": "brand-why-choose",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "No.1",
+            "title": "UK's Leading Adhesive Brand",
+            "description": "Evo-Stik is the number one adhesive manufacturer in the UK. Decades of research, development and trade feedback have built a range that British tradespeople trust above all others."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "UK",
+            "title": "Manufactured in Britain",
+            "description": "The majority of Evo-Stik products are manufactured in the company's own UK factories. Formulations are designed specifically for British substrates, climates and building standards."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "50+",
+            "title": "Decades of Trade Heritage",
+            "description": "From the iconic Impact contact adhesive to today's rapid-set tile range, Evo-Stik has been a constant presence on UK building sites and in workshops for over fifty years."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "PRO",
+            "title": "Specialist Trade Formulations",
+            "description": "Every Evo-Stik product is engineered for a specific application — contact adhesives, tile adhesives, wood glues, pipe cements, sealants. The right adhesive for every substrate and situation."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "FAST",
+            "title": "Rapid Working Times",
+            "description": "Evo-Stik's rapid-set tile adhesives cure in just 2 hours, and their impact contact adhesives bond immediately on contact. Less waiting, more productivity on site."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "RANGE",
+            "title": "Complete Adhesive Solution",
+            "description": "From first fix to finishing, Evo-Stik covers every bonding and sealing requirement on a construction project. One trusted brand across every trade on site."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6"
+      ],
+      "settings": {
+        "section_label": "Why Evo-Stik",
+        "title": "Why Professionals Choose Evo-Stik",
+        "subtitle": "The UK's number one adhesive brand, trusted by tradespeople for decades"
+      }
+    },
+    "categories": {
+      "type": "brand-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Contact Adhesives",
+            "description": "Impact adhesives and contact cements for instant bonding of laminates, worktops, panels, rubber and leather. The trade standard.",
+            "url": ""
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Tile Adhesives & Grouts",
+            "description": "Rapid-set, flexible and waterproof tile adhesives plus mould-resistant grouts for floors and walls in any environment.",
+            "url": ""
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Sealants & Grab Adhesives",
+            "description": "Silicone sealants, grab adhesives, wood glues and specialist bonding products for every finishing and fixing job on site.",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3"
+      ],
+      "settings": {
+        "section_label": "Shop By Category",
+        "title": "Explore the Evo-Stik Range",
+        "subtitle": "From contact adhesives to tile solutions and specialist sealants"
+      }
+    },
+    "video": {
+      "type": "brand-video",
+      "settings": {
+        "thumbnail": "",
+        "video_url": "",
+        "section_label": "See It In Action",
+        "title": "Evo-Stik Trade Adhesive Solutions",
+        "description": "See how Evo-Stik's range of professional adhesives, tile products and sealants perform on real trade applications.",
+        "feature_1": "Instant contact bond technology",
+        "feature_2": "Rapid-set tile adhesives",
+        "feature_3": "Waterproof formulations",
+        "feature_4": "Multi-substrate compatibility"
+      }
+    },
+    "faq": {
+      "type": "brand-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the difference between a contact adhesive and PVA glue?",
+            "answer": "<p><strong>Contact adhesives</strong> like Evo-Stik 528 bond immediately when two coated surfaces are pressed together, creating a high-strength instant bond. They are ideal for laminates, worktops and non-porous materials. <strong>PVA wood glue</strong> is a water-based adhesive that requires clamping while it dries and is best suited for porous materials like timber. Use contact adhesive when you need an immediate bond on non-porous surfaces, and PVA when you have time to clamp and are working with wood.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "Which Evo-Stik tile adhesive should I use?",
+            "answer": "<p>For standard ceramic wall tiles on plaster or plasterboard, Evo-Stik's <strong>ready-mixed wall tile adhesive</strong> is the simplest option. For floor tiles, porcelain, natural stone or exterior applications, use a <strong>cement-based flexible tile adhesive</strong> like the Rapid Set Floor & Wall range. In wet areas such as bathrooms and showers, choose a waterproof formulation and pair it with a <strong>mould-resistant grout</strong>.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "How long do Evo-Stik adhesives take to dry?",
+            "answer": "<p>Drying times vary by product. <strong>Evo-Stik Impact contact adhesive</strong> bonds immediately on contact after both surfaces have been coated and allowed to become touch-dry (typically 10-15 minutes). <strong>Rapid-set tile adhesives</strong> achieve initial set in approximately 2 hours and full cure within 24 hours. <strong>PVA wood glues</strong> typically require clamping for 1-2 hours with full strength reached after 24 hours. Always check the product technical data sheet for specific guidance.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "Is Evo-Stik part of Bostik?",
+            "answer": "<p>Yes. <strong>Evo-Stik is a trademark of Bostik</strong>, one of the world's leading manufacturers of adhesives, sealants and building chemicals. Bostik is part of the <strong>Arkema Group</strong>, a global specialty chemicals company. The Evo-Stik brand is focused on the UK trade and DIY markets, with the majority of products manufactured in Bostik's own UK factories.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I use Evo-Stik products outdoors?",
+            "answer": "<p>Many Evo-Stik products are suitable for exterior use. The <strong>Floor & Wall Tile Adhesive</strong> range includes waterproof formulations rated for interior and exterior applications. Evo-Stik also produces <strong>exterior wood adhesives</strong> and <strong>weatherproof sealants</strong>. Always check the product label — it will clearly state whether the product is suitable for exterior use.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer trade pricing on Evo-Stik?",
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Evo-Stik range including contact adhesives, tile adhesives, sealants and grab adhesives. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. Free next-day delivery on all orders over £99.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6"
+      ],
+      "settings": {
+        "heading": "Evo-Stik FAQs",
+        "subheading": "Common questions about Evo-Stik adhesives, tile products and sealants"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Help Choosing the Right Evo-Stik Product?",
+        "subtitle": "Our team can recommend the best adhesive or sealant for your application",
+        "primary_text": "01843 593 440",
+        "primary_url": "tel:01843593440",
+        "primary_icon": "phone",
+        "secondary_text": "sales@invictatools.co.uk",
+        "secondary_url": "mailto:sales@invictatools.co.uk",
+        "secondary_icon": "email"
+      }
+    },
+    "schema": {
+      "type": "brand-schema",
+      "settings": {
+        "brand_name": "Evo-Stik",
+        "brand_description": "Evo-Stik is the UK's number one adhesive manufacturer, producing professional-grade contact adhesives, tile adhesives, sealants and wood glues. A trademark of Bostik (Arkema Group), Evo-Stik products are trusted by tradespeople across Britain.",
+        "brand_url": "https://evo-stik.co.uk",
+        "brand_founding_year": "",
+        "brand_country": "United Kingdom",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
       }
     }
-  }
+  },
+  "order": [
+    "hero",
+    "usp_strip",
+    "about",
+    "featured-products",
+    "brand_applications",
+    "brand_new_products",
+    "brand_why_choose",
+    "categories",
+    "video",
+    "faq",
+    "cta",
+    "schema"
+  ]
 }

@@ -1,0 +1,455 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "brand-hero",
+      "settings": {
+        "brand_logo": "shopify://shop_images/paslode.svg",
+        "dealer_badge": "Official UK Stockist",
+        "headline_line_1": "The Name in Nailing.",
+        "headline_line_2": "No Hose. No Compressor. No Compromise.",
+        "subtitle": "Industry-leading cordless gas nailers for first fix, second fix, roofing and fencing. Trusted by UK tradespeople for over 40 years of on-site nailing innovation.",
+        "stat_1_value": "1935",
+        "stat_1_label": "Founded",
+        "stat_2_value": "9,000",
+        "stat_2_label": "Shots Per Charge",
+        "stat_3_value": "#1",
+        "stat_3_label": "In Gas Nailing",
+        "primary_cta_text": "Shop All Paslode",
+        "primary_cta_url": "",
+        "secondary_cta_text": "Browse by Category",
+        "secondary_cta_url": "#categories",
+        "hero_image": "shopify://shop_images/4000x600-Paslode-homepage-banner-Xi-Range-Tools-v2.png"
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £99"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Official Stockist",
+            "subtitle": "Full product range"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 593 440"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#e41e25",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "about": {
+      "type": "brand-about",
+      "settings": {
+        "image": "shopify://shop_images/4000x600-Paslode-homepage-banner-NEW-Combi-Xi.png",
+        "badge_label": "Since",
+        "badge_value": "1935",
+        "section_label": "The Paslode Story",
+        "title": "Pioneers of Cordless Nailing Since 1935",
+        "paragraph_1": "Paslode was founded in 1935 in the USA by J.W. Leslie — the name itself an acronym for PAcking Shipping LOading DEvices. The company created the world's first pneumatic nailer in 1962, and in 1986 launched the first ever cordless gas-powered nailing gun, fundamentally changing how carpenters and builders work on site.",
+        "paragraph_2": "Now part of Illinois Tool Works (ITW), Paslode has spent over 40 years perfecting cordless gas nailing technology. The current range — including the iconic IM350+ for first fix and the IM65A for second fix — uses lithium batteries paired with gas fuel cells to deliver fast, consistent nailing without compressors, hoses or mains power. Purpose-built nails engineered to work with each specific tool complete the system.",
+        "stat_1_value": "40+",
+        "stat_1_label": "Years of Gas Nailing",
+        "stat_2_value": "9,000",
+        "stat_2_label": "Shots Per Charge",
+        "stat_3_value": "#1",
+        "stat_3_label": "UK Nailer Brand",
+        "feature_1": "Cordless gas technology — no compressor needed",
+        "feature_2": "Lithium battery with up to 9,000 shots per charge",
+        "feature_3": "Purpose-built nails for each nailer model",
+        "feature_4": "UK service centre network with collection service",
+        "cta_text": "Learn More",
+        "cta_url": ""
+      }
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "paslode",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Featured Paslode Products",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "brand_applications": {
+      "type": "brand-applications",
+      "blocks": {
+        "app_1": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": true,
+            "title": "First Fix Framing",
+            "description": "The IM350+ fires 50-90mm nails at up to 3 fixings per second — the industry standard for timber framing, stud walls, floor joists and structural carpentry.",
+            "connector_used": ""
+          }
+        },
+        "app_2": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Second Fix Finishing",
+            "description": "The IM65A drives 32-63mm angled brads for skirting, architrave, door linings and trim work — precision finishing without marking the surface.",
+            "connector_used": ""
+          }
+        },
+        "app_3": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Roofing",
+            "description": "Purpose-built nailers for roofing felt, battens and shingle work. Fast, consistent fixing at height without trailing hoses or compressor setup.",
+            "connector_used": ""
+          }
+        },
+        "app_4": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Fencing & Cladding",
+            "description": "Cordless gas nailers for fence panels, garden structures, timber cladding and exterior joinery — take the tool to the job, not the job to the tool.",
+            "connector_used": ""
+          }
+        }
+      },
+      "block_order": [
+        "app_1",
+        "app_2",
+        "app_3",
+        "app_4"
+      ],
+      "settings": {
+        "section_label": "Real World Applications",
+        "title": "Where Paslode Delivers",
+        "subtitle": "Purpose-built cordless nailing for every stage of the build",
+        "cta_text": "View All Paslode Products",
+        "cta_url": ""
+      }
+    },
+    "brand_new_products": {
+      "type": "brand-new-products",
+      "blocks": {
+        "new_1": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "ICONIC",
+            "launch_date": "Available Now",
+            "title": "Paslode IM350+ First Fix Framing Nailer",
+            "description": "The 7th generation of the most trusted framing nailer on UK sites. 82J of driving power fires 50-90mm nails at up to 3 per second. Lithium battery delivers 9,000 shots per charge — over 4 full fuel cells without recharging.",
+            "feature_1": "82J driving power",
+            "feature_2": "9,000 shots per battery charge",
+            "feature_3": "50-90mm nail range",
+            "feature_4": "3.3kg operating weight",
+            "cta_text": "Shop IM350+",
+            "cta_url": ""
+          }
+        },
+        "new_2": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "BESTSELLER",
+            "launch_date": "",
+            "title": "Paslode IM65A F16 Second Fix Brad Nailer",
+            "description": "The go-to finishing nailer for second fix carpentry. 30J of power drives 32-63mm 16-gauge angled brads into softwood and MDF. Angled magazine reaches corners and confined areas that straight nailers cannot.",
+            "feature_1": "30J driving power",
+            "feature_2": "100-brad magazine capacity",
+            "feature_3": "32-63mm angled brads",
+            "feature_4": "2.0kg operating weight",
+            "cta_text": "Shop IM65A",
+            "cta_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "new_1",
+        "new_2"
+      ],
+      "settings": {
+        "section_label": "Latest Products",
+        "title": "Top Products from Paslode",
+        "subtitle": "The cordless gas nailers that set the standard on UK building sites"
+      }
+    },
+    "brand_why_choose": {
+      "type": "brand-why-choose",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "GAS",
+            "title": "Cordless Gas Technology",
+            "description": "Paslode's unique gas fuel cell and lithium battery combination delivers consistent driving power without compressors, hoses or mains electricity. Pick up the tool and go — on any site, at any height, in any location."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "3/sec",
+            "title": "Unmatched Speed",
+            "description": "Fire up to 3 nails per second and 1,000 fixings per hour. On large framing jobs, roofing and fencing work, that speed translates directly into time saved and earlier finishes."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "ZERO",
+            "title": "No Compressor Needed",
+            "description": "No compressor to buy, transport, maintain or power. No hoses to trip over. No generator running on site. Just a nailer, a battery and a gas cell. Total freedom of movement."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "NAILS",
+            "title": "Purpose-Built Fasteners",
+            "description": "Paslode nails are engineered specifically for each nailer model — collation, angle, coating and gauge are all matched to deliver reliable feeding and optimum holding power every time."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "UK",
+            "title": "Service Network",
+            "description": "Paslode operates a UK service centre with nationwide collection. Authorised service centres across the country handle repairs, servicing and genuine parts. Service recommended every 50,000 shots."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "2 Yr",
+            "title": "Manufacturer Warranty",
+            "description": "Every Paslode nailer comes with a 2-year warranty, 90-day cover on wearing parts and 5 years on nylon moulded components. Register your tool with Paslode to activate full warranty coverage."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6"
+      ],
+      "settings": {
+        "section_label": "Why Paslode",
+        "title": "Why Professionals Choose Paslode",
+        "subtitle": "The cordless gas nailers trusted on building sites across the UK"
+      }
+    },
+    "categories": {
+      "type": "brand-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "First Fix Nailers",
+            "description": "IM350+ framing nailers and IM90i strip nailers for structural carpentry, stud work, floor joists and timber framing.",
+            "url": ""
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Second Fix Nailers",
+            "description": "IM65 and IM65A brad nailers for skirting, architrave, door linings, panelling and precision trim work.",
+            "url": ""
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Nails, Gas & Accessories",
+            "description": "Genuine Paslode nail packs, gas fuel cells, lithium batteries, chargers and cleaning kits to keep your nailers running.",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3"
+      ],
+      "settings": {
+        "section_label": "Shop By Category",
+        "title": "Explore the Paslode Range",
+        "subtitle": "From first fix framing nailers to second fix brad guns and genuine consumables"
+      }
+    },
+    "video": {
+      "type": "brand-video",
+      "settings": {
+        "thumbnail": "",
+        "video_url": "",
+        "section_label": "See It In Action",
+        "title": "Paslode IM350+ Framing Nailer",
+        "description": "See the 7th generation IM350+ in action — the UK's most trusted first fix framing nailer delivering 9,000 shots per charge.",
+        "feature_1": "Up to 3 fixings per second",
+        "feature_2": "50-90mm nail range",
+        "feature_3": "No compressor required",
+        "feature_4": "Lithium battery technology"
+      }
+    },
+    "faq": {
+      "type": "brand-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "How does a Paslode gas nailer work?",
+            "answer": "<p>Paslode nailers use a combination of a <strong>gas fuel cell</strong> and a <strong>lithium battery</strong>. The battery powers a fan and ignition system, while the gas fuel cell provides the combustion energy that drives each nail. A small internal combustion occurs with every trigger pull, firing the nail into the material. This eliminates the need for compressors, hoses or mains power entirely.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the difference between gas cartridge and battery-only nailers?",
+            "answer": "<p>Paslode's <strong>gas + battery</strong> system delivers significantly more driving power than battery-only nailers, which is why Paslode remains the professional standard for framing and structural nailing. Battery-only nailers rely solely on the battery for impact energy, which limits their power output. Paslode's gas combustion technology delivers 82J of energy in the IM350+ — enough to drive 90mm nails into softwood consistently.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Which nails are compatible with my Paslode nailer?",
+            "answer": "<p>Paslode nails are <strong>purpose-built for each specific nailer model</strong>. The IM350+ uses clipped-head or full round-head framing nails (50-90mm). The IM65A uses 16-gauge angled brads (32-63mm). The IM90i uses strip nails (50-90mm). Always use genuine Paslode nails — third-party nails may cause jams, misfires and can void your warranty.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "How often should a Paslode nailer be serviced?",
+            "answer": "<p>Paslode recommends a <strong>full service approximately every 50,000 shots</strong>. Between services, regular cleaning of the combustion chamber and nose area will maintain performance. Paslode operates a UK service centre with nationwide collection — the standard service and repair costs £149 +VAT and includes genuine parts with a 4-month warranty on fitted components.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "What warranty do Paslode nailers come with?",
+            "answer": "<p>Paslode nailers come with a <strong>2-year manufacturer warranty</strong>, 90-day warranty on normal wearing parts, and <strong>5-year warranty on nylon moulded components</strong>. Register your tool on the Paslode website to activate your warranty. As an official Paslode stockist, Invicta Tools can assist with all warranty enquiries and service bookings.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer trade pricing on Paslode?",
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Paslode range including nailers, nail packs, gas fuel cells and accessories. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. Free next-day delivery on all orders over £99.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6"
+      ],
+      "settings": {
+        "heading": "Paslode FAQs",
+        "subheading": "Common questions about Paslode gas nailers, nails and servicing"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Help Choosing the Right Paslode Nailer?",
+        "subtitle": "Our team can recommend the right nailer and nails for your application",
+        "primary_text": "01843 593 440",
+        "primary_url": "tel:01843593440",
+        "primary_icon": "phone",
+        "secondary_text": "sales@invictatools.co.uk",
+        "secondary_url": "mailto:sales@invictatools.co.uk",
+        "secondary_icon": "email"
+      }
+    },
+    "schema": {
+      "type": "brand-schema",
+      "settings": {
+        "brand_name": "Paslode",
+        "brand_description": "Paslode is a global manufacturer of cordless gas nailers and fastening systems. Founded in 1935 and now part of Illinois Tool Works (ITW), Paslode's IM350+, IM65A and IM90i nailers are the professional standard on UK building sites.",
+        "brand_url": "https://www.paslode.co.uk",
+        "brand_founding_year": "1935",
+        "brand_country": "United States",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "usp_strip",
+    "about",
+    "featured-products",
+    "brand_applications",
+    "brand_new_products",
+    "brand_why_choose",
+    "categories",
+    "video",
+    "faq",
+    "cta",
+    "schema"
+  ]
+}

@@ -1,0 +1,464 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "brand-hero",
+      "settings": {
+        "brand_logo": "shopify://shop_images/spit.svg",
+        "dealer_badge": "Official UK Stockist",
+        "headline_line_1": "Fix It. First Time.",
+        "headline_line_2": "Engineered for Concrete & Steel.",
+        "subtitle": "Professional direct fastening tools, heavy-duty anchoring systems and fire-rated fixings from Europe's leading concrete and steel fixing specialist. Part of ITW since 1986.",
+        "stat_1_value": "1949",
+        "stat_1_label": "Founded",
+        "stat_2_value": "ETA",
+        "stat_2_label": "Approved",
+        "stat_3_value": "75+",
+        "stat_3_label": "Years Experience",
+        "primary_cta_text": "Shop All Spit",
+        "primary_cta_url": "",
+        "secondary_cta_text": "Browse by Category",
+        "secondary_cta_url": "#categories",
+        "hero_image": ""
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £99"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Official Stockist",
+            "subtitle": "Full product range"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 593 440"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#e41e25",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "about": {
+      "type": "brand-about",
+      "settings": {
+        "image": "",
+        "badge_label": "Since",
+        "badge_value": "1949",
+        "section_label": "The Spit Story",
+        "title": "Fixing Into Concrete & Steel Since 1949",
+        "paragraph_1": "Spit was founded in France in 1949, pioneering a unique system for fixing directly into concrete and steel — now known as powder-actuated tool (PAT) technology. From that single innovation, Spit grew into Europe's leading specialist in direct fastening, mechanical anchoring and chemical fixing systems for the construction industry.",
+        "paragraph_2": "Acquired by Illinois Tool Works (ITW) in 1986, Spit now sits within the ITW Construction Products division alongside Paslode. With over 75 years of specialist experience, Spit's range covers everything from the Pulsa gas nailer system and Tapcon concrete screws to ETA-approved heavy-duty anchors and fire-rated fixings — engineered solutions for professionals who fix into concrete and steel every day.",
+        "stat_1_value": "75+",
+        "stat_1_label": "Years of Innovation",
+        "stat_2_value": "ETA",
+        "stat_2_label": "Approved Range",
+        "stat_3_value": "#1",
+        "stat_3_label": "In Direct Fastening",
+        "feature_1": "Pulsa gas nailer system for concrete & steel",
+        "feature_2": "Tapcon self-tapping concrete screws",
+        "feature_3": "ETA-approved heavy-duty anchoring",
+        "feature_4": "Fire-rated fixing solutions",
+        "cta_text": "Learn More",
+        "cta_url": ""
+      }
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "spit",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Featured Spit Products",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "brand_applications": {
+      "type": "brand-applications",
+      "blocks": {
+        "app_1": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": true,
+            "title": "Concrete Fixing",
+            "description": "Pulsa gas nailers, powder-actuated tools and Tapcon concrete screws for fast, reliable fixing into concrete substrates on commercial and residential sites.",
+            "connector_used": ""
+          }
+        },
+        "app_2": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Steel Fixing",
+            "description": "Direct fastening pins and powder-actuated tools for fixing into structural steel, metal decking and steel framing without pre-drilling.",
+            "connector_used": ""
+          }
+        },
+        "app_3": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Fire Stopping",
+            "description": "ETA-approved fire-rated fixings and anchoring systems for fire barrier installation, service penetration sealing and compartmentation in commercial buildings.",
+            "connector_used": ""
+          }
+        },
+        "app_4": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "MEP Installation",
+            "description": "Cable tray brackets, pipe clips and channel fixings installed directly into concrete and steel using Pulsa and PAT systems — faster than drilling and plugging.",
+            "connector_used": ""
+          }
+        },
+        "app_5": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Structural Anchoring",
+            "description": "Heavy-duty mechanical and chemical anchoring systems for structural connections, base plates, handrails and safety barriers in cracked and non-cracked concrete.",
+            "connector_used": ""
+          }
+        }
+      },
+      "block_order": [
+        "app_1",
+        "app_2",
+        "app_3",
+        "app_4",
+        "app_5"
+      ],
+      "settings": {
+        "section_label": "Real World Applications",
+        "title": "Where Spit Delivers",
+        "subtitle": "Engineered fixing solutions for every concrete and steel application"
+      }
+    },
+    "brand_new_products": {
+      "type": "brand-new-products",
+      "blocks": {
+        "new_1": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "SYSTEM",
+            "launch_date": "Available Now",
+            "title": "Spit Pulsa 800E Gas Nailer",
+            "description": "The cordless gas nailing system built for mechanical and electrical contractors. Fires pins directly into concrete, steel and rendered blocks without pre-drilling — dramatically faster than traditional drill-and-plug methods.",
+            "feature_1": "Cordless gas-powered operation",
+            "feature_2": "Fires into concrete and steel",
+            "feature_3": "No pre-drilling required",
+            "feature_4": "ETA and EPD certified pins",
+            "cta_text": "Shop Pulsa System",
+            "cta_url": ""
+          }
+        },
+        "new_2": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "BESTSELLER",
+            "launch_date": "",
+            "title": "Spit Tapcon Concrete Screws",
+            "description": "The self-tapping concrete screw that eliminates plugs. ETA Option 1 approved for cracked and non-cracked concrete with fire-rated variants available. Over 58 versions to cover every substrate and load requirement.",
+            "feature_1": "Self-tapping — no plugs needed",
+            "feature_2": "ETA Option 1 approved",
+            "feature_3": "Fire-rated variants available",
+            "feature_4": "58+ versions for all applications",
+            "cta_text": "Shop Tapcon Range",
+            "cta_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "new_1",
+        "new_2"
+      ],
+      "settings": {
+        "section_label": "Latest Products",
+        "title": "Top Products from Spit",
+        "subtitle": "Direct fastening and anchoring systems trusted on construction sites across Europe"
+      }
+    },
+    "brand_why_choose": {
+      "type": "brand-why-choose",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "ETA",
+            "title": "European Technical Approvals",
+            "description": "Spit's anchoring and fixing range carries ETA (European Technical Assessment) certification, giving specifiers and contractors verified performance data for structural and fire-rated applications."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "FIRE",
+            "title": "Fire-Rated Fixings",
+            "description": "Spit's Tapcon and anchoring ranges include fire-rated variants tested to European standards. Essential for fire compartmentation, service penetrations and fire barrier installations in commercial buildings."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "FAST",
+            "title": "Direct Fastening Speed",
+            "description": "Spit's Pulsa gas nailer and powder-actuated tools fire fixings directly into concrete and steel — no pre-drilling, no plugs, no waiting. Up to 5x faster than traditional drill-and-plug methods."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "75+",
+            "title": "Concrete & Steel Specialists",
+            "description": "Over 75 years focused on one thing: fixing into concrete and steel. Spit's engineering expertise in substrate behaviour, anchor mechanics and load performance is unmatched in the European market."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "ITW",
+            "title": "ITW Engineering",
+            "description": "Part of Illinois Tool Works since 1986 — a Fortune 500 global engineering group. ITW's 80/20 front-to-back process ensures every Spit product is designed around real customer applications."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "UK",
+            "title": "Trade Support",
+            "description": "As an official Spit stockist, we carry the Pulsa, Tapcon and anchoring ranges with expert advice on the right fixing for your substrate and load. Competitive trade pricing and next-day delivery over £99."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6"
+      ],
+      "settings": {
+        "section_label": "Why Spit",
+        "title": "Why Professionals Choose Spit",
+        "subtitle": "Europe's leading specialist in direct fastening and anchoring for concrete and steel"
+      }
+    },
+    "categories": {
+      "type": "brand-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Direct Fastening Tools",
+            "description": "Pulsa gas nailers and powder-actuated tools for firing pins directly into concrete and steel. Cordless, fast and no pre-drilling required.",
+            "url": ""
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Anchoring & Fixings",
+            "description": "Tapcon concrete screws, mechanical anchors, chemical anchors and fire-rated fixings. ETA-approved solutions for every substrate and load.",
+            "url": ""
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Pins, Nails & Consumables",
+            "description": "Pulsa pins, gas fuel cells, PAT cartridges and collated nails — all the consumables to keep your Spit tools running on site.",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3"
+      ],
+      "settings": {
+        "section_label": "Shop By Category",
+        "title": "Explore the Spit Range",
+        "subtitle": "From Pulsa gas nailers to ETA-approved concrete anchors"
+      }
+    },
+    "video": {
+      "type": "brand-video",
+      "settings": {
+        "thumbnail": "",
+        "video_url": "",
+        "section_label": "See It In Action",
+        "title": "Spit Pulsa Direct Fastening System",
+        "description": "See how Spit's Pulsa gas nailer fires fixings directly into concrete and steel — faster than drilling and plugging, with no cables and no compressor.",
+        "feature_1": "Gas-powered cordless operation",
+        "feature_2": "Fires into concrete and steel",
+        "feature_3": "No pre-drilling needed",
+        "feature_4": "ETA-certified pins"
+      }
+    },
+    "faq": {
+      "type": "brand-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the difference between powder-actuated and gas-actuated fixing tools?",
+            "answer": "<p><strong>Powder-actuated tools (PAT)</strong> use a blank cartridge to fire a pin into concrete or steel — they are powerful and suited to heavy-duty structural fixings. <strong>Gas-actuated tools</strong> like the Spit Pulsa use a gas fuel cell and battery ignition for lighter, faster operation — ideal for high-volume MEP fixings such as cable trays, conduit clips and pipe brackets.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "What type of anchor should I use for concrete?",
+            "answer": "<p>It depends on the load and substrate condition. For light to medium loads, <strong>Tapcon self-tapping concrete screws</strong> are the fastest option — no plugs required. For heavy structural loads, use <strong>mechanical expansion anchors</strong> or <strong>chemical resin anchors</strong>. For cracked concrete or seismic zones, specify <strong>ETA Option 1 approved</strong> anchors. Always check the design load tables.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "What are fire-rated fixings and when do I need them?",
+            "answer": "<p><strong>Fire-rated fixings</strong> are anchors and fasteners tested to maintain structural integrity during a fire for a specified period (typically 30, 60, 90 or 120 minutes). They are required wherever fixings penetrate or support <strong>fire compartmentation</strong> — fire barriers, fire-stopping around service penetrations, and structural connections in fire-rated zones. Spit's Tapcon HFL and anchor range includes fire-rated options.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "What does ETA approval mean for construction fixings?",
+            "answer": "<p><strong>ETA (European Technical Assessment)</strong> is an independently verified performance certificate for construction products. An ETA-approved anchor has been tested under controlled conditions for pullout resistance, shear capacity, cracked concrete performance and fire rating. It is required for structural and safety-critical fixings and allows engineers to specify with confidence.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I use the Spit Pulsa on steel as well as concrete?",
+            "answer": "<p>Yes. The <strong>Spit Pulsa 800E</strong> is designed for fixing into both concrete and steel substrates. Use the correct pin type for each substrate — HC6 pins for concrete and steel-specific pins for metal decking and steel framing. Always check the maximum steel thickness in the technical data for your chosen pin.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer trade pricing on Spit products?",
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Spit range including Pulsa tools, Tapcon screws, anchors and consumables. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. Free next-day delivery on all orders over £99.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6"
+      ],
+      "settings": {
+        "heading": "Spit FAQs",
+        "subheading": "Common questions about Spit direct fastening tools, anchors and fixings"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Help Choosing the Right Spit Fixing?",
+        "subtitle": "Our team can recommend the best anchors, tools and fixings for your substrate and application",
+        "primary_text": "01843 593 440",
+        "primary_url": "tel:01843593440",
+        "primary_icon": "phone",
+        "secondary_text": "sales@invictatools.co.uk",
+        "secondary_url": "mailto:sales@invictatools.co.uk",
+        "secondary_icon": "email"
+      }
+    },
+    "schema": {
+      "type": "brand-schema",
+      "settings": {
+        "brand_name": "Spit",
+        "brand_description": "Spit is a European manufacturer of direct fastening tools, anchoring systems and construction fixings. Founded in France in 1949 and part of ITW Construction Products, Spit specialises in fixing solutions for concrete and steel substrates.",
+        "brand_url": "https://www.itwcp.co.uk",
+        "brand_founding_year": "1949",
+        "brand_country": "France",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "usp_strip",
+    "about",
+    "featured-products",
+    "brand_applications",
+    "brand_new_products",
+    "brand_why_choose",
+    "categories",
+    "video",
+    "faq",
+    "cta",
+    "schema"
+  ]
+}

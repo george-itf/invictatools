@@ -1,3 +1,466 @@
 /*
- * AUTO-GENERATED
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
  */
+{
+  "sections": {
+    "hero": {
+      "type": "brand-hero",
+      "settings": {
+        "brand_logo": "shopify://shop_images/gorilla.svg",
+        "dealer_badge": "Official UK Stockist",
+        "headline_line_1": "For the Toughest Jobs",
+        "headline_line_2": "on Planet Earth.",
+        "subtitle": "Incredibly strong adhesives, tapes and sealants trusted by professionals and tradespeople worldwide. From the original polyurethane glue to heavy-duty tapes, Gorilla products deliver unmatched bond strength.",
+        "stat_1_value": "1994",
+        "stat_1_label": "Founded",
+        "stat_2_value": "100%",
+        "stat_2_label": "Waterproof",
+        "stat_3_value": "3x",
+        "stat_3_label": "Expansion Bond",
+        "primary_cta_text": "Shop All Gorilla",
+        "primary_cta_url": "",
+        "secondary_cta_text": "Browse by Category",
+        "secondary_cta_url": "#categories",
+        "hero_image": "shopify://shop_images/697a7c496bbb466c23390697_1730x760_5d7ac90d-8d93-41c0-a71f-d7e40d778279.webp"
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £99"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Official Stockist",
+            "subtitle": "Full product range"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 593 440"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#e41e25",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "about": {
+      "type": "brand-about",
+      "settings": {
+        "image": "shopify://shop_images/6940cb5fd03b4dc78f583d14_ea2a4d7a0c1fba6275b50741b37e0105_waterproofing-with-gorilla-min.webp",
+        "badge_label": "Since",
+        "badge_value": "1994",
+        "section_label": "The Gorilla Story",
+        "title": "Incredibly Strong Since 1994",
+        "paragraph_1": "The Gorilla Glue Company was born in 1994 when founder Mark Singer discovered a polyurethane adhesive being used to bond teak furniture during a trip to Indonesia. Recognising its extraordinary strength, he brought the formula back to Cincinnati, Ohio, and launched Original Gorilla Glue to the North American market in 1999. The water-activated polyurethane formula that expands into materials to create an incredibly strong bond quickly became a phenomenon.",
+        "paragraph_2": "Today, the Gorilla range extends well beyond the original glue. Gorilla Super Glue, Gorilla Wood Glue, Gorilla Epoxy, Gorilla Tape and Gorilla Construction Adhesive give tradespeople and professionals a complete bonding solution for virtually any material. Every product carries the same promise: incredible strength, reliability and versatility that the Gorilla name is built on.",
+        "stat_1_value": "1994",
+        "stat_1_label": "Year Founded",
+        "stat_2_value": "100%",
+        "stat_2_label": "Waterproof Formula",
+        "stat_3_value": "GLOBAL",
+        "stat_3_label": "Brand Recognition",
+        "feature_1": "100% waterproof polyurethane formula",
+        "feature_2": "Expands 3x into materials for stronger bond",
+        "feature_3": "Works on wood, stone, metal, ceramic and more",
+        "feature_4": "Complete range: glues, tapes, sealants, epoxies",
+        "cta_text": "Learn More",
+        "cta_url": ""
+      }
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "gorilla",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Featured Gorilla Products",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "brand_applications": {
+      "type": "brand-applications",
+      "blocks": {
+        "app_1": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": true,
+            "title": "General Bonding",
+            "description": "Original Gorilla Glue and Gorilla Super Glue bond wood, stone, metal, ceramic, foam, glass and most plastics. One adhesive range for virtually any material combination on site.",
+            "connector_used": ""
+          }
+        },
+        "app_2": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Woodworking",
+            "description": "Gorilla Wood Glue delivers superior bond strength for joinery, carpentry and furniture assembly. Water-resistant PVA formula with easy clean-up and sanding compatibility.",
+            "connector_used": ""
+          }
+        },
+        "app_3": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Outdoor & Garden Repairs",
+            "description": "100% waterproof formulations across the Gorilla range handle outdoor furniture, fencing, decking and garden structure repairs that need to withstand rain, frost and UV exposure.",
+            "connector_used": ""
+          }
+        },
+        "app_4": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Construction",
+            "description": "Gorilla Construction Adhesive and heavy-duty Gorilla Tape provide strong, permanent bonds for fixing panels, trim, skirting and structural elements on building sites.",
+            "connector_used": ""
+          }
+        },
+        "app_5": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Automotive",
+            "description": "Gorilla Super Glue and Gorilla Epoxy handle automotive trim, interior repairs and under-bonnet fixes where vibration resistance and temperature tolerance are essential.",
+            "connector_used": ""
+          }
+        }
+      },
+      "block_order": [
+        "app_1",
+        "app_2",
+        "app_3",
+        "app_4",
+        "app_5"
+      ],
+      "settings": {
+        "section_label": "Real World Applications",
+        "title": "Where Gorilla Delivers",
+        "subtitle": "Incredibly strong adhesives and tapes for the toughest jobs across every trade",
+        "cta_text": "View All Gorilla Products",
+        "cta_url": ""
+      }
+    },
+    "brand_new_products": {
+      "type": "brand-new-products",
+      "blocks": {
+        "new_1": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "ICONIC",
+            "launch_date": "",
+            "title": "Original Gorilla Glue",
+            "description": "The product that started it all. Water-activated polyurethane formula that expands 3x into materials, creating an incredibly strong bond. 100% waterproof, suitable for indoor and outdoor use on wood, stone, metal, ceramic, foam and more.",
+            "feature_1": "100% waterproof formula",
+            "feature_2": "Expands 3x into materials",
+            "feature_3": "Bonds virtually any material",
+            "feature_4": "Indoor and outdoor use",
+            "cta_text": "Shop Gorilla Glue",
+            "cta_url": ""
+          }
+        },
+        "new_2": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "BESTSELLER",
+            "launch_date": "",
+            "title": "Gorilla Tape",
+            "description": "Heavy-duty tape with a reinforced backing and aggressive adhesive that bonds to rough, uneven and irregular surfaces. Weatherproof performance for temporary and permanent applications where standard duct tape fails.",
+            "feature_1": "Reinforced double-thick backing",
+            "feature_2": "Bonds to rough surfaces",
+            "feature_3": "Weatherproof performance",
+            "feature_4": "Stronger than standard duct tape",
+            "cta_text": "Shop Gorilla Tape",
+            "cta_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "new_1",
+        "new_2"
+      ],
+      "settings": {
+        "section_label": "Latest Products",
+        "title": "Top Products from Gorilla",
+        "subtitle": "The toughest adhesives and tapes for professionals who demand more"
+      }
+    },
+    "brand_why_choose": {
+      "type": "brand-why-choose",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "3x",
+            "title": "Incredible Bond Strength",
+            "description": "Original Gorilla Glue's polyurethane formula expands 3 times into materials, creating a bond that is significantly stronger than conventional adhesives. Engineered for the toughest jobs."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "100%",
+            "title": "Waterproof Formulations",
+            "description": "Gorilla Glue is 100% waterproof and safe for indoor and outdoor use. It will not break down when exposed to rain, moisture or humidity — built to withstand the elements."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "ALL",
+            "title": "Versatile Across Materials",
+            "description": "Gorilla adhesives bond wood, stone, metal, ceramic, foam, glass, brick, porcelain and most plastics. One brand that covers virtually every material combination you encounter on site."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "TAPE",
+            "title": "Heavy-Duty Tape Range",
+            "description": "Gorilla Tape's reinforced double-thick backing and aggressive adhesive outperforms standard duct tape on rough, uneven surfaces. Available in standard, all-weather and waterproof patch varieties."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "TRUST",
+            "title": "Globally Recognised Brand",
+            "description": "Since 1994, Gorilla has built a reputation for products that simply work when others fail. Trusted by professionals, tradespeople and DIYers in over 20,000 retail locations worldwide."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "RANGE",
+            "title": "Complete Adhesive System",
+            "description": "From polyurethane glue and super glue to wood glue, epoxy, construction adhesive and tape — Gorilla offers a complete bonding solution for every application and material."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6"
+      ],
+      "settings": {
+        "section_label": "Why Gorilla",
+        "title": "Why Professionals Choose Gorilla",
+        "subtitle": "The toughest adhesives on the planet, trusted by tradespeople worldwide"
+      }
+    },
+    "categories": {
+      "type": "brand-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Gorilla Glues",
+            "description": "Original Gorilla Glue, Super Glue, Wood Glue, Epoxy and Construction Adhesive — incredibly strong formulations for every bonding application.",
+            "url": ""
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Gorilla Tapes",
+            "description": "Heavy-duty Gorilla Tape, All Weather Tape and Waterproof Patch & Seal Tape — reinforced tapes that outperform on the toughest jobs.",
+            "url": ""
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Gorilla Sealants",
+            "description": "Silicone sealants and waterproof solutions for sealing, filling and finishing in wet and dry environments.",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3"
+      ],
+      "settings": {
+        "section_label": "Shop By Category",
+        "title": "Explore the Gorilla Range",
+        "subtitle": "From the original polyurethane glue to heavy-duty tapes and sealants"
+      }
+    },
+    "video": {
+      "type": "brand-video",
+      "settings": {
+        "thumbnail": "",
+        "video_url": "",
+        "section_label": "See It In Action",
+        "title": "Gorilla Glue — Built for the Toughest Jobs",
+        "description": "See how Gorilla's expanding polyurethane formula creates bonds that outperform conventional adhesives on the most demanding applications.",
+        "feature_1": "Water-activated polyurethane bond",
+        "feature_2": "Expands 3x into materials",
+        "feature_3": "100% waterproof performance",
+        "feature_4": "Works on virtually any material"
+      }
+    },
+    "faq": {
+      "type": "brand-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the difference between Original Gorilla Glue and Gorilla Super Glue?",
+            "answer": "<p><strong>Original Gorilla Glue</strong> is a polyurethane adhesive that requires moisture to activate, expands as it cures and creates an incredibly strong bond on porous materials like wood, stone and ceramic. It takes 1-2 hours to clamp and 24 hours to fully cure. <strong>Gorilla Super Glue</strong> is a cyanoacrylate adhesive that bonds in seconds without clamping, making it ideal for quick repairs on non-porous surfaces like metal, plastic and rubber. Choose Original for structural bonding and Super Glue for fast fixes.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "Is Gorilla Glue really waterproof?",
+            "answer": "<p>Yes. Original Gorilla Glue is <strong>100% waterproof</strong> and will not break down when exposed to water, rain or moisture. This makes it suitable for both indoor and outdoor applications. Gorilla Wood Glue also offers water resistance (Type II rating). For tape applications, <strong>Gorilla All Weather Tape</strong> and <strong>Waterproof Patch & Seal Tape</strong> are specifically formulated for wet conditions and prolonged outdoor exposure.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Why does Original Gorilla Glue expand and how do I manage it?",
+            "answer": "<p>Original Gorilla Glue is a <strong>polyurethane adhesive</strong> that reacts with moisture to cure. As it cures, it expands approximately 3 times its original volume, filling gaps and penetrating into porous materials for a stronger bond. To manage expansion: use a thin, even layer (a little goes a long way), dampen one surface before applying, and clamp for 1-2 hours. Wipe away any squeeze-out with a dry cloth before it cures.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "What materials does Gorilla Glue work on?",
+            "answer": "<p>Original Gorilla Glue bonds <strong>wood, stone, metal, ceramic, foam, glass, brick, porcelain</strong> and most plastics. It works best on porous and semi-porous surfaces. <strong>Gorilla Super Glue</strong> is better suited for non-porous materials like metal, rubber and hard plastics. <strong>Gorilla Epoxy</strong> offers the widest material compatibility for heavy-duty repairs. Note: polyethylene (PE) and polypropylene (PP) plastics are difficult to bond with any adhesive.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "How strong is Gorilla Tape compared to standard duct tape?",
+            "answer": "<p>Gorilla Tape features a <strong>reinforced double-thick backing</strong> and a more aggressive adhesive than standard duct tape. It bonds to rough, uneven and irregular surfaces where ordinary tape fails. The weatherproof formulation resists moisture, UV and temperature extremes. For critical applications in wet conditions, <strong>Gorilla All Weather Extreme Tape</strong> provides even greater outdoor durability.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer trade pricing on Gorilla products?",
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Gorilla range including glues, tapes, sealants and epoxies. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. Free next-day delivery on all orders over £99.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6"
+      ],
+      "settings": {
+        "heading": "Gorilla FAQs",
+        "subheading": "Common questions about Gorilla Glue, Gorilla Tape and the full adhesive range"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Help Choosing the Right Gorilla Product?",
+        "subtitle": "Our team can recommend the best adhesive or tape for your application",
+        "primary_text": "01843 593 440",
+        "primary_url": "tel:01843593440",
+        "primary_icon": "phone",
+        "secondary_text": "sales@invictatools.co.uk",
+        "secondary_url": "mailto:sales@invictatools.co.uk",
+        "secondary_icon": "email"
+      }
+    },
+    "schema": {
+      "type": "brand-schema",
+      "settings": {
+        "brand_name": "Gorilla",
+        "brand_description": "The Gorilla Glue Company manufactures incredibly strong adhesives, tapes and sealants. Founded in 1994 in Cincinnati, Ohio, Gorilla products are trusted by professionals worldwide for their unmatched bond strength and waterproof performance.",
+        "brand_url": "https://uk.gorillaglue.com",
+        "brand_founding_year": "1994",
+        "brand_country": "United States",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "usp_strip",
+    "about",
+    "featured-products",
+    "brand_applications",
+    "brand_new_products",
+    "brand_why_choose",
+    "categories",
+    "video",
+    "faq",
+    "cta",
+    "schema"
+  ]
+}

@@ -1,0 +1,464 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "brand-hero",
+      "settings": {
+        "brand_logo": "shopify://shop_images/siroflex.svg",
+        "dealer_badge": "Official UK Stockist",
+        "headline_line_1": "Professional Sealants.",
+        "headline_line_2": "Trade-Trusted Performance.",
+        "subtitle": "UK-manufactured silicones, sealants, adhesives and PU foams engineered for the construction trade. SX Trade Strength products trusted by professionals since 1994.",
+        "stat_1_value": "1994",
+        "stat_1_label": "Established",
+        "stat_2_value": "SX",
+        "stat_2_label": "Trade Strength",
+        "stat_3_value": "300+",
+        "stat_3_label": "Product Lines",
+        "primary_cta_text": "Shop All Siroflex",
+        "primary_cta_url": "",
+        "secondary_cta_text": "Browse by Category",
+        "secondary_cta_url": "#categories",
+        "hero_image": "shopify://shop_images/EN_HOMEPAGE-DESKTOP.jpg"
+      }
+    },
+    "usp_strip": {
+      "type": "invicta-usp-strip-v2",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £99"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Official Stockist",
+            "subtitle": "Full product range"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "2 Kent Locations",
+            "subtitle": "Ramsgate & Canterbury"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Trade Support",
+            "subtitle": "01843 593 440"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "background_color": "#fdfdfd",
+        "accent_color": "#e41e25",
+        "text_color": "#2d2d2d",
+        "subtitle_color": "#999999",
+        "divider_color": "#333333",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "about": {
+      "type": "brand-about",
+      "settings": {
+        "image": "shopify://shop_images/tap-sprayer-home.jpg",
+        "badge_label": "Since",
+        "badge_value": "1994",
+        "section_label": "The Siroflex Story",
+        "title": "UK-Made Sealants Since 1994",
+        "paragraph_1": "Siroflex Limited was established in 1994 in Barnsley, South Yorkshire, and has grown into one of the UK's leading manufacturers of silicones, sealants, adhesives and PU foams. With 95% of components manufactured in their own facilities, Siroflex delivers consistent quality that the trade can rely on day in, day out.",
+        "paragraph_2": "The SX Trade Strength range is specifically engineered for construction, glazing and decorating professionals. From neutral-cure silicones and acetoxy GP sealants to fire-rated expanding foams and polyurethane adhesives, Siroflex covers every sealing and bonding application on site. Now part of the Bostik/Arkema group, Siroflex combines UK manufacturing heritage with global material science expertise.",
+        "stat_1_value": "30+",
+        "stat_1_label": "Years in the UK",
+        "stat_2_value": "SX",
+        "stat_2_label": "Trade Strength",
+        "stat_3_value": "UK",
+        "stat_3_label": "Manufactured",
+        "feature_1": "SX Trade Strength professional range",
+        "feature_2": "Neutral-cure and acetoxy silicones",
+        "feature_3": "B1 fire-rated expanding foams",
+        "feature_4": "Polyurethane sealants and adhesives",
+        "cta_text": "Learn More",
+        "cta_url": ""
+      }
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "siroflex",
+        "products_to_show": 4,
+        "header_style": "bar",
+        "title": "Featured Siroflex Products",
+        "description": "",
+        "show_description": false,
+        "show_product_count": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "brand_applications": {
+      "type": "brand-applications",
+      "blocks": {
+        "app_1": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": true,
+            "title": "Glazing",
+            "description": "Low modulus neutral-cure silicones for sealing PVCu windows, door frames and curtain walling. Clean, almost odourless cure with excellent UV resistance for long-lasting weatherproof seals.",
+            "connector_used": ""
+          }
+        },
+        "app_2": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Plumbing & Sanitary",
+            "description": "Acetoxy GP silicones and anti-mould formulations for bathrooms, kitchens and wet rooms. Permanent watertight seals on glass, ceramics, sanitary ware and non-porous surfaces.",
+            "connector_used": ""
+          }
+        },
+        "app_3": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Construction Sealing",
+            "description": "High-modulus polyurethane sealants and expanding PU foams for structural joints, gap filling and insulation. Gun-grade and hand-held options for every site requirement.",
+            "connector_used": ""
+          }
+        },
+        "app_4": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Decorating",
+            "description": "Instantly paintable acrylic caulks for interior gaps, cracks and joints between skirting boards, ceilings, architraves and plasterwork. Quick-drying and compatible with water-based and synthetic paints.",
+            "connector_used": ""
+          }
+        },
+        "app_5": {
+          "type": "application",
+          "settings": {
+            "image": "",
+            "featured": false,
+            "title": "Window & Door Installation",
+            "description": "Specialist PVCu silicones and frame sealants in white, clear, light oak and bronze to match common frame colours. Neutral cure formulation safe for use on all PVCu profiles.",
+            "connector_used": ""
+          }
+        }
+      },
+      "block_order": [
+        "app_1",
+        "app_2",
+        "app_3",
+        "app_4",
+        "app_5"
+      ],
+      "settings": {
+        "section_label": "Real World Applications",
+        "title": "Where Siroflex Delivers",
+        "subtitle": "Professional sealants and adhesives for every trade application"
+      }
+    },
+    "brand_new_products": {
+      "type": "brand-new-products",
+      "blocks": {
+        "new_1": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "TRADE FAVOURITE",
+            "launch_date": "",
+            "title": "SX Trade Strength LMN Silicone",
+            "description": "The go-to neutral-cure silicone for the glazing and construction trade. Low modulus formulation with excellent adhesion to PVCu, glass, aluminium and most building substrates. Almost odourless cure.",
+            "feature_1": "Neutral cure — no acid smell",
+            "feature_2": "Low modulus flexibility",
+            "feature_3": "Available in 4 frame colours",
+            "feature_4": "25-year life expectancy",
+            "cta_text": "Shop Silicones",
+            "cta_url": ""
+          }
+        },
+        "new_2": {
+          "type": "product_feature",
+          "settings": {
+            "image": "",
+            "show_badge": true,
+            "badge_text": "BESTSELLER",
+            "launch_date": "",
+            "title": "SX Contractors Acrylic Decorators Caulk",
+            "description": "A premium-grade, water-based acrylic caulk for interior decoration. Fills and seals gaps between skirting boards, ceilings and architraves. Instantly paintable with most emulsions and gloss paints.",
+            "feature_1": "Instantly overpaintable",
+            "feature_2": "Flexible and crack-resistant",
+            "feature_3": "Low odour formulation",
+            "feature_4": "300ml trade cartridge",
+            "cta_text": "Shop Caulks",
+            "cta_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "new_1",
+        "new_2"
+      ],
+      "settings": {
+        "section_label": "Latest Products",
+        "title": "Top Products from Siroflex",
+        "subtitle": "SX Trade Strength sealants and adhesives for professional tradespeople"
+      }
+    },
+    "brand_why_choose": {
+      "type": "brand-why-choose",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "UK",
+            "title": "British Manufacturing",
+            "description": "Siroflex products are manufactured in Barnsley, South Yorkshire. UK production means consistent quality control, shorter supply chains and products formulated specifically for British building materials and climate conditions."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "SX",
+            "title": "Trade Strength Range",
+            "description": "The SX Trade Strength line is engineered specifically for professional use — not watered-down DIY formulations. Higher solid content, better adhesion and longer service life than consumer-grade alternatives."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "B1",
+            "title": "Fire-Rated Products",
+            "description": "Siroflex Flameguard B1 fire-retardant expanding foam is tested to NEN6069:1997 and conforms to B1-F30 (DIN4102-1). Essential for fire-stopping applications in commercial and residential construction."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "LMN",
+            "title": "Neutral Cure Technology",
+            "description": "Low modulus neutral-cure silicones cure with atmospheric moisture to form durable, flexible rubber seals — without the acid smell of acetoxy products. Safe for use on sensitive substrates including PVCu, lead and natural stone."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "30x",
+            "title": "Expanding Foam Performance",
+            "description": "Siroflex PU expanding foams expand up to 30 times their original volume, filling large irregular gaps, fixing window frames and insulating between brickwork and cladding. Available in hand-held and gun-grade formats."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "stat_value": "VALUE",
+            "title": "Trade Pricing",
+            "description": "Professional-grade performance at competitive trade prices. Siroflex delivers the quality the trade demands without the premium price tag of some competitor brands. Bulk pricing available for volume users."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6"
+      ],
+      "settings": {
+        "section_label": "Why Siroflex",
+        "title": "Why Professionals Choose Siroflex",
+        "subtitle": "UK-manufactured sealants and adhesives built for the demands of the trade"
+      }
+    },
+    "categories": {
+      "type": "brand-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Silicone Sealants",
+            "description": "Neutral-cure LMN, acetoxy GP and specialist PVCu silicones for glazing, sanitary and construction sealing applications.",
+            "url": ""
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "Acrylic Caulks & Fillers",
+            "description": "Instantly paintable decorators caulks, flexible fillers and premium-grade acrylics for interior finishing and decoration.",
+            "url": ""
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "image": "",
+            "title": "PU Foams & Adhesives",
+            "description": "Expanding PU foams, fire-rated Flameguard foam, polyurethane sealants and construction adhesives for gap filling, fixing and insulation.",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3"
+      ],
+      "settings": {
+        "section_label": "Shop By Category",
+        "title": "Explore the Siroflex Range",
+        "subtitle": "From silicone sealants to expanding foams — everything for sealing, bonding and filling"
+      }
+    },
+    "video": {
+      "type": "brand-video",
+      "settings": {
+        "thumbnail": "",
+        "video_url": "",
+        "section_label": "See It In Action",
+        "title": "Siroflex SX Trade Strength Range",
+        "description": "See how Siroflex SX Trade Strength sealants and adhesives perform on real construction applications.",
+        "feature_1": "Neutral-cure silicone application",
+        "feature_2": "PU foam gap filling technique",
+        "feature_3": "Acrylic caulk for decorating",
+        "feature_4": "Professional results every time"
+      }
+    },
+    "faq": {
+      "type": "brand-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the difference between neutral-cure and acetoxy silicone?",
+            "answer": "<p><strong>Neutral-cure silicones</strong> (like Siroflex LMN) cure without releasing acetic acid, making them almost odourless and safe for use on sensitive substrates such as PVCu, lead, natural stone and mirrors. <strong>Acetoxy silicones</strong> (like Siroflex GP) release a vinegar-like smell during curing and are best suited for glass, ceramics and non-porous surfaces. For glazing and PVCu work, always use neutral cure.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does Siroflex silicone take to cure?",
+            "answer": "<p>Siroflex silicones typically skin over within <strong>10-20 minutes</strong> and achieve a full cure in <strong>24-48 hours</strong> depending on joint depth, temperature and humidity. Deeper joints take longer to cure. For optimal results, apply at temperatures between 5°C and 35°C and avoid exposure to water during the first 24 hours.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I paint over Siroflex sealants?",
+            "answer": "<p>Siroflex <strong>acrylic caulks</strong> are instantly paintable with most water-based and synthetic paints — they are designed specifically for decorating applications. <strong>Silicone sealants cannot be painted over</strong> as paint will not adhere to silicone surfaces. If you need a paintable seal, choose an acrylic caulk or the Siroflex Polyflex HM polyurethane sealant, which is also paintable once cured.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "Is Siroflex expanding foam fire-rated?",
+            "answer": "<p>The standard Siroflex PU Expanding Foam is classified as <strong>B3</strong> (normal combustibility). For fire-stopping applications, use <strong>Siroflex Flameguard B1</strong> fire-retardant expanding foam, which is tested to NEN6069:1997 and conforms to B1-F30 according to DIN4102-1. Always check building regulations for specific fire-stopping requirements on your project.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "Which Siroflex silicone should I use for PVCu windows?",
+            "answer": "<p>Use the <strong>Siroflex SX PVCu Silicone</strong> — a fast, neutral-curing silicone specifically formulated for PVCu window and door frames. Available in white, clear, light oak and bronze to match common frame colours. Neutral cure means no acid damage to the PVCu profile and an almost odourless application.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer trade pricing on Siroflex products?",
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Siroflex range including silicones, caulks, foams and adhesives. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. We also provide free next-day delivery on all orders over £99.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6"
+      ],
+      "settings": {
+        "heading": "Siroflex FAQs",
+        "subheading": "Common questions about Siroflex sealants, silicones and foams"
+      }
+    },
+    "cta": {
+      "type": "cta-bar",
+      "settings": {
+        "title": "Need Help Choosing the Right Siroflex Product?",
+        "subtitle": "Our team can recommend the best sealant or adhesive for your application",
+        "primary_text": "01843 593 440",
+        "primary_url": "tel:01843593440",
+        "primary_icon": "phone",
+        "secondary_text": "sales@invictatools.co.uk",
+        "secondary_url": "mailto:sales@invictatools.co.uk",
+        "secondary_icon": "email"
+      }
+    },
+    "schema": {
+      "type": "brand-schema",
+      "settings": {
+        "brand_name": "Siroflex",
+        "brand_description": "Siroflex is a UK manufacturer of professional silicones, sealants, adhesives and PU foams. Established in 1994 in Barnsley, South Yorkshire, the SX Trade Strength range is trusted by construction and glazing professionals across the UK.",
+        "brand_url": "https://www.bostik.com/uk/en_GB/brands_countries/siroflex/",
+        "brand_founding_year": "1994",
+        "brand_country": "United Kingdom",
+        "parent_url": "/pages/shop-by-brand",
+        "parent_title": "Brands"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "usp_strip",
+    "about",
+    "featured-products",
+    "brand_applications",
+    "brand_new_products",
+    "brand_why_choose",
+    "categories",
+    "video",
+    "faq",
+    "cta",
+    "schema"
+  ]
+}

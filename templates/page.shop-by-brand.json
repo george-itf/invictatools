@@ -12,63 +12,274 @@
     "main": {
       "type": "invicta-category-grid",
       "blocks": {
-        "category_itAc6j": {
+        "brand_bahco": {
           "type": "category",
           "settings": {
-            "collection": "makita",
-            "title": "",
+            "collection": "bahco",
+            "title": "Bahco",
             "link": "",
-            "image": "shopify://shop_images/makita_5c6ce50a-8652-4bfb-b5e5-71f846878208.png"
+            "image": "shopify://shop_images/bahco.svg"
           }
         },
-        "category_f7yHUq": {
+        "brand_dewalt": {
           "type": "category",
           "settings": {
             "collection": "dewalt",
-            "title": "",
+            "title": "DeWalt",
             "link": "",
             "image": "shopify://shop_images/images_1.png"
           }
         },
-        "category_Ex8hfj": {
+        "brand_dormer": {
+          "type": "category",
+          "settings": {
+            "collection": "dormer",
+            "title": "Dormer Pramet",
+            "link": "",
+            "image": "shopify://shop_images/dormer.svg"
+          }
+        },
+        "brand_einhell": {
+          "type": "category",
+          "settings": {
+            "collection": "einhell",
+            "title": "Einhell",
+            "link": "",
+            "image": "shopify://shop_images/einhell.svg"
+          }
+        },
+        "brand_everbuild": {
+          "type": "category",
+          "settings": {
+            "collection": "everbuild",
+            "title": "Everbuild",
+            "link": "",
+            "image": "shopify://shop_images/everbuild.svg"
+          }
+        },
+        "brand_evostik": {
+          "type": "category",
+          "settings": {
+            "collection": "evostik",
+            "title": "Evo-Stik",
+            "link": "",
+            "image": "shopify://shop_images/evostik.svg"
+          }
+        },
+        "brand_faithfull": {
+          "type": "category",
+          "settings": {
+            "collection": "faithfull",
+            "title": "Faithfull",
+            "link": "",
+            "image": "shopify://shop_images/faithfull.svg"
+          }
+        },
+        "brand_gorilla": {
+          "type": "category",
+          "settings": {
+            "collection": "gorilla",
+            "title": "Gorilla",
+            "link": "",
+            "image": "shopify://shop_images/gorilla.svg"
+          }
+        },
+        "brand_hikoki": {
+          "type": "category",
+          "settings": {
+            "collection": "hikoki",
+            "title": "HiKOKI",
+            "link": "",
+            "image": "shopify://shop_images/hikoki.svg"
+          }
+        },
+        "brand_irwin": {
+          "type": "category",
+          "settings": {
+            "collection": "irwin",
+            "title": "Irwin",
+            "link": "",
+            "image": "shopify://shop_images/irwin.svg"
+          }
+        },
+        "brand_kamtec": {
+          "type": "category",
+          "settings": {
+            "collection": "kamtec",
+            "title": "Kamtec",
+            "link": "",
+            "image": "shopify://shop_images/kamtec.svg"
+          }
+        },
+        "brand_lamello": {
+          "type": "category",
+          "settings": {
+            "collection": "lamello",
+            "title": "Lamello",
+            "link": "",
+            "image": "shopify://shop_images/lamello-sq.png"
+          }
+        },
+        "brand_makita": {
+          "type": "category",
+          "settings": {
+            "collection": "makita",
+            "title": "Makita",
+            "link": "",
+            "image": "shopify://shop_images/makita_5c6ce50a-8652-4bfb-b5e5-71f846878208.png"
+          }
+        },
+        "brand_metabo": {
+          "type": "category",
+          "settings": {
+            "collection": "metabo",
+            "title": "Metabo",
+            "link": "",
+            "image": "shopify://shop_images/metabo.svg"
+          }
+        },
+        "brand_milwaukee": {
+          "type": "category",
+          "settings": {
+            "collection": "milwaukee",
+            "title": "Milwaukee",
+            "link": "",
+            "image": "shopify://shop_images/milwaukee.svg"
+          }
+        },
+        "brand_paslode": {
+          "type": "category",
+          "settings": {
+            "collection": "paslode",
+            "title": "Paslode",
+            "link": "",
+            "image": "shopify://shop_images/paslode.svg"
+          }
+        },
+        "brand_pdp": {
           "type": "category",
           "settings": {
             "collection": "premier-diamond-products",
             "title": "Premier Diamond",
-            "link": ""
+            "link": "",
+            "image": ""
           }
         },
-        "category_Nf74fy": {
+        "brand_siroflex": {
+          "type": "category",
+          "settings": {
+            "collection": "siroflex",
+            "title": "Siroflex",
+            "link": "",
+            "image": "shopify://shop_images/siroflex.svg"
+          }
+        },
+        "brand_sitetuff": {
+          "type": "category",
+          "settings": {
+            "collection": "sitetuff",
+            "title": "SiteTuff",
+            "link": "",
+            "image": "shopify://shop_images/sitetuff.svg"
+          }
+        },
+        "brand_soudal": {
+          "type": "category",
+          "settings": {
+            "collection": "soudal",
+            "title": "Soudal",
+            "link": "",
+            "image": "shopify://shop_images/soudal.svg"
+          }
+        },
+        "brand_spit": {
+          "type": "category",
+          "settings": {
+            "collection": "spit",
+            "title": "Spit",
+            "link": "",
+            "image": "shopify://shop_images/spit.svg"
+          }
+        },
+        "brand_stanley": {
+          "type": "category",
+          "settings": {
+            "collection": "stanley",
+            "title": "Stanley",
+            "link": "",
+            "image": "shopify://shop_images/stanley.svg"
+          }
+        },
+        "brand_starrett": {
+          "type": "category",
+          "settings": {
+            "collection": "starrett",
+            "title": "Starrett",
+            "link": "",
+            "image": "shopify://shop_images/starrett.svg"
+          }
+        },
+        "brand_tengtools": {
+          "type": "category",
+          "settings": {
+            "collection": "tengtools",
+            "title": "Teng Tools",
+            "link": "",
+            "image": "shopify://shop_images/tengtools.svg"
+          }
+        },
+        "brand_timco": {
+          "type": "category",
+          "settings": {
+            "collection": "timco",
+            "title": "Timco",
+            "link": "",
+            "image": "shopify://shop_images/timco.svg"
+          }
+        },
+        "brand_viper": {
           "type": "category",
           "settings": {
             "collection": "viper",
-            "title": "",
+            "title": "Viper",
             "link": "",
             "image": "shopify://shop_images/viper.png"
-          }
-        },
-        "category_q63pPA": {
-          "type": "category",
-          "settings": {
-            "collection": "lamello",
-            "title": "",
-            "link": "",
-            "image": "shopify://shop_images/lamello-sq.png"
           }
         }
       },
       "block_order": [
-        "category_itAc6j",
-        "category_f7yHUq",
-        "category_Ex8hfj",
-        "category_Nf74fy",
-        "category_q63pPA"
+        "brand_bahco",
+        "brand_dewalt",
+        "brand_dormer",
+        "brand_einhell",
+        "brand_everbuild",
+        "brand_evostik",
+        "brand_faithfull",
+        "brand_gorilla",
+        "brand_hikoki",
+        "brand_irwin",
+        "brand_kamtec",
+        "brand_lamello",
+        "brand_makita",
+        "brand_metabo",
+        "brand_milwaukee",
+        "brand_paslode",
+        "brand_pdp",
+        "brand_siroflex",
+        "brand_sitetuff",
+        "brand_soudal",
+        "brand_spit",
+        "brand_stanley",
+        "brand_starrett",
+        "brand_tengtools",
+        "brand_timco",
+        "brand_viper"
       ],
       "settings": {
         "heading": "SHOP BY BRAND",
-        "description": "Shop from trusted brands across our site.",
+        "description": "Shop from trusted brands across our site — power tools, hand tools, fixings, sealants and accessories from the industry's best.",
         "header_align": "center",
-        "columns_desktop": 5,
+        "columns_desktop": 4,
         "columns_tablet": 3,
         "columns_mobile": 2,
         "grid_gap": 20,
