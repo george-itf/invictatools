@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £99"
+            "subtitle": "On orders over \u00a399"
           }
         },
         "usp_2": {
@@ -131,7 +131,7 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/69ac928274da9485bf03d004_Wood_20Glue_20Ultimate_20thumbnail_20_1.png",
             "featured": true,
             "title": "General Bonding",
             "description": "Original Gorilla Glue and Gorilla Super Glue bond wood, stone, metal, ceramic, foam, glass and most plastics. One adhesive range for virtually any material combination on site.",
@@ -141,7 +141,7 @@
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/69baec432b884fd4d0daf3fc_W_26D_20Clear_20Thumbnail_20_1.png",
             "featured": false,
             "title": "Woodworking",
             "description": "Gorilla Wood Glue delivers superior bond strength for joinery, carpentry and furniture assembly. Water-resistant PVA formula with easy clean-up and sanding compatibility.",
@@ -151,7 +151,7 @@
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/697ce70089206cdcab169084_Clear_20Paste.webp",
             "featured": false,
             "title": "Outdoor & Garden Repairs",
             "description": "100% waterproof formulations across the Gorilla range handle outdoor furniture, fencing, decking and garden structure repairs that need to withstand rain, frost and UV exposure.",
@@ -161,7 +161,7 @@
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/698cd34290a6acb9c8d924d4_Sized_20Gorilla_20Tape_20Thumbnail.webp",
             "featured": false,
             "title": "Construction",
             "description": "Gorilla Construction Adhesive and heavy-duty Gorilla Tape provide strong, permanent bonds for fixing panels, trim, skirting and structural elements on building sites.",
@@ -171,7 +171,7 @@
         "app_5": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/69528dafd757d6ae802fd15b_69528ce2f17e6a5a3700c676_Epoxy_20Clear_20OOP_20OPTIMIZED_20_2_-min.avif",
             "featured": false,
             "title": "Automotive",
             "description": "Gorilla Super Glue and Gorilla Epoxy handle automotive trim, interior repairs and under-bonnet fixes where vibration resistance and temperature tolerance are essential.",
@@ -200,7 +200,7 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/69ac928274da9485bf03d004_Wood_20Glue_20Ultimate_20thumbnail_20_1.png",
             "show_badge": true,
             "badge_text": "ICONIC",
             "launch_date": "",
@@ -217,7 +217,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/697ce70089206cdcab169084_Clear_20Paste.webp",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
@@ -258,7 +258,7 @@
           "settings": {
             "stat_value": "100%",
             "title": "Waterproof Formulations",
-            "description": "Gorilla Glue is 100% waterproof and safe for indoor and outdoor use. It will not break down when exposed to rain, moisture or humidity — built to withstand the elements."
+            "description": "Gorilla Glue is 100% waterproof and safe for indoor and outdoor use. It will not break down when exposed to rain, moisture or humidity \u2014 built to withstand the elements."
           }
         },
         "benefit_3": {
@@ -290,7 +290,7 @@
           "settings": {
             "stat_value": "RANGE",
             "title": "Complete Adhesive System",
-            "description": "From polyurethane glue and super glue to wood glue, epoxy, construction adhesive and tape — Gorilla offers a complete bonding solution for every application and material."
+            "description": "From polyurethane glue and super glue to wood glue, epoxy, construction adhesive and tape \u2014 Gorilla offers a complete bonding solution for every application and material."
           }
         }
       },
@@ -314,25 +314,25 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/69ac928274da9485bf03d004_Wood_20Glue_20Ultimate_20thumbnail_20_1.png",
             "title": "Gorilla Glues",
-            "description": "Original Gorilla Glue, Super Glue, Wood Glue, Epoxy and Construction Adhesive — incredibly strong formulations for every bonding application.",
+            "description": "Original Gorilla Glue, Super Glue, Wood Glue, Epoxy and Construction Adhesive \u2014 incredibly strong formulations for every bonding application.",
             "url": ""
           }
         },
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/698cd34290a6acb9c8d924d4_Sized_20Gorilla_20Tape_20Thumbnail.webp",
             "title": "Gorilla Tapes",
-            "description": "Heavy-duty Gorilla Tape, All Weather Tape and Waterproof Patch & Seal Tape — reinforced tapes that outperform on the toughest jobs.",
+            "description": "Heavy-duty Gorilla Tape, All Weather Tape and Waterproof Patch & Seal Tape \u2014 reinforced tapes that outperform on the toughest jobs.",
             "url": ""
           }
         },
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/69baec432b884fd4d0daf3fc_W_26D_20Clear_20Thumbnail_20_1.png",
             "title": "Gorilla Sealants",
             "description": "Silicone sealants and waterproof solutions for sealing, filling and finishing in wet and dry environments.",
             "url": ""
@@ -353,10 +353,10 @@
     "video": {
       "type": "brand-video",
       "settings": {
-        "thumbnail": "",
-        "video_url": "",
+        "thumbnail": "shopify://shop_images/69ac928274da9485bf03d004_Wood_20Glue_20Ultimate_20thumbnail_20_1.png",
+        "video_url": "https://youtu.be/yXC5rPHjTiY",
         "section_label": "See It In Action",
-        "title": "Gorilla Glue — Built for the Toughest Jobs",
+        "title": "Gorilla Glue \u2014 Built for the Toughest Jobs",
         "description": "See how Gorilla's expanding polyurethane formula creates bonds that outperform conventional adhesives on the most demanding applications.",
         "feature_1": "Water-activated polyurethane bond",
         "feature_2": "Expands 3x into materials",
@@ -406,7 +406,7 @@
           "type": "faq",
           "settings": {
             "question": "Do you offer trade pricing on Gorilla products?",
-            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Gorilla range including glues, tapes, sealants and epoxies. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. Free next-day delivery on all orders over £99.</p>"
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Gorilla range including glues, tapes, sealants and epoxies. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. Free next-day delivery on all orders over \u00a399.</p>"
           }
         }
       },

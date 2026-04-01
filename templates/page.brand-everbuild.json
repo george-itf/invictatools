@@ -27,7 +27,7 @@
         "primary_cta_url": "",
         "secondary_cta_text": "Browse by Category",
         "secondary_cta_url": "#categories",
-        "hero_image": ""
+        "hero_image": "shopify://shop_images/EVB2ELECBK.jpg"
       }
     },
     "usp_strip": {
@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £99"
+            "subtitle": "On orders over \u00a399"
           }
         },
         "usp_2": {
@@ -85,16 +85,16 @@
     "about": {
       "type": "brand-about",
       "settings": {
-        "image": "",
+        "image": "shopify://shop_images/EVB2HAZRD.jpg",
         "badge_label": "Since",
         "badge_value": "1994",
         "section_label": "The Everbuild Story",
         "title": "UK-Made Building Chemicals Since 1994",
         "paragraph_1": "Founded by David Seymour in Leeds in 1994, Everbuild grew from a small operation into the UK's largest independent manufacturer of sealants, adhesives, fillers and building chemicals. Products like Stixall, Pinkgrip, Forever White and Wonder Wipes became household names on British building sites, each solving a real trade problem with a product that simply worked.",
-        "paragraph_2": "In 2013, Everbuild was acquired by Sika AG, the global construction chemicals giant. Now trading as Sika Everbuild, the brand combines its deep understanding of UK trade needs with Sika's global R&D and manufacturing expertise. With sales exceeding £110 million and customers in over 70 countries, Everbuild products remain the go-to choice for builders, plumbers and decorators across the UK.",
+        "paragraph_2": "In 2013, Everbuild was acquired by Sika AG, the global construction chemicals giant. Now trading as Sika Everbuild, the brand combines its deep understanding of UK trade needs with Sika's global R&D and manufacturing expertise. With sales exceeding \u00a3110 million and customers in over 70 countries, Everbuild products remain the go-to choice for builders, plumbers and decorators across the UK.",
         "stat_1_value": "200+",
         "stat_1_label": "Product Lines",
-        "stat_2_value": "£110M+",
+        "stat_2_value": "\u00a3110M+",
         "stat_2_label": "Annual Sales",
         "stat_3_value": "#1",
         "stat_3_label": "UK Sealant Brand",
@@ -131,7 +131,7 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVB2ELECBK.jpg",
             "featured": true,
             "title": "Building & Construction",
             "description": "PVA bonding agents, cement additives, concrete hardeners, waterproofers and stabilising solutions for structural work, brickwork and general construction.",
@@ -141,7 +141,7 @@
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVB2HAZRD.jpg",
             "featured": false,
             "title": "Plumbing & Wet Rooms",
             "description": "Sanitary silicones with C3 anti-mould technology, Forever White sealants, Aquaseal tanking systems and waterproof coatings for bathrooms, kitchens and wet areas.",
@@ -151,7 +151,7 @@
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVB2ELECBK.jpg",
             "featured": false,
             "title": "Decorating & Finishing",
             "description": "Ready-mixed and powder fillers for interior and exterior use, caulks, decorators' sealants and surface preparation products for professional finishing work.",
@@ -161,7 +161,7 @@
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVB2HAZRD.jpg",
             "featured": false,
             "title": "Roofing & Weatherproofing",
             "description": "Black Jack bitumen range including felt adhesives, all-weather roof coatings, roofing emulsions and DPM products for flat roofs, gutters and below-ground waterproofing.",
@@ -171,7 +171,7 @@
         "app_5": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVB2ELECBK.jpg",
             "featured": false,
             "title": "Glazing & Fenestration",
             "description": "Specialist glazing silicones, frame sealants and weather-resistant products for window and door installations in new build and refurbishment projects.",
@@ -198,7 +198,7 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVB2ELECBK.jpg",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
@@ -215,7 +215,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVB2HAZRD.jpg",
             "show_badge": true,
             "badge_text": "TRADE FAVOURITE",
             "launch_date": "",
@@ -264,7 +264,7 @@
           "settings": {
             "stat_value": "TRADE",
             "title": "Trade-Grade Quality",
-            "description": "Every Everbuild product is formulated for professional use. Products like Stixall, Pinkgrip and Forever White became trade standards because they perform where it matters — on the jobsite."
+            "description": "Every Everbuild product is formulated for professional use. Products like Stixall, Pinkgrip and Forever White became trade standards because they perform where it matters \u2014 on the jobsite."
           }
         },
         "benefit_4": {
@@ -280,7 +280,7 @@
           "settings": {
             "stat_value": "C3",
             "title": "Anti-Mould Technology",
-            "description": "Everbuild's proprietary C3 anti-mould technology in the Forever White range prevents black mould growth for up to 10 years — the longest-lasting mould protection available in a sanitary sealant."
+            "description": "Everbuild's proprietary C3 anti-mould technology in the Forever White range prevents black mould growth for up to 10 years \u2014 the longest-lasting mould protection available in a sanitary sealant."
           }
         },
         "benefit_6": {
@@ -312,16 +312,16 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVB2ELECBK.jpg",
             "title": "Sealants & Silicones",
-            "description": "Sanitary silicones, general purpose sealants, specialist glazing and fire-rated sealants — the UK's widest range for every sealing application.",
+            "description": "Sanitary silicones, general purpose sealants, specialist glazing and fire-rated sealants \u2014 the UK's widest range for every sealing application.",
             "url": ""
           }
         },
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVB2HAZRD.jpg",
             "title": "Adhesives & Fillers",
             "description": "Hybrid adhesives, PVA bonding agents, grab adhesives, wood glues, ready-mixed fillers and powder fillers for bonding and finishing on any substrate.",
             "url": ""
@@ -330,7 +330,7 @@
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVB2ELECBK.jpg",
             "title": "Waterproofing & Building Chemicals",
             "description": "Black Jack bitumen products, tanking systems, DPM, cement additives, stabilisers and waterproof coatings for structural and below-ground applications.",
             "url": ""
@@ -355,7 +355,7 @@
         "video_url": "",
         "section_label": "See It In Action",
         "title": "Everbuild Stixall Extreme Power",
-        "description": "See how Stixall's hybrid polymer technology bonds and seals virtually any material in any condition — wet, dry, even underwater.",
+        "description": "See how Stixall's hybrid polymer technology bonds and seals virtually any material in any condition \u2014 wet, dry, even underwater.",
         "feature_1": "Bonds any material to any material",
         "feature_2": "Works on wet surfaces",
         "feature_3": "Replaces multiple sealants",
@@ -376,7 +376,7 @@
           "type": "faq",
           "settings": {
             "question": "What is the difference between silicone sealant and polyurethane sealant?",
-            "answer": "<p><strong>Silicone sealants</strong> (like Everbuild Everflex range) remain flexible, are water-resistant and are ideal for sanitary, glazing and general sealing applications. They cannot be painted over. <strong>Polyurethane sealants</strong> offer stronger adhesion, can be painted, and are better suited for construction joints and floor sealing. Everbuild's hybrid range (like <strong>Stixall</strong> and <strong>EB25</strong>) combines the best of both — paintable, flexible, and strong-bonding.</p>"
+            "answer": "<p><strong>Silicone sealants</strong> (like Everbuild Everflex range) remain flexible, are water-resistant and are ideal for sanitary, glazing and general sealing applications. They cannot be painted over. <strong>Polyurethane sealants</strong> offer stronger adhesion, can be painted, and are better suited for construction joints and floor sealing. Everbuild's hybrid range (like <strong>Stixall</strong> and <strong>EB25</strong>) combines the best of both \u2014 paintable, flexible, and strong-bonding.</p>"
           }
         },
         "faq_3": {
@@ -390,21 +390,21 @@
           "type": "faq",
           "settings": {
             "question": "Do you offer trade pricing on Everbuild products?",
-            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Everbuild range. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. We also provide free next-day delivery on all orders over £99.</p>"
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Everbuild range. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. We also provide free next-day delivery on all orders over \u00a399.</p>"
           }
         },
         "faq_5": {
           "type": "faq",
           "settings": {
             "question": "What is the difference between Everbuild and Sika Everbuild?",
-            "answer": "<p>Everbuild was acquired by <strong>Sika AG</strong> in 2013 and now trades as Sika Everbuild. The products remain the same — manufactured in the UK to the same formulations. The Sika backing provides additional R&D investment and quality assurance. All the trade favourites like <strong>Stixall, Pinkgrip, Forever White</strong> and <strong>Wonder Wipes</strong> continue under the Everbuild brand name.</p>"
+            "answer": "<p>Everbuild was acquired by <strong>Sika AG</strong> in 2013 and now trades as Sika Everbuild. The products remain the same \u2014 manufactured in the UK to the same formulations. The Sika backing provides additional R&D investment and quality assurance. All the trade favourites like <strong>Stixall, Pinkgrip, Forever White</strong> and <strong>Wonder Wipes</strong> continue under the Everbuild brand name.</p>"
           }
         },
         "faq_6": {
           "type": "faq",
           "settings": {
             "question": "Which Everbuild product should I use for bonding heavy materials?",
-            "answer": "<p>For heavy-duty bonding, <strong>Stixall Extreme Power</strong> is the top choice — it bonds virtually any material to any material with exceptional grab strength. For rapid grab applications, <strong>Pinkgrip</strong> provides fast initial tack and is widely used for fixing skirting boards, architraves, dado rails and wall panels. Both are solvent-free and suitable for interior and exterior use.</p>"
+            "answer": "<p>For heavy-duty bonding, <strong>Stixall Extreme Power</strong> is the top choice \u2014 it bonds virtually any material to any material with exceptional grab strength. For rapid grab applications, <strong>Pinkgrip</strong> provides fast initial tack and is widely used for fixing skirting boards, architraves, dado rails and wall panels. Both are solvent-free and suitable for interior and exterior use.</p>"
           }
         }
       },

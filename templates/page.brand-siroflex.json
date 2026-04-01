@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £99"
+            "subtitle": "On orders over \u00a399"
           }
         },
         "usp_2": {
@@ -131,7 +131,7 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/SXSanitarySilicone.png",
             "featured": true,
             "title": "Glazing",
             "description": "Low modulus neutral-cure silicones for sealing PVCu windows, door frames and curtain walling. Clean, almost odourless cure with excellent UV resistance for long-lasting weatherproof seals.",
@@ -141,7 +141,7 @@
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/shower-heads.jpg",
             "featured": false,
             "title": "Plumbing & Sanitary",
             "description": "Acetoxy GP silicones and anti-mould formulations for bathrooms, kitchens and wet rooms. Permanent watertight seals on glass, ceramics, sanitary ware and non-porous surfaces.",
@@ -151,7 +151,7 @@
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/water-filters-home.jpg",
             "featured": false,
             "title": "Construction Sealing",
             "description": "High-modulus polyurethane sealants and expanding PU foams for structural joints, gap filling and insulation. Gun-grade and hand-held options for every site requirement.",
@@ -161,7 +161,7 @@
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/garden-irrigation-home.jpg",
             "featured": false,
             "title": "Decorating",
             "description": "Instantly paintable acrylic caulks for interior gaps, cracks and joints between skirting boards, ceilings, architraves and plasterwork. Quick-drying and compatible with water-based and synthetic paints.",
@@ -171,7 +171,7 @@
         "app_5": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/SXSanitarySilicone.png",
             "featured": false,
             "title": "Window & Door Installation",
             "description": "Specialist PVCu silicones and frame sealants in white, clear, light oak and bronze to match common frame colours. Neutral cure formulation safe for use on all PVCu profiles.",
@@ -198,13 +198,13 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/SXSanitarySilicone.png",
             "show_badge": true,
             "badge_text": "TRADE FAVOURITE",
             "launch_date": "",
             "title": "SX Trade Strength LMN Silicone",
             "description": "The go-to neutral-cure silicone for the glazing and construction trade. Low modulus formulation with excellent adhesion to PVCu, glass, aluminium and most building substrates. Almost odourless cure.",
-            "feature_1": "Neutral cure — no acid smell",
+            "feature_1": "Neutral cure \u2014 no acid smell",
             "feature_2": "Low modulus flexibility",
             "feature_3": "Available in 4 frame colours",
             "feature_4": "25-year life expectancy",
@@ -215,7 +215,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/garden-irrigation-home.jpg",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
@@ -256,7 +256,7 @@
           "settings": {
             "stat_value": "SX",
             "title": "Trade Strength Range",
-            "description": "The SX Trade Strength line is engineered specifically for professional use — not watered-down DIY formulations. Higher solid content, better adhesion and longer service life than consumer-grade alternatives."
+            "description": "The SX Trade Strength line is engineered specifically for professional use \u2014 not watered-down DIY formulations. Higher solid content, better adhesion and longer service life than consumer-grade alternatives."
           }
         },
         "benefit_3": {
@@ -272,7 +272,7 @@
           "settings": {
             "stat_value": "LMN",
             "title": "Neutral Cure Technology",
-            "description": "Low modulus neutral-cure silicones cure with atmospheric moisture to form durable, flexible rubber seals — without the acid smell of acetoxy products. Safe for use on sensitive substrates including PVCu, lead and natural stone."
+            "description": "Low modulus neutral-cure silicones cure with atmospheric moisture to form durable, flexible rubber seals \u2014 without the acid smell of acetoxy products. Safe for use on sensitive substrates including PVCu, lead and natural stone."
           }
         },
         "benefit_5": {
@@ -312,7 +312,7 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/SXSanitarySilicone.png",
             "title": "Silicone Sealants",
             "description": "Neutral-cure LMN, acetoxy GP and specialist PVCu silicones for glazing, sanitary and construction sealing applications.",
             "url": ""
@@ -321,7 +321,7 @@
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/shower-heads.jpg",
             "title": "Acrylic Caulks & Fillers",
             "description": "Instantly paintable decorators caulks, flexible fillers and premium-grade acrylics for interior finishing and decoration.",
             "url": ""
@@ -330,7 +330,7 @@
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/water-filters-home.jpg",
             "title": "PU Foams & Adhesives",
             "description": "Expanding PU foams, fire-rated Flameguard foam, polyurethane sealants and construction adhesives for gap filling, fixing and insulation.",
             "url": ""
@@ -345,7 +345,7 @@
       "settings": {
         "section_label": "Shop By Category",
         "title": "Explore the Siroflex Range",
-        "subtitle": "From silicone sealants to expanding foams — everything for sealing, bonding and filling"
+        "subtitle": "From silicone sealants to expanding foams \u2014 everything for sealing, bonding and filling"
       }
     },
     "video": {
@@ -376,14 +376,14 @@
           "type": "faq",
           "settings": {
             "question": "How long does Siroflex silicone take to cure?",
-            "answer": "<p>Siroflex silicones typically skin over within <strong>10-20 minutes</strong> and achieve a full cure in <strong>24-48 hours</strong> depending on joint depth, temperature and humidity. Deeper joints take longer to cure. For optimal results, apply at temperatures between 5°C and 35°C and avoid exposure to water during the first 24 hours.</p>"
+            "answer": "<p>Siroflex silicones typically skin over within <strong>10-20 minutes</strong> and achieve a full cure in <strong>24-48 hours</strong> depending on joint depth, temperature and humidity. Deeper joints take longer to cure. For optimal results, apply at temperatures between 5\u00b0C and 35\u00b0C and avoid exposure to water during the first 24 hours.</p>"
           }
         },
         "faq_3": {
           "type": "faq",
           "settings": {
             "question": "Can I paint over Siroflex sealants?",
-            "answer": "<p>Siroflex <strong>acrylic caulks</strong> are instantly paintable with most water-based and synthetic paints — they are designed specifically for decorating applications. <strong>Silicone sealants cannot be painted over</strong> as paint will not adhere to silicone surfaces. If you need a paintable seal, choose an acrylic caulk or the Siroflex Polyflex HM polyurethane sealant, which is also paintable once cured.</p>"
+            "answer": "<p>Siroflex <strong>acrylic caulks</strong> are instantly paintable with most water-based and synthetic paints \u2014 they are designed specifically for decorating applications. <strong>Silicone sealants cannot be painted over</strong> as paint will not adhere to silicone surfaces. If you need a paintable seal, choose an acrylic caulk or the Siroflex Polyflex HM polyurethane sealant, which is also paintable once cured.</p>"
           }
         },
         "faq_4": {
@@ -397,14 +397,14 @@
           "type": "faq",
           "settings": {
             "question": "Which Siroflex silicone should I use for PVCu windows?",
-            "answer": "<p>Use the <strong>Siroflex SX PVCu Silicone</strong> — a fast, neutral-curing silicone specifically formulated for PVCu window and door frames. Available in white, clear, light oak and bronze to match common frame colours. Neutral cure means no acid damage to the PVCu profile and an almost odourless application.</p>"
+            "answer": "<p>Use the <strong>Siroflex SX PVCu Silicone</strong> \u2014 a fast, neutral-curing silicone specifically formulated for PVCu window and door frames. Available in white, clear, light oak and bronze to match common frame colours. Neutral cure means no acid damage to the PVCu profile and an almost odourless application.</p>"
           }
         },
         "faq_6": {
           "type": "faq",
           "settings": {
             "question": "Do you offer trade pricing on Siroflex products?",
-            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Siroflex range including silicones, caulks, foams and adhesives. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. We also provide free next-day delivery on all orders over £99.</p>"
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Siroflex range including silicones, caulks, foams and adhesives. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. We also provide free next-day delivery on all orders over \u00a399.</p>"
           }
         }
       },

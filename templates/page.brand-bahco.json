@@ -16,7 +16,7 @@
         "dealer_badge": "Official UK Stockist",
         "headline_line_1": "The Original Adjustable.",
         "headline_line_2": "Swedish Precision Since 1886.",
-        "subtitle": "Professional-grade hand tools engineered in Sweden for over 135 years. From the inventors of the adjustable wrench — trusted by plumbers, electricians and engineers across the UK.",
+        "subtitle": "Professional-grade hand tools engineered in Sweden for over 135 years. From the inventors of the adjustable wrench \u2014 trusted by plumbers, electricians and engineers across the UK.",
         "stat_1_value": "1886",
         "stat_1_label": "Founded",
         "stat_2_value": "7000+",
@@ -27,7 +27,7 @@
         "primary_cta_url": "",
         "secondary_cta_text": "Browse by Category",
         "secondary_cta_url": "#categories",
-        "hero_image": ""
+        "hero_image": "shopify://shop_images/BAH244P20LAM.jpg"
       }
     },
     "usp_strip": {
@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £99"
+            "subtitle": "On orders over \u00a399"
           }
         },
         "usp_2": {
@@ -85,12 +85,12 @@
     "about": {
       "type": "brand-about",
       "settings": {
-        "image": "",
+        "image": "shopify://shop_images/BAH022030.jpg",
         "badge_label": "Since",
         "badge_value": "1886",
         "section_label": "The Bahco Story",
         "title": "Swedish Engineering Since 1886",
-        "paragraph_1": "In 1886, Johan Petter Johansson founded a small smithy in Enk\u00f6ping, Sweden. By 1892 he had patented the modern adjustable wrench — a tool so well designed that its fundamental principle remains unchanged today. Johansson went on to hold over 100 patents, but that single invention put Bahco on the map and into the hands of tradespeople worldwide.",
+        "paragraph_1": "In 1886, Johan Petter Johansson founded a small smithy in Enk\u00f6ping, Sweden. By 1892 he had patented the modern adjustable wrench \u2014 a tool so well designed that its fundamental principle remains unchanged today. Johansson went on to hold over 100 patents, but that single invention put Bahco on the map and into the hands of tradespeople worldwide.",
         "paragraph_2": "Today, Bahco is the premium brand of SNA Europe, offering over 7,000 professional hand tools across every trade discipline. The ERGO range, developed from 1983 and scientifically validated in 1996, is designed to reduce repetitive strain injuries and increase productivity. With more than 100 million adjustable wrenches sold globally, Bahco remains the benchmark for professional hand tools.",
         "stat_1_value": "135+",
         "stat_1_label": "Years of Heritage",
@@ -131,17 +131,17 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/BAH244P20LAM.jpg",
             "featured": true,
             "title": "Plumbing",
-            "description": "Adjustable wrenches, pipe cutters and water pump pliers engineered for pipework, fittings and plumbing installations — the trade Bahco was born to serve.",
+            "description": "Adjustable wrenches, pipe cutters and water pump pliers engineered for pipework, fittings and plumbing installations \u2014 the trade Bahco was born to serve.",
             "connector_used": ""
           }
         },
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/BAH022030.jpg",
             "featured": false,
             "title": "Electrical",
             "description": "VDE-insulated screwdrivers, side cutters and long-nose pliers rated to 1000V for safe electrical first and second fix work.",
@@ -151,7 +151,7 @@
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/BAH21HDG140_46c15bd3-4b13-4c25-b58d-f68ea24b63a2.jpg",
             "featured": false,
             "title": "Automotive",
             "description": "Socket sets, combination spanners, torque wrenches and specialist pliers for professional vehicle maintenance and workshop use.",
@@ -161,7 +161,7 @@
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/BAH14RAT.jpg",
             "featured": false,
             "title": "General Construction",
             "description": "Hacksaws, files, adjustable wrenches and measuring tools that cover the essentials for every trade on a busy construction site.",
@@ -171,7 +171,7 @@
         "app_5": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/BAH12BBL.jpg",
             "featured": false,
             "title": "Maintenance & Facilities",
             "description": "Comprehensive hand tool kits, ERGO screwdriver sets and precision instruments for industrial maintenance, MRO and facilities management.",
@@ -200,12 +200,12 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/BAH2PP.jpg",
             "show_badge": true,
             "badge_text": "ICONIC",
             "launch_date": "Available Now",
             "title": "Bahco 80 Series Adjustable Wrench",
-            "description": "The direct descendant of Johan Petter Johansson's 1892 original. Precision-machined Swedish steel jaws with a slim head profile for access in tight spaces — the wrench that started it all, refined over 135 years.",
+            "description": "The direct descendant of Johan Petter Johansson's 1892 original. Precision-machined Swedish steel jaws with a slim head profile for access in tight spaces \u2014 the wrench that started it all, refined over 135 years.",
             "feature_1": "Precision-machined jaw mechanism",
             "feature_2": "Slim head for confined spaces",
             "feature_3": "Phosphate finish for corrosion resistance",
@@ -217,7 +217,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/BAH12BBL.jpg",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
@@ -314,25 +314,25 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/BAH244P20LAM.jpg",
             "title": "Hand Tools",
-            "description": "Adjustable wrenches, pliers, water pump pliers, spanners and socket sets — the core Bahco range built on over 135 years of Swedish engineering.",
+            "description": "Adjustable wrenches, pliers, water pump pliers, spanners and socket sets \u2014 the core Bahco range built on over 135 years of Swedish engineering.",
             "url": ""
           }
         },
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/BAH21HDG140_46c15bd3-4b13-4c25-b58d-f68ea24b63a2.jpg",
             "title": "Saws & Cutting",
-            "description": "Professional hacksaws, hand saws, junior hacksaws and replacement blades — precision cutting tools for metal, wood and plastic.",
+            "description": "Professional hacksaws, hand saws, junior hacksaws and replacement blades \u2014 precision cutting tools for metal, wood and plastic.",
             "url": ""
           }
         },
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/BAH14RAT.jpg",
             "title": "Screwdrivers & Hex Keys",
             "description": "ERGO screwdriver sets in slotted, Phillips and Pozidriv, plus VDE-insulated options and professional hex key sets.",
             "url": ""
@@ -353,8 +353,8 @@
     "video": {
       "type": "brand-video",
       "settings": {
-        "thumbnail": "",
-        "video_url": "",
+        "thumbnail": "shopify://shop_images/BAH244P20LAM.jpg",
+        "video_url": "https://youtu.be/c14JHCcXbS4",
         "section_label": "See It In Action",
         "title": "Bahco ERGO Hand Tools",
         "description": "Discover how Bahco's ERGO technology reduces hand fatigue and increases productivity across every trade discipline.",
@@ -378,7 +378,7 @@
           "type": "faq",
           "settings": {
             "question": "What is Bahco ERGO technology?",
-            "answer": "<p><strong>ERGO</strong> is Bahco's ergonomic handle design system, developed from 1983 and scientifically validated in 1996. It uses a three-component handle construction that reduces hand fatigue, increases torque transfer and helps prevent repetitive strain injuries. The core principle is that you should never have to adapt your hands to a tool — the tool adapts to you.</p>"
+            "answer": "<p><strong>ERGO</strong> is Bahco's ergonomic handle design system, developed from 1983 and scientifically validated in 1996. It uses a three-component handle construction that reduces hand fatigue, increases torque transfer and helps prevent repetitive strain injuries. The core principle is that you should never have to adapt your hands to a tool \u2014 the tool adapts to you.</p>"
           }
         },
         "faq_3": {
@@ -399,7 +399,7 @@
           "type": "faq",
           "settings": {
             "question": "Are Bahco tools suitable for professional trade use?",
-            "answer": "<p>Absolutely. Bahco tools are designed exclusively for professional use. The entire range — from adjustable wrenches and pliers to hacksaws, socket sets and torque tools — is engineered to withstand daily trade use. The ERGO range is specifically designed for tradespeople who use hand tools all day, every day.</p>"
+            "answer": "<p>Absolutely. Bahco tools are designed exclusively for professional use. The entire range \u2014 from adjustable wrenches and pliers to hacksaws, socket sets and torque tools \u2014 is engineered to withstand daily trade use. The ERGO range is specifically designed for tradespeople who use hand tools all day, every day.</p>"
           }
         },
         "faq_6": {

@@ -16,7 +16,7 @@
         "dealer_badge": "Authorised Stockist",
         "headline_line_1": "Built Since 1843.",
         "headline_line_2": "Made for Today.",
-        "subtitle": "The world's most recognised hand tool brand. Stanley knives, tape measures, levels and hand tools — trusted by professionals and homeowners for over 180 years.",
+        "subtitle": "The world's most recognised hand tool brand. Stanley knives, tape measures, levels and hand tools \u2014 trusted by professionals and homeowners for over 180 years.",
         "stat_1_value": "1843",
         "stat_1_label": "Founded",
         "stat_2_value": "180+",
@@ -27,7 +27,7 @@
         "primary_cta_url": "",
         "secondary_cta_text": "Browse by Category",
         "secondary_cta_url": "#categories",
-        "hero_image": ""
+        "hero_image": "shopify://shop_images/Drupal_Large-STHT20348_A2.jpg"
       }
     },
     "usp_strip": {
@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £99"
+            "subtitle": "On orders over \u00a399"
           }
         },
         "usp_2": {
@@ -85,13 +85,13 @@
     "about": {
       "type": "brand-about",
       "settings": {
-        "image": "",
+        "image": "shopify://shop_images/Drupal_Small-FMST1-75796_A2.jpg",
         "badge_label": "Since",
         "badge_value": "1843",
         "section_label": "The Stanley Story",
         "title": "180+ Years of Hand Tool Innovation",
-        "paragraph_1": "In 1843, Frederick Trent Stanley founded the Stanley Rule & Level Company in New Britain, Connecticut. From those modest beginnings, Stanley has grown into the world's most recognised hand tool brand — the yellow tape measure, the retractable knife and the classic spirit level are icons of the trade.",
-        "paragraph_2": "Today, Stanley continues to innovate with the FatMax premium line — engineered for the toughest professional use. FatMax tape measures, knives, levels and hand saws push the boundaries of durability and precision, while the classic Stanley range delivers the dependable quality that tradespeople and homeowners have relied on for generations.",
+        "paragraph_1": "In 1843, Frederick Trent Stanley founded the Stanley Rule & Level Company in New Britain, Connecticut. From those modest beginnings, Stanley has grown into the world's most recognised hand tool brand \u2014 the yellow tape measure, the retractable knife and the classic spirit level are icons of the trade.",
+        "paragraph_2": "Today, Stanley continues to innovate with the FatMax premium line \u2014 engineered for the toughest professional use. FatMax tape measures, knives, levels and hand saws push the boundaries of durability and precision, while the classic Stanley range delivers the dependable quality that tradespeople and homeowners have relied on for generations.",
         "stat_1_value": "180+",
         "stat_1_label": "Years of Heritage",
         "stat_2_value": "#1",
@@ -131,16 +131,16 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/FMHT10505-0_A3.jpg",
             "featured": true,
             "title": "Carpentry",
-            "description": "Tape measures, spirit levels, chisels, planes and hand saws — the essential toolkit for every carpenter and joiner."
+            "description": "Tape measures, spirit levels, chisels, planes and hand saws \u2014 the essential toolkit for every carpenter and joiner."
           }
         },
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/Drupal_Large-STHT20348_A2.jpg",
             "featured": false,
             "title": "Decorating",
             "description": "Utility knives, scrapers, filling knives and measuring tools for professional decorating and painting."
@@ -149,16 +149,16 @@
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/Drupal_Small-FMST1-75796_A2.jpg",
             "featured": false,
             "title": "General DIY",
-            "description": "The complete Stanley toolkit — hammers, screwdrivers, pliers, wrenches and more for every household project."
+            "description": "The complete Stanley toolkit \u2014 hammers, screwdrivers, pliers, wrenches and more for every household project."
           }
         },
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/FMHT10505-0_A3.jpg",
             "featured": false,
             "title": "Electrical",
             "description": "Insulated screwdrivers, wire strippers, cable knives and voltage detectors for electrical installation work."
@@ -167,7 +167,7 @@
         "app_5": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/Drupal_Large-STHT20348_A2.jpg",
             "featured": false,
             "title": "Plumbing",
             "description": "Adjustable wrenches, pipe cutters, hacksaws and measuring tools for plumbing and heating installations."
@@ -195,7 +195,7 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/Drupal_Large-STHT20348_A2.jpg",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
@@ -212,7 +212,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/FMHT10505-0_A3.jpg",
             "show_badge": true,
             "badge_text": "POPULAR",
             "launch_date": "",
@@ -245,13 +245,13 @@
           "settings": {
             "stat_value": "FAT",
             "title": "FatMax Premium Line",
-            "description": "The professional's choice. FatMax tools are engineered for the toughest trade use — wider tape blades, harder-wearing coatings and ergonomic handles that last."
+            "description": "The professional's choice. FatMax tools are engineered for the toughest trade use \u2014 wider tape blades, harder-wearing coatings and ergonomic handles that last."
           }
         },
         "benefit_2": {
           "type": "benefit",
           "settings": {
-            "stat_value": "∞",
+            "stat_value": "\u221e",
             "title": "Lifetime Guarantee",
             "description": "Stanley offers a lifetime guarantee on hand tools. If your Stanley tool fails due to a manufacturing defect, it's replaced free of charge."
           }
@@ -269,7 +269,7 @@
           "settings": {
             "stat_value": "99%",
             "title": "Blade Compatibility",
-            "description": "Stanley trapezoid blades are the universal standard — compatible with virtually every retractable knife on the market. Always available, never discontinued."
+            "description": "Stanley trapezoid blades are the universal standard \u2014 compatible with virtually every retractable knife on the market. Always available, never discontinued."
           }
         },
         "benefit_5": {
@@ -277,7 +277,7 @@
           "settings": {
             "stat_value": "ERGO",
             "title": "Ergonomic Design",
-            "description": "Soft-grip handles, balanced weighting and comfortable profiles — Stanley tools are designed for all-day use without hand fatigue."
+            "description": "Soft-grip handles, balanced weighting and comfortable profiles \u2014 Stanley tools are designed for all-day use without hand fatigue."
           }
         },
         "benefit_6": {
@@ -300,7 +300,7 @@
       "settings": {
         "section_label": "Why Stanley",
         "title": "Why Professionals Choose Stanley",
-        "subtitle": "The hand tools that built the world — and keep building it"
+        "subtitle": "The hand tools that built the world \u2014 and keep building it"
       }
     },
     "categories": {
@@ -309,16 +309,16 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/Drupal_Large-STHT20348_A2.jpg",
             "title": "Knives & Blades",
-            "description": "Retractable knives, fixed-blade knives, snap-off knives and replacement blades — the cutting tools that define the trade.",
+            "description": "Retractable knives, fixed-blade knives, snap-off knives and replacement blades \u2014 the cutting tools that define the trade.",
             "url": ""
           }
         },
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/FMHT10505-0_A3.jpg",
             "title": "Measuring & Layout",
             "description": "Tape measures, spirit levels, chalk lines, squares and layout tools for precise measuring on every project.",
             "url": ""
@@ -327,9 +327,9 @@
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/Drupal_Small-FMST1-75796_A2.jpg",
             "title": "Hand Tools",
-            "description": "Hammers, chisels, screwdrivers, pliers, wrenches and hand saws — the complete Stanley toolkit.",
+            "description": "Hammers, chisels, screwdrivers, pliers, wrenches and hand saws \u2014 the complete Stanley toolkit.",
             "url": ""
           }
         }
@@ -348,10 +348,10 @@
     "video": {
       "type": "brand-video",
       "settings": {
-        "thumbnail": "",
-        "video_url": "",
+        "thumbnail": "shopify://shop_images/FMHT10505-0_A3.jpg",
+        "video_url": "https://youtu.be/r_P8BGMK-XU",
         "section_label": "See It In Action",
-        "title": "Stanley FatMax — Built for the Toughest Jobs",
+        "title": "Stanley FatMax \u2014 Built for the Toughest Jobs",
         "description": "See how FatMax tools are engineered to outperform and outlast on the professional jobsite.",
         "feature_1": "Wider, stronger tape blades",
         "feature_2": "Drop-tested durability",
@@ -366,7 +366,7 @@
           "type": "faq",
           "settings": {
             "question": "What is the difference between Stanley and Stanley FatMax?",
-            "answer": "<p><strong>Standard Stanley</strong> is the classic range — reliable, well-made and great value for everyday use. <strong>FatMax</strong> is Stanley's premium professional line, engineered for the toughest trade use. FatMax tools feature wider tape blades, harder coatings, more durable housings and enhanced ergonomics. For professional use, we recommend FatMax.</p>"
+            "answer": "<p><strong>Standard Stanley</strong> is the classic range \u2014 reliable, well-made and great value for everyday use. <strong>FatMax</strong> is Stanley's premium professional line, engineered for the toughest trade use. FatMax tools feature wider tape blades, harder coatings, more durable housings and enhanced ergonomics. For professional use, we recommend FatMax.</p>"
           }
         },
         "faq_2": {
@@ -394,14 +394,14 @@
           "type": "faq",
           "settings": {
             "question": "Are Stanley and DeWalt the same company?",
-            "answer": "<p>Yes — Stanley and DeWalt are both owned by <strong>Stanley Black & Decker</strong>. However, they target different markets: Stanley focuses on hand tools, measuring and cutting, while DeWalt focuses on professional power tools. The product ranges are complementary, not overlapping.</p>"
+            "answer": "<p>Yes \u2014 Stanley and DeWalt are both owned by <strong>Stanley Black & Decker</strong>. However, they target different markets: Stanley focuses on hand tools, measuring and cutting, while DeWalt focuses on professional power tools. The product ranges are complementary, not overlapping.</p>"
           }
         },
         "faq_6": {
           "type": "faq",
           "settings": {
             "question": "Do you offer trade pricing on Stanley?",
-            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Stanley and FatMax range. Contact our trade team on <strong>01843 210 459</strong> for trade account enquiries. We also offer free next-day delivery on all orders over £99.</p>"
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Stanley and FatMax range. Contact our trade team on <strong>01843 210 459</strong> for trade account enquiries. We also offer free next-day delivery on all orders over \u00a399.</p>"
           }
         }
       },

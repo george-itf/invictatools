@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £99"
+            "subtitle": "On orders over \u00a399"
           }
         },
         "usp_2": {
@@ -85,12 +85,12 @@
     "about": {
       "type": "brand-about",
       "settings": {
-        "image": "",
+        "image": "shopify://shop_images/E0032097.jpg",
         "badge_label": "Since",
         "badge_value": "1966",
         "section_label": "The Soudal Story",
         "title": "Belgian Engineering Since 1966",
-        "paragraph_1": "Vic Swerts founded Soudal in 1966 when he bought a small company in Antwerp specialising in welding materials and polyester putties. By 1976, the company had moved to Turnhout and been renamed Soudal — from 'Soudeert Alles', meaning 'welds everything'. The launch of PU foam production in 1981 set the stage for Soudal to become the world's largest independent producer of polyurethane foam.",
+        "paragraph_1": "Vic Swerts founded Soudal in 1966 when he bought a small company in Antwerp specialising in welding materials and polyester putties. By 1976, the company had moved to Turnhout and been renamed Soudal \u2014 from 'Soudeert Alles', meaning 'welds everything'. The launch of PU foam production in 1981 set the stage for Soudal to become the world's largest independent producer of polyurethane foam.",
         "paragraph_2": "Today, Soudal remains 100% family-owned with 31 production sites, 84 sales offices and approximately 4,800 employees worldwide. With consolidated turnover exceeding EUR 1.5 billion, Soudal is Europe's leading independent manufacturer of sealants, adhesives and PU foams. The Fix ALL hybrid polymer range and patented Genius Gun foam system represent the cutting edge of construction chemical technology.",
         "stat_1_value": "31",
         "stat_1_label": "Production Sites",
@@ -131,7 +131,7 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/E0023761.jpg",
             "featured": true,
             "title": "Window & Door Installation",
             "description": "PU expanding foams, frame sealants and weatherproof silicones for sealing, insulating and finishing window and door installations in new build and refurbishment.",
@@ -141,7 +141,7 @@
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/UK_Pro_Product_group_Sealants.jpg",
             "featured": false,
             "title": "Construction Bonding",
             "description": "Fix ALL hybrid adhesives for bonding heavy materials, cladding, panels, skirting and structural elements without mechanical fixings. High tack, rapid grab and extreme flexibility options.",
@@ -151,7 +151,7 @@
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/SOUDAL-GAP--FILLER-EXPANDING-FOAM_600x600_d96838df-e0a1-4de5-b62a-045a4549e43a.webp",
             "featured": false,
             "title": "Insulation & Gap Filling",
             "description": "Professional-grade PU expanding foams with the patented Genius Gun system for filling, sealing and insulating around pipes, cables, frames and cavities on site.",
@@ -161,7 +161,7 @@
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/E0017678_479a2295-1119-4e9b-8123-9884b332be3b.jpg",
             "featured": false,
             "title": "Plumbing & Sanitary",
             "description": "Sanitary silicones with anti-mould protection, neutral cure sealants and flexible waterproof adhesives for bathrooms, kitchens, wet rooms and plumbing installations.",
@@ -171,7 +171,7 @@
         "app_5": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/E0036192_8a109534-e6c1-49b2-b802-d357bbdc7fd3.jpg",
             "featured": false,
             "title": "Flooring",
             "description": "Soudaflex polyurethane sealants, floor adhesives and elastic joint sealants for expansion joints, concrete floors, timber flooring and industrial flooring applications.",
@@ -198,13 +198,13 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/E0023761.jpg",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
             "title": "Fix ALL High Tack",
-            "description": "Super-strong hybrid polymer adhesive and sealant with exceptional initial grab — up to 320kg per 10cm². Bonds virtually any material without mechanical fixings. Based on Soudal's proprietary SMX Polymer technology.",
-            "feature_1": "320kg/10cm² bond strength",
+            "description": "Super-strong hybrid polymer adhesive and sealant with exceptional initial grab \u2014 up to 320kg per 10cm\u00b2. Bonds virtually any material without mechanical fixings. Based on Soudal's proprietary SMX Polymer technology.",
+            "feature_1": "320kg/10cm\u00b2 bond strength",
             "feature_2": "SMX Hybrid Polymer technology",
             "feature_3": "No mechanical fixings needed",
             "feature_4": "Interior and exterior use",
@@ -215,7 +215,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/SOUDAL-GAP--FILLER-EXPANDING-FOAM_600x600_d96838df-e0a1-4de5-b62a-045a4549e43a.webp",
             "show_badge": true,
             "badge_text": "TRADE FAVOURITE",
             "launch_date": "",
@@ -256,7 +256,7 @@
           "settings": {
             "stat_value": "SMX",
             "title": "Fix ALL Hybrid Technology",
-            "description": "Soudal's proprietary SMX Hybrid Polymer technology powers the Fix ALL range — combining the best properties of silicone and polyurethane in one product. Strong, flexible, paintable and odourless."
+            "description": "Soudal's proprietary SMX Hybrid Polymer technology powers the Fix ALL range \u2014 combining the best properties of silicone and polyurethane in one product. Strong, flexible, paintable and odourless."
           }
         },
         "benefit_3": {
@@ -272,7 +272,7 @@
           "settings": {
             "stat_value": "PU",
             "title": "Comprehensive PU Foam Range",
-            "description": "From the patented Genius Gun hand-held system to professional gun-grade foams, fire-rated B1 foams and rapid-cure options — Soudal produces 147 million cans of PU foam annually across 5 dedicated production facilities."
+            "description": "From the patented Genius Gun hand-held system to professional gun-grade foams, fire-rated B1 foams and rapid-cure options \u2014 Soudal produces 147 million cans of PU foam annually across 5 dedicated production facilities."
           }
         },
         "benefit_5": {
@@ -280,7 +280,7 @@
           "settings": {
             "stat_value": "60+",
             "title": "Years of Family Ownership",
-            "description": "Still 100% family-owned after nearly 60 years, Soudal invests for the long term. No shareholders demanding short-term cuts — just continuous investment in R&D, production capacity and product quality."
+            "description": "Still 100% family-owned after nearly 60 years, Soudal invests for the long term. No shareholders demanding short-term cuts \u2014 just continuous investment in R&D, production capacity and product quality."
           }
         },
         "benefit_6": {
@@ -312,25 +312,25 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/UK_Pro_Product_group_Sealants.jpg",
             "title": "Sealants & Silicones",
-            "description": "Sanitary silicones, construction sealants, Soudaflex PU sealants and the Fix ALL hybrid range — professional-grade sealing for every joint on the jobsite.",
+            "description": "Sanitary silicones, construction sealants, Soudaflex PU sealants and the Fix ALL hybrid range \u2014 professional-grade sealing for every joint on the jobsite.",
             "url": ""
           }
         },
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/UK_Pro_Product_group_PU_Foams.jpg",
             "title": "PU Foams",
-            "description": "Genius Gun hand-held foams, professional gun-grade foams, fire-rated B1 foams and specialist insulation foams — from the world's largest independent PU foam producer.",
+            "description": "Genius Gun hand-held foams, professional gun-grade foams, fire-rated B1 foams and specialist insulation foams \u2014 from the world's largest independent PU foam producer.",
             "url": ""
           }
         },
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/UK_Pro_Product_group_Adhesives.jpg",
             "title": "Adhesives",
             "description": "Fix ALL hybrid adhesives, construction bonding adhesives, wood glues and specialist mounting adhesives for professional bonding without mechanical fixings.",
             "url": ""
@@ -351,11 +351,11 @@
     "video": {
       "type": "brand-video",
       "settings": {
-        "thumbnail": "",
-        "video_url": "",
+        "thumbnail": "shopify://shop_images/E0023761.jpg",
+        "video_url": "https://youtu.be/QCXHvFwjJtA",
         "section_label": "See It In Action",
         "title": "Soudal Fix ALL Hybrid Technology",
-        "description": "See how Fix ALL's SMX Hybrid Polymer technology delivers the strongest bond in the most demanding conditions — from construction bonding to sanitary sealing.",
+        "description": "See how Fix ALL's SMX Hybrid Polymer technology delivers the strongest bond in the most demanding conditions \u2014 from construction bonding to sanitary sealing.",
         "feature_1": "SMX Hybrid Polymer base",
         "feature_2": "Bonds any material to any material",
         "feature_3": "Flexible and paintable",
@@ -383,28 +383,28 @@
           "type": "faq",
           "settings": {
             "question": "Can Soudal products be applied in cold weather?",
-            "answer": "<p>Most Soudal sealants and adhesives can be applied at temperatures as low as <strong>5°C</strong>, with some products in the Fix ALL range workable down to <strong>-10°C</strong>. PU expanding foams require a minimum can temperature of around 5°C for optimal expansion. In cold conditions, store cans at room temperature before use and check the product datasheet for specific temperature guidelines.</p>"
+            "answer": "<p>Most Soudal sealants and adhesives can be applied at temperatures as low as <strong>5\u00b0C</strong>, with some products in the Fix ALL range workable down to <strong>-10\u00b0C</strong>. PU expanding foams require a minimum can temperature of around 5\u00b0C for optimal expansion. In cold conditions, store cans at room temperature before use and check the product datasheet for specific temperature guidelines.</p>"
           }
         },
         "faq_4": {
           "type": "faq",
           "settings": {
             "question": "Do you offer trade pricing on Soudal products?",
-            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Soudal range including Fix ALL, Genius Gun foams and professional sealants. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. We also provide free next-day delivery on all orders over £99.</p>"
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Soudal range including Fix ALL, Genius Gun foams and professional sealants. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. We also provide free next-day delivery on all orders over \u00a399.</p>"
           }
         },
         "faq_5": {
           "type": "faq",
           "settings": {
             "question": "Which Fix ALL variant should I use?",
-            "answer": "<p>The Fix ALL range includes several variants for different applications. <strong>Fix ALL High Tack</strong> (320kg/10cm²) is best for heavy-duty bonding where maximum strength is needed. <strong>Fix ALL Flexi</strong> is ideal as a multi-use sealant, adhesive and filler with high flexibility. <strong>Fix ALL Turbo</strong> provides rapid strength build-up and is fixed in 20 minutes. <strong>Fix ALL Crystal</strong> is the choice for applications where a clear, invisible bond is required.</p>"
+            "answer": "<p>The Fix ALL range includes several variants for different applications. <strong>Fix ALL High Tack</strong> (320kg/10cm\u00b2) is best for heavy-duty bonding where maximum strength is needed. <strong>Fix ALL Flexi</strong> is ideal as a multi-use sealant, adhesive and filler with high flexibility. <strong>Fix ALL Turbo</strong> provides rapid strength build-up and is fixed in 20 minutes. <strong>Fix ALL Crystal</strong> is the choice for applications where a clear, invisible bond is required.</p>"
           }
         },
         "faq_6": {
           "type": "faq",
           "settings": {
             "question": "What is the Soudal Genius Gun and how does it work?",
-            "answer": "<p>The <strong>Genius Gun</strong> is Soudal's patented hand-held PU foam applicator. It features a trigger mechanism for precise, single-handed dosage control — no separate foam gun required. The key advantage is the re-sealable applicator, which allows the can to be reused for <strong>up to 6 weeks</strong> after first use. Available in standard gap filler and fire-rated B1 versions.</p>"
+            "answer": "<p>The <strong>Genius Gun</strong> is Soudal's patented hand-held PU foam applicator. It features a trigger mechanism for precise, single-handed dosage control \u2014 no separate foam gun required. The key advantage is the re-sealable applicator, which allows the can to be reused for <strong>up to 6 weeks</strong> after first use. Available in standard gap filler and fire-rated B1 versions.</p>"
           }
         }
       },

@@ -16,7 +16,7 @@
         "dealer_badge": "Official UK Stockist",
         "headline_line_1": "Cordless Freedom.",
         "headline_line_2": "One Battery. Every Tool.",
-        "subtitle": "German-engineered cordless power tools, garden equipment and workshop machines — all powered by one universal battery platform. Reliable performance at a price that makes sense for your business.",
+        "subtitle": "German-engineered cordless power tools, garden equipment and workshop machines \u2014 all powered by one universal battery platform. Reliable performance at a price that makes sense for your business.",
         "stat_1_value": "1964",
         "stat_1_label": "Founded",
         "stat_2_value": "18V",
@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £99"
+            "subtitle": "On orders over \u00a399"
           }
         },
         "usp_2": {
@@ -91,7 +91,7 @@
         "section_label": "The Einhell Story",
         "title": "German Engineering Since 1964",
         "paragraph_1": "Einhell was founded in 1964 by Josef Thannhuber in Landau an der Isar, Bavaria. From a small installation business in southern Germany, the company has grown into an international group with over 2,500 employees, nearly 50 subsidiaries and a presence in more than 100 countries worldwide.",
-        "paragraph_2": "The game-changer came in 2015 with the launch of Power X-Change — a universal 18V battery platform that now powers over 350 tools across power tools, garden equipment and workshop machines. One battery, every tool. It is this combination of German engineering, platform simplicity and genuine value that has made Einhell one of the fastest-growing tool brands in Europe.",
+        "paragraph_2": "The game-changer came in 2015 with the launch of Power X-Change \u2014 a universal 18V battery platform that now powers over 350 tools across power tools, garden equipment and workshop machines. One battery, every tool. It is this combination of German engineering, platform simplicity and genuine value that has made Einhell one of the fastest-growing tool brands in Europe.",
         "stat_1_value": "60+",
         "stat_1_label": "Years of Heritage",
         "stat_2_value": "350+",
@@ -131,17 +131,17 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/einhell-shopping-cart-tools_a1f1972a-0b81-4243-977e-db6db0fa0e2a.jpg",
             "featured": true,
             "title": "General Construction",
-            "description": "Combi drills, impact drivers, circular saws and angle grinders for everyday site work — all running on the same Power X-Change battery you already own.",
+            "description": "Combi drills, impact drivers, circular saws and angle grinders for everyday site work \u2014 all running on the same Power X-Change battery you already own.",
             "connector_used": ""
           }
         },
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/einhell-garden-lawn-mowers-content-cordless-lawn-mower.jpg",
             "featured": false,
             "title": "Garden & Landscaping",
             "description": "Cordless lawn mowers, hedge trimmers, chainsaws and grass trimmers for grounds maintenance and landscaping contracts without trailing cables.",
@@ -151,7 +151,7 @@
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/einhell-startpage-navigation-tab-table-saw-4340435-tp-cc-10-t.jpg",
             "featured": false,
             "title": "Workshop",
             "description": "Table saws, band saws, bench grinders and stationary machines for workshop fabrication, cutting and finishing tasks.",
@@ -161,7 +161,7 @@
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/einhell-startpage-navigation-tab-cordless-demolition-hammer-4514190-tp-dh-18-4-li-bl-solo.jpg",
             "featured": false,
             "title": "Renovation",
             "description": "Sanders, multi-tools, reciprocating saws and demolition equipment for strip-out, refurbishment and property renovation projects.",
@@ -189,12 +189,12 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/einhell-campaign-redemption-startpage-banner-desktop-1920x620.jpg",
             "show_badge": true,
             "badge_text": "PLATFORM",
             "launch_date": "Available Now",
             "title": "Power X-Change 18V Battery Platform",
-            "description": "One battery powers over 350 tools across the entire Einhell cordless range — from combi drills to lawn mowers. Buy the battery once, add bare tools as you need them. The smartest way to build a tool kit.",
+            "description": "One battery powers over 350 tools across the entire Einhell cordless range \u2014 from combi drills to lawn mowers. Buy the battery once, add bare tools as you need them. The smartest way to build a tool kit.",
             "feature_1": "Universal 18V lithium-ion battery",
             "feature_2": "Compatible with 350+ tools",
             "feature_3": "Twin-pack for 36V applications",
@@ -206,7 +206,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/einhell-startpage-navigation-tab-cordless-demolition-hammer-4514190-tp-dh-18-4-li-bl-solo.jpg",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
@@ -239,7 +239,7 @@
           "settings": {
             "stat_value": "PXC",
             "title": "One Battery Platform",
-            "description": "Power X-Change is Einhell's universal 18V battery system. One battery fits over 350 tools — power tools, garden equipment and workshop machines. Buy the battery once, add bare tools as your needs grow."
+            "description": "Power X-Change is Einhell's universal 18V battery system. One battery fits over 350 tools \u2014 power tools, garden equipment and workshop machines. Buy the battery once, add bare tools as your needs grow."
           }
         },
         "benefit_2": {
@@ -271,7 +271,7 @@
           "settings": {
             "stat_value": "350+",
             "title": "Growing Ecosystem",
-            "description": "The Power X-Change range already covers over 350 tools and is expanding towards 450 by 2027. From drills and saws to mowers and pressure washers — one platform covers the lot."
+            "description": "The Power X-Change range already covers over 350 tools and is expanding towards 450 by 2027. From drills and saws to mowers and pressure washers \u2014 one platform covers the lot."
           }
         },
         "benefit_6": {
@@ -294,7 +294,7 @@
       "settings": {
         "section_label": "Why Einhell",
         "title": "Why Tradespeople Choose Einhell",
-        "subtitle": "Smart cordless tools that deliver where it counts — on performance, compatibility and value"
+        "subtitle": "Smart cordless tools that deliver where it counts \u2014 on performance, compatibility and value"
       }
     },
     "categories": {
@@ -303,25 +303,25 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/einhell-shopping-cart-tools_a1f1972a-0b81-4243-977e-db6db0fa0e2a.jpg",
             "title": "Cordless Power Tools",
-            "description": "18V Power X-Change drills, saws, grinders, impact drivers and multi-tools — reliable cordless performance for site and workshop.",
+            "description": "18V Power X-Change drills, saws, grinders, impact drivers and multi-tools \u2014 reliable cordless performance for site and workshop.",
             "url": ""
           }
         },
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/einhell-shopping-cart-garden.jpg",
             "title": "Garden Equipment",
-            "description": "Cordless lawn mowers, hedge trimmers, chainsaws, leaf blowers and grass trimmers — all on the same Power X-Change battery.",
+            "description": "Cordless lawn mowers, hedge trimmers, chainsaws, leaf blowers and grass trimmers \u2014 all on the same Power X-Change battery.",
             "url": ""
           }
         },
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/einhell-shopping-cart-batteries-and-charger.jpg",
             "title": "Accessories & Batteries",
             "description": "Power X-Change batteries, fast chargers, starter kits and tool accessories to keep your Einhell kit running.",
             "url": ""
@@ -342,8 +342,8 @@
     "video": {
       "type": "brand-video",
       "settings": {
-        "thumbnail": "",
-        "video_url": "",
+        "thumbnail": "shopify://shop_images/einhell-shopping-cart-tools_a1f1972a-0b81-4243-977e-db6db0fa0e2a.jpg",
+        "video_url": "https://youtu.be/OGKPINd91d0",
         "section_label": "See It In Action",
         "title": "Einhell Power X-Change Platform",
         "description": "Discover how one universal 18V battery powers over 350 tools across the entire Einhell cordless range.",
@@ -360,7 +360,7 @@
           "type": "faq",
           "settings": {
             "question": "What is Einhell Power X-Change and how does it work?",
-            "answer": "<p><strong>Power X-Change</strong> is Einhell's universal 18V lithium-ion battery platform. One battery fits every cordless tool in the Einhell range — over 350 products including power tools, garden equipment and workshop machines. Buy a battery and charger once, then add bare tools as you need them. For higher-demand tools like lawn mowers, two 18V batteries combine to deliver 36V output.</p>"
+            "answer": "<p><strong>Power X-Change</strong> is Einhell's universal 18V lithium-ion battery platform. One battery fits every cordless tool in the Einhell range \u2014 over 350 products including power tools, garden equipment and workshop machines. Buy a battery and charger once, then add bare tools as you need them. For higher-demand tools like lawn mowers, two 18V batteries combine to deliver 36V output.</p>"
           }
         },
         "faq_2": {
@@ -381,21 +381,21 @@
           "type": "faq",
           "settings": {
             "question": "How does Einhell compare to premium brands like DeWalt or Makita?",
-            "answer": "<p>Einhell occupies a different position in the market. While premium brands target heavy daily professional use, Einhell delivers <strong>reliable performance at a significantly lower price point</strong> — making it ideal for contractors who need capable tools across multiple applications without the premium cost. The Power X-Change platform also offers one of the widest compatible tool ranges of any battery system on the market.</p>"
+            "answer": "<p>Einhell occupies a different position in the market. While premium brands target heavy daily professional use, Einhell delivers <strong>reliable performance at a significantly lower price point</strong> \u2014 making it ideal for contractors who need capable tools across multiple applications without the premium cost. The Power X-Change platform also offers one of the widest compatible tool ranges of any battery system on the market.</p>"
           }
         },
         "faq_5": {
           "type": "faq",
           "settings": {
             "question": "Is Einhell suitable for trade use?",
-            "answer": "<p>Einhell tools are increasingly used by tradespeople who want a cost-effective cordless solution — particularly for secondary tool kits, site backup tools, garden and landscaping work, and renovation projects. The Power X-Change platform means you can build a comprehensive kit across <strong>power tools and garden equipment</strong> on a single battery system without the outlay of premium brands.</p>"
+            "answer": "<p>Einhell tools are increasingly used by tradespeople who want a cost-effective cordless solution \u2014 particularly for secondary tool kits, site backup tools, garden and landscaping work, and renovation projects. The Power X-Change platform means you can build a comprehensive kit across <strong>power tools and garden equipment</strong> on a single battery system without the outlay of premium brands.</p>"
           }
         },
         "faq_6": {
           "type": "faq",
           "settings": {
             "question": "Do you offer trade pricing on Einhell?",
-            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Einhell range including Power X-Change bare tools, kits and batteries. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. Free next-day delivery on all orders over £99.</p>"
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Einhell range including Power X-Change bare tools, kits and batteries. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. Free next-day delivery on all orders over \u00a399.</p>"
           }
         }
       },

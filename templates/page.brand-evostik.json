@@ -27,7 +27,7 @@
         "primary_cta_url": "",
         "secondary_cta_text": "Browse by Category",
         "secondary_cta_url": "#categories",
-        "hero_image": ""
+        "hero_image": "shopify://shop_images/EVO30613666.jpg"
       }
     },
     "usp_strip": {
@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £99"
+            "subtitle": "On orders over \u00a399"
           }
         },
         "usp_2": {
@@ -85,7 +85,7 @@
     "about": {
       "type": "brand-about",
       "settings": {
-        "image": "",
+        "image": "shopify://shop_images/EVO30613669.jpg",
         "badge_label": "Heritage",
         "badge_value": "UK",
         "section_label": "The Evo-Stik Story",
@@ -131,7 +131,7 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVO30613666.jpg",
             "featured": true,
             "title": "Flooring & Tiling",
             "description": "Rapid-set floor and wall tile adhesives, flexible grouts and waterproof formulations for ceramic, porcelain and natural stone installations in wet and dry environments.",
@@ -141,7 +141,7 @@
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVO30613669.jpg",
             "featured": false,
             "title": "Woodworking",
             "description": "Interior and exterior wood adhesives including PVA, polyurethane and contact formulations for joinery, carpentry and furniture assembly.",
@@ -151,7 +151,7 @@
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVO30613671.jpg",
             "featured": false,
             "title": "General Bonding",
             "description": "Impact contact adhesives and grab adhesives for bonding laminates, worktops, panels, rubber, metal and plastics on site and in the workshop.",
@@ -161,7 +161,7 @@
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVO30613666.jpg",
             "featured": false,
             "title": "Plumbing",
             "description": "Solvent cement and pipe adhesives for joining PVC, ABS and polypropylene pipework in plumbing, drainage and waste water installations.",
@@ -171,7 +171,7 @@
         "app_5": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVO30613671.jpg",
             "featured": false,
             "title": "Decorating",
             "description": "Sealants, fillers and adhesives for finishing work including coving adhesive, border adhesive and mould-resistant bathroom sealants.",
@@ -200,7 +200,7 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVO30613666.jpg",
             "show_badge": true,
             "badge_text": "TRADE FAVOURITE",
             "launch_date": "",
@@ -217,7 +217,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVO30613671.jpg",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
@@ -274,7 +274,7 @@
           "settings": {
             "stat_value": "PRO",
             "title": "Specialist Trade Formulations",
-            "description": "Every Evo-Stik product is engineered for a specific application — contact adhesives, tile adhesives, wood glues, pipe cements, sealants. The right adhesive for every substrate and situation."
+            "description": "Every Evo-Stik product is engineered for a specific application \u2014 contact adhesives, tile adhesives, wood glues, pipe cements, sealants. The right adhesive for every substrate and situation."
           }
         },
         "benefit_5": {
@@ -314,7 +314,7 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVO30613666.jpg",
             "title": "Contact Adhesives",
             "description": "Impact adhesives and contact cements for instant bonding of laminates, worktops, panels, rubber and leather. The trade standard.",
             "url": ""
@@ -323,7 +323,7 @@
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVO30613669.jpg",
             "title": "Tile Adhesives & Grouts",
             "description": "Rapid-set, flexible and waterproof tile adhesives plus mould-resistant grouts for floors and walls in any environment.",
             "url": ""
@@ -332,7 +332,7 @@
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/EVO30613671.jpg",
             "title": "Sealants & Grab Adhesives",
             "description": "Silicone sealants, grab adhesives, wood glues and specialist bonding products for every finishing and fixing job on site.",
             "url": ""
@@ -399,14 +399,14 @@
           "type": "faq",
           "settings": {
             "question": "Can I use Evo-Stik products outdoors?",
-            "answer": "<p>Many Evo-Stik products are suitable for exterior use. The <strong>Floor & Wall Tile Adhesive</strong> range includes waterproof formulations rated for interior and exterior applications. Evo-Stik also produces <strong>exterior wood adhesives</strong> and <strong>weatherproof sealants</strong>. Always check the product label — it will clearly state whether the product is suitable for exterior use.</p>"
+            "answer": "<p>Many Evo-Stik products are suitable for exterior use. The <strong>Floor & Wall Tile Adhesive</strong> range includes waterproof formulations rated for interior and exterior applications. Evo-Stik also produces <strong>exterior wood adhesives</strong> and <strong>weatherproof sealants</strong>. Always check the product label \u2014 it will clearly state whether the product is suitable for exterior use.</p>"
           }
         },
         "faq_6": {
           "type": "faq",
           "settings": {
             "question": "Do you offer trade pricing on Evo-Stik?",
-            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Evo-Stik range including contact adhesives, tile adhesives, sealants and grab adhesives. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. Free next-day delivery on all orders over £99.</p>"
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Evo-Stik range including contact adhesives, tile adhesives, sealants and grab adhesives. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. Free next-day delivery on all orders over \u00a399.</p>"
           }
         }
       },

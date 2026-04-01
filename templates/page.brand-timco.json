@@ -27,7 +27,7 @@
         "primary_cta_url": "",
         "secondary_cta_text": "Browse by Category",
         "secondary_cta_url": "#categories",
-        "hero_image": ""
+        "hero_image": "shopify://shop_images/brand-timco.jpg"
       }
     },
     "usp_strip": {
@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £99"
+            "subtitle": "On orders over \u00a399"
           }
         },
         "usp_2": {
@@ -85,12 +85,12 @@
     "about": {
       "type": "brand-about",
       "settings": {
-        "image": "",
+        "image": "shopify://shop_images/brand-timco.jpg",
         "badge_label": "Range",
         "badge_value": "5,000+",
         "section_label": "The Timco Story",
         "title": "The UK's Fixings Specialist",
-        "paragraph_1": "Timco is the UK's leading supplier of fixings, fasteners and building products. With a range of over 5,000 products — from woodscrews and coach bolts to silicones, sealants and PPE — Timco has everything tradespeople need to get the job done, always in stock and always at trade prices.",
+        "paragraph_1": "Timco is the UK's leading supplier of fixings, fasteners and building products. With a range of over 5,000 products \u2014 from woodscrews and coach bolts to silicones, sealants and PPE \u2014 Timco has everything tradespeople need to get the job done, always in stock and always at trade prices.",
         "paragraph_2": "What sets Timco apart is their relentless focus on what matters to the trade: consistent quality, reliable stock and packaging designed for the van, not the shelf. TIMpak bags are resealable, clearly labelled and sized for real-world use. No wasted product, no wasted time.",
         "stat_1_value": "5,000+",
         "stat_1_label": "Products in Range",
@@ -131,7 +131,7 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-timco.jpg",
             "featured": true,
             "title": "First Fix",
             "description": "Structural screws, coach bolts, anchor fixings and joist hangers for timber frame, roofing and structural first-fix applications."
@@ -140,7 +140,7 @@
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-timco.jpg",
             "featured": false,
             "title": "Second Fix",
             "description": "Woodscrews, machine screws, cabinet hardware and finishing fixings for joinery, kitchen fitting and second-fix trades."
@@ -149,7 +149,7 @@
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-timco.jpg",
             "featured": false,
             "title": "Roofing",
             "description": "Roofing screws, roof bolts, lead flashing fixings and sealants for pitched and flat roof installations."
@@ -158,7 +158,7 @@
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-timco.jpg",
             "featured": false,
             "title": "Fencing",
             "description": "Coach screws, post brackets, fence panel clips and galvanised bolts for domestic and commercial fencing projects."
@@ -167,10 +167,10 @@
         "app_5": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-timco.jpg",
             "featured": false,
             "title": "General Building",
-            "description": "Wall plugs, cavity fixings, masonry anchors and general-purpose screws — the everyday essentials that keep builders moving."
+            "description": "Wall plugs, cavity fixings, masonry anchors and general-purpose screws \u2014 the everyday essentials that keep builders moving."
           }
         }
       },
@@ -195,12 +195,12 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-timco.jpg",
             "show_badge": true,
             "badge_text": "POPULAR",
             "launch_date": "",
-            "title": "Solo Woodscrews — Yellow Zinc",
-            "description": "The UK's favourite trade woodscrew. Solo screws feature a double-countersunk head, single-thread design and yellow zinc plating — they drive cleanly, hold tight and resist corrosion.",
+            "title": "Solo Woodscrews \u2014 Yellow Zinc",
+            "description": "The UK's favourite trade woodscrew. Solo screws feature a double-countersunk head, single-thread design and yellow zinc plating \u2014 they drive cleanly, hold tight and resist corrosion.",
             "feature_1": "Double-countersunk head",
             "feature_2": "Pozi drive recess",
             "feature_3": "Yellow zinc plated",
@@ -212,7 +212,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-timco.jpg",
             "show_badge": true,
             "badge_text": "TRADE FAVOURITE",
             "launch_date": "",
@@ -253,15 +253,15 @@
           "settings": {
             "stat_value": "99%",
             "title": "Always In Stock",
-            "description": "Timco maintains a 99% in-stock rate across their entire range. No more waiting, no more substitutions — the fixing you need is always available."
+            "description": "Timco maintains a 99% in-stock rate across their entire range. No more waiting, no more substitutions \u2014 the fixing you need is always available."
           }
         },
         "benefit_3": {
           "type": "benefit",
           "settings": {
-            "stat_value": "£",
+            "stat_value": "\u00a3",
             "title": "Genuine Trade Pricing",
-            "description": "Timco products are priced for the trade — competitive on every line, from individual TIMpaks to bulk quantities. No gimmicks, just honest pricing."
+            "description": "Timco products are priced for the trade \u2014 competitive on every line, from individual TIMpaks to bulk quantities. No gimmicks, just honest pricing."
           }
         },
         "benefit_4": {
@@ -269,7 +269,7 @@
           "settings": {
             "stat_value": "TIM",
             "title": "TIMpak Packaging",
-            "description": "Resealable, clearly labelled bags sized for real-world use. No wasted fixings rattling around the van — every TIMpak is practical and portable."
+            "description": "Resealable, clearly labelled bags sized for real-world use. No wasted fixings rattling around the van \u2014 every TIMpak is practical and portable."
           }
         },
         "benefit_5": {
@@ -309,7 +309,7 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-timco.jpg",
             "title": "Screws & Fixings",
             "description": "Woodscrews, machine screws, self-drilling screws, coach bolts, anchors and all the fixings you use every day.",
             "url": ""
@@ -318,7 +318,7 @@
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-timco.jpg",
             "title": "Sealants & Adhesives",
             "description": "Silicones, PU foams, grab adhesives, decorators caulk and specialist sealants for every trade application.",
             "url": ""
@@ -327,9 +327,9 @@
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-timco.jpg",
             "title": "PPE & Workwear",
-            "description": "Safety glasses, gloves, ear protection, dust masks and hi-vis workwear — essential site safety from Timco.",
+            "description": "Safety glasses, gloves, ear protection, dust masks and hi-vis workwear \u2014 essential site safety from Timco.",
             "url": ""
           }
         }
@@ -352,7 +352,7 @@
         "video_url": "",
         "section_label": "See It In Action",
         "title": "Timco Solo Woodscrews",
-        "description": "See why Solo woodscrews are the trade's favourite — clean driving, strong holding and consistent quality in every box.",
+        "description": "See why Solo woodscrews are the trade's favourite \u2014 clean driving, strong holding and consistent quality in every box.",
         "feature_1": "Double-countersunk head",
         "feature_2": "Clean, split-free driving",
         "feature_3": "Yellow zinc corrosion resistance",
@@ -373,28 +373,28 @@
           "type": "faq",
           "settings": {
             "question": "What is the difference between stainless steel and zinc-plated screws?",
-            "answer": "<p><strong>Zinc-plated</strong> screws are suitable for interior use and dry environments — they offer basic corrosion resistance at a lower cost. <strong>Stainless steel (A2)</strong> screws are essential for exterior use, wet areas, treated timber and coastal environments where corrosion resistance is critical.</p>"
+            "answer": "<p><strong>Zinc-plated</strong> screws are suitable for interior use and dry environments \u2014 they offer basic corrosion resistance at a lower cost. <strong>Stainless steel (A2)</strong> screws are essential for exterior use, wet areas, treated timber and coastal environments where corrosion resistance is critical.</p>"
           }
         },
         "faq_3": {
           "type": "faq",
           "settings": {
             "question": "Can I buy Timco products in bulk?",
-            "answer": "<p>Yes. Timco products are available in individual <strong>TIMpak bags</strong> for everyday use and in <strong>trade boxes</strong> for larger quantities. Contact our trade team on <strong>01843 210 459</strong> for bulk pricing and trade account enquiries. We offer free next-day delivery on all orders over £99.</p>"
+            "answer": "<p>Yes. Timco products are available in individual <strong>TIMpak bags</strong> for everyday use and in <strong>trade boxes</strong> for larger quantities. Contact our trade team on <strong>01843 210 459</strong> for bulk pricing and trade account enquiries. We offer free next-day delivery on all orders over \u00a399.</p>"
           }
         },
         "faq_4": {
           "type": "faq",
           "settings": {
             "question": "What silicone should I use for bathrooms?",
-            "answer": "<p>For bathrooms, use <strong>Timco anti-mould silicone sealant</strong> — it contains a fungicide that prevents black mould growth in wet areas. Available in white, clear, grey and other colours to match your sanitary ware. Always ensure surfaces are clean, dry and free from old sealant before application.</p>"
+            "answer": "<p>For bathrooms, use <strong>Timco anti-mould silicone sealant</strong> \u2014 it contains a fungicide that prevents black mould growth in wet areas. Available in white, clear, grey and other colours to match your sanitary ware. Always ensure surfaces are clean, dry and free from old sealant before application.</p>"
           }
         },
         "faq_5": {
           "type": "faq",
           "settings": {
             "question": "What fixings do I need for plasterboard?",
-            "answer": "<p>For plasterboard fixings, Timco offers <strong>spring toggles</strong> for heavy loads, <strong>metal cavity anchors</strong> for medium loads and <strong>nylon speed plugs</strong> for light fixtures. The right choice depends on the weight you're hanging — always check the safe working load for your chosen fixing.</p>"
+            "answer": "<p>For plasterboard fixings, Timco offers <strong>spring toggles</strong> for heavy loads, <strong>metal cavity anchors</strong> for medium loads and <strong>nylon speed plugs</strong> for light fixtures. The right choice depends on the weight you're hanging \u2014 always check the safe working load for your chosen fixing.</p>"
           }
         },
         "faq_6": {

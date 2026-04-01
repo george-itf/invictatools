@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £99"
+            "subtitle": "On orders over \u00a399"
           }
         },
         "usp_2": {
@@ -90,8 +90,8 @@
         "badge_value": "1924",
         "section_label": "The Milwaukee Story",
         "title": "Nothing But Heavy Duty Since 1924",
-        "paragraph_1": "Milwaukee Tool was born in 1924 when Albert F. Siebert acquired the assets of the A.H. Petersen Company in Brookfield, Wisconsin, and formed the Milwaukee Electric Tool Corporation. The company's first breakthrough was the Hole-Shooter — a lightweight, one-handed quarter-inch power drill that transformed how electricians and tradespeople worked on-site. That commitment to solving real problems for the trades has driven every product since.",
-        "paragraph_2": "Today, Milwaukee's M18 FUEL platform — powered by POWERSTATE brushless motors, REDLITHIUM battery packs and REDLINK PLUS intelligence — delivers over 275 cordless solutions that outperform corded alternatives. Combined with the PACKOUT modular storage system and ONE-KEY digital tracking platform, Milwaukee gives contractors a complete, connected ecosystem built around one battery system.",
+        "paragraph_1": "Milwaukee Tool was born in 1924 when Albert F. Siebert acquired the assets of the A.H. Petersen Company in Brookfield, Wisconsin, and formed the Milwaukee Electric Tool Corporation. The company's first breakthrough was the Hole-Shooter \u2014 a lightweight, one-handed quarter-inch power drill that transformed how electricians and tradespeople worked on-site. That commitment to solving real problems for the trades has driven every product since.",
+        "paragraph_2": "Today, Milwaukee's M18 FUEL platform \u2014 powered by POWERSTATE brushless motors, REDLITHIUM battery packs and REDLINK PLUS intelligence \u2014 delivers over 275 cordless solutions that outperform corded alternatives. Combined with the PACKOUT modular storage system and ONE-KEY digital tracking platform, Milwaukee gives contractors a complete, connected ecosystem built around one battery system.",
         "stat_1_value": "100+",
         "stat_1_label": "Years of Innovation",
         "stat_2_value": "275+",
@@ -131,7 +131,7 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/M18_ONEPD3-502X--Hero_1.jpg",
             "featured": true,
             "title": "Construction",
             "description": "M18 FUEL rotary hammers, circular saws and combi drills that deliver corded performance on the most demanding construction sites. POWERSTATE motors power through concrete, steel and timber.",
@@ -141,7 +141,7 @@
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/MHT48220212.jpg",
             "featured": false,
             "title": "Electrical",
             "description": "Compact M12 and M18 drills, cable cutters, crimpers and fish tapes designed for tight spaces. ONE-KEY tracking ensures no tools go missing across multiple sites.",
@@ -151,7 +151,7 @@
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/8f8a7ed07c4a40689e8efe34c2007130.webp",
             "featured": false,
             "title": "Plumbing",
             "description": "M18 FUEL press tools, pipe cutters and ProPEX expansion tools that reduce install times. Purpose-built for professional plumbing and heating installations.",
@@ -161,7 +161,7 @@
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/39ed32a1a03e4712bdff315b570832e4.webp",
             "featured": false,
             "title": "HVAC",
             "description": "Copper cutters, threaders, press tools and refrigerant recovery machines built for HVAC contractors. M18 FUEL handles the heavy work, M12 fits the tight spaces.",
@@ -171,7 +171,7 @@
         "app_5": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/ccf04263f5294caa9aa992026eae2414.webp",
             "featured": false,
             "title": "Metalworking",
             "description": "Band saws, angle grinders, magnetic drill presses and cut-off saws that cut, grind and fabricate metal on-site or in the workshop. Built for steel fixers and fabricators.",
@@ -200,7 +200,7 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/M18_ONEPD3-502X--Hero_1.jpg",
             "show_badge": true,
             "badge_text": "FLAGSHIP",
             "launch_date": "Available Now",
@@ -217,12 +217,12 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/8f8a7ed07c4a40689e8efe34c2007130.webp",
             "show_badge": true,
             "badge_text": "SYSTEM",
             "launch_date": "",
             "title": "PACKOUT Modular Storage System",
-            "description": "The industry-leading modular storage system that has redefined how tradespeople organise, transport and access tools on the jobsite. IP65-rated, impact-resistant and fully interlocking — from compact organisers to rolling tool chests.",
+            "description": "The industry-leading modular storage system that has redefined how tradespeople organise, transport and access tools on the jobsite. IP65-rated, impact-resistant and fully interlocking \u2014 from compact organisers to rolling tool chests.",
             "feature_1": "IP65 weather-sealed construction",
             "feature_2": "200 lb load capacity per box",
             "feature_3": "Reinforced hinge points",
@@ -250,7 +250,7 @@
           "settings": {
             "stat_value": "M18",
             "title": "One Battery Platform",
-            "description": "The M18 system powers over 275 cordless solutions from a single battery platform. One charger, one battery type, maximum versatility — from combi drills to concrete saws."
+            "description": "The M18 system powers over 275 cordless solutions from a single battery platform. One charger, one battery type, maximum versatility \u2014 from combi drills to concrete saws."
           }
         },
         "benefit_2": {
@@ -266,7 +266,7 @@
           "settings": {
             "stat_value": "ONE-KEY",
             "title": "Digital Tool Management",
-            "description": "ONE-KEY is the first digital platform for tools and equipment — track tool locations in real-time, customise tool performance settings and manage inventory across sites from one app."
+            "description": "ONE-KEY is the first digital platform for tools and equipment \u2014 track tool locations in real-time, customise tool performance settings and manage inventory across sites from one app."
           }
         },
         "benefit_4": {
@@ -274,7 +274,7 @@
           "settings": {
             "stat_value": "PACKOUT",
             "title": "Modular Storage System",
-            "description": "PACKOUT is the most versatile modular storage system in the trades. Impact-resistant, weather-sealed boxes that interlock and stack securely — organise your tools from workshop to van to jobsite."
+            "description": "PACKOUT is the most versatile modular storage system in the trades. Impact-resistant, weather-sealed boxes that interlock and stack securely \u2014 organise your tools from workshop to van to jobsite."
           }
         },
         "benefit_5": {
@@ -282,7 +282,7 @@
           "settings": {
             "stat_value": "REDLITHIUM",
             "title": "Intelligent Batteries",
-            "description": "REDLITHIUM battery packs with REDLINK PLUS intelligence communicate with tools in real-time — optimising power delivery, preventing overload and extending battery and tool life."
+            "description": "REDLITHIUM battery packs with REDLINK PLUS intelligence communicate with tools in real-time \u2014 optimising power delivery, preventing overload and extending battery and tool life."
           }
         },
         "benefit_6": {
@@ -314,27 +314,27 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/M18_ONEPD3-502X--Hero_1.jpg",
             "title": "Cordless Power Tools",
-            "description": "M18 and M18 FUEL drills, impact drivers, saws, grinders, rotary hammers and more — 275+ solutions powered by one battery platform.",
+            "description": "M18 and M18 FUEL drills, impact drivers, saws, grinders, rotary hammers and more \u2014 275+ solutions powered by one battery platform.",
             "url": ""
           }
         },
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/MHT48220212.jpg",
             "title": "Hand Tools",
-            "description": "Pliers, cutters, screwdrivers, tape measures, levels and marking tools — built to the same Heavy Duty standard as Milwaukee power tools.",
+            "description": "Pliers, cutters, screwdrivers, tape measures, levels and marking tools \u2014 built to the same Heavy Duty standard as Milwaukee power tools.",
             "url": ""
           }
         },
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/ccf04263f5294caa9aa992026eae2414.webp",
             "title": "Storage & PACKOUT",
-            "description": "PACKOUT modular tool boxes, organisers, rolling chests, bags and mounting systems — the trades' most versatile storage ecosystem.",
+            "description": "PACKOUT modular tool boxes, organisers, rolling chests, bags and mounting systems \u2014 the trades' most versatile storage ecosystem.",
             "url": ""
           }
         }
@@ -353,7 +353,7 @@
     "video": {
       "type": "brand-video",
       "settings": {
-        "thumbnail": "",
+        "thumbnail": "shopify://shop_images/M18_ONEPD3-502X--Hero_1.jpg",
         "video_url": "https://www.youtube.com/watch?v=PLACEHOLDER",
         "section_label": "See It In Action",
         "title": "Milwaukee M18 FUEL System Explained",
@@ -372,7 +372,7 @@
           "type": "faq",
           "settings": {
             "question": "What is the difference between Milwaukee M18 and M12?",
-            "answer": "<p><strong>M18</strong> is Milwaukee's 18-volt platform — the primary system for heavy-duty trade applications with over 275 cordless solutions including drills, saws, grinders and rotary hammers. <strong>M12</strong> is the compact 12-volt platform designed for tight-space work and lighter-duty applications like inspection cameras, sub-compact drills and pipe cutters. Both systems use REDLITHIUM batteries, but they are not cross-compatible — M18 batteries only fit M18 tools and M12 batteries only fit M12 tools.</p>"
+            "answer": "<p><strong>M18</strong> is Milwaukee's 18-volt platform \u2014 the primary system for heavy-duty trade applications with over 275 cordless solutions including drills, saws, grinders and rotary hammers. <strong>M12</strong> is the compact 12-volt platform designed for tight-space work and lighter-duty applications like inspection cameras, sub-compact drills and pipe cutters. Both systems use REDLITHIUM batteries, but they are not cross-compatible \u2014 M18 batteries only fit M18 tools and M12 batteries only fit M12 tools.</p>"
           }
         },
         "faq_2": {
@@ -393,7 +393,7 @@
           "type": "faq",
           "settings": {
             "question": "What is the PACKOUT system and is it worth it?",
-            "answer": "<p><strong>PACKOUT</strong> is Milwaukee's modular storage system — the most versatile on the market. Every PACKOUT box, organiser, tote and rolling chest <strong>interlocks securely</strong> so you can stack and transport your entire kit as one unit. Boxes are <strong>IP65 weather-sealed</strong> and built with impact-resistant polymer. For tradespeople moving between sites daily, PACKOUT eliminates loose tool bags and disorganised vans. It is the industry standard for professional tool storage.</p>"
+            "answer": "<p><strong>PACKOUT</strong> is Milwaukee's modular storage system \u2014 the most versatile on the market. Every PACKOUT box, organiser, tote and rolling chest <strong>interlocks securely</strong> so you can stack and transport your entire kit as one unit. Boxes are <strong>IP65 weather-sealed</strong> and built with impact-resistant polymer. For tradespeople moving between sites daily, PACKOUT eliminates loose tool bags and disorganised vans. It is the industry standard for professional tool storage.</p>"
           }
         },
         "faq_5": {
@@ -407,7 +407,7 @@
           "type": "faq",
           "settings": {
             "question": "Do you offer trade pricing on Milwaukee tools?",
-            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Milwaukee range including M18 FUEL, M12, PACKOUT and accessories. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. We also provide free next-day delivery on all orders over £99.</p>"
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Milwaukee range including M18 FUEL, M12, PACKOUT and accessories. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. We also provide free next-day delivery on all orders over \u00a399.</p>"
           }
         }
       },

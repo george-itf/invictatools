@@ -27,7 +27,7 @@
         "primary_cta_url": "",
         "secondary_cta_text": "Browse by Category",
         "secondary_cta_url": "#categories",
-        "hero_image": ""
+        "hero_image": "shopify://shop_images/WEXS_HM.png"
       }
     },
     "usp_strip": {
@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £99"
+            "subtitle": "On orders over \u00a399"
           }
         },
         "usp_2": {
@@ -85,7 +85,7 @@
     "about": {
       "type": "brand-about",
       "settings": {
-        "image": "",
+        "image": "shopify://shop_images/WEXS_TU.png",
         "badge_label": "Since",
         "badge_value": "1913",
         "section_label": "The Dormer Pramet Story",
@@ -131,7 +131,7 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/WEXS_HM.png",
             "featured": true,
             "title": "Metalworking",
             "description": "HSS, cobalt and solid carbide drill bits, end mills and reamers for precision hole-making and milling in steel, stainless, aluminium and cast iron.",
@@ -141,7 +141,7 @@
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/WEXS_SM.png",
             "featured": false,
             "title": "Engineering",
             "description": "Threading taps, dies and end mills for workshop and production environments demanding repeatable accuracy and tight tolerances.",
@@ -151,7 +151,7 @@
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/WEXS_TU.png",
             "featured": false,
             "title": "Maintenance",
             "description": "General-purpose HSS drill bit sets, tap and die kits and countersinks for plant maintenance, repair and overhaul across all industries.",
@@ -161,7 +161,7 @@
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/WEXS_HM.png",
             "featured": false,
             "title": "Construction Drilling",
             "description": "Multi-material drill bits and step drills for on-site metalwork, steelwork and fabrication where durability and speed matter.",
@@ -171,7 +171,7 @@
         "app_5": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/WEXS_SM.png",
             "featured": false,
             "title": "Fabrication",
             "description": "Solid carbide burrs, deburring tools and hole saws for sheet metal fabrication, welding preparation and finishing work.",
@@ -198,7 +198,7 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/WEXS_HM.png",
             "show_badge": true,
             "badge_text": "RANGE",
             "launch_date": "Available Now",
@@ -215,7 +215,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/WEXS_SM.png",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
@@ -256,7 +256,7 @@
           "settings": {
             "stat_value": "SANDVIK",
             "title": "Sandvik Group Backing",
-            "description": "Part of the Sandvik Group since 1992 — a global engineering leader in materials technology. Dormer Pramet benefits from world-class R&D, metallurgy and manufacturing infrastructure."
+            "description": "Part of the Sandvik Group since 1992 \u2014 a global engineering leader in materials technology. Dormer Pramet benefits from world-class R&D, metallurgy and manufacturing infrastructure."
           }
         },
         "benefit_3": {
@@ -288,7 +288,7 @@
           "settings": {
             "stat_value": "UK",
             "title": "Trade Support",
-            "description": "As an official Dormer stockist, we carry the full range and can advise on the right tool for your application. Competitive trade pricing and next-day delivery on orders over £99."
+            "description": "As an official Dormer stockist, we carry the full range and can advise on the right tool for your application. Competitive trade pricing and next-day delivery on orders over \u00a399."
           }
         }
       },
@@ -312,7 +312,7 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/WEXS_HM.png",
             "title": "Drill Bits",
             "description": "HSS, cobalt and solid carbide drill bits in jobber, stub and long series. TiN and TiAlN coated options for extended life in steel, stainless and non-ferrous metals.",
             "url": ""
@@ -321,7 +321,7 @@
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/WEXS_SM.png",
             "title": "Taps & Dies",
             "description": "Spiral flute, straight flute and spiral point taps in HSS and HSS-E. Complete tap and die sets in metric coarse and fine threads for workshop and site use.",
             "url": ""
@@ -330,7 +330,7 @@
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/WEXS_TU.png",
             "title": "End Mills & Accessories",
             "description": "Solid carbide and HSS end mills, reamers, countersinks, counterbores and carbide burrs for milling, finishing and deburring applications.",
             "url": ""
@@ -369,7 +369,7 @@
           "type": "faq",
           "settings": {
             "question": "What is the difference between HSS, cobalt and carbide drill bits?",
-            "answer": "<p><strong>HSS (High Speed Steel)</strong> is the standard material for general-purpose drilling in mild steel, aluminium and plastics. <strong>Cobalt (HSS-E)</strong> contains 5-8% cobalt for improved heat resistance — ideal for stainless steel and harder metals. <strong>Solid carbide</strong> is the hardest and most wear-resistant, suited to high-volume production and CNC machining at higher speeds.</p>"
+            "answer": "<p><strong>HSS (High Speed Steel)</strong> is the standard material for general-purpose drilling in mild steel, aluminium and plastics. <strong>Cobalt (HSS-E)</strong> contains 5-8% cobalt for improved heat resistance \u2014 ideal for stainless steel and harder metals. <strong>Solid carbide</strong> is the hardest and most wear-resistant, suited to high-volume production and CNC machining at higher speeds.</p>"
           }
         },
         "faq_2": {
@@ -390,7 +390,7 @@
           "type": "faq",
           "settings": {
             "question": "Is Dormer the same as Dormer Pramet?",
-            "answer": "<p><strong>Dormer Pramet</strong> was formed in 2014 by merging Dormer Tools (founded 1913 in Sheffield) with the Pramet brand. Both are part of the <strong>Sandvik Group</strong>. Dormer products focus on rotary tools — drill bits, taps, dies, end mills and reamers — while Pramet covers indexable inserts and toolholders. Both brands are now united under the Dormer Pramet name.</p>"
+            "answer": "<p><strong>Dormer Pramet</strong> was formed in 2014 by merging Dormer Tools (founded 1913 in Sheffield) with the Pramet brand. Both are part of the <strong>Sandvik Group</strong>. Dormer products focus on rotary tools \u2014 drill bits, taps, dies, end mills and reamers \u2014 while Pramet covers indexable inserts and toolholders. Both brands are now united under the Dormer Pramet name.</p>"
           }
         },
         "faq_5": {
@@ -404,7 +404,7 @@
           "type": "faq",
           "settings": {
             "question": "Do you offer trade pricing on Dormer cutting tools?",
-            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Dormer range including drill bits, taps, dies and end mills. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. Free next-day delivery on all orders over £99.</p>"
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Dormer range including drill bits, taps, dies and end mills. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. Free next-day delivery on all orders over \u00a399.</p>"
           }
         }
       },

@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £99"
+            "subtitle": "On orders over \u00a399"
           }
         },
         "usp_2": {
@@ -91,7 +91,7 @@
         "section_label": "The Faithfull Story",
         "title": "Quality Tools at Genuine Trade Value",
         "paragraph_1": "Faithfull Tools has built its reputation on a simple promise: dependable quality at an honest price. With a range of over 2,000 hand tools, decorating tools, gardening equipment and workshop essentials, Faithfull delivers the tools tradespeople need without the premium price tag.",
-        "paragraph_2": "Faithfull doesn't cut corners where it matters — their trowels, pliers, hammers and decorating tools are manufactured to consistent quality standards and backed by reliable customer service. For tradespeople who need tools that work hard without breaking the bank, Faithfull is the smart choice.",
+        "paragraph_2": "Faithfull doesn't cut corners where it matters \u2014 their trowels, pliers, hammers and decorating tools are manufactured to consistent quality standards and backed by reliable customer service. For tradespeople who need tools that work hard without breaking the bank, Faithfull is the smart choice.",
         "stat_1_value": "2,000+",
         "stat_1_label": "Tools in Range",
         "stat_2_value": "Trade",
@@ -131,16 +131,16 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/FAISGGROUT12_b3734b3f-eafc-4382-b03c-0c468f9afeeb.jpg",
             "featured": true,
             "title": "Decorating",
-            "description": "Brushes, rollers, scrapers, filling knives and dust sheets — everything the professional decorator needs for a quality finish."
+            "description": "Brushes, rollers, scrapers, filling knives and dust sheets \u2014 everything the professional decorator needs for a quality finish."
           }
         },
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/FAIRTRAY4_63465bbd-17b6-4337-a080-62508fff93e6.jpg",
             "featured": false,
             "title": "General Building",
             "description": "Trowels, bricklaying tools, bolsters, cold chisels and general construction hand tools for the building trade."
@@ -149,7 +149,7 @@
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/FAIMG_73925270-5e27-4462-ac7b-48d0da9ebe02.jpg",
             "featured": false,
             "title": "Gardening",
             "description": "Spades, forks, rakes, secateurs and garden tools for professional landscapers and keen gardeners alike."
@@ -158,7 +158,7 @@
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/FAI3GBUCKET_7fe503b7-33a5-4437-a183-afc715b7e7a7.jpg",
             "featured": false,
             "title": "Workshop",
             "description": "Vices, clamps, files, sanding tools and workbench essentials for workshop organisation and project work."
@@ -167,7 +167,7 @@
         "app_5": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/FAITLCUT300.jpg",
             "featured": false,
             "title": "DIY",
             "description": "Hammers, screwdrivers, pliers, spanners and complete tool sets for the practical homeowner."
@@ -184,7 +184,7 @@
       "settings": {
         "section_label": "Real World Applications",
         "title": "Where Faithfull Delivers",
-        "subtitle": "From the decorator's van to the gardener's shed — tools that work hard",
+        "subtitle": "From the decorator's van to the gardener's shed \u2014 tools that work hard",
         "cta_text": "View All Faithfull Products",
         "cta_url": ""
       }
@@ -195,7 +195,7 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/FAISG4IN1ME_d493e2d2-3026-4421-ba20-5838ff02804d.jpg",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
@@ -212,7 +212,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/FAIPBU34_ff08f556-358b-419d-a1ba-fdcc9626121d.jpg",
             "show_badge": true,
             "badge_text": "POPULAR",
             "launch_date": "",
@@ -243,9 +243,9 @@
         "benefit_1": {
           "type": "benefit",
           "settings": {
-            "stat_value": "£",
+            "stat_value": "\u00a3",
             "title": "Genuine Trade Value",
-            "description": "Faithfull tools are priced for the working tradesperson — not inflated for a brand name, not cheapened to the point of failure. Honest value for honest work."
+            "description": "Faithfull tools are priced for the working tradesperson \u2014 not inflated for a brand name, not cheapened to the point of failure. Honest value for honest work."
           }
         },
         "benefit_2": {
@@ -269,7 +269,7 @@
           "settings": {
             "stat_value": "PARTS",
             "title": "Replacement Parts",
-            "description": "Many Faithfull tools have replacement parts available — handles, blades, heads and accessories. Repair, don't replace."
+            "description": "Many Faithfull tools have replacement parts available \u2014 handles, blades, heads and accessories. Repair, don't replace."
           }
         },
         "benefit_5": {
@@ -277,7 +277,7 @@
           "settings": {
             "stat_value": "WIDE",
             "title": "Sizes & Variants",
-            "description": "Faithfull offers a wide range of sizes and variants for each tool type — find exactly the right trowel, brush or spanner for your specific application."
+            "description": "Faithfull offers a wide range of sizes and variants for each tool type \u2014 find exactly the right trowel, brush or spanner for your specific application."
           }
         },
         "benefit_6": {
@@ -309,7 +309,7 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/FAISG4IN1ME_d493e2d2-3026-4421-ba20-5838ff02804d.jpg",
             "title": "Hand Tools",
             "description": "Hammers, screwdrivers, pliers, spanners, chisels and general-purpose hand tools for every trade.",
             "url": ""
@@ -318,7 +318,7 @@
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/FAIRTRAY4_63465bbd-17b6-4337-a080-62508fff93e6.jpg",
             "title": "Decorating Tools",
             "description": "Brushes, rollers, scrapers, filling knives, dust sheets and all the decorating essentials.",
             "url": ""
@@ -327,7 +327,7 @@
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/FAISLHD600_bb6c4474-109c-4867-8ffd-110674682f0c.jpg",
             "title": "Workshop & Storage",
             "description": "Vices, clamps, files, tool storage and workshop essentials to keep your workspace organised.",
             "url": ""
@@ -351,7 +351,7 @@
         "thumbnail": "",
         "video_url": "",
         "section_label": "See It In Action",
-        "title": "Faithfull Tools — Built for the Trade",
+        "title": "Faithfull Tools \u2014 Built for the Trade",
         "description": "See why Faithfull tools are the go-to choice for tradespeople who want reliable performance at a sensible price.",
         "feature_1": "Dependable quality",
         "feature_2": "Genuine trade pricing",
@@ -366,14 +366,14 @@
           "type": "faq",
           "settings": {
             "question": "How does Faithfull compare to premium hand tool brands?",
-            "answer": "<p>Faithfull sits in the <strong>value-for-money tier</strong> — below premium brands like Stanley FatMax or Bahco, but significantly above budget tools. For occasional-to-regular use and for tools where top-tier performance isn't critical, Faithfull delivers excellent value. For heavy daily professional use, consider pairing Faithfull with premium tools where it matters most.</p>"
+            "answer": "<p>Faithfull sits in the <strong>value-for-money tier</strong> \u2014 below premium brands like Stanley FatMax or Bahco, but significantly above budget tools. For occasional-to-regular use and for tools where top-tier performance isn't critical, Faithfull delivers excellent value. For heavy daily professional use, consider pairing Faithfull with premium tools where it matters most.</p>"
           }
         },
         "faq_2": {
           "type": "faq",
           "settings": {
             "question": "Do Faithfull tools come with a guarantee?",
-            "answer": "<p>Faithfull tools are covered by a <strong>manufacturer's guarantee</strong> against defects in materials and workmanship. Contact our team on <strong>01843 210 459</strong> if you have any issues with a Faithfull product purchased from us — we'll help resolve it.</p>"
+            "answer": "<p>Faithfull tools are covered by a <strong>manufacturer's guarantee</strong> against defects in materials and workmanship. Contact our team on <strong>01843 210 459</strong> if you have any issues with a Faithfull product purchased from us \u2014 we'll help resolve it.</p>"
           }
         },
         "faq_3": {
@@ -401,7 +401,7 @@
           "type": "faq",
           "settings": {
             "question": "Do you offer trade pricing on Faithfull?",
-            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Faithfull range. Contact our trade team on <strong>01843 210 459</strong> for trade account enquiries. Free next-day delivery on all orders over £99.</p>"
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Faithfull range. Contact our trade team on <strong>01843 210 459</strong> for trade account enquiries. Free next-day delivery on all orders over \u00a399.</p>"
           }
         }
       },

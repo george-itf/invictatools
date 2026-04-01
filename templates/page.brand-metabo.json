@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £99"
+            "subtitle": "On orders over \u00a399"
           }
         },
         "usp_2": {
@@ -90,17 +90,17 @@
         "badge_value": "1924",
         "section_label": "The Metabo Story",
         "title": "German Engineering Since 1924",
-        "paragraph_1": "In 1924, Albrecht Schnizler and Julius Closs founded Schnizler GmbH in a former brewery in Nurtingen, Germany. Schnizler had already developed his first hand drill — the Metallbohrdreher (metal drill turner) — in 1923, which sold over 50,000 units worldwide. The brand name Metabo was derived from that original product in 1928, and the company has been engineering professional power tools at the same Nurtingen site for over 100 years.",
-        "paragraph_2": "Today, Metabo is recognised globally as the angle grinder specialist and a leader in cordless technology. Their LiHD (Lithium-ion High Density) battery platform delivers up to 67% more power than standard Li-ion packs, covering the full power range up to 3,200 watts — a first for any cordless manufacturer. Combined with the Cordless Alliance System (CAS), which connects over 45 brands and 450+ tools on a single 18V battery platform, Metabo gives trade professionals unmatched flexibility and performance on site.",
+        "paragraph_1": "In 1924, Albrecht Schnizler and Julius Closs founded Schnizler GmbH in a former brewery in Nurtingen, Germany. Schnizler had already developed his first hand drill \u2014 the Metallbohrdreher (metal drill turner) \u2014 in 1923, which sold over 50,000 units worldwide. The brand name Metabo was derived from that original product in 1928, and the company has been engineering professional power tools at the same Nurtingen site for over 100 years.",
+        "paragraph_2": "Today, Metabo is recognised globally as the angle grinder specialist and a leader in cordless technology. Their LiHD (Lithium-ion High Density) battery platform delivers up to 67% more power than standard Li-ion packs, covering the full power range up to 3,200 watts \u2014 a first for any cordless manufacturer. Combined with the Cordless Alliance System (CAS), which connects over 45 brands and 450+ tools on a single 18V battery platform, Metabo gives trade professionals unmatched flexibility and performance on site.",
         "stat_1_value": "100+",
         "stat_1_label": "Years of Heritage",
         "stat_2_value": "3.2kW",
         "stat_2_label": "LiHD Max Power",
         "stat_3_value": "450+",
         "stat_3_label": "CAS Compatible Tools",
-        "feature_1": "LiHD battery technology — up to 67% more power",
+        "feature_1": "LiHD battery technology \u2014 up to 67% more power",
         "feature_2": "S-automatic safety clutch since 1966",
-        "feature_3": "Cordless Alliance System (CAS) — 45+ brands",
+        "feature_3": "Cordless Alliance System (CAS) \u2014 45+ brands",
         "feature_4": "3-year manufacturer warranty",
         "cta_text": "Learn More",
         "cta_url": ""
@@ -131,7 +131,7 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/0078400S_51_website.94986e86.webp",
             "featured": true,
             "title": "Metalworking & Grinding",
             "description": "Metabo's core competence. Angle grinders from 115mm to 230mm with S-automatic safety clutch, flat-head grinders for confined spaces, and specialist Inox models for stainless steel fabrication.",
@@ -141,17 +141,17 @@
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/Stage_Cordless_desktop.jpg",
             "featured": false,
             "title": "Construction",
-            "description": "SDS-Plus and SDS-Max rotary hammers, combi drills and impact drivers powered by LiHD batteries — delivering corded-class performance for drilling into concrete, masonry and steel on site.",
+            "description": "SDS-Plus and SDS-Max rotary hammers, combi drills and impact drivers powered by LiHD batteries \u2014 delivering corded-class performance for drilling into concrete, masonry and steel on site.",
             "connector_used": ""
           }
         },
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/1310800S_51F_website.2fa50142.webp",
             "featured": false,
             "title": "Renovation & Refurbishment",
             "description": "Reciprocating saws, multi-tools and dust extraction systems for strip-out, first fix and second fix work. Dust class L, M and H extractors keep sites compliant.",
@@ -161,10 +161,10 @@
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/0108500S_51_website.cae0dd9d.webp",
             "featured": false,
             "title": "Stone & Concrete",
-            "description": "Diamond cutting systems, wall chasers and high-torque rotary hammers engineered for cutting, chasing and drilling in stone, concrete and masonry — with integrated dust management.",
+            "description": "Diamond cutting systems, wall chasers and high-torque rotary hammers engineered for cutting, chasing and drilling in stone, concrete and masonry \u2014 with integrated dust management.",
             "connector_used": ""
           }
         }
@@ -189,14 +189,14 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/0078400S_51_website.94986e86.webp",
             "show_badge": true,
             "badge_text": "LiHD",
             "launch_date": "Available Now",
             "title": "18V LiHD Brushless Angle Grinder 125mm",
             "description": "Metabo's flagship cordless angle grinder delivers corded-class performance from the 18V LiHD platform. Brushless motor, S-automatic safety clutch and disc brake that stops the wheel in under 2 seconds.",
             "feature_1": "S-automatic safety clutch",
-            "feature_2": "Disc brake — stops in under 2 seconds",
+            "feature_2": "Disc brake \u2014 stops in under 2 seconds",
             "feature_3": "LiHD brushless motor",
             "feature_4": "VibraTech (MVT) side handle",
             "cta_text": "Shop Metabo Grinders",
@@ -206,7 +206,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/1310800S_51F_website.2fa50142.webp",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
@@ -247,7 +247,7 @@
           "settings": {
             "stat_value": "DE",
             "title": "German Engineering",
-            "description": "Designed and manufactured in Nurtingen, Germany since 1924. Over 100 years of precision engineering, rigorous testing and continuous innovation — built for professionals who cannot afford downtime."
+            "description": "Designed and manufactured in Nurtingen, Germany since 1924. Over 100 years of precision engineering, rigorous testing and continuous innovation \u2014 built for professionals who cannot afford downtime."
           }
         },
         "benefit_3": {
@@ -255,7 +255,7 @@
           "settings": {
             "stat_value": "#1",
             "title": "Angle Grinder Specialist",
-            "description": "Metabo is the world leader in angle grinder technology. From compact 115mm to heavy-duty 230mm, with specialist flat-head and Inox models — and the only manufacturer with a true mechanical safety clutch built into every grinder."
+            "description": "Metabo is the world leader in angle grinder technology. From compact 115mm to heavy-duty 230mm, with specialist flat-head and Inox models \u2014 and the only manufacturer with a true mechanical safety clutch built into every grinder."
           }
         },
         "benefit_4": {
@@ -263,7 +263,7 @@
           "settings": {
             "stat_value": "MVT",
             "title": "VibraTech Anti-Vibration",
-            "description": "Metabo VibraTech (MVT) decouples handle areas and reduces hand-arm vibration by up to 50%. Less fatigue, longer working periods and healthier operators — critical for daily professional use."
+            "description": "Metabo VibraTech (MVT) decouples handle areas and reduces hand-arm vibration by up to 50%. Less fatigue, longer working periods and healthier operators \u2014 critical for daily professional use."
           }
         },
         "benefit_5": {
@@ -271,7 +271,7 @@
           "settings": {
             "stat_value": "SAFE",
             "title": "S-Automatic Safety Clutch",
-            "description": "Patented since 1966, Metabo's mechanical safety clutch decouples the motor instantly if the disc jams — reducing kickback to an absolute minimum. Combined with a disc brake that stops in under 2 seconds, it is the safest grinder system on the market."
+            "description": "Patented since 1966, Metabo's mechanical safety clutch decouples the motor instantly if the disc jams \u2014 reducing kickback to an absolute minimum. Combined with a disc brake that stops in under 2 seconds, it is the safest grinder system on the market."
           }
         },
         "benefit_6": {
@@ -279,7 +279,7 @@
           "settings": {
             "stat_value": "CAS",
             "title": "Cordless Alliance System",
-            "description": "One 18V battery platform shared across 45+ professional brands and 450+ tools. Metabo LiHD batteries are compatible with brands like Mafell, Rothenberger and Collomix — maximising your investment across multiple trades."
+            "description": "One 18V battery platform shared across 45+ professional brands and 450+ tools. Metabo LiHD batteries are compatible with brands like Mafell, Rothenberger and Collomix \u2014 maximising your investment across multiple trades."
           }
         }
       },
@@ -303,27 +303,27 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/0235900_L80S_51_website.85d54d7e.webp",
             "title": "Angle Grinders & Metalworking",
-            "description": "Metabo's core range — corded and cordless angle grinders from 115mm to 230mm, flat-head grinders, Inox specialist models and metal cutting saws for professional fabrication and site work.",
+            "description": "Metabo's core range \u2014 corded and cordless angle grinders from 115mm to 230mm, flat-head grinders, Inox specialist models and metal cutting saws for professional fabrication and site work.",
             "url": ""
           }
         },
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/Stage_Cordless_desktop.jpg",
             "title": "Cordless Power Tools",
-            "description": "18V LiHD combi drills, impact drivers, rotary hammers, reciprocating saws and multi-tools — all running on the CAS-compatible battery platform for maximum flexibility.",
+            "description": "18V LiHD combi drills, impact drivers, rotary hammers, reciprocating saws and multi-tools \u2014 all running on the CAS-compatible battery platform for maximum flexibility.",
             "url": ""
           }
         },
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/0173100_L55S_51_website.71f84ad5_93529d6d-7a74-4bf9-b1ca-35b44b254b03.webp",
             "title": "Accessories & Batteries",
-            "description": "LiHD battery packs from 4.0Ah to 10.0Ah, ASC chargers, abrasive discs, diamond blades and dust extraction accessories — everything to keep your Metabo tools running.",
+            "description": "LiHD battery packs from 4.0Ah to 10.0Ah, ASC chargers, abrasive discs, diamond blades and dust extraction accessories \u2014 everything to keep your Metabo tools running.",
             "url": ""
           }
         }
@@ -342,13 +342,13 @@
     "video": {
       "type": "brand-video",
       "settings": {
-        "thumbnail": "",
+        "thumbnail": "shopify://shop_images/0078400S_51_website.94986e86.webp",
         "video_url": "https://www.youtube.com/watch?v=placeholder",
         "section_label": "See It In Action",
         "title": "Metabo LiHD Cordless System",
-        "description": "See how Metabo's LiHD battery technology delivers corded-class power from a cordless platform — powering professional tools up to 3,200 watts.",
-        "feature_1": "LiHD — up to 67% more power",
-        "feature_2": "CAS compatible — 45+ brands",
+        "description": "See how Metabo's LiHD battery technology delivers corded-class power from a cordless platform \u2014 powering professional tools up to 3,200 watts.",
+        "feature_1": "LiHD \u2014 up to 67% more power",
+        "feature_2": "CAS compatible \u2014 45+ brands",
         "feature_3": "S-automatic safety clutch",
         "feature_4": "Made in Germany since 1924"
       }
@@ -367,7 +367,7 @@
           "type": "faq",
           "settings": {
             "question": "What is the Cordless Alliance System (CAS)?",
-            "answer": "<p>The <strong>Cordless Alliance System (CAS)</strong> is the world's first cross-manufacturer 18V battery platform. Over 45 professional tool brands — including Metabo, Mafell, Rothenberger and Collomix — share 100% compatible batteries, chargers and tools. That means one Metabo LiHD battery powers over 450 tools from dozens of brands, maximising your investment.</p>"
+            "answer": "<p>The <strong>Cordless Alliance System (CAS)</strong> is the world's first cross-manufacturer 18V battery platform. Over 45 professional tool brands \u2014 including Metabo, Mafell, Rothenberger and Collomix \u2014 share 100% compatible batteries, chargers and tools. That means one Metabo LiHD battery powers over 450 tools from dozens of brands, maximising your investment.</p>"
           }
         },
         "faq_3": {
@@ -381,14 +381,14 @@
           "type": "faq",
           "settings": {
             "question": "Why is Metabo considered the angle grinder specialist?",
-            "answer": "<p>Metabo has led angle grinder innovation for decades. They are the <strong>only manufacturer with a true mechanical safety clutch (S-automatic)</strong> built into every grinder — patented since 1966, it decouples the motor instantly if the disc jams to prevent kickback. Their range spans 115mm to 230mm, includes flat-head models for confined spaces, specialist Inox models for stainless steel, and a disc brake that stops the wheel in under 2 seconds.</p>"
+            "answer": "<p>Metabo has led angle grinder innovation for decades. They are the <strong>only manufacturer with a true mechanical safety clutch (S-automatic)</strong> built into every grinder \u2014 patented since 1966, it decouples the motor instantly if the disc jams to prevent kickback. Their range spans 115mm to 230mm, includes flat-head models for confined spaces, specialist Inox models for stainless steel, and a disc brake that stops the wheel in under 2 seconds.</p>"
           }
         },
         "faq_5": {
           "type": "faq",
           "settings": {
             "question": "Do you offer trade pricing on Metabo?",
-            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Metabo range including angle grinders, cordless tools, LiHD batteries and accessories. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. Free next-day delivery on all orders over £99.</p>"
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Metabo range including angle grinders, cordless tools, LiHD batteries and accessories. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. Free next-day delivery on all orders over \u00a399.</p>"
           }
         },
         "faq_6": {

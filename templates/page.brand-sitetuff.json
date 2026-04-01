@@ -27,7 +27,7 @@
         "primary_cta_url": "",
         "secondary_cta_text": "Browse by Category",
         "secondary_cta_url": "#categories",
-        "hero_image": ""
+        "hero_image": "shopify://shop_images/brand-fische.jpg"
       }
     },
     "usp_strip": {
@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £99"
+            "subtitle": "On orders over \u00a399"
           }
         },
         "usp_2": {
@@ -85,13 +85,13 @@
     "about": {
       "type": "brand-about",
       "settings": {
-        "image": "",
+        "image": "shopify://shop_images/brand-fische.jpg",
         "badge_label": "By",
         "badge_value": "PDP",
         "section_label": "The SiteTuff Story",
         "title": "Diamond Expertise Since 1990",
-        "paragraph_1": "SiteTuff is the trade-grade diamond tooling range from Premier Diamond Products (PDP), established in 1990. Every SiteTuff diamond blade, core drill and SDS bit has been developed using over 25 years of experience in diamond product engineering — a combination of quality diamond grit and precision-engineered bond powders that deliver fast cutting and long service life.",
-        "paragraph_2": "The SiteTuff range is specifically designed for the most common UK construction materials — facing bricks, concrete blocks, York stone, asphalt and general building materials. The counter-clockwise spiral on SiteTuff dry cores assists debris dispersal while drilling, reducing the risk of jamming. Every product comes with PDP's high-quality safety and performance standards, and all packaging is 100% recyclable.",
+        "paragraph_1": "SiteTuff is the trade-grade diamond tooling range from Premier Diamond Products (PDP), established in 1990. Every SiteTuff diamond blade, core drill and SDS bit has been developed using over 25 years of experience in diamond product engineering \u2014 a combination of quality diamond grit and precision-engineered bond powders that deliver fast cutting and long service life.",
+        "paragraph_2": "The SiteTuff range is specifically designed for the most common UK construction materials \u2014 facing bricks, concrete blocks, York stone, asphalt and general building materials. The counter-clockwise spiral on SiteTuff dry cores assists debris dispersal while drilling, reducing the risk of jamming. Every product comes with PDP's high-quality safety and performance standards, and all packaging is 100% recyclable.",
         "stat_1_value": "1990",
         "stat_1_label": "PDP Established",
         "stat_2_value": "25+",
@@ -131,7 +131,7 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-fische.jpg",
             "featured": true,
             "title": "General Construction",
             "description": "Diamond blades for cutting concrete, building blocks and general construction materials. SiteTuff STC blades are engineered for fast, clean cuts across the most common UK site materials.",
@@ -141,7 +141,7 @@
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-fische.jpg",
             "featured": false,
             "title": "Core Drilling",
             "description": "Dry diamond cores for drilling through facing bricks, concrete blocks and York stone without water. Counter-clockwise spiral design assists debris dispersal and reduces jamming risk.",
@@ -151,7 +151,7 @@
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-fische.jpg",
             "featured": false,
             "title": "Masonry & Concrete Drilling",
             "description": "4-cutter SDS-Plus drill bits for heavy-duty masonry and concrete drilling. Carbide tips deliver fast penetration and long service life in the toughest site materials.",
@@ -161,7 +161,7 @@
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-fische.jpg",
             "featured": false,
             "title": "Tiling & Stone",
             "description": "Wax-filled tile drills and specialist diamond blades for cutting ceramic tiles, porcelain, cement board and natural stone with precision and minimal chipping.",
@@ -171,7 +171,7 @@
         "app_5": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-fische.jpg",
             "featured": false,
             "title": "Road & Groundworks",
             "description": "Asphalt and concrete cutting blades for road repair, kerb laying and groundwork applications. Segment design optimised for abrasive materials and extended blade life.",
@@ -198,12 +198,12 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-fische.jpg",
             "show_badge": true,
             "badge_text": "POPULAR",
             "launch_date": "",
             "title": "SiteTuff 12-Piece Dry Diamond Core Set",
-            "description": "The complete dry core drilling kit for plumbers, electricians and builders. Includes 42mm, 52mm, 65mm, 117mm and 127mm cores plus chuck adaptor, SDS adaptor, extension, drift key and taper pilot drill — all in a durable carry case.",
+            "description": "The complete dry core drilling kit for plumbers, electricians and builders. Includes 42mm, 52mm, 65mm, 117mm and 127mm cores plus chuck adaptor, SDS adaptor, extension, drift key and taper pilot drill \u2014 all in a durable carry case.",
             "feature_1": "5 core sizes (42mm-127mm)",
             "feature_2": "SDS and chuck adaptors included",
             "feature_3": "Counter-clockwise debris spiral",
@@ -215,7 +215,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-fische.jpg",
             "show_badge": true,
             "badge_text": "TRADE ESSENTIAL",
             "launch_date": "",
@@ -256,7 +256,7 @@
           "settings": {
             "stat_value": "UK",
             "title": "Built for British Materials",
-            "description": "SiteTuff dry diamond cores are specifically designed for the most common UK construction materials — facing bricks, concrete blocks and York stone. Not generic imports, but products engineered for the materials you actually work with."
+            "description": "SiteTuff dry diamond cores are specifically designed for the most common UK construction materials \u2014 facing bricks, concrete blocks and York stone. Not generic imports, but products engineered for the materials you actually work with."
           }
         },
         "benefit_3": {
@@ -264,7 +264,7 @@
           "settings": {
             "stat_value": "CCW",
             "title": "Anti-Jam Core Design",
-            "description": "The counter-clockwise spiral on SiteTuff dry core bodies assists in the dispersal of drilling debris, significantly reducing the risk of the core jamming in the hole — less downtime, more productivity."
+            "description": "The counter-clockwise spiral on SiteTuff dry core bodies assists in the dispersal of drilling debris, significantly reducing the risk of the core jamming in the hole \u2014 less downtime, more productivity."
           }
         },
         "benefit_4": {
@@ -288,7 +288,7 @@
           "settings": {
             "stat_value": "ECO",
             "title": "Recyclable Packaging",
-            "description": "Every SiteTuff product comes in 100% recyclable packaging across the entire range. Professional quality without unnecessary environmental impact — responsible sourcing for the modern construction site."
+            "description": "Every SiteTuff product comes in 100% recyclable packaging across the entire range. Professional quality without unnecessary environmental impact \u2014 responsible sourcing for the modern construction site."
           }
         }
       },
@@ -312,25 +312,25 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-fische.jpg",
             "title": "Diamond Blades",
-            "description": "Concrete, asphalt, tile and general construction diamond blades in 115mm, 230mm and 300mm diameters — fast cutting and long life on UK site materials.",
+            "description": "Concrete, asphalt, tile and general construction diamond blades in 115mm, 230mm and 300mm diameters \u2014 fast cutting and long life on UK site materials.",
             "url": ""
           }
         },
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-fische.jpg",
             "title": "Dry Diamond Cores",
-            "description": "Dry core drills for facing bricks, concrete blocks and York stone. Individual cores and complete sets with adaptors — no water required.",
+            "description": "Dry core drills for facing bricks, concrete blocks and York stone. Individual cores and complete sets with adaptors \u2014 no water required.",
             "url": ""
           }
         },
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/brand-fische.jpg",
             "title": "SDS Drill Bits & Accessories",
             "description": "4-cutter SDS-Plus drill bits for heavy-duty masonry and concrete drilling, plus wax-filled tile drills, core adaptors and accessories.",
             "url": ""
@@ -345,7 +345,7 @@
       "settings": {
         "section_label": "Shop By Category",
         "title": "Explore the SiteTuff Range",
-        "subtitle": "From diamond blades to dry cores and SDS drill bits — precision cutting and drilling for every application"
+        "subtitle": "From diamond blades to dry cores and SDS drill bits \u2014 precision cutting and drilling for every application"
       }
     },
     "video": {
@@ -356,7 +356,7 @@
         "section_label": "See It In Action",
         "title": "SiteTuff Diamond Cores in Action",
         "description": "See how SiteTuff dry diamond cores cut cleanly through common UK construction materials without water.",
-        "feature_1": "Dry core drilling — no water",
+        "feature_1": "Dry core drilling \u2014 no water",
         "feature_2": "Counter-clockwise debris spiral",
         "feature_3": "Facing brick to York stone",
         "feature_4": "Complete kit solutions"
@@ -376,14 +376,14 @@
           "type": "faq",
           "settings": {
             "question": "Can I use SiteTuff dry cores without water?",
-            "answer": "<p>Yes. SiteTuff dry diamond cores are specifically designed for <strong>dry drilling</strong> — no water supply is required. The counter-clockwise spiral on the core body assists debris dispersal while drilling, reducing the risk of jamming. They are designed for use on facing bricks, concrete blocks and York stone.</p>"
+            "answer": "<p>Yes. SiteTuff dry diamond cores are specifically designed for <strong>dry drilling</strong> \u2014 no water supply is required. The counter-clockwise spiral on the core body assists debris dispersal while drilling, reducing the risk of jamming. They are designed for use on facing bricks, concrete blocks and York stone.</p>"
           }
         },
         "faq_3": {
           "type": "faq",
           "settings": {
             "question": "What materials can SiteTuff diamond blades cut?",
-            "answer": "<p>SiteTuff diamond blades cover a wide range of materials including <strong>concrete, building blocks, bricks, asphalt, tiles, cement board</strong> and general construction materials. Different blade specifications are available for different materials — the STC range is optimised for concrete and building materials, while specialist blades are available for tiles and mortar raking.</p>"
+            "answer": "<p>SiteTuff diamond blades cover a wide range of materials including <strong>concrete, building blocks, bricks, asphalt, tiles, cement board</strong> and general construction materials. Different blade specifications are available for different materials \u2014 the STC range is optimised for concrete and building materials, while specialist blades are available for tiles and mortar raking.</p>"
           }
         },
         "faq_4": {
@@ -397,14 +397,14 @@
           "type": "faq",
           "settings": {
             "question": "What is included in the SiteTuff 12-piece dry core set?",
-            "answer": "<p>The SiteTuff ST-DC-12 set includes <strong>5 dry diamond cores</strong> (42mm, 52mm, 65mm, 117mm and 127mm), a <strong>chuck adaptor</strong>, <strong>SDS adaptor</strong>, <strong>1/2\" to 1/2\" extension</strong>, <strong>drift key</strong> and a <strong>taper pilot drill</strong> — all in a professional carry case. Everything you need for core drilling through common UK construction materials.</p>"
+            "answer": "<p>The SiteTuff ST-DC-12 set includes <strong>5 dry diamond cores</strong> (42mm, 52mm, 65mm, 117mm and 127mm), a <strong>chuck adaptor</strong>, <strong>SDS adaptor</strong>, <strong>1/2\" to 1/2\" extension</strong>, <strong>drift key</strong> and a <strong>taper pilot drill</strong> \u2014 all in a professional carry case. Everything you need for core drilling through common UK construction materials.</p>"
           }
         },
         "faq_6": {
           "type": "faq",
           "settings": {
             "question": "Do you offer trade pricing on SiteTuff products?",
-            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full SiteTuff range including diamond blades, dry cores and SDS drill bits. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. We also provide free next-day delivery on all orders over £99.</p>"
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full SiteTuff range including diamond blades, dry cores and SDS drill bits. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. We also provide free next-day delivery on all orders over \u00a399.</p>"
           }
         }
       },

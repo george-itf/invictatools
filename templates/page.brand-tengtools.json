@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £99"
+            "subtitle": "On orders over \u00a399"
           }
         },
         "usp_2": {
@@ -91,7 +91,7 @@
         "section_label": "The Teng Tools Story",
         "title": "Swedish Design, Built to Last Since 1985",
         "paragraph_1": "Teng Tools was founded in 1985 by Henri Tengvall, who saw a gap in the market for a comprehensive hand tool range with an integrated storage system. Headquartered in Alingsas, Sweden, and owned by Bergman & Beving (founded 1906), Teng Tools quickly became one of the leading hand tool brands in Scandinavia before expanding worldwide.",
-        "paragraph_2": "The core of Teng Tools is the Get Organised system — a modular TC tray concept where every tool sits in a dedicated slot within a tray, and every tray clicks together to fit into any Teng Tools storage solution. No wasted space, no loose tools, complete workshop organisation. Combined with a lifetime guarantee on hand tools, Teng Tools delivers the quality, organisation and value that professional workshops demand.",
+        "paragraph_2": "The core of Teng Tools is the Get Organised system \u2014 a modular TC tray concept where every tool sits in a dedicated slot within a tray, and every tray clicks together to fit into any Teng Tools storage solution. No wasted space, no loose tools, complete workshop organisation. Combined with a lifetime guarantee on hand tools, Teng Tools delivers the quality, organisation and value that professional workshops demand.",
         "stat_1_value": "Lifetime",
         "stat_1_label": "Tool Guarantee",
         "stat_2_value": "1,000+",
@@ -131,27 +131,27 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/9113-open.jpg",
             "featured": true,
             "title": "Automotive & Mechanical",
-            "description": "Socket sets, ratchets, torque wrenches, spanners and specialist automotive tools — all organised in the Get Organised TC tray system for fast, efficient workshop use.",
+            "description": "Socket sets, ratchets, torque wrenches, spanners and specialist automotive tools \u2014 all organised in the Get Organised TC tray system for fast, efficient workshop use.",
             "connector_used": ""
           }
         },
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/m120010-c-flex-handle-1-2-inch-drive-10-inch.jpg",
             "featured": false,
             "title": "Maintenance & Facilities",
-            "description": "Comprehensive general-purpose tool sets covering sockets, spanners, pliers, screwdrivers and hex keys — everything a maintenance engineer needs in one organised kit.",
+            "description": "Comprehensive general-purpose tool sets covering sockets, spanners, pliers, screwdrivers and hex keys \u2014 everything a maintenance engineer needs in one organised kit.",
             "connector_used": ""
           }
         },
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/PRO35_tool-storage-banner.jpg",
             "featured": false,
             "title": "Construction",
             "description": "Adjustable wrenches, pliers, screwdrivers, hammers and measuring tools for on-site construction work. Durable hand tools designed for daily professional use.",
@@ -161,7 +161,7 @@
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/tengtools-tool-sets-banner.jpg",
             "featured": false,
             "title": "Industrial",
             "description": "Impact sockets, torque wrenches, pry bars and specialist industrial tooling for heavy-duty applications in manufacturing, plant and process environments.",
@@ -171,10 +171,10 @@
         "app_5": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/popular-categories-banner.jpg",
             "featured": false,
             "title": "Workshop",
-            "description": "Tool chests, roller cabinets, wall racks and portable storage solutions — the full Get Organised system to equip any workshop from a single-bay garage to a multi-station facility.",
+            "description": "Tool chests, roller cabinets, wall racks and portable storage solutions \u2014 the full Get Organised system to equip any workshop from a single-bay garage to a multi-station facility.",
             "connector_used": ""
           }
         }
@@ -198,12 +198,12 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/9113-open.jpg",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
             "title": "Teng Tools Mega Master Tool Sets",
-            "description": "Complete workshop tool kits with hundreds of tools across sockets, spanners, screwdrivers, pliers and more — all supplied in the Get Organised TC tray system, ready to drop into your chosen storage solution.",
+            "description": "Complete workshop tool kits with hundreds of tools across sockets, spanners, screwdrivers, pliers and more \u2014 all supplied in the Get Organised TC tray system, ready to drop into your chosen storage solution.",
             "feature_1": "Hundreds of tools per set",
             "feature_2": "Get Organised TC trays included",
             "feature_3": "Lifetime guarantee",
@@ -215,7 +215,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/m120010-c-flex-handle-1-2-inch-drive-10-inch.jpg",
             "show_badge": true,
             "badge_text": "POPULAR",
             "launch_date": "",
@@ -248,7 +248,7 @@
           "settings": {
             "stat_value": "GET",
             "title": "Get Organised System",
-            "description": "The core of Teng Tools. Every tool sits in a dedicated TC tray slot, and every tray clicks together to fit into any Teng storage solution. No wasted space, no loose tools — a system that grows with your workshop."
+            "description": "The core of Teng Tools. Every tool sits in a dedicated TC tray slot, and every tray clicks together to fit into any Teng storage solution. No wasted space, no loose tools \u2014 a system that grows with your workshop."
           }
         },
         "benefit_2": {
@@ -264,7 +264,7 @@
           "settings": {
             "stat_value": "1K+",
             "title": "Comprehensive Tool Sets",
-            "description": "From 39-piece starter kits to 1,001-piece mega sets, Teng Tools offers complete solutions covering sockets, spanners, screwdrivers, pliers, hex keys and specialist tools — all in organised TC trays."
+            "description": "From 39-piece starter kits to 1,001-piece mega sets, Teng Tools offers complete solutions covering sockets, spanners, screwdrivers, pliers, hex keys and specialist tools \u2014 all in organised TC trays."
           }
         },
         "benefit_4": {
@@ -272,7 +272,7 @@
           "settings": {
             "stat_value": "SE",
             "title": "Swedish Design Heritage",
-            "description": "Headquartered in Sweden and backed by Bergman & Beving (est. 1906), Teng Tools combines Scandinavian design principles — functionality, simplicity and durability — with quality-controlled manufacturing."
+            "description": "Headquartered in Sweden and backed by Bergman & Beving (est. 1906), Teng Tools combines Scandinavian design principles \u2014 functionality, simplicity and durability \u2014 with quality-controlled manufacturing."
           }
         },
         "benefit_5": {
@@ -312,27 +312,27 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/9113-open.jpg",
             "title": "Tool Sets",
-            "description": "Complete socket, spanner, screwdriver and mixed tool sets in Get Organised TC trays — from starter kits to mega master sets with over 1,000 pieces.",
+            "description": "Complete socket, spanner, screwdriver and mixed tool sets in Get Organised TC trays \u2014 from starter kits to mega master sets with over 1,000 pieces.",
             "url": ""
           }
         },
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/PRO35_tool-storage-banner.jpg",
             "title": "Tool Storage",
-            "description": "Roller cabinets, tool chests, top boxes, wall racks and portable cases — the full Get Organised storage range with ball-bearing slides and central locking.",
+            "description": "Roller cabinets, tool chests, top boxes, wall racks and portable cases \u2014 the full Get Organised storage range with ball-bearing slides and central locking.",
             "url": ""
           }
         },
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/tengtools-tool-sets-banner.jpg",
             "title": "Individual Hand Tools",
-            "description": "Sockets, spanners, ratchets, torque wrenches, pliers, screwdrivers, hex keys and hammers — all backed by the Teng Tools lifetime guarantee.",
+            "description": "Sockets, spanners, ratchets, torque wrenches, pliers, screwdrivers, hex keys and hammers \u2014 all backed by the Teng Tools lifetime guarantee.",
             "url": ""
           }
         }
@@ -351,11 +351,11 @@
     "video": {
       "type": "brand-video",
       "settings": {
-        "thumbnail": "",
-        "video_url": "",
+        "thumbnail": "shopify://shop_images/9113-open.jpg",
+        "video_url": "https://youtu.be/L0W2LoW2nHk",
         "section_label": "See It In Action",
         "title": "The Teng Tools Get Organised System",
-        "description": "See how the modular TC tray system transforms workshop organisation — every tool in its place, every tray clicks together, every storage solution compatible.",
+        "description": "See how the modular TC tray system transforms workshop organisation \u2014 every tool in its place, every tray clicks together, every storage solution compatible.",
         "feature_1": "Modular TC tray system",
         "feature_2": "Fits all Teng storage",
         "feature_3": "Scales from one tray to full workshop",
@@ -369,7 +369,7 @@
           "type": "faq",
           "settings": {
             "question": "What is the Teng Tools Get Organised system?",
-            "answer": "<p>The <strong>Get Organised</strong> system is the core concept behind Teng Tools. Every tool set is supplied in a unique TC tray with a dedicated slot for each tool. These trays click together and fit into any Teng Tools storage solution — roller cabinets, tool chests, wall racks or portable cases. You can build a complete, customised tool kit tray by tray, and instantly see if any tool is missing from its slot.</p>"
+            "answer": "<p>The <strong>Get Organised</strong> system is the core concept behind Teng Tools. Every tool set is supplied in a unique TC tray with a dedicated slot for each tool. These trays click together and fit into any Teng Tools storage solution \u2014 roller cabinets, tool chests, wall racks or portable cases. You can build a complete, customised tool kit tray by tray, and instantly see if any tool is missing from its slot.</p>"
           }
         },
         "faq_2": {
@@ -383,21 +383,21 @@
           "type": "faq",
           "settings": {
             "question": "What is included in a Teng Tools mega master set?",
-            "answer": "<p>Teng Tools mega master sets are comprehensive tool kits containing <strong>hundreds of pieces</strong> across multiple categories — typically including 1/4\", 3/8\" and 1/2\" drive socket sets, combination spanners, screwdrivers, hex keys, pliers, adjustable wrenches and specialist tools. All supplied in Get Organised TC trays. The exact contents vary by set — check individual product listings for full specifications.</p>"
+            "answer": "<p>Teng Tools mega master sets are comprehensive tool kits containing <strong>hundreds of pieces</strong> across multiple categories \u2014 typically including 1/4\", 3/8\" and 1/2\" drive socket sets, combination spanners, screwdrivers, hex keys, pliers, adjustable wrenches and specialist tools. All supplied in Get Organised TC trays. The exact contents vary by set \u2014 check individual product listings for full specifications.</p>"
           }
         },
         "faq_4": {
           "type": "faq",
           "settings": {
             "question": "Do you offer trade pricing on Teng Tools?",
-            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Teng Tools range including tool sets, storage solutions and individual hand tools. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts, workshop outfitting quotes and trade account enquiries. We also provide free next-day delivery on all orders over £99.</p>"
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Teng Tools range including tool sets, storage solutions and individual hand tools. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts, workshop outfitting quotes and trade account enquiries. We also provide free next-day delivery on all orders over \u00a399.</p>"
           }
         },
         "faq_5": {
           "type": "faq",
           "settings": {
             "question": "Can I mix and match Teng Tools TC trays in any storage unit?",
-            "answer": "<p>Yes. That is the entire point of the Get Organised system. <strong>All TC trays are the same width</strong> and click together to create any combination. You can mix socket trays, spanner trays, screwdriver trays and specialist trays in any order, then drop them into any Teng Tools roller cabinet, tool chest or carry case. This means you build exactly the tool kit you need — no duplicates, no gaps.</p>"
+            "answer": "<p>Yes. That is the entire point of the Get Organised system. <strong>All TC trays are the same width</strong> and click together to create any combination. You can mix socket trays, spanner trays, screwdriver trays and specialist trays in any order, then drop them into any Teng Tools roller cabinet, tool chest or carry case. This means you build exactly the tool kit you need \u2014 no duplicates, no gaps.</p>"
           }
         },
         "faq_6": {

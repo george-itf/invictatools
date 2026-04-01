@@ -38,7 +38,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Next-Day Delivery",
-            "subtitle": "On orders over £99"
+            "subtitle": "On orders over \u00a399"
           }
         },
         "usp_2": {
@@ -131,7 +131,7 @@
         "app_1": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/STR156M.jpg",
             "featured": true,
             "title": "Metalworking",
             "description": "Bi-metal and carbide-tipped hole saws, band saw blades and precision measuring tools engineered for cutting and measuring ferrous and non-ferrous metals with repeatable accuracy.",
@@ -141,17 +141,17 @@
         "app_2": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/STR161A.jpg",
             "featured": false,
             "title": "Construction",
-            "description": "Tape measures, levels, protractors and hole saws built for the demands of construction sites — durable, accurate and ready for daily professional use.",
+            "description": "Tape measures, levels, protractors and hole saws built for the demands of construction sites \u2014 durable, accurate and ready for daily professional use.",
             "connector_used": ""
           }
         },
         "app_3": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/STR156M.jpg",
             "featured": false,
             "title": "Plumbing & HVAC",
             "description": "Fast Cut and Deep Cut hole saws in every diameter for cutting clean, accurate holes in copper, steel and plastic pipe. The go-to choice for plumbers and HVAC engineers.",
@@ -161,17 +161,17 @@
         "app_4": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/STR161A.jpg",
             "featured": false,
             "title": "Woodworking",
-            "description": "Band saw blades, jig saw blades and carbide-tipped hole saws for clean cuts in hardwood, softwood, MDF and composites — precision you can rely on in the workshop.",
+            "description": "Band saw blades, jig saw blades and carbide-tipped hole saws for clean cuts in hardwood, softwood, MDF and composites \u2014 precision you can rely on in the workshop.",
             "connector_used": ""
           }
         },
         "app_5": {
           "type": "application",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/STR156M.jpg",
             "featured": false,
             "title": "Engineering",
             "description": "Micrometers, calipers, dial indicators and gauge blocks trusted in precision engineering workshops worldwide. The industry standard for dimensional measurement.",
@@ -198,7 +198,7 @@
         "new_1": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/STR156M.jpg",
             "show_badge": true,
             "badge_text": "BESTSELLER",
             "launch_date": "",
@@ -215,7 +215,7 @@
         "new_2": {
           "type": "product_feature",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/STR161A.jpg",
             "show_badge": true,
             "badge_text": "PROFESSIONAL",
             "launch_date": "",
@@ -264,7 +264,7 @@
           "settings": {
             "stat_value": "CT",
             "title": "Bi-Metal & Carbide Hole Saws",
-            "description": "From Fast Cut bi-metal for sheet steel to tungsten carbide tipped for abrasive materials, Starrett offers a hole saw for every application — each engineered for maximum blade life and clean cuts."
+            "description": "From Fast Cut bi-metal for sheet steel to tungsten carbide tipped for abrasive materials, Starrett offers a hole saw for every application \u2014 each engineered for maximum blade life and clean cuts."
           }
         },
         "benefit_4": {
@@ -312,25 +312,25 @@
         "cat_1": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/STR156M.jpg",
             "title": "Hole Saws & Accessories",
-            "description": "Bi-metal, carbide tipped and deep cut hole saws in every diameter — plus arbors, pilot drills and kits for plumbing, electrical and general construction.",
+            "description": "Bi-metal, carbide tipped and deep cut hole saws in every diameter \u2014 plus arbors, pilot drills and kits for plumbing, electrical and general construction.",
             "url": ""
           }
         },
         "cat_2": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/STR161A.jpg",
             "title": "Measuring Tools",
-            "description": "Micrometers, calipers, dial indicators, tape measures, levels and protractors — precision instruments for workshop and jobsite measurement.",
+            "description": "Micrometers, calipers, dial indicators, tape measures, levels and protractors \u2014 precision instruments for workshop and jobsite measurement.",
             "url": ""
           }
         },
         "cat_3": {
           "type": "category",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/STR156M.jpg",
             "title": "Saw Blades",
             "description": "Band saw blades, reciprocating saw blades and jig saw blades for cutting metal, wood, plastics and composites. Bi-metal and carbide tipped options available.",
             "url": ""
@@ -351,11 +351,11 @@
     "video": {
       "type": "brand-video",
       "settings": {
-        "thumbnail": "",
-        "video_url": "",
+        "thumbnail": "shopify://shop_images/STR156M.jpg",
+        "video_url": "https://youtu.be/VXqSvVOx-_A",
         "section_label": "See It In Action",
         "title": "Starrett Hole Saw Technology Explained",
-        "description": "Discover the engineering behind Starrett's bi-metal and carbide tipped hole saws — built for faster, cleaner cuts across every material.",
+        "description": "Discover the engineering behind Starrett's bi-metal and carbide tipped hole saws \u2014 built for faster, cleaner cuts across every material.",
         "feature_1": "Bi-metal for steel and pipe",
         "feature_2": "Carbide tipped for abrasives",
         "feature_3": "Deep cut for thick materials",
@@ -376,7 +376,7 @@
           "type": "faq",
           "settings": {
             "question": "What is the difference between bi-metal and carbide tipped hole saws?",
-            "answer": "<p><strong>Bi-metal hole saws</strong> use high-speed steel teeth welded to a spring steel body — ideal for cutting mild steel, stainless steel, copper, aluminium and wood. <strong>Carbide tipped hole saws</strong> use tungsten carbide teeth for cutting abrasive and difficult materials like nail-embedded wood, fibreglass, reinforced concrete and cast iron. Carbide tipped saws last significantly longer on abrasive materials but cost more upfront.</p>"
+            "answer": "<p><strong>Bi-metal hole saws</strong> use high-speed steel teeth welded to a spring steel body \u2014 ideal for cutting mild steel, stainless steel, copper, aluminium and wood. <strong>Carbide tipped hole saws</strong> use tungsten carbide teeth for cutting abrasive and difficult materials like nail-embedded wood, fibreglass, reinforced concrete and cast iron. Carbide tipped saws last significantly longer on abrasive materials but cost more upfront.</p>"
           }
         },
         "faq_3": {
@@ -390,7 +390,7 @@
           "type": "faq",
           "settings": {
             "question": "Do you offer trade pricing on Starrett?",
-            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Starrett range including hole saws, measuring tools and saw blades. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. We also provide free next-day delivery on all orders over £99.</p>"
+            "answer": "<p>Yes. We offer <strong>competitive trade pricing</strong> across the full Starrett range including hole saws, measuring tools and saw blades. Contact our trade team on <strong>01843 593 440</strong> or email <strong>sales@invictatools.co.uk</strong> for volume discounts and trade account enquiries. We also provide free next-day delivery on all orders over \u00a399.</p>"
           }
         },
         "faq_5": {
