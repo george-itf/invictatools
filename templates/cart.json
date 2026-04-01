@@ -1,9 +1,22 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "cart-items": {
       "type": "main-cart-items",
       "settings": {
         "color_scheme": "scheme-2",
+        "show_free_shipping_bar": true,
+        "free_shipping_threshold": 3000,
+        "show_delivery_estimate": true,
+        "cutoff_hour": 14,
         "padding_top": 36,
         "padding_bottom": 8
       }
@@ -20,7 +33,10 @@
           "settings": {}
         }
       },
-      "block_order": ["subtotal", "buttons"],
+      "block_order": [
+        "subtotal",
+        "buttons"
+      ],
       "settings": {
         "color_scheme": "scheme-2",
         "padding_top": 0,
@@ -38,12 +54,15 @@
     },
     "featured-collection": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "collection": "featured-powertools",
         "products_to_show": 10,
+        "header_style": "bar",
         "title": "More industry favourites",
         "description": "",
         "show_description": false,
+        "show_product_count": false,
         "columns_desktop": 5,
         "enable_desktop_slider": true,
         "show_view_all": false,
@@ -54,5 +73,10 @@
       }
     }
   },
-  "order": ["cart-items", "cart-footer", "cart_recommendations", "featured-collection"]
+  "order": [
+    "cart-items",
+    "cart-footer",
+    "cart_recommendations",
+    "featured-collection"
+  ]
 }
