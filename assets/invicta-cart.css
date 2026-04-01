@@ -79,7 +79,7 @@ cart-items .inv-cart-header__continue.inv-cart-header__continue {
   padding: 0.8rem 1.6rem;
   border: 2px solid var(--inv-accent);
   border-radius: 0;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition: background-color var(--inv-transition-normal) ease, border-color var(--inv-transition-normal) ease, color var(--inv-transition-normal) ease;
   white-space: nowrap;
   background: var(--inv-bg-elevated);
   opacity: 1;
@@ -92,7 +92,7 @@ cart-items .inv-cart-header__continue.inv-cart-header__continue:hover {
 }
 
 .inv-cart-header__continue svg {
-  transition: transform 0.15s ease;
+  transition: transform var(--inv-transition-normal) ease;
 }
 
 .inv-cart-header__continue:hover svg {
@@ -242,7 +242,7 @@ cart-items .cart-items thead th.caption-with-letter-spacing {
 .cart-item__image {
   border-radius: 0;
   object-fit: cover;
-  transition: transform 0.2s ease;
+  transition: transform var(--inv-transition-normal) ease;
 }
 
 .cart-item__media:hover .cart-item__image {
@@ -380,7 +380,7 @@ cart-items .cart-quantity .quantity__button {
   justify-content: center;
   cursor: pointer;
   color: var(--inv-fg-secondary);
-  transition: background 0.1s ease;
+  transition: background-color var(--inv-transition-normal) ease;
   padding: 0;
 }
 
@@ -441,9 +441,9 @@ cart-items cart-remove-button .button,
 cart-items cart-remove-button .button.button--tertiary,
 cart-items cart-remove-button a.button {
   color: var(--inv-fg-subtle);
-  min-height: 3.6rem;
-  min-width: 3.6rem;
-  transition: color 0.15s ease, background 0.15s ease;
+  min-height: 4.4rem;
+  min-width: 4.4rem;
+  transition: color var(--inv-transition-normal) ease, background-color var(--inv-transition-normal) ease;
   background: transparent;
   border: none;
   padding: 0.4rem;
@@ -561,7 +561,7 @@ cart-items cart-remove-button .icon-remove {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.15s ease, transform 0.1s ease;
+  transition: background-color var(--inv-transition-normal) ease, transform var(--inv-transition-normal) ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -744,7 +744,7 @@ cart-items cart-remove-button .icon-remove {
   height: 100%;
   background: var(--inv-accent);
   border-radius: 0;
-  transition: width 0.3s ease;
+  transition: width var(--inv-transition-normal) ease;
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -852,12 +852,12 @@ cart-items .discounts__discount svg {
 .cart-drawer .drawer__close.drawer__close {
   background: var(--inv-bg-soft);
   border-radius: 50%;
-  min-width: 3.6rem;
-  min-height: 3.6rem;
+  min-width: 4.4rem;
+  min-height: 4.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s ease;
+  transition: background-color var(--inv-transition-normal) ease;
   border: none;
   box-shadow: none;
 }
@@ -928,7 +928,7 @@ cart-items .discounts__discount svg {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   height: 48px;
-  transition: background 0.15s ease;
+  transition: background-color var(--inv-transition-normal) ease;
   box-shadow: none;
 }
 
@@ -974,7 +974,7 @@ cart-items .discounts__discount svg {
   padding: 0.8rem;
   text-align: center;
   text-decoration: none;
-  transition: border-color 0.15s ease;
+  transition: border-color var(--inv-transition-normal) ease;
 }
 
 .inv-cart-crosssell__item:hover {
