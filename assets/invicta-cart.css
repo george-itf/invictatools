@@ -937,6 +937,12 @@ cart-items .discounts__discount svg {
   background: var(--inv-accent-hover);
 }
 
+/* Free delivery bar — pinned below drawer header */
+.inv-drawer-delivery-bar {
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--inv-border);
+}
+
 /* Cross-sell section */
 .inv-cart-crosssell {
   padding: 1.4rem 0 0;
