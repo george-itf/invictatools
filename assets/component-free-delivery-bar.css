@@ -27,14 +27,14 @@
   .inv-delivery-bar__track {
     height: 6px;
     background: var(--inv-border, #e5e7eb);
-    border-radius: 3px;
+    border-radius: 0;
     overflow: hidden;
   }
   .inv-delivery-bar__fill {
     height: 100%;
-    border-radius: 3px;
+    border-radius: 0;
     background: var(--inv-accent, #e11d26);
-    transition: width 0.3s ease;
+    transition: width var(--inv-transition-normal, 150ms) ease;
     min-width: 0;
     max-width: 100%;
   }

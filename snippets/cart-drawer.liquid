@@ -103,6 +103,11 @@
           </span>
         </button>
       </div>
+      {%- if cart != empty -%}
+        <div class="inv-drawer-delivery-bar">
+          {% render 'invicta-free-delivery-bar' %}
+        </div>
+      {%- endif -%}
       <div class="cart-drawer__scrollable-body">
       <cart-drawer-items
         {% if cart == empty %}
@@ -507,8 +512,6 @@
         These scroll with the cart items when the list is long.
       {%- endcomment -%}
       <div class="drawer__footer drawer__footer--scrollable">
-        {%- comment -%} CX v1.0: Enhanced delivery bar with animation class {%- endcomment -%}
-        {% render 'invicta-free-delivery-bar' %}
         {% render 'invicta-delivery-estimate', compact: true %}
 
         {%- comment -%} CX v2.0: Dynamic cross-sell via Recommendations API {%- endcomment -%}
@@ -537,25 +540,19 @@
           </div>
           <script src="{{ 'cart-drawer-crosssell.js' | asset_url }}" defer="defer"></script>
         {%- endif -%}
-        {%- if settings.show_cart_note -%}
-          <details id="Details-CartDrawer">
-            <summary>
-              <span class="summary__title">
-                {{ 'sections.cart.note' | t }}
-                {{- 'icon-caret.svg' | inline_asset_content -}}
-              </span>
-            </summary>
-            <cart-note class="cart__note field">
-              <label class="visually-hidden" for="CartDrawer-Note">{{ 'sections.cart.note' | t }}</label>
-              <textarea
-                id="CartDrawer-Note"
-                class="text-area text-area--resize-vertical field__input"
-                name="note"
-                placeholder="{{ 'sections.cart.note' | t }}"
-              >{{ cart.note }}</textarea>
-            </cart-note>
-          </details>
-        {%- endif -%}
+        <div class="inv-cart-note">
+          <cart-note class="cart__note">
+            <label class="visually-hidden" for="CartDrawer-Note">{{ 'sections.cart.note' | t }}</label>
+            <textarea
+              id="CartDrawer-Note"
+              class="inv-cart-note__textarea"
+              name="note"
+              form="CartDrawer-Form"
+              rows="2"
+              placeholder="Order notes (e.g. delivery instructions, PO number)"
+            >{{ cart.note }}</textarea>
+          </cart-note>
+        </div>
       </div>
       </div>{%- comment -%} End .cart-drawer__scrollable-body {%- endcomment -%}
 
