@@ -44,13 +44,17 @@
 /* ===================================================================
    CRITICAL: Prevent FOUC on slider before external CSS/JS loads.
    Without this, all 3 slides + huge SVG icons flash on first paint.
+   These rules are intentionally duplicated from component-slider.css
+   so they apply instantly (inline) before the external sheet loads.
    =================================================================== */
 
+/* slideshow-component is an unknown element until JS registers it */
 slideshow-component {
   display: flex;
   flex-direction: column;
 }
 
+/* The slider wrapper: flex row, hide overflow so only 1 slide visible */
 .announcement-bar-slider {
   display: flex;
   align-items: center;
@@ -64,6 +68,7 @@ slideshow-component {
   margin-bottom: 0;
 }
 
+/* Each slide: full width, side by side, clipped by overflow */
 .announcement-bar-slider .slider__slide {
   flex: 0 0 100%;
   width: 100%;
@@ -71,6 +76,7 @@ slideshow-component {
   scroll-snap-align: center;
 }
 
+/* Constrain slider nav buttons */
 .announcement-bar-slider .slider-button {
   display: flex;
   align-items: center;
@@ -85,6 +91,7 @@ slideshow-component {
   padding: 0;
 }
 
+/* Lock SVG icon sizes so they can never blow out */
 .announcement-bar-slider .slider-button .svg-wrapper {
   display: inline-flex;
   align-items: center;
@@ -99,6 +106,7 @@ slideshow-component {
   height: 14px;
 }
 
+/* Arrow icon inside each announcement link */
 .announcement-bar__message .icon,
 .announcement-bar__message .icon-arrow {
   width: 1rem;
