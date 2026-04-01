@@ -45,18 +45,112 @@
       </a>
     </div>
 
-    <div class="cart__warnings">
-      <h2 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h2>
-      <a href="{{ routes.all_products_collection_url }}" class="button">
-        {{ 'general.continue_shopping' | t }}
-      </a>
-      {%- if shop.customer_accounts_enabled and customer == null -%}
-        <h2 class="cart__login-title">{{ 'sections.cart.login.title' | t }}</h2>
-        <p class="cart__login-paragraph">
-          {{ 'sections.cart.login.paragraph_html' | t: link: routes.account_login_url }}
-        </p>
-      {%- endif -%}
-    </div>
+    {%- if cart == empty -%}
+      <div class="inv-cart-empty">
+        <div class="inv-cart-empty__hero">
+          <svg class="inv-cart-empty__icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="9" cy="21" r="1"/>
+            <circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+          <h1 class="inv-cart-empty__title">Your cart is empty</h1>
+          <p class="inv-cart-empty__text">Looks like you haven't added anything yet. Browse our range to find what you need.</p>
+          <a href="{{ routes.all_products_collection_url }}" class="inv-cart-empty__cta">
+            Continue Shopping
+          </a>
+        </div>
+
+        <div class="inv-cart-empty__recent" data-empty-recent style="display: none;">
+          <h2 class="inv-cart-empty__recent-title">Recently Viewed</h2>
+          <div class="inv-cart-empty__recent-grid" data-empty-recent-grid></div>
+        </div>
+      </div>
+
+      <script>
+        (function() {
+          'use strict';
+          var STORAGE_KEY = 'invicta_recently_viewed_v3';
+          var container = document.querySelector('[data-empty-recent]');
+          var grid = document.querySelector('[data-empty-recent-grid]');
+          if (!container || !grid) return;
+
+          var raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return;
+
+          var handles;
+          try { handles = JSON.parse(raw); } catch(e) { return; }
+          if (!Array.isArray(handles) || handles.length === 0) return;
+
+          // Show max 6 recently viewed products
+          handles = handles.slice(0, 6);
+
+          var moneyFormat = {{ shop.money_format | json }};
+          var vatRate = {{ settings.inv_vat_rate | default: 20 }};
+
+          function formatMoney(pence) {
+            return moneyFormat.replace('{{amount}}', (pence / 100).toFixed(2))
+                              .replace('{{amount_no_decimals}}', Math.round(pence / 100).toString())
+                              .replace('{{amount_with_comma_separator}}', (pence / 100).toFixed(2).replace('.', ','));
+          }
+
+          function calcExVat(pence) {
+            var divisor = 100 + vatRate;
+            return Math.round((pence * 100 + Math.floor(divisor / 2)) / divisor);
+          }
+
+          var fetched = 0;
+          var products = [];
+
+          handles.forEach(function(handle) {
+            fetch('/products/' + encodeURIComponent(handle) + '.js')
+              .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+              .then(function(product) { products.push(product); })
+              .catch(function() { /* skip unavailable products */ })
+              .finally(function() {
+                fetched++;
+                if (fetched === handles.length) renderProducts();
+              });
+          });
+
+          function renderProducts() {
+            if (products.length === 0) return;
+            container.style.display = '';
+
+            // Sort products to match original handle order
+            var ordered = [];
+            handles.forEach(function(h) {
+              var p = products.find(function(pr) { return pr.handle === h; });
+              if (p) ordered.push(p);
+            });
+
+            ordered.forEach(function(product) {
+              var variant = product.variants[0];
+              if (!variant) return;
+              var price = variant.price;
+              var exVat = calcExVat(price);
+              var imgUrl = product.featured_image || '';
+              if (imgUrl && imgUrl.indexOf('cdn.shopify.com') > -1) {
+                imgUrl = imgUrl.replace(/\.([a-z]+)(\?|$)/, '_400x400.$1$2');
+              }
+
+              var card = document.createElement('a');
+              card.href = product.url || '/products/' + product.handle;
+              card.className = 'inv-cart-empty__recent-card';
+              card.innerHTML =
+                '<div class="inv-cart-empty__recent-card-img">' +
+                  (imgUrl ? '<img src="' + imgUrl + '" alt="' + (product.title || '').replace(/"/g, '&quot;') + '" loading="lazy" width="200" height="200">' : '') +
+                '</div>' +
+                '<div class="inv-cart-empty__recent-card-body">' +
+                  '<span class="inv-cart-empty__recent-card-title">' + product.title + '</span>' +
+                  '<span class="inv-cart-empty__recent-card-price" data-price-inc>' + formatMoney(price) + '</span>' +
+                  '<span class="inv-cart-empty__recent-card-price inv-vat--hidden" data-price-ex>' + formatMoney(exVat) + ' ex VAT</span>' +
+                '</div>';
+              grid.appendChild(card);
+            });
+          }
+        })();
+      </script>
+    {%- endif -%}
 
     <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
 
