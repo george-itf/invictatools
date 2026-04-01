@@ -14,7 +14,7 @@
       "settings": {
         "color_scheme": "scheme-2",
         "show_free_shipping_bar": true,
-        "free_shipping_threshold": 3000,
+        "free_shipping_threshold": 9999,
         "show_delivery_estimate": true,
         "cutoff_hour": 14,
         "padding_top": 36,
