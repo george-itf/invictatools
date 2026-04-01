@@ -103,6 +103,11 @@
           </span>
         </button>
       </div>
+      {%- if cart != empty -%}
+        <div class="inv-drawer-delivery-bar">
+          {% render 'invicta-free-delivery-bar' %}
+        </div>
+      {%- endif -%}
       <div class="cart-drawer__scrollable-body">
       <cart-drawer-items
         {% if cart == empty %}
@@ -507,8 +512,6 @@
         These scroll with the cart items when the list is long.
       {%- endcomment -%}
       <div class="drawer__footer drawer__footer--scrollable">
-        {%- comment -%} CX v1.0: Enhanced delivery bar with animation class {%- endcomment -%}
-        {% render 'invicta-free-delivery-bar' %}
         {% render 'invicta-delivery-estimate', compact: true %}
 
         {%- comment -%} CX v1.0: Cross-sell "You might also need" section {%- endcomment -%}
