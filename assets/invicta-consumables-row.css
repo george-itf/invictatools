@@ -1,0 +1,72 @@
+/* =======================================================================
+   Invicta Consumables Row v1.0
+   -----------------------------------------------------------------------
+   Curated consumables/accessories cross-sell section.
+   Mirrors inv-related layout with a warm background tint.
+   ======================================================================= */
+
+.inv-consumables {
+  padding: 48px 0;
+  border-top: 1px solid var(--inv-border-skeleton, #e5e5e5);
+  background: var(--inv-bg-soft, #fafafa);
+}
+
+.inv-consumables__container {
+  max-width: var(--inv-page-width, 1320px);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.inv-consumables__header {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.inv-consumables__title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--inv-dark);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.inv-consumables__title::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--inv-accent);
+  margin: 12px auto 0;
+  border-radius: 0;
+}
+
+.inv-consumables__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.inv-consumables__item {
+  min-width: 0;
+}
+
+/* Tablet: 3 columns */
+@media (max-width: 989px) {
+  .inv-consumables__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Mobile: 2 columns, horizontal scroll */
+@media (max-width: 749px) {
+  .inv-consumables__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .inv-consumables__title {
+    font-size: 20px;
+  }
+}

@@ -20,9 +20,18 @@
   ============================================
 {% endcomment %}
 
-{{ 'invicta-product-v2.css' | asset_url | stylesheet_tag }}
-{{ 'section-invicta-product-v2.css' | asset_url | stylesheet_tag }}
-{{ 'section-invicta-product-mobile.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+  Critical CSS inlined for fast FCP. Full styles loaded async below.
+{%- endcomment -%}
+{% render 'critical-pdp-css' %}
+<link rel="stylesheet" href="{{ 'invicta-product-v2.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'section-invicta-product-v2.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'section-invicta-product-mobile.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>
+  {{ 'invicta-product-v2.css' | asset_url | stylesheet_tag }}
+  {{ 'section-invicta-product-v2.css' | asset_url | stylesheet_tag }}
+  {{ 'section-invicta-product-mobile.css' | asset_url | stylesheet_tag }}
+</noscript>
 
 {% liquid
   comment
@@ -366,7 +375,94 @@
           {% endfor %}
         </div>
       {% endif %}
-      
+
+      {%- comment -%} COMPATIBLE PRODUCTS (Battery Ecosystem) {%- endcomment -%}
+      {%- liquid
+        assign compat_json = product.metafields.custom.compatible_products
+        assign compat_products = blank
+        if compat_json != blank
+          assign compat_handles = compat_json | replace: '[', '' | replace: ']', '' | replace: '"', '' | split: ','
+          assign compat_count = 0
+          for h in compat_handles
+            assign h_clean = h | strip
+            if h_clean != blank
+              assign compat_count = compat_count | plus: 1
+            endif
+          endfor
+        endif
+      -%}
+      {%- if compat_count > 0 -%}
+        <div class="inv-pdp__compat">
+          <h2 class="inv-pdp__compat-heading">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
+              <path d="M6 7h11a4 4 0 0 1 0 8h-1"/>
+              <path d="m6.5 12 3.5 3.5L6.5 19"/>
+              <line x1="2" y1="12" x2="10" y2="12"/>
+            </svg>
+            Works With This Tool
+          </h2>
+          <div class="inv-pdp__compat-row">
+            {%- for h in compat_handles -%}
+              {%- assign h_clean = h | strip -%}
+              {%- if h_clean == blank -%}{%- continue -%}{%- endif -%}
+              {%- assign compat_product = all_products[h_clean] -%}
+              {%- if compat_product == blank or compat_product.title == blank -%}{%- continue -%}{%- endif -%}
+
+              {%- assign cp_variant = compat_product.selected_or_first_available_variant -%}
+              {%- assign cp_available = cp_variant.available -%}
+              {%- assign cp_price = cp_variant.price -%}
+              {%- assign cp_price_ex = cp_price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor -%}
+              {%- assign cp_image = compat_product.featured_image -%}
+
+              <div class="inv-pdp__compat-card">
+                <a href="{{ compat_product.url }}" class="inv-pdp__compat-card-img">
+                  {%- if cp_image -%}
+                    <img
+                      src="{{ cp_image | image_url: width: 160 }}"
+                      alt="{{ cp_image.alt | escape | default: compat_product.title }}"
+                      width="80"
+                      height="80"
+                      loading="lazy"
+                    >
+                  {%- endif -%}
+                </a>
+                <div class="inv-pdp__compat-card-body">
+                  <a href="{{ compat_product.url }}" class="inv-pdp__compat-card-title">
+                    {{ compat_product.title | truncate: 50 }}
+                  </a>
+                  <div class="inv-pdp__compat-card-price">
+                    <span data-price-inc>{{ cp_price | money }}</span>
+                    <span class="inv-vat--hidden" data-price-ex>{{ cp_price_ex | money }}</span>
+                  </div>
+                  <span class="inv-pdp__compat-card-stock inv-pdp__compat-card-stock--{{ cp_available | default: false }}">
+                    {%- if cp_available -%}In Stock{%- else -%}Out of Stock{%- endif -%}
+                  </span>
+                </div>
+                {%- if cp_available and compat_product.has_only_default_variant -%}
+                  <button
+                    type="button"
+                    class="inv-pdp__compat-card-add"
+                    data-add-to-cart
+                    data-variant-id="{{ cp_variant.id }}"
+                    data-quantity="1"
+                    aria-label="Add {{ compat_product.title | escape }} to cart"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
+                      <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                    Add
+                  </button>
+                {%- elsif cp_available -%}
+                  <a href="{{ compat_product.url }}" class="inv-pdp__compat-card-add">
+                    View
+                  </a>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+
       {%- comment -%} PRODUCT INFO — Accordion Sections {%- endcomment -%}
       <div class="inv-pdp__info" data-product-info>
 
@@ -483,13 +579,32 @@
                 {{ section.settings.in_stock_text | default: 'In Stock — Ready to Ship' }}
               {%- endif -%}
             </span>
+            {%- if is_in_stock and stock_source == 'invicta' and show_low_stock == false -%}
+              <span class="inv-pdp__stock-origin">{{ section.settings.invicta_origin_text | default: 'Ships from our warehouse' }}</span>
+            {%- endif -%}
             {%- if is_in_stock and stock_source == 'supplier' -%}
-              <span class="inv-pdp__stock-dispatch" data-dispatch-text>{{ supplier_dispatch_text }}</span>
+              <span class="inv-pdp__stock-dispatch" data-dispatch-text>
+                {{ supplier_dispatch_text }}
+              </span>
+              <details class="inv-pdp__stock-info-details">
+                <summary class="inv-pdp__stock-info-trigger">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                  How does this work?
+                </summary>
+                <p class="inv-pdp__stock-info-body">{{ section.settings.supplier_info_text | default: 'This item is sourced from our supplier network. Once received at our warehouse, we inspect and dispatch to you.' }}</p>
+              </details>
             {%- else -%}
               <span class="inv-pdp__stock-dispatch inv-pdp--hidden" data-dispatch-text></span>
             {%- endif -%}
           </div>
         </div>
+        {%- comment -%} BRANCH COLLECTION TEASER (Invicta stock only) {%- endcomment -%}
+        {%- if is_in_stock and stock_source == 'invicta' and section.settings.show_click_collect -%}
+          <div class="inv-pdp__branch-teaser">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>Also available for collection — <a href="#inv-pdp-collect">Canterbury &amp; Ramsgate</a></span>
+          </div>
+        {%- endif -%}
 
         <div class="inv-pdp__buybox-body">
 
@@ -780,14 +895,57 @@
               <span>Authorised Dealer</span>
             </span>
             <span class="inv-pdp__trust-link">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" focusable="false" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-              <span>Full Manufacturer Warranty</span>
-            </span>
-            <span class="inv-pdp__trust-link">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" focusable="false" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               <span>Secure Checkout</span>
             </span>
           </div>
+
+          {%- comment -%} WARRANTY INFO CARD — expandable details below trust strip {%- endcomment -%}
+          <details class="inv-pdp__warranty-details">
+            <summary class="inv-pdp__warranty-summary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" focusable="false" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              <span>Full Manufacturer Warranty</span>
+              <svg class="inv-pdp__warranty-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="inv-pdp__warranty-card">
+              {%- liquid
+                assign warranty_period = product.metafields.custom.warranty_period
+                assign manual_url = product.metafields.custom.manual_url
+              -%}
+              <div class="inv-pdp__warranty-card-row">
+                <span class="inv-pdp__warranty-card-label">Warranty</span>
+                <span class="inv-pdp__warranty-card-value">
+                  {%- if warranty_period != blank -%}
+                    {{ warranty_period }}
+                  {%- else -%}
+                    Full manufacturer warranty
+                  {%- endif -%}
+                </span>
+              </div>
+              <div class="inv-pdp__warranty-card-row">
+                <span class="inv-pdp__warranty-card-label">Coverage</span>
+                <span class="inv-pdp__warranty-card-value">{{ section.settings.warranty_coverage | default: 'Manufacturing defects. Normal wear parts excluded.' }}</span>
+              </div>
+              <div class="inv-pdp__warranty-card-row">
+                <span class="inv-pdp__warranty-card-label">How to claim</span>
+                <span class="inv-pdp__warranty-card-value">{{ section.settings.warranty_claim_text | default: 'Bring to Canterbury or Ramsgate, or contact us for collection.' }}</span>
+              </div>
+              {%- if manual_url != blank -%}
+                <div class="inv-pdp__warranty-card-row">
+                  <span class="inv-pdp__warranty-card-label">Manual</span>
+                  <span class="inv-pdp__warranty-card-value">
+                    <a href="{{ manual_url }}" target="_blank" rel="noopener">Download product manual</a>
+                  </span>
+                </div>
+              {%- endif -%}
+              <div class="inv-pdp__warranty-card-row">
+                <span class="inv-pdp__warranty-card-label">Support</span>
+                <span class="inv-pdp__warranty-card-value">
+                  <a href="tel:01843210459">01843 210 459</a>
+                </span>
+              </div>
+            </div>
+          </details>
 
         </div>
       </div>
@@ -1058,6 +1216,13 @@
       "default": "Typically dispatches within 1-2 working days"
     },
     {
+      "type": "text",
+      "id": "invicta_origin_text",
+      "label": "Warehouse origin text",
+      "default": "Ships from our warehouse",
+      "info": "Shown below in-stock text for items held in your warehouse"
+    },
+    {
       "type": "header",
       "content": "Supplier Stock — Defaults"
     },
@@ -1082,6 +1247,13 @@
       "id": "supplier_delivery_estimate",
       "label": "Supplier delivery estimate (delivery row)",
       "default": "3–5 working days"
+    },
+    {
+      "type": "textarea",
+      "id": "supplier_info_text",
+      "label": "Supplier info expandable text",
+      "default": "This item is sourced from our supplier network. Once received at our warehouse, we inspect and dispatch to you.",
+      "info": "Shown when customer clicks 'How does this work?' on supplier stock items"
     },
     {
       "type": "header",
@@ -1138,6 +1310,22 @@
       "max": 2000,
       "step": 50,
       "default": 500
+    },
+    {
+      "type": "header",
+      "content": "Warranty"
+    },
+    {
+      "type": "text",
+      "id": "warranty_coverage",
+      "label": "Warranty coverage text",
+      "default": "Manufacturing defects. Normal wear parts excluded."
+    },
+    {
+      "type": "text",
+      "id": "warranty_claim_text",
+      "label": "How to claim text",
+      "default": "Bring to Canterbury or Ramsgate, or contact us for collection."
     },
     {
       "type": "header",

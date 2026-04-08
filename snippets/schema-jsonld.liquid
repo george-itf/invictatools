@@ -129,10 +129,85 @@
     ,"mpn": {{ current_variant.sku | json }}
   {%- endif -%}
   {%- if product.vendor != blank -%}
+    {%- comment -%} 6c: Brand with sameAs URL lookup {%- endcomment -%}
+    {%- liquid
+      assign vendor_lower = product.vendor | downcase
+      assign brand_same_as = ''
+      if vendor_lower contains 'makita'
+        assign brand_same_as = 'https://www.makita.co.uk/'
+      elsif vendor_lower contains 'dewalt'
+        assign brand_same_as = 'https://www.dewalt.co.uk/'
+      elsif vendor_lower contains 'hikoki'
+        assign brand_same_as = 'https://www.hikoki-powertools.co.uk/'
+      elsif vendor_lower contains 'milwaukee'
+        assign brand_same_as = 'https://www.milwaukeetool.co.uk/'
+      elsif vendor_lower contains 'bosch'
+        assign brand_same_as = 'https://www.bosch-professional.com/gb/en/'
+      elsif vendor_lower contains 'stanley'
+        assign brand_same_as = 'https://www.stanleytools.co.uk/'
+      elsif vendor_lower contains 'irwin'
+        assign brand_same_as = 'https://www.irwintools.co.uk/'
+      elsif vendor_lower contains 'bahco'
+        assign brand_same_as = 'https://www.bahco.com/'
+      elsif vendor_lower contains 'trend'
+        assign brand_same_as = 'https://www.trend-uk.com/'
+      elsif vendor_lower contains 'faithfull'
+        assign brand_same_as = 'https://www.faithfulltools.com/'
+      endif
+    -%}
     ,"brand": {
       "@type": "Brand",
       "name": {{ product.vendor | json }}
+      {%- if brand_same_as != blank -%}
+        ,"sameAs": {{ brand_same_as | json }}
+      {%- endif -%}
     }
+  {%- endif -%}
+  {%- comment -%} 6a: PropertyValue specifications from metafields {%- endcomment -%}
+  {%- liquid
+    assign has_specs = false
+    if product.metafields.custom.voltage != blank or product.metafields.custom.max_torque != blank or product.metafields.custom.motor_type != blank
+      assign has_specs = true
+    endif
+  -%}
+  {%- if has_specs -%}
+    ,"additionalProperty": [
+      {%- assign spec_comma = false -%}
+      {%- if product.metafields.custom.voltage != blank -%}
+        {%- if spec_comma -%},{%- endif -%}
+        {
+          "@type": "PropertyValue",
+          "name": "Voltage",
+          "value": {{ product.metafields.custom.voltage | json }}
+          {%- assign voltage_str = product.metafields.custom.voltage | downcase -%}
+          {%- if voltage_str contains 'v' -%}
+            ,"unitCode": "VLT"
+          {%- endif -%}
+        }
+        {%- assign spec_comma = true -%}
+      {%- endif -%}
+      {%- if product.metafields.custom.max_torque != blank -%}
+        {%- if spec_comma -%},{%- endif -%}
+        {
+          "@type": "PropertyValue",
+          "name": "Max Torque",
+          "value": {{ product.metafields.custom.max_torque | json }}
+          {%- assign torque_str = product.metafields.custom.max_torque | downcase -%}
+          {%- if torque_str contains 'nm' or torque_str contains 'n.m' -%}
+            ,"unitCode": "NU"
+          {%- endif -%}
+        }
+        {%- assign spec_comma = true -%}
+      {%- endif -%}
+      {%- if product.metafields.custom.motor_type != blank -%}
+        {%- if spec_comma -%},{%- endif -%}
+        {
+          "@type": "PropertyValue",
+          "name": "Motor Type",
+          "value": {{ product.metafields.custom.motor_type | json }}
+        }
+      {%- endif -%}
+    ]
   {%- endif -%}
   ,"offers": {
     "@type": "Offer",
@@ -149,6 +224,87 @@
   }
 }
 </script>
+
+{%- comment -%} ===== 6b: FAQ SCHEMA from product description sections ===== {%- endcomment -%}
+{%- liquid
+  assign faq_desc = product.description
+  assign faq_pairs = ''
+  assign faq_count = 0
+
+  comment
+    Extract Key Features content — look for the heading marker
+  endcomment
+  assign kf_marker_lower = 'key features'
+  assign desc_lower = faq_desc | downcase
+  if desc_lower contains kf_marker_lower
+    assign kf_split = faq_desc | split: 'Key Features'
+    if kf_split.size > 1
+      assign kf_raw = kf_split[1] | split: '<h' | first
+      assign kf_clean = kf_raw | strip_html | strip | truncate: 2000
+      if kf_clean != blank
+        assign faq_count = faq_count | plus: 1
+      endif
+    endif
+  endif
+
+  comment
+    Extract What's in the Box content
+  endcomment
+  assign witb_found = false
+  assign witb_clean = ''
+  if desc_lower contains 'in the box' or desc_lower contains 'what' and desc_lower contains 'included'
+    assign witb_markers = 'What,In the Box,Included' | split: ','
+    for marker in witb_markers
+      if faq_desc contains marker
+        assign witb_split = faq_desc | split: marker
+        if witb_split.size > 1
+          assign witb_raw = witb_split.last | split: '<h' | first
+          assign witb_test = witb_raw | strip_html | strip
+          if witb_test != blank and witb_test.size > 5
+            assign witb_clean = witb_test | truncate: 2000
+            assign witb_found = true
+            assign faq_count = faq_count | plus: 1
+            break
+          endif
+        endif
+      endif
+    endfor
+  endif
+-%}
+{%- if faq_count > 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- assign faq_comma = false -%}
+    {%- if kf_clean != blank -%}
+      {%- if faq_comma -%},{%- endif -%}
+      {
+        "@type": "Question",
+        "name": "What are the key features?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": {{ kf_clean | json }}
+        }
+      }
+      {%- assign faq_comma = true -%}
+    {%- endif -%}
+    {%- if witb_found and witb_clean != blank -%}
+      {%- if faq_comma -%},{%- endif -%}
+      {
+        "@type": "Question",
+        "name": "What's in the box?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": {{ witb_clean | json }}
+        }
+      }
+    {%- endif -%}
+  ]
+}
+</script>
+{%- endif -%}
 {%- endif -%}
 
 {%- comment -%} ===== BREADCRUMBLIST SCHEMA ===== {%- endcomment -%}

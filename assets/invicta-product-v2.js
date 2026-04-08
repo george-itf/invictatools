@@ -112,6 +112,25 @@
       const temp = document.createElement('div');
       temp.innerHTML = html;
 
+      /* Strip CMS meta prefixes that leak into the description field.
+         These are SEO metadata entries embedded in the product description
+         by the CMS and should never display to customers. */
+      var metaPrefixes = ['product title:', 'meta title:', 'meta description:'];
+      (function stripMetaLines(parent) {
+        var nodes = Array.from(parent.childNodes);
+        nodes.forEach(function(node) {
+          if (node.nodeType === 1 || node.nodeType === 3) {
+            var text = node.textContent.trim().toLowerCase();
+            for (var i = 0; i < metaPrefixes.length; i++) {
+              if (text.indexOf(metaPrefixes[i]) === 0) {
+                parent.removeChild(node);
+                return;
+              }
+            }
+          }
+        });
+      })(temp);
+
       const foundSections = {};
       let currentSection = 'description';
       let currentContent = [];
@@ -372,6 +391,27 @@
     }
 
     parseDescription();
+
+    /* ========================================
+       AUTO-EXPAND KEY SECTIONS
+       Description is already open via Liquid markup.
+       Key Features: open on all viewports.
+       Specifications: open on desktop (>749px) only.
+       ======================================== */
+    (function autoExpandSections() {
+      var alwaysOpen = ['why-buy'];
+      var desktopOnly = ['specifications'];
+      var isDesktop = window.matchMedia('(min-width: 750px)').matches;
+
+      var keys = alwaysOpen.concat(isDesktop ? desktopOnly : []);
+      keys.forEach(function(key) {
+        var row = section.querySelector('[data-row="' + key + '"]');
+        if (!row || row.classList.contains('inv-pdp--hidden')) return;
+        row.classList.add('inv-pdp__info-section--open');
+        var toggle = row.querySelector('[data-accordion-toggle]');
+        if (toggle) toggle.setAttribute('aria-expanded', 'true');
+      });
+    })();
 
     /* ========================================
        ACCORDION TOGGLES
