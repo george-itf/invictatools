@@ -1,12 +1,20 @@
 {% comment %}
   ============================================================================
-  INVICTA CONSUMABLES ROW v1.0
+  INVICTA CONSUMABLES ROW v2.0 (Gate 2 v2)
   ============================================================================
-  Curated consumables/accessories cross-sell for the current product.
-  Reads from product metafield custom.consumables (JSON array of handles).
-  Uses invicta-product-card snippet for cards.
+  Consumables/accessories cross-sell for the current product.
 
-  Sits between the main PDP section and Related Products.
+  Two-tier data source:
+    Tier 1 (curated): custom.consumables metafield (JSON array of handles)
+    Tier 2 (rule-based): consumable_rule schema blocks match source_tag
+      on current product, then fetch from target collection filtered by
+      target_tag. Configured once in theme editor, applies to all matching
+      products automatically.
+
+  Tags used: cat-power-tool, cat-consumable (and any custom source/target tags)
+  Metafields: custom.consumables (optional, JSON array of product handles)
+  Cards: snippets/invicta-product-card.liquid
+  Styles: assets/invicta-consumables-row.css
   ============================================================================
 {% endcomment %}
 
@@ -14,22 +22,107 @@
 <noscript>{{ 'invicta-consumables-row.css' | asset_url | stylesheet_tag }}</noscript>
 
 {%- liquid
+  assign consumable_source = 'none'
+  assign consumable_count = 0
+  assign rule_collection = blank
+  assign rule_target_tag = blank
+  assign rule_limit = section.settings.products_to_show
+
+  comment — Tier 1: Check curated metafield first
+  endcomment
   assign consumables_json = product.metafields.custom.consumables
-  if consumables_json == blank
-    break
+  if consumables_json != blank
+    assign consumable_handles = consumables_json | replace: '[', '' | replace: ']', '' | replace: '"', '' | split: ','
+    for h in consumable_handles
+      assign h_clean = h | strip
+      if h_clean != blank
+        assign test_product = all_products[h_clean]
+        if test_product != blank and test_product.title != blank
+          assign consumable_count = consumable_count | plus: 1
+        endif
+      endif
+    endfor
+    if consumable_count > 0
+      assign consumable_source = 'metafield'
+    endif
   endif
 
-  assign consumable_handles = consumables_json | replace: '[', '' | replace: ']', '' | replace: '"', '' | split: ','
-  assign consumable_count = 0
-  for h in consumable_handles
-    assign h_clean = h | strip
-    if h_clean != blank
-      assign test_product = all_products[h_clean]
-      if test_product != blank and test_product.title != blank
-        assign consumable_count = consumable_count | plus: 1
+  comment — Tier 2: Rule-based fallback from schema blocks
+  endcomment
+  if consumable_source == 'none'
+    for block in section.blocks
+      if block.type == 'consumable_rule'
+        assign rule_source = block.settings.source_tag | strip | downcase
+        if rule_source == blank
+          continue
+        endif
+
+        comment — Check if current product has the source tag
+        endcomment
+        assign product_matches_rule = false
+        for tag in product.tags
+          assign tag_lower = tag | downcase | strip
+          if tag_lower == rule_source
+            assign product_matches_rule = true
+            break
+          endif
+        endfor
+
+        if product_matches_rule
+          assign rule_target_tag = block.settings.target_tag | strip | downcase
+          assign rule_col_handle = block.settings.collection_filter | strip
+          if block.settings.limit > 0
+            assign rule_limit = block.settings.limit
+          endif
+
+          comment — Look up the target collection
+          endcomment
+          if rule_col_handle != blank
+            assign rule_collection = collections[rule_col_handle]
+            if rule_collection != blank and rule_collection.products_count > 0
+              comment — Count products that match the target tag in this collection
+              endcomment
+              assign rule_count = 0
+              for cp in rule_collection.products
+                if cp.id == product.id
+                  continue
+                endif
+                if rule_target_tag != blank
+                  assign cp_matches_target = false
+                  for t in cp.tags
+                    assign t_lower = t | downcase | strip
+                    if t_lower == rule_target_tag
+                      assign cp_matches_target = true
+                      break
+                    endif
+                  endfor
+                  unless cp_matches_target
+                    continue
+                  endunless
+                endif
+                assign rule_count = rule_count | plus: 1
+                if rule_count >= rule_limit
+                  break
+                endif
+              endfor
+
+              if rule_count > 0
+                assign consumable_source = 'rule'
+                assign consumable_count = rule_count
+                break
+              endif
+            endif
+          endif
+        endif
       endif
-    endif
-  endfor
+    endfor
+  endif
+
+  comment — If neither source yields results, render nothing
+  endcomment
+  if consumable_source == 'none'
+    break
+  endif
 -%}
 
 {%- if consumable_count > 0 -%}
@@ -57,19 +150,94 @@
       </h2>
     </div>
     <ul class="inv-consumables__grid" role="list">
-      {%- assign card_idx = 0 -%}
-      {%- for h in consumable_handles -%}
-        {%- assign h_clean = h | strip -%}
-        {%- if h_clean == blank -%}{%- continue -%}{%- endif -%}
-        {%- assign consumable_product = all_products[h_clean] -%}
-        {%- if consumable_product == blank or consumable_product.title == blank -%}{%- continue -%}{%- endif -%}
-        {%- assign card_idx = card_idx | plus: 1 -%}
-        {%- if card_idx > section.settings.products_to_show -%}{%- break -%}{%- endif -%}
-        <li class="inv-consumables__item">
-          {% render 'invicta-product-card', product: consumable_product, card_index: card_idx %}
-        </li>
-      {%- endfor -%}
+      {%- if consumable_source == 'metafield' -%}
+        {%- comment -%} Tier 1: Render from curated metafield handles {%- endcomment -%}
+        {%- assign card_idx = 0 -%}
+        {%- for h in consumable_handles -%}
+          {%- assign h_clean = h | strip -%}
+          {%- if h_clean == blank -%}{%- continue -%}{%- endif -%}
+          {%- assign consumable_product = all_products[h_clean] -%}
+          {%- if consumable_product == blank or consumable_product.title == blank -%}{%- continue -%}{%- endif -%}
+          {%- assign card_idx = card_idx | plus: 1 -%}
+          {%- if card_idx > section.settings.products_to_show -%}{%- break -%}{%- endif -%}
+          <li class="inv-consumables__item">
+            {% render 'invicta-product-card', product: consumable_product, card_index: card_idx %}
+          </li>
+        {%- endfor -%}
+
+      {%- elsif consumable_source == 'rule' -%}
+        {%- comment -%} Tier 2: Render from rule-matched collection filtered by target tag {%- endcomment -%}
+        {%- assign card_idx = 0 -%}
+        {%- for cp in rule_collection.products -%}
+          {%- if card_idx >= rule_limit -%}{%- break -%}{%- endif -%}
+          {%- if cp.id == product.id -%}{%- continue -%}{%- endif -%}
+          {%- if rule_target_tag != blank -%}
+            {%- assign cp_matches_target = false -%}
+            {%- for t in cp.tags -%}
+              {%- assign t_lower = t | downcase | strip -%}
+              {%- if t_lower == rule_target_tag -%}
+                {%- assign cp_matches_target = true -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- unless cp_matches_target -%}{%- continue -%}{%- endunless -%}
+          {%- endif -%}
+          {%- assign card_idx = card_idx | plus: 1 -%}
+          <li class="inv-consumables__item">
+            {% render 'invicta-product-card', product: cp, card_index: card_idx %}
+          </li>
+        {%- endfor -%}
+      {%- endif -%}
     </ul>
+
+    {%- if section.settings.show_add_all -%}
+      <div class="inv-consumables__add-all-wrap">
+        <button
+          type="button"
+          class="inv-consumables__add-all"
+          data-consumables-add-all
+          aria-label="Add all displayed consumables to cart"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+          Add All to Cart
+        </button>
+      </div>
+      <script>
+      (function() {
+        var btn = document.querySelector('#shopify-section-{{ section.id }} [data-consumables-add-all]');
+        if (!btn || !window.InvictaCartAPI) return;
+
+        btn.addEventListener('click', function() {
+          var cards = document.querySelectorAll('#shopify-section-{{ section.id }} [data-add-to-cart][data-variant-id]');
+          if (!cards.length) return;
+
+          btn.disabled = true;
+          btn.textContent = 'Adding...';
+
+          var chain = Promise.resolve();
+          cards.forEach(function(card) {
+            var vid = card.dataset.variantId;
+            if (vid) {
+              chain = chain.then(function() {
+                return window.InvictaCartAPI.add({ id: parseInt(vid, 10), quantity: 1 }).catch(function() {});
+              });
+            }
+          });
+
+          chain.then(function() {
+            btn.textContent = 'Added!';
+            setTimeout(function() {
+              btn.textContent = 'Add All to Cart';
+              btn.disabled = false;
+            }, 1500);
+          });
+        });
+      })();
+      </script>
+    {%- endif -%}
   </div>
 </div>
 {%- endif -%}
@@ -99,6 +267,12 @@
       "label": "Products to show"
     },
     {
+      "type": "checkbox",
+      "id": "show_add_all",
+      "label": "Show 'Add All to Cart' button",
+      "default": true
+    },
+    {
       "type": "header",
       "content": "Padding"
     },
@@ -123,9 +297,55 @@
       "default": 48
     }
   ],
+  "blocks": [
+    {
+      "type": "consumable_rule",
+      "name": "Consumable Rule",
+      "settings": [
+        {
+          "type": "text",
+          "id": "source_tag",
+          "label": "Source tag",
+          "info": "Products with this tag will be matched. E.g. 'cat-power-tool'"
+        },
+        {
+          "type": "text",
+          "id": "target_tag",
+          "label": "Target tag",
+          "info": "Only show products with this tag from the collection. E.g. 'cat-consumable'"
+        },
+        {
+          "type": "text",
+          "id": "collection_filter",
+          "label": "Collection handle",
+          "info": "The collection to pull products from. E.g. 'grinding-discs'"
+        },
+        {
+          "type": "range",
+          "id": "limit",
+          "label": "Products to show",
+          "min": 1,
+          "max": 8,
+          "step": 1,
+          "default": 4
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Consumables Row"
+      "name": "Consumables Row",
+      "blocks": [
+        {
+          "type": "consumable_rule",
+          "settings": {
+            "source_tag": "cat-power-tool",
+            "target_tag": "cat-consumable",
+            "collection_filter": "",
+            "limit": 4
+          }
+        }
+      ]
     }
   ]
 }
