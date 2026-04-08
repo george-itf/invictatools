@@ -392,6 +392,21 @@
         endif
       -%}
       {%- if compat_count > 0 -%}
+        {%- liquid
+          assign is_bare_unit = false
+          assign title_lower = product.title | downcase
+          if title_lower contains 'bare' or title_lower contains 'body only'
+            assign is_bare_unit = true
+          else
+            for tag in product.tags
+              assign tag_check = tag | downcase | strip
+              if tag_check == 'bare' or tag_check == 'bare-unit' or tag_check == 'body-only'
+                assign is_bare_unit = true
+                break
+              endif
+            endfor
+          endif
+        -%}
         <div class="inv-pdp__compat">
           <h2 class="inv-pdp__compat-heading">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
@@ -401,6 +416,12 @@
             </svg>
             Works With This Tool
           </h2>
+          {%- if is_bare_unit -%}
+            <p class="inv-pdp__compat-bare-notice">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              This is a bare unit — battery and charger sold separately
+            </p>
+          {%- endif -%}
           <div class="inv-pdp__compat-row">
             {%- for h in compat_handles -%}
               {%- assign h_clean = h | strip -%}
