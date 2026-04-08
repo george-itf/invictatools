@@ -1,16 +1,25 @@
 {% comment %}
   ============================================================================
-  INVICTA RELATED PRODUCTS v2.0 (Gate 8: Smart Context)
+  INVICTA RELATED PRODUCTS v3.0 (Gate 7 v2: Tag-Based Context)
   ============================================================================
 
-  Context-aware product recommendations section.
+  Context-aware product recommendations using category tags.
 
-  Behaviour:
-    - Bare unit products → "Complete Your Setup" with compatible_products metafield first
-    - Consumable products → "Works With These Tools" heading
-    - Default → "You May Also Like" with Shopify Recommendations API
+  Logic tiers (first match wins):
+    1. bare-unit + platform-* → "Complete Your Setup" (platform collection,
+       deduplicated against Gate 1 compat card)
+    2. custom.consumables populated → "Frequently Bought Together" (metafield,
+       deduplicated against Gate 2 consumables row)
+    3. cat-consumable tag → "Works With These Tools" (Recommendations API,
+       intent=complementary)
+    4. cat-accessory/cat-battery/cat-charger → "Often Bought With"
+       (Recommendations API, intent=complementary)
+    5. Default → "You May Also Like" (Recommendations API, intent=related)
 
-  Cards:  snippets/invicta-product-card.liquid
+  Tags used: bare-unit, platform-*, cat-consumable, cat-accessory, cat-battery,
+             cat-charger, cat-power-tool
+  Metafields: custom.consumables, custom.compatible_products
+  Cards: snippets/invicta-product-card.liquid
   Styles: assets/invicta-related-products.css
   ============================================================================
 {% endcomment %}
@@ -32,75 +41,175 @@
 
 {%- liquid
   comment
-    Gate 8: Determine product context for heading and recommendation source
+    Gate 7 v2: Detect product context from tags for heading and source
   endcomment
   assign related_heading = section.settings.heading
   assign related_intent = 'related'
-  assign use_metafield_products = false
+  assign related_source = 'api'
   assign context_type = 'default'
 
-  assign title_lower = product.title | downcase
-  assign is_bare_unit = false
-  assign is_consumable = false
-
-  comment — Bare unit detection
+  comment — Extract category tags, platform tag, and bare-unit flag
   endcomment
-  if title_lower contains 'bare' or title_lower contains 'body only'
-    assign is_bare_unit = true
-  else
-    for tag in product.tags
-      assign tag_check = tag | downcase | strip
-      if tag_check == 'bare' or tag_check == 'bare-unit' or tag_check == 'body-only'
-        assign is_bare_unit = true
-        break
+  assign is_bare_unit = false
+  assign platform_tag = blank
+  assign has_cat_consumable = false
+  assign has_cat_accessory = false
+  assign has_cat_battery = false
+  assign has_cat_charger = false
+  assign has_cat_power_tool = false
+
+  for tag in product.tags
+    assign tag_lower = tag | downcase | strip
+    if tag_lower == 'bare-unit'
+      assign is_bare_unit = true
+    endif
+    if tag_lower contains 'platform-'
+      assign platform_tag = tag_lower
+    endif
+    if tag_lower == 'cat-consumable'
+      assign has_cat_consumable = true
+    endif
+    if tag_lower == 'cat-accessory'
+      assign has_cat_accessory = true
+    endif
+    if tag_lower == 'cat-battery'
+      assign has_cat_battery = true
+    endif
+    if tag_lower == 'cat-charger'
+      assign has_cat_charger = true
+    endif
+    if tag_lower == 'cat-power-tool'
+      assign has_cat_power_tool = true
+    endif
+  endfor
+
+  comment — Also detect bare-unit from title as fallback
+  endcomment
+  unless is_bare_unit
+    assign title_lower = product.title | downcase
+    if title_lower contains 'bare' or title_lower contains 'body only'
+      assign is_bare_unit = true
+    endif
+  endunless
+
+  comment — Build dedup list: handles already shown in Gate 1 (compat) and Gate 2 (consumables)
+  endcomment
+  assign dedup_handles = ''
+
+  comment — Collect Gate 1 compat handles (from metafield or platform collection)
+  endcomment
+  assign g1_compat_json = product.metafields.custom.compatible_products
+  if g1_compat_json != blank
+    assign g1_handles = g1_compat_json | replace: '[', '' | replace: ']', '' | replace: '"', '' | split: ','
+    for h in g1_handles
+      assign h_clean = h | strip
+      if h_clean != blank
+        assign dedup_handles = dedup_handles | append: h_clean | append: ','
+      endif
+    endfor
+  elsif platform_tag != blank and has_cat_power_tool
+    assign g1_platform_col = collections[platform_tag]
+    if g1_platform_col != blank
+      for cp in g1_platform_col.products limit: 6
+        if cp.id != product.id
+          assign dedup_handles = dedup_handles | append: cp.handle | append: ','
+        endif
+      endfor
+    endif
+  endif
+
+  comment — Collect Gate 2 consumables handles (from metafield)
+  endcomment
+  assign g2_consumables_json = product.metafields.custom.consumables
+  if g2_consumables_json != blank
+    assign g2_handles = g2_consumables_json | replace: '[', '' | replace: ']', '' | replace: '"', '' | split: ','
+    for h in g2_handles
+      assign h_clean = h | strip
+      if h_clean != blank
+        assign dedup_handles = dedup_handles | append: h_clean | append: ','
       endif
     endfor
   endif
 
-  comment — Consumable detection via collection handles
+  comment — Apply context tiers (first match wins)
   endcomment
-  unless is_bare_unit
-    for col in product.collections
-      assign col_handle = col.handle | downcase
-      if col_handle contains 'disc' or col_handle contains 'blade' or col_handle contains 'bit' or col_handle contains 'abrasive'
-        assign is_consumable = true
-        break
-      endif
-    endfor
-  endunless
 
-  if is_bare_unit
+  comment — Tier 1: Bare unit with platform tag
+  endcomment
+  if is_bare_unit and platform_tag != blank
     assign related_heading = 'Complete Your Setup'
     assign related_intent = 'complementary'
-    assign context_type = 'bare-unit'
-    comment — Use compatible_products metafield if populated
+    assign context_type = 'bare-unit-platform'
+    comment — Try platform collection for products NOT already in Gate 1
     endcomment
-    assign compat_mf = product.metafields.custom.compatible_products
-    if compat_mf != blank
-      assign use_metafield_products = true
+    assign platform_col = collections[platform_tag]
+    if platform_col != blank and platform_col.products_count > 0
+      assign related_source = 'platform-dedup'
     endif
-  elsif is_consumable
+
+  comment — Tier 2: Consumables metafield populated (deduplicate against Gate 2)
+  endcomment
+  elsif g2_consumables_json != blank
+    assign related_heading = 'Frequently Bought Together'
+    assign related_intent = 'complementary'
+    assign context_type = 'consumables-dedup'
+
+  comment — Tier 3: Consumable product
+  endcomment
+  elsif has_cat_consumable
     assign related_heading = 'Works With These Tools'
+    assign related_intent = 'complementary'
     assign context_type = 'consumable'
+
+  comment — Tier 4: Accessory, battery, or charger
+  endcomment
+  elsif has_cat_accessory or has_cat_battery or has_cat_charger
+    assign related_heading = 'Often Bought With'
+    assign related_intent = 'complementary'
+    assign context_type = 'accessory'
   endif
 -%}
 
-{%- if use_metafield_products -%}
-  {%- comment -%} === BARE UNIT: Render compatible products directly from metafield === {%- endcomment -%}
+{%- if related_source == 'platform-dedup' -%}
+  {%- comment -%}
+    === BARE UNIT + PLATFORM: Render from platform collection, excluding products
+        already shown in Gate 1 compat card. Shows batteries/chargers/accessories
+        that weren't in the first 6 shown by Gate 1. ===
+  {%- endcomment -%}
   {%- liquid
-    assign mf_handles = compat_mf | replace: '[', '' | replace: ']', '' | replace: '"', '' | split: ','
-    assign valid_count = 0
-    for h in mf_handles
-      assign h_clean = h | strip
-      if h_clean != blank
-        assign p = all_products[h_clean]
-        if p != blank and p.title != blank
-          assign valid_count = valid_count | plus: 1
+    assign dedup_list = dedup_handles | split: ','
+    assign platform_valid = 0
+    for cp in platform_col.products
+      if cp.id == product.id
+        continue
+      endif
+      assign is_duped = false
+      for dh in dedup_list
+        assign dh_clean = dh | strip
+        if dh_clean != blank and cp.handle == dh_clean
+          assign is_duped = true
+          break
         endif
+      endfor
+      unless is_duped
+        assign cp_is_compat = false
+        for t in cp.tags
+          assign t_lower = t | downcase | strip
+          if t_lower == 'cat-battery' or t_lower == 'cat-charger' or t_lower == 'cat-accessory'
+            assign cp_is_compat = true
+            break
+          endif
+        endfor
+        if cp_is_compat
+          assign platform_valid = platform_valid | plus: 1
+        endif
+      endunless
+      if platform_valid >= section.settings.products_to_show
+        break
       endif
     endfor
   -%}
-  {%- if valid_count > 0 -%}
+  {%- if platform_valid > 0 -%}
     <div class="inv-related" data-related-products data-product-id="{{ product.id }}">
       <div class="inv-related__container">
         <div class="inv-related__header">
@@ -108,99 +217,134 @@
         </div>
         <ul class="inv-related__grid" role="list">
           {%- assign shown = 0 -%}
-          {%- for h in mf_handles -%}
+          {%- for cp in platform_col.products -%}
             {%- if shown >= section.settings.products_to_show -%}{%- break -%}{%- endif -%}
-            {%- assign h_clean = h | strip -%}
-            {%- if h_clean == blank -%}{%- continue -%}{%- endif -%}
-            {%- assign mf_product = all_products[h_clean] -%}
-            {%- if mf_product == blank or mf_product.title == blank -%}{%- continue -%}{%- endif -%}
+            {%- if cp.id == product.id -%}{%- continue -%}{%- endif -%}
+            {%- assign is_duped = false -%}
+            {%- for dh in dedup_list -%}
+              {%- assign dh_clean = dh | strip -%}
+              {%- if dh_clean != blank and cp.handle == dh_clean -%}
+                {%- assign is_duped = true -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if is_duped -%}{%- continue -%}{%- endif -%}
+            {%- assign cp_is_compat = false -%}
+            {%- for t in cp.tags -%}
+              {%- assign t_lower = t | downcase | strip -%}
+              {%- if t_lower == 'cat-battery' or t_lower == 'cat-charger' or t_lower == 'cat-accessory' -%}
+                {%- assign cp_is_compat = true -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- unless cp_is_compat -%}{%- continue -%}{%- endunless -%}
             <li class="inv-related__item">
-              {% render 'invicta-product-card', product: mf_product, card_index: forloop.index %}
+              {% render 'invicta-product-card', product: cp, card_index: forloop.index %}
             </li>
             {%- assign shown = shown | plus: 1 -%}
           {%- endfor -%}
         </ul>
       </div>
     </div>
+  {%- else -%}
+    {%- comment -%} Platform collection exhausted by Gate 1 — fall back to Recommendations API {%- endcomment -%}
+    {%- assign related_source = 'api' -%}
   {%- endif -%}
+{%- endif -%}
 
-{%- elsif recommendations.performed and recommendations.products_count > 0 -%}
-  {%- comment -%} === AJAX RE-RENDER: Shopify populated recommendations === {%- endcomment -%}
-  <div class="inv-related" data-related-products data-product-id="{{ product.id }}">
-    <div class="inv-related__container">
-      <div class="inv-related__header">
-        <h2 class="inv-related__title">{{ related_heading }}</h2>
+{%- if related_source == 'api' -%}
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    {%- comment -%} === AJAX RE-RENDER: Shopify populated recommendations === {%- endcomment -%}
+    <div class="inv-related" data-related-products data-product-id="{{ product.id }}">
+      <div class="inv-related__container">
+        <div class="inv-related__header">
+          <h2 class="inv-related__title">{{ related_heading }}</h2>
+        </div>
+        <ul class="inv-related__grid" role="list">
+          {%- assign dedup_list = dedup_handles | split: ',' -%}
+          {%- assign shown = 0 -%}
+          {%- for rec_product in recommendations.products -%}
+            {%- if shown >= section.settings.products_to_show -%}{%- break -%}{%- endif -%}
+            {%- assign is_duped = false -%}
+            {%- for dh in dedup_list -%}
+              {%- assign dh_clean = dh | strip -%}
+              {%- if dh_clean != blank and rec_product.handle == dh_clean -%}
+                {%- assign is_duped = true -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if is_duped -%}{%- continue -%}{%- endif -%}
+            <li class="inv-related__item">
+              {% render 'invicta-product-card', product: rec_product, card_index: forloop.index %}
+            </li>
+            {%- assign shown = shown | plus: 1 -%}
+          {%- endfor -%}
+        </ul>
       </div>
-      <ul class="inv-related__grid" role="list">
-        {%- for product in recommendations.products limit: section.settings.products_to_show -%}
-          <li class="inv-related__item">
-            {% render 'invicta-product-card', product: product, card_index: forloop.index %}
-          </li>
-        {%- endfor -%}
-      </ul>
     </div>
-  </div>
 
-{%- else -%}
-  {%- comment -%} === INITIAL PAGE LOAD: Show skeleton, JS will fetch === {%- endcomment -%}
-  <div
-    class="inv-related inv-related--hidden"
-    style="display:none"
-    data-related-products
-    data-product-id="{{ product.id }}"
-    data-limit="{{ section.settings.products_to_show }}"
-    data-intent="{{ related_intent }}"
-  >
-    <div class="inv-related__container">
-      <div class="inv-related__header">
-        <h2 class="inv-related__title">{{ related_heading }}</h2>
-      </div>
-      <div class="inv-related__skeleton" data-related-skeleton>
-        {%- for i in (1..4) -%}
-          <div class="inv-related__skeleton-card">
-            <div class="inv-related__skeleton-img"></div>
-            <div class="inv-related__skeleton-body">
-              <div class="inv-related__skeleton-line"></div>
-              <div class="inv-related__skeleton-line"></div>
-              <div class="inv-related__skeleton-price"></div>
+  {%- else -%}
+    {%- comment -%} === INITIAL PAGE LOAD: Show skeleton, JS will fetch === {%- endcomment -%}
+    <div
+      class="inv-related inv-related--hidden"
+      style="display:none"
+      data-related-products
+      data-product-id="{{ product.id }}"
+      data-limit="{{ section.settings.products_to_show }}"
+      data-intent="{{ related_intent }}"
+      data-dedup="{{ dedup_handles }}"
+    >
+      <div class="inv-related__container">
+        <div class="inv-related__header">
+          <h2 class="inv-related__title">{{ related_heading }}</h2>
+        </div>
+        <div class="inv-related__skeleton" data-related-skeleton>
+          {%- for i in (1..4) -%}
+            <div class="inv-related__skeleton-card">
+              <div class="inv-related__skeleton-img"></div>
+              <div class="inv-related__skeleton-body">
+                <div class="inv-related__skeleton-line"></div>
+                <div class="inv-related__skeleton-line"></div>
+                <div class="inv-related__skeleton-price"></div>
+              </div>
             </div>
-          </div>
-        {%- endfor -%}
+          {%- endfor -%}
+        </div>
       </div>
     </div>
-  </div>
 
-  <script>
-  (function() {
-    var container = document.querySelector('#shopify-section-{{ section.id }} [data-related-products]');
-    if (!container) return;
+    <script>
+    (function() {
+      var container = document.querySelector('#shopify-section-{{ section.id }} [data-related-products]');
+      if (!container) return;
 
-    var productId = container.dataset.productId;
-    var limit = container.dataset.limit || {{ section.settings.products_to_show }};
-    var intent = container.dataset.intent || 'related';
-    if (!productId) return;
+      var productId = container.dataset.productId;
+      var limit = container.dataset.limit || {{ section.settings.products_to_show }};
+      var intent = container.dataset.intent || 'related';
+      if (!productId) return;
 
-    var sectionId = '{{ section.id }}';
-    var url = '/recommendations/products?section_id=' + sectionId + '&product_id=' + productId + '&limit=' + limit + '&intent=' + intent;
+      var sectionId = '{{ section.id }}';
+      var url = '/recommendations/products?section_id=' + sectionId + '&product_id=' + productId + '&limit=' + limit + '&intent=' + intent;
 
-    fetch(url)
-      .then(function(r) { return r.text(); })
-      .then(function(html) {
-        var temp = document.createElement('div');
-        temp.innerHTML = html;
-        var freshSection = temp.querySelector('[data-related-products]');
+      fetch(url)
+        .then(function(r) { return r.text(); })
+        .then(function(html) {
+          var temp = document.createElement('div');
+          temp.innerHTML = html;
+          var freshSection = temp.querySelector('[data-related-products]');
 
-        if (freshSection && freshSection.querySelector('.inv-related__item')) {
-          container.parentNode.replaceChild(freshSection, container);
-        } else {
+          if (freshSection && freshSection.querySelector('.inv-related__item')) {
+            container.parentNode.replaceChild(freshSection, container);
+          } else {
+            container.remove();
+          }
+        })
+        .catch(function() {
           container.remove();
-        }
-      })
-      .catch(function() {
-        container.remove();
-      });
-  })();
-  </script>
+        });
+    })();
+    </script>
+  {%- endif -%}
 {%- endif -%}
 
 {% schema %}
@@ -217,7 +361,7 @@
       "id": "heading",
       "label": "Heading",
       "default": "You May Also Like",
-      "info": "Used for default products. Bare units and consumables use automatic context headings."
+      "info": "Default heading. Overridden automatically: bare units → 'Complete Your Setup', consumables → 'Works With These Tools', accessories/batteries → 'Often Bought With'."
     },
     {
       "type": "range",
