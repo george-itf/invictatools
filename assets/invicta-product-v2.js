@@ -1026,5 +1026,38 @@
     lightboxCloseEls.forEach(function(el) {
       el.addEventListener('click', closeLightboxAndUnbindKeys);
     });
+
+    /* ========================================
+       TRADE MODE (Gate 5)
+       Show PO field + bulk messaging when qty >= threshold
+       ======================================== */
+
+    (function initTradeMode() {
+      var buybox = section.querySelector('.inv-pdp__buybox');
+      if (!buybox || !qtyInput) return;
+
+      var threshold = parseInt(buybox.dataset.tradeThreshold, 10) || 3;
+      var poField = section.querySelector('[data-trade-po]');
+      var bulkMsg = section.querySelector('[data-trade-bulk]');
+      var tieredPricing = section.querySelector('[data-tiered-pricing]');
+
+      function updateTradeMode() {
+        var qty = parseInt(qtyInput.value, 10) || 1;
+        var isTradeMode = qty >= threshold;
+
+        if (poField) {
+          poField.classList.toggle('inv-pdp--hidden', !isTradeMode);
+        }
+        if (bulkMsg) {
+          bulkMsg.classList.toggle('inv-pdp--hidden', !isTradeMode);
+        }
+        if (tieredPricing) {
+          tieredPricing.classList.toggle('inv-pdp__tiered--prominent', isTradeMode);
+        }
+      }
+
+      qtyInput.addEventListener('change', updateTradeMode);
+      qtyInput.addEventListener('input', updateTradeMode);
+    })();
   }
 })();

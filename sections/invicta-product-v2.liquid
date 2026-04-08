@@ -51,6 +51,37 @@
   assign mf_features = product.metafields.custom.features
 
   comment
+    Additional spec metafields for inline spec strip (Gate 3)
+  endcomment
+  assign mf_disc_diameter = product.metafields.custom.disc_diameter
+  assign mf_no_load_speed = product.metafields.custom.no_load_speed
+  assign mf_weight_body = product.metafields.custom.weight_body_only
+
+  comment
+    Kit options metafield (Gate 4)
+  endcomment
+  assign mf_kit_options = product.metafields.custom.kit_options
+  assign has_kit_options = false
+  if mf_kit_options != blank
+    assign has_kit_options = true
+  endif
+
+  comment
+    Comparison products metafield (Gate 6)
+  endcomment
+  assign mf_comparison = product.metafields.custom.comparison_products
+  assign comparison_count = 0
+  if mf_comparison != blank
+    assign comp_handles = mf_comparison | replace: '[', '' | replace: ']', '' | replace: '"', '' | split: ','
+    for ch in comp_handles
+      assign ch_clean = ch | strip
+      if ch_clean != blank
+        assign comparison_count = comparison_count | plus: 1
+      endif
+    endfor
+  endif
+
+  comment
     Compare price logic
   endcomment
   assign has_compare_price = false
@@ -376,22 +407,103 @@
         </div>
       {% endif %}
 
-      {%- comment -%} COMPATIBLE PRODUCTS (Battery Ecosystem) {%- endcomment -%}
+      {%- comment -%}
+        COMPATIBLE PRODUCTS — Battery Ecosystem (Gate 1 v2)
+        ====================================================
+        Two-tier data source:
+          Tier 1 (manual override): custom.compatible_products metafield (JSON array of handles)
+          Tier 2 (automatic): platform-* tag → matching automated collection → filter cat-battery/cat-charger
+        Only renders on cat-power-tool or cat-charger products.
+        Tags used: platform-*, cat-power-tool, cat-charger, cat-battery, bare-unit
+      {%- endcomment -%}
       {%- liquid
-        assign compat_json = product.metafields.custom.compatible_products
-        assign compat_products = blank
-        if compat_json != blank
-          assign compat_handles = compat_json | replace: '[', '' | replace: ']', '' | replace: '"', '' | split: ','
-          assign compat_count = 0
-          for h in compat_handles
-            assign h_clean = h | strip
-            if h_clean != blank
-              assign compat_count = compat_count | plus: 1
+        assign compat_source = 'none'
+        assign compat_show = false
+        assign is_bare_unit = false
+        assign platform_tag = blank
+        assign is_compat_eligible = false
+
+        comment — Detect category and platform from tags
+        endcomment
+        for tag in product.tags
+          assign tag_lower = tag | downcase | strip
+          if tag_lower == 'cat-power-tool' or tag_lower == 'cat-charger'
+            assign is_compat_eligible = true
+          endif
+          if tag_lower == 'bare-unit'
+            assign is_bare_unit = true
+          endif
+          if tag_lower contains 'platform-'
+            assign platform_tag = tag_lower
+          endif
+        endfor
+
+        comment — Also detect bare-unit from title as fallback
+        endcomment
+        unless is_bare_unit
+          assign title_lower = product.title | downcase
+          if title_lower contains 'bare' or title_lower contains 'body only'
+            assign is_bare_unit = true
+          endif
+        endunless
+
+        comment — Only show compat card on eligible product categories
+        endcomment
+        if is_compat_eligible
+
+          comment — Tier 1: Check manual override metafield first
+          endcomment
+          assign compat_json = product.metafields.custom.compatible_products
+          if compat_json != blank
+            assign compat_handles = compat_json | replace: '[', '' | replace: ']', '' | replace: '"', '' | split: ','
+            assign compat_mf_count = 0
+            for h in compat_handles
+              assign h_clean = h | strip
+              if h_clean != blank
+                assign cp_check = all_products[h_clean]
+                if cp_check != blank and cp_check.title != blank
+                  assign compat_mf_count = compat_mf_count | plus: 1
+                endif
+              endif
+            endfor
+            if compat_mf_count > 0
+              assign compat_source = 'metafield'
+              assign compat_show = true
             endif
-          endfor
+          endif
+
+          comment — Tier 2: Platform tag → automated collection lookup
+          endcomment
+          if compat_source == 'none' and platform_tag != blank
+            assign platform_collection = collections[platform_tag]
+            if platform_collection != blank and platform_collection.products_count > 0
+              comment — Pre-flight: verify at least one cat-battery or cat-charger product exists
+              endcomment
+              assign platform_preflight = 0
+              for cp in platform_collection.products
+                if cp.id == product.id
+                  continue
+                endif
+                for t in cp.tags
+                  assign t_lower = t | downcase | strip
+                  if t_lower == 'cat-battery' or t_lower == 'cat-charger'
+                    assign platform_preflight = platform_preflight | plus: 1
+                    break
+                  endif
+                endfor
+                if platform_preflight >= 1
+                  break
+                endif
+              endfor
+              if platform_preflight > 0
+                assign compat_source = 'platform'
+                assign compat_show = true
+              endif
+            endif
+          endif
         endif
       -%}
-      {%- if compat_count > 0 -%}
+      {%- if compat_show -%}
         <div class="inv-pdp__compat">
           <h2 class="inv-pdp__compat-heading">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
@@ -401,64 +513,216 @@
             </svg>
             Works With This Tool
           </h2>
+          {%- if is_bare_unit -%}
+            <p class="inv-pdp__compat-bare-notice">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              This is a bare unit — battery and charger sold separately
+            </p>
+          {%- endif -%}
           <div class="inv-pdp__compat-row">
-            {%- for h in compat_handles -%}
-              {%- assign h_clean = h | strip -%}
-              {%- if h_clean == blank -%}{%- continue -%}{%- endif -%}
-              {%- assign compat_product = all_products[h_clean] -%}
-              {%- if compat_product == blank or compat_product.title == blank -%}{%- continue -%}{%- endif -%}
+            {%- if compat_source == 'metafield' -%}
+              {%- comment -%} Tier 1: Render from curated metafield handles {%- endcomment -%}
+              {%- assign compat_shown = 0 -%}
+              {%- for h in compat_handles -%}
+                {%- if compat_shown >= 6 -%}{%- break -%}{%- endif -%}
+                {%- assign h_clean = h | strip -%}
+                {%- if h_clean == blank -%}{%- continue -%}{%- endif -%}
+                {%- assign compat_product = all_products[h_clean] -%}
+                {%- if compat_product == blank or compat_product.title == blank -%}{%- continue -%}{%- endif -%}
 
-              {%- assign cp_variant = compat_product.selected_or_first_available_variant -%}
-              {%- assign cp_available = cp_variant.available -%}
-              {%- assign cp_price = cp_variant.price -%}
-              {%- assign cp_price_ex = cp_price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor -%}
-              {%- assign cp_image = compat_product.featured_image -%}
+                {%- assign cp_variant = compat_product.selected_or_first_available_variant -%}
+                {%- assign cp_available = cp_variant.available -%}
+                {%- assign cp_price = cp_variant.price -%}
+                {%- assign cp_price_ex = cp_price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor -%}
+                {%- assign cp_image = compat_product.featured_image -%}
 
-              <div class="inv-pdp__compat-card">
-                <a href="{{ compat_product.url }}" class="inv-pdp__compat-card-img">
-                  {%- if cp_image -%}
-                    <img
-                      src="{{ cp_image | image_url: width: 160 }}"
-                      alt="{{ cp_image.alt | escape | default: compat_product.title }}"
-                      width="80"
-                      height="80"
-                      loading="lazy"
-                    >
-                  {%- endif -%}
-                </a>
-                <div class="inv-pdp__compat-card-body">
-                  <a href="{{ compat_product.url }}" class="inv-pdp__compat-card-title">
-                    {{ compat_product.title | truncate: 50 }}
+                <div class="inv-pdp__compat-card">
+                  <a href="{{ compat_product.url }}" class="inv-pdp__compat-card-img">
+                    {%- if cp_image -%}
+                      <img
+                        src="{{ cp_image | image_url: width: 160 }}"
+                        alt="{{ cp_image.alt | escape | default: compat_product.title }}"
+                        width="80"
+                        height="80"
+                        loading="lazy"
+                      >
+                    {%- endif -%}
                   </a>
-                  <div class="inv-pdp__compat-card-price">
-                    <span data-price-inc>{{ cp_price | money }}</span>
-                    <span class="inv-vat--hidden" data-price-ex>{{ cp_price_ex | money }}</span>
+                  <div class="inv-pdp__compat-card-body">
+                    <a href="{{ compat_product.url }}" class="inv-pdp__compat-card-title">
+                      {{ compat_product.title | truncate: 50 }}
+                    </a>
+                    <div class="inv-pdp__compat-card-price">
+                      <span data-price-inc>{{ cp_price | money }}</span>
+                      <span class="inv-vat--hidden" data-price-ex>{{ cp_price_ex | money }}</span>
+                    </div>
+                    <span class="inv-pdp__compat-card-stock inv-pdp__compat-card-stock--{{ cp_available | default: false }}">
+                      {%- if cp_available -%}In Stock{%- else -%}Out of Stock{%- endif -%}
+                    </span>
                   </div>
-                  <span class="inv-pdp__compat-card-stock inv-pdp__compat-card-stock--{{ cp_available | default: false }}">
-                    {%- if cp_available -%}In Stock{%- else -%}Out of Stock{%- endif -%}
-                  </span>
+                  {%- if cp_available and compat_product.has_only_default_variant -%}
+                    <button
+                      type="button"
+                      class="inv-pdp__compat-card-add"
+                      data-add-to-cart
+                      data-variant-id="{{ cp_variant.id }}"
+                      data-quantity="1"
+                      aria-label="Add {{ compat_product.title | escape }} to cart"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
+                        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                      </svg>
+                      Add
+                    </button>
+                  {%- elsif cp_available -%}
+                    <a href="{{ compat_product.url }}" class="inv-pdp__compat-card-add">
+                      View
+                    </a>
+                  {%- endif -%}
                 </div>
-                {%- if cp_available and compat_product.has_only_default_variant -%}
-                  <button
-                    type="button"
-                    class="inv-pdp__compat-card-add"
-                    data-add-to-cart
-                    data-variant-id="{{ cp_variant.id }}"
-                    data-quantity="1"
-                    aria-label="Add {{ compat_product.title | escape }} to cart"
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
-                      <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-                    </svg>
-                    Add
-                  </button>
-                {%- elsif cp_available -%}
-                  <a href="{{ compat_product.url }}" class="inv-pdp__compat-card-add">
-                    View
+                {%- assign compat_shown = compat_shown | plus: 1 -%}
+              {%- endfor -%}
+
+            {%- elsif compat_source == 'platform' -%}
+              {%- comment -%}
+                Tier 2: Render from platform collection, filtered to cat-battery/cat-charger.
+                Sort: batteries first, then chargers. Within each group, price descending (Liquid
+                doesn't support custom sort, so we do two passes).
+              {%- endcomment -%}
+              {%- assign compat_shown = 0 -%}
+              {%- comment -%} Pass 1: Batteries (cat-battery), sorted by Shopify default (price desc via collection sort) {%- endcomment -%}
+              {%- for cp in platform_collection.products -%}
+                {%- if compat_shown >= 6 -%}{%- break -%}{%- endif -%}
+                {%- if cp.id == product.id -%}{%- continue -%}{%- endif -%}
+                {%- assign cp_is_battery = false -%}
+                {%- for t in cp.tags -%}
+                  {%- assign t_lower = t | downcase | strip -%}
+                  {%- if t_lower == 'cat-battery' -%}
+                    {%- assign cp_is_battery = true -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- unless cp_is_battery -%}{%- continue -%}{%- endunless -%}
+
+                {%- assign cp_variant = cp.selected_or_first_available_variant -%}
+                {%- assign cp_available = cp_variant.available -%}
+                {%- assign cp_price = cp_variant.price -%}
+                {%- assign cp_price_ex = cp_price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor -%}
+                {%- assign cp_image = cp.featured_image -%}
+
+                <div class="inv-pdp__compat-card">
+                  <a href="{{ cp.url }}" class="inv-pdp__compat-card-img">
+                    {%- if cp_image -%}
+                      <img
+                        src="{{ cp_image | image_url: width: 160 }}"
+                        alt="{{ cp_image.alt | escape | default: cp.title }}"
+                        width="80"
+                        height="80"
+                        loading="lazy"
+                      >
+                    {%- endif -%}
                   </a>
-                {%- endif -%}
-              </div>
-            {%- endfor -%}
+                  <div class="inv-pdp__compat-card-body">
+                    <a href="{{ cp.url }}" class="inv-pdp__compat-card-title">
+                      {{ cp.title | truncate: 50 }}
+                    </a>
+                    <div class="inv-pdp__compat-card-price">
+                      <span data-price-inc>{{ cp_price | money }}</span>
+                      <span class="inv-vat--hidden" data-price-ex>{{ cp_price_ex | money }}</span>
+                    </div>
+                    <span class="inv-pdp__compat-card-stock inv-pdp__compat-card-stock--{{ cp_available | default: false }}">
+                      {%- if cp_available -%}In Stock{%- else -%}Out of Stock{%- endif -%}
+                    </span>
+                  </div>
+                  {%- if cp_available and cp.has_only_default_variant -%}
+                    <button
+                      type="button"
+                      class="inv-pdp__compat-card-add"
+                      data-add-to-cart
+                      data-variant-id="{{ cp_variant.id }}"
+                      data-quantity="1"
+                      aria-label="Add {{ cp.title | escape }} to cart"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
+                        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                      </svg>
+                      Add
+                    </button>
+                  {%- elsif cp_available -%}
+                    <a href="{{ cp.url }}" class="inv-pdp__compat-card-add">
+                      View
+                    </a>
+                  {%- endif -%}
+                </div>
+                {%- assign compat_shown = compat_shown | plus: 1 -%}
+              {%- endfor -%}
+              {%- comment -%} Pass 2: Chargers (cat-charger) {%- endcomment -%}
+              {%- for cp in platform_collection.products -%}
+                {%- if compat_shown >= 6 -%}{%- break -%}{%- endif -%}
+                {%- if cp.id == product.id -%}{%- continue -%}{%- endif -%}
+                {%- assign cp_is_charger = false -%}
+                {%- for t in cp.tags -%}
+                  {%- assign t_lower = t | downcase | strip -%}
+                  {%- if t_lower == 'cat-charger' -%}
+                    {%- assign cp_is_charger = true -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- unless cp_is_charger -%}{%- continue -%}{%- endunless -%}
+
+                {%- assign cp_variant = cp.selected_or_first_available_variant -%}
+                {%- assign cp_available = cp_variant.available -%}
+                {%- assign cp_price = cp_variant.price -%}
+                {%- assign cp_price_ex = cp_price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor -%}
+                {%- assign cp_image = cp.featured_image -%}
+
+                <div class="inv-pdp__compat-card">
+                  <a href="{{ cp.url }}" class="inv-pdp__compat-card-img">
+                    {%- if cp_image -%}
+                      <img
+                        src="{{ cp_image | image_url: width: 160 }}"
+                        alt="{{ cp_image.alt | escape | default: cp.title }}"
+                        width="80"
+                        height="80"
+                        loading="lazy"
+                      >
+                    {%- endif -%}
+                  </a>
+                  <div class="inv-pdp__compat-card-body">
+                    <a href="{{ cp.url }}" class="inv-pdp__compat-card-title">
+                      {{ cp.title | truncate: 50 }}
+                    </a>
+                    <div class="inv-pdp__compat-card-price">
+                      <span data-price-inc>{{ cp_price | money }}</span>
+                      <span class="inv-vat--hidden" data-price-ex>{{ cp_price_ex | money }}</span>
+                    </div>
+                    <span class="inv-pdp__compat-card-stock inv-pdp__compat-card-stock--{{ cp_available | default: false }}">
+                      {%- if cp_available -%}In Stock{%- else -%}Out of Stock{%- endif -%}
+                    </span>
+                  </div>
+                  {%- if cp_available and cp.has_only_default_variant -%}
+                    <button
+                      type="button"
+                      class="inv-pdp__compat-card-add"
+                      data-add-to-cart
+                      data-variant-id="{{ cp_variant.id }}"
+                      data-quantity="1"
+                      aria-label="Add {{ cp.title | escape }} to cart"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
+                        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                      </svg>
+                      Add
+                    </button>
+                  {%- elsif cp_available -%}
+                    <a href="{{ cp.url }}" class="inv-pdp__compat-card-add">
+                      View
+                    </a>
+                  {%- endif -%}
+                </div>
+                {%- assign compat_shown = compat_shown | plus: 1 -%}
+              {%- endfor -%}
+            {%- endif -%}
           </div>
         </div>
       {%- endif -%}
@@ -550,7 +814,7 @@
     
     {%- comment -%} ========== RIGHT COLUMN — BUY BOX ========== {%- endcomment -%}
     <div class="inv-pdp__right">
-      <div class="inv-pdp__buybox">
+      <div class="inv-pdp__buybox" data-trade-threshold="{{ section.settings.trade_mode_threshold | default: 3 }}">
         
         {%- comment -%} STOCK BANNER {%- endcomment -%}
         <div
@@ -749,6 +1013,77 @@
             <script src="{{ 'component-tiered-pricing.js' | asset_url }}" defer></script>
           {%- endif -%}
 
+          {%- comment -%} INLINE SPEC STRIP (Gate 3) — quick-reference data bar {%- endcomment -%}
+          {%- if section.settings.show_spec_strip -%}
+            {%- liquid
+              assign spec_strip_count = 0
+              if mf_voltage != blank
+                assign spec_strip_count = spec_strip_count | plus: 1
+              endif
+              if mf_no_load_speed != blank
+                assign spec_strip_count = spec_strip_count | plus: 1
+              endif
+              if mf_disc_diameter != blank
+                assign spec_strip_count = spec_strip_count | plus: 1
+              endif
+              if mf_weight_body != blank
+                assign spec_strip_count = spec_strip_count | plus: 1
+              endif
+              if mf_max_torque != blank
+                assign spec_strip_count = spec_strip_count | plus: 1
+              endif
+              if mf_motor_type != blank
+                assign spec_strip_count = spec_strip_count | plus: 1
+              endif
+            -%}
+            {%- if spec_strip_count > 0 -%}
+              <div class="inv-pdp__spec-strip" aria-label="Key specifications">
+                {%- if mf_voltage != blank -%}
+                  <div class="inv-pdp__spec-chip">
+                    <svg class="inv-pdp__spec-chip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    <span class="inv-pdp__spec-chip-label">Voltage</span>
+                    <span class="inv-pdp__spec-chip-value">{{ mf_voltage }}</span>
+                  </div>
+                {%- endif -%}
+                {%- if mf_no_load_speed != blank -%}
+                  <div class="inv-pdp__spec-chip">
+                    <svg class="inv-pdp__spec-chip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    <span class="inv-pdp__spec-chip-label">RPM</span>
+                    <span class="inv-pdp__spec-chip-value">{{ mf_no_load_speed }}</span>
+                  </div>
+                {%- endif -%}
+                {%- if mf_disc_diameter != blank -%}
+                  <div class="inv-pdp__spec-chip">
+                    <svg class="inv-pdp__spec-chip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>
+                    <span class="inv-pdp__spec-chip-label">Disc</span>
+                    <span class="inv-pdp__spec-chip-value">{{ mf_disc_diameter }}</span>
+                  </div>
+                {%- endif -%}
+                {%- if mf_max_torque != blank -%}
+                  <div class="inv-pdp__spec-chip">
+                    <svg class="inv-pdp__spec-chip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    <span class="inv-pdp__spec-chip-label">Torque</span>
+                    <span class="inv-pdp__spec-chip-value">{{ mf_max_torque }}</span>
+                  </div>
+                {%- endif -%}
+                {%- if mf_weight_body != blank -%}
+                  <div class="inv-pdp__spec-chip">
+                    <svg class="inv-pdp__spec-chip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="M20.91 8.84L8.56 21.18a1 1 0 01-1.41 0L3.82 17.85a1 1 0 010-1.41L16.16 4.09a3 3 0 014.24 0l.51.51a3 3 0 010 4.24z"/></svg>
+                    <span class="inv-pdp__spec-chip-label">Weight</span>
+                    <span class="inv-pdp__spec-chip-value">{{ mf_weight_body }}</span>
+                  </div>
+                {%- endif -%}
+                {%- if mf_motor_type != blank -%}
+                  <div class="inv-pdp__spec-chip">
+                    <svg class="inv-pdp__spec-chip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                    <span class="inv-pdp__spec-chip-label">Motor</span>
+                    <span class="inv-pdp__spec-chip-value">{{ mf_motor_type }}</span>
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+
           {%- comment -%} DELIVERY ESTIMATE (reusable snippet) {%- endcomment -%}
           {% render 'invicta-delivery-estimate', stock_source: stock_source, supplier_delivery_est: supplier_delivery_est %}
 
@@ -823,9 +1158,34 @@
               </button>
             </div>
             
+            {%- comment -%} TRADE MODE: PO Reference field (Gate 5) — hidden until qty >= threshold {%- endcomment -%}
+            {%- if section.settings.show_po_field -%}
+              <div class="inv-pdp__trade-po inv-pdp--hidden" data-trade-po>
+                <label class="inv-pdp__trade-po-label" for="inv-pdp-po-{{ section.id }}">PO / Job Reference (optional)</label>
+                <input
+                  type="text"
+                  id="inv-pdp-po-{{ section.id }}"
+                  name="properties[_po_reference]"
+                  class="inv-pdp__trade-po-input"
+                  placeholder="PO / Job Reference (optional)"
+                  data-po-input
+                >
+              </div>
+            {%- endif -%}
+
             {%- comment -%} CART ERROR FEEDBACK {%- endcomment -%}
             <div class="inv-pdp__atc-error inv-pdp--hidden" role="alert" aria-live="assertive" data-atc-error data-error-text="{{ section.settings.cart_error_text | escape }}"></div>
           </form>
+
+          {%- comment -%} TRADE MODE: Bulk messaging (Gate 5) — hidden until qty >= threshold {%- endcomment -%}
+          {%- if section.settings.show_po_field -%}
+          <div class="inv-pdp__trade-bulk inv-pdp--hidden" data-trade-bulk>
+            <p class="inv-pdp__trade-bulk-msg">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              {{ section.settings.bulk_message | default: 'Need 10+? Call us on 01843 210 459 for trade pricing' }}
+            </p>
+          </div>
+          {%- endif -%}
 
           {%- comment -%}
             CX v1.1: BACK-IN-STOCK NOTIFICATION
@@ -868,6 +1228,25 @@
             </div>
           </div>
 
+          {%- comment -%} KIT BUILDER (Gate 4) — opens drawer with tiered kit options {%- endcomment -%}
+          {%- if has_kit_options and is_in_stock -%}
+            <div class="inv-pdp__kit-builder-trigger">
+              <button
+                type="button"
+                class="inv-pdp__kit-builder-btn"
+                data-kit-builder-open
+                aria-label="Build a kit with {{ product.title | escape }}"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                  <line x1="12" y1="22.08" x2="12" y2="12"/>
+                </svg>
+                Build Your Kit
+              </button>
+            </div>
+          {%- endif -%}
+
           {%- comment -%} BUY NOW — adds to cart & redirects to checkout {%- endcomment -%}
           {% if show_buy_now_final %}
             <div class="inv-pdp__buy-now">
@@ -899,6 +1278,22 @@
               <span>Secure Checkout</span>
             </span>
           </div>
+
+          {%- comment -%} CROSS-BRAND COMPARISON (Gate 6) {%- endcomment -%}
+          {%- if comparison_count > 0 -%}
+            <button
+              type="button"
+              class="inv-pdp__compare-chip"
+              data-compare-open
+              aria-label="Compare with similar models"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
+                <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+              Compare with similar models
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          {%- endif -%}
 
           {%- comment -%} WARRANTY INFO CARD — expandable details below trust strip {%- endcomment -%}
           <details class="inv-pdp__warranty-details">
@@ -944,6 +1339,11 @@
                   <a href="tel:01843210459">01843 210 459</a>
                 </span>
               </div>
+              {%- if product.vendor != blank -%}
+                <p class="inv-pdp__warranty-card-dealer">
+                  We're an authorised {{ product.vendor }} dealer — all warranty claims go directly through the manufacturer.
+                </p>
+              {%- endif -%}
             </div>
           </details>
 
@@ -985,7 +1385,10 @@
     </div>
     <div class="inv-pdp__sticky-atc-info">
       <p class="inv-pdp__sticky-atc-title">{{ product.title | escape }}</p>
-      <p class="inv-pdp__sticky-atc-price" data-sticky-price>{{ price_ex_vat | money }} <span class="inv-pdp__sticky-atc-vat">ex VAT</span></p>
+      <p class="inv-pdp__sticky-atc-price" data-sticky-price>
+        <span data-price-inc>{{ current_variant.price | money }} <span class="inv-pdp__sticky-atc-vat">inc VAT</span></span>
+        <span class="inv-vat--hidden" data-price-ex>{{ price_ex_vat | money }} <span class="inv-pdp__sticky-atc-vat">ex VAT</span></span>
+      </p>
     </div>
     <button
       type="button"
@@ -998,6 +1401,97 @@
     </button>
   </div>
 </div>
+
+{%- comment -%} ========== COMPARISON MODAL (Gate 6) ========== {%- endcomment -%}
+{%- if comparison_count > 0 -%}
+  <div
+    class="inv-pdp__compare-modal"
+    data-compare-modal
+    hidden
+    role="dialog"
+    aria-modal="true"
+    aria-label="Product comparison"
+  >
+    <div class="inv-pdp__compare-modal-backdrop" data-compare-close></div>
+    <div class="inv-pdp__compare-modal-panel">
+      <div class="inv-pdp__compare-modal-header">
+        <h2 class="inv-pdp__compare-modal-title">Compare Models</h2>
+        <button type="button" class="inv-pdp__compare-modal-close" data-compare-close aria-label="Close">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="inv-pdp__compare-modal-body" data-compare-body>
+        <p class="inv-pdp__kit-loading">Loading comparison...</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" data-compare-handles-json>
+    {{ mf_comparison | json }}
+  </script>
+{%- endif -%}
+
+{%- comment -%} ========== KIT BUILDER DRAWER (Gate 4) ========== {%- endcomment -%}
+{%- if has_kit_options and is_in_stock -%}
+  <div
+    class="inv-pdp__kit-drawer"
+    data-kit-drawer
+    hidden
+    role="dialog"
+    aria-modal="true"
+    aria-label="Build Your Kit"
+  >
+    <div class="inv-pdp__kit-drawer-backdrop" data-kit-drawer-close></div>
+    <div class="inv-pdp__kit-drawer-panel">
+      <div class="inv-pdp__kit-drawer-header">
+        <h2 class="inv-pdp__kit-drawer-title">Build Your Kit</h2>
+        <button type="button" class="inv-pdp__kit-drawer-close" data-kit-drawer-close aria-label="Close">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="inv-pdp__kit-drawer-body">
+        {%- comment -%} Current product summary {%- endcomment -%}
+        <div class="inv-pdp__kit-drawer-product">
+          {%- if featured_image -%}
+            <img src="{{ featured_image | image_url: width: 120 }}" alt="" width="60" height="60" loading="lazy">
+          {%- endif -%}
+          <div>
+            <p class="inv-pdp__kit-drawer-product-title">{{ product.title | truncate: 60 }}</p>
+            <p class="inv-pdp__kit-drawer-product-price">
+              <span data-price-inc>{{ current_variant.price | money }}</span>
+              <span class="inv-vat--hidden" data-price-ex>{{ price_ex_vat | money }}</span>
+            </p>
+          </div>
+        </div>
+
+        {%- comment -%} Kit tiers — populated by JS from metafield JSON {%- endcomment -%}
+        <div class="inv-pdp__kit-tiers" data-kit-tiers>
+          <p class="inv-pdp__kit-loading">Loading kit options...</p>
+        </div>
+      </div>
+
+      <div class="inv-pdp__kit-drawer-footer">
+        <button
+          type="button"
+          class="inv-pdp__kit-drawer-add"
+          data-kit-add-all
+          disabled
+        >
+          Add Kit to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" data-kit-options-json>
+    {{ mf_kit_options | json }}
+  </script>
+{%- endif -%}
 
 {%- comment -%} ========== LIGHTBOX ========== {%- endcomment -%}
 <div 
@@ -1035,6 +1529,12 @@
 
 
 <script src="{{ 'invicta-product-v2.js' | asset_url }}" defer></script>
+{%- if has_kit_options and is_in_stock -%}
+  <script src="{{ 'invicta-kit-builder.js' | asset_url }}" defer></script>
+{%- endif -%}
+{%- if comparison_count > 0 -%}
+  <script src="{{ 'invicta-compare.js' | asset_url }}" defer></script>
+{%- endif -%}
 
 {%- comment -%} Sticky ATC behavior — show bar when main ATC scrolls out of view {%- endcomment -%}
 <script>
@@ -1164,6 +1664,13 @@
       "label": "Show key specs chips",
       "default": true,
       "info": "Voltage, torque, motor type below image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_spec_strip",
+      "label": "Show inline spec strip in buy box",
+      "default": true,
+      "info": "Quick-reference spec bar above delivery estimate"
     },
     {
       "type": "header",
@@ -1296,6 +1803,32 @@
       "max": 20,
       "step": 1,
       "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Trade Mode"
+    },
+    {
+      "type": "range",
+      "id": "trade_mode_threshold",
+      "label": "Trade mode quantity threshold",
+      "info": "Show trade features when quantity is at or above this number",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "show_po_field",
+      "label": "Show PO reference field in trade mode",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "bulk_message",
+      "label": "Bulk order message",
+      "default": "Need 10+? Call us on 01843 210 459 for trade pricing"
     },
     {
       "type": "header",

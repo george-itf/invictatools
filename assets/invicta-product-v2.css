@@ -1772,7 +1772,37 @@
   outline-offset: 2px;
 }
 
+.inv-pdp__compat-bare-notice {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--inv-fg-dim, #666);
+  background: var(--inv-bg-soft, #fafafa);
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: var(--inv-space-md);
+}
+
+.inv-pdp__compat-bare-notice svg {
+  flex-shrink: 0;
+  color: var(--inv-warning, #f59e0b);
+}
+
 @media (max-width: 749px) {
+  .inv-pdp__compat {
+    margin-left: calc(-1 * var(--inv-gutter, 16px));
+    margin-right: calc(-1 * var(--inv-gutter, 16px));
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    padding-left: var(--inv-gutter, 16px);
+    padding-right: 0;
+  }
+  .inv-pdp__compat-row {
+    padding-right: var(--inv-gutter, 16px);
+  }
   .inv-pdp__compat-card {
     min-width: 220px;
   }
