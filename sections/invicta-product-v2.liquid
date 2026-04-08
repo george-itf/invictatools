@@ -477,8 +477,28 @@
           if compat_source == 'none' and platform_tag != blank
             assign platform_collection = collections[platform_tag]
             if platform_collection != blank and platform_collection.products_count > 0
-              assign compat_source = 'platform'
-              assign compat_show = true
+              comment — Pre-flight: verify at least one cat-battery or cat-charger product exists
+              endcomment
+              assign platform_preflight = 0
+              for cp in platform_collection.products
+                if cp.id == product.id
+                  continue
+                endif
+                for t in cp.tags
+                  assign t_lower = t | downcase | strip
+                  if t_lower == 'cat-battery' or t_lower == 'cat-charger'
+                    assign platform_preflight = platform_preflight | plus: 1
+                    break
+                  endif
+                endfor
+                if platform_preflight >= 1
+                  break
+                endif
+              endfor
+              if platform_preflight > 0
+                assign compat_source = 'platform'
+                assign compat_show = true
+              endif
             endif
           endif
         endif

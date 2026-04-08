@@ -107,26 +107,40 @@
         assign dedup_handles = dedup_handles | append: h_clean | append: ','
       endif
     endfor
-  elsif platform_tag != blank and has_cat_power_tool
+  elsif platform_tag != blank and has_cat_power_tool or platform_tag != blank and has_cat_charger
     assign g1_platform_col = collections[platform_tag]
     if g1_platform_col != blank
       for cp in g1_platform_col.products limit: 6
-        if cp.id != product.id
-          assign dedup_handles = dedup_handles | append: cp.handle | append: ','
+        if cp.id == product.id
+          continue
         endif
+        comment — Only dedup what Gate 1 actually renders: cat-battery and cat-charger
+        endcomment
+        for t in cp.tags
+          assign t_lower = t | downcase | strip
+          if t_lower == 'cat-battery' or t_lower == 'cat-charger'
+            assign dedup_handles = dedup_handles | append: cp.handle | append: ','
+            break
+          endif
+        endfor
       endfor
     endif
   endif
 
-  comment — Collect Gate 2 consumables handles (from metafield)
+  comment — Collect Gate 2 consumables handles (from metafield) and validate
   endcomment
   assign g2_consumables_json = product.metafields.custom.consumables
+  assign g2_has_valid = false
   if g2_consumables_json != blank
     assign g2_handles = g2_consumables_json | replace: '[', '' | replace: ']', '' | replace: '"', '' | split: ','
     for h in g2_handles
       assign h_clean = h | strip
       if h_clean != blank
         assign dedup_handles = dedup_handles | append: h_clean | append: ','
+        assign g2_check = all_products[h_clean]
+        if g2_check != blank and g2_check.title != blank
+          assign g2_has_valid = true
+        endif
       endif
     endfor
   endif
@@ -147,9 +161,9 @@
       assign related_source = 'platform-dedup'
     endif
 
-  comment — Tier 2: Consumables metafield populated (deduplicate against Gate 2)
+  comment — Tier 2: Consumables metafield has at least one valid product (deduplicate against Gate 2)
   endcomment
-  elsif g2_consumables_json != blank
+  elsif g2_has_valid
     assign related_heading = 'Frequently Bought Together'
     assign related_intent = 'complementary'
     assign context_type = 'consumables-dedup'
