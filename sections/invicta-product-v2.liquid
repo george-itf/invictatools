@@ -51,6 +51,13 @@
   assign mf_features = product.metafields.custom.features
 
   comment
+    Additional spec metafields for inline spec strip (Gate 3)
+  endcomment
+  assign mf_disc_diameter = product.metafields.custom.disc_diameter
+  assign mf_no_load_speed = product.metafields.custom.no_load_speed
+  assign mf_weight_body = product.metafields.custom.weight_body_only
+
+  comment
     Compare price logic
   endcomment
   assign has_compare_price = false
@@ -770,6 +777,77 @@
             <script src="{{ 'component-tiered-pricing.js' | asset_url }}" defer></script>
           {%- endif -%}
 
+          {%- comment -%} INLINE SPEC STRIP (Gate 3) — quick-reference data bar {%- endcomment -%}
+          {%- if section.settings.show_spec_strip -%}
+            {%- liquid
+              assign spec_strip_count = 0
+              if mf_voltage != blank
+                assign spec_strip_count = spec_strip_count | plus: 1
+              endif
+              if mf_no_load_speed != blank
+                assign spec_strip_count = spec_strip_count | plus: 1
+              endif
+              if mf_disc_diameter != blank
+                assign spec_strip_count = spec_strip_count | plus: 1
+              endif
+              if mf_weight_body != blank
+                assign spec_strip_count = spec_strip_count | plus: 1
+              endif
+              if mf_max_torque != blank
+                assign spec_strip_count = spec_strip_count | plus: 1
+              endif
+              if mf_motor_type != blank
+                assign spec_strip_count = spec_strip_count | plus: 1
+              endif
+            -%}
+            {%- if spec_strip_count > 0 -%}
+              <div class="inv-pdp__spec-strip" aria-label="Key specifications">
+                {%- if mf_voltage != blank -%}
+                  <div class="inv-pdp__spec-chip">
+                    <svg class="inv-pdp__spec-chip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    <span class="inv-pdp__spec-chip-label">Voltage</span>
+                    <span class="inv-pdp__spec-chip-value">{{ mf_voltage }}</span>
+                  </div>
+                {%- endif -%}
+                {%- if mf_no_load_speed != blank -%}
+                  <div class="inv-pdp__spec-chip">
+                    <svg class="inv-pdp__spec-chip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    <span class="inv-pdp__spec-chip-label">RPM</span>
+                    <span class="inv-pdp__spec-chip-value">{{ mf_no_load_speed }}</span>
+                  </div>
+                {%- endif -%}
+                {%- if mf_disc_diameter != blank -%}
+                  <div class="inv-pdp__spec-chip">
+                    <svg class="inv-pdp__spec-chip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>
+                    <span class="inv-pdp__spec-chip-label">Disc</span>
+                    <span class="inv-pdp__spec-chip-value">{{ mf_disc_diameter }}</span>
+                  </div>
+                {%- endif -%}
+                {%- if mf_max_torque != blank -%}
+                  <div class="inv-pdp__spec-chip">
+                    <svg class="inv-pdp__spec-chip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    <span class="inv-pdp__spec-chip-label">Torque</span>
+                    <span class="inv-pdp__spec-chip-value">{{ mf_max_torque }}</span>
+                  </div>
+                {%- endif -%}
+                {%- if mf_weight_body != blank -%}
+                  <div class="inv-pdp__spec-chip">
+                    <svg class="inv-pdp__spec-chip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="M20.91 8.84L8.56 21.18a1 1 0 01-1.41 0L3.82 17.85a1 1 0 010-1.41L16.16 4.09a3 3 0 014.24 0l.51.51a3 3 0 010 4.24z"/></svg>
+                    <span class="inv-pdp__spec-chip-label">Weight</span>
+                    <span class="inv-pdp__spec-chip-value">{{ mf_weight_body }}</span>
+                  </div>
+                {%- endif -%}
+                {%- if mf_motor_type != blank -%}
+                  <div class="inv-pdp__spec-chip">
+                    <svg class="inv-pdp__spec-chip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                    <span class="inv-pdp__spec-chip-label">Motor</span>
+                    <span class="inv-pdp__spec-chip-value">{{ mf_motor_type }}</span>
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+
           {%- comment -%} DELIVERY ESTIMATE (reusable snippet) {%- endcomment -%}
           {% render 'invicta-delivery-estimate', stock_source: stock_source, supplier_delivery_est: supplier_delivery_est %}
 
@@ -1185,6 +1263,13 @@
       "label": "Show key specs chips",
       "default": true,
       "info": "Voltage, torque, motor type below image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_spec_strip",
+      "label": "Show inline spec strip in buy box",
+      "default": true,
+      "info": "Quick-reference spec bar above delivery estimate"
     },
     {
       "type": "header",

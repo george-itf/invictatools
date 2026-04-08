@@ -297,6 +297,67 @@
   }
 }
 
+/* --- Inline Spec Strip (Gate 3) --- */
+.inv-pdp__spec-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 14px;
+  background: var(--inv-bg-soft, #fafafa);
+  border: 1px solid var(--inv-grey-100, #f5f5f5);
+  border-radius: 8px;
+  margin-bottom: var(--inv-space-md);
+}
+
+.inv-pdp__spec-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+}
+
+.inv-pdp__spec-chip + .inv-pdp__spec-chip {
+  padding-left: 8px;
+  border-left: 1px solid var(--inv-grey-200, #e5e5e5);
+}
+
+.inv-pdp__spec-chip-icon {
+  color: var(--inv-fg-muted, #888);
+  flex-shrink: 0;
+}
+
+.inv-pdp__spec-chip-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--inv-fg-muted, #888);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.inv-pdp__spec-chip-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--inv-fg-near-black);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 749px) {
+  .inv-pdp__spec-strip {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 12px;
+    padding: 10px 12px;
+  }
+  .inv-pdp__spec-chip {
+    padding-left: 0;
+    border-left: none;
+  }
+  .inv-pdp__spec-chip + .inv-pdp__spec-chip {
+    padding-left: 0;
+    border-left: none;
+  }
+}
+
 /* --- Hidden utility (replaces inline display:none) --- */
 .inv-pdp--hidden { display: none; }
 
