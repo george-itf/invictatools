@@ -612,6 +612,58 @@
   }
 }
 
+/* --- Trade Mode (Gate 5) --- */
+.inv-pdp__trade-po {
+  margin-top: var(--inv-space-sm);
+}
+
+.inv-pdp__trade-po-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--inv-fg-muted, #888);
+  margin-bottom: 4px;
+}
+
+.inv-pdp__trade-po-input {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--inv-grey-200, #e5e5e5);
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--inv-fg-near-black);
+  background: var(--inv-bg-soft, #fafafa);
+}
+
+.inv-pdp__trade-po-input:focus {
+  outline: none;
+  border-color: var(--inv-accent);
+}
+
+.inv-pdp__trade-po-input::placeholder {
+  color: var(--inv-fg-muted, #888);
+}
+
+.inv-pdp__trade-bulk {
+  margin-top: var(--inv-space-sm);
+}
+
+.inv-pdp__trade-bulk-msg {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--inv-fg-muted, #888);
+  margin: 0;
+}
+
+.inv-pdp__trade-bulk-msg svg {
+  flex-shrink: 0;
+  color: var(--inv-fg-muted, #888);
+}
+
 /* --- Hidden utility (replaces inline display:none) --- */
 .inv-pdp--hidden { display: none; }
 

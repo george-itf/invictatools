@@ -587,7 +587,7 @@
     
     {%- comment -%} ========== RIGHT COLUMN — BUY BOX ========== {%- endcomment -%}
     <div class="inv-pdp__right">
-      <div class="inv-pdp__buybox">
+      <div class="inv-pdp__buybox" data-trade-threshold="{{ section.settings.trade_mode_threshold | default: 3 }}">
         
         {%- comment -%} STOCK BANNER {%- endcomment -%}
         <div
@@ -931,9 +931,32 @@
               </button>
             </div>
             
+            {%- comment -%} TRADE MODE: PO Reference field (Gate 5) — hidden until qty >= threshold {%- endcomment -%}
+            {%- if section.settings.show_po_field -%}
+              <div class="inv-pdp__trade-po inv-pdp--hidden" data-trade-po>
+                <label class="inv-pdp__trade-po-label" for="inv-pdp-po-{{ section.id }}">PO / Job Reference (optional)</label>
+                <input
+                  type="text"
+                  id="inv-pdp-po-{{ section.id }}"
+                  name="properties[_po_reference]"
+                  class="inv-pdp__trade-po-input"
+                  placeholder="PO / Job Reference (optional)"
+                  data-po-input
+                >
+              </div>
+            {%- endif -%}
+
             {%- comment -%} CART ERROR FEEDBACK {%- endcomment -%}
             <div class="inv-pdp__atc-error inv-pdp--hidden" role="alert" aria-live="assertive" data-atc-error data-error-text="{{ section.settings.cart_error_text | escape }}"></div>
           </form>
+
+          {%- comment -%} TRADE MODE: Bulk messaging (Gate 5) — hidden until qty >= threshold {%- endcomment -%}
+          <div class="inv-pdp__trade-bulk inv-pdp--hidden" data-trade-bulk>
+            <p class="inv-pdp__trade-bulk-msg">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              {{ section.settings.bulk_message | default: 'Need 10+? Call us on 01843 210 459 for trade pricing' }}
+            </p>
+          </div>
 
           {%- comment -%}
             CX v1.1: BACK-IN-STOCK NOTIFICATION
@@ -1493,6 +1516,32 @@
       "max": 20,
       "step": 1,
       "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Trade Mode"
+    },
+    {
+      "type": "range",
+      "id": "trade_mode_threshold",
+      "label": "Trade mode quantity threshold",
+      "info": "Show trade features when quantity is at or above this number",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "show_po_field",
+      "label": "Show PO reference field in trade mode",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "bulk_message",
+      "label": "Bulk order message",
+      "default": "Need 10+? Call us on 01843 210 459 for trade pricing"
     },
     {
       "type": "header",
