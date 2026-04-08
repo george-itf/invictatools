@@ -145,6 +145,7 @@
   {%- comment -%} === INITIAL PAGE LOAD: Show skeleton, JS will fetch === {%- endcomment -%}
   <div
     class="inv-related inv-related--hidden"
+    style="display:none"
     data-related-products
     data-product-id="{{ product.id }}"
     data-limit="{{ section.settings.products_to_show }}"
@@ -215,7 +216,8 @@
       "type": "inline_richtext",
       "id": "heading",
       "label": "Heading",
-      "default": "You May Also Like"
+      "default": "You May Also Like",
+      "info": "Used for default products. Bare units and consumables use automatic context headings."
     },
     {
       "type": "range",

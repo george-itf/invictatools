@@ -966,12 +966,14 @@
           </form>
 
           {%- comment -%} TRADE MODE: Bulk messaging (Gate 5) — hidden until qty >= threshold {%- endcomment -%}
+          {%- if section.settings.show_po_field -%}
           <div class="inv-pdp__trade-bulk inv-pdp--hidden" data-trade-bulk>
             <p class="inv-pdp__trade-bulk-msg">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               {{ section.settings.bulk_message | default: 'Need 10+? Call us on 01843 210 459 for trade pricing' }}
             </p>
           </div>
+          {%- endif -%}
 
           {%- comment -%}
             CX v1.1: BACK-IN-STOCK NOTIFICATION
@@ -1171,7 +1173,10 @@
     </div>
     <div class="inv-pdp__sticky-atc-info">
       <p class="inv-pdp__sticky-atc-title">{{ product.title | escape }}</p>
-      <p class="inv-pdp__sticky-atc-price" data-sticky-price>{{ price_ex_vat | money }} <span class="inv-pdp__sticky-atc-vat">ex VAT</span></p>
+      <p class="inv-pdp__sticky-atc-price" data-sticky-price>
+        <span data-price-inc>{{ current_variant.price | money }} <span class="inv-pdp__sticky-atc-vat">inc VAT</span></span>
+        <span class="inv-vat--hidden" data-price-ex>{{ price_ex_vat | money }} <span class="inv-pdp__sticky-atc-vat">ex VAT</span></span>
+      </p>
     </div>
     <button
       type="button"
@@ -1212,7 +1217,7 @@
   </div>
 
   <script type="application/json" data-compare-handles-json>
-    {{ mf_comparison }}
+    {{ mf_comparison | json }}
   </script>
 {%- endif -%}
 
@@ -1272,7 +1277,7 @@
   </div>
 
   <script type="application/json" data-kit-options-json>
-    {{ mf_kit_options }}
+    {{ mf_kit_options | json }}
   </script>
 {%- endif -%}
 

@@ -26,6 +26,7 @@
   var kitData = null;
   var selectedTierKey = null;
   var productCache = {};
+  var tiersLoaded = false;
 
   try {
     kitData = JSON.parse(optionsJson.textContent);
@@ -121,6 +122,7 @@
    * Load all tier products and render cards
    */
   function loadTiers() {
+    tiersLoaded = true;
     var tierKeys = Object.keys(kitData);
     var allHandles = [];
 
@@ -186,6 +188,14 @@
       }
     });
 
+    if (!window.InvictaCartAPI) {
+      if (addAllBtn) {
+        addAllBtn.textContent = 'Add Kit to Cart';
+        addAllBtn.disabled = false;
+      }
+      return;
+    }
+
     // Sequential adds to avoid race conditions
     var chain = Promise.resolve();
     addSequence.forEach(function(item) {
@@ -211,7 +221,7 @@
   function openDrawer() {
     drawer.hidden = false;
     document.body.style.overflow = 'hidden';
-    loadTiers();
+    if (!tiersLoaded) loadTiers();
   }
 
   function closeDrawer() {
