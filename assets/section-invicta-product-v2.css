@@ -287,6 +287,15 @@
   text-decoration: underline;
 }
 
+.inv-pdp__warranty-card-dealer {
+  font-size: 12px;
+  color: var(--inv-fg-muted, #888);
+  margin: 10px 0 0;
+  padding-top: 8px;
+  border-top: 1px solid var(--inv-grey-100, #f5f5f5);
+  font-style: italic;
+}
+
 @media (max-width: 749px) {
   .inv-pdp__warranty-card-row {
     flex-direction: column;

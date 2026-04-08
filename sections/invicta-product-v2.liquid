@@ -1125,6 +1125,11 @@
                   <a href="tel:01843210459">01843 210 459</a>
                 </span>
               </div>
+              {%- if product.vendor != blank -%}
+                <p class="inv-pdp__warranty-card-dealer">
+                  We're an authorised {{ product.vendor }} dealer — all warranty claims go directly through the manufacturer.
+                </p>
+              {%- endif -%}
             </div>
           </details>
 
