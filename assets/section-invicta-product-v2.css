@@ -149,8 +149,153 @@
   animation: none;
 }
 
-/* --- Supplier Dispatch Info (consolidated into stock banner) --- */
+/* --- Fulfilment Source Transparency --- */
+.inv-pdp__stock-origin {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.8;
+  margin-top: 2px;
+}
 
+.inv-pdp__stock-info-details {
+  margin-top: 6px;
+}
+
+.inv-pdp__stock-info-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.8;
+  list-style: none;
+}
+
+.inv-pdp__stock-info-trigger::-webkit-details-marker {
+  display: none;
+}
+
+.inv-pdp__stock-info-trigger:hover {
+  opacity: 1;
+}
+
+.inv-pdp__stock-info-body {
+  margin: 6px 0 0;
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+}
+
+.inv-pdp__branch-teaser {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 12px;
+  color: var(--inv-fg-dim, #666);
+}
+
+.inv-pdp__branch-teaser svg {
+  flex-shrink: 0;
+  color: var(--inv-grey-400, #999);
+}
+
+.inv-pdp__branch-teaser a {
+  color: var(--inv-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.inv-pdp__branch-teaser a:hover {
+  text-decoration: underline;
+}
+
+/* --- Warranty Info Card --- */
+.inv-pdp__warranty-details {
+  margin-top: var(--inv-space-sm);
+}
+
+.inv-pdp__warranty-summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--inv-fg-near-black);
+  padding: 6px 0;
+}
+
+.inv-pdp__warranty-summary::-webkit-details-marker {
+  display: none;
+}
+
+.inv-pdp__warranty-chevron {
+  margin-left: auto;
+  transition: transform 0.2s ease;
+  color: var(--inv-grey-400);
+}
+
+.inv-pdp__warranty-details[open] .inv-pdp__warranty-chevron {
+  transform: rotate(180deg);
+}
+
+.inv-pdp__warranty-card {
+  background: var(--inv-bg-elevated, #fff);
+  border: 1px solid var(--inv-border, #e5e5e5);
+  border-radius: 8px;
+  padding: var(--inv-space-md);
+  margin-top: var(--inv-space-sm);
+}
+
+.inv-pdp__warranty-card-row {
+  display: flex;
+  gap: var(--inv-space-sm);
+  padding: 6px 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.inv-pdp__warranty-card-row + .inv-pdp__warranty-card-row {
+  border-top: 1px solid var(--inv-grey-100, #f5f5f5);
+}
+
+.inv-pdp__warranty-card-label {
+  flex-shrink: 0;
+  width: 100px;
+  font-weight: 700;
+  color: var(--inv-fg-near-black);
+}
+
+.inv-pdp__warranty-card-value {
+  color: var(--inv-fg-dim, #666);
+}
+
+.inv-pdp__warranty-card-value a {
+  color: var(--inv-accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.inv-pdp__warranty-card-value a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 749px) {
+  .inv-pdp__warranty-card-row {
+    flex-direction: column;
+    gap: 2px;
+  }
+  .inv-pdp__warranty-card-label {
+    width: auto;
+  }
+}
 
 /* --- Hidden utility (replaces inline display:none) --- */
 .inv-pdp--hidden { display: none; }
