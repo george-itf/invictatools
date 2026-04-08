@@ -61,9 +61,12 @@
   -%}
   {%- if social_array.size > 0 -%}
     ,"sameAs": [
+      {%- assign sameAs_first = true -%}
       {%- for link in social_array -%}
         {%- unless link == blank -%}
-          {{ link | json }}{%- unless forloop.last %},{% endunless -%}
+          {%- unless sameAs_first -%},{%- endunless -%}
+          {{ link | json }}
+          {%- assign sameAs_first = false -%}
         {%- endunless -%}
       {%- endfor -%}
     ]
@@ -252,7 +255,7 @@
   endcomment
   assign witb_found = false
   assign witb_clean = ''
-  if desc_lower contains 'in the box' or desc_lower contains 'what' and desc_lower contains 'included'
+  if desc_lower contains 'in the box' or desc_lower contains "what's included" or desc_lower contains 'whats included'
     assign witb_markers = 'What,In the Box,Included' | split: ','
     for marker in witb_markers
       if faq_desc contains marker
