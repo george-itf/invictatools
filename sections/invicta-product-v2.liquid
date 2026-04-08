@@ -407,37 +407,83 @@
         </div>
       {% endif %}
 
-      {%- comment -%} COMPATIBLE PRODUCTS (Battery Ecosystem) {%- endcomment -%}
+      {%- comment -%}
+        COMPATIBLE PRODUCTS — Battery Ecosystem (Gate 1 v2)
+        ====================================================
+        Two-tier data source:
+          Tier 1 (manual override): custom.compatible_products metafield (JSON array of handles)
+          Tier 2 (automatic): platform-* tag → matching automated collection → filter cat-battery/cat-charger
+        Only renders on cat-power-tool or cat-charger products.
+        Tags used: platform-*, cat-power-tool, cat-charger, cat-battery, bare-unit
+      {%- endcomment -%}
       {%- liquid
-        assign compat_json = product.metafields.custom.compatible_products
-        assign compat_products = blank
-        if compat_json != blank
-          assign compat_handles = compat_json | replace: '[', '' | replace: ']', '' | replace: '"', '' | split: ','
-          assign compat_count = 0
-          for h in compat_handles
-            assign h_clean = h | strip
-            if h_clean != blank
-              assign compat_count = compat_count | plus: 1
-            endif
-          endfor
-        endif
-      -%}
-      {%- if compat_count > 0 -%}
-        {%- liquid
-          assign is_bare_unit = false
+        assign compat_source = 'none'
+        assign compat_show = false
+        assign is_bare_unit = false
+        assign platform_tag = blank
+        assign is_compat_eligible = false
+
+        comment — Detect category and platform from tags
+        endcomment
+        for tag in product.tags
+          assign tag_lower = tag | downcase | strip
+          if tag_lower == 'cat-power-tool' or tag_lower == 'cat-charger'
+            assign is_compat_eligible = true
+          endif
+          if tag_lower == 'bare-unit'
+            assign is_bare_unit = true
+          endif
+          if tag_lower contains 'platform-'
+            assign platform_tag = tag_lower
+          endif
+        endfor
+
+        comment — Also detect bare-unit from title as fallback
+        endcomment
+        unless is_bare_unit
           assign title_lower = product.title | downcase
           if title_lower contains 'bare' or title_lower contains 'body only'
             assign is_bare_unit = true
-          else
-            for tag in product.tags
-              assign tag_check = tag | downcase | strip
-              if tag_check == 'bare' or tag_check == 'bare-unit' or tag_check == 'body-only'
-                assign is_bare_unit = true
-                break
+          endif
+        endunless
+
+        comment — Only show compat card on eligible product categories
+        endcomment
+        if is_compat_eligible
+
+          comment — Tier 1: Check manual override metafield first
+          endcomment
+          assign compat_json = product.metafields.custom.compatible_products
+          if compat_json != blank
+            assign compat_handles = compat_json | replace: '[', '' | replace: ']', '' | replace: '"', '' | split: ','
+            assign compat_mf_count = 0
+            for h in compat_handles
+              assign h_clean = h | strip
+              if h_clean != blank
+                assign cp_check = all_products[h_clean]
+                if cp_check != blank and cp_check.title != blank
+                  assign compat_mf_count = compat_mf_count | plus: 1
+                endif
               endif
             endfor
+            if compat_mf_count > 0
+              assign compat_source = 'metafield'
+              assign compat_show = true
+            endif
           endif
-        -%}
+
+          comment — Tier 2: Platform tag → automated collection lookup
+          endcomment
+          if compat_source == 'none' and platform_tag != blank
+            assign platform_collection = collections[platform_tag]
+            if platform_collection != blank and platform_collection.products_count > 0
+              assign compat_source = 'platform'
+              assign compat_show = true
+            endif
+          endif
+        endif
+      -%}
+      {%- if compat_show -%}
         <div class="inv-pdp__compat">
           <h2 class="inv-pdp__compat-heading">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
@@ -454,63 +500,209 @@
             </p>
           {%- endif -%}
           <div class="inv-pdp__compat-row">
-            {%- for h in compat_handles -%}
-              {%- assign h_clean = h | strip -%}
-              {%- if h_clean == blank -%}{%- continue -%}{%- endif -%}
-              {%- assign compat_product = all_products[h_clean] -%}
-              {%- if compat_product == blank or compat_product.title == blank -%}{%- continue -%}{%- endif -%}
+            {%- if compat_source == 'metafield' -%}
+              {%- comment -%} Tier 1: Render from curated metafield handles {%- endcomment -%}
+              {%- assign compat_shown = 0 -%}
+              {%- for h in compat_handles -%}
+                {%- if compat_shown >= 6 -%}{%- break -%}{%- endif -%}
+                {%- assign h_clean = h | strip -%}
+                {%- if h_clean == blank -%}{%- continue -%}{%- endif -%}
+                {%- assign compat_product = all_products[h_clean] -%}
+                {%- if compat_product == blank or compat_product.title == blank -%}{%- continue -%}{%- endif -%}
 
-              {%- assign cp_variant = compat_product.selected_or_first_available_variant -%}
-              {%- assign cp_available = cp_variant.available -%}
-              {%- assign cp_price = cp_variant.price -%}
-              {%- assign cp_price_ex = cp_price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor -%}
-              {%- assign cp_image = compat_product.featured_image -%}
+                {%- assign cp_variant = compat_product.selected_or_first_available_variant -%}
+                {%- assign cp_available = cp_variant.available -%}
+                {%- assign cp_price = cp_variant.price -%}
+                {%- assign cp_price_ex = cp_price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor -%}
+                {%- assign cp_image = compat_product.featured_image -%}
 
-              <div class="inv-pdp__compat-card">
-                <a href="{{ compat_product.url }}" class="inv-pdp__compat-card-img">
-                  {%- if cp_image -%}
-                    <img
-                      src="{{ cp_image | image_url: width: 160 }}"
-                      alt="{{ cp_image.alt | escape | default: compat_product.title }}"
-                      width="80"
-                      height="80"
-                      loading="lazy"
-                    >
-                  {%- endif -%}
-                </a>
-                <div class="inv-pdp__compat-card-body">
-                  <a href="{{ compat_product.url }}" class="inv-pdp__compat-card-title">
-                    {{ compat_product.title | truncate: 50 }}
+                <div class="inv-pdp__compat-card">
+                  <a href="{{ compat_product.url }}" class="inv-pdp__compat-card-img">
+                    {%- if cp_image -%}
+                      <img
+                        src="{{ cp_image | image_url: width: 160 }}"
+                        alt="{{ cp_image.alt | escape | default: compat_product.title }}"
+                        width="80"
+                        height="80"
+                        loading="lazy"
+                      >
+                    {%- endif -%}
                   </a>
-                  <div class="inv-pdp__compat-card-price">
-                    <span data-price-inc>{{ cp_price | money }}</span>
-                    <span class="inv-vat--hidden" data-price-ex>{{ cp_price_ex | money }}</span>
+                  <div class="inv-pdp__compat-card-body">
+                    <a href="{{ compat_product.url }}" class="inv-pdp__compat-card-title">
+                      {{ compat_product.title | truncate: 50 }}
+                    </a>
+                    <div class="inv-pdp__compat-card-price">
+                      <span data-price-inc>{{ cp_price | money }}</span>
+                      <span class="inv-vat--hidden" data-price-ex>{{ cp_price_ex | money }}</span>
+                    </div>
+                    <span class="inv-pdp__compat-card-stock inv-pdp__compat-card-stock--{{ cp_available | default: false }}">
+                      {%- if cp_available -%}In Stock{%- else -%}Out of Stock{%- endif -%}
+                    </span>
                   </div>
-                  <span class="inv-pdp__compat-card-stock inv-pdp__compat-card-stock--{{ cp_available | default: false }}">
-                    {%- if cp_available -%}In Stock{%- else -%}Out of Stock{%- endif -%}
-                  </span>
+                  {%- if cp_available and compat_product.has_only_default_variant -%}
+                    <button
+                      type="button"
+                      class="inv-pdp__compat-card-add"
+                      data-add-to-cart
+                      data-variant-id="{{ cp_variant.id }}"
+                      data-quantity="1"
+                      aria-label="Add {{ compat_product.title | escape }} to cart"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
+                        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                      </svg>
+                      Add
+                    </button>
+                  {%- elsif cp_available -%}
+                    <a href="{{ compat_product.url }}" class="inv-pdp__compat-card-add">
+                      View
+                    </a>
+                  {%- endif -%}
                 </div>
-                {%- if cp_available and compat_product.has_only_default_variant -%}
-                  <button
-                    type="button"
-                    class="inv-pdp__compat-card-add"
-                    data-add-to-cart
-                    data-variant-id="{{ cp_variant.id }}"
-                    data-quantity="1"
-                    aria-label="Add {{ compat_product.title | escape }} to cart"
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
-                      <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-                    </svg>
-                    Add
-                  </button>
-                {%- elsif cp_available -%}
-                  <a href="{{ compat_product.url }}" class="inv-pdp__compat-card-add">
-                    View
+                {%- assign compat_shown = compat_shown | plus: 1 -%}
+              {%- endfor -%}
+
+            {%- elsif compat_source == 'platform' -%}
+              {%- comment -%}
+                Tier 2: Render from platform collection, filtered to cat-battery/cat-charger.
+                Sort: batteries first, then chargers. Within each group, price descending (Liquid
+                doesn't support custom sort, so we do two passes).
+              {%- endcomment -%}
+              {%- assign compat_shown = 0 -%}
+              {%- comment -%} Pass 1: Batteries (cat-battery), sorted by Shopify default (price desc via collection sort) {%- endcomment -%}
+              {%- for cp in platform_collection.products -%}
+                {%- if compat_shown >= 6 -%}{%- break -%}{%- endif -%}
+                {%- if cp.id == product.id -%}{%- continue -%}{%- endif -%}
+                {%- assign cp_is_battery = false -%}
+                {%- for t in cp.tags -%}
+                  {%- assign t_lower = t | downcase | strip -%}
+                  {%- if t_lower == 'cat-battery' -%}
+                    {%- assign cp_is_battery = true -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- unless cp_is_battery -%}{%- continue -%}{%- endunless -%}
+
+                {%- assign cp_variant = cp.selected_or_first_available_variant -%}
+                {%- assign cp_available = cp_variant.available -%}
+                {%- assign cp_price = cp_variant.price -%}
+                {%- assign cp_price_ex = cp_price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor -%}
+                {%- assign cp_image = cp.featured_image -%}
+
+                <div class="inv-pdp__compat-card">
+                  <a href="{{ cp.url }}" class="inv-pdp__compat-card-img">
+                    {%- if cp_image -%}
+                      <img
+                        src="{{ cp_image | image_url: width: 160 }}"
+                        alt="{{ cp_image.alt | escape | default: cp.title }}"
+                        width="80"
+                        height="80"
+                        loading="lazy"
+                      >
+                    {%- endif -%}
                   </a>
-                {%- endif -%}
-              </div>
-            {%- endfor -%}
+                  <div class="inv-pdp__compat-card-body">
+                    <a href="{{ cp.url }}" class="inv-pdp__compat-card-title">
+                      {{ cp.title | truncate: 50 }}
+                    </a>
+                    <div class="inv-pdp__compat-card-price">
+                      <span data-price-inc>{{ cp_price | money }}</span>
+                      <span class="inv-vat--hidden" data-price-ex>{{ cp_price_ex | money }}</span>
+                    </div>
+                    <span class="inv-pdp__compat-card-stock inv-pdp__compat-card-stock--{{ cp_available | default: false }}">
+                      {%- if cp_available -%}In Stock{%- else -%}Out of Stock{%- endif -%}
+                    </span>
+                  </div>
+                  {%- if cp_available and cp.has_only_default_variant -%}
+                    <button
+                      type="button"
+                      class="inv-pdp__compat-card-add"
+                      data-add-to-cart
+                      data-variant-id="{{ cp_variant.id }}"
+                      data-quantity="1"
+                      aria-label="Add {{ cp.title | escape }} to cart"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
+                        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                      </svg>
+                      Add
+                    </button>
+                  {%- elsif cp_available -%}
+                    <a href="{{ cp.url }}" class="inv-pdp__compat-card-add">
+                      View
+                    </a>
+                  {%- endif -%}
+                </div>
+                {%- assign compat_shown = compat_shown | plus: 1 -%}
+              {%- endfor -%}
+              {%- comment -%} Pass 2: Chargers (cat-charger) {%- endcomment -%}
+              {%- for cp in platform_collection.products -%}
+                {%- if compat_shown >= 6 -%}{%- break -%}{%- endif -%}
+                {%- if cp.id == product.id -%}{%- continue -%}{%- endif -%}
+                {%- assign cp_is_charger = false -%}
+                {%- for t in cp.tags -%}
+                  {%- assign t_lower = t | downcase | strip -%}
+                  {%- if t_lower == 'cat-charger' -%}
+                    {%- assign cp_is_charger = true -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- unless cp_is_charger -%}{%- continue -%}{%- endunless -%}
+
+                {%- assign cp_variant = cp.selected_or_first_available_variant -%}
+                {%- assign cp_available = cp_variant.available -%}
+                {%- assign cp_price = cp_variant.price -%}
+                {%- assign cp_price_ex = cp_price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor -%}
+                {%- assign cp_image = cp.featured_image -%}
+
+                <div class="inv-pdp__compat-card">
+                  <a href="{{ cp.url }}" class="inv-pdp__compat-card-img">
+                    {%- if cp_image -%}
+                      <img
+                        src="{{ cp_image | image_url: width: 160 }}"
+                        alt="{{ cp_image.alt | escape | default: cp.title }}"
+                        width="80"
+                        height="80"
+                        loading="lazy"
+                      >
+                    {%- endif -%}
+                  </a>
+                  <div class="inv-pdp__compat-card-body">
+                    <a href="{{ cp.url }}" class="inv-pdp__compat-card-title">
+                      {{ cp.title | truncate: 50 }}
+                    </a>
+                    <div class="inv-pdp__compat-card-price">
+                      <span data-price-inc>{{ cp_price | money }}</span>
+                      <span class="inv-vat--hidden" data-price-ex>{{ cp_price_ex | money }}</span>
+                    </div>
+                    <span class="inv-pdp__compat-card-stock inv-pdp__compat-card-stock--{{ cp_available | default: false }}">
+                      {%- if cp_available -%}In Stock{%- else -%}Out of Stock{%- endif -%}
+                    </span>
+                  </div>
+                  {%- if cp_available and cp.has_only_default_variant -%}
+                    <button
+                      type="button"
+                      class="inv-pdp__compat-card-add"
+                      data-add-to-cart
+                      data-variant-id="{{ cp_variant.id }}"
+                      data-quantity="1"
+                      aria-label="Add {{ cp.title | escape }} to cart"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
+                        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                      </svg>
+                      Add
+                    </button>
+                  {%- elsif cp_available -%}
+                    <a href="{{ cp.url }}" class="inv-pdp__compat-card-add">
+                      View
+                    </a>
+                  {%- endif -%}
+                </div>
+                {%- assign compat_shown = compat_shown | plus: 1 -%}
+              {%- endfor -%}
+            {%- endif -%}
           </div>
         </div>
       {%- endif -%}
