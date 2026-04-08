@@ -1,24 +1,17 @@
 {% comment %}
   ============================================================================
-  INVICTA RELATED PRODUCTS v1.1
+  INVICTA RELATED PRODUCTS v2.0 (Gate 8: Smart Context)
   ============================================================================
 
-  Standalone section for product recommendations on product pages.
-  Uses Shopify's Product Recommendations API with section rendering.
+  Context-aware product recommendations section.
 
-  How it works:
-    1. Initial page load shows a loading skeleton
-    2. JS fetches /recommendations/products?section_id=<this-section>&product_id=X
-    3. Shopify re-renders THIS section with recommendations.products populated
-    4. JS swaps the skeleton for the rendered product cards
+  Behaviour:
+    - Bare unit products → "Complete Your Setup" with compatible_products metafield first
+    - Consumable products → "Works With These Tools" heading
+    - Default → "You May Also Like" with Shopify Recommendations API
 
   Cards:  snippets/invicta-product-card.liquid
   Styles: assets/invicta-related-products.css
-
-  Manual assignment:
-    Merchants assign related products via the Search & Discovery app
-    in Shopify admin. The API returns manual picks merged with
-    auto-generated recommendations (intent=related).
   ============================================================================
 {% endcomment %}
 
@@ -37,12 +30,106 @@
   }
 {%- endstyle -%}
 
-{%- if recommendations.performed and recommendations.products_count > 0 -%}
+{%- liquid
+  comment
+    Gate 8: Determine product context for heading and recommendation source
+  endcomment
+  assign related_heading = section.settings.heading
+  assign related_intent = 'related'
+  assign use_metafield_products = false
+  assign context_type = 'default'
+
+  assign title_lower = product.title | downcase
+  assign is_bare_unit = false
+  assign is_consumable = false
+
+  comment — Bare unit detection
+  endcomment
+  if title_lower contains 'bare' or title_lower contains 'body only'
+    assign is_bare_unit = true
+  else
+    for tag in product.tags
+      assign tag_check = tag | downcase | strip
+      if tag_check == 'bare' or tag_check == 'bare-unit' or tag_check == 'body-only'
+        assign is_bare_unit = true
+        break
+      endif
+    endfor
+  endif
+
+  comment — Consumable detection via collection handles
+  endcomment
+  unless is_bare_unit
+    for col in product.collections
+      assign col_handle = col.handle | downcase
+      if col_handle contains 'disc' or col_handle contains 'blade' or col_handle contains 'bit' or col_handle contains 'abrasive'
+        assign is_consumable = true
+        break
+      endif
+    endfor
+  endunless
+
+  if is_bare_unit
+    assign related_heading = 'Complete Your Setup'
+    assign related_intent = 'complementary'
+    assign context_type = 'bare-unit'
+    comment — Use compatible_products metafield if populated
+    endcomment
+    assign compat_mf = product.metafields.custom.compatible_products
+    if compat_mf != blank
+      assign use_metafield_products = true
+    endif
+  elsif is_consumable
+    assign related_heading = 'Works With These Tools'
+    assign context_type = 'consumable'
+  endif
+-%}
+
+{%- if use_metafield_products -%}
+  {%- comment -%} === BARE UNIT: Render compatible products directly from metafield === {%- endcomment -%}
+  {%- liquid
+    assign mf_handles = compat_mf | replace: '[', '' | replace: ']', '' | replace: '"', '' | split: ','
+    assign valid_count = 0
+    for h in mf_handles
+      assign h_clean = h | strip
+      if h_clean != blank
+        assign p = all_products[h_clean]
+        if p != blank and p.title != blank
+          assign valid_count = valid_count | plus: 1
+        endif
+      endif
+    endfor
+  -%}
+  {%- if valid_count > 0 -%}
+    <div class="inv-related" data-related-products data-product-id="{{ product.id }}">
+      <div class="inv-related__container">
+        <div class="inv-related__header">
+          <h2 class="inv-related__title">{{ related_heading }}</h2>
+        </div>
+        <ul class="inv-related__grid" role="list">
+          {%- assign shown = 0 -%}
+          {%- for h in mf_handles -%}
+            {%- if shown >= section.settings.products_to_show -%}{%- break -%}{%- endif -%}
+            {%- assign h_clean = h | strip -%}
+            {%- if h_clean == blank -%}{%- continue -%}{%- endif -%}
+            {%- assign mf_product = all_products[h_clean] -%}
+            {%- if mf_product == blank or mf_product.title == blank -%}{%- continue -%}{%- endif -%}
+            <li class="inv-related__item">
+              {% render 'invicta-product-card', product: mf_product, card_index: forloop.index %}
+            </li>
+            {%- assign shown = shown | plus: 1 -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+  {%- endif -%}
+
+{%- elsif recommendations.performed and recommendations.products_count > 0 -%}
   {%- comment -%} === AJAX RE-RENDER: Shopify populated recommendations === {%- endcomment -%}
   <div class="inv-related" data-related-products data-product-id="{{ product.id }}">
     <div class="inv-related__container">
       <div class="inv-related__header">
-        <h2 class="inv-related__title">{{ section.settings.heading }}</h2>
+        <h2 class="inv-related__title">{{ related_heading }}</h2>
       </div>
       <ul class="inv-related__grid" role="list">
         {%- for product in recommendations.products limit: section.settings.products_to_show -%}
@@ -61,10 +148,11 @@
     data-related-products
     data-product-id="{{ product.id }}"
     data-limit="{{ section.settings.products_to_show }}"
+    data-intent="{{ related_intent }}"
   >
     <div class="inv-related__container">
       <div class="inv-related__header">
-        <h2 class="inv-related__title">{{ section.settings.heading }}</h2>
+        <h2 class="inv-related__title">{{ related_heading }}</h2>
       </div>
       <div class="inv-related__skeleton" data-related-skeleton>
         {%- for i in (1..4) -%}
@@ -88,10 +176,11 @@
 
     var productId = container.dataset.productId;
     var limit = container.dataset.limit || {{ section.settings.products_to_show }};
+    var intent = container.dataset.intent || 'related';
     if (!productId) return;
 
     var sectionId = '{{ section.id }}';
-    var url = '/recommendations/products?section_id=' + sectionId + '&product_id=' + productId + '&limit=' + limit + '&intent=related';
+    var url = '/recommendations/products?section_id=' + sectionId + '&product_id=' + productId + '&limit=' + limit + '&intent=' + intent;
 
     fetch(url)
       .then(function(r) { return r.text(); })
