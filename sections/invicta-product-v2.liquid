@@ -67,6 +67,21 @@
   endif
 
   comment
+    Comparison products metafield (Gate 6)
+  endcomment
+  assign mf_comparison = product.metafields.custom.comparison_products
+  assign comparison_count = 0
+  if mf_comparison != blank
+    assign comp_handles = mf_comparison | replace: '[', '' | replace: ']', '' | replace: '"', '' | split: ','
+    for ch in comp_handles
+      assign ch_clean = ch | strip
+      if ch_clean != blank
+        assign comparison_count = comparison_count | plus: 1
+      endif
+    endfor
+  endif
+
+  comment
     Compare price logic
   endcomment
   assign has_compare_price = false
@@ -1050,6 +1065,22 @@
             </span>
           </div>
 
+          {%- comment -%} CROSS-BRAND COMPARISON (Gate 6) {%- endcomment -%}
+          {%- if comparison_count > 0 -%}
+            <button
+              type="button"
+              class="inv-pdp__compare-chip"
+              data-compare-open
+              aria-label="Compare with similar models"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
+                <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+              Compare with similar models
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          {%- endif -%}
+
           {%- comment -%} WARRANTY INFO CARD — expandable details below trust strip {%- endcomment -%}
           <details class="inv-pdp__warranty-details">
             <summary class="inv-pdp__warranty-summary">
@@ -1149,6 +1180,37 @@
   </div>
 </div>
 
+{%- comment -%} ========== COMPARISON MODAL (Gate 6) ========== {%- endcomment -%}
+{%- if comparison_count > 0 -%}
+  <div
+    class="inv-pdp__compare-modal"
+    data-compare-modal
+    hidden
+    role="dialog"
+    aria-modal="true"
+    aria-label="Product comparison"
+  >
+    <div class="inv-pdp__compare-modal-backdrop" data-compare-close></div>
+    <div class="inv-pdp__compare-modal-panel">
+      <div class="inv-pdp__compare-modal-header">
+        <h2 class="inv-pdp__compare-modal-title">Compare Models</h2>
+        <button type="button" class="inv-pdp__compare-modal-close" data-compare-close aria-label="Close">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="inv-pdp__compare-modal-body" data-compare-body>
+        <p class="inv-pdp__kit-loading">Loading comparison...</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" data-compare-handles-json>
+    {{ mf_comparison }}
+  </script>
+{%- endif -%}
+
 {%- comment -%} ========== KIT BUILDER DRAWER (Gate 4) ========== {%- endcomment -%}
 {%- if has_kit_options and is_in_stock -%}
   <div
@@ -1247,6 +1309,9 @@
 <script src="{{ 'invicta-product-v2.js' | asset_url }}" defer></script>
 {%- if has_kit_options and is_in_stock -%}
   <script src="{{ 'invicta-kit-builder.js' | asset_url }}" defer></script>
+{%- endif -%}
+{%- if comparison_count > 0 -%}
+  <script src="{{ 'invicta-compare.js' | asset_url }}" defer></script>
 {%- endif -%}
 
 {%- comment -%} Sticky ATC behavior — show bar when main ATC scrolls out of view {%- endcomment -%}
