@@ -60,7 +60,6 @@
         "show_sku": true,
         "show_key_specs": true,
         "show_buy_now": true,
-        "show_trust_badges": false,
         "delivery_title": "FREE Next Day Delivery",
         "delivery_text": "Order before 2pm for next working day delivery",
         "in_stock_text": "In Stock — Ready to Ship",
@@ -120,7 +119,7 @@
         "benefit_BpDQUT": {
           "type": "benefit",
           "settings": {
-            "text": "Exclusive trade pricing"
+            "text": "Expert advice available"
           }
         }
       },

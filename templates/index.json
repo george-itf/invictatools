@@ -344,7 +344,7 @@
       ],
       "settings": {
         "eyebrow": "Since 1996",
-        "heading": "Kent's Trade Tool Specialists",
+        "heading": "Kent's Professional Tool Specialists",
         "text": "<p>Family-run from Canterbury with a second branch in Ramsgate. We stock what tradespeople actually need, when they need it.</p>",
         "image_1": "shopify://shop_images/invicta_shop_final.png",
         "image_1_caption": "Canterbury",
@@ -423,7 +423,7 @@
         "benefit_4": {
           "type": "benefit",
           "settings": {
-            "text": "Exclusive trade pricing"
+            "text": "Expert advice available"
           }
         }
       },

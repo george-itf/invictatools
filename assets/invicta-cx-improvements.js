@@ -6,7 +6,7 @@
  * - Area 5: Mobile — recently viewed shortcuts in drawer
  * - Area 6: Collections — load more button
  * - Area 7: Accessibility — live announcer utility
- * - Area 8: Trust — social proof notifications, trade CTA
+ * - Area 8: Trust — social proof notifications
  */
 (function() {
   'use strict';
@@ -379,80 +379,6 @@
     }
   };
 
-  /* ========================================
-     AREA 8: TRUST — Trade Account CTA
-     Shows trade account promotion for non-logged-in users
-     ======================================== */
-
-  function initTradeCTA() {
-    // Only show if customer is not logged in and we're on a product page
-    const productPage = document.querySelector('.inv-pdp[data-section-id]');
-    if (!productPage) return;
-
-    // Check if customer is logged in (Shopify adds customer data to the page)
-    const isLoggedIn = document.querySelector('.customer-logged-in') ||
-                     document.cookie.indexOf('_shopify_s=') > -1;
-    if (isLoggedIn) return;
-
-    // Find the add-to-cart area to insert after
-    const atcArea = productPage.querySelector('[data-product-form]');
-    if (!atcArea) return;
-
-    // Check if trade CTA already exists
-    if (productPage.querySelector('.inv-trade-cta')) return;
-
-    const cta = document.createElement('div');
-    cta.className = 'inv-trade-cta';
-
-    const icon = document.createElement('div');
-    icon.className = 'inv-trade-cta__icon';
-    const svgNS2 = 'http://www.w3.org/2000/svg';
-    const tradeSvg = document.createElementNS(svgNS2, 'svg');
-    tradeSvg.setAttribute('viewBox', '0 0 24 24');
-    tradeSvg.setAttribute('fill', 'none');
-    tradeSvg.setAttribute('stroke', 'currentColor');
-    tradeSvg.setAttribute('stroke-width', '2');
-    tradeSvg.setAttribute('stroke-linecap', 'round');
-    tradeSvg.setAttribute('stroke-linejoin', 'round');
-    const tp1 = document.createElementNS(svgNS2, 'path');
-    tp1.setAttribute('d', 'M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2');
-    tradeSvg.appendChild(tp1);
-    const tc1 = document.createElementNS(svgNS2, 'circle');
-    tc1.setAttribute('cx', '8.5'); tc1.setAttribute('cy', '7'); tc1.setAttribute('r', '4');
-    tradeSvg.appendChild(tc1);
-    const tl1 = document.createElementNS(svgNS2, 'line');
-    tl1.setAttribute('x1', '20'); tl1.setAttribute('y1', '8'); tl1.setAttribute('x2', '20'); tl1.setAttribute('y2', '14');
-    tradeSvg.appendChild(tl1);
-    const tl2 = document.createElementNS(svgNS2, 'line');
-    tl2.setAttribute('x1', '23'); tl2.setAttribute('y1', '11'); tl2.setAttribute('x2', '17'); tl2.setAttribute('y2', '11');
-    tradeSvg.appendChild(tl2);
-    icon.appendChild(tradeSvg);
-
-    const body = document.createElement('div');
-    body.className = 'inv-trade-cta__body';
-
-    const title = document.createElement('p');
-    title.className = 'inv-trade-cta__title';
-    title.textContent = 'Trade Account';
-
-    const desc = document.createElement('p');
-    desc.className = 'inv-trade-cta__desc';
-    desc.textContent = 'Get exclusive trade pricing & faster checkout';
-
-    body.appendChild(title);
-    body.appendChild(desc);
-
-    const link = document.createElement('a');
-    link.className = 'inv-trade-cta__link';
-    link.href = '/pages/trade-account';
-    link.textContent = 'Apply Now';
-
-    cta.appendChild(icon);
-    cta.appendChild(body);
-    cta.appendChild(link);
-
-    atcArea.parentNode.insertBefore(cta, atcArea.nextSibling);
-  }
 
   /* ========================================
      AREA 8: TRUST — Inline Trust Strip on PDP
@@ -523,7 +449,6 @@
     enhanceDeliveryBar();
     initLoadMore();
     InvictaSocialProof.init();
-    initTradeCTA();
     addMobileShortcuts();
     initBackInStockNotify();
   }
