@@ -506,6 +506,34 @@
         "background_color": "#2d2d2d",
         "accent_color": "#e11d26"
       }
+    },
+    "17760661600088bbff": {
+      "type": "apps",
+      "blocks": {
+        "forms_inline_GefCgX": {
+          "type": "shopify://apps/forms/blocks/inline/8744a304-fcb1-4347-b211-bb6b4759a76a",
+          "settings": {
+            "form_id": "",
+            "text_color": "#202020",
+            "button_background_color": "#202020",
+            "button_label_color": "#FFFFFF",
+            "links_color": "#1878B9",
+            "errors_color": "#E02229",
+            "text_alignment": "center",
+            "form_alignment": "center",
+            "padding_top": 0,
+            "padding_bottom": 24,
+            "padding_right": 0,
+            "padding_left": 0
+          }
+        }
+      },
+      "block_order": [
+        "forms_inline_GefCgX"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
@@ -516,6 +544,7 @@
     "product_wall",
     "trust_reviews",
     "recently_viewed",
-    "invicta_newsletter_t9TTnj"
+    "invicta_newsletter_t9TTnj",
+    "17760661600088bbff"
   ]
 }
