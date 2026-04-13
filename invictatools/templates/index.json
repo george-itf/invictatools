@@ -1,0 +1,551 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_v3": {
+      "type": "invicta-hero-v3",
+      "settings": {
+        "eyebrow_text": "Premier Diamond Products",
+        "heading": "P6-TWC Triple Disc Wall Chaser Blade",
+        "description": "Professional grade diamond blade. Built for continuous use on site. In stock now at Canterbury and Ramsgate with free next-day delivery.",
+        "hero_image": "shopify://shop_images/P6-TWC.svg",
+        "button_text": "SHOP PREMIER DIAMOND",
+        "button_link": "shopify://products/p6-twc-125mm",
+        "secondary_text": "View All Deals",
+        "secondary_link": "shopify://collections/deals-and-sales",
+        "price_label": "From",
+        "price_text": "",
+        "price_subtext": "",
+        "background_color": "#2d2d2d",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "trust_strip": {
+      "type": "invicta-trust-strip",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Next-Day Delivery",
+            "subtitle": "On orders over £99"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Authorised Dealer",
+            "subtitle": "Full manufacturer warranty"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "location",
+            "title": "Click & Collect",
+            "subtitle": "Ready in 1 hour"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "phone",
+            "title": "Hassle-Free Returns",
+            "subtitle": "30-day returns policy"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "background_color": "#1a1a1a",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "spotlight": {
+      "type": "invicta-spotlight",
+      "settings": {
+        "primary_image": "shopify://shop_images/VIPER_SQUARE.svg",
+        "primary_link": "shopify://collections/viper-1",
+        "primary_tag": "New Range",
+        "primary_tag_style": "new",
+        "primary_title": "Viper Fuel Cell Nails",
+        "primary_subtitle": "Premium gas nailer consumables. Full range in stock at both branches.",
+        "primary_cta": "Shop Viper Nails",
+        "card2_image": "shopify://shop_images/makita-dga504z-18v-cordless-brushless-125mm-angle-grinder-lithium-bare-5-discs_0088381808934_07c_MP.webp",
+        "card2_link": "shopify://products/18v-angle-grinder-125mm-dga504z",
+        "card2_tag": "GREAT price",
+        "card2_tag_style": "new",
+        "card2_title": "Makita DGA504Z Brushless Angle Grinder",
+        "card2_price": "£119.99",
+        "card2_was_price": "",
+        "card2_price_sub": "(£100.00 ex)",
+        "card2_cta": "View Product",
+        "card3_image": "shopify://shop_images/portwest_square.svg",
+        "card3_link": "shopify://collections/clothing-1",
+        "card3_tag": "new range",
+        "card3_tag_style": "deal",
+        "card3_title": "now stocking portwest clothing!",
+        "card3_price": "",
+        "card3_was_price": "",
+        "card3_price_sub": "Limited time deals",
+        "card3_cta": "View Range",
+        "section_bg": "#f5f5f6",
+        "padding_top": 40,
+        "padding_bottom": 0
+      }
+    },
+    "quick_cats": {
+      "type": "invicta-quick-cats",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "title": "Cordless Drills",
+            "collection": "drilling-driving",
+            "custom_link": "",
+            "icon": "drill",
+            "custom_icon": "shopify://shop_images/drill-electric-svgrepo-com_1.svg",
+            "show_count": true
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "title": "Grinders",
+            "collection": "grinding",
+            "custom_link": "",
+            "icon": "grinder",
+            "custom_icon": "shopify://shop_images/saw-svgrepo-com_3.svg",
+            "show_count": true
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "title": "Nailers",
+            "collection": "nailing-fastening",
+            "custom_link": "",
+            "icon": "impact",
+            "show_count": true
+          }
+        },
+        "cat_4": {
+          "type": "category",
+          "settings": {
+            "title": "Batteries",
+            "collection": "batteries-chargers",
+            "custom_link": "",
+            "icon": "battery",
+            "show_count": true
+          }
+        },
+        "cat_5": {
+          "type": "category",
+          "settings": {
+            "title": "Saws",
+            "collection": "sawing-cutting",
+            "custom_link": "",
+            "icon": "saw",
+            "show_count": true
+          }
+        },
+        "cat_6": {
+          "type": "category",
+          "settings": {
+            "title": "Power Tool Kits",
+            "collection": "power-tools-kits",
+            "custom_link": "",
+            "icon": "storage",
+            "show_count": true
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3",
+        "cat_4",
+        "cat_5",
+        "cat_6"
+      ],
+      "settings": {
+        "columns_desktop": 6,
+        "background_color": "#f5f5f5",
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
+    },
+    "product_wall": {
+      "type": "invicta-product-wall",
+      "blocks": {
+        "brand_makita": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Makita",
+            "collection": "makita"
+          }
+        },
+        "brand_dewalt": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "DeWalt",
+            "collection": "dewalt"
+          }
+        },
+        "brand_premier": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Premier Diamond",
+            "collection": "premier-diamond-products"
+          }
+        },
+        "brand_viper": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Viper",
+            "collection": "viper-1"
+          }
+        },
+        "brand_JHcBmt": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Faithfull",
+            "collection": "faithfull"
+          }
+        },
+        "brand_FtBpt4": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Lamello",
+            "collection": "lamello"
+          }
+        },
+        "brand_n9TbLA": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Hikoki",
+            "collection": "hikoki"
+          }
+        },
+        "brand_HfBHJJ": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Stanley",
+            "collection": "stanley"
+          }
+        }
+      },
+      "block_order": [
+        "brand_makita",
+        "brand_dewalt",
+        "brand_premier",
+        "brand_viper",
+        "brand_JHcBmt",
+        "brand_FtBpt4",
+        "brand_n9TbLA",
+        "brand_HfBHJJ"
+      ],
+      "settings": {
+        "title": "Explore Our Brands",
+        "subtitle": "Click a brand to see their top products",
+        "show_view_all": true,
+        "max_products": 10,
+        "columns_desktop": 5,
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "trust_reviews": {
+      "type": "invicta-trust-reviews",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "30+",
+            "label": "Years Trading"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "15,000+",
+            "label": "Products"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "number": "2",
+            "label": "Kent Branches"
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "number": "4.7★",
+            "label": "Average Rating"
+          }
+        },
+        "point_1": {
+          "type": "point",
+          "settings": {
+            "text": "Authorised Makita, DeWalt & HiKOKI dealer"
+          }
+        },
+        "rating_google": {
+          "type": "rating",
+          "settings": {
+            "platform": "google",
+            "text": "4.7 ★ on Google",
+            "url": "https://maps.app.goo.gl/a7ok1FDJpcntc8r69"
+          }
+        },
+        "rating_facebook": {
+          "type": "rating",
+          "settings": {
+            "platform": "facebook",
+            "text": "4.8 ★ on Facebook",
+            "url": "https://www.facebook.com/InvictaTools/"
+          }
+        },
+        "rating_trustpilot": {
+          "type": "rating",
+          "settings": {
+            "platform": "trustpilot",
+            "text": "4.4 ★ on Trustpilot",
+            "url": "https://uk.trustpilot.com/review/invictatools.co.uk"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4",
+        "point_1",
+        "rating_google",
+        "rating_facebook",
+        "rating_trustpilot"
+      ],
+      "settings": {
+        "eyebrow": "Since 1996",
+        "heading": "Kent's Trade Tool Specialists",
+        "text": "<p>Family-run from Canterbury with a second branch in Ramsgate. We stock what tradespeople actually need, when they need it.</p>",
+        "image_1": "shopify://shop_images/invicta_shop_final.png",
+        "image_1_caption": "Canterbury",
+        "image_2": "shopify://shop_images/THANET_FINAL.png",
+        "image_2_caption": "Ramsgate",
+        "badge_text": "Authorised Dealer",
+        "cta_text": "Visit Our Stores",
+        "cta_link": "shopify://pages/kent-tools",
+        "review_heading": "What Kent Tradespeople Say",
+        "review_link": "https://share.google/6jjHrtIbAzPgsEAmy",
+        "review_1_enabled": true,
+        "review_1_text": "You want tools and fixings? This is the place. Top notch products & service",
+        "review_1_author": "Anthony F.",
+        "review_1_source": "google",
+        "review_2_enabled": true,
+        "review_2_text": "Fantastic firm, great service, range of tools and competitively priced!",
+        "review_2_author": "Neil B.",
+        "review_2_source": "google",
+        "review_3_enabled": true,
+        "review_3_text": "Ultra helpful. Extremely good value for money. Massive selection of stock",
+        "review_3_author": "A W.",
+        "review_3_source": "google",
+        "review_4_enabled": true,
+        "review_4_text": "The best professional tools for trade but also for DIY",
+        "review_4_author": "Marcin P.",
+        "review_4_source": "facebook",
+        "review_5_enabled": true,
+        "review_5_text": "The place looks small on the outside but it's like a TARDIS on the inside.",
+        "review_5_author": "Steven J.",
+        "review_5_source": "google",
+        "review_6_enabled": true,
+        "review_6_text": "Amazing service!! Delivery on time! Great price 5*!",
+        "review_6_author": "Daniel M.",
+        "review_6_source": "trustpilot",
+        "review_7_enabled": true,
+        "review_7_text": "If you're in need of anything come to these guys, they will get you what you need!",
+        "review_7_author": "Billy W.",
+        "review_7_source": "facebook",
+        "review_8_enabled": true,
+        "review_8_text": "Always willing to give you a good deal. Excellent amount of Makita tools!",
+        "review_8_author": "Alan G.",
+        "review_8_source": "google",
+        "review_9_enabled": true,
+        "review_9_text": "Brilliant choice of tools and always seem to have what I want in stock.",
+        "review_9_author": "Kieran W.",
+        "review_9_source": "google",
+        "review_10_enabled": true,
+        "review_10_text": "A nice little tool shop with friendly informative staff, good prices too!",
+        "review_10_author": "Richard H.",
+        "review_10_source": "trustpilot",
+        "padding_top": 24,
+        "padding_bottom": 24
+      }
+    },
+    "recently_viewed": {
+      "type": "invicta-recently-viewed",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "text": "Track your orders"
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "text": "Save favourite products"
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "text": "Faster checkout"
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "text": "Exclusive trade pricing"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4"
+      ],
+      "settings": {
+        "title_logged_in": "Recently Viewed",
+        "empty_message": "You haven't viewed any products yet. Start browsing to see your history here.",
+        "show_view_all": false,
+        "view_all_link": "",
+        "max_products": 8,
+        "title_logged_out": "See Your Recommendations",
+        "description_logged_out": "Log in or create an account to see personalised product recommendations based on your browsing history.",
+        "cta_icon": "user",
+        "login_button_text": "Log In",
+        "register_button_text": "Create Account",
+        "show_benefits": true,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "card_width": 180,
+        "card_image_height": 140,
+        "card_radius": 8,
+        "title_size": 20,
+        "cta_title_size": 24,
+        "background_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "text_muted_color": "#666666",
+        "accent_color": "#e11d26",
+        "card_bg_color": "#ffffff",
+        "card_border_color": "#e5e5e5",
+        "cta_icon_bg": "#f5f5f5",
+        "cta_icon_color": "#1a1a1a",
+        "button_radius": 6,
+        "benefit_check_color": "#10b981"
+      }
+    },
+    "invicta_newsletter_t9TTnj": {
+      "type": "invicta-newsletter",
+      "blocks": {
+        "trust_badge_mrLtAQ": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "No spam, ever"
+          }
+        },
+        "trust_badge_Q7yqbx": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Unsubscribe anytime"
+          }
+        },
+        "trust_badge_HVRmz8": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Exclusive offers"
+          }
+        }
+      },
+      "block_order": [
+        "trust_badge_mrLtAQ",
+        "trust_badge_Q7yqbx",
+        "trust_badge_HVRmz8"
+      ],
+      "name": "Newsletter Hybrid",
+      "settings": {
+        "badge_percent": "5 %",
+        "badge_text": "Off First Order",
+        "heading": "Get price drops and product launches before anyone else",
+        "show_social_proof": true,
+        "subscriber_count": "300+",
+        "subscriber_label": "signed up",
+        "placeholder": "Enter your email",
+        "button_text": "Get My 5% Off",
+        "success_message": "You're in! Here's your discount:",
+        "discount_code": "WELCOME5",
+        "show_trust_badges": true,
+        "background_color": "#2d2d2d",
+        "accent_color": "#e11d26"
+      }
+    },
+    "17760661600088bbff": {
+      "type": "apps",
+      "blocks": {
+        "forms_inline_GefCgX": {
+          "type": "shopify://apps/forms/blocks/inline/8744a304-fcb1-4347-b211-bb6b4759a76a",
+          "settings": {
+            "form_id": "",
+            "text_color": "#202020",
+            "button_background_color": "#202020",
+            "button_label_color": "#FFFFFF",
+            "links_color": "#1878B9",
+            "errors_color": "#E02229",
+            "text_alignment": "center",
+            "form_alignment": "center",
+            "padding_top": 0,
+            "padding_bottom": 24,
+            "padding_right": 0,
+            "padding_left": 0
+          }
+        }
+      },
+      "block_order": [
+        "forms_inline_GefCgX"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "hero_v3",
+    "trust_strip",
+    "spotlight",
+    "quick_cats",
+    "product_wall",
+    "trust_reviews",
+    "recently_viewed",
+    "invicta_newsletter_t9TTnj",
+    "17760661600088bbff"
+  ]
+}
