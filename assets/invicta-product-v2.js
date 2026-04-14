@@ -393,6 +393,37 @@
     parseDescription();
 
     /* ========================================
+       DESCRIPTION "SHOW MORE" TOGGLE
+       Limits description height and adds a toggle button.
+       If content is shorter than max-height, hides the button.
+       ======================================== */
+    (function initDescriptionToggle() {
+      var descRow = section.querySelector('[data-row="description"]');
+      if (!descRow) return;
+      var contentEl = descRow.querySelector('[data-content]');
+      if (!contentEl) return;
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'inv-pdp__info-readmore';
+      btn.textContent = 'Show more';
+      contentEl.parentNode.insertBefore(btn, contentEl.nextSibling);
+
+      /* Check if content is short enough to not need the toggle */
+      requestAnimationFrame(function() {
+        if (contentEl.scrollHeight <= 210) {
+          descRow.classList.add('is-desc-short');
+          descRow.classList.add('is-desc-expanded');
+        }
+      });
+
+      btn.addEventListener('click', function() {
+        var expanded = descRow.classList.toggle('is-desc-expanded');
+        btn.textContent = expanded ? 'Show less' : 'Show more';
+      });
+    })();
+
+    /* ========================================
        AUTO-EXPAND KEY SECTIONS
        Description is already open via Liquid markup.
        Key Features: open on all viewports.

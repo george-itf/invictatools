@@ -452,6 +452,53 @@
   display: block;
 }
 
+/* Description content limiter — prevents wall-of-text */
+[data-row="description"] .inv-pdp__info-content {
+  max-height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+[data-row="description"] .inv-pdp__info-content::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), var(--inv-bg-elevated));
+  pointer-events: none;
+}
+[data-row="description"].is-desc-expanded .inv-pdp__info-content {
+  max-height: none;
+  overflow: visible;
+}
+[data-row="description"].is-desc-expanded .inv-pdp__info-content::after {
+  display: none;
+}
+
+/* Show more / Show less button */
+.inv-pdp__info-readmore {
+  display: block;
+  width: 100%;
+  padding: 12px 24px;
+  background: var(--inv-bg-elevated);
+  border: none;
+  border-top: 1px solid var(--inv-grey-100);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--inv-accent);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: background-color var(--inv-duration-normal) ease;
+}
+.inv-pdp__info-readmore:hover {
+  background: var(--inv-grey-50);
+}
+[data-row="description"].is-desc-short .inv-pdp__info-readmore {
+  display: none;
+}
+
 /* Hidden source row — doubled selector for higher specificity */
 .inv-pdp .inv-pdp__info-row--hidden.inv-pdp__info-row--hidden {
   display: none;
@@ -1581,6 +1628,10 @@
 
   .inv-pdp__info-content {
     padding: 16px 16px 20px;
+  }
+
+  .inv-pdp__info-readmore {
+    padding: 10px 16px;
   }
 
   .inv-pdp__info-specs {
