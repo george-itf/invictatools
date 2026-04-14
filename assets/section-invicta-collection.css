@@ -229,7 +229,6 @@
   background: var(--inv-c-accent);
   border-color: var(--inv-c-accent);
   color: var(--inv-bg-elevated);
-  box-shadow: 0 2px 8px rgba(225, 29, 38, 0.3);
 }
 
 .inv-brand-pill__count {

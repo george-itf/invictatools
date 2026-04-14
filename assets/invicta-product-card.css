@@ -297,7 +297,6 @@
 
 .inv-card__btn--add:hover {
   background: var(--inv-accent-hover, var(--inv-accent-hover));
-  box-shadow: 0 4px 12px var(--inv-accent-glow);
 }
 
 .inv-card__btn--options {
@@ -311,7 +310,6 @@
 .inv-card__btn--options:hover {
   background: var(--inv-accent, var(--inv-accent));
   color: var(--inv-bg-elevated);
-  box-shadow: 0 4px 12px var(--inv-accent-glow);
 }
 
 .inv-card__btn--notify {
