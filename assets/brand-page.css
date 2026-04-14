@@ -202,13 +202,11 @@
 .brand-hero__btn--primary {
   background: var(--brand-red);
   color: var(--brand-white);
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
 }
 
 .brand-hero__btn--primary:hover {
   background: var(--brand-red-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.4);
 }
 
 .brand-hero__btn--secondary {
@@ -883,12 +881,10 @@
   color: var(--brand-white);
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.4);
 }
 
 .brand-video__play-btn:hover {
   transform: translate(-50%, -50%) scale(1.1);
-  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.5);
 }
 
 .brand-video__play-btn svg {
@@ -1613,13 +1609,11 @@
   text-decoration: none;
   border-radius: 6px;
   transition: all 0.15s ease;
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
 }
 
 .brand-applications__btn:hover {
   background: var(--brand-red-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.4);
 }
 
 /* ============================================
