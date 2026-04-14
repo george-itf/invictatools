@@ -23,8 +23,8 @@
   assign subheading = section.settings.subheading
   assign contact_url = section.settings.contact_url | default: '/pages/contact'
 
-  assign categories = 'ordering_payment,delivery_shipping,returns_refunds,trade_accounts,products_availability' | split: ','
-  assign category_labels = 'Ordering & Payment,Delivery & Shipping,Returns & Refunds,Trade Accounts,Products & Availability' | split: ','
+  assign categories = 'ordering_payment,delivery_shipping,returns_refunds,products_availability' | split: ','
+  assign category_labels = 'Ordering & Payment,Delivery & Shipping,Returns & Refunds,Products & Availability' | split: ','
 -%}
 
 <style>
@@ -721,7 +721,7 @@
       "type": "textarea",
       "id": "subheading",
       "label": "Subheading",
-      "default": "Find answers to common questions about ordering, delivery, returns, trade accounts and our product range."
+      "default": "Find answers to common questions about ordering, delivery, returns and our product range."
     },
     {
       "type": "checkbox",
@@ -825,22 +825,6 @@
             "question": "What is your returns policy?",
             "answer": "<p>We accept returns within 30 days of delivery for unused items in their original packaging. To initiate a return, please contact our customer service team with your order number. Please note that bespoke or cut-to-size items cannot be returned.</p>",
             "category": "returns_refunds"
-          }
-        },
-        {
-          "type": "faq_item",
-          "settings": {
-            "question": "How do I apply for a trade account?",
-            "answer": "<p>Trade accounts are available for businesses in the construction, maintenance and building trades. Apply online through our trade account page or visit one of our trade counters in Canterbury or Ramsgate. Benefits include trade pricing, credit terms, and dedicated account management.</p>",
-            "category": "trade_accounts"
-          }
-        },
-        {
-          "type": "faq_item",
-          "settings": {
-            "question": "What are the benefits of a trade account?",
-            "answer": "<p>Trade account holders receive:</p><ul><li>Exclusive trade pricing and volume discounts</li><li>30-day credit terms (subject to approval)</li><li>Dedicated account manager</li><li>Priority same-day dispatch</li><li>Access to trade-only promotions</li></ul>",
-            "category": "trade_accounts"
           }
         },
         {

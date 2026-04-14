@@ -7,7 +7,7 @@
           "type": "faq_item",
           "settings": {
             "question": "What payment methods do you accept?",
-            "answer": "<p>We accept all major credit and debit cards (Visa, Mastercard, American Express), PayPal, and bank transfer for trade accounts. All payments are processed securely.</p>",
+            "answer": "<p>We accept all major credit and debit cards (Visa, Mastercard, American Express) and PayPal. All payments are processed securely.</p>",
             "category": "ordering"
           }
         },
@@ -51,22 +51,6 @@
             "category": "returns"
           }
         },
-        "faq_7": {
-          "type": "faq_item",
-          "settings": {
-            "question": "How do I apply for a trade account?",
-            "answer": "<p>You can apply for a trade account through our <a href=\"/pages/trade-landing\">Trade Account</a> page. Trade accounts offer exclusive pricing, dedicated account management, and flexible payment terms. Applications are typically processed within 1-2 business days.</p>",
-            "category": "trade"
-          }
-        },
-        "faq_8": {
-          "type": "faq_item",
-          "settings": {
-            "question": "What benefits do trade account holders get?",
-            "answer": "<p>Trade account holders enjoy tiered volume pricing, dedicated account management, 30-day payment terms, priority dispatch, and access to exclusive trade-only products and promotions.</p>",
-            "category": "trade"
-          }
-        },
         "faq_9": {
           "type": "faq_item",
           "settings": {
@@ -91,14 +75,12 @@
         "faq_4",
         "faq_5",
         "faq_6",
-        "faq_7",
-        "faq_8",
         "faq_9",
         "faq_10"
       ],
       "settings": {
         "heading": "Frequently Asked Questions",
-        "subheading": "Find answers to common questions about ordering, delivery, returns, and trade accounts.",
+        "subheading": "Find answers to common questions about ordering, delivery, returns and our product range.",
         "show_search": true,
         "contact_url": "/pages/contact"
       }

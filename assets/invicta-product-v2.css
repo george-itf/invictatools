@@ -407,11 +407,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
+  padding: 18px 24px;
   background: var(--inv-bg-elevated);
   border: none;
   font-size: 14px;
   font-weight: 700;
+  letter-spacing: 0.02em;
   color: var(--inv-fg-near-black);
   font-family: inherit;
   text-align: left;
@@ -439,7 +440,7 @@
 
 /* Accordion content */
 .inv-pdp__info-content {
-  padding: 0 20px 20px;
+  padding: 0 24px 24px;
   font-size: 14px;
   line-height: 1.7;
   color: var(--inv-fg-secondary);
@@ -580,7 +581,7 @@
   padding: var(--inv-space-lg);
   display: flex;
   flex-direction: column;
-  gap: var(--inv-space-md);
+  gap: 20px;
 }
 
 /* ============================================
@@ -649,7 +650,7 @@
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  margin-top: -4px;
+  margin-top: -12px;
 }
 
 .inv-pdp__dealer-badge {
@@ -680,7 +681,8 @@
    PRICE BLOCK — Inline dual-price layout
    ============================================ */
 .inv-pdp__price {
-  padding-bottom: var(--inv-space-md);
+  padding: 16px 0 var(--inv-space-md);
+  border-top: 1px solid var(--inv-grey-200);
   border-bottom: 1px solid var(--inv-grey-200);
 }
 

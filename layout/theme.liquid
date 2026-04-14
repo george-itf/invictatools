@@ -590,7 +590,7 @@
       };
     </script>
 
-    {%- comment -%} Invicta trade config — exposed to JS via data attributes {%- endcomment -%}
+    {%- comment -%} Invicta config — exposed to JS {%- endcomment -%}
     {%- liquid
       assign inv_vat_divisor = 100 | plus: settings.inv_vat_rate
       assign inv_shipping_threshold = settings.inv_free_shipping_pence | plus: 0
@@ -600,8 +600,7 @@
         vatRate: {{ settings.inv_vat_rate }},
         vatDivisor: {{ inv_vat_divisor }},
         freeShippingPence: {{ inv_shipping_threshold }},
-        deliveryCutoffHour: {{ settings.inv_delivery_cutoff_hour }},
-        isTradeCustomer: {% if customer and customer.tags contains 'trade' %}true{% else %}false{% endif %}
+        deliveryCutoffHour: {{ settings.inv_delivery_cutoff_hour }}
       };
     </script>
 

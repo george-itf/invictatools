@@ -35,9 +35,7 @@
   'use strict';
 
   const STORAGE_KEY = 'invicta-vat-mode';
-  /* CX v1.1: Default to 'ex' for trade customers who haven't set a preference */
-  const isTradeCustomer = window.invictaConfig && window.invictaConfig.isTradeCustomer;
-  const DEFAULT_MODE = isTradeCustomer ? 'ex' : 'inc';
+  const DEFAULT_MODE = 'inc';
   const HIDDEN_CLASS = 'inv-vat--hidden';
 
   /**
