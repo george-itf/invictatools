@@ -1525,6 +1525,29 @@
     ]
   },
   {
+    "name": "Invicta Analytics",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Google Analytics 4"
+      },
+      {
+        "type": "text",
+        "id": "inv_ga4_measurement_id",
+        "label": "GA4 Measurement ID",
+        "info": "Format: G-XXXXXXXXXX. Leave blank to disable GA4.",
+        "placeholder": "G-XXXXXXXXXX"
+      },
+      {
+        "type": "checkbox",
+        "id": "inv_ga4_debug",
+        "label": "Enable GA4 debug mode",
+        "default": false,
+        "info": "Sends events to GA4 DebugView. Disable in production."
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.seo_crawl.name",
     "settings": [
       {

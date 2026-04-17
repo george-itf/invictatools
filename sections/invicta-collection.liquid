@@ -56,6 +56,27 @@
 {%- comment -%} ===== STYLES ===== {%- endcomment -%}
 {{ 'section-invicta-collection.css' | asset_url | stylesheet_tag }}
 
+{%- if settings.inv_ga4_measurement_id != blank -%}
+  <script type="application/json" data-inv-ga4-list>
+    {
+      "id": {{ collection.handle | json }},
+      "name": {{ collection.title | json }},
+      "items": [
+        {%- for product in collection.products limit: products_per_page -%}
+          {
+            "item_id": {{ product.id | json }},
+            "item_name": {{ product.title | json }},
+            "item_brand": {{ product.vendor | json }},
+            "item_category": {{ product.type | json }},
+            "price": {{ product.price | divided_by: 100.0 }},
+            "index": {{ forloop.index0 }}
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+{%- endif -%}
+
 <style>
   .inv-empty__active-filters {
     display: flex;

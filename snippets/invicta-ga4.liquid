@@ -1,0 +1,49 @@
+{% comment %}
+  Invicta GA4 — Consent Mode v2
+  Loaded in <head>. Denied by default, granted on consent.
+  Listens for invicta:consent:updated custom event.
+{% endcomment %}
+
+{%- if settings.inv_ga4_measurement_id != blank -%}
+<script>
+  /* Consent Mode v2 — deny everything by default */
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'wait_for_update': 500
+  });
+  gtag('js', new Date());
+  gtag('config', '{{ settings.inv_ga4_measurement_id }}'{%- if settings.inv_ga4_debug -%}, { 'debug_mode': true }{%- endif -%});
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.inv_ga4_measurement_id }}"></script>
+<script>
+  /* Update consent when cookie banner decision is made */
+  document.addEventListener('invicta:consent:updated', function(e) {
+    var d = e.detail || {};
+    gtag('consent', 'update', {
+      'analytics_storage': d.analytics ? 'granted' : 'denied',
+      'ad_storage': d.marketing ? 'granted' : 'denied',
+      'ad_user_data': d.marketing ? 'granted' : 'denied',
+      'ad_personalization': d.marketing ? 'granted' : 'denied'
+    });
+  });
+
+  /* If consent was already given (returning visitor), grant immediately */
+  (function() {
+    var hasAnalytics = localStorage.getItem('invicta-consent-analytics') === '1';
+    var hasMarketing = localStorage.getItem('invicta-consent-marketing') === '1';
+    if (hasAnalytics || hasMarketing) {
+      gtag('consent', 'update', {
+        'analytics_storage': hasAnalytics ? 'granted' : 'denied',
+        'ad_storage': hasMarketing ? 'granted' : 'denied',
+        'ad_user_data': hasMarketing ? 'granted' : 'denied',
+        'ad_personalization': hasMarketing ? 'granted' : 'denied'
+      });
+    }
+  })();
+</script>
+{%- endif -%}

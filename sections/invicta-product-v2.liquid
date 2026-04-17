@@ -872,6 +872,18 @@
 
         <div class="inv-pdp__buybox-body">
 
+          {%- if settings.inv_ga4_measurement_id != blank -%}
+            <script type="application/json" data-inv-ga4-product>
+              {
+                "id": {{ product.id | json }},
+                "title": {{ product.title | json }},
+                "vendor": {{ product.vendor | json }},
+                "type": {{ product.type | json }},
+                "price": {{ product.selected_or_first_available_variant.price | divided_by: 100.0 }}
+              }
+            </script>
+          {%- endif -%}
+
           {%- comment -%} PRODUCT TITLE — in buy box so title+price are scanned together {%- endcomment -%}
           <h1 class="inv-pdp__title">{{ product.title | escape }}</h1>
 
