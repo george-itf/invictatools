@@ -872,6 +872,8 @@
 
         <div class="inv-pdp__buybox-body">
 
+          {% render 'invicta-breadcrumb-pdp', product: product %}
+
           {%- if settings.inv_ga4_measurement_id != blank -%}
             <script type="application/json" data-inv-ga4-product>
               {
