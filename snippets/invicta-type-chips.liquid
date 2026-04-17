@@ -1,0 +1,98 @@
+{% comment %}
+  Invicta Type Chips v1.0
+  Product type filter bar for collection and search pages.
+
+  Usage: {% render 'invicta-type-chips', collection: collection %}
+  Or:    {% render 'invicta-type-chips', search: search %}
+{% endcomment %}
+
+{%- liquid
+  assign source_filters = nil
+
+  if collection
+    assign source_filters = collection.filters
+  elsif search
+    assign source_filters = search.filters
+  endif
+
+  assign type_filter = nil
+  if source_filters
+    for filter in source_filters
+      if filter.param_name == 'filter.p.product_type'
+        assign type_filter = filter
+      endif
+    endfor
+  endif
+
+  assign total_type_count = 0
+  if type_filter
+    for val in type_filter.values
+      assign total_type_count = total_type_count | plus: val.count
+    endfor
+  endif
+-%}
+
+{%- if type_filter and type_filter.values.size >= 2 -%}
+  <div class="inv-type-chips" role="group" aria-label="Filter by product type">
+    {%- assign all_active = true -%}
+    {%- if type_filter.active_values.size > 0 -%}
+      {%- assign all_active = false -%}
+    {%- endif -%}
+
+    <a
+      href="{{ type_filter.url_to_remove | default: collection.url | default: search.url }}"
+      class="inv-type-chips__chip {% if all_active %}inv-type-chips__chip--active{% endif %}"
+      data-inv-filter-remove
+    >
+      All ({{ total_type_count }})
+    </a>
+
+    {%- for val in type_filter.values -%}
+      {%- if val.count > 0 -%}
+        <a
+          href="{{ val.url }}"
+          class="inv-type-chips__chip {% if val.active %}inv-type-chips__chip--active{% endif %}"
+          {%- if val.active %} data-inv-filter-remove{% else %} data-inv-filter-apply{% endif -%}
+        >
+          {{ val.label }} ({{ val.count }})
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  <style>
+    .inv-type-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: var(--inv-gap-sm, 12px) 0;
+      margin-bottom: var(--inv-gap-sm, 12px);
+    }
+    .inv-type-chips__chip {
+      display: inline-block;
+      padding: 6px 14px;
+      background: var(--inv-bg-elevated, #ffffff);
+      border: 1px solid var(--inv-border, #e5e7eb);
+      border-radius: var(--inv-radius-pill, 9999px);
+      font-size: var(--inv-text-sm, 13px);
+      font-weight: 600;
+      color: var(--inv-fg-secondary, #374151);
+      text-decoration: none;
+      transition: all var(--inv-duration-fast, 100ms);
+      white-space: nowrap;
+    }
+    .inv-type-chips__chip:hover {
+      border-color: var(--inv-fg, #0f172a);
+      color: var(--inv-fg, #0f172a);
+    }
+    .inv-type-chips__chip--active {
+      background: var(--inv-fg, #0f172a);
+      border-color: var(--inv-fg, #0f172a);
+      color: #ffffff;
+    }
+    .inv-type-chips__chip--active:hover {
+      background: var(--inv-fg-secondary, #374151);
+      color: #ffffff;
+    }
+  </style>
+{%- endif -%}

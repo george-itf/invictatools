@@ -440,7 +440,10 @@
           {%- paginate collection.products by products_per_page -%}
             
             {%- if collection.products.size > 0 -%}
-              
+
+              {%- comment -%} Type chips — Tools vs Accessories filter bar {%- endcomment -%}
+              {% render 'invicta-type-chips', collection: collection %}
+
               {%- comment -%} Product Grid {%- endcomment -%}
               <div class="inv-product-grid" id="InvProductGrid">
                 {%- for product in collection.products -%}

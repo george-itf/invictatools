@@ -135,8 +135,8 @@
       });
     });
 
-    /* Active filter tag removal */
-    document.querySelectorAll('[data-inv-filter-remove]').forEach(function(tag) {
+    /* Active filter tag removal + type chip filter application */
+    document.querySelectorAll('[data-inv-filter-remove], [data-inv-filter-apply]').forEach(function(tag) {
       tag.addEventListener('click', function(e) {
         e.preventDefault();
         fetchAndUpdate(tag.href);
