@@ -501,7 +501,8 @@
         "subscriber_label": "signed up",
         "placeholder": "Enter your email",
         "button_text": "Get My 5% Off",
-        "success_message": "You're in! Check your inbox for your 5% discount code.",
+        "success_message": "You're in! Here's your discount:",
+        "discount_code": "WELCOME5",
         "show_trust_badges": true,
         "background_color": "#2d2d2d",
         "accent_color": "#e11d26"

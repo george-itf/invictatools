@@ -1,0 +1,343 @@
+{% comment %}
+  ============================================================================
+  INVICTA COOKIE CONSENT v1.0
+  ============================================================================
+  GDPR/PECR compliant cookie consent banner.
+  Uses Shopify Customer Privacy API for persistence.
+
+  Categories: necessary (always on), analytics, marketing.
+  Emits invicta:consent:updated on every consent change.
+
+  No external dependencies. Self-contained section.
+  ============================================================================
+{% endcomment %}
+
+<style>
+  .inv-consent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--inv-z-overlay, 1000);
+    background: var(--inv-bg-elevated, #ffffff);
+    border-top: 2px solid var(--inv-border, #e5e7eb);
+    box-shadow: var(--inv-shadow-lg, 0 8px 24px rgba(0, 0, 0, 0.16));
+    transform: translateY(100%);
+    transition: transform var(--inv-duration-slow, 300ms) var(--inv-ease-out, ease-out);
+    font-family: var(--inv-font-body, sans-serif);
+    font-size: var(--inv-text-sm, 13px);
+    color: var(--inv-fg, #0f172a);
+  }
+  .inv-consent[data-visible="true"] {
+    transform: translateY(0);
+  }
+  .inv-consent__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--inv-gap-md, 20px) var(--inv-page-gutter, 1.5rem);
+  }
+  .inv-consent__main {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--inv-gap-md, 20px);
+    flex-wrap: wrap;
+  }
+  .inv-consent__text {
+    flex: 1 1 400px;
+    line-height: var(--inv-leading-normal, 1.5);
+    color: var(--inv-fg-secondary, #374151);
+  }
+  .inv-consent__text a {
+    color: var(--inv-accent, #e11d26);
+    text-decoration: underline;
+  }
+  .inv-consent__actions {
+    display: flex;
+    gap: var(--inv-gap-sm, 12px);
+    flex-shrink: 0;
+    align-items: center;
+  }
+  .inv-consent__btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--inv-radius-button, 0);
+    font-family: var(--inv-font-display, 'Barlow Condensed', Impact, sans-serif);
+    font-size: var(--inv-text-base, 15px);
+    font-weight: 700;
+    letter-spacing: var(--inv-tracking-wide, 0.05em);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background var(--inv-duration-fast, 100ms);
+    white-space: nowrap;
+  }
+  .inv-consent__btn--accept {
+    background: var(--inv-accent, #e11d26);
+    color: #ffffff;
+  }
+  .inv-consent__btn--accept:hover {
+    background: var(--inv-accent-hover, #b91c1c);
+  }
+  .inv-consent__btn--manage {
+    background: transparent;
+    color: var(--inv-fg, #0f172a);
+    border: 1px solid var(--inv-border-dark, #d1d5db);
+    padding: 9px 20px;
+  }
+  .inv-consent__btn--manage:hover {
+    background: var(--inv-bg-soft, #f3f4f6);
+  }
+  .inv-consent__btn--save {
+    background: var(--inv-fg, #0f172a);
+    color: #ffffff;
+  }
+  .inv-consent__btn--save:hover {
+    opacity: 0.9;
+  }
+
+  /* Preferences panel */
+  .inv-consent__prefs {
+    display: none;
+    margin-top: var(--inv-gap-md, 20px);
+    padding-top: var(--inv-gap-md, 20px);
+    border-top: 1px solid var(--inv-border, #e5e7eb);
+  }
+  .inv-consent__prefs[data-open="true"] {
+    display: block;
+  }
+  .inv-consent__pref-list {
+    display: flex;
+    gap: var(--inv-gap-lg, 32px);
+    flex-wrap: wrap;
+    margin-bottom: var(--inv-gap-md, 20px);
+  }
+  .inv-consent__pref-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .inv-consent__pref-label {
+    font-weight: 600;
+    color: var(--inv-fg, #0f172a);
+  }
+  .inv-consent__pref-desc {
+    font-size: var(--inv-text-xs, 11px);
+    color: var(--inv-fg-muted, #6b7280);
+    margin-top: 2px;
+  }
+  .inv-consent__toggle {
+    position: relative;
+    width: 40px;
+    height: 22px;
+    background: var(--inv-border-dark, #d1d5db);
+    border: none;
+    border-radius: 11px;
+    cursor: pointer;
+    transition: background var(--inv-duration-normal, 150ms);
+    flex-shrink: 0;
+  }
+  .inv-consent__toggle[aria-checked="true"] {
+    background: var(--inv-status-success, #15803d);
+  }
+  .inv-consent__toggle::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    background: #ffffff;
+    border-radius: 50%;
+    transition: transform var(--inv-duration-normal, 150ms);
+  }
+  .inv-consent__toggle[aria-checked="true"]::after {
+    transform: translateX(18px);
+  }
+  .inv-consent__toggle[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 749px) {
+    .inv-consent__main {
+      flex-direction: column;
+    }
+    .inv-consent__actions {
+      width: 100%;
+    }
+    .inv-consent__btn {
+      flex: 1;
+    }
+    .inv-consent__pref-list {
+      flex-direction: column;
+      gap: var(--inv-gap-md, 20px);
+    }
+  }
+</style>
+
+<div
+  id="invicta-cookie-consent"
+  class="inv-consent"
+  role="dialog"
+  aria-label="Cookie consent"
+  aria-describedby="inv-consent-text"
+  data-visible="false"
+>
+  <div class="inv-consent__inner">
+    <div class="inv-consent__main">
+      <div class="inv-consent__text" id="inv-consent-text">
+        We use cookies to improve your experience, analyse site traffic, and support our marketing.
+        You can manage your preferences or accept all cookies.
+        <a href="{{ pages['privacy-policy'].url | default: '/pages/privacy-policy' }}">Privacy Policy</a>
+      </div>
+      <div class="inv-consent__actions">
+        <button type="button" class="inv-consent__btn inv-consent__btn--manage" data-consent-manage>
+          Manage Preferences
+        </button>
+        <button type="button" class="inv-consent__btn inv-consent__btn--accept" data-consent-accept-all>
+          Accept All
+        </button>
+      </div>
+    </div>
+
+    <div class="inv-consent__prefs" data-consent-prefs>
+      <div class="inv-consent__pref-list">
+        <div class="inv-consent__pref-item">
+          <div>
+            <div class="inv-consent__pref-label">Necessary</div>
+            <div class="inv-consent__pref-desc">Required for the site to function. Always on.</div>
+          </div>
+          <button type="button" class="inv-consent__toggle" aria-checked="true" aria-label="Necessary cookies" disabled></button>
+        </div>
+        <div class="inv-consent__pref-item">
+          <div>
+            <div class="inv-consent__pref-label">Analytics</div>
+            <div class="inv-consent__pref-desc">Help us understand how you use the site.</div>
+          </div>
+          <button type="button" class="inv-consent__toggle" aria-checked="false" aria-label="Analytics cookies" data-consent-toggle="analytics"></button>
+        </div>
+        <div class="inv-consent__pref-item">
+          <div>
+            <div class="inv-consent__pref-label">Marketing</div>
+            <div class="inv-consent__pref-desc">Used to show relevant ads and measure campaigns.</div>
+          </div>
+          <button type="button" class="inv-consent__toggle" aria-checked="false" aria-label="Marketing cookies" data-consent-toggle="marketing"></button>
+        </div>
+      </div>
+      <div class="inv-consent__actions">
+        <button type="button" class="inv-consent__btn inv-consent__btn--save" data-consent-save>
+          Save Preferences
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  var banner = document.getElementById('invicta-cookie-consent');
+  if (!banner) return;
+
+  var prefs = banner.querySelector('[data-consent-prefs]');
+  var analyticsToggle = banner.querySelector('[data-consent-toggle="analytics"]');
+  var marketingToggle = banner.querySelector('[data-consent-toggle="marketing"]');
+
+  /**
+   * Check if consent has already been given via Shopify Customer Privacy API.
+   * If not available, fall back to localStorage flag.
+   */
+  function hasConsented() {
+    if (window.Shopify && window.Shopify.customerPrivacy) {
+      var consent = window.Shopify.customerPrivacy.currentVisitorConsent();
+      /* Shopify returns '' for no-decision, 'yes'/'no' for decided */
+      return consent.analytics !== '';
+    }
+    return localStorage.getItem('invicta-consent-set') === '1';
+  }
+
+  function setConsent(analytics, marketing) {
+    var consentObj = {
+      analytics: analytics,
+      marketing: marketing,
+      preferences: true,
+      sale_of_data: false
+    };
+
+    if (window.Shopify && window.Shopify.customerPrivacy) {
+      window.Shopify.customerPrivacy.setTrackingConsent(consentObj, function() {
+        /* Consent saved by Shopify */
+      });
+    }
+
+    /* Local persistence as backup */
+    localStorage.setItem('invicta-consent-set', '1');
+    localStorage.setItem('invicta-consent-analytics', analytics ? '1' : '0');
+    localStorage.setItem('invicta-consent-marketing', marketing ? '1' : '0');
+
+    /* Emit event for GA4 and other listeners */
+    document.dispatchEvent(new CustomEvent('invicta:consent:updated', {
+      detail: { analytics: analytics, marketing: marketing }
+    }));
+
+    hideBanner();
+  }
+
+  function showBanner() {
+    banner.setAttribute('data-visible', 'true');
+  }
+
+  function hideBanner() {
+    banner.setAttribute('data-visible', 'false');
+  }
+
+  /* Toggle button click */
+  function handleToggle(btn) {
+    var isChecked = btn.getAttribute('aria-checked') === 'true';
+    btn.setAttribute('aria-checked', isChecked ? 'false' : 'true');
+  }
+
+  /* Accept All */
+  banner.querySelector('[data-consent-accept-all]').addEventListener('click', function() {
+    setConsent(true, true);
+  });
+
+  /* Manage Preferences */
+  banner.querySelector('[data-consent-manage]').addEventListener('click', function() {
+    var isOpen = prefs.getAttribute('data-open') === 'true';
+    prefs.setAttribute('data-open', isOpen ? 'false' : 'true');
+  });
+
+  /* Save Preferences */
+  banner.querySelector('[data-consent-save]').addEventListener('click', function() {
+    var analytics = analyticsToggle.getAttribute('aria-checked') === 'true';
+    var marketing = marketingToggle.getAttribute('aria-checked') === 'true';
+    setConsent(analytics, marketing);
+  });
+
+  /* Toggle clicks */
+  [analyticsToggle, marketingToggle].forEach(function(btn) {
+    if (btn) btn.addEventListener('click', function() { handleToggle(btn); });
+  });
+
+  /* Show banner if no consent decision yet */
+  if (!hasConsented()) {
+    /* Small delay to avoid layout shift on page load */
+    setTimeout(showBanner, 500);
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Cookie Consent",
+  "tag": "section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "GDPR/PECR compliant cookie consent banner. Uses Shopify Customer Privacy API."
+    }
+  ]
+}
+{% endschema %}
