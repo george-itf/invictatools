@@ -376,7 +376,7 @@
 .inv-pdp__info-meta {
   display: flex;
   gap: var(--inv-space-xl);
-  padding: 22px 36px;
+  padding: 22px 48px;
   background: var(--inv-grey-50);
   border-bottom: 2px solid var(--inv-grey-200);
 }
@@ -407,8 +407,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 30px 36px;
-  background: var(--inv-grey-50);
+  padding: 30px 48px;
+  background: var(--inv-grey-100);
   border: none;
   font-size: 17px;
   font-weight: 800;
@@ -421,7 +421,7 @@
   transition: background-color var(--inv-duration-normal) ease;
 }
 .inv-pdp__info-toggle:hover {
-  background: var(--inv-grey-100);
+  background: var(--inv-grey-200);
 }
 .inv-pdp__info-toggle:focus-visible {
   outline: none;
@@ -441,7 +441,7 @@
 
 /* Accordion content */
 .inv-pdp__info-content {
-  padding: 32px 36px 36px;
+  padding: 32px 48px 36px;
   font-size: 16px;
   line-height: 1.8;
   color: var(--inv-fg-secondary);
@@ -480,7 +480,7 @@
 .inv-pdp__info-readmore {
   display: block;
   width: 100%;
-  padding: 18px 36px;
+  padding: 18px 48px;
   background: var(--inv-bg-elevated);
   border: none;
   border-top: 1px solid var(--inv-grey-100);
