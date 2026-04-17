@@ -4,7 +4,7 @@
 
   Usage: {% render 'invicta-star-rating', rating: 4.5, count: 23 %}
   Or:    {% render 'invicta-star-rating', product: product %}
-         (reads product.metafields.judgeme.badge data if available)
+         (reads product.metafields.judgeme.average_rating if available)
 {% endcomment %}
 
 {%- liquid
@@ -15,7 +15,7 @@
     if product.metafields.reviews.rating.value != blank
       assign star_rating = product.metafields.reviews.rating.value.rating | default: 0
       assign star_count = product.metafields.reviews.rating_count | default: 0
-    elsif product.metafields.judgeme.badge != blank
+    elsif product.metafields.judgeme.average_rating != blank
       assign star_rating = product.metafields.judgeme.average_rating | default: 0
       assign star_count = product.metafields.judgeme.review_count | default: 0
     endif
