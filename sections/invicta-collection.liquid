@@ -131,7 +131,7 @@
   }
 </style>
 
-<div class="inv-collection" data-section-id="{{ section.id }}">
+<div class="inv-collection" data-section-id="{{ section.id }}" data-inv-collection-section="{{ section.id }}">
 
   {%- comment -%} ================================================================
      1. HERO SECTION — CX v1.2 Redesigned
@@ -282,7 +282,7 @@
           {%- if show_sort -%}
             <div class="inv-sort">
               <label for="InvSortSelect" class="inv-sort__label">Sort:</label>
-              <select id="InvSortSelect" class="inv-sort__select" aria-label="Sort products">
+              <select id="InvSortSelect" class="inv-sort__select" data-inv-sort-select aria-label="Sort products">
                 <option value="manual" {% if current_sort == 'manual' %}selected{% endif %}>Featured</option>
                 <option value="best-selling" {% if current_sort == 'best-selling' %}selected{% endif %}>Best Selling</option>
                 <option value="title-ascending" {% if current_sort == 'title-ascending' %}selected{% endif %}>A–Z</option>
@@ -310,7 +310,7 @@
         <div class="inv-active-filters__inner">
           {%- for filter in collection.filters -%}
             {%- for value in filter.active_values -%}
-              <a href="{{ value.url_to_remove }}" rel="nofollow" class="inv-filter-chip">
+              <a href="{{ value.url_to_remove }}" rel="nofollow" class="inv-filter-chip" data-inv-filter-remove>
                 <span>{{ value.label }}</span>
                 <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M18 6L6 18M6 6l12 12"/>
@@ -319,7 +319,7 @@
             {%- endfor -%}
             {%- if filter.type == 'price_range' -%}
               {%- if filter.min_value.value != blank or filter.max_value.value != blank -%}
-                <a href="{{ filter.url_to_remove }}" rel="nofollow" class="inv-filter-chip">
+                <a href="{{ filter.url_to_remove }}" rel="nofollow" class="inv-filter-chip" data-inv-filter-remove>
                   <span>
                     {%- if filter.min_value.value != blank -%}{{ filter.min_value.value | money_without_trailing_zeros }}{%- else -%}£0{%- endif -%}
                     –
@@ -332,7 +332,7 @@
               {%- endif -%}
             {%- endif -%}
           {%- endfor -%}
-          <a href="{{ collection.url }}" rel="nofollow" class="inv-clear-all">{{ 'products.facets.clear_all' | t }}</a>
+          <a href="{{ collection.url }}" rel="nofollow" class="inv-clear-all" data-inv-filter-remove>{{ 'products.facets.clear_all' | t }}</a>
         </div>
       </div>
     </div>
@@ -348,7 +348,7 @@
         
         {%- comment -%} ===== SIDEBAR (Desktop only) ===== {%- endcomment -%}
         <aside class="inv-sidebar" id="InvSidebar">
-          <form id="InvFilterForm" class="inv-filter-form">
+          <form id="InvFilterForm" class="inv-filter-form" data-inv-filter-sidebar>
             <div class="inv-sidebar__header">
               <span class="inv-sidebar__title">Filters</span>
               {%- if has_active_filters -%}
@@ -457,7 +457,7 @@
               {%- if paginate.pages > 1 -%}
                 <nav class="inv-pagination" aria-label="Pagination">
                   {%- if paginate.previous -%}
-                    <a href="{{ paginate.previous.url }}" class="inv-pagination__item inv-pagination__item--arrow" aria-label="Previous page">
+                    <a href="{{ paginate.previous.url }}" class="inv-pagination__item inv-pagination__item--arrow" data-inv-page-link aria-label="Previous page">
                       <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="m15 18-6-6 6-6"/>
                       </svg>
@@ -466,7 +466,7 @@
                   
                   {%- for part in paginate.parts -%}
                     {%- if part.is_link -%}
-                      <a href="{{ part.url }}" class="inv-pagination__item">{{ part.title }}</a>
+                      <a href="{{ part.url }}" class="inv-pagination__item" data-inv-page-link>{{ part.title }}</a>
                     {%- elsif part.title == paginate.current_page -%}
                       <span class="inv-pagination__item inv-pagination__item--current" aria-current="page">{{ part.title }}</span>
                     {%- else -%}
@@ -475,7 +475,7 @@
                   {%- endfor -%}
                   
                   {%- if paginate.next -%}
-                    <a href="{{ paginate.next.url }}" class="inv-pagination__item inv-pagination__item--arrow" aria-label="Next page">
+                    <a href="{{ paginate.next.url }}" class="inv-pagination__item inv-pagination__item--arrow" data-inv-page-link aria-label="Next page">
                       <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="m9 18 6-6-6-6"/>
                       </svg>
@@ -500,14 +500,14 @@
                   <div class="inv-empty__active-filters">
                     {%- for filter in collection.filters -%}
                       {%- for value in filter.active_values -%}
-                        <a href="{{ value.url_to_remove }}" rel="nofollow" class="inv-empty__filter-tag">
+                        <a href="{{ value.url_to_remove }}" rel="nofollow" class="inv-empty__filter-tag" data-inv-filter-remove>
                           {{ value.label }}
                           <span aria-hidden="true">&times;</span>
                         </a>
                       {%- endfor -%}
                       {%- if filter.type == 'price_range' -%}
                         {%- if filter.min_value.value != blank or filter.max_value.value != blank -%}
-                          <a href="{{ filter.url_to_remove }}" rel="nofollow" class="inv-empty__filter-tag">
+                          <a href="{{ filter.url_to_remove }}" rel="nofollow" class="inv-empty__filter-tag" data-inv-filter-remove>
                             {%- if filter.min_value.value != blank -%}{{ filter.min_value.value | money_without_trailing_zeros }}{%- else -%}£0{%- endif -%}
                             –
                             {%- if filter.max_value.value != blank -%}{{ filter.max_value.value | money_without_trailing_zeros }}{%- else -%}{{ filter.range_max | money_without_trailing_zeros }}{%- endif -%}
@@ -548,7 +548,7 @@
     </div>
     <div class="inv-drawer__header">
       <span class="inv-drawer__title">Filters</span>
-      <button type="button" class="inv-drawer__close" id="InvDrawerClose" aria-label="Close filters">
+      <button type="button" class="inv-drawer__close" id="InvDrawerClose" data-inv-filter-drawer-close aria-label="Close filters">
         <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M18 6L6 18M6 6l12 12"/>
         </svg>
@@ -557,7 +557,7 @@
     
     <div class="inv-drawer__body" id="InvDrawerBody">
       {%- comment -%} Filters rendered inline {%- endcomment -%}
-      <form id="InvDrawerForm" class="inv-drawer-form">
+      <form id="InvDrawerForm" class="inv-drawer-form" data-inv-filter-drawer-form>
         {%- for filter in collection.filters -%}
           {%- liquid
             assign _fl = filter.label | downcase
@@ -633,7 +633,7 @@
     
     <div class="inv-drawer__footer">
       <a href="{{ collection.url }}" class="inv-drawer__reset">{{ 'products.facets.clear_all' | t }}</a>
-      <button type="button" class="inv-drawer__apply" id="InvDrawerApply">Apply Filters</button>
+      <button type="button" class="inv-drawer__apply" id="InvDrawerApply" data-inv-filter-drawer-apply>Apply Filters</button>
     </div>
   </div>
 
@@ -823,51 +823,8 @@
     }
   })();
 
-  // Build filter URL from form inputs
-  function buildFilterUrl(form) {
-    var params = new URLSearchParams();
-    var inputs = form.querySelectorAll('input:checked, input[type="number"]');
-    inputs.forEach(function(input) {
-      if (input.type === 'checkbox' && input.checked) {
-        params.append(input.name, input.value);
-      } else if (input.type === 'number' && input.value) {
-        params.append(input.name, input.value);
-      }
-    });
-    if (sortSelect && sortSelect.value) params.set('sort_by', sortSelect.value);
-    var url = window.location.pathname;
-    var qs = params.toString();
-    return qs ? url + '?' + qs : url;
-  }
+  /* Filtering, sorting, and pagination handled by invicta-collection-ajax.js */
 
-  // Apply filters — drawer (mobile)
-  if (drawerApply && drawerForm) {
-    drawerApply.addEventListener('click', function() {
-      closeDrawer();
-      window.location.href = buildFilterUrl(drawerForm);
-    });
-  }
-
-  // Apply filters — sidebar (desktop)
-  if (sidebarForm) {
-    sidebarForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      window.location.href = buildFilterUrl(sidebarForm);
-    });
-  }
-  
-  /* ==========================================================================
-     SORT
-     ========================================================================== */
-  
-  if (sortSelect) {
-    sortSelect.addEventListener('change', function() {
-      var params = new URLSearchParams(window.location.search);
-      params.set('sort_by', this.value);
-      window.location.search = params.toString();
-    });
-  }
-  
   /* ==========================================================================
      SCROLL EFFECTS
      ========================================================================== */
@@ -935,6 +892,7 @@
 })();
 </script>
 
+<script src="{{ 'invicta-collection-ajax.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
