@@ -1,0 +1,85 @@
+{% comment %}
+  ============================================================================
+  INVICTA PRODUCT REVIEWS v1.0
+  ============================================================================
+  Judge.me integration point for product page.
+
+  When Judge.me is installed, its widget auto-renders inside the
+  jdgm-widget div. Without Judge.me, shows a prompt to leave the first review.
+  ============================================================================
+{% endcomment %}
+
+<div class="inv-reviews" id="invicta-reviews">
+  <div class="inv-reviews__inner page-width">
+    <h2 class="inv-reviews__heading">{{ section.settings.heading | default: 'Customer Reviews' }}</h2>
+
+    {%- comment -%} Judge.me widget container — the app injects here {%- endcomment -%}
+    <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget" data-product-title="{{ product.title | escape }}" data-id="{{ product.id }}">
+      {{ product.metafields.judgeme.widget | default: '' }}
+    </div>
+
+    {%- comment -%} Fallback if no reviews app installed {%- endcomment -%}
+    <noscript>
+      <p class="inv-reviews__empty">No reviews yet. Be the first to share your experience.</p>
+    </noscript>
+  </div>
+</div>
+
+<style>
+  .inv-reviews {
+    padding: {{ section.settings.padding_top | default: 48 }}px 0 {{ section.settings.padding_bottom | default: 48 }}px;
+    border-top: 1px solid var(--inv-border, #e5e7eb);
+  }
+  .inv-reviews__heading {
+    font-family: var(--inv-font-display, 'Barlow Condensed', Impact, sans-serif);
+    font-size: var(--inv-text-xl, 28px);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: var(--inv-tracking-tight, -0.02em);
+    color: var(--inv-fg, #0f172a);
+    margin: 0 0 var(--inv-gap-md, 20px);
+  }
+  .inv-reviews__empty {
+    color: var(--inv-fg-muted, #6b7280);
+    font-size: var(--inv-text-base, 15px);
+    padding: var(--inv-gap-lg, 32px) 0;
+    text-align: center;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Product Reviews",
+  "tag": "section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 48,
+      "unit": "px"
+    }
+  ],
+  "templates": ["product"]
+}
+{% endschema %}

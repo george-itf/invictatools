@@ -25,6 +25,8 @@
       >
     {%- endif -%}
 
+    {% render 'invicta-ga4' %}
+
     {%- comment -%}
       =========================================================
       DNS Prefetch & Preconnect Hints
@@ -619,6 +621,10 @@
       <link rel="stylesheet" href="{{ 'invicta-cx-improvements.css' | asset_url }}" media="print" onload="this.media='all'">
     {%- endunless -%}
 
+    {%- if settings.inv_ga4_measurement_id != blank -%}
+      <script src="{{ 'invicta-ga4-events.js' | asset_url }}" defer></script>
+    {%- endif -%}
+
     <!-- =============================================
          INVICTA JS — Clean Load Order
          ============================================= -->
@@ -654,6 +660,8 @@
         var t=e.target.closest('[data-action="select-all"]');if(t&&t.select)t.select();
       });
     </script>
+
+    {% section 'invicta-cookie-consent' %}
 
   </body>
 </html>

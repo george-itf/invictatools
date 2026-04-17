@@ -1,0 +1,114 @@
+{% comment %}
+  Invicta PDP Breadcrumbs v1.0
+  Shows: Home > [Collection] > Product Title
+
+  Collection is determined by:
+  1. URL path /collections/handle/products/slug format
+  2. Product's first collection as fallback
+  JS enhancement below updates the breadcrumb from sessionStorage
+  for standard /products/slug URLs where the Liquid path detection fails.
+{% endcomment %}
+
+{%- liquid
+  assign bc_collection = nil
+
+  assign bc_collection_handle = request.path | split: '/collections/' | last | split: '/' | first
+  if bc_collection_handle != blank and bc_collection_handle != request.path
+    assign bc_collection = collections[bc_collection_handle]
+  endif
+
+  unless bc_collection
+    assign bc_collection = product.collections | first
+  endunless
+-%}
+
+<nav class="inv-breadcrumb" aria-label="Breadcrumb">
+  <ol class="inv-breadcrumb__list" role="list">
+    <li class="inv-breadcrumb__item">
+      <a href="/" class="inv-breadcrumb__link">Home</a>
+      <svg class="inv-breadcrumb__sep" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" focusable="false" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+    </li>
+    {%- if bc_collection -%}
+      <li class="inv-breadcrumb__item">
+        <a href="{{ bc_collection.url }}" class="inv-breadcrumb__link">{{ bc_collection.title | escape }}</a>
+        <svg class="inv-breadcrumb__sep" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" focusable="false" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </li>
+    {%- endif -%}
+    <li class="inv-breadcrumb__item" aria-current="page">
+      <span class="inv-breadcrumb__current">{{ product.title | truncate: 60 | escape }}</span>
+    </li>
+  </ol>
+</nav>
+
+<style>
+  .inv-breadcrumb {
+    padding: 0 0 var(--inv-gap-sm, 12px);
+  }
+  .inv-breadcrumb__list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .inv-breadcrumb__item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .inv-breadcrumb__link {
+    color: var(--inv-fg-muted, #6b7280);
+    text-decoration: none;
+    font-size: var(--inv-text-xs, 11px);
+    text-transform: uppercase;
+    letter-spacing: var(--inv-tracking-wide, 0.05em);
+    font-weight: 600;
+  }
+  .inv-breadcrumb__link:hover {
+    color: var(--inv-accent, #e11d26);
+  }
+  .inv-breadcrumb__sep {
+    color: var(--inv-fg-subtle, #9ca3af);
+  }
+  .inv-breadcrumb__current {
+    color: var(--inv-fg-secondary, #374151);
+    font-size: var(--inv-text-xs, 11px);
+    text-transform: uppercase;
+    letter-spacing: var(--inv-tracking-wide, 0.05em);
+    font-weight: 600;
+  }
+</style>
+
+<script>
+/** JS enhancement: update breadcrumb from sessionStorage if Liquid couldn't detect the collection.
+ *  Collection pages store their handle+title; PDP reads it back. */
+(function() {
+  'use strict';
+  var path = window.location.pathname;
+  /* On collection pages, store the current collection for breadcrumb use */
+  var collMatch = path.match(/^\/collections\/([^\/]+)/);
+  if (collMatch) {
+    try {
+      sessionStorage.setItem('inv-bc-collection', JSON.stringify({
+        handle: collMatch[1],
+        title: document.querySelector('h1')?.textContent?.trim() || collMatch[1],
+        url: '/collections/' + collMatch[1]
+      }));
+    } catch(e) {}
+    return;
+  }
+  /* On PDP, update the breadcrumb link if it fell back to first collection */
+  if (!path.startsWith('/products/')) return;
+  try {
+    var stored = JSON.parse(sessionStorage.getItem('inv-bc-collection'));
+    if (!stored) return;
+    var bcLink = document.querySelector('.inv-breadcrumb__link[href*="/collections/"]');
+    if (bcLink && bcLink.getAttribute('href') !== stored.url) {
+      bcLink.setAttribute('href', stored.url);
+      bcLink.textContent = stored.title;
+    }
+  } catch(e) {}
+})();
+</script>

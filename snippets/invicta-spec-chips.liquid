@@ -1,0 +1,41 @@
+{% comment %}
+  Invicta Spec Chips v1.0
+  Renders compact specification pills from product metafields.
+  Gracefully hidden when no data exists.
+
+  Usage: {% render 'invicta-spec-chips', product: product %}
+{% endcomment %}
+
+{%- liquid
+  assign voltage = product.metafields.custom.voltage.value | default: product.metafields.specifications.voltage.value
+  assign disc_size = product.metafields.custom.disc_diameter.value | default: product.metafields.specifications.disc_diameter.value
+  assign weight = product.metafields.custom.weight.value | default: product.metafields.specifications.weight.value
+  assign motor = product.metafields.custom.motor_type.value | default: product.metafields.specifications.motor_type.value
+  assign speed = product.metafields.custom.no_load_speed.value | default: product.metafields.specifications.no_load_speed.value
+
+  assign has_specs = false
+  if voltage != blank or disc_size != blank or weight != blank or motor != blank or speed != blank
+    assign has_specs = true
+  endif
+-%}
+
+{%- if has_specs -%}
+  {{ 'invicta-spec-chips.css' | asset_url | stylesheet_tag }}
+  <div class="inv-specs">
+    {%- if voltage != blank -%}
+      <span class="inv-specs__chip">{{ voltage }}V</span>
+    {%- endif -%}
+    {%- if disc_size != blank -%}
+      <span class="inv-specs__chip">{{ disc_size }}mm</span>
+    {%- endif -%}
+    {%- if motor != blank -%}
+      <span class="inv-specs__chip">{{ motor }}</span>
+    {%- endif -%}
+    {%- if speed != blank -%}
+      <span class="inv-specs__chip">{{ speed }} rpm</span>
+    {%- endif -%}
+    {%- if weight != blank -%}
+      <span class="inv-specs__chip">{{ weight }}kg</span>
+    {%- endif -%}
+  </div>
+{%- endif -%}
