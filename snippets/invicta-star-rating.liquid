@@ -20,6 +20,12 @@
       assign star_count = product.metafields.judgeme.review_count | default: 0
     endif
   endif
+
+  if product and product.id
+    assign star_uid = product.id
+  else
+    assign star_uid = uid | default: 'star'
+  endif
 -%}
 
 {%- if star_rating > 0 and star_count > 0 -%}
@@ -30,9 +36,9 @@
           <svg class="inv-stars__icon inv-stars__icon--full" viewBox="0 0 20 20" width="14" height="14"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7" fill="currentColor"/></svg>
         {%- elsif star_rating >= i | minus: 0.5 -%}
           <svg class="inv-stars__icon inv-stars__icon--half" viewBox="0 0 20 20" width="14" height="14">
-            <defs><clipPath id="half-{{ i }}"><rect x="0" y="0" width="10" height="20"/></clipPath></defs>
+            <defs><clipPath id="half-{{ star_uid }}-{{ i }}"><rect x="0" y="0" width="10" height="20"/></clipPath></defs>
             <polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7" fill="none" stroke="currentColor" stroke-width="1"/>
-            <polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7" fill="currentColor" clip-path="url(#half-{{ i }})"/>
+            <polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7" fill="currentColor" clip-path="url(#half-{{ star_uid }}-{{ i }})"/>
           </svg>
         {%- else -%}
           <svg class="inv-stars__icon inv-stars__icon--empty" viewBox="0 0 20 20" width="14" height="14"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7" fill="none" stroke="currentColor" stroke-width="1"/></svg>
