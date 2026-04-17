@@ -219,6 +219,9 @@
       </div>
     {%- endif -%}
 
+    {%- comment -%} Spec chips from metafields (hidden when no data) {%- endcomment -%}
+    {% render 'invicta-spec-chips', product: product %}
+
     {%- comment -%} Action button {%- endcomment -%}
     {%- assign default_qty = 1 -%}
     {%- if current_variant.quantity_rule.min > 1 -%}

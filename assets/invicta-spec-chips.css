@@ -1,0 +1,18 @@
+.inv-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+.inv-specs__chip {
+  display: inline-block;
+  padding: 2px 8px;
+  background: var(--inv-bg-soft, #f3f4f6);
+  border: 1px solid var(--inv-border, #e5e7eb);
+  border-radius: var(--inv-radius-pill, 9999px);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--inv-fg-dim, #4b5563);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
