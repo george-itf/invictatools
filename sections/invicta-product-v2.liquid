@@ -923,7 +923,10 @@
             </div>
             {% render 'invicta-brand-pill', product: product %}
           </div>
-          
+
+          {%- comment -%} Star rating — reads Judge.me metafields when available {%- endcomment -%}
+          {% render 'invicta-star-rating', product: product %}
+
           {%- comment -%}
             PRICE BLOCK — Single price controlled by VAT toggle
             Shows either ex VAT or inc VAT based on header toggle selection.

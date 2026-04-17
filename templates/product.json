@@ -96,6 +96,14 @@
         "padding_bottom": 48
       }
     },
+    "invicta_product_reviews": {
+      "type": "invicta-product-reviews",
+      "settings": {
+        "heading": "Customer Reviews",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
     "invicta_recently_viewed_DMDqhH": {
       "type": "invicta-recently-viewed",
       "blocks": {
@@ -166,6 +174,7 @@
     "main",
     "invicta_consumables",
     "invicta_related_products",
+    "invicta_product_reviews",
     "invicta_recently_viewed_DMDqhH"
   ]
 }
