@@ -32,9 +32,10 @@
   <div class="inv-stars" aria-label="{{ star_rating }} out of 5 stars, {{ star_count }} reviews">
     <div class="inv-stars__icons" aria-hidden="true">
       {%- for i in (1..5) -%}
+        {%- assign half_threshold = i | minus: 0.5 -%}
         {%- if star_rating >= i -%}
           <svg class="inv-stars__icon inv-stars__icon--full" viewBox="0 0 20 20" width="14" height="14"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7" fill="currentColor"/></svg>
-        {%- elsif star_rating >= i | minus: 0.5 -%}
+        {%- elsif star_rating >= half_threshold -%}
           <svg class="inv-stars__icon inv-stars__icon--half" viewBox="0 0 20 20" width="14" height="14">
             <defs><clipPath id="half-{{ star_uid }}-{{ i }}"><rect x="0" y="0" width="10" height="20"/></clipPath></defs>
             <polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7" fill="none" stroke="currentColor" stroke-width="1"/>
