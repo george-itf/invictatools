@@ -378,7 +378,7 @@
   flex-wrap: wrap;
   gap: 10px 20px;
   align-items: center;
-  padding: 14px 32px;
+  padding: 14px 40px;
   background: var(--inv-grey-50);
   border-bottom: 1px solid var(--inv-grey-200);
 }
@@ -421,7 +421,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 22px 32px;
+  padding: 22px 40px;
   background: var(--inv-bg-elevated);
   border: none;
   font-size: 14px;
@@ -460,7 +460,7 @@
 
 /* Accordion content */
 .inv-pdp__info-content {
-  padding: 18px 32px 24px;
+  padding: 18px 40px 24px;
   font-size: 14px;
   line-height: 1.65;
   color: var(--inv-fg-secondary);
@@ -499,7 +499,7 @@
 .inv-pdp__info-readmore {
   display: block;
   width: 100%;
-  padding: 14px 32px;
+  padding: 14px 40px;
   background: var(--inv-bg-elevated);
   border: none;
   border-top: 1px solid var(--inv-grey-100);
