@@ -452,7 +452,7 @@
     <link rel="stylesheet" href="{{ 'desktop.css' | asset_url }}" media="screen and (min-width: 750px)">
 
     <!-- UX Improvements (accessibility, focus states, sticky ATC) — deferred, not critical path -->
-    <link rel="stylesheet" href="{{ 'invicta-ux-improvements.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'invicta-improvements.css' | asset_url }}" media="print" onload="this.media='all'">
 
     <!-- Cart Components — synchronous on cart page to prevent CLS, lazy elsewhere -->
     {%- if template == 'cart' -%}
@@ -618,7 +618,6 @@
     <!-- CX v1.0: Customer Experience Improvements — CSS deferred, not critical path -->
     {%- unless template == 'password' or template == 'gift_card' -%}
       <script src="{{ 'invicta-cx-improvements.js' | asset_url }}" defer></script>
-      <link rel="stylesheet" href="{{ 'invicta-cx-improvements.css' | asset_url }}" media="print" onload="this.media='all'">
     {%- endunless -%}
 
     {%- if settings.inv_ga4_measurement_id != blank -%}
@@ -635,7 +634,7 @@
     {%- comment -%} predictive-search.js removed — consolidated into invicta-search.js {%- endcomment -%}
 
     {%- if settings.cart_type == 'drawer' -%}
-      <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'invicta-cart-core.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
     <script src="{{ 'invicta-quick-add.js' | asset_url }}" defer></script>

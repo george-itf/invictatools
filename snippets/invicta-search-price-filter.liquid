@@ -1,0 +1,70 @@
+{%- comment -%}
+  Reusable price range filter group for search page.
+  Iterates search.filters to find the price filter and renders the range inputs.
+
+  Parameters:
+    group_id          - Unique ID suffix (e.g. "price", "price-mobile")
+    active_price_gte  - Current min price value
+    active_price_lte  - Current max price value
+    default_open      - Whether accordion starts expanded
+    search_filters    - The search.filters array
+{%- endcomment -%}
+
+{%- for filter in search_filters -%}
+  {%- if filter.param_name == 'filter.v.price' -%}
+    <div class="inv-filter-group inv-filter-group--price" data-filter-group-id="{{ group_id }}">
+      <button
+        type="button"
+        class="inv-filter-group__header"
+        data-accordion-toggle
+        aria-expanded="{% if default_open %}true{% else %}false{% endif %}"
+        aria-controls="inv-filter-body-{{ group_id }}"
+      >
+        <span class="inv-filter-group__title">{{ 'invicta.search.filter_price' | t }}</span>
+        <svg class="inv-filter-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div
+        class="inv-filter-group__body"
+        id="inv-filter-body-{{ group_id }}"
+        aria-hidden="{% if default_open %}false{% else %}true{% endif %}"
+      >
+        <div class="inv-filter-price">
+          <div class="inv-filter-price__inputs">
+            <div class="inv-filter-price__field">
+              <span class="inv-filter-price__prefix">&pound;</span>
+              <input
+                type="number"
+                class="inv-filter-price__input"
+                data-price-min
+                name="filter.v.price.gte"
+                value="{{ active_price_gte }}"
+                placeholder="{{ filter.range_max | times: 0 | money_without_currency }}"
+                min="0"
+                aria-label="{{ 'invicta.search.filter_price_min' | t }}"
+              >
+              <span class="inv-filter-price__label">{{ 'invicta.search.filter_price_min' | t }}</span>
+            </div>
+            <span class="inv-filter-price__separator">&ndash;</span>
+            <div class="inv-filter-price__field">
+              <span class="inv-filter-price__prefix">&pound;</span>
+              <input
+                type="number"
+                class="inv-filter-price__input"
+                data-price-max
+                name="filter.v.price.lte"
+                value="{{ active_price_lte }}"
+                placeholder="{{ filter.range_max | money_without_currency }}"
+                min="0"
+                aria-label="{{ 'invicta.search.filter_price_max' | t }}"
+              >
+              <span class="inv-filter-price__label">{{ 'invicta.search.filter_price_max' | t }}</span>
+            </div>
+          </div>
+          <button type="button" class="inv-filter-price__apply" data-price-apply>
+            {{ 'invicta.search.filter_price_apply' | t }}
+          </button>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+{%- endfor -%}

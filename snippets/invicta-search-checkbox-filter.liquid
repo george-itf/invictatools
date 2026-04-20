@@ -1,0 +1,69 @@
+{%- comment -%}
+  Reusable checkbox filter group for search page.
+  Renders brand or product type filter with accordion, search input, and checkbox list.
+
+  Parameters:
+    filter_name       - Shopify filter param name (e.g. "filter.p.vendor", "filter.p.product_type")
+    group_id          - Unique ID suffix for the group (e.g. "brand", "type", "brand-mobile")
+    title_key         - Translation key for the group title
+    search_key        - Translation key for the search placeholder
+    active_sorted     - Pipe-delimited sorted active entries
+    inactive_sorted   - Pipe-delimited sorted inactive entries
+    default_open      - Whether accordion starts expanded
+{%- endcomment -%}
+
+<div class="inv-filter-group" data-filter-group-id="{{ group_id }}">
+  <button
+    type="button"
+    class="inv-filter-group__header"
+    data-accordion-toggle
+    aria-expanded="{% if default_open %}true{% else %}false{% endif %}"
+    aria-controls="inv-filter-body-{{ group_id }}"
+  >
+    <span class="inv-filter-group__title">{{ title_key | t }}</span>
+    <svg class="inv-filter-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div
+    class="inv-filter-group__body"
+    id="inv-filter-body-{{ group_id }}"
+    aria-hidden="{% if default_open %}false{% else %}true{% endif %}"
+  >
+    <div class="inv-filter-group__search">
+      <input
+        type="text"
+        class="inv-filter-group__search-input"
+        data-filter-search
+        placeholder="{{ search_key | t }}"
+        aria-label="{{ search_key | t }}"
+      >
+    </div>
+    <div class="inv-filter-group__list">
+      {%- for entry in active_sorted -%}
+        {%- if entry != blank -%}
+          {%- assign parts = entry | split: '|' -%}
+          {%- assign label = parts[1] -%}
+          {%- assign count = parts[2] -%}
+          <label class="inv-filter-checkbox">
+            <input type="checkbox" name="{{ filter_name }}" value="{{ label | escape }}" checked>
+            <span class="inv-filter-checkbox__check"></span>
+            <span class="inv-filter-checkbox__label">{{ label }}</span>
+            <span class="inv-filter-checkbox__count">({{ count }})</span>
+          </label>
+        {%- endif -%}
+      {%- endfor -%}
+      {%- for entry in inactive_sorted -%}
+        {%- if entry != blank -%}
+          {%- assign parts = entry | split: '|' -%}
+          {%- assign label = parts[1] -%}
+          {%- assign count = parts[2] -%}
+          <label class="inv-filter-checkbox">
+            <input type="checkbox" name="{{ filter_name }}" value="{{ label | escape }}">
+            <span class="inv-filter-checkbox__check"></span>
+            <span class="inv-filter-checkbox__label">{{ label }}</span>
+            <span class="inv-filter-checkbox__count">({{ count }})</span>
+          </label>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>

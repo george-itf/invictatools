@@ -1,0 +1,43 @@
+{%- comment -%}
+  Reusable availability toggle filter for search page.
+  Iterates search.filters to find the availability filter and renders a checkbox toggle.
+
+  Parameters:
+    group_id             - Unique ID suffix (e.g. "availability", "availability-mobile")
+    active_availability  - Whether currently filtered to in-stock
+    default_open         - Whether accordion starts expanded
+    search_filters       - The search.filters array
+{%- endcomment -%}
+
+{%- for filter in search_filters -%}
+  {%- if filter.param_name == 'filter.v.availability' -%}
+    <div class="inv-filter-group inv-filter-group--availability" data-filter-group-id="{{ group_id }}">
+      <button
+        type="button"
+        class="inv-filter-group__header"
+        data-accordion-toggle
+        aria-expanded="{% if default_open %}true{% else %}false{% endif %}"
+        aria-controls="inv-filter-body-{{ group_id }}"
+      >
+        <span class="inv-filter-group__title">{{ 'invicta.search.filter_availability' | t }}</span>
+        <svg class="inv-filter-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div
+        class="inv-filter-group__body"
+        id="inv-filter-body-{{ group_id }}"
+        aria-hidden="{% if default_open %}false{% else %}true{% endif %}"
+      >
+        <label class="inv-filter-checkbox inv-filter-checkbox--toggle">
+          <input
+            type="checkbox"
+            name="filter.v.availability"
+            value="1"
+            {% if active_availability %}checked{% endif %}
+          >
+          <span class="inv-filter-checkbox__check"></span>
+          <span class="inv-filter-checkbox__label">{{ 'invicta.search.filter_in_stock' | t }}</span>
+        </label>
+      </div>
+    </div>
+  {%- endif -%}
+{%- endfor -%}

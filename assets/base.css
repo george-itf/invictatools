@@ -34,7 +34,6 @@
    24. Homepage Section Spacing
    ============================================================ */
 
-
 /* ============================================================
    1. ROOT VARIABLES
    ============================================================
@@ -47,7 +46,6 @@
 
 /* No additional :root variables needed - all tokens are now in
    invicta-css-variables.liquid which must be loaded first */
-
 
 /* ============================================================
    2. CARD VARIABLES
@@ -124,7 +122,6 @@
   --shadow-visible: var(--media-shadow-visible);
 }
 
-
 /* ============================================================
    3. CONTAINER SYSTEM
    ============================================================ */
@@ -136,10 +133,6 @@
 }
 
 body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
-  max-width: 100%;
-}
-
-.drawer-menu {
   max-width: 100%;
 }
 
@@ -172,9 +165,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
     padding: 0;
   }
 
-  .page-width-tablet {
-    padding: 0 var(--inv-page-gutter-desktop, 3rem);
-  }
+  
 }
 
 @media screen and (min-width: 990px) {
@@ -193,7 +184,6 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
     padding: 0 var(--inv-page-gutter-desktop, 3rem);
   }
 }
-
 
 /* ============================================================
    4. LAYOUT UTILITIES
@@ -252,7 +242,6 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
 .center {
   text-align: center;
 }
-
 
 /* ============================================================
    5. TYPOGRAPHY SCALE
@@ -398,7 +387,6 @@ h5, .h5 {
 .rte li { list-style: inherit; }
 .rte li:last-child { margin-bottom: 0; }
 
-
 /* ============================================================
    6. GRID SYSTEM
    ============================================================ */
@@ -434,11 +422,6 @@ h5, .h5 {
     width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4);
     max-width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
   }
-}
-
-.grid--gapless.grid {
-  column-gap: 0;
-  row-gap: 0;
 }
 
 /* 1 Column Grid */
@@ -484,10 +467,7 @@ h5, .h5 {
 
 /* Tablet Down Overrides */
 @media screen and (max-width: 989px) {
-  .grid--1-col-tablet-down .grid__item {
-    width: 100%;
-    max-width: 100%;
-  }
+  
   .slider--tablet.grid--peek {
     margin: 0;
     width: 100%;
@@ -577,10 +557,7 @@ h5, .h5 {
   .grid--peek .grid__item {
     width: calc(50% - var(--grid-mobile-horizontal-spacing) - 3rem);
   }
-  .slider--tablet.grid--peek.grid--1-col-tablet-down .grid__item,
-  .slider--mobile.grid--peek.grid--1-col-tablet-down .grid__item {
-    width: calc(100% - var(--grid-mobile-horizontal-spacing) - 3rem);
-  }
+  
 }
 
 /* Tablet Peek Grid */
@@ -614,7 +591,6 @@ h5, .h5 {
   flex-direction: column;
 }
 
-
 /* ============================================================
    7. SLIDER SYSTEM (with corrected arrow directions)
    ============================================================ */
@@ -643,11 +619,7 @@ slider-component {
 }
 
 @media screen and (min-width: 750px) {
-  .slider-mobile-gutter {
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: 0;
-  }
+  
   slider-component.page-width-desktop,
   slider-component .page-width-desktop {
     padding: 0;
@@ -771,7 +743,6 @@ slider-component {
   padding: 8px 14px;
   border-radius: 600px;
 }
-
 
 /* ============================================================
    8. CARD FOUNDATIONS (with writing-mode fixes)
@@ -959,7 +930,6 @@ slider-component {
   white-space: normal;
   word-wrap: break-word;
 }
-
 
 /* ============================================================
    9. COLLECTION LIST (consolidated — all rules merged)
@@ -1269,27 +1239,14 @@ section:has(.collection-list) h2 {
   }
 }
 
-
 /* ============================================================
    10. MULTICOLUMN CARDS
    ============================================================ */
-
-.multicolumn-list__item {
-  writing-mode: horizontal-tb;
-  text-orientation: mixed;
-  direction: ltr;
-  display: flex;
-  flex-direction: column;
-}
 
 .multicolumn-card {
   display: flex;
   flex-direction: column;
   height: 100%;
-  writing-mode: horizontal-tb;
-}
-
-.multicolumn-card__image-wrapper {
   writing-mode: horizontal-tb;
 }
 
@@ -1320,7 +1277,6 @@ section:has(.collection-list) h2 {
   writing-mode: horizontal-tb;
   text-align: center;
 }
-
 
 /* ============================================================
    11. BUTTON SYSTEM (pill-shaped)
@@ -1548,7 +1504,6 @@ select {
   margin: 0;
 }
 
-
 /* ============================================================
    13. LINKS
    ============================================================ */
@@ -1599,11 +1554,6 @@ a:not([href]) {
   outline-offset: calc(var(--focused-base-outline-offset) * -1);
 }
 
-.focus-offset:focus-visible {
-  outline: var(--focused-base-outline);
-  outline-offset: var(--focused-base-outline-offset);
-}
-
 /* Skip to Content */
 .skip-to-content-link:focus {
   z-index: 9999;
@@ -1613,16 +1563,6 @@ a:not([href]) {
   height: auto;
   clip: auto;
 }
-
-.full-width-link {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 2;
-}
-
 
 /* ============================================================
    14. MEDIA
@@ -1637,17 +1577,6 @@ a:not([href]) {
 
 .media--transparent {
   background-color: transparent;
-}
-
-.media--square { padding-bottom: 100%; }
-.media--portrait { padding-bottom: 125%; }
-.media--landscape { padding-bottom: 66.6%; }
-.media--cropped { padding-bottom: 56%; }
-.media--16-9 { padding-bottom: 56.25%; }
-
-.media--circle {
-  padding-bottom: 100%;
-  border-radius: 50%;
 }
 
 .media > *:not(.zoom):not(.deferred-media__poster-button),
@@ -1692,7 +1621,6 @@ a:not([href]) {
   max-height: 100%;
 }
 
-
 /* ============================================================
    15. BADGES & ICONS
    ============================================================ */
@@ -1713,16 +1641,6 @@ a:not([href]) {
   background-color: rgb(var(--color-badge-background));
 }
 
-.badge--sale {
-  color: rgb(var(--color-foreground));
-  background-color: rgb(var(--color-discount-badge));
-}
-
-.badge--sold-out {
-  color: rgb(var(--color-badge-foreground));
-  background-color: rgba(var(--color-badge-background), 0.7);
-}
-
 /* Icons */
 .icon {
   display: inline-block;
@@ -1730,16 +1648,6 @@ a:not([href]) {
   height: 2rem;
   vertical-align: middle;
   fill: currentColor;
-}
-
-.icon--small {
-  width: 1.6rem;
-  height: 1.6rem;
-}
-
-.icon--large {
-  width: 2.4rem;
-  height: 2.4rem;
 }
 
 .svg-wrapper {
@@ -1778,7 +1686,6 @@ a:not([href]) {
 .card:hover .icon-wrap {
   transform: translateX(4px);
 }
-
 
 /* ============================================================
    16. VISIBILITY & RESPONSIVE
@@ -1843,7 +1750,6 @@ html.inv-vat-ex .inv-pdp__price-line[data-price-ex].inv-vat--hidden { display: f
   display: none;
 }
 
-
 /* ============================================================
    17. ANIMATIONS
    ============================================================ */
@@ -1875,18 +1781,6 @@ html.inv-vat-ex .inv-pdp__price-line[data-price-ex].inv-vat--hidden { display: f
   }
 }
 
-.animate--appear {
-  animation: appear var(--duration-default) ease forwards;
-}
-
-.animate--appear-down {
-  animation: appear-down var(--duration-medium) ease forwards;
-}
-
-.animate--appear-up {
-  animation: appear-up var(--duration-medium) ease forwards;
-}
-
 /* Scroll Trigger Animations */
 .scroll-trigger.animate--slide-in {
   opacity: 0;
@@ -1914,7 +1808,6 @@ html.inv-vat-ex .inv-pdp__price-line[data-price-ex].inv-vat--hidden { display: f
   --animation-order: 0;
   animation-delay: calc(var(--animation-order) * 50ms);
 }
-
 
 /* ============================================================
    18. ACCESSIBILITY
@@ -2031,10 +1924,6 @@ html.inv-vat-ex .inv-pdp__price-line[data-price-ex].inv-vat--hidden { display: f
   margin: 0;
 }
 
-.header__inline-menu {
-  margin: 0;
-}
-
 /* Remove spacing above first main content section */
 .shopify-section-group-header-group + main .shopify-section:first-child,
 #MainContent > .shopify-section:first-child {
@@ -2094,7 +1983,6 @@ html.inv-vat-ex .inv-pdp__price-line[data-price-ex].inv-vat--hidden { display: f
   font-weight: 600;
   letter-spacing: 0.02em;
 }
-
 
 /* ============================================================
    21. TITLE WRAPPERS
@@ -2157,7 +2045,6 @@ html.inv-vat-ex .inv-pdp__price-line[data-price-ex].inv-vat--hidden { display: f
 .collection__view-all {
   margin-top: 2.5rem;
 }
-
 
 /* ============================================================
    22. INVICTA CARD SYSTEM
@@ -2226,7 +2113,6 @@ html.inv-vat-ex .inv-pdp__price-line[data-price-ex].inv-vat--hidden { display: f
   border-radius: var(--inv-radius-pill, 999px);
 }
 
-
 /* ============================================================
    23. PRODUCT PAGE — INVICTA v10.0
    ============================================================
@@ -2237,7 +2123,6 @@ html.inv-vat-ex .inv-pdp__price-line[data-price-ex].inv-vat--hidden { display: f
    REPLACES: Old Section 23 (had incorrect sizing)
    
    ============================================================ */
-
 
 /* ----------------------------------------
    23.1 PRODUCT TITLE
@@ -2267,7 +2152,6 @@ h1.product__title,
     font-size: 1.5rem;
   }
 }
-
 
 /* ----------------------------------------
    23.2 PRICE — BIGGER with inline ex-VAT
@@ -2332,12 +2216,6 @@ h1.product__title,
   color: var(--inv-accent);
 }
 
-.inv-price__ex-vat {
-  font-size: 0.9375rem;
-  font-weight: 500;
-  color: var(--inv-fg-muted);
-}
-
 .inv-price__was {
   font-size: 1rem;
   color: var(--inv-fg-subtle);
@@ -2370,7 +2248,6 @@ h1.product__title,
     font-size: 1.75rem;
   }
 }
-
 
 /* ----------------------------------------
    23.3 STOCK STATUS / BADGES
@@ -2422,7 +2299,6 @@ h1.product__title,
   background-color: var(--inv-error-light);
 }
 
-
 /* ----------------------------------------
    23.4 TRUST BADGES
    ---------------------------------------- */
@@ -2472,7 +2348,6 @@ h1.product__title,
   }
 }
 
-
 /* ----------------------------------------
    23.5 DELIVERY INFO
    ---------------------------------------- */
@@ -2515,7 +2390,6 @@ h1.product__title,
     font-size: 0.875rem;
   }
 }
-
 
 /* ----------------------------------------
    23.6 QUANTITY SELECTOR — COMPACT
@@ -2604,7 +2478,6 @@ h1.product__title,
   box-shadow: 0 0 0 2px rgba(45, 45, 45, 0.3);
 }
 
-
 /* ----------------------------------------
    23.7 ADD TO CART — FLAT RED
    ---------------------------------------- */
@@ -2682,7 +2555,6 @@ button.inv-atc-btn {
   flex-shrink: 0;
 }
 
-
 .inv-atc-btn__price {
   opacity: 0.9;
   font-weight: 600;
@@ -2715,10 +2587,6 @@ button.inv-atc-btn {
   background-color: var(--inv-dark);
   color: var(--inv-bg-elevated);
 }
-
-
-
-
 
 /* ----------------------------------------
    23.9 VARIANT SELECTORS
@@ -2793,7 +2661,6 @@ button.inv-atc-btn {
   color: var(--inv-fg-muted);
   pointer-events: none;
 }
-
 
 /* ----------------------------------------
    23.10 DESCRIPTION
@@ -2884,7 +2751,6 @@ button.inv-atc-btn {
   margin-bottom: 0.4em;
 }
 
-
 /* ----------------------------------------
    23.11 ACCORDIONS
    ---------------------------------------- */
@@ -2905,20 +2771,15 @@ details summary,
 }
 
 .product .accordion__content,
-.product .collapsible-content,
 .product details > div,
 .accordion__content,
-.collapsible-content,
-.accordion-content,
 details .accordion__content {
   font-size: 1.05rem;
   line-height: 1.7;
 }
 
 .product .accordion__content li,
-.product .collapsible-content li,
 .accordion__content li,
-.collapsible-content li,
 details li {
   font-size: 1.05rem;
   line-height: 1.6;
@@ -3034,7 +2895,6 @@ details li {
   color: var(--inv-fg-strong);
 }
 
-
 /* ----------------------------------------
    23.12 SKELETON LOADING
    ---------------------------------------- */
@@ -3043,42 +2903,9 @@ details li {
   to { transform: rotate(360deg); }
 }
 
-@keyframes inv-skeleton-shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-.inv-gallery__skeleton,
-.inv-price__skeleton,
-.inv-stock__skeleton {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, var(--inv-bg-soft) 25%, var(--inv-border) 50%, var(--inv-bg-soft) 75%);
-  background-size: 200% 100%;
-  border-radius: 6px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.15s ease;
-  z-index: 5;
-}
-
-.inv-gallery__skeleton.is-loading,
-.inv-price.is-loading .inv-price__skeleton,
-.inv-stock.is-loading .inv-stock__skeleton {
-  opacity: 1;
-  animation: inv-skeleton-shimmer 1s ease-in-out infinite;
-}
-
-.inv-price.is-loading .inv-price__row,
-.inv-price.is-loading .inv-price__saving,
-.inv-stock.is-loading .inv-stock__badge {
-  opacity: 0;
-}
-
 .inv-gallery__img.is-loading {
   opacity: 0.5;
 }
-
 
 /* ----------------------------------------
    23.13 BREADCRUMB
@@ -3121,7 +2948,6 @@ nav.breadcrumb {
   color: var(--inv-border-dark);
   margin: 0 2px;
 }
-
 
 /* ----------------------------------------
    23.14 GALLERY
@@ -3227,7 +3053,6 @@ nav.breadcrumb {
   height: 18px;
 }
 
-
 /* ----------------------------------------
    23.15 SHARE BUTTON
    ---------------------------------------- */
@@ -3257,66 +3082,13 @@ nav.breadcrumb {
   height: 18px;
 }
 
-
 /* ----------------------------------------
    23.16 SUPPLIER NOTICE
    ---------------------------------------- */
 
-.inv-supplier-notice {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  padding: 0.875rem 1rem;
-  margin-bottom: 12px;
-  background-color: var(--inv-grey-100);
-  border-left: 3px solid var(--inv-dark);
-  border-radius: 4px;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  color: var(--inv-fg-secondary);
-}
-
-.inv-supplier-notice svg {
-  flex-shrink: 0;
-  width: 18px;
-  height: 18px;
-  margin-top: 0.125rem;
-  color: var(--inv-dark);
-}
-
-.inv-supplier-notice strong {
-  color: var(--inv-fg-strong);
-}
-
-
 /* ----------------------------------------
    23.17 QUOTE INLINE
    ---------------------------------------- */
-
-.inv-quote-inline {
-  margin-bottom: 12px;
-}
-
-.inv-quote-inline__btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 11px 18px;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--inv-dark);
-  background: var(--inv-bg-soft);
-  border: 1px solid var(--inv-border-dark);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.inv-quote-inline__btn:hover {
-  background: var(--inv-border);
-  border-color: var(--inv-fg-subtle);
-}
-
 
 /* ----------------------------------------
    23.18 ZOOM MODAL
@@ -3421,7 +3193,6 @@ body.inv-zoom-open {
   background-color: var(--inv-bg-elevated);
 }
 
-
 /* ----------------------------------------
    23.19 RECOMMENDATIONS
    ---------------------------------------- */
@@ -3436,7 +3207,6 @@ body.inv-zoom-open {
   font-weight: 800;
 }
 
-
 /* ----------------------------------------
    23.20 METAFIELDS
    ---------------------------------------- */
@@ -3448,7 +3218,6 @@ body.inv-zoom-open {
   line-height: 1.7;
 }
 
-
 /* ----------------------------------------
    23.21 REDUCED MOTION
    ---------------------------------------- */
@@ -3458,20 +3227,10 @@ body.inv-zoom-open {
   .inv-atc-btn,
   .inv-buy-now,
   .inv-accordion__chevron,
-  .inv-zoom-modal,
-  .inv-gallery__skeleton,
-  .inv-price__skeleton,
-  .inv-stock__skeleton {
+  .inv-zoom-modal {
     transition: none;
   }
-  
-  .inv-gallery__skeleton.is-loading,
-  .inv-price.is-loading .inv-price__skeleton,
-  .inv-stock.is-loading .inv-stock__skeleton {
-    animation: none;
-  }
 }
-
 
 /* ============================================================
    END SECTION 23 — PRODUCT PAGE v10.0
@@ -3485,7 +3244,6 @@ body.inv-zoom-open {
 #MainContent > .shopify-section + .shopify-section {
   margin-top: 0;
 }
-
 
 /* ============================================================
    END OF BASE.CSS v2.1 — CONSOLIDATED
@@ -3503,7 +3261,6 @@ body.inv-zoom-open {
    - Kept brand pill background removal intact
    
    ============================================================ */
-
 
 /* ============================================================
    25. MOBILE HOMEPAGE — SPACING (v2.2)
@@ -3563,7 +3320,6 @@ body.inv-zoom-open {
   box-shadow: none;
 }
 
-
 /* ============================================================================
    SHARED: VAT Toggle, Quick Qty, Cart Breakdown
    Extracted from mobile.css and desktop.css (shared between both)
@@ -3575,31 +3331,6 @@ body.inv-zoom-open {
   border-radius: 6px;
   overflow: hidden;
   font-size: 0.75rem;
-}
-
-.inv-vat-toggle__btn {
-  padding: 6px 12px;
-  border: none;
-  background: var(--inv-bg-soft);
-  color: var(--inv-fg-muted);
-  font-size: 0.75rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.inv-vat-toggle__btn:first-child {
-  border-right: 1px solid var(--inv-border-dark);
-}
-
-.inv-vat-toggle__btn[aria-pressed="true"],
-.inv-vat-toggle__btn--active {
-  background: var(--inv-accent);
-  color: var(--inv-bg-elevated);
-}
-
-.inv-vat-toggle__btn:hover:not([aria-pressed="true"]) {
-  background: var(--inv-bg-soft);
 }
 
 /* Placement on product page - inline with price */
