@@ -472,27 +472,8 @@
   display: block;
 }
 
-/* Description content limiter — prevents wall-of-text */
-[data-row="description"] .inv-pdp__info-content {
-  max-height: 300px;
-  overflow: hidden;
-  position: relative;
-}
-[data-row="description"] .inv-pdp__info-content::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 88px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0), var(--inv-bg-elevated));
-  pointer-events: none;
-}
-[data-row="description"].is-desc-expanded .inv-pdp__info-content {
-  max-height: none;
-  overflow: visible;
-}
-[data-row="description"].is-desc-expanded .inv-pdp__info-content::after {
+/* Description always shows fully once the accordion is opened — redundant Show-more button hidden. */
+[data-row="description"] .inv-pdp__info-readmore {
   display: none;
 }
 
@@ -514,9 +495,6 @@
 }
 .inv-pdp .inv-pdp__info-readmore:hover {
   background: var(--inv-grey-50);
-}
-[data-row="description"].is-desc-short .inv-pdp__info-readmore {
-  display: none;
 }
 
 /* Hidden source row — doubled selector for higher specificity */
@@ -556,32 +534,34 @@
   gap: 12px;
 }
 
+/* Hanging indent: pip sits in the content padding gutter so bullet text lines up with paragraph text at 32px from box edge */
 .inv-pdp__info-list li {
   font-size: 14px;
   line-height: 1.6;
   color: var(--inv-fg-near-black);
-  padding-left: 20px;
+  padding-left: 0;
   position: relative;
 }
 
 .inv-pdp__info-list li::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: 8px;
-  width: 7px;
-  height: 7px;
+  left: -16px;
+  top: 9px;
+  width: 6px;
+  height: 6px;
   background: var(--inv-accent);
   border-radius: 50%;
 }
 
-/* What's Included — checkmarks and crosses */
+/* What's Included — checkmarks and crosses (also hanging) */
 .inv-pdp__info-list--included li::before {
   content: '✓';
   background: none;
   color: var(--inv-success-bright);
   font-weight: 700;
   font-size: 14px;
+  left: -18px;
   top: 0;
   width: auto;
   height: auto;
@@ -758,15 +738,15 @@
 .inv-pdp__price-row {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  gap: 16px;
+  align-items: baseline;
+  gap: 10px 16px;
   flex-wrap: wrap;
 }
 
 .inv-pdp__price-stars {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  padding-bottom: 4px;
+  flex-shrink: 0;
 }
 
 .inv-pdp__price-inline {
@@ -1659,12 +1639,13 @@
   }
 
   .inv-pdp .inv-pdp__info-toggle {
-    padding: 18px 20px;
+    padding: 20px 20px;
     font-size: 13px;
+    gap: 12px;
   }
 
   .inv-pdp__info-content {
-    padding: 14px 20px 18px;
+    padding: 14px 20px 20px;
     font-size: 13px;
   }
 
