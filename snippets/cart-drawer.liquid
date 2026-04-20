@@ -17,7 +17,7 @@
       if (loaded) return;
       loaded = true;
       var s1 = document.createElement('script');
-      s1.src = {{ 'cart.js' | asset_url | json }};
+      s1.src = {{ 'invicta-cart-core.js' | asset_url | json }};
       s1.defer = true;
       document.head.appendChild(s1);
       var s2 = document.createElement('script');
@@ -538,7 +538,7 @@
               {%- endfor -%}
             </div>
           </div>
-          <script src="{{ 'cart-drawer-crosssell.js' | asset_url }}" defer="defer"></script>
+          <script src="{{ 'invicta-cart-ui.js' | asset_url }}" defer="defer"></script>
         {%- endif -%}
         <div class="inv-cart-note">
           <cart-note class="cart__note">

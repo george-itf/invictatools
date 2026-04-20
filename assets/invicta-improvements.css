@@ -1,0 +1,1280 @@
+/* ============================================================
+   CONSOLIDATED CSS MERGE
+   invicta-ux-improvements.css (553 lines) +
+   invicta-cx-improvements.css (721 lines)
+   Merged: UX foundation first, CX enhancements second
+   ============================================================ */
+
+/* ============================================================
+   UX IMPROVEMENTS v1.0
+   Based on comprehensive UX audit recommendations
+   ============================================================ */
+
+/* =======================================================
+   0. CANONICAL CONTAINER — Single Source of Truth
+   All Invicta homepage sections use these variables for
+   consistent max-width and gutters across the page.
+   ======================================================= */
+/* Tokens consolidated into invicta-css-variables.css v3.0
+   --inv-container, --inv-section-gap, --inv-dark-hover now canonical.
+   --inv-gutter retired → use --inv-page-gutter. */
+
+.inv-container {
+  max-width: var(--inv-container);
+  margin: 0 auto;
+  padding: 0 var(--inv-gutter);
+}
+
+/* =======================================================
+   BUTTON BASE — Shared foundation for all button tiers
+   ======================================================= */
+
+.inv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+  font-family: var(--inv-font-body);
+  font-size: var(--inv-text-sm);
+  letter-spacing: var(--inv-tracking-wide);
+  text-transform: uppercase;
+  line-height: 1;
+  transition: background-color var(--inv-duration-normal) ease,
+              color var(--inv-duration-normal) ease,
+              border-color var(--inv-duration-normal) ease;
+  cursor: pointer;
+  border-radius: var(--inv-radius-none);
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* =======================================================
+   1. SKIP TO CONTENT — Visible on Focus
+   ======================================================= */
+.skip-to-content-link {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--inv-z-toast);
+  padding: 12px 24px;
+  background: var(--inv-dark);
+  color: var(--inv-bg-elevated);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0;
+  transition: top 0.2s ease;
+}
+
+.skip-to-content-link:focus {
+  top: 0;
+  outline: 2px solid var(--inv-accent);
+  outline-offset: 2px;
+}
+
+/* =======================================================
+   2. FOCUS STATES — Global Accessibility
+   ======================================================= */
+
+*:focus-visible {
+  outline: 2px solid var(--inv-accent);
+  outline-offset: 2px;
+}
+
+.invicta-header *:focus-visible,
+[data-dark-bg] *:focus-visible {
+  outline-color: #fff;
+}
+
+/* Disabled buttons */
+button:disabled,
+button[disabled],
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+button:disabled:hover {
+  transform: none;
+}
+
+/* =======================================================
+   3. LINK STYLES — Consistent Hover/Focus
+   ======================================================= */
+
+/* Body text links should have underlines for accessibility */
+.rte a,
+.inv-pdp__info-content a,
+.product-description a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.rte a:hover,
+.inv-pdp__info-content a:hover,
+.product-description a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Footer links hover */
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* =======================================================
+   4. BUTTON CONSISTENCY — Unified System
+   ======================================================= */
+
+/* Legacy multi-class rule — zero radius on all primary action buttons */
+.inv-pdp__atc-btn,
+.inv-checkout-btn,
+.inv-card__btn--add,
+.inv-hero-split__btn {
+  font-family: var(--font-body-family);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: 0;
+  transition: background-color var(--inv-duration-normal) ease, transform var(--inv-duration-fast) ease;
+}
+
+.inv-pdp__atc-btn:active:not(:disabled),
+.inv-checkout-btn:active:not(:disabled),
+.inv-card__btn--add:active {
+  transform: scale(0.98);
+}
+
+/* ---- Button Tiers ---- */
+
+/* Primary CTA — red brand button */
+.inv-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 28px;
+  background: var(--inv-accent);
+  color: var(--inv-bg-elevated);
+  border: none;
+  border-radius: 0;
+  font-family: var(--inv-font-body);
+  font-size: var(--inv-text-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--inv-tracking-wide);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--inv-duration-normal) ease;
+}
+
+.inv-btn-primary:hover {
+  background: var(--inv-accent-hover);
+}
+
+.inv-btn-primary:focus-visible {
+  outline: 2px solid var(--inv-accent);
+  outline-offset: 2px;
+}
+
+.inv-btn-primary:active {
+  transform: scale(0.98);
+}
+
+.inv-btn-primary:disabled {
+  background: var(--inv-fg-subtle);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Secondary CTA — dark button */
+.inv-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 28px;
+  background: var(--inv-dark);
+  color: var(--inv-bg-elevated);
+  border: none;
+  border-radius: 0;
+  font-family: var(--inv-font-body);
+  font-size: var(--inv-text-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--inv-tracking-wide);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--inv-duration-normal) ease;
+}
+
+.inv-btn-secondary:hover {
+  background: var(--inv-dark-hover);
+}
+
+.inv-btn-secondary:focus-visible {
+  outline: 2px solid var(--inv-accent);
+  outline-offset: 2px;
+}
+
+/* Outline CTA — bordered button */
+.inv-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 28px;
+  background: transparent;
+  color: var(--inv-fg);
+  border: 1.5px solid var(--inv-border-dark);
+  border-radius: 0;
+  font-family: var(--inv-font-body);
+  font-size: var(--inv-text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--inv-tracking-wide);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--inv-duration-normal) ease,
+              border-color var(--inv-duration-normal) ease;
+}
+
+.inv-btn-outline:hover {
+  border-color: var(--inv-dark);
+  background: var(--inv-grey-50);
+}
+
+.inv-btn-outline:focus-visible {
+  outline: 2px solid var(--inv-accent);
+  outline-offset: 2px;
+}
+
+/* Ghost CTA — minimal button */
+.inv-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  background: transparent;
+  color: var(--inv-fg);
+  border: none;
+  border-radius: 0;
+  font-family: var(--inv-font-body);
+  font-size: var(--inv-text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--inv-tracking-wide);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.inv-btn-ghost:hover {
+  text-decoration: underline;
+}
+
+.inv-btn-ghost:focus-visible {
+  outline: 2px solid var(--inv-accent);
+  outline-offset: 2px;
+}
+
+/* Arrow icon animation on hover */
+.inv-btn-primary svg,
+.inv-btn-secondary svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--inv-duration-normal) ease;
+}
+
+.inv-btn-primary:hover svg,
+.inv-btn-secondary:hover svg {
+  transform: translateX(3px);
+}
+
+/* =======================================================
+   5. PRODUCT PAGE — Sticky Add to Cart (Mobile)
+   ======================================================= */
+.inv-pdp__sticky-atc {
+  display: none;
+}
+
+@media (max-width: 749px) {
+  .inv-pdp__sticky-atc {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--inv-z-header);
+    background: var(--inv-bg-elevated);
+    border-top: 1px solid var(--inv-border);
+    padding: 10px 16px;
+    box-shadow: 0 -2px 10px var(--inv-shadow-color);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .inv-pdp__sticky-atc--visible {
+    display: block;
+    transform: translateY(0);
+  }
+
+  .inv-pdp__sticky-atc-inner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: var(--inv-container, 1400px);
+    margin: 0 auto;
+  }
+
+  .inv-pdp__sticky-atc-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .inv-pdp__sticky-atc-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--inv-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+  }
+
+  .inv-pdp__sticky-atc-price {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--inv-accent);
+    margin: 0;
+  }
+
+  .inv-pdp__sticky-atc-btn {
+    flex-shrink: 0;
+    height: 48px;
+    padding: 0 24px;
+    background: var(--inv-accent);
+    color: var(--inv-bg-elevated);
+    border: none;
+    border-radius: 0;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background-color var(--inv-duration-normal) ease;
+  }
+
+  .inv-pdp__sticky-atc-btn:hover {
+    background: var(--inv-accent-hover);
+  }
+
+  .inv-pdp__sticky-atc-btn:disabled {
+    background: var(--inv-fg-subtle);
+    cursor: not-allowed;
+  }
+
+  .inv-pdp__sticky-atc-thumb {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--inv-grey-200);
+    border-radius: 0;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .inv-pdp__sticky-atc-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+/* =======================================================
+   6. TYPOGRAPHY — Consistency
+   ======================================================= */
+
+/* Ensure body text is legible */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Consistent heading sizes */
+h1, .h1 { line-height: 1.15; }
+h2, .h2 { line-height: 1.2; }
+h3, .h3 { line-height: 1.25; }
+
+/* =======================================================
+   7. SPACING — Consistent Section Spacing
+   ======================================================= */
+
+/* Ensure consistent section margins on homepage */
+.section-hero-split + .shopify-section,
+.shopify-section + .shopify-section {
+  margin-top: 0;
+}
+
+/* =======================================================
+   8. CART — Mobile Improvements
+   ======================================================= */
+
+/* Cart items mobile stacking */
+@media (max-width: 749px) {
+  .cart-item__media {
+    max-width: 100px;
+  }
+
+  /* Ensure checkout button is full width and prominent */
+  .inv-checkout-btn {
+    font-size: 17px;
+    padding: 16px;
+  }
+}
+
+/* =======================================================
+   9. PRODUCT CARD — Hover Effects
+   ======================================================= */
+.inv-card {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.inv-card:hover {
+  box-shadow: var(--inv-shadow-md);
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inv-card:hover {
+    transform: none;
+  }
+
+  .inv-pdp__sticky-atc {
+    transition: none;
+  }
+
+  /* CX v1.0: Comprehensive reduced-motion support */
+  .inv-pdp__atc-btn,
+  .inv-btn-primary,
+  .inv-btn-secondary,
+  .skip-to-content-link {
+    transition: none;
+  }
+}
+
+/* =======================================================
+   10. FORM LABELS — Accessibility
+   ======================================================= */
+
+/* Ensure all inputs have visible labels or proper spacing */
+input[type="email"]::placeholder,
+input[type="text"]::placeholder,
+input[type="search"]::placeholder {
+  color: var(--inv-fg-subtle);
+}
+
+/* Newsletter form label accessibility */
+.inv-newsletter__input {
+  font-size: 16px; /* Prevents zoom on iOS */
+}
+
+/* =======================================================
+   11. IMAGE IMPROVEMENTS
+   ======================================================= */
+
+/* Prevent layout shift */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Product images should allow pinch zoom on mobile */
+.inv-pdp__gallery-image {
+  touch-action: pinch-zoom;
+}
+
+/* =======================================================
+   12. COLOR CONTRAST FIXES
+   ======================================================= */
+
+/* Ensure muted text meets WCAG AA contrast (4.5:1) */
+.inv-del-est__meta {
+  color: var(--inv-fg-dim); /* Darker than default for better contrast */
+}
+
+/* Stock badge text contrast */
+.inv-card__stock {
+  font-weight: 700;
+}
+
+/* =======================================================
+   13. CART ERROR FEEDBACK
+   ======================================================= */
+.inv-pdp__atc-error {
+  margin-top: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--inv-accent-hover);
+  background: var(--inv-error-bg);
+  border: 1px solid var(--inv-error-border);
+  border-radius: 0;
+  text-align: center;
+}
+
+/* =======================================================
+   14. PRINT STYLES
+   ======================================================= */
+@media print {
+  .invicta-header,
+  .invicta-drawer,
+  .inv-pdp__sticky-atc {
+    display: none;
+  }
+}
+
+/* =======================================================
+   UTILITIES — Shared pattern classes
+   ======================================================= */
+
+.inv-section-heading {
+  font-family: var(--inv-font-display);
+  font-weight: 800;
+  font-size: var(--inv-text-2xl);
+  line-height: var(--inv-leading-tight);
+  letter-spacing: var(--inv-tracking-tight);
+  text-transform: uppercase;
+  color: var(--inv-fg);
+  margin: 0;
+}
+
+/* ============================================================
+   CX IMPROVEMENTS v1.0 (ENHANCEMENTS LAYER)
+   Comprehensive customer experience enhancements covering:
+   - Performance (Area 1)
+   - Search (Area 2)
+   - Cart & Checkout (Area 3)
+   - Product Page (Area 4)
+   - Mobile (Area 5)
+   - Collections (Area 6)
+   - Accessibility (Area 7)
+   - Trust & Conversion (Area 8)
+   ============================================================ */
+
+/* =======================================================
+   AREA 1: PERFORMANCE — Content-visibility for offscreen
+   ======================================================= */
+
+/* Defer rendering of below-fold sections */
+.shopify-section:not(:first-child) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
+
+/* =======================================================
+   AREA 2: SEARCH — Richer Predictive Search Results
+   ======================================================= */
+
+/* Search result stock badge */
+.inv-search-results__stock {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 2px 6px;
+  line-height: 1.2;
+}
+
+.inv-search-results__stock--in-stock {
+  color: var(--inv-success-heading);
+  background: var(--inv-success-light);
+}
+
+.inv-search-results__stock--out-of-stock {
+  color: var(--inv-error-dark);
+  background: var(--inv-error-bg);
+}
+
+/* Search result vendor/brand tag */
+.inv-search-results__vendor {
+  font-size: 11px;
+  color: var(--inv-fg-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Keyboard-selected state for search results */
+.inv-search-results__item--focused,
+.inv-search-results__item:focus-visible {
+  background: var(--inv-bg-soft);
+  outline: 2px solid var(--inv-accent, var(--inv-accent));
+  outline-offset: -2px;
+}
+
+/* Search result delivery hint */
+.inv-search-results__delivery {
+  font-size: 11px;
+  color: var(--inv-success-heading);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* Cache indicator for instant results */
+.inv-search-results__instant {
+  font-size: 10px;
+  color: var(--inv-fg-subtle);
+  text-align: center;
+  padding: 4px 0;
+}
+
+/* =======================================================
+   AREA 3: CART — Cross-sell & Delivery Bar Enhancements
+   ======================================================= */
+
+/* Cross-sell section in cart drawer */
+.inv-cart-crosssell {
+  padding: 12px 16px;
+  border-top: 1px solid var(--inv-border);
+}
+
+.inv-cart-crosssell__heading {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--inv-dark);
+  margin: 0 0 10px;
+}
+
+.inv-cart-crosssell__grid {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 4px;
+}
+
+.inv-cart-crosssell__item {
+  flex: 0 0 120px;
+  scroll-snap-align: start;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--inv-border);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.inv-cart-crosssell__item:hover {
+  border-color: var(--inv-accent, var(--inv-accent));
+}
+
+.inv-cart-crosssell__item img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.inv-cart-crosssell__item-info {
+  padding: 6px 8px;
+}
+
+.inv-cart-crosssell__item-title {
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--inv-dark);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+}
+
+.inv-cart-crosssell__item-price {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--inv-accent, var(--inv-accent));
+  margin: 2px 0 0;
+}
+
+/* Enhanced free delivery bar with pulse animation */
+.inv-delivery-bar--animated .inv-delivery-bar__fill {
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.inv-delivery-bar--almost .inv-delivery-bar__message {
+  animation: inv-pulse-gentle 2s ease-in-out infinite;
+}
+
+@keyframes inv-pulse-gentle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+
+/* =======================================================
+   AREA 4: PRODUCT PAGE — Enhanced Zoom & Delivery
+   ======================================================= */
+
+/* Image zoom cursor hint */
+.inv-pdp__gallery-main {
+  cursor: zoom-in;
+  position: relative;
+}
+
+.inv-pdp__gallery-main::after {
+  display: none;
+  content: '';
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3Cline x1='11' y1='8' x2='11' y2='14'/%3E%3Cline x1='8' y1='11' x2='14' y2='11'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.7;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.inv-pdp__gallery-main:hover::after {
+  opacity: 1;
+}
+
+/* Delivery urgency styling */
+.inv-del-est--urgent {
+  background: linear-gradient(135deg, var(--inv-error-bg), var(--inv-bg-elevated));
+  border: 1px solid var(--inv-error-border);
+  padding: 12px 16px;
+}
+
+.inv-del-est--urgent [data-inv-del-countdown] {
+  color: var(--inv-accent, var(--inv-accent));
+  font-weight: 800;
+  font-size: 1.1em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Specs grid — removed, handled by invicta-product-v2.css */
+
+/* =======================================================
+   AREA 5: MOBILE — Touch Targets & Navigation
+   ======================================================= */
+
+@media (max-width: 749px) {
+  /* Minimum 44px touch targets (WCAG 2.5.5 enhanced) */
+  .inv-filters__btn,
+  .inv-pdp__gallery-thumb,
+  .menu-drawer__menu-item,
+  .quantity__button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Mobile drawer quick links */
+  .inv-mobile-shortcuts {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--inv-border);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .inv-mobile-shortcut {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 72px;
+    padding: 10px 8px;
+    background: var(--inv-bg-soft);
+    text-decoration: none;
+    color: var(--inv-fg-secondary);
+    font-size: 11px;
+    font-weight: 500;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .inv-mobile-shortcut svg {
+    width: 20px;
+    height: 20px;
+    color: var(--inv-accent, var(--inv-accent));
+  }
+
+  /* Better filter count badges */
+  .inv-filters__count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    background: var(--inv-accent, var(--inv-accent));
+    color: var(--inv-bg-elevated);
+    font-size: 11px;
+    font-weight: 700;
+    margin-left: 6px;
+  }
+
+  /* Product card touch optimization */
+  .inv-card__btn--add {
+    min-height: 48px;
+    font-size: 14px;
+  }
+}
+
+/* =======================================================
+   AREA 6: COLLECTION PAGES — Load More & Filter UX
+   ======================================================= */
+
+/* Load More button */
+.inv-load-more {
+  display: flex;
+  justify-content: center;
+  padding: 32px 0;
+}
+
+.inv-load-more__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background: var(--inv-bg-elevated);
+  border: 2px solid var(--inv-dark);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--inv-dark);
+  cursor: pointer;
+  transition: color var(--inv-duration-moderate) ease, background-color var(--inv-duration-moderate) ease, opacity var(--inv-duration-moderate) ease;
+}
+
+.inv-load-more__btn:hover {
+  background: var(--inv-dark);
+  color: var(--inv-bg-elevated);
+}
+
+.inv-load-more__btn--loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.inv-load-more__btn--loading::after {
+  content: '';
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: inv-spin 0.6s linear infinite;
+}
+
+/* Active filter indicator with count */
+.inv-filters__active-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--inv-accent, var(--inv-accent));
+  color: var(--inv-bg-elevated);
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* Skeleton loading for product grid */
+.inv-grid--loading .inv-card {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.inv-grid--loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--inv-accent, var(--inv-accent)), transparent);
+  animation: inv-shimmer 1.5s infinite;
+  z-index: 1;
+}
+
+@keyframes inv-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Result count styling */
+.inv-grid__result-count {
+  font-size: 14px;
+  color: var(--inv-fg-muted);
+  padding: 8px 0 16px;
+}
+
+.inv-grid__result-count strong {
+  color: var(--inv-dark);
+  font-weight: 700;
+}
+
+/* =======================================================
+   AREA 7: ACCESSIBILITY — Enhanced Focus & Motion
+   ======================================================= */
+
+/* Focus rules consolidated into invicta-ux-improvements.css */
+
+/* ARIA live region for dynamic announcements */
+.inv-sr-announce {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Enhanced reduced motion support
+   Force-override is required here per WCAG / accessibility best practice:
+   these must override ALL animations and transitions site-wide,
+   including those set with high specificity or inline styles. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important; /* accessibility: must override all animations */
+    animation-iteration-count: 1 !important; /* accessibility: must override all animations */
+    transition-duration: 0.01ms !important; /* accessibility: must override all transitions */
+    scroll-behavior: auto !important; /* accessibility: must override all scroll behavior */
+  }
+
+  .inv-card:hover {
+    transform: none;
+    box-shadow: 0 0 0 2px var(--inv-accent, var(--inv-accent));
+  }
+
+  .inv-delivery-bar--almost .inv-delivery-bar__message {
+    animation: none;
+  }
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+  .inv-filters__btn--active {
+    border: 2px solid ButtonText;
+  }
+
+  .inv-search-results__stock {
+    border: 1px solid ButtonText;
+  }
+}
+
+/* =======================================================
+   AREA 8: TRUST & CONVERSION — Social Proof & Trade CTA
+   ======================================================= */
+
+/* Social proof toast notification */
+.inv-social-proof {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: var(--inv-z-header);
+  max-width: 340px;
+  background: var(--inv-bg-elevated);
+  border: 1px solid var(--inv-border);
+  box-shadow: var(--inv-shadow-md);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translateY(120%);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.inv-social-proof--visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.inv-social-proof__image {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.inv-social-proof__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.inv-social-proof__text {
+  font-size: 13px;
+  color: var(--inv-fg-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.inv-social-proof__text strong {
+  color: var(--inv-dark);
+}
+
+.inv-social-proof__time {
+  font-size: 11px;
+  color: var(--inv-fg-subtle);
+  margin: 2px 0 0;
+}
+
+/* WCAG 2.5.5 — 44px minimum touch target for close button */
+.inv-social-proof__close {
+  position: absolute;
+  top: -2px;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--inv-fg-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.inv-social-proof__close:hover {
+  color: var(--inv-fg-secondary);
+}
+
+/* Trade account CTA banner */
+.inv-trade-cta {
+  background: linear-gradient(135deg, var(--inv-dark), var(--inv-dark));
+  color: var(--inv-bg-elevated);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.inv-trade-cta__icon {
+  width: 36px;
+  height: 36px;
+  background: var(--inv-accent, var(--inv-accent));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.inv-trade-cta__icon svg {
+  width: 18px;
+  height: 18px;
+  color: var(--inv-bg-elevated);
+}
+
+.inv-trade-cta__body {
+  flex: 1;
+}
+
+.inv-trade-cta__title {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.inv-trade-cta__desc {
+  font-size: 12px;
+  color: var(--inv-border-dark);
+  margin: 2px 0 0;
+}
+
+.inv-trade-cta__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  background: var(--inv-accent, var(--inv-accent));
+  color: var(--inv-bg-elevated);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.inv-trade-cta__link:hover {
+  background: var(--inv-accent-hover);
+}
+
+
+/* Mobile adjustments for social proof */
+@media (max-width: 749px) {
+  .inv-social-proof {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    max-width: none;
+  }
+
+  .inv-trade-cta {
+    flex-direction: column;
+    text-align: center;
+    padding: 16px;
+  }
+
+}
+
+/* =======================================================
+   CX v1.1: BACK-IN-STOCK NOTIFICATION
+   ======================================================= */
+
+.inv-pdp__notify {
+  margin: 16px 0 0;
+  padding: 16px;
+  background: var(--inv-warning-bg);
+  border: 1px solid var(--inv-warning-border);
+}
+
+.inv-pdp__notify-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--inv-warning-text);
+}
+
+.inv-pdp__notify-heading svg {
+  color: var(--inv-warning-dark);
+  flex-shrink: 0;
+}
+
+.inv-pdp__notify-field {
+  display: flex;
+  gap: 8px;
+}
+
+.inv-pdp__notify-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--inv-border-dark);
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: var(--inv-bg-elevated);
+  min-width: 0;
+}
+
+.inv-pdp__notify-input:focus {
+  outline: 2px solid var(--inv-warning-dark);
+  outline-offset: -1px;
+  border-color: var(--inv-warning-dark);
+}
+
+.inv-pdp__notify-btn {
+  padding: 10px 20px;
+  background: var(--inv-warning-dark);
+  color: var(--inv-bg-elevated);
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s ease;
+}
+
+.inv-pdp__notify-btn:hover {
+  background: var(--inv-warning-darker);
+}
+
+.inv-pdp__notify-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.inv-pdp__notify-spinner svg {
+  animation: inv-spin 0.8s linear infinite;
+}
+
+.inv-pdp__notify-success {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding: 10px 14px;
+  background: var(--inv-success-bg);
+  color: var(--inv-success-text);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.inv-pdp__notify-success svg {
+  flex-shrink: 0;
+  color: var(--inv-success-medium);
+}
+
+.inv-pdp__notify-error {
+  margin: 8px 0 0;
+  padding: 8px 12px;
+  background: var(--inv-error-bg);
+  color: var(--inv-error-dark);
+  font-size: 0.85rem;
+}
+
+.inv-pdp__notify-privacy {
+  margin: 8px 0 0;
+  font-size: 0.75rem;
+  color: var(--inv-warning-text);
+  opacity: 0.8;
+}
+
+/* =======================================================
+   CX v1.1: VAT TOGGLE TRADE CUSTOMER HINT
+   ======================================================= */
+
+.inv-pdp__vat-trade-hint {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: var(--inv-success-medium);
+  font-weight: 500;
+  text-align: center;
+}
