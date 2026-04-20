@@ -326,293 +326,59 @@
 
               {%- comment -%} ---- BRAND FILTER ---- {%- endcomment -%}
               {%- if has_brands -%}
-                <div class="inv-filter-group" data-filter-group-id="brand">
-                  <button
-                    type="button"
-                    class="inv-filter-group__header"
-                    data-accordion-toggle
-                    aria-expanded="{% if filters_default_open %}true{% else %}false{% endif %}"
-                    aria-controls="inv-filter-body-brand"
-                  >
-                    <span class="inv-filter-group__title">{{ 'invicta.search.filter_brand' | t }}</span>
-                    <svg class="inv-filter-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-                  </button>
-                  <div
-                    class="inv-filter-group__body"
-                    id="inv-filter-body-brand"
-                    aria-hidden="{% if filters_default_open %}false{% else %}true{% endif %}"
-                  >
-                    <div class="inv-filter-group__search">
-                      <input
-                        type="text"
-                        class="inv-filter-group__search-input"
-                        data-filter-search
-                        placeholder="{{ 'invicta.search.filter_brands_search' | t }}"
-                        aria-label="{{ 'invicta.search.filter_brands_search' | t }}"
-                      >
-                    </div>
-                    <div class="inv-filter-group__list">
-                      {%- for entry in brand_active_sorted -%}
-                        {%- if entry != blank -%}
-                          {%- assign parts = entry | split: '|' -%}
-                          {%- assign label = parts[1] -%}
-                          {%- assign count = parts[2] -%}
-                          <label class="inv-filter-checkbox">
-                            <input type="checkbox" name="filter.p.vendor" value="{{ label | escape }}" checked>
-                            <span class="inv-filter-checkbox__check"></span>
-                            <span class="inv-filter-checkbox__label">{{ label }}</span>
-                            <span class="inv-filter-checkbox__count">({{ count }})</span>
-                          </label>
-                        {%- endif -%}
-                      {%- endfor -%}
-                      {%- for entry in brand_inactive_sorted -%}
-                        {%- if entry != blank -%}
-                          {%- assign parts = entry | split: '|' -%}
-                          {%- assign label = parts[1] -%}
-                          {%- assign count = parts[2] -%}
-                          <label class="inv-filter-checkbox">
-                            <input type="checkbox" name="filter.p.vendor" value="{{ label | escape }}">
-                            <span class="inv-filter-checkbox__check"></span>
-                            <span class="inv-filter-checkbox__label">{{ label }}</span>
-                            <span class="inv-filter-checkbox__count">({{ count }})</span>
-                          </label>
-                        {%- endif -%}
-                      {%- endfor -%}
-                    </div>
-                  </div>
-                </div>
+                {%- render 'invicta-search-checkbox-filter',
+                    filter_name: 'filter.p.vendor',
+                    group_id: 'brand',
+                    title_key: 'invicta.search.filter_brand',
+                    search_key: 'invicta.search.filter_brands_search',
+                    active_sorted: brand_active_sorted,
+                    inactive_sorted: brand_inactive_sorted,
+                    default_open: filters_default_open
+                -%}
               {%- endif -%}
 
               {%- comment -%} ---- PRODUCT TYPE FILTER ---- {%- endcomment -%}
               {%- if has_types -%}
-                <div class="inv-filter-group" data-filter-group-id="type">
-                  <button
-                    type="button"
-                    class="inv-filter-group__header"
-                    data-accordion-toggle
-                    aria-expanded="{% if filters_default_open %}true{% else %}false{% endif %}"
-                    aria-controls="inv-filter-body-type"
-                  >
-                    <span class="inv-filter-group__title">{{ 'invicta.search.filter_type' | t }}</span>
-                    <svg class="inv-filter-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-                  </button>
-                  <div
-                    class="inv-filter-group__body"
-                    id="inv-filter-body-type"
-                    aria-hidden="{% if filters_default_open %}false{% else %}true{% endif %}"
-                  >
-                    <div class="inv-filter-group__search">
-                      <input
-                        type="text"
-                        class="inv-filter-group__search-input"
-                        data-filter-search
-                        placeholder="{{ 'invicta.search.filter_types_search' | t }}"
-                        aria-label="{{ 'invicta.search.filter_types_search' | t }}"
-                      >
-                    </div>
-                    <div class="inv-filter-group__list">
-                      {%- for entry in type_active_sorted -%}
-                        {%- if entry != blank -%}
-                          {%- assign parts = entry | split: '|' -%}
-                          {%- assign label = parts[1] -%}
-                          {%- assign count = parts[2] -%}
-                          <label class="inv-filter-checkbox">
-                            <input type="checkbox" name="filter.p.product_type" value="{{ label | escape }}" checked>
-                            <span class="inv-filter-checkbox__check"></span>
-                            <span class="inv-filter-checkbox__label">{{ label }}</span>
-                            <span class="inv-filter-checkbox__count">({{ count }})</span>
-                          </label>
-                        {%- endif -%}
-                      {%- endfor -%}
-                      {%- for entry in type_inactive_sorted -%}
-                        {%- if entry != blank -%}
-                          {%- assign parts = entry | split: '|' -%}
-                          {%- assign label = parts[1] -%}
-                          {%- assign count = parts[2] -%}
-                          <label class="inv-filter-checkbox">
-                            <input type="checkbox" name="filter.p.product_type" value="{{ label | escape }}">
-                            <span class="inv-filter-checkbox__check"></span>
-                            <span class="inv-filter-checkbox__label">{{ label }}</span>
-                            <span class="inv-filter-checkbox__count">({{ count }})</span>
-                          </label>
-                        {%- endif -%}
-                      {%- endfor -%}
-                    </div>
-                  </div>
-                </div>
+                {%- render 'invicta-search-checkbox-filter',
+                    filter_name: 'filter.p.product_type',
+                    group_id: 'type',
+                    title_key: 'invicta.search.filter_type',
+                    search_key: 'invicta.search.filter_types_search',
+                    active_sorted: type_active_sorted,
+                    inactive_sorted: type_inactive_sorted,
+                    default_open: filters_default_open
+                -%}
               {%- endif -%}
 
               {%- comment -%} ---- PRICE RANGE FILTER ---- {%- endcomment -%}
               {%- if show_price_filter -%}
-                {%- for filter in search.filters -%}
-                  {%- if filter.param_name == 'filter.v.price' -%}
-                    <div class="inv-filter-group inv-filter-group--price" data-filter-group-id="price">
-                      <button
-                        type="button"
-                        class="inv-filter-group__header"
-                        data-accordion-toggle
-                        aria-expanded="{% if filters_default_open %}true{% else %}false{% endif %}"
-                        aria-controls="inv-filter-body-price"
-                      >
-                        <span class="inv-filter-group__title">{{ 'invicta.search.filter_price' | t }}</span>
-                        <svg class="inv-filter-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-                      </button>
-                      <div
-                        class="inv-filter-group__body"
-                        id="inv-filter-body-price"
-                        aria-hidden="{% if filters_default_open %}false{% else %}true{% endif %}"
-                      >
-                        <div class="inv-filter-price">
-                          <div class="inv-filter-price__inputs">
-                            <div class="inv-filter-price__field">
-                              <span class="inv-filter-price__prefix">&pound;</span>
-                              <input
-                                type="number"
-                                class="inv-filter-price__input"
-                                data-price-min
-                                name="filter.v.price.gte"
-                                value="{{ active_price_gte }}"
-                                placeholder="{{ filter.range_max | times: 0 | money_without_currency }}"
-                                min="0"
-                                aria-label="{{ 'invicta.search.filter_price_min' | t }}"
-                              >
-                              <span class="inv-filter-price__label">{{ 'invicta.search.filter_price_min' | t }}</span>
-                            </div>
-                            <span class="inv-filter-price__separator">&ndash;</span>
-                            <div class="inv-filter-price__field">
-                              <span class="inv-filter-price__prefix">&pound;</span>
-                              <input
-                                type="number"
-                                class="inv-filter-price__input"
-                                data-price-max
-                                name="filter.v.price.lte"
-                                value="{{ active_price_lte }}"
-                                placeholder="{{ filter.range_max | money_without_currency }}"
-                                min="0"
-                                aria-label="{{ 'invicta.search.filter_price_max' | t }}"
-                              >
-                              <span class="inv-filter-price__label">{{ 'invicta.search.filter_price_max' | t }}</span>
-                            </div>
-                          </div>
-                          <button type="button" class="inv-filter-price__apply" data-price-apply>
-                            {{ 'invicta.search.filter_price_apply' | t }}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  {%- endif -%}
-                {%- endfor -%}
+                {%- render 'invicta-search-price-filter',
+                    group_id: 'price',
+                    active_price_gte: active_price_gte,
+                    active_price_lte: active_price_lte,
+                    default_open: filters_default_open,
+                    search_filters: search.filters
+                -%}
               {%- endif -%}
 
               {%- comment -%} ---- AVAILABILITY FILTER ---- {%- endcomment -%}
               {%- if show_availability_filter -%}
-                {%- for filter in search.filters -%}
-                  {%- if filter.param_name == 'filter.v.availability' -%}
-                    <div class="inv-filter-group inv-filter-group--availability" data-filter-group-id="availability">
-                      <button
-                        type="button"
-                        class="inv-filter-group__header"
-                        data-accordion-toggle
-                        aria-expanded="{% if filters_default_open %}true{% else %}false{% endif %}"
-                        aria-controls="inv-filter-body-availability"
-                      >
-                        <span class="inv-filter-group__title">{{ 'invicta.search.filter_availability' | t }}</span>
-                        <svg class="inv-filter-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-                      </button>
-                      <div
-                        class="inv-filter-group__body"
-                        id="inv-filter-body-availability"
-                        aria-hidden="{% if filters_default_open %}false{% else %}true{% endif %}"
-                      >
-                        <label class="inv-filter-checkbox inv-filter-checkbox--toggle">
-                          <input
-                            type="checkbox"
-                            name="filter.v.availability"
-                            value="1"
-                            {% if active_availability %}checked{% endif %}
-                          >
-                          <span class="inv-filter-checkbox__check"></span>
-                          <span class="inv-filter-checkbox__label">{{ 'invicta.search.filter_in_stock' | t }}</span>
-                        </label>
-                      </div>
-                    </div>
-                  {%- endif -%}
-                {%- endfor -%}
+                {%- render 'invicta-search-availability-filter',
+                    group_id: 'availability',
+                    active_availability: active_availability,
+                    default_open: filters_default_open,
+                    search_filters: search.filters
+                -%}
               {%- endif -%}
 
             </div>
           </div>
 
           {%- comment -%} ---- ACTIVE FILTER TAGS ---- {%- endcomment -%}
-          {%- if has_active_filters -%}
-            <div class="inv-filters__active-bar" id="inv-active-filters">
-              <div class="inv-filters__active-content">
-                <div class="inv-filters__active-left">
-                  <span class="inv-filters__active-label">{{ 'invicta.search.filters_active' | t }}:</span>
-                  <div class="inv-filters__active-tags">
-
-                    {%- for filter in search.filters -%}
-                      {%- if filter.param_name == 'filter.p.vendor' -%}
-                        {%- for value in filter.active_values -%}
-                          <span class="inv-filters__tag inv-filters__tag--brand" data-filter-param="filter.p.vendor" data-filter-value="{{ value.label | escape }}">
-                            <span class="inv-filters__tag-text">{{ value.label }}</span>
-                            <button type="button" class="inv-filters__tag-remove" aria-label="Remove {{ value.label }}">
-                              <svg width="10" height="10" viewBox="0 0 10 10" focusable="false" aria-hidden="true"><path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                            </button>
-                          </span>
-                        {%- endfor -%}
-                      {%- endif -%}
-
-                      {%- if filter.param_name == 'filter.p.product_type' -%}
-                        {%- for value in filter.active_values -%}
-                          <span class="inv-filters__tag inv-filters__tag--type" data-filter-param="filter.p.product_type" data-filter-value="{{ value.label | escape }}">
-                            <span class="inv-filters__tag-text">{{ value.label }}</span>
-                            <button type="button" class="inv-filters__tag-remove" aria-label="Remove {{ value.label }}">
-                              <svg width="10" height="10" viewBox="0 0 10 10" focusable="false" aria-hidden="true"><path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                            </button>
-                          </span>
-                        {%- endfor -%}
-                      {%- endif -%}
-
-                      {%- if filter.param_name == 'filter.v.price' -%}
-                        {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
-                          <span class="inv-filters__tag inv-filters__tag--price" data-filter-param="filter.v.price.gte" data-filter-value="">
-                            <span class="inv-filters__tag-text">
-                              {%- if filter.min_value.value != nil and filter.max_value.value != nil -%}
-                                &pound;{{ filter.min_value.value | money_without_currency }} &ndash; &pound;{{ filter.max_value.value | money_without_currency }}
-                              {%- elsif filter.min_value.value != nil -%}
-                                &pound;{{ filter.min_value.value | money_without_currency }}+
-                              {%- elsif filter.max_value.value != nil -%}
-                                Up to &pound;{{ filter.max_value.value | money_without_currency }}
-                              {%- endif -%}
-                            </span>
-                            <button type="button" class="inv-filters__tag-remove" aria-label="Remove price filter">
-                              <svg width="10" height="10" viewBox="0 0 10 10" focusable="false" aria-hidden="true"><path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                            </button>
-                          </span>
-                        {%- endif -%}
-                      {%- endif -%}
-
-                      {%- if filter.param_name == 'filter.v.availability' -%}
-                        {%- for value in filter.active_values -%}
-                          {%- if value.value == '1' -%}
-                            <span class="inv-filters__tag inv-filters__tag--availability" data-filter-param="filter.v.availability" data-filter-value="1">
-                              <span class="inv-filters__tag-text">{{ 'invicta.search.filter_in_stock' | t }}</span>
-                              <button type="button" class="inv-filters__tag-remove" aria-label="Remove availability filter">
-                                <svg width="10" height="10" viewBox="0 0 10 10" focusable="false" aria-hidden="true"><path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                              </button>
-                            </span>
-                          {%- endif -%}
-                        {%- endfor -%}
-                      {%- endif -%}
-                    {%- endfor -%}
-
-                  </div>
-                </div>
-                <button type="button" class="inv-filters__clear-all" data-clear-all-filters>{{ 'invicta.search.clear_filters' | t }}</button>
-              </div>
-            </div>
-          {%- endif -%}
+          {%- render 'invicta-search-active-tags',
+              search_filters: search.filters,
+              has_active_filters: has_active_filters
+          -%}
 
         </div>
       </div>
@@ -652,138 +418,48 @@
         <div class="inv-filter-sheet__body">
           <div class="inv-filter-panel__grid">
 
-            {%- comment -%} Duplicate the filter groups for the mobile sheet {%- endcomment -%}
+            {%- comment -%} Mobile filter groups (reuse same snippets with -mobile IDs) {%- endcomment -%}
             {%- if has_brands -%}
-              <div class="inv-filter-group" data-filter-group-id="brand-mobile">
-                <button type="button" class="inv-filter-group__header" data-accordion-toggle aria-expanded="true" aria-controls="inv-filter-body-brand-mobile">
-                  <span class="inv-filter-group__title">{{ 'invicta.search.filter_brand' | t }}</span>
-                  <svg class="inv-filter-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-                </button>
-                <div class="inv-filter-group__body" id="inv-filter-body-brand-mobile" aria-hidden="false">
-                  <div class="inv-filter-group__search">
-                    <input type="text" class="inv-filter-group__search-input" data-filter-search placeholder="{{ 'invicta.search.filter_brands_search' | t }}" aria-label="{{ 'invicta.search.filter_brands_search' | t }}">
-                  </div>
-                  <div class="inv-filter-group__list">
-                    {%- for entry in brand_active_sorted -%}
-                      {%- if entry != blank -%}
-                        {%- assign parts = entry | split: '|' -%}
-                        {%- assign label = parts[1] -%}
-                        {%- assign count = parts[2] -%}
-                        <label class="inv-filter-checkbox">
-                          <input type="checkbox" name="filter.p.vendor" value="{{ label | escape }}" checked>
-                          <span class="inv-filter-checkbox__check"></span>
-                          <span class="inv-filter-checkbox__label">{{ label }}</span>
-                          <span class="inv-filter-checkbox__count">({{ count }})</span>
-                        </label>
-                      {%- endif -%}
-                    {%- endfor -%}
-                    {%- for entry in brand_inactive_sorted -%}
-                      {%- if entry != blank -%}
-                        {%- assign parts = entry | split: '|' -%}
-                        {%- assign label = parts[1] -%}
-                        {%- assign count = parts[2] -%}
-                        <label class="inv-filter-checkbox">
-                          <input type="checkbox" name="filter.p.vendor" value="{{ label | escape }}">
-                          <span class="inv-filter-checkbox__check"></span>
-                          <span class="inv-filter-checkbox__label">{{ label }}</span>
-                          <span class="inv-filter-checkbox__count">({{ count }})</span>
-                        </label>
-                      {%- endif -%}
-                    {%- endfor -%}
-                  </div>
-                </div>
-              </div>
+              {%- render 'invicta-search-checkbox-filter',
+                  filter_name: 'filter.p.vendor',
+                  group_id: 'brand-mobile',
+                  title_key: 'invicta.search.filter_brand',
+                  search_key: 'invicta.search.filter_brands_search',
+                  active_sorted: brand_active_sorted,
+                  inactive_sorted: brand_inactive_sorted,
+                  default_open: true
+              -%}
             {%- endif -%}
 
             {%- if has_types -%}
-              <div class="inv-filter-group" data-filter-group-id="type-mobile">
-                <button type="button" class="inv-filter-group__header" data-accordion-toggle aria-expanded="true" aria-controls="inv-filter-body-type-mobile">
-                  <span class="inv-filter-group__title">{{ 'invicta.search.filter_type' | t }}</span>
-                  <svg class="inv-filter-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-                </button>
-                <div class="inv-filter-group__body" id="inv-filter-body-type-mobile" aria-hidden="false">
-                  <div class="inv-filter-group__search">
-                    <input type="text" class="inv-filter-group__search-input" data-filter-search placeholder="{{ 'invicta.search.filter_types_search' | t }}" aria-label="{{ 'invicta.search.filter_types_search' | t }}">
-                  </div>
-                  <div class="inv-filter-group__list">
-                    {%- for entry in type_active_sorted -%}
-                      {%- if entry != blank -%}
-                        {%- assign parts = entry | split: '|' -%}
-                        {%- assign label = parts[1] -%}
-                        {%- assign count = parts[2] -%}
-                        <label class="inv-filter-checkbox">
-                          <input type="checkbox" name="filter.p.product_type" value="{{ label | escape }}" checked>
-                          <span class="inv-filter-checkbox__check"></span>
-                          <span class="inv-filter-checkbox__label">{{ label }}</span>
-                          <span class="inv-filter-checkbox__count">({{ count }})</span>
-                        </label>
-                      {%- endif -%}
-                    {%- endfor -%}
-                    {%- for entry in type_inactive_sorted -%}
-                      {%- if entry != blank -%}
-                        {%- assign parts = entry | split: '|' -%}
-                        {%- assign label = parts[1] -%}
-                        {%- assign count = parts[2] -%}
-                        <label class="inv-filter-checkbox">
-                          <input type="checkbox" name="filter.p.product_type" value="{{ label | escape }}">
-                          <span class="inv-filter-checkbox__check"></span>
-                          <span class="inv-filter-checkbox__label">{{ label }}</span>
-                          <span class="inv-filter-checkbox__count">({{ count }})</span>
-                        </label>
-                      {%- endif -%}
-                    {%- endfor -%}
-                  </div>
-                </div>
-              </div>
+              {%- render 'invicta-search-checkbox-filter',
+                  filter_name: 'filter.p.product_type',
+                  group_id: 'type-mobile',
+                  title_key: 'invicta.search.filter_type',
+                  search_key: 'invicta.search.filter_types_search',
+                  active_sorted: type_active_sorted,
+                  inactive_sorted: type_inactive_sorted,
+                  default_open: true
+              -%}
             {%- endif -%}
 
             {%- if show_price_filter -%}
-              {%- for filter in search.filters -%}
-                {%- if filter.param_name == 'filter.v.price' -%}
-                  <div class="inv-filter-group inv-filter-group--price" data-filter-group-id="price-mobile">
-                    <button type="button" class="inv-filter-group__header" data-accordion-toggle aria-expanded="true" aria-controls="inv-filter-body-price-mobile">
-                      <span class="inv-filter-group__title">{{ 'invicta.search.filter_price' | t }}</span>
-                      <svg class="inv-filter-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="inv-filter-group__body" id="inv-filter-body-price-mobile" aria-hidden="false">
-                      <div class="inv-filter-price">
-                        <div class="inv-filter-price__inputs">
-                          <div class="inv-filter-price__field">
-                            <span class="inv-filter-price__prefix">&pound;</span>
-                            <input type="number" class="inv-filter-price__input" data-price-min name="filter.v.price.gte" value="{{ active_price_gte }}" placeholder="{{ filter.range_max | times: 0 | money_without_currency }}" min="0" aria-label="{{ 'invicta.search.filter_price_min' | t }}">
-                          </div>
-                          <span class="inv-filter-price__separator">&ndash;</span>
-                          <div class="inv-filter-price__field">
-                            <span class="inv-filter-price__prefix">&pound;</span>
-                            <input type="number" class="inv-filter-price__input" data-price-max name="filter.v.price.lte" value="{{ active_price_lte }}" placeholder="{{ filter.range_max | money_without_currency }}" min="0" aria-label="{{ 'invicta.search.filter_price_max' | t }}">
-                          </div>
-                        </div>
-                        <button type="button" class="inv-filter-price__apply" data-price-apply>{{ 'invicta.search.filter_price_apply' | t }}</button>
-                      </div>
-                    </div>
-                  </div>
-                {%- endif -%}
-              {%- endfor -%}
+              {%- render 'invicta-search-price-filter',
+                  group_id: 'price-mobile',
+                  active_price_gte: active_price_gte,
+                  active_price_lte: active_price_lte,
+                  default_open: true,
+                  search_filters: search.filters
+              -%}
             {%- endif -%}
 
             {%- if show_availability_filter -%}
-              {%- for filter in search.filters -%}
-                {%- if filter.param_name == 'filter.v.availability' -%}
-                  <div class="inv-filter-group inv-filter-group--availability" data-filter-group-id="availability-mobile">
-                    <button type="button" class="inv-filter-group__header" data-accordion-toggle aria-expanded="true" aria-controls="inv-filter-body-availability-mobile">
-                      <span class="inv-filter-group__title">{{ 'invicta.search.filter_availability' | t }}</span>
-                      <svg class="inv-filter-group__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="inv-filter-group__body" id="inv-filter-body-availability-mobile" aria-hidden="false">
-                      <label class="inv-filter-checkbox inv-filter-checkbox--toggle">
-                        <input type="checkbox" name="filter.v.availability" value="1" {% if active_availability %}checked{% endif %}>
-                        <span class="inv-filter-checkbox__check"></span>
-                        <span class="inv-filter-checkbox__label">{{ 'invicta.search.filter_in_stock' | t }}</span>
-                      </label>
-                    </div>
-                  </div>
-                {%- endif -%}
-              {%- endfor -%}
+              {%- render 'invicta-search-availability-filter',
+                  group_id: 'availability-mobile',
+                  active_availability: active_availability,
+                  default_open: true,
+                  search_filters: search.filters
+              -%}
             {%- endif -%}
 
           </div>
