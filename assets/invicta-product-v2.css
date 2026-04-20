@@ -378,7 +378,7 @@
   flex-wrap: wrap;
   gap: 10px 20px;
   align-items: center;
-  padding: 14px 40px;
+  padding: 14px 32px;
   background: var(--inv-grey-50);
   border-bottom: 1px solid var(--inv-grey-200);
 }
@@ -415,13 +415,14 @@
   border-bottom: none;
 }
 
-.inv-pdp__info-toggle {
+/* NOTE: scoped under .inv-pdp to beat the `.inv-pdp button { padding: 0 }` reset in base.css */
+.inv-pdp .inv-pdp__info-toggle {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 22px 40px;
+  padding: 22px 32px;
   background: var(--inv-bg-elevated);
   border: none;
   font-size: 14px;
@@ -434,14 +435,14 @@
   cursor: pointer;
   transition: background-color var(--inv-duration-normal) ease;
 }
-.inv-pdp__info-toggle:hover {
+.inv-pdp .inv-pdp__info-toggle:hover {
   background: var(--inv-grey-50);
 }
-.inv-pdp__info-toggle:focus-visible {
+.inv-pdp .inv-pdp__info-toggle:focus-visible {
   outline: none;
   box-shadow: var(--inv-focus-shadow);
 }
-.inv-pdp__info-section--open .inv-pdp__info-toggle {
+.inv-pdp .inv-pdp__info-section--open .inv-pdp__info-toggle {
   background: var(--inv-grey-50);
   padding-bottom: 14px;
 }
@@ -460,7 +461,7 @@
 
 /* Accordion content */
 .inv-pdp__info-content {
-  padding: 18px 40px 24px;
+  padding: 18px 32px 24px;
   font-size: 14px;
   line-height: 1.65;
   color: var(--inv-fg-secondary);
@@ -495,11 +496,11 @@
   display: none;
 }
 
-/* Show more / Show less button */
-.inv-pdp__info-readmore {
+/* Show more / Show less button — scoped under .inv-pdp to beat base.css button reset */
+.inv-pdp .inv-pdp__info-readmore {
   display: block;
   width: 100%;
-  padding: 14px 40px;
+  padding: 14px 32px;
   background: var(--inv-bg-elevated);
   border: none;
   border-top: 1px solid var(--inv-grey-100);
@@ -511,7 +512,7 @@
   font-family: inherit;
   transition: background-color var(--inv-duration-normal) ease;
 }
-.inv-pdp__info-readmore:hover {
+.inv-pdp .inv-pdp__info-readmore:hover {
   background: var(--inv-grey-50);
 }
 [data-row="description"].is-desc-short .inv-pdp__info-readmore {
@@ -1651,24 +1652,24 @@
   .inv-pdp__info-meta {
     flex-direction: column;
     gap: var(--inv-space-sm);
-    padding: 12px 18px;
+    padding: 12px 20px;
   }
   .inv-pdp__info-meta-divider {
     display: none;
   }
 
-  .inv-pdp__info-toggle {
-    padding: 16px 18px;
-    font-size: 12px;
-  }
-
-  .inv-pdp__info-content {
-    padding: 16px 18px 20px;
+  .inv-pdp .inv-pdp__info-toggle {
+    padding: 18px 20px;
     font-size: 13px;
   }
 
-  .inv-pdp__info-readmore {
-    padding: 16px 24px;
+  .inv-pdp__info-content {
+    padding: 14px 20px 18px;
+    font-size: 13px;
+  }
+
+  .inv-pdp .inv-pdp__info-readmore {
+    padding: 14px 20px;
   }
 
   .inv-pdp__info-list {
