@@ -12,12 +12,12 @@
   assign star_count = count | default: 0 | times: 1
 
   if product and star_rating == 0
-    if product.metafields.reviews.rating.value != blank
-      assign star_rating = product.metafields.reviews.rating.value.rating | default: 0 | times: 1.0
-      assign star_count = product.metafields.reviews.rating_count | default: 0 | times: 1
-    elsif product.metafields.judgeme.average_rating != blank
-      assign star_rating = product.metafields.judgeme.average_rating | default: 0 | times: 1.0
-      assign star_count = product.metafields.judgeme.review_count | default: 0 | times: 1
+    if product.metafields.reviews.rating.value.rating != blank and product.metafields.reviews.rating_count != blank
+      assign star_rating = product.metafields.reviews.rating.value.rating | times: 1.0
+      assign star_count = product.metafields.reviews.rating_count | times: 1
+    elsif product.metafields.judgeme.average_rating != blank and product.metafields.judgeme.review_count != blank
+      assign star_rating = product.metafields.judgeme.average_rating | times: 1.0
+      assign star_count = product.metafields.judgeme.review_count | times: 1
     endif
   endif
 
