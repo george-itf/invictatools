@@ -1,3 +1,6 @@
+HTTP 200 
+Content-Type: text/plain; charset=utf-8
+
 {% comment %}
   ============================================
   INVICTA PRODUCT V2 — SECTION TEMPLATE
@@ -217,32 +220,7 @@
   {%- comment -%} ========== BREADCRUMB BAR ========== {%- endcomment -%}
   {% if show_breadcrumb %}
     <div class="inv-pdp__breadcrumb-bar">
-      <nav class="inv-pdp__breadcrumb" aria-label="Breadcrumb">
-        <ol itemscope itemtype="https://schema.org/BreadcrumbList">
-          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <a itemprop="item" href="/"><span itemprop="name">{{ 'invicta.breadcrumbs.home' | t }}</span></a>
-            <meta itemprop="position" content="1">
-          </li>
-          <li aria-hidden="true"><span class="inv-pdp__breadcrumb-sep">/</span></li>
-          {% if product.collections.size > 0 %}
-            {% assign primary_collection = product.collections | first %}
-            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <a itemprop="item" href="{{ primary_collection.url }}"><span itemprop="name">{{ primary_collection.title }}</span></a>
-              <meta itemprop="position" content="2">
-            </li>
-            <li aria-hidden="true"><span class="inv-pdp__breadcrumb-sep">/</span></li>
-            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <span class="inv-pdp__breadcrumb-current" itemprop="name">{{ product.title | truncate: 50 }}</span>
-              <meta itemprop="position" content="3">
-            </li>
-          {% else %}
-            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <span class="inv-pdp__breadcrumb-current" itemprop="name">{{ product.title | truncate: 50 }}</span>
-              <meta itemprop="position" content="2">
-            </li>
-          {% endif %}
-        </ol>
-      </nav>
+      {% render 'invicta-breadcrumb-pdp' %}
       
       {% if show_sku and current_variant.sku != blank and current_variant.sku != product.handle %}
         <span class="inv-pdp__sku" data-sku>
@@ -736,6 +714,7 @@
               <span class="inv-pdp__info-meta-label">Brand</span>
               <span class="inv-pdp__info-meta-value">{{ product.vendor }}</span>
             </span>
+            <span class="inv-pdp__info-meta-divider"></span>
             {% if show_sku and current_variant.sku != blank and current_variant.sku != product.handle %}
               <span class="inv-pdp__info-meta-item">
                 <span class="inv-pdp__info-meta-label">Part No.</span>

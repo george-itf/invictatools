@@ -375,15 +375,17 @@
 /* Brand/SKU meta bar */
 .inv-pdp__info-meta {
   display: flex;
-  gap: var(--inv-space-xl);
-  padding: 22px 48px;
+  gap: 24px;
+  align-items: center;
+  padding: 14px 24px;
   background: var(--inv-grey-50);
-  border-bottom: 2px solid var(--inv-grey-200);
+  border-bottom: 1px solid var(--inv-grey-200);
 }
 .inv-pdp__info-meta-item {
   display: flex;
-  gap: 10px;
-  font-size: 15px;
+  gap: 6px;
+  align-items: baseline;
+  font-size: 13px;
 }
 .inv-pdp__info-meta-label {
   color: var(--inv-grey-500);
@@ -392,6 +394,12 @@
 .inv-pdp__info-meta-value {
   color: var(--inv-fg-near-black);
   font-weight: 700;
+}
+.inv-pdp__info-meta-divider {
+  width: 1px;
+  height: 16px;
+  background: var(--inv-grey-300);
+  flex-shrink: 0;
 }
 
 /* Accordion sections */
@@ -407,13 +415,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 30px 48px;
+  padding: 18px 24px;
   background: var(--inv-grey-100);
   border: none;
-  font-size: 17px;
+  font-size: 13px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   color: var(--inv-fg-near-black);
   font-family: inherit;
   text-align: left;
@@ -441,9 +449,9 @@
 
 /* Accordion content */
 .inv-pdp__info-content {
-  padding: 32px 48px 36px;
-  font-size: 16px;
-  line-height: 1.8;
+  padding: 20px 24px 24px;
+  font-size: 14px;
+  line-height: 1.75;
   color: var(--inv-fg-secondary);
   display: none;
   background: var(--inv-bg-elevated);
@@ -480,7 +488,7 @@
 .inv-pdp__info-readmore {
   display: block;
   width: 100%;
-  padding: 18px 48px;
+  padding: 14px 24px;
   background: var(--inv-bg-elevated);
   border: none;
   border-top: 1px solid var(--inv-grey-100);
@@ -512,8 +520,8 @@
 
 /* Description content — paragraphs (override display:none defaults above) */
 .inv-pdp__info-section--open .inv-pdp__info-content {
-  font-size: 16px;
-  line-height: 1.8;
+  font-size: 14px;
+  line-height: 1.75;
   color: var(--inv-fg-near-black);
   font-weight: 400;
 }
@@ -1618,17 +1626,20 @@
   .inv-pdp__info-meta {
     flex-direction: column;
     gap: var(--inv-space-sm);
-    padding: 20px 24px;
+    padding: 12px 18px;
+  }
+  .inv-pdp__info-meta-divider {
+    display: none;
   }
 
   .inv-pdp__info-toggle {
-    padding: 24px 24px;
-    font-size: 15px;
+    padding: 16px 18px;
+    font-size: 12px;
   }
 
   .inv-pdp__info-content {
-    padding: 26px 24px 30px;
-    font-size: 15px;
+    padding: 16px 18px 20px;
+    font-size: 13px;
   }
 
   .inv-pdp__info-readmore {
