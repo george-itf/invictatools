@@ -18,7 +18,6 @@
 {%- liquid
   assign products_per_page = section.settings.products_per_page | default: 24
   assign show_sort = section.settings.show_sort
-  assign show_brand_filters = section.settings.show_brand_filters
 
   # Filters to hide from customers (labels, case-insensitive check via downcase)
   assign hidden_filter_labels = 'product rating count'
@@ -44,7 +43,7 @@
 {%- comment -%} ===== STYLES ===== {%- endcomment -%}
 {{ 'section-invicta-collection.css' | asset_url | stylesheet_tag }}
 
-<div class="inv-collection" data-section-id="{{ section.id }}">
+<div class="inv-collection" data-section-id="{{ section.id }}" data-inv-collection-section="{{ section.id }}">
 
   {%- comment -%} ================================================================
      1. BRAND HERO SECTION
@@ -67,61 +66,6 @@
 
 
   {%- comment -%} ================================================================
-     3. TOOLBAR
-  ================================================================ {%- endcomment -%}
-  <div class="inv-toolbar" id="InvToolbar">
-    <div class="page-width">
-      <div class="inv-toolbar__inner">
-
-        {%- comment -%} Left: Count + Filter button {%- endcomment -%}
-        <div class="inv-toolbar__left">
-          <span class="inv-toolbar__count">
-            <strong>{{ collection.products_count }}</strong> products
-          </span>
-          <button type="button" class="inv-filter-toggle" id="InvFilterToggle" aria-expanded="false">
-            <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="4" x2="4" y1="21" y2="14"/>
-              <line x1="4" x2="4" y1="10" y2="3"/>
-              <line x1="12" x2="12" y1="21" y2="12"/>
-              <line x1="12" x2="12" y1="8" y2="3"/>
-              <line x1="20" x2="20" y1="21" y2="16"/>
-              <line x1="20" x2="20" y1="12" y2="3"/>
-              <line x1="1" x2="7" y1="14" y2="14"/>
-              <line x1="9" x2="15" y1="8" y2="8"/>
-              <line x1="17" x2="23" y1="16" y2="16"/>
-            </svg>
-            <span>Filters</span>
-            {%- if has_active_filters -%}
-              <span class="inv-filter-toggle__badge">{{ active_filter_count }}</span>
-            {%- endif -%}
-          </button>
-        </div>
-
-        {%- comment -%} Right: Sort {%- endcomment -%}
-        <div class="inv-toolbar__right">
-          {%- if show_sort -%}
-            <div class="inv-sort">
-              <label for="InvSortSelect" class="inv-sort__label">Sort:</label>
-              <select id="InvSortSelect" class="inv-sort__select" aria-label="Sort products">
-                <option value="manual" {% if current_sort == 'manual' %}selected{% endif %}>Featured</option>
-                <option value="best-selling" {% if current_sort == 'best-selling' %}selected{% endif %}>Best Selling</option>
-                <option value="title-ascending" {% if current_sort == 'title-ascending' %}selected{% endif %}>A–Z</option>
-                <option value="title-descending" {% if current_sort == 'title-descending' %}selected{% endif %}>Z–A</option>
-                <option value="price-ascending" {% if current_sort == 'price-ascending' %}selected{% endif %}>Price: Low–High</option>
-                <option value="price-descending" {% if current_sort == 'price-descending' %}selected{% endif %}>Price: High–Low</option>
-                <option value="created-ascending" {% if current_sort == 'created-ascending' %}selected{% endif %}>Oldest</option>
-                <option value="created-descending" {% if current_sort == 'created-descending' %}selected{% endif %}>Newest</option>
-              </select>
-            </div>
-          {%- endif -%}
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-
-  {%- comment -%} ================================================================
      4. ACTIVE FILTER CHIPS
   ================================================================ {%- endcomment -%}
   {%- if has_active_filters -%}
@@ -130,7 +74,7 @@
         <div class="inv-active-filters__inner">
           {%- for filter in collection.filters -%}
             {%- for value in filter.active_values -%}
-              <a href="{{ value.url_to_remove }}" rel="nofollow" class="inv-filter-chip">
+              <a href="{{ value.url_to_remove }}" rel="nofollow" class="inv-filter-chip" data-inv-filter-remove>
                 <span>{{ value.label }}</span>
                 <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M18 6L6 18M6 6l12 12"/>
@@ -139,7 +83,7 @@
             {%- endfor -%}
             {%- if filter.type == 'price_range' -%}
               {%- if filter.min_value.value != blank or filter.max_value.value != blank -%}
-                <a href="{{ filter.url_to_remove }}" rel="nofollow" class="inv-filter-chip">
+                <a href="{{ filter.url_to_remove }}" rel="nofollow" class="inv-filter-chip" data-inv-filter-remove>
                   <span>
                     {%- if filter.min_value.value != blank -%}{{ filter.min_value.value | money_without_trailing_zeros }}{%- else -%}£0{%- endif -%}
                     –
@@ -152,7 +96,7 @@
               {%- endif -%}
             {%- endif -%}
           {%- endfor -%}
-          <a href="{{ collection.url }}" rel="nofollow" class="inv-clear-all">{{ 'products.facets.clear_all' | t }}</a>
+          <a href="{{ collection.url }}" rel="nofollow" class="inv-clear-all" data-inv-filter-remove>{{ 'products.facets.clear_all' | t }}</a>
         </div>
       </div>
     </div>
@@ -168,7 +112,7 @@
 
         {%- comment -%} ===== SIDEBAR (Desktop only) ===== {%- endcomment -%}
         <aside class="inv-sidebar" id="InvSidebar">
-          <form id="InvFilterForm" class="inv-filter-form">
+          <form id="InvFilterForm" class="inv-filter-form" data-inv-filter-sidebar>
             <div class="inv-sidebar__header">
               <span class="inv-sidebar__title">Filters</span>
               {%- if has_active_filters -%}
@@ -261,6 +205,45 @@
 
             {%- if collection.products.size > 0 -%}
 
+              {%- comment -%} Toolrow: Sort + mobile filter button (no chips on brand pages) {%- endcomment -%}
+              <div class="inv-toolrow inv-toolrow--end">
+                <div class="inv-toolrow__chips" aria-hidden="true"></div>
+                <div class="inv-toolrow__actions">
+                  <button type="button" class="inv-toolrow__filters" id="InvFilterToggle" aria-expanded="false">
+                    <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="4" x2="4" y1="21" y2="14"/>
+                      <line x1="4" x2="4" y1="10" y2="3"/>
+                      <line x1="12" x2="12" y1="21" y2="12"/>
+                      <line x1="12" x2="12" y1="8" y2="3"/>
+                      <line x1="20" x2="20" y1="21" y2="16"/>
+                      <line x1="20" x2="20" y1="12" y2="3"/>
+                      <line x1="1" x2="7" y1="14" y2="14"/>
+                      <line x1="9" x2="15" y1="8" y2="8"/>
+                      <line x1="17" x2="23" y1="16" y2="16"/>
+                    </svg>
+                    <span>Filters</span>
+                    {%- if has_active_filters -%}
+                      <span class="inv-toolrow__filters-badge">{{ active_filter_count }}</span>
+                    {%- endif -%}
+                  </button>
+                  {%- if show_sort -%}
+                    <div class="inv-toolrow__sort">
+                      <label for="InvSortSelect" class="inv-toolrow__sort-label">Sort:</label>
+                      <select id="InvSortSelect" class="inv-toolrow__sort-select" data-inv-sort-select aria-label="Sort products">
+                        <option value="manual" {% if current_sort == 'manual' %}selected{% endif %}>Featured</option>
+                        <option value="best-selling" {% if current_sort == 'best-selling' %}selected{% endif %}>Best Selling</option>
+                        <option value="title-ascending" {% if current_sort == 'title-ascending' %}selected{% endif %}>A–Z</option>
+                        <option value="title-descending" {% if current_sort == 'title-descending' %}selected{% endif %}>Z–A</option>
+                        <option value="price-ascending" {% if current_sort == 'price-ascending' %}selected{% endif %}>Price: Low–High</option>
+                        <option value="price-descending" {% if current_sort == 'price-descending' %}selected{% endif %}>Price: High–Low</option>
+                        <option value="created-ascending" {% if current_sort == 'created-ascending' %}selected{% endif %}>Oldest</option>
+                        <option value="created-descending" {% if current_sort == 'created-descending' %}selected{% endif %}>Newest</option>
+                      </select>
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+
               {%- comment -%} Product Grid {%- endcomment -%}
               <div class="inv-product-grid" id="InvProductGrid">
                 {%- for product in collection.products -%}
@@ -277,7 +260,7 @@
               {%- if paginate.pages > 1 -%}
                 <nav class="inv-pagination" aria-label="Pagination">
                   {%- if paginate.previous -%}
-                    <a href="{{ paginate.previous.url }}" class="inv-pagination__item inv-pagination__item--arrow" aria-label="Previous page">
+                    <a href="{{ paginate.previous.url }}" class="inv-pagination__item inv-pagination__item--arrow" data-inv-page-link aria-label="Previous page">
                       <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="m15 18-6-6 6-6"/>
                       </svg>
@@ -286,7 +269,7 @@
 
                   {%- for part in paginate.parts -%}
                     {%- if part.is_link -%}
-                      <a href="{{ part.url }}" class="inv-pagination__item">{{ part.title }}</a>
+                      <a href="{{ part.url }}" class="inv-pagination__item" data-inv-page-link>{{ part.title }}</a>
                     {%- elsif part.title == paginate.current_page -%}
                       <span class="inv-pagination__item inv-pagination__item--current" aria-current="page">{{ part.title }}</span>
                     {%- else -%}
@@ -295,7 +278,7 @@
                   {%- endfor -%}
 
                   {%- if paginate.next -%}
-                    <a href="{{ paginate.next.url }}" class="inv-pagination__item inv-pagination__item--arrow" aria-label="Next page">
+                    <a href="{{ paginate.next.url }}" class="inv-pagination__item inv-pagination__item--arrow" data-inv-page-link aria-label="Next page">
                       <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="m9 18 6-6-6-6"/>
                       </svg>
@@ -336,7 +319,7 @@
   <div class="inv-drawer" id="InvDrawer" role="dialog" aria-modal="true" aria-label="Filter products" aria-hidden="true">
     <div class="inv-drawer__header">
       <span class="inv-drawer__title">Filters</span>
-      <button type="button" class="inv-drawer__close" id="InvDrawerClose" aria-label="Close filters">
+      <button type="button" class="inv-drawer__close" id="InvDrawerClose" data-inv-filter-drawer-close aria-label="Close filters">
         <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M18 6L6 18M6 6l12 12"/>
         </svg>
@@ -345,7 +328,7 @@
 
     <div class="inv-drawer__body" id="InvDrawerBody">
       {%- comment -%} Filters rendered inline {%- endcomment -%}
-      <form id="InvDrawerForm" class="inv-drawer-form">
+      <form id="InvDrawerForm" class="inv-drawer-form" data-inv-filter-drawer-form>
         {%- for filter in collection.filters -%}
           {%- liquid
             assign _fl = filter.label | downcase
@@ -421,7 +404,7 @@
 
     <div class="inv-drawer__footer">
       <a href="{{ collection.url }}" class="inv-drawer__reset">{{ 'products.facets.clear_all' | t }}</a>
-      <button type="button" class="inv-drawer__apply" id="InvDrawerApply">Apply Filters</button>
+      <button type="button" class="inv-drawer__apply" id="InvDrawerApply" data-inv-filter-drawer-apply>Apply Filters</button>
     </div>
   </div>
 
@@ -462,208 +445,10 @@
 
 
 {%- comment -%} ================================================================
-   JAVASCRIPT
+   JAVASCRIPT — drawer/scroll in invicta-collection.js, AJAX in invicta-collection-ajax.js
 ================================================================ {%- endcomment -%}
-<script>
-(function() {
-  'use strict';
-
-  /* ==========================================================================
-     DOM ELEMENTS
-     ========================================================================== */
-
-  var drawer = document.getElementById('InvDrawer');
-  var overlay = document.getElementById('InvDrawerOverlay');
-  var drawerClose = document.getElementById('InvDrawerClose');
-  var drawerApply = document.getElementById('InvDrawerApply');
-  var drawerForm = document.getElementById('InvDrawerForm');
-  var filterToggle = document.getElementById('InvFilterToggle');
-  var floatingFilter = document.getElementById('InvFloatingFilter');
-  var scrollTopBtn = document.getElementById('InvScrollTop');
-  var sortSelect = document.getElementById('InvSortSelect');
-  var sidebarForm = document.getElementById('InvFilterForm');
-  var toolbar = document.getElementById('InvToolbar');
-  var hero = document.querySelector('.inv-brand-hero');
-  var lastFocusedEl = null;
-
-  /* ==========================================================================
-     DRAWER FUNCTIONS
-     ========================================================================== */
-
-  function openDrawer() {
-    if (!drawer || !overlay) return;
-    lastFocusedEl = document.activeElement;
-    drawer.classList.add('is-open');
-    drawer.setAttribute('aria-hidden', 'false');
-    overlay.classList.add('is-visible');
-    document.body.style.overflow = 'hidden';
-    if (filterToggle) filterToggle.setAttribute('aria-expanded', 'true');
-    if (drawerClose) drawerClose.focus();
-  }
-
-  function closeDrawer() {
-    if (!drawer || !overlay) return;
-    drawer.classList.remove('is-open');
-    drawer.setAttribute('aria-hidden', 'true');
-    overlay.classList.remove('is-visible');
-    document.body.style.overflow = '';
-    if (filterToggle) filterToggle.setAttribute('aria-expanded', 'false');
-    if (lastFocusedEl) lastFocusedEl.focus();
-    lastFocusedEl = null;
-  }
-
-  // Open drawer — toolbar button
-  if (filterToggle) {
-    filterToggle.addEventListener('click', function(e) {
-      e.preventDefault();
-      openDrawer();
-    });
-  }
-
-  // Open drawer — floating button
-  if (floatingFilter) {
-    floatingFilter.addEventListener('click', function(e) {
-      e.preventDefault();
-      openDrawer();
-    });
-  }
-
-  // Close drawer — close button
-  if (drawerClose) {
-    drawerClose.addEventListener('click', function(e) {
-      e.preventDefault();
-      closeDrawer();
-    });
-  }
-
-  // Close drawer — overlay click
-  if (overlay) {
-    overlay.addEventListener('click', closeDrawer);
-  }
-
-  // Keyboard: Escape close + Tab focus trap
-  document.addEventListener('keydown', function(e) {
-    if (!drawer || !drawer.classList.contains('is-open')) return;
-    if (e.key === 'Escape') { closeDrawer(); return; }
-    if (e.key === 'Tab') {
-      var focusable = drawer.querySelectorAll('button, [href], input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])');
-      if (!focusable.length) return;
-      var first = focusable[0], last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-    }
-  });
-
-  // Build filter URL from form inputs
-  function buildFilterUrl(form) {
-    var params = new URLSearchParams();
-    var inputs = form.querySelectorAll('input:checked, input[type="number"]');
-    inputs.forEach(function(input) {
-      if (input.type === 'checkbox' && input.checked) {
-        params.append(input.name, input.value);
-      } else if (input.type === 'number' && input.value) {
-        params.append(input.name, input.value);
-      }
-    });
-    if (sortSelect && sortSelect.value) params.set('sort_by', sortSelect.value);
-    var url = window.location.pathname;
-    var qs = params.toString();
-    return qs ? url + '?' + qs : url;
-  }
-
-  // Apply filters — drawer (mobile)
-  if (drawerApply && drawerForm) {
-    drawerApply.addEventListener('click', function() {
-      closeDrawer();
-      window.location.href = buildFilterUrl(drawerForm);
-    });
-  }
-
-  // Apply filters — sidebar (desktop)
-  if (sidebarForm) {
-    sidebarForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      window.location.href = buildFilterUrl(sidebarForm);
-    });
-  }
-
-  /* ==========================================================================
-     SORT
-     ========================================================================== */
-
-  if (sortSelect) {
-    sortSelect.addEventListener('change', function() {
-      var params = new URLSearchParams(window.location.search);
-      params.set('sort_by', this.value);
-      window.location.search = params.toString();
-    });
-  }
-
-  /* ==========================================================================
-     SCROLL EFFECTS
-     ========================================================================== */
-
-  var ticking = false;
-  var heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 300;
-
-  function handleScroll() {
-    var scrollY = window.scrollY || window.pageYOffset;
-
-    // Toolbar shadow
-    if (toolbar) {
-      toolbar.classList.toggle('is-stuck', scrollY > 10);
-    }
-
-    // Floating filter — show after hero
-    if (floatingFilter) {
-      floatingFilter.classList.toggle('is-visible', scrollY > heroBottom);
-    }
-
-    // Back to top — show after 400px
-    if (scrollTopBtn) {
-      scrollTopBtn.classList.toggle('is-visible', scrollY > 400);
-    }
-
-    ticking = false;
-  }
-
-  window.addEventListener('scroll', function() {
-    if (!ticking) {
-      window.requestAnimationFrame(handleScroll);
-      ticking = true;
-    }
-  }, { passive: true });
-
-  // Recalculate hero height on resize
-  window.addEventListener('resize', function() {
-    if (hero) {
-      heroBottom = hero.offsetTop + hero.offsetHeight;
-    }
-  }, { passive: true });
-
-  // Initial check
-  handleScroll();
-
-  /* ==========================================================================
-     SCROLL TO TOP
-     ========================================================================== */
-
-  if (scrollTopBtn) {
-    scrollTopBtn.addEventListener('click', function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
-
-  /* ==========================================================================
-     ENSURE DRAWER CLOSED ON LOAD
-     ========================================================================== */
-
-  if (drawer) drawer.classList.remove('is-open');
-  if (overlay) overlay.classList.remove('is-visible');
-  document.body.style.overflow = '';
-
-})();
-</script>
+<script src="{{ 'invicta-collection.js' | asset_url }}" defer></script>
+<script src="{{ 'invicta-collection-ajax.js' | asset_url }}" defer></script>
 
 
 {% schema %}
@@ -728,12 +513,6 @@
       "type": "url",
       "id": "badge_3_link",
       "label": "USP 3 — Link"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_brand_filters",
-      "label": "Show brand quick filters",
-      "default": true
     },
     {
       "type": "header",

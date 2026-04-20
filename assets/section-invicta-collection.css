@@ -64,9 +64,9 @@
 .inv-hero--has-image .inv-hero__overlay {
   background: linear-gradient(
     135deg,
-    rgba(15, 23, 42, 0.95) 0%,
-    rgba(15, 23, 42, 0.88) 40%,
-    rgba(15, 23, 42, 0.82) 100%
+    rgba(15, 23, 42, 0.70) 0%,
+    rgba(15, 23, 42, 0.55) 45%,
+    rgba(15, 23, 42, 0.45) 100%
   );
 }
 
@@ -146,132 +146,7 @@
 }
 
 /* ============================================================================
-   3. LEGACY TOOLBAR — still used by invicta-brand-collection.liquid
-   (invicta-collection.liquid uses .inv-toolrow below instead)
-   ============================================================================ */
-
-.inv-toolbar {
-  background: var(--inv-bg-elevated);
-  border-bottom: 1px solid var(--inv-c-border);
-  padding: 0;
-  position: sticky;
-  top: 0;
-  z-index: 90;
-}
-
-.inv-toolbar__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 8px 0;
-}
-
-.inv-toolbar__left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.inv-toolbar__count {
-  font-size: 13px;
-  color: var(--inv-c-muted);
-}
-
-.inv-toolbar__count strong {
-  font-weight: 700;
-  color: var(--inv-c-text);
-}
-
-.inv-filter-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--inv-c-text);
-  background: var(--inv-bg-elevated);
-  border: 1px solid var(--inv-c-border);
-  cursor: pointer;
-  font-family: inherit;
-  transition: border-color var(--inv-c-transition), color var(--inv-c-transition);
-}
-
-.inv-filter-toggle:hover {
-  border-color: var(--inv-c-accent);
-  color: var(--inv-c-accent);
-}
-
-.inv-filter-toggle svg {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-}
-
-.inv-filter-toggle__badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 5px;
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--inv-bg-elevated);
-  background: var(--inv-c-accent);
-  border-radius: var(--inv-radius-pill);
-}
-
-.inv-toolbar__right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.inv-sort {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.inv-sort__label {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--inv-c-muted);
-  white-space: nowrap;
-}
-
-.inv-sort__select {
-  min-height: 40px;
-  padding: 8px 32px 8px 12px;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: inherit;
-  color: var(--inv-c-text);
-  background: var(--inv-bg-elevated);
-  border: 1px solid var(--inv-c-border);
-  cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  transition: border-color var(--inv-c-transition);
-}
-
-.inv-sort__select:hover {
-  border-color: var(--inv-c-accent);
-}
-
-.inv-sort__select:focus {
-  outline: none;
-  border-color: var(--inv-c-accent);
-  box-shadow: 0 0 0 3px rgba(225, 29, 38, 0.1);
-}
-
-/* ============================================================================
-   3B. TOOLROW — type chips + sort + mobile filter button on one line
-   Used by invicta-collection.liquid (drilling-driving etc).
+   3. TOOLROW — type chips + sort + mobile filter button on one line
    ============================================================================ */
 
 .inv-toolrow {
@@ -286,6 +161,11 @@
 .inv-toolrow__chips {
   flex: 1 1 auto;
   min-width: 0;
+}
+
+/* Variant for sections without type chips (brand pages). */
+.inv-toolrow--end {
+  justify-content: flex-end;
 }
 
 .inv-toolrow__chips .inv-type-chips {
@@ -382,7 +262,7 @@
   box-shadow: 0 0 0 3px rgba(225, 29, 38, 0.1);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 749px) {
   .inv-toolrow__filters {
     display: inline-flex;
   }
@@ -1160,19 +1040,16 @@ body.inv-drawer-open {
     display: none;
   }
 
-  .inv-hero__title {
-    font-size: 1.5rem;
-  }
+  /* Let the clamp on .inv-hero__title handle mobile sizing (min 2.25rem). */
 
   .inv-hero__title::after {
-    width: 36px;
-    height: 2px;
-    margin-top: 8px;
+    width: 48px;
+    height: 3px;
+    margin-top: 10px;
   }
 
   .inv-hero__description {
-    font-size: 0.9rem;
-    margin-top: 10px;
+    margin-top: 12px;
   }
 
   /* Toolrow (mobile) */
@@ -1337,6 +1214,120 @@ body.inv-drawer-open {
 
   .inv-drawer {
     transition: none;
+  }
+}
+
+/* ============================================================================
+   TYPE CHIPS (moved from snippets/invicta-type-chips.liquid inline style)
+   ============================================================================ */
+
+.inv-type-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+}
+
+.inv-type-chips__chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  background: var(--inv-bg-elevated, #ffffff);
+  border: 1px solid var(--inv-border, #e5e7eb);
+  border-radius: var(--inv-radius-pill, 9999px);
+  font-size: var(--inv-text-sm, 13px);
+  font-weight: 600;
+  color: var(--inv-fg-secondary, #374151);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--inv-duration-fast, 120ms), border-color var(--inv-duration-fast, 120ms), color var(--inv-duration-fast, 120ms);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.inv-type-chips__chip:hover {
+  border-color: var(--inv-fg, #0f172a);
+  color: var(--inv-fg, #0f172a);
+}
+
+.inv-type-chips__chip--active {
+  background: var(--inv-fg, #0f172a);
+  border-color: var(--inv-fg, #0f172a);
+  color: #ffffff;
+}
+
+.inv-type-chips__chip--active:hover {
+  background: var(--inv-accent, #e11d26);
+  border-color: var(--inv-accent, #e11d26);
+  color: #ffffff;
+}
+
+/* ============================================================================
+   EMPTY STATE — active filter tags (moved from section liquid inline style)
+   ============================================================================ */
+
+.inv-empty__active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 20px;
+}
+
+.inv-empty__filter-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--inv-bg-soft);
+  border: 1px solid var(--inv-border-dark);
+  border-radius: var(--inv-radius-pill);
+  font-size: 13px;
+  line-height: 1;
+  color: var(--inv-c-text);
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.inv-empty__filter-tag:hover {
+  background: var(--inv-border);
+  border-color: var(--inv-border-dark);
+  color: var(--inv-fg-near-black);
+}
+
+.inv-empty__filter-tag span {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.inv-empty__clear-all {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--inv-fg-dim);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+}
+
+.inv-empty__clear-all:hover {
+  color: var(--inv-fg-near-black);
+}
+
+/* ============================================================================
+   GLOBAL REDUCED MOTION (moved from section liquid)
+   Only applies within .inv-collection so it doesn't affect the rest of the page.
+   ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .inv-collection *,
+  .inv-collection *::before,
+  .inv-collection *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
