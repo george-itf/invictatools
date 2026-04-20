@@ -897,9 +897,6 @@
             {% render 'invicta-brand-pill', product: product %}
           </div>
 
-          {%- comment -%} Star rating — reads Judge.me metafields when available {%- endcomment -%}
-          {% render 'invicta-star-rating', product: product %}
-
           {%- comment -%}
             PRICE BLOCK — Single price controlled by VAT toggle
             Shows either ex VAT or inc VAT based on header toggle selection.
@@ -911,20 +908,27 @@
             aria-live="polite"
             aria-atomic="true"
           >
-            <div class="inv-pdp__price-inline">
-              <div class="inv-pdp__price-line inv-vat--hidden" data-price-ex>
-                <span class="inv-pdp__price-current" data-price-ex-value>{{ price_ex_vat | money }}</span>
-                <span class="inv-pdp__price-label">ex VAT</span>
-                {% if has_compare_price %}
-                  <span class="inv-pdp__price-was" data-compare-ex>{{ compare_ex_vat | money }}</span>
-                {% endif %}
+            <div class="inv-pdp__price-row">
+              <div class="inv-pdp__price-inline">
+                <div class="inv-pdp__price-line inv-vat--hidden" data-price-ex>
+                  <span class="inv-pdp__price-current" data-price-ex-value>{{ price_ex_vat | money }}</span>
+                  <span class="inv-pdp__price-label">ex VAT</span>
+                  {% if has_compare_price %}
+                    <span class="inv-pdp__price-was" data-compare-ex>{{ compare_ex_vat | money }}</span>
+                  {% endif %}
+                </div>
+                <div class="inv-pdp__price-line" data-price-inc>
+                  <span class="inv-pdp__price-current" data-price-inc-value>{{ current_variant.price | money }}</span>
+                  <span class="inv-pdp__price-label">inc VAT</span>
+                  {% if has_compare_price %}
+                    <span class="inv-pdp__price-was" data-compare-inc>{{ current_variant.compare_at_price | money }}</span>
+                  {% endif %}
+                </div>
               </div>
-              <div class="inv-pdp__price-line" data-price-inc>
-                <span class="inv-pdp__price-current" data-price-inc-value>{{ current_variant.price | money }}</span>
-                <span class="inv-pdp__price-label">inc VAT</span>
-                {% if has_compare_price %}
-                  <span class="inv-pdp__price-was" data-compare-inc>{{ current_variant.compare_at_price | money }}</span>
-                {% endif %}
+
+              {%- comment -%} Star rating — reads Judge.me / reviews metafields when available {%- endcomment -%}
+              <div class="inv-pdp__price-stars">
+                {% render 'invicta-star-rating', product: product %}
               </div>
             </div>
 
