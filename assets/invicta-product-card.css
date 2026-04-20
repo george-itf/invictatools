@@ -312,15 +312,17 @@
   color: var(--inv-bg-elevated);
 }
 
-.inv-card__btn--notify {
-  background: var(--inv-bg-elevated);
-  color: var(--inv-dark);
-  border: 1.5px solid var(--inv-border-notify);
+.inv-card__btn--oos {
+  background: var(--inv-grey-50);
+  color: var(--inv-grey-vat);
+  border: 1.5px solid var(--inv-border);
+  pointer-events: auto;
 }
 
-.inv-card__btn--notify:hover {
-  border-color: var(--inv-dark);
-  background: var(--inv-grey-50);
+.inv-card__btn--oos:hover {
+  border-color: var(--inv-fg-near-black, var(--inv-dark));
+  color: var(--inv-fg-near-black, var(--inv-dark));
+  background: var(--inv-bg-elevated);
 }
 
 /* -----------------------------------------------------------------------

@@ -19,7 +19,6 @@
 {%- liquid
   assign products_per_page = section.settings.products_per_page | default: 24
   assign show_sort = section.settings.show_sort
-  assign show_brand_filters = section.settings.show_brand_filters
 
   # Filters to hide from customers (labels, case-insensitive check via downcase)
   assign hidden_filter_labels = 'product rating count'
@@ -40,17 +39,6 @@
   endfor
 
   assign current_sort = collection.sort_by | default: collection.default_sort_by
-  
-  # ----------------------------------------
-  # FULL CATALOGUE LINK
-  # ----------------------------------------
-  assign full_catalogue_collection = section.settings.full_catalogue_collection
-  assign full_catalogue_count = section.settings.full_catalogue_count | default: 0
-  assign show_full_catalogue_link = false
-  
-  if full_catalogue_collection != blank and full_catalogue_count > 0
-    assign show_full_catalogue_link = true
-  endif
 -%}
 
 {%- comment -%} ===== STYLES ===== {%- endcomment -%}
@@ -170,14 +158,8 @@
         </ol>
       </nav>
 
-      {%- comment -%} Title block {%- endcomment -%}
-      <div class="inv-hero__title-block">
-        <h1 class="inv-hero__title">{{ collection.title | escape }}</h1>
-        <span class="inv-hero__count">
-          <svg focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-          {{ collection.products_count }} products
-        </span>
-      </div>
+      {%- comment -%} Title {%- endcomment -%}
+      <h1 class="inv-hero__title">{{ collection.title | escape }}</h1>
 
       {%- comment -%} Subheading / Collection description {%- endcomment -%}
       {%- assign hero_sub = section.settings.hero_subheading -%}
@@ -191,116 +173,10 @@
         </p>
       {%- endif -%}
 
-      {%- comment -%} Brand Quick Filters {%- endcomment -%}
-      {%- if show_brand_filters -%}
-        {%- for filter in collection.filters -%}
-          {%- if filter.param_name == 'filter.p.vendor' or filter.label == 'Brand' -%}
-            <div class="inv-hero__brands" role="navigation" aria-label="Filter by brand">
-              <span class="inv-hero__brands-label">
-                <svg focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-                Brands:
-              </span>
-              {%- for value in filter.values limit: 10 -%}
-                {%- assign brand_handle = value.label | handleize -%}
-                <a
-                  href="{{ value.url }}"
-                  rel="nofollow"
-                  class="inv-brand-pill inv-brand-pill--{{ brand_handle }}{% if value.active %} is-active{% endif %}"
-                >
-                  {{ value.label }}
-                  <span class="inv-brand-pill__count">{{ value.count }}</span>
-                </a>
-              {%- endfor -%}
-            </div>
-            {%- break -%}
-          {%- endif -%}
-        {%- endfor -%}
-      {%- endif -%}
-
     </div>
   </section>
   
   
-  {%- comment -%} ================================================================
-     2B. FULL CATALOGUE LINK
-     Shows link to browse all products (including non-stocked items)
-  ================================================================ {%- endcomment -%}
-  {%- if show_full_catalogue_link -%}
-    <div class="inv-full-catalogue-banner">
-      <div class="page-width">
-        <div class="inv-full-catalogue-banner__inner">
-          <div class="inv-full-catalogue-banner__text">
-            <span class="inv-full-catalogue-banner__label">{{ 'invicta.collection.showing_curated' | t }}</span>
-            <span class="inv-full-catalogue-banner__count">{{ collection.products_count }} of {{ full_catalogue_count }} products</span>
-          </div>
-          <a href="{{ full_catalogue_collection }}" class="inv-full-catalogue-banner__link">
-            <span>{{ 'invicta.collection.see_all' | t }} {{ full_catalogue_count }} products</span>
-            <svg focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M5 12h14"/>
-              <path d="m12 5 7 7-7 7"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  {%- endif -%}
-
-
-  {%- comment -%} ================================================================
-     3. TOOLBAR
-  ================================================================ {%- endcomment -%}
-  <div class="inv-toolbar" id="InvToolbar">
-    <div class="page-width">
-      <div class="inv-toolbar__inner">
-        
-        {%- comment -%} Left: Count + Filter button {%- endcomment -%}
-        <div class="inv-toolbar__left">
-          <span class="inv-toolbar__count">
-            <strong>{{ collection.products_count }}</strong> products
-          </span>
-          <button type="button" class="inv-filter-toggle" id="InvFilterToggle" aria-expanded="false">
-            <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="4" x2="4" y1="21" y2="14"/>
-              <line x1="4" x2="4" y1="10" y2="3"/>
-              <line x1="12" x2="12" y1="21" y2="12"/>
-              <line x1="12" x2="12" y1="8" y2="3"/>
-              <line x1="20" x2="20" y1="21" y2="16"/>
-              <line x1="20" x2="20" y1="12" y2="3"/>
-              <line x1="1" x2="7" y1="14" y2="14"/>
-              <line x1="9" x2="15" y1="8" y2="8"/>
-              <line x1="17" x2="23" y1="16" y2="16"/>
-            </svg>
-            <span>Filters</span>
-            {%- if has_active_filters -%}
-              <span class="inv-filter-toggle__badge">{{ active_filter_count }}</span>
-            {%- endif -%}
-          </button>
-        </div>
-        
-        {%- comment -%} Right: Sort {%- endcomment -%}
-        <div class="inv-toolbar__right">
-          {%- if show_sort -%}
-            <div class="inv-sort">
-              <label for="InvSortSelect" class="inv-sort__label">Sort:</label>
-              <select id="InvSortSelect" class="inv-sort__select" data-inv-sort-select aria-label="Sort products">
-                <option value="manual" {% if current_sort == 'manual' %}selected{% endif %}>Featured</option>
-                <option value="best-selling" {% if current_sort == 'best-selling' %}selected{% endif %}>Best Selling</option>
-                <option value="title-ascending" {% if current_sort == 'title-ascending' %}selected{% endif %}>A–Z</option>
-                <option value="title-descending" {% if current_sort == 'title-descending' %}selected{% endif %}>Z–A</option>
-                <option value="price-ascending" {% if current_sort == 'price-ascending' %}selected{% endif %}>Price: Low–High</option>
-                <option value="price-descending" {% if current_sort == 'price-descending' %}selected{% endif %}>Price: High–Low</option>
-                <option value="created-ascending" {% if current_sort == 'created-ascending' %}selected{% endif %}>Oldest</option>
-                <option value="created-descending" {% if current_sort == 'created-descending' %}selected{% endif %}>Newest</option>
-              </select>
-            </div>
-          {%- endif -%}
-        </div>
-        
-      </div>
-    </div>
-  </div>
-
-
   {%- comment -%} ================================================================
      4. ACTIVE FILTER CHIPS
   ================================================================ {%- endcomment -%}
@@ -441,8 +317,46 @@
             
             {%- if collection.products.size > 0 -%}
 
-              {%- comment -%} Type chips — Tools vs Accessories filter bar {%- endcomment -%}
-              {% render 'invicta-type-chips', collection: collection %}
+              {%- comment -%} Type chips + Sort — combined toolrow {%- endcomment -%}
+              <div class="inv-toolrow">
+                <div class="inv-toolrow__chips">
+                  {% render 'invicta-type-chips', collection: collection %}
+                </div>
+                <div class="inv-toolrow__actions">
+                  <button type="button" class="inv-toolrow__filters" id="InvFilterToggle" aria-expanded="false">
+                    <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="4" x2="4" y1="21" y2="14"/>
+                      <line x1="4" x2="4" y1="10" y2="3"/>
+                      <line x1="12" x2="12" y1="21" y2="12"/>
+                      <line x1="12" x2="12" y1="8" y2="3"/>
+                      <line x1="20" x2="20" y1="21" y2="16"/>
+                      <line x1="20" x2="20" y1="12" y2="3"/>
+                      <line x1="1" x2="7" y1="14" y2="14"/>
+                      <line x1="9" x2="15" y1="8" y2="8"/>
+                      <line x1="17" x2="23" y1="16" y2="16"/>
+                    </svg>
+                    <span>Filters</span>
+                    {%- if has_active_filters -%}
+                      <span class="inv-toolrow__filters-badge">{{ active_filter_count }}</span>
+                    {%- endif -%}
+                  </button>
+                  {%- if show_sort -%}
+                    <div class="inv-toolrow__sort">
+                      <label for="InvSortSelect" class="inv-toolrow__sort-label">Sort:</label>
+                      <select id="InvSortSelect" class="inv-toolrow__sort-select" data-inv-sort-select aria-label="Sort products">
+                        <option value="manual" {% if current_sort == 'manual' %}selected{% endif %}>Featured</option>
+                        <option value="best-selling" {% if current_sort == 'best-selling' %}selected{% endif %}>Best Selling</option>
+                        <option value="title-ascending" {% if current_sort == 'title-ascending' %}selected{% endif %}>A–Z</option>
+                        <option value="title-descending" {% if current_sort == 'title-descending' %}selected{% endif %}>Z–A</option>
+                        <option value="price-ascending" {% if current_sort == 'price-ascending' %}selected{% endif %}>Price: Low–High</option>
+                        <option value="price-descending" {% if current_sort == 'price-descending' %}selected{% endif %}>Price: High–Low</option>
+                        <option value="created-ascending" {% if current_sort == 'created-ascending' %}selected{% endif %}>Oldest</option>
+                        <option value="created-descending" {% if current_sort == 'created-descending' %}selected{% endif %}>Newest</option>
+                      </select>
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
 
               {%- comment -%} Product Grid {%- endcomment -%}
               <div class="inv-product-grid" id="InvProductGrid">
@@ -697,7 +611,6 @@
   var scrollTopBtn = document.getElementById('InvScrollTop');
   var sortSelect = document.getElementById('InvSortSelect');
   var sidebarForm = document.getElementById('InvFilterForm');
-  var toolbar = document.getElementById('InvToolbar');
   var hero = document.querySelector('.inv-hero');
   var lastFocusedEl = null;
   
@@ -837,12 +750,7 @@
   
   function handleScroll() {
     var scrollY = window.scrollY || window.pageYOffset;
-    
-    // Toolbar shadow
-    if (toolbar) {
-      toolbar.classList.toggle('is-stuck', scrollY > 10);
-    }
-    
+
     // Floating filter — show after hero
     if (floatingFilter) {
       floatingFilter.classList.toggle('is-visible', scrollY > heroBottom);
@@ -913,36 +821,6 @@
       "id": "hero_subheading",
       "label": "Subheading",
       "default": "Power tools, fixings and accessories for professionals."
-    },
-    {
-      "type": "header",
-      "content": "Full Catalogue Link"
-    },
-    {
-      "type": "paragraph",
-      "content": "Link to the full catalogue collection containing all available products (including non-stocked items)."
-    },
-    {
-      "type": "collection",
-      "id": "full_catalogue_collection",
-      "label": "Full catalogue collection"
-    },
-    {
-      "type": "number",
-      "id": "full_catalogue_count",
-      "label": "Total products in full catalogue",
-      "info": "Enter the product count from the full catalogue collection.",
-      "default": 0
-    },
-    {
-      "type": "header",
-      "content": "Brand Quick Filters"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_brand_filters",
-      "label": "Show brand quick filters in hero",
-      "default": true
     },
     {
       "type": "header",

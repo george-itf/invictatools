@@ -39,17 +39,6 @@
   endfor
 
   assign current_sort = collection.sort_by | default: collection.default_sort_by
-
-  # ----------------------------------------
-  # FULL CATALOGUE LINK
-  # ----------------------------------------
-  assign full_catalogue_collection = section.settings.full_catalogue_collection
-  assign full_catalogue_count = section.settings.full_catalogue_count | default: 0
-  assign show_full_catalogue_link = false
-
-  if full_catalogue_collection != blank and full_catalogue_count > 0
-    assign show_full_catalogue_link = true
-  endif
 -%}
 
 {%- comment -%} ===== STYLES ===== {%- endcomment -%}
@@ -75,31 +64,6 @@
       </ol>
     </div>
   </nav>
-
-
-  {%- comment -%} ================================================================
-     2B. FULL CATALOGUE LINK
-     Shows link to browse all products (including non-stocked items)
-  ================================================================ {%- endcomment -%}
-  {%- if show_full_catalogue_link -%}
-    <div class="inv-full-catalogue-banner">
-      <div class="page-width">
-        <div class="inv-full-catalogue-banner__inner">
-          <div class="inv-full-catalogue-banner__text">
-            <span class="inv-full-catalogue-banner__label">{{ 'invicta.collection.showing_curated' | t }}</span>
-            <span class="inv-full-catalogue-banner__count">{{ collection.products_count }} of {{ full_catalogue_count }} products</span>
-          </div>
-          <a href="{{ full_catalogue_collection }}" class="inv-full-catalogue-banner__link">
-            <span>{{ 'invicta.collection.see_all' | t }} {{ full_catalogue_count }} products</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
-              <path d="M5 12h14"/>
-              <path d="m12 5 7 7-7 7"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  {%- endif -%}
 
 
   {%- comment -%} ================================================================
@@ -727,26 +691,6 @@
       "id": "hero_subheading",
       "label": "Subheading",
       "default": "Power tools, fixings and accessories for professionals."
-    },
-    {
-      "type": "header",
-      "content": "Full Catalogue Link"
-    },
-    {
-      "type": "paragraph",
-      "content": "Link to the full catalogue collection containing all available products (including non-stocked items)."
-    },
-    {
-      "type": "collection",
-      "id": "full_catalogue_collection",
-      "label": "Full catalogue collection"
-    },
-    {
-      "type": "number",
-      "id": "full_catalogue_count",
-      "label": "Total products in full catalogue",
-      "info": "Enter the product count from the full catalogue collection.",
-      "default": 0
     },
     {
       "type": "header",
