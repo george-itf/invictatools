@@ -375,21 +375,26 @@
 /* Brand/SKU meta bar */
 .inv-pdp__info-meta {
   display: flex;
-  gap: 24px;
+  flex-wrap: wrap;
+  gap: 10px 20px;
   align-items: center;
-  padding: 14px 24px;
+  padding: 14px 28px;
   background: var(--inv-grey-50);
   border-bottom: 1px solid var(--inv-grey-200);
 }
 .inv-pdp__info-meta-item {
-  display: flex;
-  gap: 6px;
+  display: inline-flex;
+  gap: 8px;
   align-items: baseline;
   font-size: 13px;
+  line-height: 1.4;
 }
 .inv-pdp__info-meta-label {
   color: var(--inv-grey-500);
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 11px;
 }
 .inv-pdp__info-meta-value {
   color: var(--inv-fg-near-black);
@@ -397,7 +402,7 @@
 }
 .inv-pdp__info-meta-divider {
   width: 1px;
-  height: 16px;
+  height: 14px;
   background: var(--inv-grey-300);
   flex-shrink: 0;
 }
@@ -415,7 +420,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 24px;
+  padding: 16px 28px;
   background: var(--inv-grey-100);
   border: none;
   font-size: 13px;
@@ -449,9 +454,9 @@
 
 /* Accordion content */
 .inv-pdp__info-content {
-  padding: 20px 24px 24px;
+  padding: 18px 28px 20px;
   font-size: 14px;
-  line-height: 1.75;
+  line-height: 1.65;
   color: var(--inv-fg-secondary);
   display: none;
   background: var(--inv-bg-elevated);
@@ -488,7 +493,7 @@
 .inv-pdp__info-readmore {
   display: block;
   width: 100%;
-  padding: 14px 24px;
+  padding: 14px 28px;
   background: var(--inv-bg-elevated);
   border: none;
   border-top: 1px solid var(--inv-grey-100);
@@ -527,7 +532,7 @@
 }
 
 .inv-pdp__info-content p {
-  margin: 0 0 18px 0;
+  margin: 0 0 14px 0;
 }
 
 .inv-pdp__info-content p:last-child {
@@ -541,14 +546,14 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 12px;
 }
 
 .inv-pdp__info-list li {
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 14px;
+  line-height: 1.6;
   color: var(--inv-fg-near-black);
-  padding-left: 28px;
+  padding-left: 20px;
   position: relative;
 }
 
@@ -556,9 +561,9 @@
   content: '';
   position: absolute;
   left: 0;
-  top: 10px;
-  width: 9px;
-  height: 9px;
+  top: 8px;
+  width: 7px;
+  height: 7px;
   background: var(--inv-accent);
   border-radius: 50%;
 }
@@ -569,7 +574,7 @@
   background: none;
   color: var(--inv-success-bright);
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   top: 0;
   width: auto;
   height: auto;
