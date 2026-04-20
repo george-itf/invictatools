@@ -62,44 +62,4 @@
       {%- endif -%}
     {%- endfor -%}
   </div>
-
-  <style>
-    .inv-type-chips {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      padding: 0;
-      margin: 0;
-    }
-    .inv-type-chips__chip {
-      display: inline-flex;
-      align-items: center;
-      padding: 7px 14px;
-      background: var(--inv-bg-elevated, #ffffff);
-      border: 1px solid var(--inv-border, #e5e7eb);
-      border-radius: var(--inv-radius-pill, 9999px);
-      font-size: var(--inv-text-sm, 13px);
-      font-weight: 600;
-      color: var(--inv-fg-secondary, #374151);
-      text-decoration: none;
-      cursor: pointer;
-      transition: background var(--inv-duration-fast, 120ms), border-color var(--inv-duration-fast, 120ms), color var(--inv-duration-fast, 120ms);
-      white-space: nowrap;
-      user-select: none;
-    }
-    .inv-type-chips__chip:hover {
-      border-color: var(--inv-fg, #0f172a);
-      color: var(--inv-fg, #0f172a);
-    }
-    .inv-type-chips__chip--active {
-      background: var(--inv-fg, #0f172a);
-      border-color: var(--inv-fg, #0f172a);
-      color: #ffffff;
-    }
-    .inv-type-chips__chip--active:hover {
-      background: var(--inv-accent, #e11d26);
-      border-color: var(--inv-accent, #e11d26);
-      color: #ffffff;
-    }
-  </style>
 {%- endif -%}
