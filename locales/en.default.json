@@ -606,7 +606,6 @@
       "stock_low": "Only {{ quantity }} Left",
       "add_to_cart": "Add to Cart",
       "select_options": "Select Options",
-      "notify_me": "Notify Me",
       "images_label": "Product images",
       "zoom_image": "Zoom image",
       "key_specs": "Key specifications",
@@ -764,8 +763,6 @@
       }
     },
     "collection": {
-      "showing_curated": "Showing curated selection",
-      "see_all": "See all",
       "no_products_match": "No products match your current filters",
       "remove_filters_hint": "Remove some filters to see more products.",
       "no_products_found": "No products found",

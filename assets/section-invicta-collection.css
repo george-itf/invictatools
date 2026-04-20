@@ -112,211 +112,42 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
-/* Title block */
-.inv-hero__title-block {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
+/* Title */
 .inv-hero__title {
-  font-size: clamp(1.75rem, 5vw, 2.5rem);
-  font-weight: 800;
-  color: var(--inv-bg-elevated);
-  font-size: 30px;
   margin: 0;
-  line-height: 1.15;
-  letter-spacing: -0.025em;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.4);
+  font-size: clamp(2.25rem, 6vw, 3.75rem);
+  font-weight: 900;
+  color: var(--inv-bg-elevated);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.45);
 }
 
 /* Accent underline on the title */
 .inv-hero__title::after {
   content: '';
   display: block;
-  width: 48px;
-  height: 3px;
-  margin-top: 10px;
+  width: 72px;
+  height: 4px;
+  margin-top: 14px;
   background: var(--inv-c-accent, var(--inv-accent));
   border-radius: 0;
 }
 
-.inv-hero__count {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 12px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.7);
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 5px 12px;
-  border-radius: var(--inv-radius-pill);
-  white-space: nowrap;
-  letter-spacing: 0.02em;
-}
-
-.inv-hero__count svg {
-  opacity: 0.6;
-}
-
 /* Description / subheading */
 .inv-hero__description {
-  margin: 12px 0 0;
-  font-size: 1.6rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.85);
-  max-width: 1240px;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* Brand Quick Filters */
-.inv-hero__brands {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 18px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.inv-hero__brands-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 11px;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.5);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-right: 2px;
-}
-
-.inv-hero__brands-label svg {
-  opacity: 0.5;
-}
-
-.inv-brand-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 7px 14px;
-  font-size: 12px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--inv-radius-pill);
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  transition: background var(--inv-c-transition), border-color var(--inv-c-transition), color var(--inv-c-transition), transform var(--inv-c-transition);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-
-.inv-brand-pill:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
-  color: var(--inv-bg-elevated);
-  transform: translateY(-1px);
-}
-
-.inv-brand-pill.is-active {
-  background: var(--inv-c-accent);
-  border-color: var(--inv-c-accent);
-  color: var(--inv-bg-elevated);
-}
-
-.inv-brand-pill__count {
-  font-size: 10px;
+  margin: 16px 0 0;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  line-height: 1.5;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.08);
-  padding: 1px 6px;
-  border-radius: var(--inv-radius-pill);
-}
-
-.inv-brand-pill:hover .inv-brand-pill__count {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.inv-brand-pill.is-active .inv-brand-pill__count {
-  color: rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.95);
+  max-width: 780px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
 }
 
 /* ============================================================================
-   2B. FULL CATALOGUE BANNER
-   ============================================================================ */
-
-.inv-full-catalogue-banner {
-  background: #fffbeb;
-  border-bottom: 1px solid #fde68a;
-  padding: 10px 0;
-}
-
-.inv-full-catalogue-banner__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.inv-full-catalogue-banner__text {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.inv-full-catalogue-banner__label {
-  font-size: 13px;
-  font-weight: 600;
-  color: #92400e;
-}
-
-.inv-full-catalogue-banner__count {
-  font-size: 12px;
-  color: #a16207;
-  padding: 2px 8px;
-  background: rgba(146, 64, 14, 0.08);
-  border-radius: 0;
-}
-
-.inv-full-catalogue-banner__link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #92400e;
-  text-decoration: none;
-  padding: 6px 12px;
-  background: rgba(146, 64, 14, 0.08);
-  border-radius: 0;
-  transition: background var(--inv-c-transition);
-}
-
-.inv-full-catalogue-banner__link:hover {
-  background: rgba(146, 64, 14, 0.15);
-}
-
-.inv-full-catalogue-banner__link svg {
-  flex-shrink: 0;
-  transition: transform var(--inv-c-transition);
-}
-
-.inv-full-catalogue-banner__link:hover svg {
-  transform: translateX(3px);
-}
-
-/* ============================================================================
-   3. TOOLBAR
+   3. LEGACY TOOLBAR — still used by invicta-brand-collection.liquid
+   (invicta-collection.liquid uses .inv-toolrow below instead)
    ============================================================================ */
 
 .inv-toolbar {
@@ -326,11 +157,6 @@
   position: sticky;
   top: 0;
   z-index: 90;
-  transition: box-shadow var(--inv-c-transition);
-}
-
-.inv-toolbar.is-stuck {
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
 }
 
 .inv-toolbar__inner {
@@ -357,7 +183,6 @@
   color: var(--inv-c-text);
 }
 
-/* Filter toggle button */
 .inv-filter-toggle {
   display: inline-flex;
   align-items: center;
@@ -368,10 +193,9 @@
   color: var(--inv-c-text);
   background: var(--inv-bg-elevated);
   border: 1px solid var(--inv-c-border);
-  border-radius: 0;
   cursor: pointer;
-  transition: border-color var(--inv-c-transition), color var(--inv-c-transition);
   font-family: inherit;
+  transition: border-color var(--inv-c-transition), color var(--inv-c-transition);
 }
 
 .inv-filter-toggle:hover {
@@ -399,7 +223,6 @@
   border-radius: var(--inv-radius-pill);
 }
 
-/* Sort dropdown */
 .inv-toolbar__right {
   display: flex;
   align-items: center;
@@ -428,7 +251,6 @@
   color: var(--inv-c-text);
   background: var(--inv-bg-elevated);
   border: 1px solid var(--inv-c-border);
-  border-radius: 0;
   cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
@@ -445,6 +267,125 @@
   outline: none;
   border-color: var(--inv-c-accent);
   box-shadow: 0 0 0 3px rgba(225, 29, 38, 0.1);
+}
+
+/* ============================================================================
+   3B. TOOLROW — type chips + sort + mobile filter button on one line
+   Used by invicta-collection.liquid (drilling-driving etc).
+   ============================================================================ */
+
+.inv-toolrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.inv-toolrow__chips {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.inv-toolrow__chips .inv-type-chips {
+  padding: 0;
+  margin: 0;
+}
+
+.inv-toolrow__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.inv-toolrow__filters {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--inv-c-text);
+  background: var(--inv-bg-elevated);
+  border: 1px solid var(--inv-c-border);
+  border-radius: var(--inv-radius-pill);
+  cursor: pointer;
+  transition: border-color var(--inv-c-transition), color var(--inv-c-transition);
+  font-family: inherit;
+}
+
+.inv-toolrow__filters:hover {
+  border-color: var(--inv-c-accent);
+  color: var(--inv-c-accent);
+}
+
+.inv-toolrow__filters svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.inv-toolrow__filters-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--inv-bg-elevated);
+  background: var(--inv-c-accent);
+  border-radius: var(--inv-radius-pill);
+}
+
+.inv-toolrow__sort {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.inv-toolrow__sort-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--inv-c-muted);
+  white-space: nowrap;
+}
+
+.inv-toolrow__sort-select {
+  min-height: 34px;
+  padding: 6px 30px 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--inv-c-text);
+  background: var(--inv-bg-elevated);
+  border: 1px solid var(--inv-c-border);
+  border-radius: var(--inv-radius-pill);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  transition: border-color var(--inv-c-transition);
+}
+
+.inv-toolrow__sort-select:hover {
+  border-color: var(--inv-c-accent);
+}
+
+.inv-toolrow__sort-select:focus {
+  outline: none;
+  border-color: var(--inv-c-accent);
+  box-shadow: 0 0 0 3px rgba(225, 29, 38, 0.1);
+}
+
+@media (max-width: 900px) {
+  .inv-toolrow__filters {
+    display: inline-flex;
+  }
 }
 
 /* ============================================================================
@@ -1234,48 +1175,18 @@ body.inv-drawer-open {
     margin-top: 10px;
   }
 
-  .inv-hero__brands {
-    margin-top: 12px;
-    padding-top: 12px;
-    gap: 6px;
-  }
-
-  .inv-hero__brands-label {
+  /* Toolrow (mobile) */
+  .inv-toolrow__sort-label {
     display: none;
   }
 
-  .inv-brand-pill {
-    padding: 8px 12px;
-    min-height: 36px;
-    font-size: 12px;
-  }
-
-  .inv-brand-pill:hover {
-    transform: none;
-  }
-
-  .inv-brand-pill__count {
-    display: none;
-  }
-
-  /* Toolbar */
-  .inv-toolbar__inner {
-    padding: 10px 0;
-  }
-
-  .inv-sort__label {
-    display: none;
-  }
-
-  .inv-sort__select {
-    min-height: 44px;
+  .inv-toolrow__sort-select {
+    min-height: 40px;
     font-size: 13px;
-    padding: 8px 32px 8px 12px;
   }
 
-  .inv-filter-toggle {
-    min-height: 44px;
-    padding: 8px 12px;
+  .inv-toolrow__filters {
+    min-height: 40px;
     font-size: 13px;
   }
 
@@ -1345,19 +1256,6 @@ body.inv-drawer-open {
     padding: 0 8px;
   }
 
-  /* Full catalogue banner */
-  .inv-full-catalogue-banner__inner {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-  }
-
-  .inv-full-catalogue-banner__link {
-    justify-content: center;
-    padding: 12px;
-    min-height: 44px;
-  }
-
   /* Empty state */
   .inv-empty {
     padding: 48px 16px;
@@ -1424,19 +1322,16 @@ body.inv-drawer-open {
   .inv-drawer-overlay,
   .inv-floating-filter,
   .inv-scroll-top,
-  .inv-toolbar,
-  .inv-brand-pill,
   .inv-filter-chip,
   .inv-clear-all,
-  .inv-sort__select,
-  .inv-filter-toggle,
+  .inv-toolrow__sort-select,
+  .inv-toolrow__filters,
   .inv-sidebar__apply,
   .inv-drawer__apply,
   .inv-drawer__reset,
   .inv-drawer__close,
   .inv-empty__btn,
-  .inv-pagination__item,
-  .inv-full-catalogue-banner__link {
+  .inv-pagination__item {
     transition: none;
   }
 
@@ -1450,7 +1345,7 @@ body.inv-drawer-open {
    ============================================================================ */
 
 @media print {
-  .inv-toolbar,
+  .inv-toolrow,
   .inv-sidebar,
   .inv-floating-filter,
   .inv-scroll-top,

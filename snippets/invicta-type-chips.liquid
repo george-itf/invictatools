@@ -33,16 +33,18 @@
 -%}
 
 {%- if type_filter and type_filter.values.size >= 2 -%}
-  <div class="inv-type-chips" role="group" aria-label="Filter by product type">
-    {%- assign all_active = true -%}
-    {%- if type_filter.active_values.size > 0 -%}
-      {%- assign all_active = false -%}
-    {%- endif -%}
+  {%- assign all_active = true -%}
+  {%- if type_filter.active_values.size > 0 -%}
+    {%- assign all_active = false -%}
+  {%- endif -%}
+  {%- assign all_reset_url = collection.url | default: search.url -%}
 
+  <div class="inv-type-chips" role="group" aria-label="Filter by product type">
     <a
-      href="{{ type_filter.url_to_remove | default: collection.url | default: search.url }}"
-      class="inv-type-chips__chip {% if all_active %}inv-type-chips__chip--active{% endif %}"
+      href="{{ all_reset_url }}"
+      class="inv-type-chips__chip{% if all_active %} inv-type-chips__chip--active{% endif %}"
       data-inv-filter-remove
+      aria-pressed="{{ all_active }}"
     >
       All ({{ total_type_count }})
     </a>
@@ -51,7 +53,8 @@
       {%- if val.count > 0 -%}
         <a
           href="{{ val.url }}"
-          class="inv-type-chips__chip {% if val.active %}inv-type-chips__chip--active{% endif %}"
+          class="inv-type-chips__chip{% if val.active %} inv-type-chips__chip--active{% endif %}"
+          aria-pressed="{{ val.active }}"
           {%- if val.active %} data-inv-filter-remove{% else %} data-inv-filter-apply{% endif -%}
         >
           {{ val.label }} ({{ val.count }})
@@ -65,12 +68,13 @@
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
-      padding: var(--inv-gap-sm, 12px) 0;
-      margin-bottom: var(--inv-gap-sm, 12px);
+      padding: 0;
+      margin: 0;
     }
     .inv-type-chips__chip {
-      display: inline-block;
-      padding: 6px 14px;
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 14px;
       background: var(--inv-bg-elevated, #ffffff);
       border: 1px solid var(--inv-border, #e5e7eb);
       border-radius: var(--inv-radius-pill, 9999px);
@@ -78,8 +82,10 @@
       font-weight: 600;
       color: var(--inv-fg-secondary, #374151);
       text-decoration: none;
-      transition: all var(--inv-duration-fast, 100ms);
+      cursor: pointer;
+      transition: background var(--inv-duration-fast, 120ms), border-color var(--inv-duration-fast, 120ms), color var(--inv-duration-fast, 120ms);
       white-space: nowrap;
+      user-select: none;
     }
     .inv-type-chips__chip:hover {
       border-color: var(--inv-fg, #0f172a);
@@ -91,7 +97,8 @@
       color: #ffffff;
     }
     .inv-type-chips__chip--active:hover {
-      background: var(--inv-fg-secondary, #374151);
+      background: var(--inv-accent, #e11d26);
+      border-color: var(--inv-accent, #e11d26);
       color: #ffffff;
     }
   </style>

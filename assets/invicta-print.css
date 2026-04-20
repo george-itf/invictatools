@@ -276,7 +276,6 @@
   .inv-pdp__form,
   .inv-pdp__buy-now,
   .inv-pdp__qty,
-  .inv-pdp__notify,
   .inv-pdp__trust-strip,
   .inv-pdp__trust-badges,
   .inv-pdp__kit-wrapper,
@@ -443,12 +442,9 @@
      ========================================================================= */
 
   /* --- Collection: hide filters and controls --- */
-  .inv-toolbar,
+  .inv-toolrow,
   .inv-sidebar,
-  .inv-sort,
-  .inv-filter-toggle,
   .inv-pagination,
-  .inv-full-catalogue-banner,
   .inv-empty__clear-all,
   .inv-card__action,
   .inv-card__btn,
@@ -471,11 +467,6 @@
   .inv-hero__title {
     font-size: 16pt;
     color: #000;
-  }
-
-  .inv-hero__count {
-    font-size: 10pt;
-    color: #333;
   }
 
   .inv-active-filters {
@@ -551,11 +542,6 @@
     font-weight: 700;
     border: 0.5pt solid #000;
     padding: 0 2pt;
-  }
-
-  /* --- Collection: brand pills in hero --- */
-  .inv-hero__brands {
-    display: none !important;
   }
 
 
