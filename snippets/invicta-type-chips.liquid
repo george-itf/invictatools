@@ -51,9 +51,15 @@
 
     {%- for val in type_filter.values -%}
       {%- if val.count > 0 -%}
+        {%- if val.active -%}
+          {%- assign chip_url = val.url_to_remove -%}
+        {%- else -%}
+          {%- assign chip_url = val.url_to_add -%}
+        {%- endif -%}
         <a
-          href="{{ val.url }}"
+          href="{{ chip_url }}"
           class="inv-type-chips__chip{% if val.active %} inv-type-chips__chip--active{% endif %}"
+          rel="nofollow"
           aria-pressed="{{ val.active }}"
           {%- if val.active %} data-inv-filter-remove{% else %} data-inv-filter-apply{% endif -%}
         >
