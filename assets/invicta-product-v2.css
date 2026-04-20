@@ -472,9 +472,21 @@
   display: block;
 }
 
-/* Description always shows fully once the accordion is opened — redundant Show-more button hidden. */
-[data-row="description"] .inv-pdp__info-readmore {
-  display: none;
+/* Description content is collapsed to a soft 210px by default and faded at
+   the bottom to signal there's more. JS measures the full scrollHeight and
+   either adds .is-desc-short (content fits, remove the cap) or inserts a
+   Show-more button that toggles .is-desc-expanded (reveal the rest). */
+[data-row="description"] .inv-pdp__info-content {
+  max-height: 210px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent);
+          mask-image: linear-gradient(to bottom, #000 72%, transparent);
+}
+[data-row="description"].is-desc-short .inv-pdp__info-content,
+[data-row="description"].is-desc-expanded .inv-pdp__info-content {
+  max-height: none;
+  -webkit-mask-image: none;
+          mask-image: none;
 }
 
 /* Show more / Show less button — scoped under .inv-pdp to beat base.css button reset */

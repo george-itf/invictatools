@@ -380,10 +380,24 @@
           if (contentEl) {
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = html;
-            const plainText = tempDiv.textContent.trim();
-            const newP = document.createElement('p');
-            newP.textContent = plainText.length > 500 ? plainText.substring(0, 500) + '...' : plainText;
-            contentEl.appendChild(newP);
+            const paras = tempDiv.querySelectorAll('p');
+            if (paras.length > 0) {
+              paras.forEach(function(p) {
+                const text = p.textContent.trim();
+                if (text) {
+                  const newP = document.createElement('p');
+                  newP.textContent = text;
+                  contentEl.appendChild(newP);
+                }
+              });
+            } else {
+              const text = tempDiv.textContent.trim();
+              if (text) {
+                const newP = document.createElement('p');
+                newP.textContent = text;
+                contentEl.appendChild(newP);
+              }
+            }
             descRow.classList.remove('inv-pdp--hidden');
           }
         }
@@ -394,8 +408,10 @@
 
     /* ========================================
        DESCRIPTION "SHOW MORE" TOGGLE
-       Limits description height and adds a toggle button.
-       If content is shorter than max-height, hides the button.
+       Description content is collapsed to 210px by CSS. We measure its
+       full scrollHeight on the next frame: if it fits, add .is-desc-short
+       to undo the cap and skip rendering the button. If it overflows,
+       insert a Show more / Show less button that toggles .is-desc-expanded.
        ======================================== */
     (function initDescriptionToggle() {
       var descRow = section.querySelector('[data-row="description"]');
@@ -403,23 +419,26 @@
       var contentEl = descRow.querySelector('[data-content]');
       if (!contentEl) return;
 
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'inv-pdp__info-readmore';
-      btn.textContent = 'Show more';
-      contentEl.parentNode.insertBefore(btn, contentEl.nextSibling);
+      var collapsedMax = 210;
 
-      /* Check if content is short enough to not need the toggle */
       requestAnimationFrame(function() {
-        if (contentEl.scrollHeight <= 210) {
+        if (contentEl.scrollHeight <= collapsedMax) {
           descRow.classList.add('is-desc-short');
-          descRow.classList.add('is-desc-expanded');
+          return;
         }
-      });
 
-      btn.addEventListener('click', function() {
-        var expanded = descRow.classList.toggle('is-desc-expanded');
-        btn.textContent = expanded ? 'Show less' : 'Show more';
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'inv-pdp__info-readmore';
+        btn.textContent = 'Show more';
+        btn.setAttribute('aria-expanded', 'false');
+        contentEl.parentNode.insertBefore(btn, contentEl.nextSibling);
+
+        btn.addEventListener('click', function() {
+          var expanded = descRow.classList.toggle('is-desc-expanded');
+          btn.textContent = expanded ? 'Show less' : 'Show more';
+          btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        });
       });
     })();
 
