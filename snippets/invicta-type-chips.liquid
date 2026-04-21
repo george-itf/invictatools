@@ -37,7 +37,16 @@
   {%- if type_filter.active_values.size > 0 -%}
     {%- assign all_active = false -%}
   {%- endif -%}
-  {%- assign all_reset_url = collection.url | default: search.url -%}
+  {%- comment -%}
+    "All" clears only the product_type filter while preserving other
+    active filters (price, brand, etc.). Falls back to the plain
+    collection/search URL only if no type filter is currently active.
+  {%- endcomment -%}
+  {%- if type_filter.active_values.size > 0 -%}
+    {%- assign all_reset_url = type_filter.url_to_remove -%}
+  {%- else -%}
+    {%- assign all_reset_url = collection.url | default: search.url -%}
+  {%- endif -%}
 
   <div class="inv-type-chips" role="group" aria-label="Filter by product type">
     <a
