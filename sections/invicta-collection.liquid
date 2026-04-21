@@ -522,8 +522,14 @@
     
     <div class="inv-drawer__footer">
       <a href="{{ collection.url }}" class="inv-drawer__reset">{{ 'products.facets.clear_all' | t }}</a>
-      <button type="button" class="inv-drawer__apply" id="InvDrawerApply" data-inv-filter-drawer-apply>
-        Show {{ collection.products_count }} {% if collection.products_count == 1 %}result{% else %}results{% endif %}
+      <button type="button" class="inv-drawer__apply" id="InvDrawerApply" data-inv-filter-drawer-apply{% if collection.products_count == 0 %} disabled aria-disabled="true"{% endif %}>
+        {%- if collection.products_count == 0 -%}
+          No results — adjust filters
+        {%- elsif collection.products_count == 1 -%}
+          Show 1 result
+        {%- else -%}
+          Show {{ collection.products_count }} results
+        {%- endif -%}
       </button>
     </div>
   </div>
