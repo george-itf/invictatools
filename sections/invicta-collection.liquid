@@ -267,6 +267,10 @@
               <div class="inv-toolrow">
                 <div class="inv-toolrow__chips">
                   {% render 'invicta-type-chips', collection: collection %}
+                  <p class="inv-result-count" data-inv-result-count>
+                    <span data-inv-result-count-number>{{ collection.products_count }}</span>
+                    {%- if collection.products_count == 1 -%} product{%- else -%} products{%- endif -%}
+                  </p>
                 </div>
                 <div class="inv-toolrow__actions">
                   <button type="button" class="inv-toolrow__filters" id="InvFilterToggle" aria-expanded="false">

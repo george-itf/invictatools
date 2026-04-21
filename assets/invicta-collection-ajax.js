@@ -34,6 +34,45 @@
   }
 
   /**
+   * Stable screen-reader live region. Lives outside the section so it
+   * survives AJAX swaps and reliably announces on text change.
+   */
+  function ensureLiveRegion() {
+    var lr = document.getElementById('InvCollectionLiveRegion');
+    if (!lr) {
+      lr = document.createElement('div');
+      lr.id = 'InvCollectionLiveRegion';
+      lr.className = 'visually-hidden';
+      lr.setAttribute('aria-live', 'polite');
+      lr.setAttribute('role', 'status');
+      lr.setAttribute('aria-atomic', 'true');
+      document.body.appendChild(lr);
+    }
+    return lr;
+  }
+
+  /**
+   * Read the newly-rendered count and announce it to screen readers.
+   */
+  function announceResults() {
+    var lr = ensureLiveRegion();
+    var countEl = document.querySelector('[data-inv-result-count]');
+    var empty = document.querySelector('.inv-empty');
+    var message;
+    if (countEl) {
+      var n = countEl.textContent.trim().replace(/\s+/g, ' ');
+      message = n + ' found.';
+    } else if (empty) {
+      message = 'No products match your filters.';
+    } else {
+      return;
+    }
+    /* Force a change so repeated identical announcements still fire. */
+    lr.textContent = '';
+    setTimeout(function() { lr.textContent = message; }, 50);
+  }
+
+  /**
    * Show/hide loading overlay on the grid.
    */
   function setLoading(isLoading) {
@@ -89,6 +128,7 @@
           if (newSection && currentSection) {
             currentSection.innerHTML = newSection.innerHTML;
             reinit();
+            announceResults();
           }
         }
       })

@@ -173,6 +173,19 @@
   margin: 0;
 }
 
+.inv-result-count {
+  margin: 6px 0 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--inv-c-text-muted, #6b7280);
+  letter-spacing: 0.01em;
+}
+
+.inv-result-count [data-inv-result-count-number] {
+  font-weight: 700;
+  color: var(--inv-c-text);
+}
+
 .inv-toolrow__actions {
   display: flex;
   align-items: center;
