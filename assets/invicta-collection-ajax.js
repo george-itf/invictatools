@@ -308,6 +308,11 @@
       sidebarForm.addEventListener('blur', function(e) {
         if (e.target.matches('input[type="number"]')) {
           var row = e.target.closest('[data-inv-price-range]');
+          /* If focus is moving to another price input in the same row
+             (e.g. Tab from min to max), skip the submit — the final blur
+             will trigger it. This avoids swapping the max input out from
+             under the user mid-type. */
+          if (row && row.contains(e.relatedTarget)) return;
           if (row && validatePriceRange(row)) submitSidebar();
         }
       }, true);
@@ -346,6 +351,7 @@
       drawerForm.addEventListener('blur', function(e) {
         if (e.target.matches('input[type="number"]')) {
           var row = e.target.closest('[data-inv-price-range]');
+          if (row && row.contains(e.relatedTarget)) return;
           if (row && validatePriceRange(row)) submitDrawer();
         }
       }, true);
