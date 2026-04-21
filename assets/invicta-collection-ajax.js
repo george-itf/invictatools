@@ -34,19 +34,45 @@
   }
 
   /**
+   * Show/hide loading overlay on the grid.
+   */
+  function setLoading(isLoading) {
+    var main = document.querySelector('.inv-main');
+    var grid = document.querySelector('.inv-product-grid, #InvProductGrid');
+    if (grid) {
+      if (isLoading) {
+        grid.setAttribute('aria-busy', 'true');
+      } else {
+        grid.removeAttribute('aria-busy');
+      }
+    }
+    if (!main) return;
+    var overlay = main.querySelector('.inv-grid-loading');
+    if (isLoading) {
+      if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.className = 'inv-grid-loading';
+        overlay.innerHTML = '<div class="inv-grid-loading__spinner" role="status" aria-label="Loading results"></div>';
+        main.appendChild(overlay);
+      }
+    } else if (overlay) {
+      overlay.remove();
+    }
+  }
+
+  /**
    * Fetch new section HTML, swap DOM, update URL.
    */
   function fetchAndUpdate(url) {
     if (abortController) abortController.abort();
-    abortController = new AbortController();
+    var controller = new AbortController();
+    abortController = controller;
 
-    /* Show loading state */
-    var grid = document.querySelector('.inv-product-grid, #InvProductGrid');
-    if (grid) grid.style.opacity = '0.5';
+    setLoading(true);
 
     var fetchUrl = url + (url.includes('?') ? '&' : '?') + 'sections=' + sectionId;
 
-    fetch(fetchUrl, { signal: abortController.signal })
+    fetch(fetchUrl, { signal: controller.signal })
       .then(function(response) {
         if (!response.ok) throw new Error('HTTP ' + response.status);
         return response.json();
@@ -72,8 +98,12 @@
         window.location.href = url;
       })
       .finally(function() {
-        if (grid) grid.style.opacity = '';
-        abortController = null;
+        /* Only clear loading state if this fetch is still the active one.
+           A superseding fetch will have replaced abortController. */
+        if (abortController === controller) {
+          setLoading(false);
+          abortController = null;
+        }
       });
   }
 

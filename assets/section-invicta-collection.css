@@ -599,6 +599,7 @@
 
 .inv-main {
   min-width: 0;
+  position: relative;
 }
 
 /* ============================================================================
@@ -609,6 +610,40 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
+  transition: opacity 120ms ease-out;
+}
+
+.inv-product-grid[aria-busy="true"] {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.inv-grid-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 120px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.inv-grid-loading__spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid rgba(0, 0, 0, 0.08);
+  border-top-color: var(--inv-c-accent, #e11d26);
+  animation: inv-grid-spin 700ms linear infinite;
+}
+
+@keyframes inv-grid-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inv-grid-loading__spinner { animation-duration: 1800ms; }
 }
 
 .inv-product-card {
