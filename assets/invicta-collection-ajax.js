@@ -34,6 +34,23 @@
   }
 
   /**
+   * Strip the `page` query param from an absolute or relative URL.
+   * Filter-remove / type-chip hrefs come from Shopify's url_to_remove /
+   * url_to_add, which preserve all current params including page — so a
+   * user on page 3 who removes a filter would otherwise land on a
+   * possibly-empty page 3 of the new result set.
+   */
+  function stripPageParam(url) {
+    try {
+      var u = new URL(url, window.location.origin);
+      u.searchParams.delete('page');
+      return u.pathname + (u.search ? u.search : '') + u.hash;
+    } catch (e) {
+      return url;
+    }
+  }
+
+  /**
    * Stable screen-reader live region. Lives outside the section so it
    * survives AJAX swaps and reliably announces on text change.
    */
@@ -374,7 +391,7 @@
     document.querySelectorAll('[data-inv-filter-remove], [data-inv-filter-apply]').forEach(function(tag) {
       tag.addEventListener('click', function(e) {
         e.preventDefault();
-        fetchAndUpdate(tag.href, { focus: 'results' });
+        fetchAndUpdate(stripPageParam(tag.href), { focus: 'results' });
       });
     });
   }
