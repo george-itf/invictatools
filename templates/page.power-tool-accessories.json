@@ -74,14 +74,6 @@
             "link": "",
             "image": "shopify://shop_images/dewalt_router_bits_image.png"
           }
-        },
-        "category_zjBh8D": {
-          "type": "category",
-          "settings": {
-            "collection": "pta-nails-staples",
-            "title": "",
-            "link": ""
-          }
         }
       },
       "block_order": [
@@ -91,8 +83,7 @@
         "category_BMABJD",
         "category_zXNR9k",
         "category_gERc3h",
-        "category_7pjgdN",
-        "category_zjBh8D"
+        "category_7pjgdN"
       ],
       "settings": {
         "heading": "Power Tool Accessories",
