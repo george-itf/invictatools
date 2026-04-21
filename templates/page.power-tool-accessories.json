@@ -33,7 +33,7 @@
         "category_GNaNri": {
           "type": "category",
           "settings": {
-            "collection": "drill-bits",
+            "collection": "pta-drill-bits",
             "title": "Drill Bits",
             "link": "",
             "image": "shopify://shop_images/dewdt70784-qz_6.jpg"
@@ -42,25 +42,16 @@
         "category_BMABJD": {
           "type": "category",
           "settings": {
-            "collection": "hole-cutters",
+            "collection": "pta-holesaws-core-drills",
             "title": "Hole Cutters",
             "link": "",
             "image": "shopify://shop_images/91TBopOYGNL._AC_UF350_350_QL80.jpg"
           }
         },
-        "category_T7P4bU": {
-          "type": "category",
-          "settings": {
-            "collection": "cutting-discs",
-            "title": "Angle Grinder Blades/Cutting Discs",
-            "link": "",
-            "image": "shopify://shop_images/30229-7.jpg"
-          }
-        },
         "category_zXNR9k": {
           "type": "category",
           "settings": {
-            "collection": "gun-nails",
+            "collection": "brad-nails",
             "title": "Gun Nails & Accessories",
             "link": "",
             "image": "shopify://shop_images/57.jpg"
@@ -69,7 +60,7 @@
         "category_gERc3h": {
           "type": "category",
           "settings": {
-            "collection": "screwdriver-bits",
+            "collection": "pta-screwdriver-bits",
             "title": "Screwdriver Bits",
             "link": "",
             "image": "shopify://shop_images/7045F_A1.avif"
@@ -98,7 +89,6 @@
         "category_Ndb8Ek",
         "category_GNaNri",
         "category_BMABJD",
-        "category_T7P4bU",
         "category_zXNR9k",
         "category_gERc3h",
         "category_7pjgdN",
