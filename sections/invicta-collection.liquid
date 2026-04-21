@@ -227,7 +227,7 @@
                               placeholder="Min"
                               min="0"
                               max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
-                              aria-describedby="InvPriceError-{{ section.id }}-min"
+                              aria-describedby="InvPriceError-{{ section.id }}"
                               {% if filter.min_value.value %}value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
                             >
                           </div>
@@ -241,13 +241,13 @@
                               placeholder="Max"
                               min="0"
                               max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
-                              aria-describedby="InvPriceError-{{ section.id }}-min"
+                              aria-describedby="InvPriceError-{{ section.id }}"
                               {% if filter.max_value.value %}value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
                             >
                           </div>
                         </div>
                         <p
-                          id="InvPriceError-{{ section.id }}-min"
+                          id="InvPriceError-{{ section.id }}"
                           class="inv-facet__price-error"
                           data-inv-price-error
                           role="alert"
