@@ -102,8 +102,6 @@
 .inv-card__stock--in-stock { background-color: var(--inv-stock-in, var(--inv-success)); display: none; }
 .inv-card__stock-bar--out,
 .inv-card__stock--out { background-color: var(--inv-stock-out, var(--inv-fg-subtle)); }
-.inv-card__stock-bar--low,
-.inv-card__stock--low { background-color: var(--inv-stock-low, var(--inv-warning)); }
 /* Supplier stock — blue bar + visible label */
 .inv-card__stock-bar--supplier { background-color: var(--inv-stock-supplier, var(--inv-info)); }
 .inv-card__stock--supplier { display: inline-block; background-color: var(--inv-info); color: var(--inv-bg-elevated); }

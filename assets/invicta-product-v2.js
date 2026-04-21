@@ -742,7 +742,6 @@
       const stockBanner = section.querySelector('[data-stock-banner]');
       const stockText = section.querySelector('[data-stock-text]');
       const dispatchText = section.querySelector('[data-dispatch-text]');
-      const lowStockThreshold = parseInt(section.dataset.lowStockThreshold, 10) || 5;
       const stockSource = stockBanner ? (stockBanner.dataset.stockSource || 'invicta') : 'invicta';
       const supplierBannerText = stockBanner ? (stockBanner.dataset.supplierBannerText || 'In Stock with Supplier \u2014 Usually Dispatched within 2\u20133 Working Days') : '';
 
@@ -750,7 +749,6 @@
         stockBanner.classList.remove(
           'inv-pdp__stock-banner--in-stock',
           'inv-pdp__stock-banner--out-of-stock',
-          'inv-pdp__stock-banner--low-stock',
           'inv-pdp__stock-banner--supplier-stock'
         );
 
@@ -759,16 +757,8 @@
             stockBanner.classList.add('inv-pdp__stock-banner--supplier-stock');
             stockText.textContent = supplierBannerText;
           } else {
-            const qty = variant && variant.inventory_quantity;
-            const tracked = variant && variant.inventory_management === 'shopify';
-
-            if (tracked && qty > 0 && qty <= lowStockThreshold) {
-              stockBanner.classList.add('inv-pdp__stock-banner--low-stock');
-              stockText.textContent = 'Only ' + qty + ' left in stock \u2014 order soon';
-            } else {
-              stockBanner.classList.add('inv-pdp__stock-banner--in-stock');
-              stockText.textContent = 'In Stock \u2014 Ready to Ship';
-            }
+            stockBanner.classList.add('inv-pdp__stock-banner--in-stock');
+            stockText.textContent = 'In Stock \u2014 Ready to Ship';
           }
         } else {
           stockBanner.classList.add('inv-pdp__stock-banner--out-of-stock');

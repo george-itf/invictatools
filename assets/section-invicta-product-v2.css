@@ -127,17 +127,6 @@
   color: var(--inv-accent-hover);
 }
 
-/* --- Low Stock Banner modifier --- */
-.inv-pdp__stock-banner--low-stock {
-  background: #fffbeb;
-  color: #92400e;
-  border-bottom: 2px solid #fde68a;
-}
-.inv-pdp__stock-banner--low-stock .inv-pdp__stock-dot {
-  background: var(--inv-warning);
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
-}
-
 /* --- Supplier Stock Banner — blue to differentiate from in-stock green --- */
 .inv-pdp__stock-banner--supplier-stock {
   background: #dbeafe;
