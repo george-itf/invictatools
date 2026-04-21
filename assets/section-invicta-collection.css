@@ -173,6 +173,26 @@
   margin: 0;
 }
 
+.inv-result-count {
+  margin: 6px 0 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--inv-c-text-muted, #6b7280);
+  letter-spacing: 0.01em;
+  outline: none;
+}
+
+.inv-result-count:focus-visible {
+  outline: 2px solid var(--inv-c-accent, #e11d26);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.inv-result-count [data-inv-result-count-number] {
+  font-weight: 700;
+  color: var(--inv-c-text);
+}
+
 .inv-toolrow__actions {
   display: flex;
   align-items: center;
@@ -593,12 +613,30 @@
   flex-shrink: 0;
 }
 
+.inv-facet__price-range[data-invalid="true"] .inv-facet__price-field {
+  border-color: var(--inv-c-accent, #e11d26);
+  box-shadow: 0 0 0 1px var(--inv-c-accent, #e11d26) inset;
+}
+
+.inv-facet__price-error {
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--inv-c-accent, #e11d26);
+  font-weight: 500;
+}
+
+.inv-facet__price-error[hidden] {
+  display: none;
+}
+
 /* ============================================================================
    5B. MAIN CONTENT AREA
    ============================================================================ */
 
 .inv-main {
   min-width: 0;
+  position: relative;
 }
 
 /* ============================================================================
@@ -609,6 +647,40 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
+  transition: opacity 120ms ease-out;
+}
+
+.inv-product-grid[aria-busy="true"] {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.inv-grid-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 120px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.inv-grid-loading__spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid rgba(0, 0, 0, 0.08);
+  border-top-color: var(--inv-c-accent, #e11d26);
+  animation: inv-grid-spin 700ms linear infinite;
+}
+
+@keyframes inv-grid-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inv-grid-loading__spinner { animation-duration: 1800ms; }
 }
 
 .inv-product-card {
@@ -910,6 +982,18 @@ body.inv-drawer-open {
 
 .inv-drawer__apply:hover {
   background: #c41920;
+}
+
+.inv-drawer__apply[disabled],
+.inv-drawer__apply[aria-disabled="true"] {
+  background: var(--inv-bg-muted, #888);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.inv-drawer__apply[disabled]:hover,
+.inv-drawer__apply[aria-disabled="true"]:hover {
+  background: var(--inv-bg-muted, #888);
 }
 
 /* ============================================================================
