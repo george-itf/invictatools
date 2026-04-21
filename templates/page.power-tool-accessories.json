@@ -15,7 +15,7 @@
         "category_FwcH79": {
           "type": "category",
           "settings": {
-            "collection": "saw-blades",
+            "collection": "pta-saw-blades",
             "title": "Saw Blades",
             "link": "",
             "image": "shopify://shop_images/DW_Elite_Circular_Saw_Blades_a9fa.jpg"
@@ -115,6 +115,7 @@
         "card_radius": 12,
         "card_padding": 16,
         "image_ratio": 75,
+        "image_fit": "cover",
         "show_arrow": true,
         "padding_top": 48,
         "padding_bottom": 48,
