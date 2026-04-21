@@ -92,9 +92,6 @@
   elsif is_supplier_stock
     assign stock_status = 'supplier'
     assign stock_label = 'invicta.product.supplier_delivery' | t
-  elsif inventory_qty > 0 and inventory_qty <= 5
-    assign stock_status = 'low'
-    assign stock_label = 'invicta.product.stock_low' | t: quantity: inventory_qty
   endif
 
   # -------------------------
