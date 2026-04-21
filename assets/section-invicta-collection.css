@@ -179,6 +179,13 @@
   font-weight: 500;
   color: var(--inv-c-text-muted, #6b7280);
   letter-spacing: 0.01em;
+  outline: none;
+}
+
+.inv-result-count:focus-visible {
+  outline: 2px solid var(--inv-c-accent, #e11d26);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 .inv-result-count [data-inv-result-count-number] {

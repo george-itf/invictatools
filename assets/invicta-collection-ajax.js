@@ -100,12 +100,73 @@
   }
 
   /**
-   * Fetch new section HTML, swap DOM, update URL.
+   * Capture a serialisable "who's focused" snapshot for a filter form, so
+   * we can restore focus to the equivalent post-swap element.
    */
-  function fetchAndUpdate(url) {
+  function captureFocusSnapshot() {
+    var el = document.activeElement;
+    if (!el || el === document.body) return null;
+    var formEl = el.closest('[data-inv-filter-sidebar], [data-inv-filter-drawer-form]');
+    var formSelector = null;
+    if (formEl && formEl.matches('[data-inv-filter-sidebar]')) formSelector = '[data-inv-filter-sidebar]';
+    else if (formEl && formEl.matches('[data-inv-filter-drawer-form]')) formSelector = '[data-inv-filter-drawer-form]';
+    if (el.matches('input[type="checkbox"][name]')) {
+      return {
+        formSelector: formSelector,
+        selector: 'input[type="checkbox"][name="' + cssEscape(el.name) + '"][value="' + cssEscape(el.value) + '"]'
+      };
+    }
+    if (el.matches('input[type="number"][name]')) {
+      return {
+        formSelector: formSelector,
+        selector: 'input[type="number"][name="' + cssEscape(el.name) + '"]'
+      };
+    }
+    if (el.matches('[data-inv-sort-select]')) {
+      return { formSelector: null, selector: '[data-inv-sort-select]' };
+    }
+    return null;
+  }
+
+  function restoreFocusSnapshot(snapshot) {
+    if (!snapshot) return false;
+    var scope = snapshot.formSelector ? document.querySelector(snapshot.formSelector) : document;
+    if (!scope) return false;
+    var el = scope.querySelector(snapshot.selector);
+    if (!el) return false;
+    el.focus({ preventScroll: true });
+    return true;
+  }
+
+  function cssEscape(s) {
+    return String(s).replace(/(["\\])/g, '\\$1');
+  }
+
+  /**
+   * Move focus to the result count (or the main content) so screen readers
+   * and keyboard users land on the new results instead of body.
+   */
+  function focusResults() {
+    var target = document.querySelector('[data-inv-result-count]')
+      || document.querySelector('.inv-empty')
+      || document.querySelector('.inv-main');
+    if (!target) return;
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
+  }
+
+  /**
+   * Fetch new section HTML, swap DOM, update URL.
+   * @param {string} url
+   * @param {{ focus?: 'preserve'|'results' }} [options]
+   */
+  function fetchAndUpdate(url, options) {
+    options = options || {};
     if (abortController) abortController.abort();
     var controller = new AbortController();
     abortController = controller;
+
+    var focusSnapshot = options.focus === 'preserve' ? captureFocusSnapshot() : null;
 
     setLoading(true);
 
@@ -129,6 +190,12 @@
             currentSection.innerHTML = newSection.innerHTML;
             reinit();
             announceResults();
+
+            if (options.focus === 'preserve' && focusSnapshot) {
+              if (!restoreFocusSnapshot(focusSnapshot)) focusResults();
+            } else if (options.focus === 'results') {
+              focusResults();
+            }
           }
         }
       })
@@ -201,14 +268,14 @@
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(function() {
           if (!allPriceRangesValid(sidebarForm)) return;
-          fetchAndUpdate(buildFilterUrl(sidebarForm));
+          fetchAndUpdate(buildFilterUrl(sidebarForm), { focus: 'preserve' });
         }, DEBOUNCE_MS);
       };
       sidebarForm.addEventListener('submit', function(e) {
         e.preventDefault();
         if (!allPriceRangesValid(sidebarForm)) return;
         clearTimeout(debounceTimer);
-        fetchAndUpdate(buildFilterUrl(sidebarForm));
+        fetchAndUpdate(buildFilterUrl(sidebarForm), { focus: 'results' });
       });
       sidebarForm.addEventListener('change', function(e) {
         if (e.target.matches('input[type="checkbox"]')) {
@@ -248,7 +315,7 @@
         clearTimeout(drawerTimer);
         drawerTimer = setTimeout(function() {
           if (!allPriceRangesValid(drawerForm)) return;
-          fetchAndUpdate(buildFilterUrl(drawerForm));
+          fetchAndUpdate(buildFilterUrl(drawerForm), { focus: 'preserve' });
         }, DEBOUNCE_MS);
       };
       drawerForm.addEventListener('change', function(e) {
@@ -286,7 +353,7 @@
         var params = new URLSearchParams(window.location.search);
         params.set('sort_by', this.value);
         params.delete('page');
-        fetchAndUpdate(window.location.pathname + '?' + params.toString());
+        fetchAndUpdate(window.location.pathname + '?' + params.toString(), { focus: 'preserve' });
       });
     }
 
@@ -294,7 +361,7 @@
     document.querySelectorAll('[data-inv-page-link]').forEach(function(link) {
       link.addEventListener('click', function(e) {
         e.preventDefault();
-        fetchAndUpdate(link.href);
+        fetchAndUpdate(link.href, { focus: 'results' });
         var grid = document.querySelector('.inv-product-grid, #InvProductGrid');
         if (grid) {
           var top = grid.getBoundingClientRect().top + window.scrollY - 80;
@@ -307,7 +374,7 @@
     document.querySelectorAll('[data-inv-filter-remove], [data-inv-filter-apply]').forEach(function(tag) {
       tag.addEventListener('click', function(e) {
         e.preventDefault();
-        fetchAndUpdate(tag.href);
+        fetchAndUpdate(tag.href, { focus: 'results' });
       });
     });
   }
