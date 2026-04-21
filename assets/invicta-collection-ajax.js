@@ -239,21 +239,43 @@
       });
     }
 
-    /* Mobile drawer apply button */
+    /* Mobile drawer — instant apply, same model as desktop. */
     var drawerApply = document.querySelector('[data-inv-filter-drawer-apply]');
     var drawerForm = document.querySelector('[data-inv-filter-drawer-form]');
-    if (drawerApply && drawerForm) {
-      /* Live validation inside the drawer. */
+    if (drawerForm) {
+      var drawerTimer;
+      var submitDrawer = function() {
+        clearTimeout(drawerTimer);
+        drawerTimer = setTimeout(function() {
+          if (!allPriceRangesValid(drawerForm)) return;
+          fetchAndUpdate(buildFilterUrl(drawerForm));
+        }, DEBOUNCE_MS);
+      };
+      drawerForm.addEventListener('change', function(e) {
+        if (e.target.matches('input[type="checkbox"]')) submitDrawer();
+      });
       drawerForm.addEventListener('input', function(e) {
         if (e.target.matches('input[type="number"]')) {
           validatePriceRange(e.target.closest('[data-inv-price-range]'));
         }
       });
+      drawerForm.addEventListener('blur', function(e) {
+        if (e.target.matches('input[type="number"]')) {
+          var row = e.target.closest('[data-inv-price-range]');
+          if (row && validatePriceRange(row)) submitDrawer();
+        }
+      }, true);
+    }
+    /* Apply button no longer submits — it just closes the drawer to
+       reveal the (already-updated) grid. Label updates server-side. */
+    if (drawerApply) {
       drawerApply.addEventListener('click', function() {
-        if (!allPriceRangesValid(drawerForm)) return;
-        var closeBtn = document.querySelector('[data-inv-filter-drawer-close]');
-        if (closeBtn) closeBtn.click();
-        fetchAndUpdate(buildFilterUrl(drawerForm));
+        if (window.InvCollection && typeof window.InvCollection.closeDrawer === 'function') {
+          window.InvCollection.closeDrawer();
+        } else {
+          var closeBtn = document.querySelector('[data-inv-filter-drawer-close]');
+          if (closeBtn) closeBtn.click();
+        }
       });
     }
 
@@ -295,6 +317,12 @@
     if (sectionEl) {
       sectionId = sectionEl.dataset.invCollectionSection;
       attachListeners();
+    }
+    /* Re-bind drawer / scroll / drag handlers — their elements were
+       replaced by the section innerHTML swap. */
+    if (window.InvCollection && typeof window.InvCollection.init === 'function') {
+      window.InvCollection.init();
+      window.InvCollection.refreshHeroBottom();
     }
   }
 
