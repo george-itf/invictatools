@@ -148,6 +148,47 @@
   }
 
   /**
+   * Validate a price range row. Shows/hides the inline error and toggles
+   * an invalid state on the inputs. Returns true if the range is valid.
+   */
+  function validatePriceRange(row) {
+    if (!row) return true;
+    var inputs = row.querySelectorAll('input[type="number"]');
+    if (inputs.length < 2) return true;
+    var minEl = inputs[0];
+    var maxEl = inputs[1];
+    var errEl = row.querySelector('[data-inv-price-error]');
+    var minVal = minEl.value === '' ? null : parseFloat(minEl.value);
+    var maxVal = maxEl.value === '' ? null : parseFloat(maxEl.value);
+    var invalid = minVal !== null && maxVal !== null && minVal > maxVal;
+    if (invalid) {
+      row.setAttribute('data-invalid', 'true');
+      minEl.setAttribute('aria-invalid', 'true');
+      maxEl.setAttribute('aria-invalid', 'true');
+      if (errEl) {
+        errEl.textContent = 'Min price can’t be greater than max.';
+        errEl.hidden = false;
+      }
+      return false;
+    }
+    row.removeAttribute('data-invalid');
+    minEl.removeAttribute('aria-invalid');
+    maxEl.removeAttribute('aria-invalid');
+    if (errEl) {
+      errEl.textContent = '';
+      errEl.hidden = true;
+    }
+    return true;
+  }
+
+  function allPriceRangesValid(form) {
+    var rows = form.querySelectorAll('[data-inv-price-range]');
+    var ok = true;
+    rows.forEach(function(r) { if (!validatePriceRange(r)) ok = false; });
+    return ok;
+  }
+
+  /**
    * Attach event listeners to filter forms and sort.
    * Called on init and after every DOM swap.
    */
@@ -156,16 +197,44 @@
     var sidebarForm = document.querySelector('[data-inv-filter-sidebar]');
     if (sidebarForm) {
       var debounceTimer;
+      var submitSidebar = function() {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(function() {
+          if (!allPriceRangesValid(sidebarForm)) return;
+          fetchAndUpdate(buildFilterUrl(sidebarForm));
+        }, DEBOUNCE_MS);
+      };
       sidebarForm.addEventListener('submit', function(e) {
         e.preventDefault();
+        if (!allPriceRangesValid(sidebarForm)) return;
+        clearTimeout(debounceTimer);
         fetchAndUpdate(buildFilterUrl(sidebarForm));
       });
       sidebarForm.addEventListener('change', function(e) {
         if (e.target.matches('input[type="checkbox"]')) {
-          clearTimeout(debounceTimer);
-          debounceTimer = setTimeout(function() {
-            fetchAndUpdate(buildFilterUrl(sidebarForm));
-          }, DEBOUNCE_MS);
+          submitSidebar();
+        }
+      });
+      /* Price inputs: live validation on input, apply on blur/Enter. */
+      sidebarForm.addEventListener('input', function(e) {
+        if (e.target.matches('input[type="number"]')) {
+          validatePriceRange(e.target.closest('[data-inv-price-range]'));
+        }
+      });
+      sidebarForm.addEventListener('blur', function(e) {
+        if (e.target.matches('input[type="number"]')) {
+          var row = e.target.closest('[data-inv-price-range]');
+          if (row && validatePriceRange(row)) submitSidebar();
+        }
+      }, true);
+      sidebarForm.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && e.target.matches('input[type="number"]')) {
+          e.preventDefault();
+          var row = e.target.closest('[data-inv-price-range]');
+          if (row && validatePriceRange(row)) {
+            e.target.blur();
+            submitSidebar();
+          }
         }
       });
     }
@@ -174,7 +243,14 @@
     var drawerApply = document.querySelector('[data-inv-filter-drawer-apply]');
     var drawerForm = document.querySelector('[data-inv-filter-drawer-form]');
     if (drawerApply && drawerForm) {
+      /* Live validation inside the drawer. */
+      drawerForm.addEventListener('input', function(e) {
+        if (e.target.matches('input[type="number"]')) {
+          validatePriceRange(e.target.closest('[data-inv-price-range]'));
+        }
+      });
       drawerApply.addEventListener('click', function() {
+        if (!allPriceRangesValid(drawerForm)) return;
         var closeBtn = document.querySelector('[data-inv-filter-drawer-close]');
         if (closeBtn) closeBtn.click();
         fetchAndUpdate(buildFilterUrl(drawerForm));

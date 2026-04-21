@@ -216,32 +216,43 @@
                       </ul>
 
                     {%- when 'price_range' -%}
-                      <div class="inv-facet__price-row">
-                        <div class="inv-facet__price-field">
-                          <span class="inv-facet__price-symbol">£</span>
-                          <input
-                            type="number"
-                            name="{{ filter.min_value.param_name }}"
-                            class="inv-facet__price-input"
-                            placeholder="Min"
-                            min="0"
-                            max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
-                            {% if filter.min_value.value %}value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
-                          >
+                      <div class="inv-facet__price-range" data-inv-price-range>
+                        <div class="inv-facet__price-row">
+                          <div class="inv-facet__price-field">
+                            <span class="inv-facet__price-symbol">£</span>
+                            <input
+                              type="number"
+                              name="{{ filter.min_value.param_name }}"
+                              class="inv-facet__price-input"
+                              placeholder="Min"
+                              min="0"
+                              max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                              aria-describedby="InvPriceError-{{ section.id }}-min"
+                              {% if filter.min_value.value %}value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
+                            >
+                          </div>
+                          <span class="inv-facet__price-sep">–</span>
+                          <div class="inv-facet__price-field">
+                            <span class="inv-facet__price-symbol">£</span>
+                            <input
+                              type="number"
+                              name="{{ filter.max_value.param_name }}"
+                              class="inv-facet__price-input"
+                              placeholder="Max"
+                              min="0"
+                              max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                              aria-describedby="InvPriceError-{{ section.id }}-min"
+                              {% if filter.max_value.value %}value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
+                            >
+                          </div>
                         </div>
-                        <span class="inv-facet__price-sep">–</span>
-                        <div class="inv-facet__price-field">
-                          <span class="inv-facet__price-symbol">£</span>
-                          <input
-                            type="number"
-                            name="{{ filter.max_value.param_name }}"
-                            class="inv-facet__price-input"
-                            placeholder="Max"
-                            min="0"
-                            max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
-                            {% if filter.max_value.value %}value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
-                          >
-                        </div>
+                        <p
+                          id="InvPriceError-{{ section.id }}-min"
+                          class="inv-facet__price-error"
+                          data-inv-price-error
+                          role="alert"
+                          hidden
+                        ></p>
                       </div>
                   {%- endcase -%}
 
@@ -463,32 +474,43 @@
                   </ul>
                   
                 {%- when 'price_range' -%}
-                  <div class="inv-facet__price-row">
-                    <div class="inv-facet__price-field">
-                      <span class="inv-facet__price-symbol">£</span>
-                      <input 
-                        type="number" 
-                        name="{{ filter.min_value.param_name }}" 
-                        class="inv-facet__price-input"
-                        placeholder="Min"
-                        min="0"
-                        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
-                        {% if filter.min_value.value %}value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
-                      >
+                  <div class="inv-facet__price-range" data-inv-price-range>
+                    <div class="inv-facet__price-row">
+                      <div class="inv-facet__price-field">
+                        <span class="inv-facet__price-symbol">£</span>
+                        <input
+                          type="number"
+                          name="{{ filter.min_value.param_name }}"
+                          class="inv-facet__price-input"
+                          placeholder="Min"
+                          min="0"
+                          max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                          aria-describedby="InvDrawerPriceError-{{ section.id }}"
+                          {% if filter.min_value.value %}value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
+                        >
+                      </div>
+                      <span class="inv-facet__price-sep">–</span>
+                      <div class="inv-facet__price-field">
+                        <span class="inv-facet__price-symbol">£</span>
+                        <input
+                          type="number"
+                          name="{{ filter.max_value.param_name }}"
+                          class="inv-facet__price-input"
+                          placeholder="Max"
+                          min="0"
+                          max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                          aria-describedby="InvDrawerPriceError-{{ section.id }}"
+                          {% if filter.max_value.value %}value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
+                        >
+                      </div>
                     </div>
-                    <span class="inv-facet__price-sep">–</span>
-                    <div class="inv-facet__price-field">
-                      <span class="inv-facet__price-symbol">£</span>
-                      <input 
-                        type="number" 
-                        name="{{ filter.max_value.param_name }}" 
-                        class="inv-facet__price-input"
-                        placeholder="Max"
-                        min="0"
-                        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
-                        {% if filter.max_value.value %}value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
-                      >
-                    </div>
+                    <p
+                      id="InvDrawerPriceError-{{ section.id }}"
+                      class="inv-facet__price-error"
+                      data-inv-price-error
+                      role="alert"
+                      hidden
+                    ></p>
                   </div>
               {%- endcase -%}
               

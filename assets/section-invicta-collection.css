@@ -606,6 +606,23 @@
   flex-shrink: 0;
 }
 
+.inv-facet__price-range[data-invalid="true"] .inv-facet__price-field {
+  border-color: var(--inv-c-accent, #e11d26);
+  box-shadow: 0 0 0 1px var(--inv-c-accent, #e11d26) inset;
+}
+
+.inv-facet__price-error {
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--inv-c-accent, #e11d26);
+  font-weight: 500;
+}
+
+.inv-facet__price-error[hidden] {
+  display: none;
+}
+
 /* ============================================================================
    5B. MAIN CONTENT AREA
    ============================================================================ */
