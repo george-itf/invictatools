@@ -1,19 +1,22 @@
 {% comment %}
   ============================================
-  BRAND SCHEMA v1.1
+  BRAND SCHEMA v1.2
   ============================================
   Zero-visual section — outputs JSON-LD only
   BreadcrumbList + WebPage/Brand structured data
   Trade 15.4.0 Compatible
 
-  v1.1 changes:
-  - Added optional brand_logo, brand_image, brand_sameas settings so each
-    brand page can emit unique logo, hero image, and social URLs.
-  - Replaced nested Brand.brand with Brand.manufacturer. The old key was
-    not a valid schema.org property on Brand and was being ignored by
-    Google; manufacturer is the correct property for country-of-origin.
-    Silent improvement — does not affect visible page output.
-  - WebPage now emits primaryImageOfPage when brand_image is set.
+  v1.2 changes:
+  - Removed manufacturer: Organization and publisher: Organization blocks.
+    The "JSON-LD for SEO" app emits Organisation schema for the shop, and
+    having it here too produced duplicate Organisation entities in Google
+    Rich Results (3× detected on brand pages). If that app is removed,
+    restore these blocks from git history prior to this commit.
+
+  v1.1 changes (retained):
+  - Optional brand_logo, brand_image, brand_sameas settings so each brand
+    page can emit unique logo, hero image, and social URLs.
+  - WebPage emits primaryImageOfPage when brand_image is set.
   ============================================
 {% endcomment %}
 
@@ -129,25 +132,15 @@
     {%- if sameas_comma -%}
       ,"sameAs": [{{ sameas_json }}]
     {%- endif -%}
-    {%- if section.settings.brand_country != blank -%}
-      ,"manufacturer": {
-        "@type": "Organization",
-        "name": {{ section.settings.brand_name | json }},
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": {{ section.settings.brand_country | json }}
-        }
-      }
-    {%- endif -%}
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": {{ shop.name | json }},
-    "url": {{ shop.url | json }}
   }
 }
 </script>
 {%- endif -%}
+{%- comment -%}
+  Deliberately no Organization manufacturer or publisher emission here —
+  the "JSON-LD for SEO" app owns all Organization schema. Brand's country
+  of origin is carried in brand_description natural-language text.
+{%- endcomment -%}
 
 {% schema %}
 {

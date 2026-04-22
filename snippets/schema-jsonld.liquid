@@ -1,6 +1,15 @@
 {%- comment -%}
-  Schema.org JSON-LD structured data — Invicta Tools
-  Renders sitewide WebSite, Organization + page-specific Product, BreadcrumbList, LocalBusiness
+  Schema.org JSON-LD structured data — Invicta Tools.
+
+  Emits: WebSite + SearchAction (sitewide), Product (PDP), BreadcrumbList,
+  FAQPage (where relevant), Article/BlogPosting.
+
+  Deliberately does NOT emit Organization or LocalBusiness — the "JSON-LD
+  for SEO" Shopify app handles those with richer fields (shippingService,
+  hasMerchantReturnPolicy, contactPoint). Emitting them here too created
+  duplicate entities in Google Rich Results (3× Organisation / 3× Local
+  business). If that app is ever removed, restore the Organization and
+  LocalBusiness blocks from git history prior to commit 0413f46.
 {%- endcomment -%}
 
 {%- comment -%} ===== WEBSITE SCHEMA with SearchAction (sitewide) ===== {%- endcomment -%}
@@ -20,104 +29,6 @@
   }
 }
 </script>
-
-{%- comment -%} ===== ORGANIZATION SCHEMA (sitewide) ===== {%- endcomment -%}
-{%- liquid
-  assign org_name = settings.seo_org_name | default: shop.name
--%}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": {{ org_name | json }},
-  "url": {{ shop.url | json }}
-  {%- if settings.logo -%}
-    ,"logo": {{ settings.logo | image_url: width: 600 | prepend: 'https:' | json }}
-    ,"image": {{ settings.logo | image_url: width: 1200 | prepend: 'https:' | json }}
-  {%- endif -%}
-  {%- if settings.seo_org_telephone != blank -%}
-    ,"telephone": {{ settings.seo_org_telephone | json }}
-  {%- endif -%}
-  {%- if settings.seo_local_street != blank and settings.seo_local_city != blank and settings.seo_local_postcode != blank -%}
-    ,"address": {
-      "@type": "PostalAddress",
-      "streetAddress": {{ settings.seo_local_street | json }},
-      "addressLocality": {{ settings.seo_local_city | json }}
-      {%- if settings.seo_local_region != blank -%}
-        ,"addressRegion": {{ settings.seo_local_region | json }}
-      {%- endif -%}
-      ,"postalCode": {{ settings.seo_local_postcode | json }},
-      "addressCountry": "GB"
-    }
-  {%- endif -%}
-  {%- liquid
-    assign social_links = ''
-    if settings.social_facebook_link != blank
-      assign social_links = social_links | append: settings.social_facebook_link | append: '|||'
-    endif
-    if settings.social_instagram_link != blank
-      assign social_links = social_links | append: settings.social_instagram_link | append: '|||'
-    endif
-    if settings.social_youtube_link != blank
-      assign social_links = social_links | append: settings.social_youtube_link | append: '|||'
-    endif
-    if settings.social_tiktok_link != blank
-      assign social_links = social_links | append: settings.social_tiktok_link | append: '|||'
-    endif
-    if settings.social_twitter_link != blank
-      assign social_links = social_links | append: settings.social_twitter_link | append: '|||'
-    endif
-    if settings.social_pinterest_link != blank
-      assign social_links = social_links | append: settings.social_pinterest_link | append: '|||'
-    endif
-    assign social_array = social_links | split: '|||'
-  -%}
-  {%- if social_array.size > 0 -%}
-    ,"sameAs": [
-      {%- assign sameAs_first = true -%}
-      {%- for link in social_array -%}
-        {%- unless link == blank -%}
-          {%- unless sameAs_first -%},{%- endunless -%}
-          {{ link | json }}
-          {%- assign sameAs_first = false -%}
-        {%- endunless -%}
-      {%- endfor -%}
-    ]
-  {%- endif -%}
-}
-</script>
-
-{%- comment -%} ===== LOCAL BUSINESS SCHEMA (only if address configured) ===== {%- endcomment -%}
-{%- if settings.seo_local_street != blank and settings.seo_local_city != blank and settings.seo_local_postcode != blank -%}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "HardwareStore",
-  "name": {{ org_name | json }},
-  "url": {{ shop.url | json }}
-  {%- if settings.logo -%}
-    ,"image": {{ settings.logo | image_url: width: 600 | prepend: 'https:' | json }}
-  {%- endif -%}
-  {%- if settings.seo_org_telephone != blank -%}
-    ,"telephone": {{ settings.seo_org_telephone | json }}
-  {%- endif -%}
-  ,"address": {
-    "@type": "PostalAddress",
-    "streetAddress": {{ settings.seo_local_street | json }},
-    "addressLocality": {{ settings.seo_local_city | json }}
-    {%- if settings.seo_local_region != blank -%}
-      ,"addressRegion": {{ settings.seo_local_region | json }}
-    {%- endif -%}
-    ,"postalCode": {{ settings.seo_local_postcode | json }},
-    "addressCountry": "GB"
-  }
-  {%- if settings.seo_local_hours != blank -%}
-    ,"openingHours": {{ settings.seo_local_hours | json }}
-  {%- endif -%}
-  ,"priceRange": "££"
-}
-</script>
-{%- endif -%}
 
 {%- comment -%} ===== PRODUCT SCHEMA (product pages only) ===== {%- endcomment -%}
 {%- if request.page_type == 'product' -%}
