@@ -23,10 +23,42 @@
       {% if ss.nl_form_html != blank %}
         {{ ss.nl_form_html }}
       {% else %}
-        <form class="nl-form" action="#" method="post">
-          <input type="email" placeholder="{{ ss.nl_placeholder }}">
-          <button type="submit">{{ ss.nl_button }}</button>
-        </form>
+        {%- assign footer_nl_id = 'FooterNewsletter-' | append: section.id -%}
+        {% form 'customer', id: footer_nl_id, class: 'nl-form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+
+          {%- if form.posted_successfully? -%}
+            <p class="nl-form__message nl-form__message--success" role="status">
+              {{ 'newsletter.success' | t }}
+            </p>
+          {%- else -%}
+            <label for="{{ footer_nl_id }}-email" class="visually-hidden">
+              {{ 'newsletter.label' | t }}
+            </label>
+            <input
+              id="{{ footer_nl_id }}-email"
+              type="email"
+              name="contact[email]"
+              placeholder="{{ ss.nl_placeholder | escape }}"
+              autocomplete="email"
+              autocorrect="off"
+              autocapitalize="off"
+              required
+              {% if form.errors %}
+                aria-invalid="true"
+                aria-describedby="{{ footer_nl_id }}-error"
+                autofocus
+              {% endif %}
+            >
+            <button type="submit" name="commit">{{ ss.nl_button | escape }}</button>
+
+            {%- if form.errors -%}
+              <p id="{{ footer_nl_id }}-error" class="nl-form__message nl-form__message--error" role="alert">
+                {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+              </p>
+            {%- endif -%}
+          {%- endif -%}
+        {% endform %}
       {% endif %}
 
     </div>
@@ -399,6 +431,7 @@ Canterbury, CT1 3TB' | newline_to_br }}<br>Tel: {{ ss.canterbury_phone | default
 #footer-{{ section.id }} .nl-form {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 #footer-{{ section.id }} .nl-form input {
   height: 44px;
@@ -412,6 +445,24 @@ Canterbury, CT1 3TB' | newline_to_br }}<br>Tel: {{ ss.canterbury_phone | default
   border-radius: 0;
   background: {{ ss.subscribe_bg }};
   color: {{ ss.subscribe_text }};
+}
+#footer-{{ section.id }} .nl-form__message {
+  flex-basis: 100%;
+  margin: 0;
+  padding: 10px 14px;
+  font-size: 14px;
+  line-height: 1.4;
+  border-radius: 2px;
+}
+#footer-{{ section.id }} .nl-form__message--success {
+  background: rgba(16, 185, 129, 0.15);
+  color: #6ee7b7;
+  border-left: 3px solid #10b981;
+}
+#footer-{{ section.id }} .nl-form__message--error {
+  background: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+  border-left: 3px solid #ef4444;
 }
 
 /***********  BOTTOM BAR  ***********/

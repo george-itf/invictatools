@@ -445,7 +445,14 @@
       User-agent detection was failing on iPhone 16 / iOS 18.
       Media queries are bulletproof and work regardless of browser settings.
     -->
-    <!-- CX v1.1: Preload BEFORE stylesheet for effective priority hinting -->
+    <!--
+      Device-specific bundles MUST load synchronously.
+      Both files contain critical above-fold rules (overflow-x control, hero
+      padding, header layout, announcement bar, page-width gutters, section
+      whitespace). Deferring causes visible FOUC / layout shift on mobile.
+      Preload hints below prioritise the fetch; the stylesheet tag is matched
+      by media query so only one file is render-blocking per viewport.
+    -->
     <link rel="preload" href="{{ 'mobile.css' | asset_url }}" as="style" media="screen and (max-width: 749px)">
     <link rel="preload" href="{{ 'desktop.css' | asset_url }}" as="style" media="screen and (min-width: 750px)">
     <link rel="stylesheet" href="{{ 'mobile.css' | asset_url }}" media="screen and (max-width: 749px)">

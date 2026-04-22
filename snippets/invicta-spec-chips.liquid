@@ -23,19 +23,19 @@
   {{ 'invicta-spec-chips.css' | asset_url | stylesheet_tag }}
   <div class="inv-specs">
     {%- if voltage != blank -%}
-      <span class="inv-specs__chip">{{ voltage }}V</span>
+      <span class="inv-specs__chip">{{ voltage | escape }}V</span>
     {%- endif -%}
     {%- if disc_size != blank -%}
-      <span class="inv-specs__chip">{{ disc_size }}mm</span>
+      <span class="inv-specs__chip">{{ disc_size | escape }}mm</span>
     {%- endif -%}
     {%- if motor != blank -%}
-      <span class="inv-specs__chip">{{ motor }}</span>
+      <span class="inv-specs__chip">{{ motor | escape }}</span>
     {%- endif -%}
     {%- if speed != blank -%}
-      <span class="inv-specs__chip">{{ speed }} rpm</span>
+      <span class="inv-specs__chip">{{ speed | escape }} rpm</span>
     {%- endif -%}
     {%- if weight != blank -%}
-      <span class="inv-specs__chip">{{ weight }}kg</span>
+      <span class="inv-specs__chip">{{ weight | escape }}kg</span>
     {%- endif -%}
   </div>
 {%- endif -%}

@@ -444,6 +444,9 @@
         "brand_url": "https://www.makitauk.com",
         "brand_founding_year": "1915",
         "brand_country": "Japan",
+        "brand_logo": "shopify://shop_images/makita.svg",
+        "brand_image": "shopify://shop_images/a6b4da8b5b37033768376073ab71b7e914d4cb34.jpg",
+        "brand_sameas": "https://en.wikipedia.org/wiki/Makita\nhttps://www.facebook.com/MakitaUK\nhttps://www.instagram.com/makitauk\nhttps://www.youtube.com/user/MakitaUK",
         "parent_url": "/pages/shop-by-brand",
         "parent_title": "Brands"
       }

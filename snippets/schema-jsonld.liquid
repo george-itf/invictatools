@@ -112,6 +112,21 @@
   assign current_variant = product.selected_or_first_available_variant
   assign product_image = product.featured_image | image_url: width: 1200 | prepend: 'https:'
   assign product_desc = product.description | strip_html | truncate: 5000 | escape
+
+  comment
+    Aggregate rating source detection — mirrors snippets/invicta-star-rating.liquid.
+    Prefers Shopify's native reviews metafield, then Judge.me. Only emits schema
+    when real reviews exist (count > 0) to avoid Google fake-rating penalties.
+  endcomment
+  assign agg_rating = 0
+  assign agg_count = 0
+  if product.metafields.reviews.rating.value.rating != blank and product.metafields.reviews.rating_count != blank
+    assign agg_rating = product.metafields.reviews.rating.value.rating | times: 1.0
+    assign agg_count = product.metafields.reviews.rating_count | times: 1
+  elsif product.metafields.judgeme.average_rating != blank and product.metafields.judgeme.review_count != blank
+    assign agg_rating = product.metafields.judgeme.average_rating | times: 1.0
+    assign agg_count = product.metafields.judgeme.review_count | times: 1
+  endif
 -%}
 <script type="application/ld+json">
 {
@@ -225,6 +240,15 @@
       ,"availability": "https://schema.org/OutOfStock"
     {%- endif -%}
   }
+  {%- if agg_rating > 0 and agg_count > 0 -%}
+    ,"aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": {{ agg_rating | json }},
+      "reviewCount": {{ agg_count | json }},
+      "bestRating": 5,
+      "worstRating": 1
+    }
+  {%- endif -%}
 }
 </script>
 
