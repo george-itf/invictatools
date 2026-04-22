@@ -721,6 +721,11 @@
           and <strong>/<b> headers, then re-injects node.outerHTML into accordion rows.
           Escaping or strip_html here will collapse the markup and break the accordion.
           Content is admin-authored via Shopify's rich-text editor and treated as trusted.
+
+          If the threat model tightens (e.g. PIM/CSV-synced descriptions from untrusted
+          sources), migrate copy to a metafields.custom.description_rich (rich_text type)
+          metafield and render via `| metafield_tag` — Shopify sanitises rich_text output
+          server-side, unlike product.description which is passthrough.
         {%- endcomment -%}
         {% if product.description != blank %}
           <div class="inv-pdp__info-row inv-pdp__info-row--hidden" data-description-source>

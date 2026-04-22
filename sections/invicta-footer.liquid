@@ -431,6 +431,7 @@ Canterbury, CT1 3TB' | newline_to_br }}<br>Tel: {{ ss.canterbury_phone | default
 #footer-{{ section.id }} .nl-form {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 #footer-{{ section.id }} .nl-form input {
   height: 44px;
@@ -444,6 +445,24 @@ Canterbury, CT1 3TB' | newline_to_br }}<br>Tel: {{ ss.canterbury_phone | default
   border-radius: 0;
   background: {{ ss.subscribe_bg }};
   color: {{ ss.subscribe_text }};
+}
+#footer-{{ section.id }} .nl-form__message {
+  flex-basis: 100%;
+  margin: 0;
+  padding: 10px 14px;
+  font-size: 14px;
+  line-height: 1.4;
+  border-radius: 2px;
+}
+#footer-{{ section.id }} .nl-form__message--success {
+  background: rgba(16, 185, 129, 0.15);
+  color: #6ee7b7;
+  border-left: 3px solid #10b981;
+}
+#footer-{{ section.id }} .nl-form__message--error {
+  background: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+  border-left: 3px solid #ef4444;
 }
 
 /***********  BOTTOM BAR  ***********/

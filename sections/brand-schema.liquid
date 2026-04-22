@@ -1,10 +1,19 @@
 {% comment %}
   ============================================
-  BRAND SCHEMA v1.0
+  BRAND SCHEMA v1.1
   ============================================
   Zero-visual section — outputs JSON-LD only
   BreadcrumbList + WebPage/Brand structured data
   Trade 15.4.0 Compatible
+
+  v1.1 changes:
+  - Added optional brand_logo, brand_image, brand_sameas settings so each
+    brand page can emit unique logo, hero image, and social URLs.
+  - Replaced nested Brand.brand with Brand.manufacturer. The old key was
+    not a valid schema.org property on Brand and was being ignored by
+    Google; manufacturer is the correct property for country-of-origin.
+    Silent improvement — does not affect visible page output.
+  - WebPage now emits primaryImageOfPage when brand_image is set.
   ============================================
 {% endcomment %}
 
@@ -61,6 +70,12 @@
   assign brand_image_width = 1200
   assign brand_image_height = 0
   if section.settings.brand_image != blank
+    comment
+      Clamp requested width to source width so the CDN never upscales.
+    endcomment
+    if section.settings.brand_image.width < brand_image_width
+      assign brand_image_width = section.settings.brand_image.width
+    endif
     assign brand_image_url = section.settings.brand_image | image_url: width: brand_image_width | prepend: 'https:'
     assign brand_image_height = section.settings.brand_image.height | times: brand_image_width | divided_by: section.settings.brand_image.width | round
   endif
