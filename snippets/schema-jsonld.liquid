@@ -33,9 +33,22 @@
   "url": {{ shop.url | json }}
   {%- if settings.logo -%}
     ,"logo": {{ settings.logo | image_url: width: 600 | prepend: 'https:' | json }}
+    ,"image": {{ settings.logo | image_url: width: 1200 | prepend: 'https:' | json }}
   {%- endif -%}
   {%- if settings.seo_org_telephone != blank -%}
     ,"telephone": {{ settings.seo_org_telephone | json }}
+  {%- endif -%}
+  {%- if settings.seo_local_street != blank and settings.seo_local_city != blank and settings.seo_local_postcode != blank -%}
+    ,"address": {
+      "@type": "PostalAddress",
+      "streetAddress": {{ settings.seo_local_street | json }},
+      "addressLocality": {{ settings.seo_local_city | json }}
+      {%- if settings.seo_local_region != blank -%}
+        ,"addressRegion": {{ settings.seo_local_region | json }}
+      {%- endif -%}
+      ,"postalCode": {{ settings.seo_local_postcode | json }},
+      "addressCountry": "GB"
+    }
   {%- endif -%}
   {%- liquid
     assign social_links = ''
