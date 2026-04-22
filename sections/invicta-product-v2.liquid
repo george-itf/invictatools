@@ -338,7 +338,7 @@
                 <svg class="inv-pdp__key-spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
                   <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
                 </svg>
-                {{ mf_voltage }}
+                {{ mf_voltage | escape }}
               </span>
             {% endif %}
             {% if mf_max_torque != blank %}
@@ -347,7 +347,7 @@
                   <circle cx="12" cy="12" r="10"/>
                   <path d="M12 6v6l4 2"/>
                 </svg>
-                {{ mf_max_torque }}
+                {{ mf_max_torque | escape }}
               </span>
             {% endif %}
             {% if mf_motor_type != blank %}
@@ -355,7 +355,7 @@
                 <svg class="inv-pdp__key-spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true">
                   <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
                 </svg>
-                {{ mf_motor_type }}
+                {{ mf_motor_type | escape }}
               </span>
             {% endif %}
           </div>
@@ -369,7 +369,7 @@
           {% for feature in features limit: 5 %}
             <span class="inv-pdp__feature-chip" role="listitem">
               <span class="inv-pdp__feature-chip-icon" aria-hidden="true">✓</span>
-              {{ feature | strip }}
+              {{ feature | strip | escape }}
             </span>
           {% endfor %}
         </div>
@@ -715,7 +715,13 @@
           </div>
         {% endif %}
 
-        {%- comment -%} Hidden source for JS description parser {%- endcomment -%}
+        {%- comment -%}
+          Hidden source for JS description parser (invicta-product-v2.js parseDescription()).
+          Rich HTML is intentional and required: the parser reads innerHTML, splits on h1–h6
+          and <strong>/<b> headers, then re-injects node.outerHTML into accordion rows.
+          Escaping or strip_html here will collapse the markup and break the accordion.
+          Content is admin-authored via Shopify's rich-text editor and treated as trusted.
+        {%- endcomment -%}
         {% if product.description != blank %}
           <div class="inv-pdp__info-row inv-pdp__info-row--hidden" data-description-source>
             {{ product.description }}
@@ -771,7 +777,10 @@
           </div>
         </div>
 
-        {%- comment -%} Fallback if JS fails {%- endcomment -%}
+        {%- comment -%}
+          Fallback if JS fails. Rich HTML is intentional — description uses admin-authored
+          rich-text (lists, headings, bold) that must render to users without JS.
+        {%- endcomment -%}
         <noscript>
           <div class="inv-pdp__info-section inv-pdp__info-section--open">
             <div class="inv-pdp__info-content">{{ product.description }}</div>
@@ -1027,42 +1036,42 @@
                   <div class="inv-pdp__spec-chip">
                     <svg class="inv-pdp__spec-chip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                     <span class="inv-pdp__spec-chip-label">Voltage</span>
-                    <span class="inv-pdp__spec-chip-value">{{ mf_voltage }}</span>
+                    <span class="inv-pdp__spec-chip-value">{{ mf_voltage | escape }}</span>
                   </div>
                 {%- endif -%}
                 {%- if mf_no_load_speed != blank -%}
                   <div class="inv-pdp__spec-chip">
                     <svg class="inv-pdp__spec-chip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                     <span class="inv-pdp__spec-chip-label">RPM</span>
-                    <span class="inv-pdp__spec-chip-value">{{ mf_no_load_speed }}</span>
+                    <span class="inv-pdp__spec-chip-value">{{ mf_no_load_speed | escape }}</span>
                   </div>
                 {%- endif -%}
                 {%- if mf_disc_diameter != blank -%}
                   <div class="inv-pdp__spec-chip">
                     <svg class="inv-pdp__spec-chip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>
                     <span class="inv-pdp__spec-chip-label">Disc</span>
-                    <span class="inv-pdp__spec-chip-value">{{ mf_disc_diameter }}</span>
+                    <span class="inv-pdp__spec-chip-value">{{ mf_disc_diameter | escape }}</span>
                   </div>
                 {%- endif -%}
                 {%- if mf_max_torque != blank -%}
                   <div class="inv-pdp__spec-chip">
                     <svg class="inv-pdp__spec-chip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                     <span class="inv-pdp__spec-chip-label">Torque</span>
-                    <span class="inv-pdp__spec-chip-value">{{ mf_max_torque }}</span>
+                    <span class="inv-pdp__spec-chip-value">{{ mf_max_torque | escape }}</span>
                   </div>
                 {%- endif -%}
                 {%- if mf_weight_body != blank -%}
                   <div class="inv-pdp__spec-chip">
                     <svg class="inv-pdp__spec-chip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="M20.91 8.84L8.56 21.18a1 1 0 01-1.41 0L3.82 17.85a1 1 0 010-1.41L16.16 4.09a3 3 0 014.24 0l.51.51a3 3 0 010 4.24z"/></svg>
                     <span class="inv-pdp__spec-chip-label">Weight</span>
-                    <span class="inv-pdp__spec-chip-value">{{ mf_weight_body }}</span>
+                    <span class="inv-pdp__spec-chip-value">{{ mf_weight_body | escape }}</span>
                   </div>
                 {%- endif -%}
                 {%- if mf_motor_type != blank -%}
                   <div class="inv-pdp__spec-chip">
                     <svg class="inv-pdp__spec-chip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false" aria-hidden="true"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
                     <span class="inv-pdp__spec-chip-label">Motor</span>
-                    <span class="inv-pdp__spec-chip-value">{{ mf_motor_type }}</span>
+                    <span class="inv-pdp__spec-chip-value">{{ mf_motor_type | escape }}</span>
                   </div>
                 {%- endif -%}
               </div>

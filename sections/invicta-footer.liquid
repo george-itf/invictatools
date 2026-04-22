@@ -23,10 +23,42 @@
       {% if ss.nl_form_html != blank %}
         {{ ss.nl_form_html }}
       {% else %}
-        <form class="nl-form" action="#" method="post">
-          <input type="email" placeholder="{{ ss.nl_placeholder }}">
-          <button type="submit">{{ ss.nl_button }}</button>
-        </form>
+        {%- assign footer_nl_id = 'FooterNewsletter-' | append: section.id -%}
+        {% form 'customer', id: footer_nl_id, class: 'nl-form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+
+          {%- if form.posted_successfully? -%}
+            <p class="nl-form__message nl-form__message--success" role="status">
+              {{ 'newsletter.success' | t }}
+            </p>
+          {%- else -%}
+            <label for="{{ footer_nl_id }}-email" class="visually-hidden">
+              {{ 'newsletter.label' | t }}
+            </label>
+            <input
+              id="{{ footer_nl_id }}-email"
+              type="email"
+              name="contact[email]"
+              placeholder="{{ ss.nl_placeholder | escape }}"
+              autocomplete="email"
+              autocorrect="off"
+              autocapitalize="off"
+              required
+              {% if form.errors %}
+                aria-invalid="true"
+                aria-describedby="{{ footer_nl_id }}-error"
+                autofocus
+              {% endif %}
+            >
+            <button type="submit" name="commit">{{ ss.nl_button | escape }}</button>
+
+            {%- if form.errors -%}
+              <p id="{{ footer_nl_id }}-error" class="nl-form__message nl-form__message--error" role="alert">
+                {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+              </p>
+            {%- endif -%}
+          {%- endif -%}
+        {% endform %}
       {% endif %}
 
     </div>

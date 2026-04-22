@@ -448,8 +448,13 @@
     <!-- CX v1.1: Preload BEFORE stylesheet for effective priority hinting -->
     <link rel="preload" href="{{ 'mobile.css' | asset_url }}" as="style" media="screen and (max-width: 749px)">
     <link rel="preload" href="{{ 'desktop.css' | asset_url }}" as="style" media="screen and (min-width: 750px)">
-    <link rel="stylesheet" href="{{ 'mobile.css' | asset_url }}" media="screen and (max-width: 749px)">
-    <link rel="stylesheet" href="{{ 'desktop.css' | asset_url }}" media="screen and (min-width: 750px)">
+    <!-- Deferred via media="print" swap. Above-fold styles are inlined in #critical-css and critical-pdp-css. -->
+    <link rel="stylesheet" href="{{ 'mobile.css' | asset_url }}" media="print" onload="this.media='screen and (max-width: 749px)'">
+    <link rel="stylesheet" href="{{ 'desktop.css' | asset_url }}" media="print" onload="this.media='screen and (min-width: 750px)'">
+    <noscript>
+      <link rel="stylesheet" href="{{ 'mobile.css' | asset_url }}" media="screen and (max-width: 749px)">
+      <link rel="stylesheet" href="{{ 'desktop.css' | asset_url }}" media="screen and (min-width: 750px)">
+    </noscript>
 
     <!-- UX Improvements (accessibility, focus states, sticky ATC) — deferred, not critical path -->
     <link rel="stylesheet" href="{{ 'invicta-improvements.css' | asset_url }}" media="print" onload="this.media='all'">
