@@ -38,7 +38,54 @@
       this.container.addEventListener('input', this.handleInput.bind(this), { signal });
       window.addEventListener('popstate', this.handlePopState.bind(this), { signal });
       this._initMobileFilterSheet();
+      this._setupResponsiveMode();
       this._updateMobileFilterCount();
+    }
+
+    /** Keep panel + overlay + body state consistent when the viewport
+     *  crosses the mobile breakpoint.
+     *  - Mobile: force the panel closed (so default_open=true doesn't
+     *    auto-open the sheet on page load) and ensure overlay matches.
+     *  - Desktop: drop the dialog role + aria-modal and release the
+     *    body-overflow lock the sheet may have set. */
+    _setupResponsiveMode() {
+      if (!window.matchMedia) return;
+      const signal = this._listenerController && this._listenerController.signal;
+      this._mq = window.matchMedia('(max-width: 749px)');
+
+      const sync = () => {
+        const panel = this.container.querySelector('[data-filter-panel]');
+        const overlay = document.querySelector('[data-filter-sheet-overlay]');
+        if (this._mq.matches) {
+          /* Entering (or loading into) mobile */
+          if (panel && panel.getAttribute('aria-hidden') !== 'true') {
+            panel.setAttribute('aria-hidden', 'true');
+          }
+          if (panel) {
+            panel.removeAttribute('role');
+            panel.removeAttribute('aria-modal');
+          }
+          if (overlay) overlay.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+        } else {
+          /* Entering desktop — clean up any sheet-only side effects */
+          document.body.style.overflow = '';
+          if (panel) {
+            panel.removeAttribute('role');
+            panel.removeAttribute('aria-modal');
+          }
+          if (overlay) overlay.setAttribute('aria-hidden', 'true');
+        }
+      };
+
+      sync();
+
+      try {
+        this._mq.addEventListener('change', sync, signal ? { signal } : undefined);
+      } catch (_) {
+        /* Safari < 14 uses the deprecated addListener API */
+        this._mq.addListener(sync);
+      }
     }
 
     destroy() {
@@ -85,11 +132,11 @@
         return;
       }
 
-      // Mobile filter sheet apply
+      // Mobile filter sheet apply — closes sheet and commits accumulated
+      // changes. No state sync needed (single panel).
       const sheetApply = e.target.closest('[data-filter-sheet-apply]');
       if (sheetApply) {
         e.preventDefault();
-        this._syncMobileToDesktop();
         this.closeMobileFilterSheet();
         this.fetchFromFilters();
         return;
@@ -103,11 +150,15 @@
         return;
       }
 
-      // Price apply button
+      // Price apply button (inside the price filter group)
       const priceApply = e.target.closest('[data-price-apply]');
       if (priceApply) {
         e.preventDefault();
-        this.fetchFromFilters();
+        // On mobile inside the open sheet, price changes batch until
+        // the user taps the outer "Apply filters" footer button.
+        if (!this._shouldBatchChanges()) {
+          this.fetchFromFilters();
+        }
         return;
       }
 
@@ -155,7 +206,13 @@
       // Filter checkboxes (brand, type, availability)
       if (e.target.type === 'checkbox' && e.target.closest('.inv-filter-checkbox')) {
         this._dispatchFilterEvent(e.target);
-        this.debouncedFetch();
+        // Keep the floating trigger count in sync with accumulated
+        // changes even while batched.
+        this._updateMobileFilterCount();
+        // On mobile with the sheet open, batch changes until Apply.
+        if (!this._shouldBatchChanges()) {
+          this.debouncedFetch();
+        }
         return;
       }
     }
@@ -215,38 +272,62 @@
 
     /* -------------------------------------------------------
        MOBILE FILTER BOTTOM SHEET
+
+       The panel is a single DOM node — on desktop it renders inline;
+       on mobile the same element transforms into a bottom sheet via
+       CSS (see .inv-filter-panel in section-main-search.css). This
+       class just toggles aria-hidden + overlay + focus trap + body
+       scroll-lock + the dialog / modal role. No DOM duplication =
+       no state to sync between desktop and mobile instances.
     ------------------------------------------------------- */
 
     _initMobileFilterSheet() {
       const signal = this._listenerController && this._listenerController.signal;
       this._escapeHandler = (e) => {
-        if (e.key === 'Escape') {
-          const sheet = document.querySelector('.inv-filter-sheet');
-          if (sheet && sheet.classList.contains('inv-filter-sheet--open')) {
-            e.preventDefault();
-            this.closeMobileFilterSheet();
-          }
+        if (e.key !== 'Escape') return;
+        const panel = this.container.querySelector('[data-filter-panel]');
+        if (panel && this._isMobile() && panel.getAttribute('aria-hidden') === 'false') {
+          e.preventDefault();
+          this.closeMobileFilterSheet();
         }
       };
       document.addEventListener('keydown', this._escapeHandler, signal ? { signal } : undefined);
     }
 
+    _isMobile() {
+      return window.matchMedia && window.matchMedia('(max-width: 749px)').matches;
+    }
+
+    /** Returns true when checkbox / price edits should accumulate in the
+     *  panel without firing a fetch. On mobile, changes are batched until
+     *  the user taps Apply. On desktop we auto-fetch as before. */
+    _shouldBatchChanges() {
+      if (!this._isMobile()) return false;
+      const panel = this.container.querySelector('[data-filter-panel]');
+      return !!(panel && panel.getAttribute('aria-hidden') === 'false');
+    }
+
     openMobileFilterSheet() {
       const overlay = document.querySelector('[data-filter-sheet-overlay]');
-      const sheet = document.querySelector('.inv-filter-sheet');
-      if (!overlay || !sheet) return;
+      const panel = this.container.querySelector('[data-filter-panel]');
+      if (!overlay || !panel) return;
 
       this._previousFocus = document.activeElement;
 
-      this._syncDesktopToMobile();
-
-      overlay.classList.add('inv-filter-sheet--open');
-      sheet.classList.add('inv-filter-sheet--open');
+      panel.setAttribute('aria-hidden', 'false');
+      overlay.setAttribute('aria-hidden', 'false');
+      /* Panel is a modal dialog only while acting as the mobile sheet;
+         set the role/aria-modal dynamically so desktop isn't announced
+         as a dialog. */
+      panel.setAttribute('role', 'dialog');
+      panel.setAttribute('aria-modal', 'true');
       document.body.style.overflow = 'hidden';
 
       this._focusTrapHandler = (e) => {
         if (e.key !== 'Tab') return;
-        const focusable = sheet.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        const focusable = panel.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
         if (focusable.length === 0) return;
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
@@ -256,66 +337,40 @@
           if (document.activeElement === last) { e.preventDefault(); first.focus(); }
         }
       };
-      sheet.addEventListener('keydown', this._focusTrapHandler);
+      panel.addEventListener('keydown', this._focusTrapHandler);
 
-      /* Focus the close button for accessibility */
-      const closeBtn = sheet.querySelector('[data-filter-sheet-close]');
+      /* Focus the close button so screen readers announce the dialog */
+      const closeBtn = panel.querySelector('[data-filter-sheet-close]');
       if (closeBtn) setTimeout(() => closeBtn.focus(), 100);
     }
 
     closeMobileFilterSheet() {
       const overlay = document.querySelector('[data-filter-sheet-overlay]');
-      const sheet = document.querySelector('.inv-filter-sheet');
-      if (!overlay || !sheet) return;
+      const panel = this.container.querySelector('[data-filter-panel]');
+      if (!overlay || !panel) return;
 
-      sheet.classList.remove('inv-filter-sheet--open');
+      panel.setAttribute('aria-hidden', 'true');
+      /* Keep overlay in the DOM for the 300ms slide-out so the sheet
+         doesn't appear to teleport behind page content; hide after. */
       setTimeout(() => {
-        overlay.classList.remove('inv-filter-sheet--open');
+        overlay.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
       }, 300);
 
-      if (this._focusTrapHandler) { sheet.removeEventListener('keydown', this._focusTrapHandler); }
-      if (this._previousFocus) { this._previousFocus.focus(); this._previousFocus = null; }
-    }
+      /* Remove the dialog role on close so desktop a11y tree is clean
+         if the viewport is later resized wider. */
+      panel.removeAttribute('role');
+      panel.removeAttribute('aria-modal');
 
-    _syncMobileToDesktop() {
-      const panel = this.container.querySelector('#inv-filter-panel');
-      const sheet = this.container.querySelector('.inv-filter-sheet__body');
-      if (!panel || !sheet) return;
-
-      sheet.querySelectorAll('input[type="checkbox"]').forEach(mobileCb => {
-        const desktopCb = panel.querySelector(
-          'input[name="' + CSS.escape(mobileCb.name) + '"][value="' + CSS.escape(mobileCb.value) + '"]'
-        );
-        if (desktopCb) desktopCb.checked = mobileCb.checked;
-      });
-
-      const mobileMin = sheet.querySelector('[data-price-min]');
-      const mobileMax = sheet.querySelector('[data-price-max]');
-      const desktopMin = panel.querySelector('[data-price-min]');
-      const desktopMax = panel.querySelector('[data-price-max]');
-      if (mobileMin && desktopMin) desktopMin.value = mobileMin.value;
-      if (mobileMax && desktopMax) desktopMax.value = mobileMax.value;
-    }
-
-    _syncDesktopToMobile() {
-      const panel = this.container.querySelector('#inv-filter-panel');
-      const sheet = this.container.querySelector('.inv-filter-sheet__body');
-      if (!panel || !sheet) return;
-
-      panel.querySelectorAll('input[type="checkbox"]').forEach(desktopCb => {
-        const mobileCb = sheet.querySelector(
-          'input[name="' + CSS.escape(desktopCb.name) + '"][value="' + CSS.escape(desktopCb.value) + '"]'
-        );
-        if (mobileCb) mobileCb.checked = desktopCb.checked;
-      });
-
-      const desktopMin = panel.querySelector('[data-price-min]');
-      const desktopMax = panel.querySelector('[data-price-max]');
-      const mobileMin = sheet.querySelector('[data-price-min]');
-      const mobileMax = sheet.querySelector('[data-price-max]');
-      if (desktopMin && mobileMin) mobileMin.value = desktopMin.value;
-      if (desktopMax && mobileMax) mobileMax.value = desktopMax.value;
+      if (this._focusTrapHandler) {
+        panel.removeEventListener('keydown', this._focusTrapHandler);
+        this._focusTrapHandler = null;
+      }
+      if (this._previousFocus) {
+        try { this._previousFocus.focus({ preventScroll: true }); }
+        catch (_) { this._previousFocus.focus(); }
+        this._previousFocus = null;
+      }
     }
 
     _updateMobileFilterCount(scope) {
@@ -640,16 +695,17 @@
       if (!el || el === document.body) return null;
       if (!this.container.contains(el)) return null;
 
-      const inSheet = !!el.closest('.inv-filter-sheet');
-
+      /* Only one panel now (#inv-filter-panel); desktop/mobile share it,
+         so no need to track which side of a (previously duplicated) DOM
+         the focused element lived in. */
       if (el.matches('input[type="checkbox"][name]')) {
-        return { type: 'checkbox', inSheet: inSheet, name: el.name, value: el.value };
+        return { type: 'checkbox', name: el.name, value: el.value };
       }
       if (el.matches('[data-price-min]')) {
-        return { type: 'price', inSheet: inSheet, field: 'min' };
+        return { type: 'price', field: 'min' };
       }
       if (el.matches('[data-price-max]')) {
-        return { type: 'price', inSheet: inSheet, field: 'max' };
+        return { type: 'price', field: 'max' };
       }
       if (el.matches('[data-inv-sort-select]')) {
         return { type: 'sort' };
@@ -675,23 +731,14 @@
       const container = document.getElementById('invicta-search') || this.container;
       if (!container) return false;
 
-      let scope = container;
       let selector = null;
 
       switch (snap.type) {
         case 'checkbox':
-          scope = snap.inSheet
-            ? container.querySelector('.inv-filter-sheet__body')
-            : container.querySelector('#inv-filter-panel');
-          if (!scope) scope = container;
           selector = 'input[type="checkbox"][name="' + CSS.escape(snap.name) +
                      '"][value="' + CSS.escape(snap.value) + '"]';
           break;
         case 'price':
-          scope = snap.inSheet
-            ? container.querySelector('.inv-filter-sheet__body')
-            : container.querySelector('#inv-filter-panel');
-          if (!scope) scope = container;
           selector = snap.field === 'min' ? '[data-price-min]' : '[data-price-max]';
           break;
         case 'sort':
@@ -711,7 +758,7 @@
       }
 
       if (!selector) return false;
-      const target = scope.querySelector(selector);
+      const target = container.querySelector(selector);
       if (!target) return false;
       try { target.focus({ preventScroll: true }); } catch (_) { target.focus(); }
       return true;
@@ -757,12 +804,18 @@
         if (newContainer) {
           const instance = new InvictaSearch(newContainer);
 
-          // Restore filter panel open/close state
+          // Restore filter panel open/close state. On mobile, the panel
+          // IS the bottom sheet — always land closed post-swap regardless
+          // of what the user had open before (the URL just changed and
+          // results have re-rendered; they can reopen via the trigger).
           const newPanel = newContainer.querySelector('[data-filter-panel]');
           const newToggle = newContainer.querySelector('[data-filter-toggle]');
           if (newPanel && newToggle) {
-            newPanel.setAttribute('aria-hidden', panelOpen ? 'false' : 'true');
-            newToggle.setAttribute('aria-expanded', panelOpen ? 'true' : 'false');
+            const isMobileNow = window.matchMedia
+              && window.matchMedia('(max-width: 749px)').matches;
+            const shouldOpen = isMobileNow ? false : panelOpen;
+            newPanel.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
+            newToggle.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
           }
 
           // Restore accordion states

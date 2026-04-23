@@ -275,12 +275,19 @@
 
   {%- if search.performed -%}
 
-    {%- comment -%} ========== FILTER PANEL ========== {%- endcomment -%}
+    {%- comment -%}
+      ========== FILTER PANEL ==========
+      Single panel in the DOM. On desktop it renders as an inline accordion
+      (toggled by .inv-filter-toggle); on mobile the same element becomes
+      a bottom sheet (opened by .inv-filter-mobile-trigger), with the
+      sheet head + foot shown only at mobile widths via CSS. JS keeps one
+      aria-hidden state for both modes.
+    {%- endcomment -%}
     {%- if show_filters and search.filters != empty -%}
       <div class="inv-search__filters-section">
         <div class="inv-search__container page-width">
 
-          {%- comment -%} Filter toggle button {%- endcomment -%}
+          {%- comment -%} Desktop-only inline toggle {%- endcomment -%}
           <button
             type="button"
             class="inv-filter-toggle"
@@ -299,62 +306,84 @@
             {%- endif -%}
           </button>
 
-          {%- comment -%} Filter panel {%- endcomment -%}
+          {%- comment -%} Unified filter panel (desktop inline / mobile bottom sheet) {%- endcomment -%}
           <div
             class="inv-filter-panel"
             id="inv-filter-panel"
             data-filter-panel
             aria-hidden="{% if filters_default_open %}false{% else %}true{% endif %}"
+            aria-label="Filters"
           >
-            <div class="inv-filter-panel__grid">
+            {%- comment -%} Sheet header — hidden on desktop via CSS {%- endcomment -%}
+            <div class="inv-filter-panel__sheet-head">
+              <h2 class="inv-filter-panel__sheet-title">{{ 'invicta.search.filters' | t }}</h2>
+              <button type="button" class="inv-filter-panel__sheet-close" data-filter-sheet-close aria-label="Close filters">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
 
-              {%- comment -%} ---- BRAND FILTER ---- {%- endcomment -%}
-              {%- if has_brands -%}
-                {%- render 'invicta-search-checkbox-filter',
-                    filter_name: 'filter.p.vendor',
-                    group_id: 'brand',
-                    title_key: 'invicta.search.filter_brand',
-                    search_key: 'invicta.search.filter_brands_search',
-                    active_values: brand_active_values,
-                    inactive_values: brand_inactive_values,
-                    default_open: filters_default_open
-                -%}
-              {%- endif -%}
+            {%- comment -%} Shared scrollable body {%- endcomment -%}
+            <div class="inv-filter-panel__body">
+              <div class="inv-filter-panel__grid">
 
-              {%- comment -%} ---- PRODUCT TYPE FILTER ---- {%- endcomment -%}
-              {%- if has_types -%}
-                {%- render 'invicta-search-checkbox-filter',
-                    filter_name: 'filter.p.product_type',
-                    group_id: 'type',
-                    title_key: 'invicta.search.filter_type',
-                    search_key: 'invicta.search.filter_types_search',
-                    active_values: type_active_values,
-                    inactive_values: type_inactive_values,
-                    default_open: filters_default_open
-                -%}
-              {%- endif -%}
+                {%- comment -%} ---- BRAND FILTER ---- {%- endcomment -%}
+                {%- if has_brands -%}
+                  {%- render 'invicta-search-checkbox-filter',
+                      filter_name: 'filter.p.vendor',
+                      group_id: 'brand',
+                      title_key: 'invicta.search.filter_brand',
+                      search_key: 'invicta.search.filter_brands_search',
+                      active_values: brand_active_values,
+                      inactive_values: brand_inactive_values,
+                      default_open: filters_default_open
+                  -%}
+                {%- endif -%}
 
-              {%- comment -%} ---- PRICE RANGE FILTER ---- {%- endcomment -%}
-              {%- if show_price_filter -%}
-                {%- render 'invicta-search-price-filter',
-                    group_id: 'price',
-                    active_price_gte: active_price_gte,
-                    active_price_lte: active_price_lte,
-                    default_open: filters_default_open,
-                    search_filters: search.filters
-                -%}
-              {%- endif -%}
+                {%- comment -%} ---- PRODUCT TYPE FILTER ---- {%- endcomment -%}
+                {%- if has_types -%}
+                  {%- render 'invicta-search-checkbox-filter',
+                      filter_name: 'filter.p.product_type',
+                      group_id: 'type',
+                      title_key: 'invicta.search.filter_type',
+                      search_key: 'invicta.search.filter_types_search',
+                      active_values: type_active_values,
+                      inactive_values: type_inactive_values,
+                      default_open: filters_default_open
+                  -%}
+                {%- endif -%}
 
-              {%- comment -%} ---- AVAILABILITY FILTER ---- {%- endcomment -%}
-              {%- if show_availability_filter -%}
-                {%- render 'invicta-search-availability-filter',
-                    group_id: 'availability',
-                    active_availability: active_availability,
-                    default_open: filters_default_open,
-                    search_filters: search.filters
-                -%}
-              {%- endif -%}
+                {%- comment -%} ---- PRICE RANGE FILTER ---- {%- endcomment -%}
+                {%- if show_price_filter -%}
+                  {%- render 'invicta-search-price-filter',
+                      group_id: 'price',
+                      active_price_gte: active_price_gte,
+                      active_price_lte: active_price_lte,
+                      default_open: filters_default_open,
+                      search_filters: search.filters
+                  -%}
+                {%- endif -%}
 
+                {%- comment -%} ---- AVAILABILITY FILTER ---- {%- endcomment -%}
+                {%- if show_availability_filter -%}
+                  {%- render 'invicta-search-availability-filter',
+                      group_id: 'availability',
+                      active_availability: active_availability,
+                      default_open: filters_default_open,
+                      search_filters: search.filters
+                  -%}
+                {%- endif -%}
+
+              </div>
+            </div>
+
+            {%- comment -%} Sheet footer (Apply) — hidden on desktop via CSS {%- endcomment -%}
+            <div class="inv-filter-panel__sheet-foot">
+              <button type="button" class="inv-filter-panel__sheet-apply" data-filter-sheet-apply>
+                Apply filters
+              </button>
             </div>
           </div>
 
@@ -366,12 +395,14 @@
 
         </div>
       </div>
-    {%- endif -%}
 
-    {%- comment -%} ========== MOBILE FILTER BOTTOM SHEET ========== {%- endcomment -%}
-    {%- if show_filters and search.filters != empty -%}
-      {%- comment -%} Fixed trigger button at bottom of viewport (mobile only) {%- endcomment -%}
-      <button type="button" class="inv-filter-mobile-trigger" data-filter-mobile-trigger aria-label="Open filters">
+      {%- comment -%}
+        Mobile-only overlay + floating trigger. Both hidden on desktop
+        via CSS. Overlay sits below the panel, clicks-through to close.
+      {%- endcomment -%}
+      <div class="inv-filter-sheet-overlay" data-filter-sheet-overlay aria-hidden="true"></div>
+
+      <button type="button" class="inv-filter-mobile-trigger" data-filter-mobile-trigger aria-controls="inv-filter-panel" aria-label="Open filters">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
           <line x1="4" y1="6" x2="20" y2="6"/>
           <line x1="4" y1="12" x2="16" y2="12"/>
@@ -384,74 +415,6 @@
           <span class="inv-filter-mobile-trigger__count" style="display:none">0</span>
         {%- endif -%}
       </button>
-
-      {%- comment -%} Overlay {%- endcomment -%}
-      <div class="inv-filter-sheet-overlay" data-filter-sheet-overlay></div>
-
-      {%- comment -%} Bottom sheet {%- endcomment -%}
-      <div class="inv-filter-sheet" role="dialog" aria-label="Filters" aria-modal="true">
-        <div class="inv-filter-sheet__header">
-          <h2 class="inv-filter-sheet__title">Filters</h2>
-          <button type="button" class="inv-filter-sheet__close" data-filter-sheet-close aria-label="Close filters">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
-          </button>
-        </div>
-        <div class="inv-filter-sheet__body">
-          <div class="inv-filter-panel__grid">
-
-            {%- comment -%} Mobile filter groups (reuse same snippets with -mobile IDs) {%- endcomment -%}
-            {%- if has_brands -%}
-              {%- render 'invicta-search-checkbox-filter',
-                  filter_name: 'filter.p.vendor',
-                  group_id: 'brand-mobile',
-                  title_key: 'invicta.search.filter_brand',
-                  search_key: 'invicta.search.filter_brands_search',
-                  active_values: brand_active_values,
-                  inactive_values: brand_inactive_values,
-                  default_open: true
-              -%}
-            {%- endif -%}
-
-            {%- if has_types -%}
-              {%- render 'invicta-search-checkbox-filter',
-                  filter_name: 'filter.p.product_type',
-                  group_id: 'type-mobile',
-                  title_key: 'invicta.search.filter_type',
-                  search_key: 'invicta.search.filter_types_search',
-                  active_values: type_active_values,
-                  inactive_values: type_inactive_values,
-                  default_open: true
-              -%}
-            {%- endif -%}
-
-            {%- if show_price_filter -%}
-              {%- render 'invicta-search-price-filter',
-                  group_id: 'price-mobile',
-                  active_price_gte: active_price_gte,
-                  active_price_lte: active_price_lte,
-                  default_open: true,
-                  search_filters: search.filters
-              -%}
-            {%- endif -%}
-
-            {%- if show_availability_filter -%}
-              {%- render 'invicta-search-availability-filter',
-                  group_id: 'availability-mobile',
-                  active_availability: active_availability,
-                  default_open: true,
-                  search_filters: search.filters
-              -%}
-            {%- endif -%}
-
-          </div>
-        </div>
-        <div class="inv-filter-sheet__footer">
-          <button type="button" class="inv-filter-sheet__apply" data-filter-sheet-apply>Apply filters</button>
-        </div>
-      </div>
     {%- endif -%}
 
     {%- comment -%} ========== PRODUCT GRID ========== {%- endcomment -%}

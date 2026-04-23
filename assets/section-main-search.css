@@ -251,7 +251,9 @@
   border-radius: 10px;
 }
 
-/* Filter panel */
+/* Filter panel — single DOM source for filters. Desktop: inline accordion
+   (aria-hidden="true" hides it via display:none below). Mobile: transformed
+   into a bottom sheet via the @media (max-width: 749px) block. */
 .inv-filter-panel {
   background: #f9fafb;
   border: 1px solid #e5e5e5;
@@ -261,8 +263,32 @@
   transition: opacity 0.15s ease;
 }
 
-.inv-filter-panel[aria-hidden="true"] {
+/* Desktop-only: aria-hidden toggles visibility entirely.
+   On mobile the panel stays in the DOM and slides off-screen via
+   transform (see mobile media query), so don't display:none it. */
+@media screen and (min-width: 750px) {
+  .inv-filter-panel[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+/* Sheet-only sub-elements — hidden on desktop, visible on mobile */
+.inv-filter-panel__sheet-head,
+.inv-filter-panel__sheet-foot {
   display: none;
+}
+
+/* Mobile-only surfaces hidden on desktop */
+.inv-filter-mobile-trigger {
+  display: none;
+}
+
+.inv-filter-sheet-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: var(--inv-z-overlay);
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .inv-filter-panel__grid {
@@ -1253,16 +1279,142 @@
     border-width: 2px;
   }
 
-  /* ---- MOBILE FILTER BOTTOM SHEET ---- */
+  /* ---- MOBILE FILTER BOTTOM SHEET ----
+     The same .inv-filter-panel element that renders as an inline
+     accordion on desktop transforms into a bottom sheet on mobile. No
+     duplicated DOM; aria-hidden controls visibility + slide animation. */
+
+  /* Hide desktop toggle on mobile — the floating trigger opens the sheet */
   .inv-filter-toggle.inv-filter-toggle {
-    display: none; /* Hide the inline toggle */
+    display: none;
   }
 
+  /* The panel becomes a fixed bottom sheet */
   .inv-filter-panel {
-    display: none; /* Hidden by default, managed by bottom sheet */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: calc(var(--inv-z-overlay) + 1);
+    max-height: 80vh;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 16px 16px 0 0;
+    background: #fff;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    will-change: transform;
+    visibility: hidden;
+    pointer-events: none;
   }
 
-  /* Mobile filter trigger — fixed at bottom */
+  /* aria-hidden="false" slides the sheet in and makes it interactive */
+  .inv-filter-panel[aria-hidden="false"] {
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  /* Sheet-only head/foot — visible only at mobile widths */
+  .inv-filter-panel__sheet-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e5e5e5;
+    flex-shrink: 0;
+  }
+
+  .inv-filter-panel__sheet-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111;
+    margin: 0;
+  }
+
+  .inv-filter-panel__sheet-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    background: #f3f4f6;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #6b7280;
+    transition: background 0.15s ease;
+  }
+
+  .inv-filter-panel__sheet-close:hover {
+    background: #e5e7eb;
+    color: #111;
+  }
+
+  .inv-filter-panel__sheet-close:focus-visible {
+    outline: 2px solid var(--inv-accent);
+    outline-offset: 2px;
+  }
+
+  /* Scrollable body holds the filter grid */
+  .inv-filter-panel__body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 20px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .inv-filter-panel__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* Sticky footer with Apply button */
+  .inv-filter-panel__sheet-foot {
+    display: flex;
+    flex-shrink: 0;
+    padding: 16px 20px;
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+    border-top: 1px solid #e5e5e5;
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+  }
+
+  .inv-filter-panel__sheet-apply {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    padding: 14px 20px;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--inv-accent);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .inv-filter-panel__sheet-apply:hover {
+    background: var(--inv-accent-hover);
+  }
+
+  .inv-filter-panel__sheet-apply:focus-visible {
+    outline: 2px solid var(--inv-accent);
+    outline-offset: 2px;
+  }
+
+  /* Floating mobile trigger */
   .inv-filter-mobile-trigger {
     position: fixed;
     bottom: 0;
@@ -1305,125 +1457,9 @@
     border-radius: 10px;
   }
 
-  /* Bottom sheet overlay */
-  .inv-filter-sheet-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: var(--inv-z-overlay);
-    background: rgba(0, 0, 0, 0.4);
-  }
-
-  .inv-filter-sheet-overlay.inv-filter-sheet--open {
+  /* Overlay — shown while the sheet is open */
+  .inv-filter-sheet-overlay[aria-hidden="false"] {
     display: block;
-  }
-
-  /* Bottom sheet panel */
-  .inv-filter-sheet {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: calc(var(--inv-z-overlay) + 1);
-    max-height: 80vh;
-    background: #fff;
-    border-radius: 16px 16px 0 0;
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    will-change: transform;
-  }
-
-  .inv-filter-sheet.inv-filter-sheet--open {
-    transform: translateY(0);
-  }
-
-  .inv-filter-sheet__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 20px;
-    border-bottom: 1px solid #e5e5e5;
-    flex-shrink: 0;
-  }
-
-  .inv-filter-sheet__title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #111;
-    margin: 0;
-  }
-
-  .inv-filter-sheet__close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    background: #f3f4f6;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    color: #6b7280;
-    transition: background 0.15s ease;
-  }
-
-  .inv-filter-sheet__close:hover {
-    background: #e5e7eb;
-    color: #111;
-  }
-
-  .inv-filter-sheet__close:focus-visible {
-    outline: 2px solid var(--inv-accent);
-    outline-offset: 2px;
-  }
-
-  .inv-filter-sheet__body {
-    flex: 1;
-    overflow-y: auto;
-    padding: 16px 20px;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .inv-filter-sheet__body .inv-filter-panel__grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .inv-filter-sheet__footer {
-    flex-shrink: 0;
-    padding: 16px 20px;
-    padding-bottom: max(16px, env(safe-area-inset-bottom));
-    border-top: 1px solid #e5e5e5;
-    position: sticky;
-    bottom: 0;
-    background: #fff;
-  }
-
-  .inv-filter-sheet__apply {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 14px 20px;
-    font-size: 0.9375rem;
-    font-weight: 700;
-    color: #fff;
-    background: var(--inv-accent);
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.15s ease;
-  }
-
-  .inv-filter-sheet__apply:hover {
-    background: var(--inv-accent-hover);
-  }
-
-  .inv-filter-sheet__apply:focus-visible {
-    outline: 2px solid var(--inv-accent);
-    outline-offset: 2px;
   }
 
   /* Active filter tags on mobile */
@@ -1520,12 +1556,12 @@
   }
 }
 
-/* Hide mobile-only elements on desktop */
-/* !important needed: ensures mobile-only elements are always hidden on desktop */
+/* Hide mobile-only surfaces on desktop.
+   !important defeats the mobile-media transform that would otherwise
+   re-show these if the viewport width ever crosses the breakpoint. */
 @media screen and (min-width: 750px) {
   .inv-filter-mobile-trigger,
   .inv-filter-sheet-overlay,
-  .inv-filter-sheet,
   .inv-pagination__mobile-info {
     display: none !important;
   }
@@ -1556,7 +1592,7 @@
   .inv-pagination__page,
   .inv-grid__empty-link,
   .inv-grid__empty-browse,
-  .inv-filter-sheet,
+  .inv-filter-panel,
   .inv-search__progress-bar::after {
     transition: none;
     animation: none;
