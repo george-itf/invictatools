@@ -25,12 +25,27 @@
     }
 
     init() {
-      this.container.addEventListener('click', this.handleClick.bind(this));
-      this.container.addEventListener('change', this.handleChange.bind(this));
-      this.container.addEventListener('input', this.handleInput.bind(this));
-      window.addEventListener('popstate', this.handlePopState.bind(this));
+      // Single AbortController tears down every listener this instance
+      // registers (on container, window, document). Called from destroy()
+      // when the section is swapped by AJAX — fixes the popstate +
+      // escape-key leaks that previously accumulated one handler per
+      // filter/sort/pagination click.
+      this._listenerController = new AbortController();
+      const signal = this._listenerController.signal;
+
+      this.container.addEventListener('click', this.handleClick.bind(this), { signal });
+      this.container.addEventListener('change', this.handleChange.bind(this), { signal });
+      this.container.addEventListener('input', this.handleInput.bind(this), { signal });
+      window.addEventListener('popstate', this.handlePopState.bind(this), { signal });
       this._initMobileFilterSheet();
       this._updateMobileFilterCount();
+    }
+
+    destroy() {
+      if (this._listenerController) {
+        this._listenerController.abort();
+        this._listenerController = null;
+      }
     }
 
     /* -------------------------------------------------------
@@ -203,9 +218,7 @@
     ------------------------------------------------------- */
 
     _initMobileFilterSheet() {
-      if (this._escapeHandler) {
-        document.removeEventListener('keydown', this._escapeHandler);
-      }
+      const signal = this._listenerController && this._listenerController.signal;
       this._escapeHandler = (e) => {
         if (e.key === 'Escape') {
           const sheet = document.querySelector('.inv-filter-sheet');
@@ -215,7 +228,7 @@
           }
         }
       };
-      document.addEventListener('keydown', this._escapeHandler);
+      document.addEventListener('keydown', this._escapeHandler, signal ? { signal } : undefined);
     }
 
     openMobileFilterSheet() {
@@ -305,15 +318,18 @@
       if (desktopMax && mobileMax) mobileMax.value = desktopMax.value;
     }
 
-    _updateMobileFilterCount() {
+    _updateMobileFilterCount(scope) {
       const trigger = document.querySelector('[data-filter-mobile-trigger]');
       if (!trigger) return;
 
-      const checkedCount = this.container.querySelectorAll(
+      // Caller may pass the live container; default to this.container for
+      // the initial init() call where they are the same element.
+      const root = scope || this.container;
+      const checkedCount = root.querySelectorAll(
         '.inv-filter-panel input[type="checkbox"]:checked'
       ).length;
-      const priceMin = this.container.querySelector('[data-price-min]');
-      const priceMax = this.container.querySelector('[data-price-max]');
+      const priceMin = root.querySelector('[data-price-min]');
+      const priceMax = root.querySelector('[data-price-max]');
       let count = checkedCount;
       if (priceMin && priceMin.value) count++;
       if (priceMax && priceMax.value) count++;
@@ -437,7 +453,8 @@
       const url = this.buildUrl();
       url.searchParams.set('sort_by', sortValue);
       url.searchParams.delete('page');
-      this.fetchAndUpdate(url.toString());
+      // Preserve keeps keyboard focus on the sort <select>, which survives the swap.
+      this.fetchAndUpdate(url.toString(), { focus: 'preserve' });
     }
 
     selectTypeChip(chip) {
@@ -515,7 +532,10 @@
     }
 
     navigateToPage(href) {
-      this.fetchAndUpdate(href);
+      // The old pagination link is gone post-swap; focus the result count
+      // so screen readers announce the new page and keyboard users land
+      // on the top of the new result set.
+      this.fetchAndUpdate(href, { focus: 'results' });
       // Scroll to top of results grid
       const grid = this.container.querySelector('.inv-search__grid');
       if (grid) {
@@ -539,16 +559,27 @@
     fetchFromFilters() {
       const url = this.buildUrl();
       url.searchParams.delete('page'); // Reset to page 1
-      this.fetchAndUpdate(url.toString());
+      // 'preserve' tries to re-focus the triggering element; if it no longer
+      // exists in the new DOM (e.g. tag removal, clear-all, chip click),
+      // _restoreFocusSnapshot returns false and we fall back to the result
+      // count so screen readers and keyboard users land on the new state.
+      this.fetchAndUpdate(url.toString(), { focus: 'preserve' });
     }
 
-    async fetchAndUpdate(url) {
+    async fetchAndUpdate(url, options) {
+      options = options || {};
+      const focusMode = options.focus || null;       // 'preserve' | 'results' | null
+      const skipPushState = !!options.skipPushState;
+
       if (this.abortController) {
         this.abortController.abort();
       }
       this.abortController = new AbortController();
 
       this.setLoading(true);
+
+      // Capture focus snapshot BEFORE swap so we can restore in the new DOM
+      const focusSnapshot = focusMode === 'preserve' ? this._captureFocusSnapshot() : null;
 
       // Save UI state for restoration after DOM swap
       const openAccordions = this.getAccordionStates();
@@ -564,10 +595,22 @@
 
         const data = await response.json();
 
-        history.pushState({}, '', url);
+        if (!skipPushState) {
+          history.pushState({}, '', url);
+        }
 
         if (data[this.sectionId]) {
           this.updateSection(data[this.sectionId], openAccordions, scrollPositions, panelOpen);
+
+          // Focus restoration runs after the DOM swap. _restoreFocusSnapshot
+          // and _focusResults both look up the fresh container via getElementById.
+          if (focusMode === 'preserve') {
+            if (!this._restoreFocusSnapshot(focusSnapshot)) {
+              this._focusResults();
+            }
+          } else if (focusMode === 'results') {
+            this._focusResults();
+          }
         }
 
         this.announceUpdate();
@@ -589,6 +632,104 @@
     }
 
     /* -------------------------------------------------------
+       FOCUS MANAGEMENT — preserves keyboard focus across AJAX swaps
+    ------------------------------------------------------- */
+
+    _captureFocusSnapshot() {
+      const el = document.activeElement;
+      if (!el || el === document.body) return null;
+      if (!this.container.contains(el)) return null;
+
+      const inSheet = !!el.closest('.inv-filter-sheet');
+
+      if (el.matches('input[type="checkbox"][name]')) {
+        return { type: 'checkbox', inSheet: inSheet, name: el.name, value: el.value };
+      }
+      if (el.matches('[data-price-min]')) {
+        return { type: 'price', inSheet: inSheet, field: 'min' };
+      }
+      if (el.matches('[data-price-max]')) {
+        return { type: 'price', inSheet: inSheet, field: 'max' };
+      }
+      if (el.matches('[data-inv-sort-select]')) {
+        return { type: 'sort' };
+      }
+      if (el.matches('[data-filter-search]')) {
+        const group = el.closest('.inv-filter-group');
+        const groupId = group && group.dataset.filterGroupId;
+        if (groupId) return { type: 'filter-search', groupId: groupId };
+      }
+      if (el.matches('[data-filter-toggle]')) {
+        return { type: 'filter-toggle' };
+      }
+      if (el.matches('[data-accordion-toggle]')) {
+        const group = el.closest('.inv-filter-group');
+        const groupId = group && group.dataset.filterGroupId;
+        if (groupId) return { type: 'accordion-toggle', groupId: groupId };
+      }
+      return null;
+    }
+
+    _restoreFocusSnapshot(snap) {
+      if (!snap) return false;
+      const container = document.getElementById('invicta-search') || this.container;
+      if (!container) return false;
+
+      let scope = container;
+      let selector = null;
+
+      switch (snap.type) {
+        case 'checkbox':
+          scope = snap.inSheet
+            ? container.querySelector('.inv-filter-sheet__body')
+            : container.querySelector('#inv-filter-panel');
+          if (!scope) scope = container;
+          selector = 'input[type="checkbox"][name="' + CSS.escape(snap.name) +
+                     '"][value="' + CSS.escape(snap.value) + '"]';
+          break;
+        case 'price':
+          scope = snap.inSheet
+            ? container.querySelector('.inv-filter-sheet__body')
+            : container.querySelector('#inv-filter-panel');
+          if (!scope) scope = container;
+          selector = snap.field === 'min' ? '[data-price-min]' : '[data-price-max]';
+          break;
+        case 'sort':
+          selector = '[data-inv-sort-select]';
+          break;
+        case 'filter-search':
+          selector = '.inv-filter-group[data-filter-group-id="' +
+                     CSS.escape(snap.groupId) + '"] [data-filter-search]';
+          break;
+        case 'filter-toggle':
+          selector = '[data-filter-toggle]';
+          break;
+        case 'accordion-toggle':
+          selector = '.inv-filter-group[data-filter-group-id="' +
+                     CSS.escape(snap.groupId) + '"] [data-accordion-toggle]';
+          break;
+      }
+
+      if (!selector) return false;
+      const target = scope.querySelector(selector);
+      if (!target) return false;
+      try { target.focus({ preventScroll: true }); } catch (_) { target.focus(); }
+      return true;
+    }
+
+    _focusResults() {
+      const container = document.getElementById('invicta-search') || this.container;
+      if (!container) return;
+      const target = container.querySelector('#inv-product-count')
+        || container.querySelector('.inv-grid__count')
+        || container.querySelector('.inv-grid__empty')
+        || container;
+      if (!target) return;
+      if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+      try { target.focus({ preventScroll: true }); } catch (_) { target.focus(); }
+    }
+
+    /* -------------------------------------------------------
        DOM UPDATE
     ------------------------------------------------------- */
 
@@ -598,6 +739,9 @@
       const newContent = doc.body.firstElementChild;
 
       if (newContent) {
+        // Tear down this instance's global listeners (popstate, Escape)
+        // before the new instance replaces us.
+        this.destroy();
         this.container.replaceWith(newContent);
 
         const newContainer = document.getElementById('invicta-search');
@@ -687,18 +831,26 @@
       const announce = document.getElementById('inv-search-announce');
       if (!announce) return;
 
-      const countEl = this.container.querySelector('.inv-grid__count strong');
+      // After a DOM swap this.container is detached; always look up the
+      // live container so the announced count reflects the new results.
+      const liveContainer = document.getElementById('invicta-search') || this.container;
+      const countEl = liveContainer.querySelector('.inv-grid__count strong');
       const count = countEl ? countEl.textContent : '0';
 
       announce.textContent = 'Search results updated. ' + count + ' products found.';
       setTimeout(() => { announce.textContent = ''; }, 1000);
 
-      /* Update mobile filter count after DOM swap */
-      this._updateMobileFilterCount();
+      /* Update mobile filter count — scoped to the live container too. */
+      this._updateMobileFilterCount(liveContainer);
     }
 
     handlePopState() {
-      window.location.reload();
+      // Back/forward: the browser has already updated window.location to the
+      // target URL. Fetch the section for that URL and swap DOM; the
+      // server-rendered HTML carries the correct form state (checked
+      // boxes, price inputs, sort) so we don't need to reconstruct it
+      // client-side. Skip pushState — we're already at that entry.
+      this.fetchAndUpdate(window.location.href, { skipPushState: true });
     }
   }
 

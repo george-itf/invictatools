@@ -818,6 +818,17 @@
   color: var(--inv-title-color);
 }
 
+/* Programmatic focus target after AJAX swap (see _focusResults in
+   invicta-search-page.js). No visible outline until keyboard-focused. */
+.inv-grid__count:focus {
+  outline: none;
+}
+.inv-grid__count:focus-visible {
+  outline: 2px solid var(--inv-accent, #e11d26);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
 .inv-grid__count strong {
   font-weight: 700;
   color: #111;
