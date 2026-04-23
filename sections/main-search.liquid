@@ -73,12 +73,16 @@
   assign active_price_gte = ''
   assign active_price_lte = ''
   assign active_availability = false
+  assign active_types_count = 0
 
   for filter in search.filters
     if filter.param_name == 'filter.p.vendor' or filter.param_name == 'filter.p.product_type'
       if filter.active_values.size > 0
         assign has_active_filters = true
         assign total_active = total_active | plus: filter.active_values.size
+      endif
+      if filter.param_name == 'filter.p.product_type'
+        assign active_types_count = filter.active_values.size
       endif
     endif
 
@@ -109,69 +113,35 @@
   # ----------------------------------------
   # BUILD SORTED FILTER DATA
   # ----------------------------------------
-  assign brand_entries_active = ''
-  assign brand_entries_inactive = ''
-  assign type_entries_active = ''
-  assign type_entries_inactive = ''
+  # Each filter's values array is sorted by count desc and partitioned
+  # into active/inactive lists. Both the filter panel and the product-
+  # type chip bar consume these directly — no string encoding / split
+  # round-trip, so labels containing '|' are no longer a problem.
   assign has_brands = false
   assign has_types = false
+  assign brand_active_values = empty
+  assign brand_inactive_values = empty
+  assign type_active_values = empty
+  assign type_inactive_values = empty
 
   for filter in search.filters
-    if filter.param_name == 'filter.p.vendor'
-      for value in filter.values
-        if value.count > 0
+    case filter.param_name
+      when 'filter.p.vendor'
+        assign brand_values_sorted = filter.values | sort: 'count' | reverse
+        assign brand_active_values = brand_values_sorted | where: 'active', true
+        assign brand_inactive_values = brand_values_sorted | where: 'active', false
+        if brand_values_sorted.first and brand_values_sorted.first.count > 0
           assign has_brands = true
-          assign sort_key = 99999 | minus: value.count
-          assign sort_key_padded = sort_key | prepend: '00000' | slice: -5, 5
-          assign entry = sort_key_padded | append: '|' | append: value.label | append: '|' | append: value.count
-
-          if value.active
-            if brand_entries_active == ''
-              assign brand_entries_active = entry
-            else
-              assign brand_entries_active = brand_entries_active | append: '|||' | append: entry
-            endif
-          else
-            if brand_entries_inactive == ''
-              assign brand_entries_inactive = entry
-            else
-              assign brand_entries_inactive = brand_entries_inactive | append: '|||' | append: entry
-            endif
-          endif
         endif
-      endfor
-    endif
-
-    if filter.param_name == 'filter.p.product_type'
-      for value in filter.values
-        if value.count > 0
+      when 'filter.p.product_type'
+        assign type_values_sorted = filter.values | sort: 'count' | reverse
+        assign type_active_values = type_values_sorted | where: 'active', true
+        assign type_inactive_values = type_values_sorted | where: 'active', false
+        if type_values_sorted.first and type_values_sorted.first.count > 0
           assign has_types = true
-          assign sort_key = 99999 | minus: value.count
-          assign sort_key_padded = sort_key | prepend: '00000' | slice: -5, 5
-          assign entry = sort_key_padded | append: '|' | append: value.label | append: '|' | append: value.count
-
-          if value.active
-            if type_entries_active == ''
-              assign type_entries_active = entry
-            else
-              assign type_entries_active = type_entries_active | append: '|||' | append: entry
-            endif
-          else
-            if type_entries_inactive == ''
-              assign type_entries_inactive = entry
-            else
-              assign type_entries_inactive = type_entries_inactive | append: '|||' | append: entry
-            endif
-          endif
         endif
-      endfor
-    endif
+    endcase
   endfor
-
-  assign brand_active_sorted = brand_entries_active | split: '|||' | sort
-  assign brand_inactive_sorted = brand_entries_inactive | split: '|||' | sort
-  assign type_active_sorted = type_entries_active | split: '|||' | sort
-  assign type_inactive_sorted = type_entries_inactive | split: '|||' | sort
 -%}
 
 <div
@@ -226,12 +196,17 @@
         {%- endif -%}
       </h1>
 
-      {%- comment -%} Search Input {%- endcomment -%}
-      <div class="inv-search__input-wrapper">
-        {%- if settings.predictive_search_enabled -%}
-          <predictive-search data-loading-text="{{ 'accessibility.loading' | t }}">
-        {%- endif -%}
-
+      {%- comment -%}
+        Search Input — wired to the same Invicta predictive search system
+        as the header (invicta-search.js). data-inv-predictive-search marks
+        the wrapper; the JS iterates every instance on the page, so the
+        header and the SERP share one codepath and the same dropdown UX
+        (stock badges, ex-VAT pricing, recent searches, keyboard nav).
+      {%- endcomment -%}
+      <div
+        class="inv-search__input-wrapper"
+        {% if settings.predictive_search_enabled %}data-inv-predictive-search{% endif %}
+      >
         <form action="{{ routes.search_url }}" method="get" role="search" class="inv-search__form">
           <input type="hidden" name="type" value="product">
           <input type="hidden" name="options[prefix]" value="last">
@@ -243,6 +218,7 @@
               name="q"
               id="inv-search-input"
               class="inv-search__input"
+              {% if settings.predictive_search_enabled %}data-inv-search-input{% endif %}
               value="{{ search.terms | escape }}"
               placeholder="{{ 'invicta.search.placeholder' | t }}"
               autocomplete="off"
@@ -252,8 +228,7 @@
               {%- if settings.predictive_search_enabled -%}
                 role="combobox"
                 aria-expanded="false"
-                aria-owns="predictive-search-results"
-                aria-controls="predictive-search-results"
+                aria-controls="inv-search-results-serp"
                 aria-haspopup="listbox"
                 aria-autocomplete="list"
               {%- endif -%}
@@ -266,6 +241,12 @@
               </svg>
             </button>
 
+            {%- comment -%}
+              Clear stays as a link (not data-inv-search-clear) so the
+              fallback behaviour is to navigate to a fresh /search — users
+              on the SERP expect Clear to reset the URL, not just blank
+              the input.
+            {%- endcomment -%}
             {%- if search.terms != blank -%}
               <a href="{{ routes.search_url }}?type=product" class="inv-search__clear" aria-label="{{ 'invicta.search.clear_label' | t }}">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
@@ -277,13 +258,16 @@
           </div>
 
           {%- if settings.predictive_search_enabled -%}
-            <div class="predictive-search predictive-search--search-template" tabindex="-1" data-predictive-search></div>
+            {%- comment -%} Portalled by invicta-search.js to #ps-root on init {%- endcomment -%}
+            <div
+              id="inv-search-results-serp"
+              class="inv-search-results"
+              data-inv-search-results
+              role="listbox"
+              aria-label="Search suggestions"
+            ></div>
           {%- endif -%}
         </form>
-
-        {%- if settings.predictive_search_enabled -%}
-          </predictive-search>
-        {%- endif -%}
       </div>
 
     </div>
@@ -331,8 +315,8 @@
                     group_id: 'brand',
                     title_key: 'invicta.search.filter_brand',
                     search_key: 'invicta.search.filter_brands_search',
-                    active_sorted: brand_active_sorted,
-                    inactive_sorted: brand_inactive_sorted,
+                    active_values: brand_active_values,
+                    inactive_values: brand_inactive_values,
                     default_open: filters_default_open
                 -%}
               {%- endif -%}
@@ -344,8 +328,8 @@
                     group_id: 'type',
                     title_key: 'invicta.search.filter_type',
                     search_key: 'invicta.search.filter_types_search',
-                    active_sorted: type_active_sorted,
-                    inactive_sorted: type_inactive_sorted,
+                    active_values: type_active_values,
+                    inactive_values: type_inactive_values,
                     default_open: filters_default_open
                 -%}
               {%- endif -%}
@@ -425,8 +409,8 @@
                   group_id: 'brand-mobile',
                   title_key: 'invicta.search.filter_brand',
                   search_key: 'invicta.search.filter_brands_search',
-                  active_sorted: brand_active_sorted,
-                  inactive_sorted: brand_inactive_sorted,
+                  active_values: brand_active_values,
+                  inactive_values: brand_inactive_values,
                   default_open: true
               -%}
             {%- endif -%}
@@ -437,8 +421,8 @@
                   group_id: 'type-mobile',
                   title_key: 'invicta.search.filter_type',
                   search_key: 'invicta.search.filter_types_search',
-                  active_sorted: type_active_sorted,
-                  inactive_sorted: type_inactive_sorted,
+                  active_values: type_active_values,
+                  inactive_values: type_inactive_values,
                   default_open: true
               -%}
             {%- endif -%}
@@ -477,6 +461,53 @@
       <div class="inv-search__container page-width">
 
         {%- paginate search.results by products_per_page -%}
+
+          {%- comment -%} Product Type chip bar — quick-access tabs for the top product types in current results {%- endcomment -%}
+          {%- if has_types and search.results_count > 0 -%}
+            {%- assign chip_count = 0 -%}
+            {%- assign chip_max = 6 -%}
+            <div class="inv-type-chips" role="group" aria-label="Filter by product type" data-inv-type-chips>
+              <button
+                type="button"
+                class="inv-type-chip{% if active_types_count == 0 %} inv-type-chip--active{% endif %}"
+                data-type-chip
+                data-type-value=""
+                aria-pressed="{% if active_types_count == 0 %}true{% else %}false{% endif %}"
+              >
+                All types
+              </button>
+              {%- for value in type_active_values -%}
+                {%- if value.count > 0 and chip_count < chip_max -%}
+                  <button
+                    type="button"
+                    class="inv-type-chip inv-type-chip--active"
+                    data-type-chip
+                    data-type-value="{{ value.label | escape }}"
+                    aria-pressed="true"
+                  >
+                    <span class="inv-type-chip__label">{{ value.label }}</span>
+                    <span class="inv-type-chip__count">{{ value.count }}</span>
+                  </button>
+                  {%- assign chip_count = chip_count | plus: 1 -%}
+                {%- endif -%}
+              {%- endfor -%}
+              {%- for value in type_inactive_values -%}
+                {%- if value.count > 0 and chip_count < chip_max -%}
+                  <button
+                    type="button"
+                    class="inv-type-chip"
+                    data-type-chip
+                    data-type-value="{{ value.label | escape }}"
+                    aria-pressed="false"
+                  >
+                    <span class="inv-type-chip__label">{{ value.label }}</span>
+                    <span class="inv-type-chip__count">{{ value.count }}</span>
+                  </button>
+                  {%- assign chip_count = chip_count | plus: 1 -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
 
           {%- comment -%} Toolbar {%- endcomment -%}
           <div class="inv-grid__toolbar">
@@ -525,7 +556,16 @@
           <ul class="inv-grid__products" id="inv-product-list" role="list">
             {%- for item in search.results -%}
               {%- if item.object_type == 'product' -%}
-                <li class="inv-grid__item">
+                {%- assign ga4_index = forloop.index0 | plus: paginate.current_offset -%}
+                <li
+                  class="inv-grid__item"
+                  data-ga4-item-id="{{ item.id }}"
+                  data-ga4-item-name="{{ item.title | escape }}"
+                  data-ga4-item-brand="{{ item.vendor | default: '' | escape }}"
+                  data-ga4-item-category="{{ item.type | default: '' | escape }}"
+                  data-ga4-item-price="{{ item.price | money_without_currency | replace: ',', '' }}"
+                  data-ga4-item-index="{{ ga4_index }}"
+                >
                   {%- render 'invicta-product-card',
                       product: item,
                       section_settings: section.settings,
@@ -635,6 +675,17 @@
   {%- endif -%}
 
   <div class="visually-hidden" aria-live="assertive" id="inv-search-announce"></div>
+
+  {%- comment -%} GA4 search context — consumed by invicta-ga4-events.js on load and after AJAX swaps {%- endcomment -%}
+  <script type="application/json" data-inv-ga4-search>
+    {
+      "term": {{ search.terms | default: '' | json }},
+      "performed": {{ search.performed | json }},
+      "results_count": {{ search.results_count | default: 0 }},
+      "sort_by": {{ sort_by | default: '' | json }},
+      "active_filters_count": {{ total_active | default: 0 }}
+    }
+  </script>
 
 </div>
 

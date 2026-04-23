@@ -7,8 +7,8 @@
     group_id          - Unique ID suffix for the group (e.g. "brand", "type", "brand-mobile")
     title_key         - Translation key for the group title
     search_key        - Translation key for the search placeholder
-    active_sorted     - Pipe-delimited sorted active entries
-    inactive_sorted   - Pipe-delimited sorted inactive entries
+    active_values     - Array of filter_value objects with active: true, pre-sorted by count desc
+    inactive_values   - Array of filter_value objects with active: false, pre-sorted by count desc
     default_open      - Whether accordion starts expanded
 {%- endcomment -%}
 
@@ -38,29 +38,23 @@
       >
     </div>
     <div class="inv-filter-group__list">
-      {%- for entry in active_sorted -%}
-        {%- if entry != blank -%}
-          {%- assign parts = entry | split: '|' -%}
-          {%- assign label = parts[1] -%}
-          {%- assign count = parts[2] -%}
+      {%- for value in active_values -%}
+        {%- if value.count > 0 -%}
           <label class="inv-filter-checkbox">
-            <input type="checkbox" name="{{ filter_name }}" value="{{ label | escape }}" checked>
+            <input type="checkbox" name="{{ filter_name }}" value="{{ value.label | escape }}" checked>
             <span class="inv-filter-checkbox__check"></span>
-            <span class="inv-filter-checkbox__label">{{ label }}</span>
-            <span class="inv-filter-checkbox__count">({{ count }})</span>
+            <span class="inv-filter-checkbox__label">{{ value.label }}</span>
+            <span class="inv-filter-checkbox__count">({{ value.count }})</span>
           </label>
         {%- endif -%}
       {%- endfor -%}
-      {%- for entry in inactive_sorted -%}
-        {%- if entry != blank -%}
-          {%- assign parts = entry | split: '|' -%}
-          {%- assign label = parts[1] -%}
-          {%- assign count = parts[2] -%}
+      {%- for value in inactive_values -%}
+        {%- if value.count > 0 -%}
           <label class="inv-filter-checkbox">
-            <input type="checkbox" name="{{ filter_name }}" value="{{ label | escape }}">
+            <input type="checkbox" name="{{ filter_name }}" value="{{ value.label | escape }}">
             <span class="inv-filter-checkbox__check"></span>
-            <span class="inv-filter-checkbox__label">{{ label }}</span>
-            <span class="inv-filter-checkbox__count">({{ count }})</span>
+            <span class="inv-filter-checkbox__label">{{ value.label }}</span>
+            <span class="inv-filter-checkbox__count">({{ value.count }})</span>
           </label>
         {%- endif -%}
       {%- endfor -%}
