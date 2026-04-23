@@ -113,69 +113,35 @@
   # ----------------------------------------
   # BUILD SORTED FILTER DATA
   # ----------------------------------------
-  assign brand_entries_active = ''
-  assign brand_entries_inactive = ''
-  assign type_entries_active = ''
-  assign type_entries_inactive = ''
+  # Each filter's values array is sorted by count desc and partitioned
+  # into active/inactive lists. Both the filter panel and the product-
+  # type chip bar consume these directly — no string encoding / split
+  # round-trip, so labels containing '|' are no longer a problem.
   assign has_brands = false
   assign has_types = false
+  assign brand_active_values = empty
+  assign brand_inactive_values = empty
+  assign type_active_values = empty
+  assign type_inactive_values = empty
 
   for filter in search.filters
-    if filter.param_name == 'filter.p.vendor'
-      for value in filter.values
-        if value.count > 0
+    case filter.param_name
+      when 'filter.p.vendor'
+        assign brand_values_sorted = filter.values | sort: 'count' | reverse
+        assign brand_active_values = brand_values_sorted | where: 'active', true
+        assign brand_inactive_values = brand_values_sorted | where: 'active', false
+        if brand_values_sorted.first and brand_values_sorted.first.count > 0
           assign has_brands = true
-          assign sort_key = 99999 | minus: value.count
-          assign sort_key_padded = sort_key | prepend: '00000' | slice: -5, 5
-          assign entry = sort_key_padded | append: '|' | append: value.label | append: '|' | append: value.count
-
-          if value.active
-            if brand_entries_active == ''
-              assign brand_entries_active = entry
-            else
-              assign brand_entries_active = brand_entries_active | append: '|||' | append: entry
-            endif
-          else
-            if brand_entries_inactive == ''
-              assign brand_entries_inactive = entry
-            else
-              assign brand_entries_inactive = brand_entries_inactive | append: '|||' | append: entry
-            endif
-          endif
         endif
-      endfor
-    endif
-
-    if filter.param_name == 'filter.p.product_type'
-      for value in filter.values
-        if value.count > 0
+      when 'filter.p.product_type'
+        assign type_values_sorted = filter.values | sort: 'count' | reverse
+        assign type_active_values = type_values_sorted | where: 'active', true
+        assign type_inactive_values = type_values_sorted | where: 'active', false
+        if type_values_sorted.first and type_values_sorted.first.count > 0
           assign has_types = true
-          assign sort_key = 99999 | minus: value.count
-          assign sort_key_padded = sort_key | prepend: '00000' | slice: -5, 5
-          assign entry = sort_key_padded | append: '|' | append: value.label | append: '|' | append: value.count
-
-          if value.active
-            if type_entries_active == ''
-              assign type_entries_active = entry
-            else
-              assign type_entries_active = type_entries_active | append: '|||' | append: entry
-            endif
-          else
-            if type_entries_inactive == ''
-              assign type_entries_inactive = entry
-            else
-              assign type_entries_inactive = type_entries_inactive | append: '|||' | append: entry
-            endif
-          endif
         endif
-      endfor
-    endif
+    endcase
   endfor
-
-  assign brand_active_sorted = brand_entries_active | split: '|||' | sort
-  assign brand_inactive_sorted = brand_entries_inactive | split: '|||' | sort
-  assign type_active_sorted = type_entries_active | split: '|||' | sort
-  assign type_inactive_sorted = type_entries_inactive | split: '|||' | sort
 -%}
 
 <div
@@ -349,8 +315,8 @@
                     group_id: 'brand',
                     title_key: 'invicta.search.filter_brand',
                     search_key: 'invicta.search.filter_brands_search',
-                    active_sorted: brand_active_sorted,
-                    inactive_sorted: brand_inactive_sorted,
+                    active_values: brand_active_values,
+                    inactive_values: brand_inactive_values,
                     default_open: filters_default_open
                 -%}
               {%- endif -%}
@@ -362,8 +328,8 @@
                     group_id: 'type',
                     title_key: 'invicta.search.filter_type',
                     search_key: 'invicta.search.filter_types_search',
-                    active_sorted: type_active_sorted,
-                    inactive_sorted: type_inactive_sorted,
+                    active_values: type_active_values,
+                    inactive_values: type_inactive_values,
                     default_open: filters_default_open
                 -%}
               {%- endif -%}
@@ -443,8 +409,8 @@
                   group_id: 'brand-mobile',
                   title_key: 'invicta.search.filter_brand',
                   search_key: 'invicta.search.filter_brands_search',
-                  active_sorted: brand_active_sorted,
-                  inactive_sorted: brand_inactive_sorted,
+                  active_values: brand_active_values,
+                  inactive_values: brand_inactive_values,
                   default_open: true
               -%}
             {%- endif -%}
@@ -455,8 +421,8 @@
                   group_id: 'type-mobile',
                   title_key: 'invicta.search.filter_type',
                   search_key: 'invicta.search.filter_types_search',
-                  active_sorted: type_active_sorted,
-                  inactive_sorted: type_inactive_sorted,
+                  active_values: type_active_values,
+                  inactive_values: type_inactive_values,
                   default_open: true
               -%}
             {%- endif -%}
@@ -510,38 +476,32 @@
               >
                 All types
               </button>
-              {%- for entry in type_active_sorted -%}
-                {%- if entry != blank and chip_count < chip_max -%}
-                  {%- assign parts = entry | split: '|' -%}
-                  {%- assign chip_label = parts[1] -%}
-                  {%- assign chip_count_val = parts[2] -%}
+              {%- for value in type_active_values -%}
+                {%- if value.count > 0 and chip_count < chip_max -%}
                   <button
                     type="button"
                     class="inv-type-chip inv-type-chip--active"
                     data-type-chip
-                    data-type-value="{{ chip_label | escape }}"
+                    data-type-value="{{ value.label | escape }}"
                     aria-pressed="true"
                   >
-                    <span class="inv-type-chip__label">{{ chip_label }}</span>
-                    <span class="inv-type-chip__count">{{ chip_count_val }}</span>
+                    <span class="inv-type-chip__label">{{ value.label }}</span>
+                    <span class="inv-type-chip__count">{{ value.count }}</span>
                   </button>
                   {%- assign chip_count = chip_count | plus: 1 -%}
                 {%- endif -%}
               {%- endfor -%}
-              {%- for entry in type_inactive_sorted -%}
-                {%- if entry != blank and chip_count < chip_max -%}
-                  {%- assign parts = entry | split: '|' -%}
-                  {%- assign chip_label = parts[1] -%}
-                  {%- assign chip_count_val = parts[2] -%}
+              {%- for value in type_inactive_values -%}
+                {%- if value.count > 0 and chip_count < chip_max -%}
                   <button
                     type="button"
                     class="inv-type-chip"
                     data-type-chip
-                    data-type-value="{{ chip_label | escape }}"
+                    data-type-value="{{ value.label | escape }}"
                     aria-pressed="false"
                   >
-                    <span class="inv-type-chip__label">{{ chip_label }}</span>
-                    <span class="inv-type-chip__count">{{ chip_count_val }}</span>
+                    <span class="inv-type-chip__label">{{ value.label }}</span>
+                    <span class="inv-type-chip__count">{{ value.count }}</span>
                   </button>
                   {%- assign chip_count = chip_count | plus: 1 -%}
                 {%- endif -%}
