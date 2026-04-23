@@ -9,7 +9,7 @@
 
 {{ 'invicta-search.css' | asset_url | stylesheet_tag }}
 
-<div class="inv-search-wrapper">
+<div class="inv-search-wrapper" data-inv-predictive-search>
   <form action="{{ routes.search_url }}" method="get" role="search" class="inv-search-form">
     <input type="hidden" name="type" value="product">
     <input type="hidden" name="options[prefix]" value="last">
@@ -20,6 +20,7 @@
         type="search"
         name="q"
         class="inv-search-input"
+        data-inv-search-input
         placeholder="Search by name, SKU or part number..."
         autocomplete="off"
         aria-label="Search products"
@@ -30,7 +31,7 @@
       >
 
       <!-- CLEAR BUTTON -->
-      <button type="button" class="inv-search-clear" aria-label="Clear search">
+      <button type="button" class="inv-search-clear" data-inv-search-clear aria-label="Clear search">
         <svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -47,7 +48,7 @@
     </div>
 
     <!-- RESULTS DROPDOWN -->
-    <div id="inv-search-results" class="inv-search-results" role="listbox" aria-label="Search suggestions"></div>
+    <div id="inv-search-results" class="inv-search-results" data-inv-search-results role="listbox" aria-label="Search suggestions"></div>
   </form>
 </div>
 

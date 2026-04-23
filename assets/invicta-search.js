@@ -50,13 +50,33 @@
    * InvictaPredictiveSearch
    * ================================================================ */
   class InvictaPredictiveSearch {
-    constructor() {
-      this.wrapper = document.querySelector('.inv-search-wrapper');
+    /**
+     * @param {HTMLElement} [wrapper] - The [data-inv-predictive-search] host.
+     *   When omitted, falls back to the first match in the document for
+     *   backward compatibility with call-sites that pre-dated multi-instance
+     *   support.
+     */
+    constructor(wrapper) {
+      this.wrapper = wrapper
+        || document.querySelector('[data-inv-predictive-search]')
+        || document.querySelector('.inv-search-wrapper');
       if (!this.wrapper) return;
 
-      this.input = this.wrapper.querySelector('.inv-search-input');
-      this.clearBtn = this.wrapper.querySelector('.inv-search-clear');
-      this.resultsContainer = this.wrapper.querySelector('.inv-search-results');
+      /* Guard against double-init if the init routine ever runs twice
+         (e.g. when invicta-search.js is included via two different
+         snippets on the same page). */
+      if (this.wrapper.dataset.invPredictiveSearchReady === '1') return;
+      this.wrapper.dataset.invPredictiveSearchReady = '1';
+      /* Back-reference so destroyIn() can locate the instance from the
+         wrapper alone when the SERP section is about to be AJAX-swapped. */
+      this.wrapper._invInstance = this;
+
+      this.input = this.wrapper.querySelector('[data-inv-search-input]')
+        || this.wrapper.querySelector('.inv-search-input');
+      this.clearBtn = this.wrapper.querySelector('[data-inv-search-clear]')
+        || this.wrapper.querySelector('.inv-search-clear');
+      this.resultsContainer = this.wrapper.querySelector('[data-inv-search-results]')
+        || this.wrapper.querySelector('.inv-search-results');
       if (!this.input || !this.resultsContainer) return;
 
       /* State */
@@ -174,6 +194,20 @@
       if (this.abortController) {
         this.abortController.abort();
         this.abortController = null;
+      }
+      /* Remove the portalled results dropdown so it doesn't survive a
+         wrapper teardown (it was moved to #ps-root, independent of the
+         wrapper's lifetime). */
+      if (this.resultsContainer && this.resultsContainer.parentElement) {
+        this.resultsContainer.parentElement.removeChild(this.resultsContainer);
+      }
+      /* Release the back-reference and clear the ready flag so the
+         wrapper can be re-initialised later if the DOM is swapped in. */
+      if (this.wrapper) {
+        if (this.wrapper._invInstance === this) {
+          this.wrapper._invInstance = null;
+        }
+        this.wrapper.dataset.invPredictiveSearchReady = '';
       }
     }
 
@@ -813,11 +847,40 @@
   }
 
   /* ================================================================
-   * Initialise on DOM ready
+   * Initialise on DOM ready — one instance per
+   * [data-inv-predictive-search] wrapper so header + SERP (and any
+   * future placements) share the same predictive dropdown behaviour.
    * ================================================================ */
+  function initAll(root) {
+    const scope = root || document;
+    const wrappers = scope.querySelectorAll(
+      '[data-inv-predictive-search], .inv-search-wrapper'
+    );
+    wrappers.forEach((wrapper) => new InvictaPredictiveSearch(wrapper));
+  }
+
+  /**
+   * Tear down every predictive-search instance inside `root` so that a
+   * subsequent DOM replacement doesn't leak their window/document
+   * listeners. Called from invicta-search-page.js before the SERP
+   * section gets swapped by AJAX filter/sort/pagination.
+   */
+  function destroyIn(root) {
+    const scope = root || document;
+    const wrappers = scope.querySelectorAll('[data-inv-predictive-search]');
+    wrappers.forEach((wrapper) => {
+      const instance = wrapper._invInstance;
+      if (instance && typeof instance.destroy === 'function') {
+        instance.destroy();
+      }
+    });
+  }
+
+  window.InvictaPredictiveSearch = { initAll: initAll, destroyIn: destroyIn };
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => new InvictaPredictiveSearch());
+    document.addEventListener('DOMContentLoaded', function() { initAll(); });
   } else {
-    new InvictaPredictiveSearch();
+    initAll();
   }
 })();

@@ -742,6 +742,15 @@
         // Tear down this instance's global listeners (popstate, Escape)
         // before the new instance replaces us.
         this.destroy();
+
+        // Also tear down any predictive-search instance inside the
+        // SERP container — otherwise its window/document listeners
+        // would leak once the wrapper is detached.
+        if (window.InvictaPredictiveSearch
+            && typeof window.InvictaPredictiveSearch.destroyIn === 'function') {
+          window.InvictaPredictiveSearch.destroyIn(this.container);
+        }
+
         this.container.replaceWith(newContent);
 
         const newContainer = document.getElementById('invicta-search');
@@ -760,6 +769,13 @@
           instance.restoreAccordions(openAccordions);
           // Restore scroll positions
           instance.restoreFilterScrollPositions(scrollPositions);
+
+          // Boot the predictive-search instance for the new SERP wrapper
+          // so the top-of-page search input retains its dropdown behaviour.
+          if (window.InvictaPredictiveSearch
+              && typeof window.InvictaPredictiveSearch.initAll === 'function') {
+            window.InvictaPredictiveSearch.initAll(newContainer);
+          }
 
           // Notify the rest of the app (GA4 listener re-emits view_search_results).
           instance._dispatchSearchEvent('invicta:search:updated', {});

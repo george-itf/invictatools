@@ -230,12 +230,17 @@
         {%- endif -%}
       </h1>
 
-      {%- comment -%} Search Input {%- endcomment -%}
-      <div class="inv-search__input-wrapper">
-        {%- if settings.predictive_search_enabled -%}
-          <predictive-search data-loading-text="{{ 'accessibility.loading' | t }}">
-        {%- endif -%}
-
+      {%- comment -%}
+        Search Input — wired to the same Invicta predictive search system
+        as the header (invicta-search.js). data-inv-predictive-search marks
+        the wrapper; the JS iterates every instance on the page, so the
+        header and the SERP share one codepath and the same dropdown UX
+        (stock badges, ex-VAT pricing, recent searches, keyboard nav).
+      {%- endcomment -%}
+      <div
+        class="inv-search__input-wrapper"
+        {% if settings.predictive_search_enabled %}data-inv-predictive-search{% endif %}
+      >
         <form action="{{ routes.search_url }}" method="get" role="search" class="inv-search__form">
           <input type="hidden" name="type" value="product">
           <input type="hidden" name="options[prefix]" value="last">
@@ -247,6 +252,7 @@
               name="q"
               id="inv-search-input"
               class="inv-search__input"
+              {% if settings.predictive_search_enabled %}data-inv-search-input{% endif %}
               value="{{ search.terms | escape }}"
               placeholder="{{ 'invicta.search.placeholder' | t }}"
               autocomplete="off"
@@ -256,8 +262,7 @@
               {%- if settings.predictive_search_enabled -%}
                 role="combobox"
                 aria-expanded="false"
-                aria-owns="predictive-search-results"
-                aria-controls="predictive-search-results"
+                aria-controls="inv-search-results-serp"
                 aria-haspopup="listbox"
                 aria-autocomplete="list"
               {%- endif -%}
@@ -270,6 +275,12 @@
               </svg>
             </button>
 
+            {%- comment -%}
+              Clear stays as a link (not data-inv-search-clear) so the
+              fallback behaviour is to navigate to a fresh /search — users
+              on the SERP expect Clear to reset the URL, not just blank
+              the input.
+            {%- endcomment -%}
             {%- if search.terms != blank -%}
               <a href="{{ routes.search_url }}?type=product" class="inv-search__clear" aria-label="{{ 'invicta.search.clear_label' | t }}">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
@@ -281,13 +292,16 @@
           </div>
 
           {%- if settings.predictive_search_enabled -%}
-            <div class="predictive-search predictive-search--search-template" tabindex="-1" data-predictive-search></div>
+            {%- comment -%} Portalled by invicta-search.js to #ps-root on init {%- endcomment -%}
+            <div
+              id="inv-search-results-serp"
+              class="inv-search-results"
+              data-inv-search-results
+              role="listbox"
+              aria-label="Search suggestions"
+            ></div>
           {%- endif -%}
         </form>
-
-        {%- if settings.predictive_search_enabled -%}
-          </predictive-search>
-        {%- endif -%}
       </div>
 
     </div>
