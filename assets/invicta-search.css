@@ -364,26 +364,37 @@
   color: var(--inv-fg-muted);
 }
 
-.inv-search-recent__item {
+/* Doubled selectors override the global button{} rule in base.css which
+   otherwise gives these <button> elements pill radius, min-height 4.8rem
+   and white button-label text (unreadable on the white dropdown). */
+.inv-search-recent__item.inv-search-recent__item {
   display: flex;
   align-items: center;
   gap: 10px;
   width: 100%;
+  min-height: 0;
+  min-width: 0;
   padding: 9px 14px;
-  background: none;
-  border: none;
+  background: transparent;
+  border: 0;
   border-radius: 0;
+  box-shadow: none;
+  font-family: inherit;
   font-size: 13px;
   font-weight: 500;
+  line-height: 1.4;
   color: var(--inv-fg-strong);
   cursor: pointer;
   text-align: left;
+  text-transform: none;
+  letter-spacing: normal;
   transition: background 120ms ease;
 }
 
-.inv-search-recent__item:hover,
-.inv-search-recent__item[aria-selected="true"] {
+.inv-search-recent__item.inv-search-recent__item:hover,
+.inv-search-recent__item.inv-search-recent__item[aria-selected="true"] {
   background: var(--inv-bg-soft);
+  box-shadow: none;
 }
 
 .inv-search-recent__icon {
@@ -393,24 +404,55 @@
   color: var(--inv-fg-subtle);
 }
 
-.inv-search-recent__clear {
+.inv-search-recent__clear.inv-search-recent__clear {
   display: block;
   width: 100%;
+  min-height: 0;
+  min-width: 0;
   padding: 10px 14px;
-  background: none;
-  border: none;
+  background: transparent;
+  border: 0;
   border-top: 1px solid var(--inv-border);
+  border-radius: 0;
+  box-shadow: none;
   margin-top: 4px;
+  font-family: inherit;
   font-size: 12px;
   font-weight: 600;
+  line-height: 1.4;
   color: var(--inv-fg-muted);
   cursor: pointer;
   text-align: center;
+  text-transform: none;
+  letter-spacing: normal;
   transition: color 120ms ease;
 }
 
-.inv-search-recent__clear:hover {
+.inv-search-recent__clear.inv-search-recent__clear:hover {
   color: var(--inv-accent);
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Same override for the error-state retry button (it's also a plain <button>) */
+.inv-search-empty__browse.inv-search-empty__browse {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  min-width: 0;
+  padding: 8px 16px;
+  background: var(--inv-accent);
+  border: 0;
+  border-radius: 6px;
+  box-shadow: none;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  text-transform: none;
+  letter-spacing: normal;
 }
 
 /* ================================================================

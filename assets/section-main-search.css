@@ -21,9 +21,8 @@
    ---------------------------------------- */
 
 .inv-search__header {
-  padding: 20px 0 16px;
-  background: #fff;
-  border-bottom: 1px solid #e5e5e5;
+  padding: 24px 0 20px;
+  background: transparent;
 }
 
 .inv-search__title {
@@ -47,14 +46,18 @@
    ---------------------------------------- */
 
 .inv-search__input-wrapper {
-  max-width: 600px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
-.inv-search__input-wrapper.inv-search__input-wrapper,
-.inv-search__input-wrapper.inv-search__input-wrapper *,
-.inv-search__input-wrapper.inv-search__input-wrapper *::before,
-.inv-search__input-wrapper.inv-search__input-wrapper *::after {
+/* Kill every decorative border/shadow/background that Dawn's
+   <predictive-search> wrapper and .predictive-search--search-template
+   ship with — those are the stray vertical/horizontal lines that appear
+   around the input on the SERP. Only .inv-search__field keeps its border. */
+.inv-search__input-wrapper,
+.inv-search__input-wrapper *,
+.inv-search__input-wrapper *::before,
+.inv-search__input-wrapper *::after {
   box-shadow: none;
 }
 
@@ -63,10 +66,12 @@
 .inv-search__input-wrapper predictive-search,
 .inv-search__input-wrapper .predictive-search,
 .inv-search__input-wrapper .predictive-search--search-template {
+  display: block;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin: 0;
   box-shadow: none;
-  border-left: none;
-  border-right: none;
-  border-top: none;
 }
 
 .inv-search__input-wrapper predictive-search::before,
@@ -195,8 +200,7 @@
 
 .inv-search__filters-section {
   padding: 16px 0 0;
-  background: #fff;
-  border-bottom: 1px solid #e5e5e5;
+  background: transparent;
 }
 
 /* Filter toggle button */
@@ -491,10 +495,15 @@
 }
 
 .inv-filter-price__prefix {
+  /* Field is flex-column (input 44px + label below); centre the prefix
+     vertically on the input row, not on the whole field. */
   position: absolute;
   left: 10px;
+  top: 22px;
+  transform: translateY(-50%);
   font-size: 13px;
   font-weight: 600;
+  line-height: 1;
   color: #374151;
   pointer-events: none;
   z-index: 1;
