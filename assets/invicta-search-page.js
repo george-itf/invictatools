@@ -119,6 +119,14 @@
         this.navigateToPage(pageLink.href);
         return;
       }
+
+      // Product-type chip
+      const typeChip = e.target.closest('[data-type-chip]');
+      if (typeChip) {
+        e.preventDefault();
+        this.selectTypeChip(typeChip);
+        return;
+      }
     }
 
     handleChange(e) {
@@ -131,6 +139,7 @@
 
       // Filter checkboxes (brand, type, availability)
       if (e.target.type === 'checkbox' && e.target.closest('.inv-filter-checkbox')) {
+        this._dispatchFilterEvent(e.target);
         this.debouncedFetch();
         return;
       }
@@ -424,10 +433,85 @@
     }
 
     changeSort(sortValue) {
+      this._dispatchSearchEvent('invicta:search:sort', { sort_value: sortValue });
       const url = this.buildUrl();
       url.searchParams.set('sort_by', sortValue);
       url.searchParams.delete('page');
       this.fetchAndUpdate(url.toString());
+    }
+
+    selectTypeChip(chip) {
+      const value = chip.dataset.typeValue || '';
+      // Wipe any existing product_type selections (both desktop and mobile instances)
+      this.container.querySelectorAll('input[name="filter.p.product_type"]').forEach(cb => {
+        cb.checked = false;
+      });
+      // Check the matching boxes when a specific type is chosen
+      if (value) {
+        this.container.querySelectorAll(
+          `input[name="filter.p.product_type"][value="${CSS.escape(value)}"]`
+        ).forEach(cb => { cb.checked = true; });
+        this._dispatchSearchEvent('invicta:search:filter', {
+          filter_type: 'product_type',
+          filter_value: value,
+          source: 'chip'
+        });
+      } else {
+        this._dispatchSearchEvent('invicta:search:filter', {
+          filter_type: 'product_type',
+          filter_value: '',
+          source: 'chip_clear'
+        });
+      }
+      this.fetchFromFilters();
+    }
+
+    /* -------------------------------------------------------
+       CUSTOM EVENTS — for GA4 + VAT re-apply hooks
+    ------------------------------------------------------- */
+
+    _dispatchSearchEvent(name, detail) {
+      const base = {
+        term: this.searchTerms,
+        results_count: this._readResultsCount(),
+        active_filters_count: this._readActiveFiltersCount()
+      };
+      document.dispatchEvent(new CustomEvent(name, {
+        detail: Object.assign(base, detail || {})
+      }));
+    }
+
+    _dispatchFilterEvent(checkbox) {
+      let filterType = 'other';
+      switch (checkbox.name) {
+        case 'filter.p.vendor': filterType = 'vendor'; break;
+        case 'filter.p.product_type': filterType = 'product_type'; break;
+        case 'filter.v.availability': filterType = 'availability'; break;
+      }
+      this._dispatchSearchEvent('invicta:search:filter', {
+        filter_type: filterType,
+        filter_value: checkbox.value,
+        source: checkbox.checked ? 'checkbox_add' : 'checkbox_remove'
+      });
+    }
+
+    _readResultsCount() {
+      const blob = document.querySelector('[data-inv-ga4-search]');
+      if (!blob) return 0;
+      try { return JSON.parse(blob.textContent).results_count || 0; }
+      catch (_) { return 0; }
+    }
+
+    _readActiveFiltersCount() {
+      const boxes = this.container.querySelectorAll(
+        '.inv-filter-panel input[type="checkbox"]:checked'
+      ).length;
+      const priceMin = this.container.querySelector('[data-price-min]');
+      const priceMax = this.container.querySelector('[data-price-max]');
+      let count = boxes;
+      if (priceMin && priceMin.value) count++;
+      if (priceMax && priceMax.value) count++;
+      return count;
     }
 
     navigateToPage(href) {
@@ -532,6 +616,14 @@
           instance.restoreAccordions(openAccordions);
           // Restore scroll positions
           instance.restoreFilterScrollPositions(scrollPositions);
+
+          // Notify the rest of the app (GA4 listener re-emits view_search_results).
+          instance._dispatchSearchEvent('invicta:search:updated', {});
+
+          // Re-sync VAT ex/inc class on the freshly-rendered cards.
+          if (window.InvictaVAT && typeof window.InvictaVAT.reapply === 'function') {
+            window.InvictaVAT.reapply();
+          }
         }
       }
     }

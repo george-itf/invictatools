@@ -73,12 +73,16 @@
   assign active_price_gte = ''
   assign active_price_lte = ''
   assign active_availability = false
+  assign active_types_count = 0
 
   for filter in search.filters
     if filter.param_name == 'filter.p.vendor' or filter.param_name == 'filter.p.product_type'
       if filter.active_values.size > 0
         assign has_active_filters = true
         assign total_active = total_active | plus: filter.active_values.size
+      endif
+      if filter.param_name == 'filter.p.product_type'
+        assign active_types_count = filter.active_values.size
       endif
     endif
 
@@ -478,6 +482,59 @@
 
         {%- paginate search.results by products_per_page -%}
 
+          {%- comment -%} Product Type chip bar — quick-access tabs for the top product types in current results {%- endcomment -%}
+          {%- if has_types and search.results_count > 0 -%}
+            {%- assign chip_count = 0 -%}
+            {%- assign chip_max = 6 -%}
+            <div class="inv-type-chips" role="group" aria-label="Filter by product type" data-inv-type-chips>
+              <button
+                type="button"
+                class="inv-type-chip{% if active_types_count == 0 %} inv-type-chip--active{% endif %}"
+                data-type-chip
+                data-type-value=""
+                aria-pressed="{% if active_types_count == 0 %}true{% else %}false{% endif %}"
+              >
+                All types
+              </button>
+              {%- for entry in type_active_sorted -%}
+                {%- if entry != blank and chip_count < chip_max -%}
+                  {%- assign parts = entry | split: '|' -%}
+                  {%- assign chip_label = parts[1] -%}
+                  {%- assign chip_count_val = parts[2] -%}
+                  <button
+                    type="button"
+                    class="inv-type-chip inv-type-chip--active"
+                    data-type-chip
+                    data-type-value="{{ chip_label | escape }}"
+                    aria-pressed="true"
+                  >
+                    <span class="inv-type-chip__label">{{ chip_label }}</span>
+                    <span class="inv-type-chip__count">{{ chip_count_val }}</span>
+                  </button>
+                  {%- assign chip_count = chip_count | plus: 1 -%}
+                {%- endif -%}
+              {%- endfor -%}
+              {%- for entry in type_inactive_sorted -%}
+                {%- if entry != blank and chip_count < chip_max -%}
+                  {%- assign parts = entry | split: '|' -%}
+                  {%- assign chip_label = parts[1] -%}
+                  {%- assign chip_count_val = parts[2] -%}
+                  <button
+                    type="button"
+                    class="inv-type-chip"
+                    data-type-chip
+                    data-type-value="{{ chip_label | escape }}"
+                    aria-pressed="false"
+                  >
+                    <span class="inv-type-chip__label">{{ chip_label }}</span>
+                    <span class="inv-type-chip__count">{{ chip_count_val }}</span>
+                  </button>
+                  {%- assign chip_count = chip_count | plus: 1 -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
           {%- comment -%} Toolbar {%- endcomment -%}
           <div class="inv-grid__toolbar">
             <div class="inv-grid__toolbar-left">
@@ -525,7 +582,16 @@
           <ul class="inv-grid__products" id="inv-product-list" role="list">
             {%- for item in search.results -%}
               {%- if item.object_type == 'product' -%}
-                <li class="inv-grid__item">
+                {%- assign ga4_index = forloop.index0 | plus: paginate.current_offset -%}
+                <li
+                  class="inv-grid__item"
+                  data-ga4-item-id="{{ item.id }}"
+                  data-ga4-item-name="{{ item.title | escape }}"
+                  data-ga4-item-brand="{{ item.vendor | default: '' | escape }}"
+                  data-ga4-item-category="{{ item.type | default: '' | escape }}"
+                  data-ga4-item-price="{{ item.price | money_without_currency | replace: ',', '' }}"
+                  data-ga4-item-index="{{ ga4_index }}"
+                >
                   {%- render 'invicta-product-card',
                       product: item,
                       section_settings: section.settings,
@@ -635,6 +701,17 @@
   {%- endif -%}
 
   <div class="visually-hidden" aria-live="assertive" id="inv-search-announce"></div>
+
+  {%- comment -%} GA4 search context — consumed by invicta-ga4-events.js on load and after AJAX swaps {%- endcomment -%}
+  <script type="application/json" data-inv-ga4-search>
+    {
+      "term": {{ search.terms | default: '' | json }},
+      "performed": {{ search.performed | json }},
+      "results_count": {{ search.results_count | default: 0 }},
+      "sort_by": {{ sort_by | default: '' | json }},
+      "active_filters_count": {{ total_active | default: 0 }}
+    }
+  </script>
 
 </div>
 
