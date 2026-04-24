@@ -43,7 +43,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Local Delivery",
-            "subtitle": "On orders over \u00a330"
+            "subtitle": "On orders over \u00a399"
           }
         },
         "usp_2": {
@@ -94,7 +94,7 @@
           "type": "service",
           "settings": {
             "title": "Free Local Delivery",
-            "description": "On all orders over \u00a330 to local postcodes"
+            "description": "On all orders over \u00a399 to local postcodes"
           }
         },
         "svc_1": {
@@ -154,7 +154,7 @@
       "type": "cta-bar",
       "settings": {
         "title": "",
-        "subtitle": "Call us for expert advice, or shop online with free delivery over \u00a330.",
+        "subtitle": "Call us for expert advice, or shop online with free delivery over \u00a399.",
         "primary_text": "01843 210 459",
         "primary_url": "tel:01843210459",
         "primary_icon": "phone",
