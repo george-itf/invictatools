@@ -23,7 +23,7 @@
           "type": "faq_item",
           "settings": {
             "question": "How long does delivery take?",
-            "answer": "<p>Standard delivery is 2-3 working days. Next-day delivery is available on orders placed before 2pm Monday to Friday. Orders over £30 qualify for free next-day delivery to UK Mainland addresses.</p>",
+            "answer": "<p>Standard delivery is 2-3 working days. Next-day delivery is available on orders placed before 2pm Monday to Friday. Orders over £99 qualify for free next-day delivery to UK Mainland addresses.</p>",
             "category": "delivery"
           }
         },

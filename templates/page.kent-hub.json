@@ -43,7 +43,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Kent Delivery",
-            "subtitle": "On orders over \u00a330"
+            "subtitle": "On orders over \u00a399"
           }
         },
         "usp_2": {
@@ -242,7 +242,7 @@
       "type": "cta-bar",
       "settings": {
         "title": "Ready to Get Started?",
-        "subtitle": "Call our trade team for expert advice, visit either branch, or shop online with free Kent delivery over \u00a330.",
+        "subtitle": "Call our trade team for expert advice, visit either branch, or shop online with free Kent delivery over \u00a399.",
         "primary_text": "01843 210 459",
         "primary_url": "tel:01843210459",
         "primary_icon": "phone",

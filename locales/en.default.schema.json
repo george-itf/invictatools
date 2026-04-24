@@ -386,7 +386,7 @@
         },
         "inv_free_shipping_pence": {
           "label": "Free shipping threshold (pence)",
-          "info": "Cart total in pence to qualify for free shipping. 3000 = £99.00"
+          "info": "Cart total in pence to qualify for free shipping. 9900 = £99.00"
         },
         "header__delivery": {
           "content": "Delivery"

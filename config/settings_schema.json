@@ -1492,7 +1492,7 @@
         "min": 0,
         "max": 50000,
         "step": 100,
-        "default": 3000,
+        "default": 9900,
         "unit": "p",
         "label": "t:settings_schema.invicta_trade.settings.inv_free_shipping_pence.label",
         "info": "t:settings_schema.invicta_trade.settings.inv_free_shipping_pence.info"

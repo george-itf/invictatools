@@ -129,7 +129,7 @@
     "cart_drawer_collection": "accessories",
     "cart_color_scheme": "scheme-1",
     "inv_vat_rate": 20,
-    "inv_free_shipping_pence": "3000",
+    "inv_free_shipping_pence": "9900",
     "inv_delivery_cutoff_hour": 14,
     "seo_noindex_filtered_collections": true,
     "seo_noindex_paginated_collections": true,
