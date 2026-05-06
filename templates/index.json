@@ -12,18 +12,19 @@
     "hero_v3": {
       "type": "invicta-hero-v3",
       "settings": {
-        "eyebrow_text": "CHOOSE FROM 2 FREE JACKETS",
-        "heading": "GET A FREE HEATED JACKET!",
-        "description": "Buy 10 ABRACS ABDD30020M Diamond Blades and choose a free Heated Jacket worth £79.99!",
+        "hero_mode": "brand",
+        "eyebrow_text": "Authorised UK Dealer · Est. 1996",
+        "heading": "PROFESSIONAL TOOLS. TRADE PRICES.",
+        "description": "Kent's specialist tool supplier. 15,000+ products from 25+ brands, backed by full manufacturer warranty and free next-day delivery.",
         "hero_image": "shopify://shop_images/MAKDCJ205_A__82763.jpg",
-        "button_text": "GET THE DEAL",
-        "button_link": "shopify://products/abracs-dynamo-diamond-blade-300-x-10-x-20mm",
-        "secondary_text": "View All Deals",
-        "secondary_link": "shopify://collections/deals-and-sales",
+        "button_text": "SHOP ALL PRODUCTS",
+        "button_link": "shopify://collections/all",
+        "secondary_text": "Open Trade Account",
+        "secondary_link": "shopify://pages/trade-landing",
         "price_label": "",
         "price_text": "",
         "price_subtext": "",
-        "background_color": "#2d2d2d",
+        "background_color": "#0f0f0f",
         "padding_top": 0,
         "padding_bottom": 0
       }
@@ -76,6 +77,276 @@
         "padding_bottom": 0
       }
     },
+    "quick_cats": {
+      "type": "invicta-quick-cats",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "title": "Cordless Drills",
+            "description": "Drills & impact drivers",
+            "collection": "drilling-driving",
+            "custom_link": "",
+            "icon": "drill",
+            "custom_icon": "shopify://shop_images/drill-electric-svgrepo-com_1.svg",
+            "show_count": false
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "title": "Grinders",
+            "description": "Angle, die, surface",
+            "collection": "grinding",
+            "custom_link": "",
+            "icon": "grinder",
+            "custom_icon": "shopify://shop_images/saw-svgrepo-com_3.svg",
+            "show_count": false
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "title": "Nailers",
+            "description": "First & second fix",
+            "collection": "nailing-fastening",
+            "custom_link": "",
+            "icon": "impact",
+            "show_count": false
+          }
+        },
+        "cat_4": {
+          "type": "category",
+          "settings": {
+            "title": "Batteries",
+            "description": "All major platforms",
+            "collection": "batteries-chargers",
+            "custom_link": "",
+            "icon": "battery",
+            "show_count": false
+          }
+        },
+        "cat_5": {
+          "type": "category",
+          "settings": {
+            "title": "Saws",
+            "description": "Circular, mitre, jig",
+            "collection": "sawing-cutting",
+            "custom_link": "",
+            "icon": "saw",
+            "show_count": false
+          }
+        },
+        "cat_6": {
+          "type": "category",
+          "settings": {
+            "title": "Power Tool Kits",
+            "description": "Combo & twin packs",
+            "collection": "power-tools-kits",
+            "custom_link": "",
+            "icon": "storage",
+            "show_count": false
+          }
+        },
+        "cat_7": {
+          "type": "category",
+          "settings": {
+            "title": "PPE & Workwear",
+            "description": "Boots, jackets, hi-vis",
+            "collection": "clothing-1",
+            "custom_link": "",
+            "icon": "workwear",
+            "show_count": false
+          }
+        },
+        "cat_8": {
+          "type": "category",
+          "settings": {
+            "title": "Adhesives & Sealants",
+            "description": "Soudal, CT1, Sika",
+            "collection": "adhesives-sealants",
+            "custom_link": "",
+            "icon": "adhesive",
+            "show_count": false
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3",
+        "cat_4",
+        "cat_5",
+        "cat_6",
+        "cat_7",
+        "cat_8"
+      ],
+      "settings": {
+        "heading": "Shop by Category",
+        "heading_link": "shopify://collections",
+        "heading_link_text": "View all categories",
+        "columns_desktop": 4,
+        "background_color": "#ffffff",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "homepage_products": {
+      "type": "invicta-homepage-products",
+      "settings": {
+        "heading": "Best Sellers",
+        "collection": "best-sellers",
+        "max_products": 6,
+        "stat_1_number": "30+",
+        "stat_1_label": "Years Trading",
+        "stat_2_number": "15k+",
+        "stat_2_label": "Products",
+        "stat_3_number": "25+",
+        "stat_3_label": "Brands",
+        "stat_4_number": "2",
+        "stat_4_label": "Kent Branches",
+        "rating_1_platform": "Google",
+        "rating_1_text": "4.7 ★ on Google",
+        "rating_1_url": "https://maps.app.goo.gl/a7ok1FDJpcntc8r69",
+        "rating_2_platform": "Facebook",
+        "rating_2_text": "4.8 ★ on Facebook",
+        "rating_2_url": "https://www.facebook.com/InvictaTools/",
+        "rating_3_platform": "Trustpilot",
+        "rating_3_text": "4.4 ★ on Trustpilot",
+        "rating_3_url": "https://uk.trustpilot.com/review/invictatools.co.uk",
+        "trade_heading": "Trade Account",
+        "trade_description": "Volume pricing, credit terms, dedicated account manager",
+        "trade_button_text": "Apply Now →",
+        "trade_button_link": "shopify://pages/trade-landing",
+        "background_color": "#ffffff",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "deal_feature": {
+      "type": "invicta-deal-feature",
+      "settings": {
+        "eyebrow_text": "Deal of the Week",
+        "heading": "FREE HEATED JACKET WORTH £79.99",
+        "description": "Buy 10x Abracs ABDD30020M Diamond Blades and choose a free Heated Jacket. While stocks last.",
+        "value_was": "£79.99",
+        "value_now": "Free with purchase",
+        "button_text": "GET THIS DEAL",
+        "button_link": "shopify://products/abracs-dynamo-diamond-blade-300-x-10-x-20mm",
+        "countdown_end": "",
+        "hero_image": "shopify://shop_images/MAKDCJ205_A__82763.jpg",
+        "background_color": "#0f0f0f",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "brand_strip": {
+      "type": "invicta-brand-strip",
+      "blocks": {
+        "brand_makita": {
+          "type": "brand",
+          "settings": {
+            "brand_collection": "makita"
+          }
+        },
+        "brand_dewalt": {
+          "type": "brand",
+          "settings": {
+            "brand_collection": "dewalt"
+          }
+        },
+        "brand_milwaukee": {
+          "type": "brand",
+          "settings": {
+            "brand_collection": "milwaukee"
+          }
+        },
+        "brand_hikoki": {
+          "type": "brand",
+          "settings": {
+            "brand_collection": "hikoki"
+          }
+        },
+        "brand_paslode": {
+          "type": "brand",
+          "settings": {
+            "brand_collection": "paslode"
+          }
+        },
+        "brand_stanley": {
+          "type": "brand",
+          "settings": {
+            "brand_collection": "stanley"
+          }
+        },
+        "brand_bahco": {
+          "type": "brand",
+          "settings": {
+            "brand_collection": "bahco"
+          }
+        },
+        "brand_faithfull": {
+          "type": "brand",
+          "settings": {
+            "brand_collection": "faithfull"
+          }
+        },
+        "brand_irwin": {
+          "type": "brand",
+          "settings": {
+            "brand_collection": "irwin"
+          }
+        },
+        "brand_starrett": {
+          "type": "brand",
+          "settings": {
+            "brand_collection": "starrett"
+          }
+        },
+        "brand_tengtools": {
+          "type": "brand",
+          "settings": {
+            "brand_collection": "teng-tools"
+          }
+        },
+        "brand_soudal": {
+          "type": "brand",
+          "settings": {
+            "brand_collection": "soudal"
+          }
+        }
+      },
+      "block_order": [
+        "brand_makita",
+        "brand_dewalt",
+        "brand_milwaukee",
+        "brand_hikoki",
+        "brand_paslode",
+        "brand_stanley",
+        "brand_bahco",
+        "brand_faithfull",
+        "brand_irwin",
+        "brand_starrett",
+        "brand_tengtools",
+        "brand_soudal"
+      ],
+      "settings": {
+        "heading": "Stocking 25+ Professional Brands",
+        "subheading": "<p>Authorised Dealer</p>",
+        "heading_size": 28,
+        "heading_color": "#111827",
+        "heading_spacing": 24,
+        "pill_height": 64,
+        "logo_height": 42,
+        "pill_padding": 32,
+        "pill_gap": 24,
+        "container_width": 1600,
+        "container_padding": 48,
+        "background_color": "#ffffff",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
     "spotlight": {
       "type": "invicta-spotlight",
       "settings": {
@@ -105,167 +376,6 @@
         "card3_price_sub": "Limited time deals",
         "card3_cta": "View Range",
         "section_bg": "#f5f5f6",
-        "padding_top": 40,
-        "padding_bottom": 0
-      }
-    },
-    "quick_cats": {
-      "type": "invicta-quick-cats",
-      "blocks": {
-        "cat_1": {
-          "type": "category",
-          "settings": {
-            "title": "Cordless Drills",
-            "collection": "drilling-driving",
-            "custom_link": "",
-            "icon": "drill",
-            "custom_icon": "shopify://shop_images/drill-electric-svgrepo-com_1.svg",
-            "show_count": true
-          }
-        },
-        "cat_2": {
-          "type": "category",
-          "settings": {
-            "title": "Grinders",
-            "collection": "grinding",
-            "custom_link": "",
-            "icon": "grinder",
-            "custom_icon": "shopify://shop_images/saw-svgrepo-com_3.svg",
-            "show_count": true
-          }
-        },
-        "cat_3": {
-          "type": "category",
-          "settings": {
-            "title": "Nailers",
-            "collection": "nailing-fastening",
-            "custom_link": "",
-            "icon": "impact",
-            "show_count": true
-          }
-        },
-        "cat_4": {
-          "type": "category",
-          "settings": {
-            "title": "Batteries",
-            "collection": "batteries-chargers",
-            "custom_link": "",
-            "icon": "battery",
-            "show_count": true
-          }
-        },
-        "cat_5": {
-          "type": "category",
-          "settings": {
-            "title": "Saws",
-            "collection": "sawing-cutting",
-            "custom_link": "",
-            "icon": "saw",
-            "show_count": true
-          }
-        },
-        "cat_6": {
-          "type": "category",
-          "settings": {
-            "title": "Power Tool Kits",
-            "collection": "power-tools-kits",
-            "custom_link": "",
-            "icon": "storage",
-            "show_count": true
-          }
-        }
-      },
-      "block_order": [
-        "cat_1",
-        "cat_2",
-        "cat_3",
-        "cat_4",
-        "cat_5",
-        "cat_6"
-      ],
-      "settings": {
-        "columns_desktop": 6,
-        "background_color": "#f5f5f5",
-        "padding_top": 32,
-        "padding_bottom": 32
-      }
-    },
-    "product_wall": {
-      "type": "invicta-product-wall",
-      "blocks": {
-        "brand_makita": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Makita",
-            "collection": "makita"
-          }
-        },
-        "brand_dewalt": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "DeWalt",
-            "collection": "dewalt"
-          }
-        },
-        "brand_premier": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Premier Diamond",
-            "collection": "premier-diamond-products"
-          }
-        },
-        "brand_viper": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Viper",
-            "collection": "viper-1"
-          }
-        },
-        "brand_JHcBmt": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Faithfull",
-            "collection": "faithfull"
-          }
-        },
-        "brand_FtBpt4": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Lamello",
-            "collection": "lamello"
-          }
-        },
-        "brand_n9TbLA": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Hikoki",
-            "collection": "hikoki"
-          }
-        },
-        "brand_HfBHJJ": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Stanley",
-            "collection": "stanley"
-          }
-        }
-      },
-      "block_order": [
-        "brand_makita",
-        "brand_dewalt",
-        "brand_premier",
-        "brand_viper",
-        "brand_JHcBmt",
-        "brand_FtBpt4",
-        "brand_n9TbLA",
-        "brand_HfBHJJ"
-      ],
-      "settings": {
-        "title": "Explore Our Brands",
-        "subtitle": "Click a brand to see their top products",
-        "show_view_all": true,
-        "max_products": 10,
-        "columns_desktop": 5,
         "padding_top": 40,
         "padding_bottom": 40
       }
@@ -399,6 +509,102 @@
         "padding_bottom": 24
       }
     },
+    "trade_cta": {
+      "type": "invicta-trade-cta",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "text": "Volume pricing on 15,000+ products"
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "text": "30-day credit terms"
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "text": "Dedicated account manager"
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "text": "Priority access to new stock"
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "text": "Free next-day on all orders"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5"
+      ],
+      "settings": {
+        "eyebrow_text": "For Tradespeople",
+        "heading": "Open a Trade Account",
+        "description": "Volume discounts, credit terms, a dedicated account manager, and priority on new stock. Takes 2 minutes to apply.",
+        "button_text": "Apply for Trade Account →",
+        "button_link": "shopify://pages/trade-landing",
+        "background_color": "#e11d26",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "invicta_newsletter_t9TTnj": {
+      "type": "invicta-newsletter",
+      "blocks": {
+        "trust_badge_mrLtAQ": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "No spam, ever"
+          }
+        },
+        "trust_badge_Q7yqbx": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Unsubscribe anytime"
+          }
+        },
+        "trust_badge_HVRmz8": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Exclusive offers"
+          }
+        }
+      },
+      "block_order": [
+        "trust_badge_mrLtAQ",
+        "trust_badge_Q7yqbx",
+        "trust_badge_HVRmz8"
+      ],
+      "name": "Newsletter Hybrid",
+      "settings": {
+        "badge_percent": "5 %",
+        "badge_text": "Off First Order",
+        "heading": "Get price drops and product launches before anyone else",
+        "show_social_proof": true,
+        "subscriber_count": "300+",
+        "subscriber_label": "signed up",
+        "placeholder": "Enter your email",
+        "button_text": "Get My 5% Off",
+        "success_message": "You're in! Here's your discount:",
+        "discount_code": "WELCOME5",
+        "show_trust_badges": true,
+        "background_color": "#2d2d2d",
+        "accent_color": "#e11d26"
+      }
+    },
     "recently_viewed": {
       "type": "invicta-recently-viewed",
       "blocks": {
@@ -464,50 +670,6 @@
         "benefit_check_color": "#10b981"
       }
     },
-    "invicta_newsletter_t9TTnj": {
-      "type": "invicta-newsletter",
-      "blocks": {
-        "trust_badge_mrLtAQ": {
-          "type": "trust_badge",
-          "settings": {
-            "text": "No spam, ever"
-          }
-        },
-        "trust_badge_Q7yqbx": {
-          "type": "trust_badge",
-          "settings": {
-            "text": "Unsubscribe anytime"
-          }
-        },
-        "trust_badge_HVRmz8": {
-          "type": "trust_badge",
-          "settings": {
-            "text": "Exclusive offers"
-          }
-        }
-      },
-      "block_order": [
-        "trust_badge_mrLtAQ",
-        "trust_badge_Q7yqbx",
-        "trust_badge_HVRmz8"
-      ],
-      "name": "Newsletter Hybrid",
-      "settings": {
-        "badge_percent": "5 %",
-        "badge_text": "Off First Order",
-        "heading": "Get price drops and product launches before anyone else",
-        "show_social_proof": true,
-        "subscriber_count": "300+",
-        "subscriber_label": "signed up",
-        "placeholder": "Enter your email",
-        "button_text": "Get My 5% Off",
-        "success_message": "You're in! Here's your discount:",
-        "discount_code": "WELCOME5",
-        "show_trust_badges": true,
-        "background_color": "#2d2d2d",
-        "accent_color": "#e11d26"
-      }
-    },
     "17760661600088bbff": {
       "type": "apps",
       "blocks": {
@@ -540,12 +702,15 @@
   "order": [
     "hero_v3",
     "trust_strip",
-    "spotlight",
     "quick_cats",
-    "product_wall",
+    "homepage_products",
+    "deal_feature",
+    "brand_strip",
+    "spotlight",
     "trust_reviews",
-    "recently_viewed",
+    "trade_cta",
     "invicta_newsletter_t9TTnj",
+    "recently_viewed",
     "17760661600088bbff"
   ]
 }
