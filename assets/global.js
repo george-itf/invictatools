@@ -26,7 +26,10 @@ document.querySelectorAll('[id^="Details-"] summary').forEach((summary) => {
   summary.parentElement.addEventListener('keyup', onKeyUpEscape);
 });
 
-const trapFocusHandlers = {};
+// AbortController owning all listeners attached by the current trapFocus()
+// call. removeTrapFocus() aborts it, which guarantees every listener — even
+// keydown handlers added inside focusin — is detached cleanly.
+let trapFocusAbortController = null;
 
 function trapFocus(container, elementToFocus = container) {
   const elements = getFocusableElements(container);
@@ -35,17 +38,10 @@ function trapFocus(container, elementToFocus = container) {
 
   removeTrapFocus();
 
-  trapFocusHandlers.focusin = (event) => {
-    if (event.target !== container && event.target !== last && event.target !== first) return;
+  trapFocusAbortController = new AbortController();
+  const { signal } = trapFocusAbortController;
 
-    document.addEventListener('keydown', trapFocusHandlers.keydown);
-  };
-
-  trapFocusHandlers.focusout = function () {
-    document.removeEventListener('keydown', trapFocusHandlers.keydown);
-  };
-
-  trapFocusHandlers.keydown = function (event) {
+  const keydownHandler = function (event) {
     if (event.code.toUpperCase() !== 'TAB') return; // If not TAB key
     // On the last focusable element and tab forward, focus the first element.
     if (event.target === last && !event.shiftKey) {
@@ -60,8 +56,17 @@ function trapFocus(container, elementToFocus = container) {
     }
   };
 
-  document.addEventListener('focusout', trapFocusHandlers.focusout);
-  document.addEventListener('focusin', trapFocusHandlers.focusin);
+  const focusinHandler = (event) => {
+    if (event.target !== container && event.target !== last && event.target !== first) return;
+    document.addEventListener('keydown', keydownHandler, { signal });
+  };
+
+  const focusoutHandler = function () {
+    document.removeEventListener('keydown', keydownHandler);
+  };
+
+  document.addEventListener('focusout', focusoutHandler, { signal });
+  document.addEventListener('focusin', focusinHandler, { signal });
 
   elementToFocus.focus();
 
@@ -90,9 +95,10 @@ function pauseAllMedia() {
 }
 
 function removeTrapFocus(elementToFocus = null) {
-  document.removeEventListener('focusin', trapFocusHandlers.focusin);
-  document.removeEventListener('focusout', trapFocusHandlers.focusout);
-  document.removeEventListener('keydown', trapFocusHandlers.keydown);
+  if (trapFocusAbortController) {
+    trapFocusAbortController.abort();
+    trapFocusAbortController = null;
+  }
 
   if (elementToFocus) elementToFocus.focus();
 }

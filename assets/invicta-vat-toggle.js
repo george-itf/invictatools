@@ -34,6 +34,11 @@
 (function() {
   'use strict';
 
+  // Guard against double-init when the script is re-evaluated (e.g. Shopify
+  // theme editor re-renders the containing section, or HMR/preview reloads).
+  if (window.__invictaVatToggleInitialised) return;
+  window.__invictaVatToggleInitialised = true;
+
   const STORAGE_KEY = 'invicta-vat-mode';
   const DEFAULT_MODE = 'inc';
   const HIDDEN_CLASS = 'inv-vat--hidden';
@@ -175,6 +180,16 @@
     }
   }
 
+  // Stored handler refs so we can remove before re-attaching.
+  let _onCollectionUpdated = null;
+  let _onSectionLoad = null;
+
+  function reapplyCurrentMode() {
+    const currentMode = getVatMode();
+    updatePriceDisplays(currentMode);
+    updateToggleButtons(currentMode);
+  }
+
   /**
    * Initialise VAT toggle on page load
    */
@@ -186,26 +201,24 @@
     updateToggleButtons(mode);
     updatePriceDisplays(mode);
 
-    // Attach click listener (delegated) — intentionally persistent for the
-    // lifetime of the page. VAT toggle is a global site-wide feature that must
-    // remain active regardless of DOM changes (AJAX navigations, section renders).
+    // Remove any previously attached listeners before re-attaching, so calls to
+    // init() don't stack up duplicate handlers on re-render.
+    document.removeEventListener('click', handleToggleClick);
+    if (_onCollectionUpdated) document.removeEventListener('invicta:collection:updated', _onCollectionUpdated);
+    if (_onSectionLoad) document.removeEventListener('shopify:section:load', _onSectionLoad);
+
+    _onCollectionUpdated = reapplyCurrentMode;
+    _onSectionLoad = reapplyCurrentMode;
+
+    // Attach click listener (delegated). VAT toggle is a global site-wide
+    // feature that must remain active regardless of DOM changes.
     document.addEventListener('click', handleToggleClick);
 
-    // Re-apply VAT mode when collection filters update the DOM via AJAX —
-    // intentionally persistent: must survive AJAX collection page transitions.
-    document.addEventListener('invicta:collection:updated', function() {
-      const currentMode = getVatMode();
-      updatePriceDisplays(currentMode);
-      updateToggleButtons(currentMode);
-    });
+    // Re-apply VAT mode when collection filters update the DOM via AJAX.
+    document.addEventListener('invicta:collection:updated', _onCollectionUpdated);
 
-    // Also re-apply on generic cart refresh / section render —
-    // intentionally persistent: Shopify design-mode events fire throughout the session.
-    document.addEventListener('shopify:section:load', function() {
-      const currentMode = getVatMode();
-      updatePriceDisplays(currentMode);
-      updateToggleButtons(currentMode);
-    });
+    // Also re-apply on generic cart refresh / section render.
+    document.addEventListener('shopify:section:load', _onSectionLoad);
 
     // Dispatch initial event for any listeners
     dispatchVatEvent(mode);

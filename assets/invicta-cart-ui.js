@@ -204,13 +204,20 @@
     });
   }
 
+  function fetchWithTimeout(url, timeoutMs) {
+    var controller = new AbortController();
+    var id = setTimeout(function() { controller.abort(); }, timeoutMs);
+    return fetch(url, { signal: controller.signal })
+      .finally(function() { clearTimeout(id); });
+  }
+
   function fetchRecommendations() {
     if (!productId) {
       container.style.display = 'none';
       return;
     }
 
-    fetch('/recommendations/products.json?product_id=' + productId + '&intent=complementary&limit=8')
+    fetchWithTimeout('/recommendations/products.json?product_id=' + productId + '&intent=complementary&limit=8', 5000)
       .then(function(r) { return r.json(); })
       .then(function(data) {
         var products = data.products || [];
@@ -238,7 +245,7 @@
     }
     url += '/products.json?limit=8';
 
-    return fetch(url)
+    return fetchWithTimeout(url, 5000)
       .then(function(r) { return r.json(); })
       .then(function(data) {
         var products = data.products || [];

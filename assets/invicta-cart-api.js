@@ -122,16 +122,29 @@
       });
   }
 
+  /** @type {AbortController|null} In-flight cart count fetch — newer call aborts older */
+  let _cartCountController = null;
+
   /**
    * Update cart count in header from /cart.js
+   * Deduplicated: a newer call aborts any in-flight request so the latest
+   * response wins and parallel updates don't race.
    * @returns {Promise<void>}
    */
   function updateCartCount() {
     const cartUrl = ((window.routes && window.routes.cart_url) || '/cart') + '.js';
 
-    return fetchWithTimeout(cartUrl, {
-      headers: { 'Accept': 'application/json' }
-    }, 10000)
+    if (_cartCountController) {
+      _cartCountController.abort();
+    }
+    const controller = new AbortController();
+    _cartCountController = controller;
+    const timeoutId = setTimeout(function() { controller.abort(); }, 10000);
+
+    return fetch(cartUrl, {
+      headers: { 'Accept': 'application/json' },
+      signal: controller.signal
+    })
     .then(function(response) {
       if (!response.ok) return;
       return response.json();
@@ -156,7 +169,13 @@
       }));
     })
     .catch(function() {
-      // Silent — cart count is non-critical
+      // Silent — cart count is non-critical, and AbortError is expected on supersession
+    })
+    .finally(function() {
+      clearTimeout(timeoutId);
+      if (_cartCountController === controller) {
+        _cartCountController = null;
+      }
     });
   }
 
