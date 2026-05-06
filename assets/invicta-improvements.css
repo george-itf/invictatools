@@ -156,7 +156,7 @@ button:disabled:hover {
   justify-content: center;
   gap: var(--inv-space-sm);
   height: 48px;
-  padding: 0 28px;
+  padding: 0 var(--inv-space-lg);
   background: var(--inv-accent);
   color: var(--inv-bg-elevated);
   border: none;
@@ -198,7 +198,7 @@ button:disabled:hover {
   justify-content: center;
   gap: var(--inv-space-sm);
   height: 48px;
-  padding: 0 28px;
+  padding: 0 var(--inv-space-lg);
   background: var(--inv-dark);
   color: var(--inv-bg-elevated);
   border: none;
@@ -230,7 +230,7 @@ button:disabled:hover {
   justify-content: center;
   gap: var(--inv-space-sm);
   height: 48px;
-  padding: 0 28px;
+  padding: 0 var(--inv-space-lg);
   background: transparent;
   color: var(--inv-fg);
   border: 1.5px solid var(--inv-border-dark);
@@ -318,7 +318,7 @@ button:disabled:hover {
     z-index: var(--inv-z-header);
     background: var(--inv-bg-elevated);
     border-top: 1px solid var(--inv-border);
-    padding: 10px var(--inv-space-md);
+    padding: var(--inv-space-sm) var(--inv-space-md);
     box-shadow: 0 -2px 10px var(--inv-shadow-color);
     transform: translateY(100%);
     transition: transform 0.3s ease;
@@ -522,7 +522,7 @@ img {
    ======================================================= */
 .inv-pdp__atc-error {
   margin-top: var(--inv-space-sm);
-  padding: 10px 14px;
+  padding: var(--inv-space-sm) var(--inv-space-md);
   font-size: 14px;
   font-weight: 500;
   color: var(--inv-accent-hover);
@@ -593,7 +593,7 @@ img {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.02em;
-  padding: 2px 6px;
+  padding: 2px var(--inv-space-sm);
   line-height: 1.2;
 }
 
@@ -631,7 +631,7 @@ img {
   font-weight: 500;
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: var(--inv-space-xs);
 }
 
 /* Cache indicator for instant results */
@@ -658,12 +658,12 @@ img {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--inv-dark);
-  margin: 0 0 10px;
+  margin: 0 0 var(--inv-space-sm);
 }
 
 .inv-cart-crosssell__grid {
   display: flex;
-  gap: 10px;
+  gap: var(--inv-space-sm);
   overflow-x: auto;
   scrollbar-width: thin;
   -webkit-overflow-scrolling: touch;
@@ -692,7 +692,7 @@ img {
 }
 
 .inv-cart-crosssell__item-info {
-  padding: 6px var(--inv-space-sm);
+  padding: var(--inv-space-sm) var(--inv-space-sm);
 }
 
 .inv-cart-crosssell__item-title {
@@ -807,7 +807,7 @@ img {
     align-items: center;
     gap: var(--inv-space-xs);
     min-width: 72px;
-    padding: 10px var(--inv-space-sm);
+    padding: var(--inv-space-sm) var(--inv-space-sm);
     background: var(--inv-bg-soft);
     text-decoration: none;
     color: var(--inv-fg-secondary);
@@ -830,12 +830,12 @@ img {
     justify-content: center;
     min-width: 20px;
     height: 20px;
-    padding: 0 6px;
+    padding: 0 var(--inv-space-sm);
     background: var(--inv-accent, var(--inv-accent));
     color: var(--inv-bg-elevated);
     font-size: 11px;
     font-weight: 700;
-    margin-left: 6px;
+    margin-left: var(--inv-space-sm);
   }
 
   /* Product card touch optimization */
@@ -860,7 +860,7 @@ img {
   display: inline-flex;
   align-items: center;
   gap: var(--inv-space-sm);
-  padding: 14px var(--inv-space-xl);
+  padding: var(--inv-space-md) var(--inv-space-xl);
   background: var(--inv-bg-elevated);
   border: 2px solid var(--inv-dark);
   font-size: 14px;
@@ -896,8 +896,8 @@ img {
 .inv-filters__active-indicator {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px var(--inv-space-sm-plus);
+  gap: var(--inv-space-sm);
+  padding: var(--inv-space-sm) var(--inv-space-sm-plus);
   background: var(--inv-accent, var(--inv-accent));
   color: var(--inv-bg-elevated);
   font-size: 12px;
@@ -1008,7 +1008,7 @@ img {
   background: var(--inv-bg-elevated);
   border: 1px solid var(--inv-border);
   box-shadow: var(--inv-shadow-md);
-  padding: 14px var(--inv-space-md);
+  padding: var(--inv-space-md) var(--inv-space-md);
   display: flex;
   align-items: center;
   gap: var(--inv-space-sm-plus);
@@ -1080,7 +1080,7 @@ img {
 .inv-trade-cta {
   background: linear-gradient(135deg, var(--inv-dark), var(--inv-dark));
   color: var(--inv-bg-elevated);
-  padding: 14px 20px;
+  padding: var(--inv-space-md) var(--inv-space-md);
   display: flex;
   align-items: center;
   gap: var(--inv-space-sm-plus);

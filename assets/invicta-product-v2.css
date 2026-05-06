@@ -20,7 +20,7 @@
 .inv-pdp {
   max-width: var(--inv-container, 1400px);
   margin: 0 auto;
-  padding: 0 var(--inv-space-lg) 60px;
+  padding: 0 var(--inv-space-lg) var(--inv-space-3xl);
   font-family: inherit;
   color: var(--inv-fg-near-black);
   line-height: 1.6;
@@ -251,7 +251,7 @@
   left: 12px;
   background: var(--inv-accent);
   color: var(--inv-bg-elevated);
-  padding: 6px var(--inv-space-sm-plus);
+  padding: var(--inv-space-sm) var(--inv-space-sm-plus);
   border-radius: 0;
   font-size: 11px;
   font-weight: 700;
@@ -266,14 +266,14 @@
   background: var(--inv-dark);
   color: var(--inv-bg-elevated);
   border: none;
-  padding: var(--inv-space-sm) 14px;
+  padding: var(--inv-space-sm) var(--inv-space-md);
   border-radius: 0;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--inv-space-sm);
   z-index: 2;
   transition: background-color 0.15s ease;
 }
@@ -294,7 +294,7 @@
   left: 12px;
   background: rgba(0, 0, 0, 0.65);
   color: var(--inv-bg-elevated);
-  padding: var(--inv-space-xs) 10px;
+  padding: var(--inv-space-xs) var(--inv-space-sm);
   border-radius: var(--inv-radius-pill);
   font-size: 11px;
   font-weight: 600;
@@ -319,10 +319,10 @@
 .inv-pdp__key-spec {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--inv-space-sm);
   background: var(--inv-grey-100);
   border: 1px solid var(--inv-grey-200);
-  padding: var(--inv-space-sm) 14px;
+  padding: var(--inv-space-sm) var(--inv-space-md);
   border-radius: var(--inv-radius-pill);
   font-size: 13px;
   font-weight: 600;
@@ -348,10 +348,10 @@
 .inv-pdp__feature-chip {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--inv-space-sm);
   background: var(--inv-bg-elevated);
   border: 1px solid var(--inv-grey-200);
-  padding: var(--inv-space-sm) 14px;
+  padding: var(--inv-space-sm) var(--inv-space-md);
   border-radius: var(--inv-radius-pill);
   font-size: 12px;
   color: var(--inv-grey-600);
@@ -376,9 +376,9 @@
 .inv-pdp__info-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px 20px;
+  gap: var(--inv-space-sm) var(--inv-space-md);
   align-items: center;
-  padding: 14px var(--inv-space-xl);
+  padding: var(--inv-space-md) var(--inv-space-xl);
   background: var(--inv-grey-50);
   border-bottom: 1px solid var(--inv-grey-200);
 }
@@ -422,7 +422,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--inv-space-md);
-  padding: 22px var(--inv-space-xl);
+  padding: var(--inv-space-lg) var(--inv-space-xl);
   background: var(--inv-bg-elevated);
   border: none;
   font-size: 14px;
@@ -444,7 +444,7 @@
 }
 .inv-pdp .inv-pdp__info-section--open .inv-pdp__info-toggle {
   background: var(--inv-grey-50);
-  padding-bottom: 14px;
+  padding-bottom: var(--inv-space-md);
 }
 
 .inv-pdp__info-toggle-icon {
@@ -461,7 +461,7 @@
 
 /* Accordion content */
 .inv-pdp__info-content {
-  padding: 18px var(--inv-space-xl) var(--inv-space-lg);
+  padding: var(--inv-space-md) var(--inv-space-xl) var(--inv-space-lg);
   font-size: 14px;
   line-height: 1.65;
   color: var(--inv-fg-secondary);
@@ -493,7 +493,7 @@
 .inv-pdp .inv-pdp__info-readmore {
   display: block;
   width: 100%;
-  padding: 14px var(--inv-space-xl);
+  padding: var(--inv-space-md) var(--inv-space-xl);
   background: var(--inv-bg-elevated);
   border: none;
   border-top: 1px solid var(--inv-grey-100);
@@ -529,7 +529,7 @@
 }
 
 .inv-pdp__info-content p {
-  margin: 0 0 14px 0;
+  margin: 0 0 var(--inv-space-md) 0;
 }
 
 .inv-pdp__info-content p:last-child {
@@ -588,14 +588,14 @@
 .inv-pdp__info-specs {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px var(--inv-space-lg);
+  gap: var(--inv-space-md) var(--inv-space-lg);
 }
 
 .inv-pdp__info-specs-item {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: var(--inv-space-md) 20px;
+  padding: var(--inv-space-md) var(--inv-space-md);
   background: var(--inv-grey-100);
   border-radius: 0;
   font-size: 15px;
@@ -642,7 +642,7 @@
   padding: var(--inv-space-lg);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--inv-space-md);
 }
 
 /* ============================================
@@ -654,7 +654,7 @@
   font-weight: 600;
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: var(--inv-space-sm);
 }
 
 .inv-pdp__stock-banner-content {
@@ -709,7 +709,7 @@
 .inv-pdp__dealer-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--inv-space-sm);
   flex-wrap: wrap;
   margin-top: -var(--inv-space-sm-plus);
 }
@@ -720,7 +720,7 @@
   gap: var(--inv-space-sm);
   background: var(--dealer-bg, #2d2d2d);
   color: var(--dealer-text, #fff);
-  padding: var(--inv-space-sm) 14px;
+  padding: var(--inv-space-sm) var(--inv-space-md);
   border-radius: 0;
   font-size: 13px;
   font-weight: 700;
@@ -751,7 +751,7 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 10px var(--inv-space-md);
+  gap: var(--inv-space-sm) var(--inv-space-md);
   flex-wrap: wrap;
 }
 
@@ -770,7 +770,7 @@
 .inv-pdp__price-line {
   display: flex;
   align-items: baseline;
-  gap: 6px;
+  gap: var(--inv-space-sm);
   flex-wrap: wrap;
 }
 
@@ -790,7 +790,7 @@
   font-size: 14px;
   font-weight: 600;
   color: var(--inv-grey-500);
-  margin-right: 6px;
+  margin-right: var(--inv-space-sm);
 }
 
 .inv-pdp__price-secondary {
@@ -828,7 +828,7 @@
   align-items: center;
   background: var(--inv-error-light);
   color: var(--inv-accent);
-  padding: 6px var(--inv-space-sm-plus) 6px 10px;
+  padding: var(--inv-space-sm) var(--inv-space-sm-plus) var(--inv-space-sm) var(--inv-space-sm);
   border-left: 3px solid var(--inv-accent);
   border-radius: 0;
   font-size: 12px;
@@ -853,12 +853,12 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--inv-grey-500);
-  margin-bottom: 6px;
+  margin-bottom: var(--inv-space-sm);
 }
 
 .inv-pdp__variant-select {
   width: 100%;
-  padding: var(--inv-space-sm-plus) 40px var(--inv-space-sm-plus) 14px;
+  padding: var(--inv-space-sm-plus) var(--inv-space-xl) var(--inv-space-sm-plus) var(--inv-space-md);
   border: 2px solid var(--inv-grey-200);
   border-radius: 0;
   font-size: 14px;
@@ -892,7 +892,7 @@
 .inv-pdp__delivery {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
+  gap: var(--inv-space-md);
   background: var(--inv-success-light);
   border: 1px solid var(--inv-success-border);
   border-radius: 0;
@@ -1041,7 +1041,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--inv-space-sm);
-  padding: 0 20px;
+  padding: 0 var(--inv-space-md);
   white-space: nowrap;
   transition: background-color 0.15s ease;
 }
@@ -1069,7 +1069,7 @@
 .inv-pdp__atc-success {
   display: none;
   align-items: center;
-  gap: 6px;
+  gap: var(--inv-space-sm);
 }
 
 .inv-pdp__atc-btn.is-loading .inv-pdp__atc-text,
@@ -1150,7 +1150,7 @@
 .inv-pdp__trust-strip {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px var(--inv-space-md);
+  gap: var(--inv-space-sm) var(--inv-space-md);
   padding: var(--inv-space-sm-plus) 0;
   border-top: 1px solid var(--inv-grey-200);
   border-bottom: 1px solid var(--inv-grey-200);
@@ -1162,7 +1162,7 @@
 .inv-pdp__trust-link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--inv-space-sm);
   color: var(--inv-grey-600);
   text-decoration: none;
   background: none;
@@ -1220,7 +1220,7 @@
 
 .inv-pdp__trust-badge {
   background: var(--inv-grey-50);
-  padding: var(--inv-space-md) 10px;
+  padding: var(--inv-space-md) var(--inv-space-sm);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -1513,7 +1513,7 @@
   
   .inv-pdp__trust-badge {
     flex-direction: row;
-    padding: 14px var(--inv-space-md);
+    padding: var(--inv-space-md) var(--inv-space-md);
     text-align: left;
   }
   
@@ -1532,7 +1532,7 @@
   
   .inv-pdp__key-spec {
     font-size: 12px;
-    padding: 6px var(--inv-space-sm-plus);
+    padding: var(--inv-space-sm) var(--inv-space-sm-plus);
   }
   
   /* ========================================
@@ -1546,7 +1546,7 @@
      MOBILE KIT BUILDER
      ======================================== */
   .inv-pdp__kit-toggle {
-    padding: 14px;
+    padding: var(--inv-space-md);
   }
   
   .inv-pdp__kit-toggle-icon {
@@ -1588,7 +1588,7 @@
   
   .inv-pdp__key-spec {
     font-size: 11px;
-    padding: 5px 10px;
+    padding: var(--inv-space-xs) var(--inv-space-sm);
   }
   
   /* ========================================
@@ -1644,25 +1644,25 @@
   .inv-pdp__info-meta {
     flex-direction: column;
     gap: var(--inv-space-sm);
-    padding: var(--inv-space-sm-plus) 20px;
+    padding: var(--inv-space-sm-plus) var(--inv-space-md);
   }
   .inv-pdp__info-meta-divider {
     display: none;
   }
 
   .inv-pdp .inv-pdp__info-toggle {
-    padding: 20px 20px;
+    padding: var(--inv-space-md) var(--inv-space-md);
     font-size: 13px;
     gap: var(--inv-space-sm-plus);
   }
 
   .inv-pdp__info-content {
-    padding: 14px 20px 20px;
+    padding: var(--inv-space-md) var(--inv-space-md) var(--inv-space-md);
     font-size: 13px;
   }
 
   .inv-pdp .inv-pdp__info-readmore {
-    padding: 14px 20px;
+    padding: var(--inv-space-md) var(--inv-space-md);
   }
 
   .inv-pdp__info-list {
@@ -1679,7 +1679,7 @@
   }
 
   .inv-pdp__info-specs-item {
-    padding: 14px var(--inv-space-md);
+    padding: var(--inv-space-md) var(--inv-space-md);
     font-size: 14px;
   }
   
@@ -1876,7 +1876,7 @@
 .inv-pdp__compat-bare-notice {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--inv-space-sm);
   font-size: 12px;
   font-weight: 600;
   color: var(--inv-fg-dim, #666);

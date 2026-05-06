@@ -52,7 +52,7 @@
   .invicta-header__inner {
     padding-inline: var(--inv-space-xl);
     padding-block: var(--inv-space-md);
-    gap: 36px;
+    gap: var(--inv-space-xl);
     min-height: 112px; /* CLS fix: reserve space — 16px padding * 2 + 80px logo */
   }
 }
@@ -161,7 +161,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--inv-space-md) 20px;
+  padding: var(--inv-space-md) var(--inv-space-md);
   border-bottom: 1px solid var(--inv-border);
   flex-shrink: 0;
 }
@@ -225,7 +225,7 @@
   display: flex;
   align-items: center;
   gap: var(--inv-space-sm-plus);
-  padding: 14px 20px;
+  padding: var(--inv-space-md) var(--inv-space-md);
   font-size: 15px;
   font-weight: 600;
   color: var(--inv-fg-near-black);
@@ -265,7 +265,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 14px 20px;
+  padding: var(--inv-space-md) var(--inv-space-md);
   font-size: 15px;
   font-weight: 600;
   color: var(--inv-fg-near-black);
@@ -313,7 +313,7 @@
 
 .invicta-drawer__submenu a {
   display: block;
-  padding: 10px 20px 10px 44px;
+  padding: var(--inv-space-sm) var(--inv-space-md) var(--inv-space-sm) var(--inv-space-2xl);
   font-size: 14px;
   font-weight: 500;
   color: var(--inv-fg-secondary);
@@ -336,11 +336,11 @@
 
 /* Drawer VAT toggle for mobile */
 .invicta-drawer__vat {
-  padding: var(--inv-space-md) 20px;
+  padding: var(--inv-space-md) var(--inv-space-md);
   border-top: 1px solid var(--inv-border);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--inv-space-sm);
   flex-shrink: 0;
   overflow: hidden;
 }
@@ -358,14 +358,14 @@
   gap: 0;
   background: var(--inv-border);
   border-radius: 8px;
-  padding: 3px;
+  padding: var(--inv-space-xs);
   flex: 1;
   min-width: 0;
 }
 
 .invicta-drawer__vat-pill {
   flex: 1;
-  padding: var(--inv-space-sm) 6px;
+  padding: var(--inv-space-sm) var(--inv-space-sm);
   font-size: 12px;
   font-weight: 700;
   border: none;
@@ -390,7 +390,7 @@
 
 /* Drawer footer with account link */
 .invicta-drawer__footer {
-  padding: var(--inv-space-md) 20px;
+  padding: var(--inv-space-md) var(--inv-space-md);
   border-top: 1px solid var(--inv-border);
   flex-shrink: 0;
 }
@@ -398,7 +398,7 @@
 .invicta-drawer__account-link {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--inv-space-sm);
   font-size: 14px;
   font-weight: 600;
   color: var(--inv-fg-near-black);
@@ -489,7 +489,7 @@
 .invicta-header__icons {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--inv-space-sm);
   flex-shrink: 0;
 }
 
@@ -512,7 +512,7 @@
     background-color: rgba(255, 255, 255, 0.12);
     border-radius: 8px;
     padding: 2px;
-    margin-right: 6px;
+    margin-right: var(--inv-space-sm);
   }
 
   .invicta-header__vat-btn {
@@ -549,12 +549,12 @@
     gap: 0;
     background-color: rgba(255, 255, 255, 0.12);
     border-radius: 10px;
-    padding: 3px;
+    padding: var(--inv-space-xs);
     margin-right: var(--inv-space-sm);
   }
 
   .invicta-header__vat-btn {
-    padding: 6px 14px;
+    padding: var(--inv-space-sm) var(--inv-space-md);
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
@@ -634,7 +634,7 @@
   right: -4px;
   min-width: 20px;
   height: 20px;
-  padding: 0 6px;
+  padding: 0 var(--inv-space-sm);
   border-radius: var(--inv-radius-pill);
   background: var(--inv-bg-elevated);
   color: var(--inv-accent, var(--inv-accent));
@@ -660,7 +660,7 @@
   }
 
   .invicta-header__inner {
-    padding: 10px var(--inv-space-sm-plus);
+    padding: var(--inv-space-sm) var(--inv-space-sm-plus);
     gap: var(--inv-space-sm);
     display: grid;
     grid-template-columns: auto 1fr auto;
@@ -730,7 +730,7 @@
     min-width: 18px;
     height: 18px;
     font-size: 10px;
-    padding: 0 5px;
+    padding: 0 var(--inv-space-xs);
   }
 }
 
@@ -739,7 +739,7 @@
    ======================================================= */
 @media (min-width: 750px) and (max-width: 989px) {
   .invicta-header__inner {
-    padding: var(--inv-space-sm-plus) 20px;
+    padding: var(--inv-space-sm-plus) var(--inv-space-md);
     gap: var(--inv-space-md);
   }
 

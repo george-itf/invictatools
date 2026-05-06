@@ -19,7 +19,7 @@
 .inv-related__container {
   max-width: var(--inv-page-width, 1320px);
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 var(--inv-space-md);
 }
 
 /* -----------------------------------------------------------------------
@@ -150,7 +150,7 @@
   }
 
   .inv-related__header {
-    margin-bottom: 20px;
+    margin-bottom: var(--inv-space-md);
   }
 
   .inv-related__title {
@@ -165,7 +165,7 @@
   .inv-related__grid,
   .inv-related__skeleton {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: var(--inv-space-sm);
   }
 }
 

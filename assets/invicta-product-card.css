@@ -115,7 +115,7 @@
   top: 10px;
   left: 10px;
   z-index: 10;
-  padding: 3px var(--inv-space-sm);
+  padding: var(--inv-space-xs) var(--inv-space-sm);
   color: var(--inv-bg-elevated);
   font-size: 9px;
   font-weight: 700;
@@ -132,7 +132,7 @@
   bottom: 10px;
   left: 10px;
   z-index: 10;
-  padding: 5px 10px;
+  padding: var(--inv-space-xs) var(--inv-space-sm);
   background: var(--inv-accent, var(--inv-accent));
   color: var(--inv-bg-elevated);
   font-size: 11px;
@@ -147,7 +147,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 14px var(--inv-space-md) var(--inv-space-md);
+  padding: var(--inv-space-md) var(--inv-space-md) var(--inv-space-md);
   background: var(--inv-bg-card-body);
   border-top: 1px solid var(--inv-bg-card-border);
 }
@@ -248,7 +248,7 @@
 .inv-card__volume-hint {
   font-size: 12px;
   color: var(--inv-fg-muted);
-  margin-top: 6px;
+  margin-top: var(--inv-space-sm);
   line-height: 1.3;
 }
 
@@ -271,7 +271,7 @@
   justify-content: center;
   gap: var(--inv-space-sm);
   height: 48px;
-  padding: 0 14px;
+  padding: 0 var(--inv-space-md);
   font-family: inherit;
   font-size: 13px;
   font-weight: 700;
@@ -357,7 +357,7 @@
   flex-direction: row;
   align-items: center;
   gap: var(--inv-space-md);
-  padding: 10px 14px;
+  padding: var(--inv-space-sm) var(--inv-space-md);
 }
 
 .inv-col-grid__products--list .inv-card__header {
@@ -388,7 +388,7 @@
 
 .inv-col-grid__products--list .inv-card__btn {
   width: auto;
-  padding: 9px var(--inv-space-md);
+  padding: var(--inv-space-sm) var(--inv-space-md);
 }
 
 /* -----------------------------------------------------------------------
@@ -405,17 +405,17 @@
   }
 
   .inv-card__body {
-    padding: var(--inv-space-sm-plus) var(--inv-space-sm-plus) 14px;
+    padding: var(--inv-space-sm-plus) var(--inv-space-sm-plus) var(--inv-space-md);
   }
 
   .inv-card__header {
-    margin-bottom: 6px;
+    margin-bottom: var(--inv-space-sm);
   }
 
   .inv-card__title {
     font-size: 13px;
     min-height: 38px;
-    margin-bottom: 10px;
+    margin-bottom: var(--inv-space-sm);
   }
 
   .inv-card__price {
@@ -432,7 +432,7 @@
 
   .inv-card__btn {
     min-height: 44px;
-    padding: 10px 10px;
+    padding: var(--inv-space-sm) var(--inv-space-sm);
     font-size: 12px;
   }
 
@@ -449,7 +449,7 @@
   .inv-col-grid__products--list .inv-card__body {
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
+    gap: var(--inv-space-sm);
   }
 
   .inv-col-grid__products--list .inv-card__header {
@@ -504,7 +504,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--inv-space-xs);
-  margin-top: 6px;
+  margin-top: var(--inv-space-sm);
 }
 .inv-specs__chip {
   display: inline-block;

@@ -14,7 +14,7 @@
 .inv-consumables__container {
   max-width: var(--inv-page-width, 1320px);
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 var(--inv-space-md);
 }
 
 .inv-consumables__header {

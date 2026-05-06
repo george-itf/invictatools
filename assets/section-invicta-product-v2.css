@@ -6,11 +6,11 @@
 .inv-pdp__vat-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--inv-space-sm);
   background: var(--inv-grey-100, #f5f5f5);
   border-radius: var(--inv-radius-pill);
-  padding: 5px var(--inv-space-sm-plus);
-  margin-top: 6px;
+  padding: var(--inv-space-xs) var(--inv-space-sm-plus);
+  margin-top: var(--inv-space-sm);
 }
 .inv-pdp__vat-toggle-label {
   font-size: 11px;
@@ -62,8 +62,8 @@
 .inv-pdp__collect {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
-  padding: var(--inv-space-sm-plus) 14px;
+  gap: var(--inv-space-sm);
+  padding: var(--inv-space-sm-plus) var(--inv-space-md);
   background: #f0f9ff;
   border: 1px solid #bae6fd;
   border-radius: 0;
@@ -102,8 +102,8 @@
 .inv-pdp__trade-callout {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: var(--inv-space-sm-plus) 14px;
+  gap: var(--inv-space-sm);
+  padding: var(--inv-space-sm-plus) var(--inv-space-md);
   background: var(--inv-grey-50);
   border: 1px dashed var(--inv-grey-300);
   border-radius: 0;
@@ -148,7 +148,7 @@
 }
 
 .inv-pdp__stock-info-details {
-  margin-top: 6px;
+  margin-top: var(--inv-space-sm);
 }
 
 .inv-pdp__stock-info-trigger {
@@ -172,8 +172,8 @@
 }
 
 .inv-pdp__stock-info-body {
-  margin: 6px 0 0;
-  padding: var(--inv-space-sm) 10px;
+  margin: var(--inv-space-sm) 0 0;
+  padding: var(--inv-space-sm) var(--inv-space-sm);
   font-size: 12px;
   line-height: 1.5;
   background: rgba(255, 255, 255, 0.5);
@@ -183,8 +183,8 @@
 .inv-pdp__branch-teaser {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: var(--inv-space-sm) 14px;
+  gap: var(--inv-space-sm);
+  padding: var(--inv-space-sm) var(--inv-space-md);
   font-size: 12px;
   color: var(--inv-fg-dim, #666);
 }
@@ -212,13 +212,13 @@
 .inv-pdp__warranty-summary {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--inv-space-sm);
   cursor: pointer;
   list-style: none;
   font-size: 13px;
   font-weight: 600;
   color: var(--inv-fg-near-black);
-  padding: 6px 0;
+  padding: var(--inv-space-sm) 0;
 }
 
 .inv-pdp__warranty-summary::-webkit-details-marker {
@@ -246,7 +246,7 @@
 .inv-pdp__warranty-card-row {
   display: flex;
   gap: var(--inv-space-sm);
-  padding: 6px 0;
+  padding: var(--inv-space-sm) 0;
   font-size: 13px;
   line-height: 1.4;
 }
@@ -279,7 +279,7 @@
 .inv-pdp__warranty-card-dealer {
   font-size: 12px;
   color: var(--inv-fg-muted, #888);
-  margin: 10px 0 0;
+  margin: var(--inv-space-sm) 0 0;
   padding-top: var(--inv-space-sm);
   border-top: 1px solid var(--inv-grey-100, #f5f5f5);
   font-style: italic;
@@ -300,7 +300,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--inv-space-sm);
-  padding: var(--inv-space-sm-plus) 14px;
+  padding: var(--inv-space-sm-plus) var(--inv-space-md);
   background: var(--inv-bg-soft, #fafafa);
   border: 1px solid var(--inv-grey-100, #f5f5f5);
   border-radius: 8px;
@@ -310,7 +310,7 @@
 .inv-pdp__spec-chip {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--inv-space-sm);
   padding: var(--inv-space-xs) 0;
 }
 
@@ -344,7 +344,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--inv-space-sm) var(--inv-space-sm-plus);
-    padding: 10px var(--inv-space-sm-plus);
+    padding: var(--inv-space-sm) var(--inv-space-sm-plus);
   }
   .inv-pdp__spec-chip {
     padding-left: 0;
@@ -422,7 +422,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--inv-space-md) 20px;
+  padding: var(--inv-space-md) var(--inv-space-md);
   border-bottom: 1px solid var(--inv-grey-200, #e5e5e5);
 }
 
@@ -453,7 +453,7 @@
 .inv-pdp__kit-drawer-body {
   flex: 1;
   overflow-y: auto;
-  padding: 20px;
+  padding: var(--inv-space-md);
 }
 
 .inv-pdp__kit-drawer-product {
@@ -463,7 +463,7 @@
   padding: var(--inv-space-sm-plus);
   background: var(--inv-bg-soft, #fafafa);
   border-radius: 8px;
-  margin-bottom: 20px;
+  margin-bottom: var(--inv-space-md);
 }
 
 .inv-pdp__kit-drawer-product img {
@@ -530,7 +530,7 @@
 .inv-pdp__kit-tier-desc {
   font-size: 13px;
   color: var(--inv-fg-dim, #666);
-  margin: 0 0 10px;
+  margin: 0 0 var(--inv-space-sm);
 }
 
 .inv-pdp__kit-tier-thumbs {
@@ -555,14 +555,14 @@
 }
 
 .inv-pdp__kit-tier-price {
-  margin-top: 10px;
+  margin-top: var(--inv-space-sm);
   font-size: 16px;
   font-weight: 800;
   color: var(--inv-fg-near-black);
 }
 
 .inv-pdp__kit-drawer-footer {
-  padding: var(--inv-space-md) 20px;
+  padding: var(--inv-space-md) var(--inv-space-md);
   border-top: 1px solid var(--inv-grey-200, #e5e5e5);
 }
 
@@ -601,7 +601,7 @@
   text-align: center;
   color: var(--inv-fg-muted, #888);
   font-size: 13px;
-  padding: 20px 0;
+  padding: var(--inv-space-md) 0;
 }
 
 @media (max-width: 749px) {
@@ -650,7 +650,7 @@
 .inv-pdp__trade-bulk-msg {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--inv-space-sm);
   font-size: 12px;
   font-weight: 500;
   color: var(--inv-fg-muted, #888);
@@ -666,9 +666,9 @@
 .inv-pdp__compare-chip {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--inv-space-sm);
   width: 100%;
-  padding: 10px 14px;
+  padding: var(--inv-space-sm) var(--inv-space-md);
   background: transparent;
   border: 1px solid var(--inv-grey-200, #e5e5e5);
   border-radius: 6px;
@@ -769,7 +769,7 @@
 
 .inv-pdp__compare-table th,
 .inv-pdp__compare-table td {
-  padding: 10px var(--inv-space-sm-plus);
+  padding: var(--inv-space-sm) var(--inv-space-sm-plus);
   text-align: left;
   font-size: 13px;
   vertical-align: top;
@@ -839,7 +839,7 @@
 .inv-pdp__compare-add {
   display: inline-flex;
   align-items: center;
-  padding: 6px 14px;
+  padding: var(--inv-space-sm) var(--inv-space-md);
   background: var(--inv-accent);
   color: #fff;
   border: none;
@@ -884,10 +884,10 @@
 /* --- Mobile adjustments for new elements --- */
 @media (max-width: 749px) {
   .inv-pdp__collect {
-    padding: 10px var(--inv-space-sm-plus);
+    padding: var(--inv-space-sm) var(--inv-space-sm-plus);
   }
   .inv-pdp__trade-callout {
-    padding: 10px var(--inv-space-sm-plus);
+    padding: var(--inv-space-sm) var(--inv-space-sm-plus);
     font-size: 12px;
   }
 }

@@ -47,7 +47,7 @@
   gap: var(--pill-gap);
 
   height: var(--pill-height);
-  padding: var(--inv-space-xs) 14px;
+  padding: var(--inv-space-xs) var(--inv-space-md);
 
   border-radius: var(--inv-radius-pill);
   background: var(--pill-bg);
@@ -160,7 +160,7 @@
 /* Text pill in strip context — slightly larger */
 .invicta-brand-strip__item .invicta-brand-pill--text {
   font-size: 0.82rem !important;
-  padding: var(--inv-space-xs) 22px;
+  padding: var(--inv-space-xs) var(--inv-space-lg);
 }
 
 .invicta-brand-strip__item .invicta-brand-pill--text .invicta-brand-pill__label {
@@ -187,12 +187,12 @@
 .invicta-brand-pill--lg {
   --pill-height: 34px;
   --pill-logo-height: 24px;
-  padding-inline: 18px;
+  padding-inline: var(--inv-space-md);
 }
 
 .invicta-brand-pill--lg.invicta-brand-pill--text {
   font-size: 0.78rem !important;
-  padding: var(--inv-space-xs) 20px;
+  padding: var(--inv-space-xs) var(--inv-space-md);
 }
 
 .invicta-brand-pill--lg.invicta-brand-pill--text .invicta-brand-pill__label {
@@ -207,7 +207,7 @@
 
 .invicta-brand-pill--compact.invicta-brand-pill--text {
   font-size: 0.65rem !important;
-  padding: var(--inv-space-xs) 10px;
+  padding: var(--inv-space-xs) var(--inv-space-sm);
 }
 
 .invicta-brand-pill--compact.invicta-brand-pill--text .invicta-brand-pill__label {
@@ -222,12 +222,12 @@
     --pill-height: 28px;
     --pill-logo-height: 20px;
     padding: var(--inv-space-xs) var(--inv-space-sm-plus);
-    gap: 6px;
+    gap: var(--inv-space-sm);
   }
   
   .invicta-brand-pill--text {
     font-size: 0.68rem !important;
-    padding: var(--inv-space-xs) 14px;
+    padding: var(--inv-space-xs) var(--inv-space-md);
   }
   
   .invicta-brand-pill--text .invicta-brand-pill__label {
@@ -243,12 +243,12 @@
   .invicta-brand-pill-wrapper--hero .invicta-brand-pill {
     --pill-height: 34px;
     --pill-logo-height: 24px;
-    padding-inline: 20px;
+    padding-inline: var(--inv-space-md);
   }
   
   .invicta-brand-pill-wrapper--hero .invicta-brand-pill--text {
     font-size: 0.82rem !important;
-    padding: var(--inv-space-xs) 22px;
+    padding: var(--inv-space-xs) var(--inv-space-lg);
   }
   
   .invicta-brand-pill-wrapper--hero .invicta-brand-pill--text .invicta-brand-pill__label {
@@ -291,7 +291,7 @@
   background: var(--inv-fg-strong);
   color: var(--inv-bg-elevated);
 
-  padding: var(--inv-space-sm) 14px;
+  padding: var(--inv-space-sm) var(--inv-space-md);
   border-radius: var(--inv-radius-pill);
   white-space: nowrap;
 
