@@ -11,7 +11,7 @@
   .inv-account {
   max-width: 1200px;
   margin: 0 auto;
-  padding: var(--inv-space-xl) var(--inv-space-lg) 80px;
+  padding: var(--inv-space-xl) var(--inv-space-lg) var(--inv-space-3xl);
   background: #f8f9fa;
   min-height: 60vh;
   }
@@ -24,8 +24,8 @@
   .inv-account__header {
   background: linear-gradient(135deg, var(--inv-dark) 0%, var(--inv-fg-near-black) 100%);
   border-radius: 20px;
-  padding: var(--inv-space-xl) 40px;
-  margin-bottom: 28px;
+  padding: var(--inv-space-xl) var(--inv-space-xl);
+  margin-bottom: var(--inv-space-lg);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -36,7 +36,7 @@
   .inv-account__header-left {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: var(--inv-space-md);
   }
 
   .inv-account__header-right {
@@ -155,7 +155,7 @@
   .inv-account__grid {
   display: grid;
   grid-template-columns: 1fr 380px;
-  gap: 28px;
+  gap: var(--inv-space-lg);
   }
 
 
@@ -173,8 +173,8 @@
   .inv-account__card-header {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: var(--inv-space-lg) 28px;
+  gap: var(--inv-space-md);
+  padding: var(--inv-space-lg) var(--inv-space-lg);
   border-bottom: 1px solid var(--inv-border);
   }
 
@@ -193,7 +193,7 @@
   }
 
   .inv-account__card-body {
-  padding: var(--inv-space-lg) 28px;
+  padding: var(--inv-space-lg) var(--inv-space-lg);
   }
 
 
@@ -215,7 +215,7 @@
   }
 
   .inv-orders-table thead th {
-  padding: 14px var(--inv-space-md);
+  padding: var(--inv-space-md) var(--inv-space-md);
   font-size: 0.85rem;
   font-weight: 700;
   color: var(--inv-fg-muted);
@@ -239,7 +239,7 @@
   }
 
   .inv-orders-table tbody td {
-  padding: 18px var(--inv-space-md);
+  padding: var(--inv-space-md) var(--inv-space-md);
   font-size: 1.05rem;
   color: var(--inv-fg-secondary);
   vertical-align: middle;
@@ -268,7 +268,7 @@
   /* Status badges */
   .inv-status {
   display: inline-block;
-  padding: 6px var(--inv-space-sm-plus);
+  padding: var(--inv-space-sm) var(--inv-space-sm-plus);
   font-size: 0.85rem;
   font-weight: 700;
   border-radius: 6px;
@@ -316,7 +316,7 @@
   .inv-empty-state__icon {
   width: 80px;
   height: 80px;
-  margin: 0 auto 20px;
+  margin: 0 auto var(--inv-space-md);
   background: var(--inv-bg-soft);
   border-radius: 50%;
   display: flex;
@@ -346,8 +346,8 @@
   .inv-empty-state__btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px 28px;
+  gap: var(--inv-space-sm);
+  padding: var(--inv-space-md) var(--inv-space-lg);
   background: var(--inv-accent);
   color: var(--inv-bg-elevated);
   font-size: 1.1rem;
@@ -384,7 +384,7 @@
   }
 
   .inv-detail-group {
-  padding: 18px 28px;
+  padding: var(--inv-space-md) var(--inv-space-lg);
   border-bottom: 1px solid var(--inv-bg-soft);
   }
 
@@ -399,7 +399,7 @@
   color: var(--inv-fg-muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-bottom: 6px;
+  margin-bottom: var(--inv-space-sm);
   }
 
   .inv-detail-value {
@@ -422,16 +422,16 @@
   }
 
   .inv-detail-actions {
-  padding: 20px 28px 28px;
+  padding: var(--inv-space-md) var(--inv-space-lg) var(--inv-space-lg);
   }
 
   .inv-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: var(--inv-space-sm);
   width: 100%;
-  padding: 14px var(--inv-space-lg);
+  padding: var(--inv-space-md) var(--inv-space-lg);
   font-size: 1.05rem;
   font-weight: 700;
   border-radius: 10px;
@@ -463,14 +463,14 @@
    ============================================================================ */
 
   .inv-recently-viewed {
-  margin-top: 28px;
+  margin-top: var(--inv-space-lg);
   grid-column: 1 / -1;
   }
 
   .inv-recently-viewed__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: var(--inv-space-md);
   }
 
 
@@ -516,7 +516,7 @@
   color: var(--inv-accent);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-bottom: 6px;
+  margin-bottom: var(--inv-space-sm);
   }
 
   .inv-rv-card__title {
@@ -593,7 +593,7 @@
   .customer:has(form[action*="recover"]) {
   max-width: 480px;
   margin: 0 auto;
-  padding: 60px var(--inv-space-lg) 80px;
+  padding: var(--inv-space-3xl) var(--inv-space-lg) var(--inv-space-3xl);
   text-align: center;
   }
 
@@ -609,7 +609,7 @@
   .customer.register form {
   background: var(--inv-bg-elevated);
   border-radius: 20px;
-  padding: 36px;
+  padding: var(--inv-space-xl);
   margin-top: var(--inv-space-xl);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   text-align: left;
@@ -617,13 +617,13 @@
 
   .customer.login .field,
   .customer.register .field {
-  margin: 0 0 20px;
+  margin: 0 0 var(--inv-space-md);
   }
 
   .customer.login .field input,
   .customer.register .field input {
   width: 100%;
-  padding: var(--inv-space-md) 20px;
+  padding: var(--inv-space-md) var(--inv-space-md);
   border: 2px solid var(--inv-border);
   border-radius: 12px;
   font-size: 1.1rem;
@@ -641,7 +641,7 @@
   .customer.login .field label,
   .customer.register .field label {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: var(--inv-space-sm);
   font-size: 1.05rem;
   font-weight: 700;
   color: var(--inv-fg-secondary);
@@ -650,7 +650,7 @@
   .customer.login button,
   .customer.register button {
   width: 100%;
-  padding: 18px var(--inv-space-lg);
+  padding: var(--inv-space-md) var(--inv-space-lg);
   background: var(--inv-accent);
   color: var(--inv-bg-elevated);
   border: none;
@@ -683,14 +683,14 @@
 
   .customer.login a[href="#recover"] {
   display: block;
-  margin-top: 20px;
+  margin-top: var(--inv-space-md);
   color: var(--inv-accent);
   font-weight: 700;
   }
 
   .customer.login #customer_login_guest {
-  margin-top: 36px;
-  padding-top: 36px;
+  margin-top: var(--inv-space-xl);
+  padding-top: var(--inv-space-xl);
   border-top: 1px solid var(--inv-border);
   }
 
@@ -723,7 +723,7 @@
   .customer.addresses {
   max-width: 1200px;
   margin: 0 auto;
-  padding: var(--inv-space-xl) var(--inv-space-lg) 80px;
+  padding: var(--inv-space-xl) var(--inv-space-lg) var(--inv-space-3xl);
   background: #f8f9fa;
   }
 
@@ -747,9 +747,9 @@
   .customer.addresses [data-address] > button[aria-expanded] {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--inv-space-sm);
   margin: var(--inv-space-lg) 0;
-  padding: 14px 28px;
+  padding: var(--inv-space-md) var(--inv-space-lg);
   background: var(--inv-accent);
   color: var(--inv-bg-elevated);
   border: none;
@@ -772,13 +772,13 @@
   margin: var(--inv-space-xl) 0 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 20px;
+  gap: var(--inv-space-md);
   }
 
   .customer.addresses li[data-address] {
   background: var(--inv-bg-elevated);
   border-radius: 16px;
-  padding: 28px;
+  padding: var(--inv-space-lg);
   box-shadow: var(--inv-shadow-sm);
   margin: 0;
   }
@@ -791,7 +791,7 @@
   color: var(--inv-bg-elevated);
   background: var(--inv-accent);
   margin: 0 0 var(--inv-space-md);
-  padding: var(--inv-space-sm) 14px;
+  padding: var(--inv-space-sm) var(--inv-space-md);
   border-radius: 6px;
   display: inline-block;
   }
@@ -804,8 +804,8 @@
   }
 
   .customer.addresses li[data-address] > button {
-  margin-top: 20px;
-  padding: var(--inv-space-sm-plus) 20px;
+  margin-top: var(--inv-space-md);
+  padding: var(--inv-space-sm-plus) var(--inv-space-md);
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
@@ -817,7 +817,7 @@
   background: var(--inv-bg-soft);
   border: 1px solid var(--inv-border);
   color: var(--inv-fg-secondary);
-  margin: 20px var(--inv-space-sm) 0 0;
+  margin: var(--inv-space-md) var(--inv-space-sm) 0 0;
   }
 
   .customer.addresses li[data-address] > button[data-confirm-message] {
@@ -840,7 +840,7 @@
   .customer.addresses form input,
   .customer.addresses form select {
   width: 100%;
-  padding: 14px 18px;
+  padding: var(--inv-space-md) var(--inv-space-md);
   border: 1px solid var(--inv-border);
   border-radius: 10px;
   font-size: 1.05rem;
@@ -856,7 +856,7 @@
   }
 
   .customer.addresses form button {
-  padding: 14px 28px;
+  padding: var(--inv-space-md) var(--inv-space-lg);
   border-radius: 10px;
   font-size: 1.05rem;
   font-weight: 700;
@@ -884,15 +884,15 @@
   .customer.order {
   max-width: 1200px;
   margin: 0 auto;
-  padding: var(--inv-space-xl) var(--inv-space-lg) 80px;
+  padding: var(--inv-space-xl) var(--inv-space-lg) var(--inv-space-3xl);
   background: #f8f9fa;
   }
 
   .customer.order > div:first-child {
   background: linear-gradient(135deg, var(--inv-dark) 0%, var(--inv-fg-near-black) 100%);
   border-radius: 20px;
-  padding: var(--inv-space-xl) 40px;
-  margin-bottom: 28px;
+  padding: var(--inv-space-xl) var(--inv-space-xl);
+  margin-bottom: var(--inv-space-lg);
   }
 
   .customer.order > div:first-child h1 {
@@ -915,7 +915,7 @@
   .customer.order > div:nth-of-type(2) {
   display: grid;
   grid-template-columns: 1fr 360px;
-  gap: 28px;
+  gap: var(--inv-space-lg);
   }
 
 
@@ -931,7 +931,7 @@
   font-weight: 800;
   color: var(--inv-fg-strong);
   margin: 0;
-  padding: 20px var(--inv-space-lg);
+  padding: var(--inv-space-md) var(--inv-space-lg);
   border-bottom: 1px solid var(--inv-border);
   }
 
@@ -946,7 +946,7 @@
   }
 
   .customer.order table thead th {
-  padding: 14px 20px;
+  padding: var(--inv-space-md) var(--inv-space-md);
   font-size: 0.85rem;
   font-weight: 700;
   color: var(--inv-fg-muted);
@@ -954,7 +954,7 @@
   }
 
   .customer.order table tbody td {
-  padding: 18px 20px;
+  padding: var(--inv-space-md) var(--inv-space-md);
   font-size: 1.05rem;
   color: var(--inv-fg-secondary);
   }
@@ -971,14 +971,14 @@
   .customer.order table tfoot tr:last-of-type td {
   font-size: 1.4rem;
   font-weight: 800;
-  padding-top: 20px;
+  padding-top: var(--inv-space-md);
   border-top: 2px solid var(--inv-border);
   }
 
   .customer.order > div:nth-of-type(2) > div:last-of-type {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--inv-space-md);
   }
 
   .customer.order > div:nth-of-type(2) > div:last-of-type > div {
@@ -1047,7 +1047,7 @@
 /* --- From invicta-account.css --- */
 @media screen and (max-width: 749px) {
   .inv-account {
-    padding: 20px var(--inv-space-md) 60px;
+    padding: var(--inv-space-md) var(--inv-space-md) var(--inv-space-3xl);
   }
   .inv-account__header {
     flex-direction: column;
@@ -1086,7 +1086,7 @@
   .inv-orders-table tbody tr {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: var(--inv-space-md);
     margin: var(--inv-space-sm-plus) var(--inv-space-md);
     border: 1px solid var(--inv-border);
     border-radius: 12px;
@@ -1193,7 +1193,7 @@
 /* Company Settings Form */
 .inv-account__company,
 .inv-account__invoices {
-  margin-top: 20px;
+  margin-top: var(--inv-space-md);
 }
 
 .inv-detail-group--editable {
@@ -1203,8 +1203,8 @@
 .inv-detail-group--editable .inv-detail-label {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 6px;
+  gap: var(--inv-space-sm);
+  margin-bottom: var(--inv-space-sm);
   font-weight: 500;
 }
 
@@ -1215,7 +1215,7 @@
 
 .inv-detail-input {
   width: 100%;
-  padding: 10px 14px;
+  padding: var(--inv-space-sm) var(--inv-space-md);
   border: 1px solid var(--inv-border-dark);
   border-radius: 6px;
   font-size: 1rem;
@@ -1230,7 +1230,7 @@
 
 .inv-company-form__note {
   margin: var(--inv-space-md) 0 0;
-  padding: 10px var(--inv-space-sm-plus);
+  padding: var(--inv-space-sm) var(--inv-space-sm-plus);
   background: var(--inv-bg-soft);
   border-radius: 6px;
   font-size: 0.85rem;
@@ -1295,7 +1295,7 @@
 }
 
 html.js .inv-btn--sm {
-  padding: 6px var(--inv-space-sm-plus);
+  padding: var(--inv-space-sm) var(--inv-space-sm-plus);
   font-size: 0.85rem;
 }
 

@@ -52,7 +52,7 @@ quick-order-list .pagination-wrapper {
 
   .variant-item__quantity-wrapper--no-info,
   .variant-item__error {
-    padding-left: calc(15px + 3.4rem);
+    padding-left: calc(var(--inv-space-md) + 3.4rem);
   }
 
   .variant-item__error {
@@ -527,7 +527,7 @@ quick-order-list .pagination-wrapper {
 
   .quick-order-list__total-items {
     width: calc(((11rem / var(--font-body-scale) + var(--inputs-border-width) * 2)));
-    margin-left: calc(15px + 3.4rem);
+    margin-left: calc(var(--inv-space-md) + 3.4rem);
     flex-direction: column;
   }
 }

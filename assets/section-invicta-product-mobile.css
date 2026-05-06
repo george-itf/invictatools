@@ -133,7 +133,7 @@
     color: var(--inv-bg-elevated);
     font-size: 0.75rem;
     font-weight: 600;
-    padding: 6px var(--inv-space-sm-plus);
+    padding: var(--inv-space-sm) var(--inv-space-sm-plus);
     border-radius: 20px;
     z-index: 10;
     backdrop-filter: blur(8px);
@@ -179,7 +179,7 @@
     bottom: 16px;
     right: 12px;
     height: 40px;
-    padding: 0 14px;
+    padding: 0 var(--inv-space-md);
     background: rgba(255, 255, 255, 0.95);
     border: none;
     border-radius: 10px;
@@ -188,7 +188,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: var(--inv-space-sm);
     cursor: pointer;
   }
 
@@ -265,7 +265,7 @@
     background: var(--inv-bg-elevated);
     border-radius: 0 0 0 0;
     padding: var(--inv-space-lg) var(--inv-gutter) var(--inv-space-xl);
-    margin-top: -20px;
+    margin-top: -var(--inv-space-md);
     width: 100%;
     box-shadow: var(--inv-shadow);
     z-index: 5;
@@ -304,7 +304,7 @@
 
   .inv-product__brand-pill .invicta-brand-pill {
     height: 36px;
-    padding: 6px var(--inv-space-md);
+    padding: var(--inv-space-sm) var(--inv-space-md);
   }
 
   .inv-product__brand-pill .invicta-brand-pill__logo,
@@ -363,9 +363,9 @@
   .inv-price__saving {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: var(--inv-space-sm);
     margin-top: var(--inv-space-sm);
-    padding: var(--inv-space-sm) 14px;
+    padding: var(--inv-space-sm) var(--inv-space-md);
     background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
     border-radius: 8px;
     font-size: 0.85rem;
@@ -383,14 +383,14 @@
    ============================================================================ */
 
   .inv-stock {
-    margin-bottom: 20px;
+    margin-bottom: var(--inv-space-md);
   }
 
   .inv-stock__badge {
     display: inline-flex;
     align-items: center;
     gap: var(--inv-space-sm);
-    padding: 10px var(--inv-space-md);
+    padding: var(--inv-space-sm) var(--inv-space-md);
     font-size: 0.85rem;
     font-weight: 700;
     border-radius: 10px;
@@ -422,7 +422,7 @@
    ============================================================================ */
 
   .inv-variants {
-    margin-bottom: 20px;
+    margin-bottom: var(--inv-space-md);
   }
 
   .inv-variant-group {
@@ -554,7 +554,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: var(--inv-space-sm);
     background: var(--inv-red, var(--inv-accent)); /* Solid colour - no gradient */
     color: var(--inv-bg-elevated);
     border: none;
@@ -608,7 +608,7 @@
     cursor: pointer;
     font-size: 0.95rem;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin-bottom: var(--inv-space-md);
     transition: all var(--inv-transition);
   }
 
@@ -626,13 +626,13 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--inv-space-sm-plus);
-    margin-bottom: 20px;
+    margin-bottom: var(--inv-space-md);
   }
 
   .inv-trust__item {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: var(--inv-space-sm);
     padding: var(--inv-space-sm-plus);
     background: var(--inv-gray-50);
     border-radius: 10px;
@@ -884,7 +884,7 @@
   .inv-accordion__content ul,
   .inv-accordion__content ol {
     margin: 0;
-    padding-left: 20px;
+    padding-left: var(--inv-space-md);
   }
 
   .inv-accordion__content li {
@@ -907,7 +907,7 @@
   }
 
   .inv-spec-table td {
-    padding: 10px 0;
+    padding: var(--inv-space-sm) 0;
     font-size: 0.85rem;
     vertical-align: top;
   }
@@ -937,7 +937,7 @@
   .inv-recs__title {
     font-size: 1.25rem;
     font-weight: 800;
-    margin-bottom: 20px;
+    margin-bottom: var(--inv-space-md);
     text-align: center;
     color: var(--inv-gray-900);
   }
@@ -948,7 +948,7 @@
     width: 40px;
     height: 3px;
     background: var(--inv-red);
-    margin: 10px auto 0;
+    margin: var(--inv-space-sm) auto 0;
     border-radius: 2px;
   }
 
@@ -1139,7 +1139,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: var(--inv-space-sm);
     cursor: pointer;
     font-size: 0.85rem;
     font-weight: 600;
@@ -1171,8 +1171,8 @@
     display: flex;
     justify-content: center;
     gap: var(--inv-space-sm);
-    padding: 20px;
-    padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    padding: var(--inv-space-md);
+    padding-bottom: calc(var(--inv-space-md) + env(safe-area-inset-bottom, 0px));
     background: rgba(0, 0, 0, 0.8);
   }
 

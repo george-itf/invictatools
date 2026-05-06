@@ -10,7 +10,7 @@
     display: flex;
     align-items: center;
     gap: var(--inv-space-sm);
-    margin: 0 0 14px;
+    margin: 0 0 var(--inv-space-md);
     font-size: 16px;
     font-weight: 700;
     color: #166534;
@@ -37,7 +37,7 @@
 
   .invicta-tiered-pricing__header span {
     display: table-cell;
-    padding: var(--inv-space-sm) 6px;
+    padding: var(--inv-space-sm) var(--inv-space-sm);
     border-bottom: 1px solid #bbf7d0;
   }
 
@@ -56,7 +56,7 @@
 
   .invicta-tiered-pricing__row span {
     display: table-cell;
-    padding: 10px 6px;
+    padding: var(--inv-space-sm) var(--inv-space-sm);
     vertical-align: middle;
     border-bottom: 1px solid #dcfce7;
   }
@@ -73,7 +73,7 @@
 
   .invicta-tiered-pricing__badge {
     display: inline-block;
-    padding: 3px var(--inv-space-sm);
+    padding: var(--inv-space-xs) var(--inv-space-sm);
     background: var(--inv-success-bright);
     color: #fff;
     font-size: 13px;
@@ -100,7 +100,7 @@
   /* Mobile adjustments */
   @media screen and (max-width: 749px) {
     .invicta-tiered-pricing {
-      padding: 14px;
+      padding: var(--inv-space-md);
     }
 
     .invicta-tiered-pricing__header span,

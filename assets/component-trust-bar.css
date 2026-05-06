@@ -54,14 +54,14 @@
     color: var(--inv-fg, #0f172a);
     white-space: nowrap;
     line-height: 1.4;
-    padding: 6px 10px;
+    padding: var(--inv-space-sm) var(--inv-space-sm);
   }
   .inv-trust-bar--compact .inv-trust-bar__item {
     font-size: 12px;
     font-weight: 500;
     color: var(--inv-fg-muted, #6b7280);
-    padding: var(--inv-space-xs) 6px;
-    gap: 5px;
+    padding: var(--inv-space-xs) var(--inv-space-sm);
+    gap: var(--inv-space-xs);
   }
 
   .inv-trust-bar__icon-wrap {
@@ -92,8 +92,8 @@
     }
     .inv-trust-bar--full .inv-trust-bar__item {
       font-size: 11px;
-      padding: var(--inv-space-xs) 6px;
-      gap: 5px;
+      padding: var(--inv-space-xs) var(--inv-space-sm);
+      gap: var(--inv-space-xs);
     }
     .inv-trust-bar--full .inv-trust-bar__icon {
       width: 14px;

@@ -67,7 +67,7 @@
 .inv-cart-recs__skeleton-line {
   height: 1.2rem;
   background: var(--inv-bg);
-  margin-bottom: 6px;
+  margin-bottom: var(--inv-space-sm);
   animation: inv-cart-recs-pulse 1.5s ease-in-out infinite;
 }
 
