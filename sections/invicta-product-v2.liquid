@@ -82,36 +82,38 @@
   endif
 
   comment
-    Compare price logic
-  endcomment
-  assign has_compare_price = false
-  if current_variant.compare_at_price > current_variant.price
-    assign has_compare_price = true
-  endif
-  
-  comment
-    Price ex VAT — uses centralised VAT rate from theme settings
-    Integer-safe rounding: times: 100 | plus: rounding | divided_by: divisor
+    Defensive: products on the Trade platform may have zero variants, in which
+    case `selected_or_first_available_variant` returns nil. Provide safe
+    defaults so the template still renders without Liquid errors.
   endcomment
   assign inv_vat_divisor = 100 | plus: settings.inv_vat_rate
   assign inv_vat_rounding = inv_vat_divisor | divided_by: 2
-  assign price_ex_vat = current_variant.price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor
-  assign compare_ex_vat = current_variant.compare_at_price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor
-  
-  comment
-    Discount percentage
-  endcomment
-  assign discount_percent = 0
-  if has_compare_price
-    assign discount_amount = current_variant.compare_at_price | minus: current_variant.price
-    assign discount_percent = discount_amount | times: 100.0 | divided_by: current_variant.compare_at_price | round
+
+  if current_variant
+    assign has_compare_price = false
+    if current_variant.compare_at_price > current_variant.price
+      assign has_compare_price = true
+    endif
+
+    assign price_ex_vat = current_variant.price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor
+    assign compare_ex_vat = current_variant.compare_at_price | times: 100 | plus: inv_vat_rounding | divided_by: inv_vat_divisor
+
+    assign discount_percent = 0
+    if has_compare_price
+      assign discount_amount = current_variant.compare_at_price | minus: current_variant.price
+      assign discount_percent = discount_amount | times: 100.0 | divided_by: current_variant.compare_at_price | round
+    endif
+
+    assign is_in_stock = current_variant.available
+    assign stock_qty = current_variant.inventory_quantity | default: 0
+  else
+    assign has_compare_price = false
+    assign price_ex_vat = 0
+    assign compare_ex_vat = 0
+    assign discount_percent = 0
+    assign is_in_stock = false
+    assign stock_qty = 0
   endif
-  
-  comment
-    Stock status
-  endcomment
-  assign is_in_stock = current_variant.available
-  assign stock_qty = current_variant.inventory_quantity | default: 0
 
   comment
     Fulfillment source + brand detection — single tag loop
@@ -256,7 +258,7 @@
                 <img
                   src="{{ thumb_img_150 }}"
                   alt="{{ image.alt | escape | default: product.title }}"
-                  loading="{% if forloop.index <= 6 %}eager{% else %}lazy{% endif %}"
+                  loading="lazy"
                   width="64"
                   height="64"
                 >

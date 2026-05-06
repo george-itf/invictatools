@@ -1,0 +1,103 @@
+{%- comment -%}
+  Invicta collection filters
+  ==========================
+  Renders the facet list (list/boolean checkboxes + price range) shared by the
+  desktop sidebar and the mobile drawer.
+
+  Required parameters:
+    - collection             (collection object)
+    - hidden_filter_labels   (string of labels to skip, downcased)
+    - section_id             (current section id, for unique price-error ids)
+
+  Optional parameters:
+    - mobile                 (bool) — when true, uses drawer-prefixed ids so
+                                       desktop and drawer errors don't collide.
+{%- endcomment -%}
+
+{%- if mobile -%}
+  {%- assign price_error_id_prefix = 'InvDrawerPriceError-' -%}
+{%- else -%}
+  {%- assign price_error_id_prefix = 'InvPriceError-' -%}
+{%- endif -%}
+
+{%- for filter in collection.filters -%}
+  {%- liquid
+    assign _fl = filter.label | downcase
+    if hidden_filter_labels contains _fl
+      continue
+    endif
+  -%}
+  <details class="inv-facet" open>
+    <summary class="inv-facet__header">
+      <span class="inv-facet__name">{{ filter.label }}</span>
+      <svg focusable="false" aria-hidden="true" class="inv-facet__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="m6 9 6 6 6-6"/>
+      </svg>
+    </summary>
+    <div class="inv-facet__body">
+
+      {%- case filter.type -%}
+        {%- when 'list' or 'boolean' -%}
+          <ul class="inv-facet__list">
+            {%- for value in filter.values -%}
+              <li class="inv-facet__item">
+                <label class="inv-facet__label-wrap">
+                  <input
+                    type="checkbox"
+                    name="{{ value.param_name }}"
+                    value="{{ value.value }}"
+                    class="inv-facet__checkbox"
+                    {% if value.active %}checked{% endif %}
+                    {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                  >
+                  <span class="inv-facet__label">{{ value.label }}</span>
+                  <span class="inv-facet__count">({{ value.count }})</span>
+                </label>
+              </li>
+            {%- endfor -%}
+          </ul>
+
+        {%- when 'price_range' -%}
+          <div class="inv-facet__price-range" data-inv-price-range>
+            <div class="inv-facet__price-row">
+              <div class="inv-facet__price-field">
+                <span class="inv-facet__price-symbol">£</span>
+                <input
+                  type="number"
+                  name="{{ filter.min_value.param_name }}"
+                  class="inv-facet__price-input"
+                  placeholder="Min"
+                  min="0"
+                  max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                  aria-describedby="{{ price_error_id_prefix }}{{ section_id }}"
+                  {% if filter.min_value.value %}value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
+                >
+              </div>
+              <span class="inv-facet__price-sep">–</span>
+              <div class="inv-facet__price-field">
+                <span class="inv-facet__price-symbol">£</span>
+                <input
+                  type="number"
+                  name="{{ filter.max_value.param_name }}"
+                  class="inv-facet__price-input"
+                  placeholder="Max"
+                  min="0"
+                  max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                  aria-describedby="{{ price_error_id_prefix }}{{ section_id }}"
+                  {% if filter.max_value.value %}value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
+                >
+              </div>
+            </div>
+            <p
+              id="{{ price_error_id_prefix }}{{ section_id }}"
+              class="inv-facet__price-error"
+              data-inv-price-error
+              role="alert"
+              hidden
+            ></p>
+          </div>
+      {%- endcase -%}
+
+    </div>
+  </details>
+{%- endfor -%}

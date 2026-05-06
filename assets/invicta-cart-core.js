@@ -175,15 +175,33 @@ class CartItems extends HTMLElement {
 
     fetch(`${routes.cart_change_url}`, { ...fetchConfig(), ...{ body } })
       .then((response) => {
-        return response.text();
+        return response.text().then((text) => ({ ok: response.ok, text }));
       })
-      .then((state) => {
+      .then(({ ok, text }) => {
         let parsedState;
         try {
-          parsedState = JSON.parse(state);
+          parsedState = JSON.parse(text);
         } catch (e) {
           console.error('Cart: failed to parse response', e);
-          this.updateLiveRegions(line, 'An error occurred. Please try again.');
+          this.updateLiveRegions(line, window.cartStrings ? window.cartStrings.error : 'An error occurred. Please try again.');
+          const errorsEl = document.getElementById('cart-errors') || document.getElementById('CartDrawer-CartErrors');
+          if (errorsEl) errorsEl.textContent = window.cartStrings ? window.cartStrings.error : 'An error occurred. Please try again.';
+          return;
+        }
+
+        const shopifyError = parsedState && (parsedState.errors || parsedState.description);
+        if (!ok || shopifyError) {
+          const message = (typeof shopifyError === 'string' ? shopifyError : null)
+            || parsedState.message
+            || (window.cartStrings ? window.cartStrings.error : 'An error occurred. Please try again.');
+          const quantityElement =
+            document.getElementById(`Quantity-${line}`) || document.getElementById(`Drawer-quantity-${line}`);
+          if (quantityElement) {
+            quantityElement.value = quantityElement.getAttribute('value');
+          }
+          this.updateLiveRegions(line, message);
+          const errorsEl = document.getElementById('cart-errors') || document.getElementById('CartDrawer-CartErrors');
+          if (errorsEl) errorsEl.textContent = message;
           return;
         }
 
@@ -191,12 +209,6 @@ class CartItems extends HTMLElement {
           const quantityElement =
             document.getElementById(`Quantity-${line}`) || document.getElementById(`Drawer-quantity-${line}`);
           const items = document.querySelectorAll('.cart-item');
-
-          if (parsedState.errors) {
-            quantityElement.value = quantityElement.getAttribute('value');
-            this.updateLiveRegions(line, parsedState.errors);
-            return;
-          }
 
           this.classList.toggle('is-empty', parsedState.item_count === 0);
           const cartDrawerWrapper = document.querySelector('cart-drawer');
