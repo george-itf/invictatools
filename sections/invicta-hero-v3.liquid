@@ -1,23 +1,28 @@
 {% comment %}
   ============================================================================
-  INVICTA HERO v3.2 — Full-bleed dark hero with text + product image
+  INVICTA HERO v3.3 — Full-bleed dark hero with text + image
   ============================================================================
-  Two-column hero: text content left, clean product image right.
-  Red eyebrow tag, condensed uppercase title, dual CTAs.
-  Subtle background texture via pseudo-elements, price callout badge.
+  Two-column hero. Two display modes:
+  - "promotion" (default): product-led promotional hero with price callout
+  - "brand": editorial brand statement hero with ghost secondary CTA
 
-  Updates in v3.2:
-  - Larger heading (54px desktop, 40px tablet, 28px mobile)
-  - Improved description legibility (opacity 0.7, 16px)
-  - Larger product image (380px)
-  - Background texture via ::before pseudo-element
-  - Bottom accent line via ::after pseudo-element
-  - Price callout badge on product image
+  Updates in v3.3:
+  - hero_mode select setting (promotion | brand)
+  - Brand mode: red rule before eyebrow, --inv-text-3xl heading,
+    ghost secondary CTA, image left-edge gradient fade, no price callout
 
   Trade 15.4.0 Compatible
   Usage: Add via theme editor or templates/index.json
   ============================================================================
 {% endcomment %}
+
+{%- liquid
+  assign hero_mode = section.settings.hero_mode | default: 'promotion'
+  assign show_price = false
+  if hero_mode == 'promotion' and section.settings.price_text != blank
+    assign show_price = true
+  endif
+-%}
 
 {%- if section.settings.hero_image != blank -%}
   <link rel="preload" as="image"
@@ -29,7 +34,7 @@
 {%- endif -%}
 
 <section
-  class="inv-hero-v3"
+  class="inv-hero-v3 inv-hero-v3--{{ hero_mode }}"
   id="hero-v3-{{ section.id }}"
   aria-label="{{ section.settings.heading | escape }}"
 >
@@ -69,7 +74,7 @@
       </div>
     </div>
 
-    {%- comment -%} RIGHT COLUMN: Product image (clean, no overlay) {%- endcomment -%}
+    {%- comment -%} RIGHT COLUMN: image (clean for promotion, faded for brand) {%- endcomment -%}
     {%- if section.settings.hero_image != blank -%}
       <div class="inv-hero-v3__visual">
         <img
@@ -85,7 +90,7 @@
           fetchpriority="high"
           class="inv-hero-v3__image"
         >
-        {%- if section.settings.price_text != blank -%}
+        {%- if show_price -%}
           <div class="inv-hero-v3__price-tag">
             <div class="inv-hero-v3__price-label">{{ section.settings.price_label | default: 'From' }}</div>
             <div class="inv-hero-v3__price-value">{{ section.settings.price_text }}</div>
@@ -101,7 +106,7 @@
 
 <style>
   /* ============================================================================
-     INVICTA HERO v3.2 — Full-bleed dark hero
+     INVICTA HERO v3.3 — Full-bleed dark hero
      Subtle background texture via pseudo-elements
      ============================================================================ */
 
@@ -159,7 +164,7 @@
     padding: var(--inv-space-xl) 0;
   }
 
-  /* Eyebrow tag */
+  /* Eyebrow tag (promotion mode default) */
   #hero-v3-{{ section.id }} .inv-hero-v3__eyebrow {
     display: inline-flex;
     align-self: flex-start;
@@ -234,7 +239,7 @@
     background: var(--inv-accent-hover);
   }
 
-  /* Secondary CTA */
+  /* Secondary CTA (promotion default) */
   #hero-v3-{{ section.id }} .inv-hero-v3__btn--secondary {
     background: transparent;
     color: var(--inv-bg-elevated);
@@ -292,6 +297,83 @@
     color: var(--inv-fg-muted);
   }
 
+  /* ============================================================
+     BRAND MODE OVERRIDES
+     A statement hero that sells the business, not a product.
+     ============================================================ */
+  #hero-v3-{{ section.id }}.inv-hero-v3--brand {
+    background: {{ section.settings.background_color | default: '#0f0f0f' }};
+  }
+
+  /* Brand eyebrow: text only with red rule before */
+  #hero-v3-{{ section.id }}.inv-hero-v3--brand .inv-hero-v3__eyebrow {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    padding: 0;
+    margin-bottom: var(--inv-space-md);
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+  }
+
+  #hero-v3-{{ section.id }}.inv-hero-v3--brand .inv-hero-v3__eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 2px;
+    background: var(--inv-accent);
+    flex-shrink: 0;
+  }
+
+  /* Brand heading: larger statement scale */
+  #hero-v3-{{ section.id }}.inv-hero-v3--brand .inv-hero-v3__heading {
+    font-size: var(--inv-text-3xl);
+    line-height: 0.95;
+    letter-spacing: -1px;
+    max-width: 560px;
+  }
+
+  /* Brand description */
+  #hero-v3-{{ section.id }}.inv-hero-v3--brand .inv-hero-v3__desc {
+    font-size: 17px;
+    max-width: 460px;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  /* Brand secondary CTA: ghost outline */
+  #hero-v3-{{ section.id }}.inv-hero-v3--brand .inv-hero-v3__btn--secondary {
+    background: transparent;
+    color: var(--inv-bg-elevated);
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+  }
+
+  #hero-v3-{{ section.id }}.inv-hero-v3--brand .inv-hero-v3__btn--secondary:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--inv-bg-elevated);
+  }
+
+  /* Brand image: gradient fade on left edge */
+  #hero-v3-{{ section.id }}.inv-hero-v3--brand .inv-hero-v3__visual {
+    position: relative;
+  }
+
+  #hero-v3-{{ section.id }}.inv-hero-v3--brand .inv-hero-v3__visual::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 35%;
+    background: linear-gradient(
+      to right,
+      {{ section.settings.background_color | default: '#0f0f0f' }} 0%,
+      rgba(15, 15, 15, 0) 100%
+    );
+    z-index: 2;
+    pointer-events: none;
+  }
+
   /* ----------------------------------------
      MOBILE (<750px)
      ---------------------------------------- */
@@ -331,8 +413,21 @@
       font-size: 54px;
     }
 
+    /* Brand heading scales bigger via --inv-text-3xl clamp */
+    #hero-v3-{{ section.id }}.inv-hero-v3--brand .inv-hero-v3__heading {
+      font-size: var(--inv-text-3xl);
+    }
+
     #hero-v3-{{ section.id }} .inv-hero-v3__visual {
       display: flex;
+    }
+
+    /* Brand image fills more of the column */
+    #hero-v3-{{ section.id }}.inv-hero-v3--brand .inv-hero-v3__image {
+      max-width: 520px;
+      max-height: 460px;
+      width: 100%;
+      object-fit: cover;
     }
   }
 
@@ -358,6 +453,21 @@
   "settings": [
     {
       "type": "header",
+      "content": "Mode"
+    },
+    {
+      "type": "select",
+      "id": "hero_mode",
+      "label": "Hero mode",
+      "default": "promotion",
+      "options": [
+        { "value": "promotion", "label": "Promotion (product-led with price callout)" },
+        { "value": "brand", "label": "Brand statement (editorial)" }
+      ],
+      "info": "Promotion: classic deal hero with red eyebrow tag and price callout. Brand: editorial statement hero with red rule eyebrow, larger heading, ghost secondary CTA, and image gradient fade."
+    },
+    {
+      "type": "header",
       "content": "Content"
     },
     {
@@ -365,7 +475,7 @@
       "id": "eyebrow_text",
       "label": "Eyebrow text",
       "default": "Premier Diamond Products",
-      "info": "Small red tag above the heading"
+      "info": "Promotion mode: red tag. Brand mode: text with red rule before."
     },
     {
       "type": "text",
@@ -383,7 +493,7 @@
       "type": "image_picker",
       "id": "hero_image",
       "label": "Hero image",
-      "info": "Product image for right column. Hidden on mobile."
+      "info": "Right column. Promotion: clean product shot. Brand: lifestyle image. Hidden on mobile."
     },
     {
       "type": "header",
@@ -417,11 +527,7 @@
     },
     {
       "type": "header",
-      "content": "Style"
-    },
-    {
-      "type": "header",
-      "content": "Price Callout"
+      "content": "Price Callout (Promotion mode only)"
     },
     {
       "type": "text",
@@ -434,7 +540,7 @@
       "type": "text",
       "id": "price_text",
       "label": "Price",
-      "info": "Leave blank to hide price callout"
+      "info": "Leave blank to hide price callout. Hidden automatically in Brand mode."
     },
     {
       "type": "text",
@@ -443,10 +549,15 @@
       "info": "e.g. (£35.83 ex VAT)"
     },
     {
+      "type": "header",
+      "content": "Style"
+    },
+    {
       "type": "color",
       "id": "background_color",
       "label": "Background colour",
-      "default": "#2d2d2d"
+      "default": "#2d2d2d",
+      "info": "Brand mode looks best on #0f0f0f"
     },
     {
       "type": "range",
@@ -473,6 +584,7 @@
     {
       "name": "Hero v3",
       "settings": {
+        "hero_mode": "promotion",
         "eyebrow_text": "Premier Diamond Products",
         "heading": "P6-TWC Triple Disc Wall Chaser Blade",
         "description": "Professional grade diamond blade. Built for continuous use on site. In stock now at Canterbury and Ramsgate with free next-day delivery.",

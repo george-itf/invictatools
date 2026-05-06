@@ -1,0 +1,563 @@
+{% comment %}
+  ============================================================================
+  INVICTA DEAL FEATURE v1.0 — Editorial deal-of-the-week
+  ============================================================================
+  Two-column dark section. Left: deal content (eyebrow with pulse dot,
+  heading, description, value callout, CTA, optional countdown). Right:
+  product image with left-edge gradient fade into the dark background.
+
+  Designed to replace the hero as the primary promotional space, while
+  feeling editorial rather than banner-ad.
+
+  Trade 15.4.0 Compatible
+  ============================================================================
+{% endcomment %}
+
+{%- liquid
+  assign bg = section.settings.background_color | default: '#0f0f0f'
+  assign eyebrow = section.settings.eyebrow_text
+  assign heading = section.settings.heading
+  assign description = section.settings.description
+  assign value_was = section.settings.value_was
+  assign value_now = section.settings.value_now
+  assign btn_text = section.settings.button_text
+  assign btn_link = section.settings.button_link | default: '#'
+  assign countdown_end = section.settings.countdown_end
+  assign hero_image = section.settings.hero_image
+-%}
+
+<section class="inv-deal" id="deal-{{ section.id }}" aria-label="{{ heading | escape }}">
+  <div class="inv-deal__container">
+    <div class="inv-deal__layout">
+
+      {%- comment -%} ====================================
+          LEFT COLUMN: Content
+          ==================================== {%- endcomment -%}
+      <div class="inv-deal__content">
+        {%- if eyebrow != blank -%}
+          <span class="inv-deal__eyebrow">
+            <span class="inv-deal__pulse" aria-hidden="true"></span>
+            {{ eyebrow | escape }}
+          </span>
+        {%- endif -%}
+
+        {%- if heading != blank -%}
+          <h2 class="inv-deal__heading">{{ heading | escape }}</h2>
+        {%- endif -%}
+
+        {%- if description != blank -%}
+          <p class="inv-deal__desc">{{ description | escape }}</p>
+        {%- endif -%}
+
+        {%- if value_was != blank or value_now != blank -%}
+          <div class="inv-deal__value">
+            {%- if value_was != blank -%}
+              <span class="inv-deal__value-was">{{ value_was | escape }}</span>
+            {%- endif -%}
+            {%- if value_now != blank -%}
+              <span class="inv-deal__value-now">{{ value_now | escape }}</span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if btn_text != blank -%}
+          <a href="{{ btn_link }}" class="inv-deal__btn">{{ btn_text | escape }}</a>
+        {%- endif -%}
+
+        {%- if countdown_end != blank -%}
+          <div class="inv-deal__countdown" data-deal-countdown="{{ countdown_end | escape }}" hidden>
+            <div class="inv-deal__cd-box">
+              <span class="inv-deal__cd-num" data-cd-days>--</span>
+              <span class="inv-deal__cd-label">Days</span>
+            </div>
+            <div class="inv-deal__cd-box">
+              <span class="inv-deal__cd-num" data-cd-hours>--</span>
+              <span class="inv-deal__cd-label">Hours</span>
+            </div>
+            <div class="inv-deal__cd-box">
+              <span class="inv-deal__cd-num" data-cd-mins>--</span>
+              <span class="inv-deal__cd-label">Mins</span>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} ====================================
+          RIGHT COLUMN: Image with left-edge gradient
+          ==================================== {%- endcomment -%}
+      {%- if hero_image != blank -%}
+        <div class="inv-deal__visual">
+          <img
+            src="{{ hero_image | image_url: width: 800 }}"
+            srcset="{{ hero_image | image_url: width: 400 }} 400w,
+                    {{ hero_image | image_url: width: 600 }} 600w,
+                    {{ hero_image | image_url: width: 800 }} 800w"
+            sizes="(max-width: 749px) 100vw, (max-width: 989px) 50vw, 600px"
+            alt="{{ heading | escape }}"
+            width="{{ hero_image.width }}"
+            height="{{ hero_image.height }}"
+            loading="lazy"
+            fetchpriority="low"
+            class="inv-deal__image"
+          >
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ============================================================================
+     INVICTA DEAL FEATURE v1.0 — Editorial dark deal section
+     ============================================================================ */
+
+  #deal-{{ section.id }} {
+    position: relative;
+    background: {{ bg }};
+    padding-top: {{ section.settings.padding_top | default: 64 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 64 }}px;
+    overflow: hidden;
+    color: var(--inv-bg-elevated);
+  }
+
+  /* Faint "DEAL" watermark, top-right */
+  #deal-{{ section.id }}::before {
+    content: 'DEAL';
+    position: absolute;
+    top: -16px;
+    right: var(--inv-page-gutter, 1.5rem);
+    font-family: var(--inv-font-display);
+    font-size: 80px;
+    font-weight: 900;
+    color: var(--inv-bg-elevated);
+    opacity: 0.03;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  #deal-{{ section.id }} .inv-deal__container {
+    position: relative;
+    z-index: 1;
+    max-width: var(--inv-container, 1400px);
+    margin: 0 auto;
+    padding: 0 var(--inv-page-gutter, 1.5rem);
+  }
+
+  #deal-{{ section.id }} .inv-deal__layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--inv-space-xl);
+    align-items: center;
+    min-height: 360px;
+  }
+
+  /* ----------------------------------------
+     LEFT COLUMN — content
+     ---------------------------------------- */
+  #deal-{{ section.id }} .inv-deal__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--inv-space-md);
+    align-items: flex-start;
+  }
+
+  /* Eyebrow with pulse dot */
+  #deal-{{ section.id }} .inv-deal__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--inv-bg-elevated);
+    margin: 0;
+  }
+
+  #deal-{{ section.id }} .inv-deal__pulse {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--inv-accent);
+    border-radius: 50%;
+    animation: inv-deal-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes inv-deal-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* Heading */
+  #deal-{{ section.id }} .inv-deal__heading {
+    font-family: var(--inv-font-display);
+    font-size: var(--inv-text-2xl);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--inv-bg-elevated);
+    line-height: 1.05;
+    letter-spacing: -0.5px;
+    margin: 0;
+    max-width: 540px;
+  }
+
+  /* Description */
+  #deal-{{ section.id }} .inv-deal__desc {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.55;
+    max-width: 520px;
+    margin: 0;
+  }
+
+  /* Value callout */
+  #deal-{{ section.id }} .inv-deal__value {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--inv-space-sm-plus);
+    flex-wrap: wrap;
+  }
+
+  #deal-{{ section.id }} .inv-deal__value-was {
+    font-size: 17px;
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, 0.45);
+    font-weight: 600;
+  }
+
+  #deal-{{ section.id }} .inv-deal__value-now {
+    display: inline-flex;
+    align-items: center;
+    background: var(--inv-accent);
+    color: var(--inv-bg-elevated);
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 6px 14px;
+    line-height: 1.3;
+  }
+
+  /* CTA button */
+  #deal-{{ section.id }} .inv-deal__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    padding: 0 28px;
+    background: var(--inv-accent);
+    color: var(--inv-bg-elevated);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: background var(--inv-duration-normal) ease;
+  }
+
+  #deal-{{ section.id }} .inv-deal__btn:hover {
+    background: var(--inv-accent-hover);
+  }
+
+  #deal-{{ section.id }} .inv-deal__btn:focus-visible {
+    outline: 2px solid var(--inv-bg-elevated);
+    outline-offset: 2px;
+  }
+
+  /* Countdown timer */
+  #deal-{{ section.id }} .inv-deal__countdown {
+    display: flex;
+    gap: var(--inv-space-sm);
+    margin-top: var(--inv-space-sm);
+  }
+
+  #deal-{{ section.id }} .inv-deal__countdown[hidden] {
+    display: none;
+  }
+
+  #deal-{{ section.id }} .inv-deal__cd-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 8px 14px;
+    min-width: 60px;
+  }
+
+  #deal-{{ section.id }} .inv-deal__cd-num {
+    font-family: var(--inv-font-display);
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--inv-bg-elevated);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  #deal-{{ section.id }} .inv-deal__cd-label {
+    font-size: 9px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 4px;
+  }
+
+  /* ----------------------------------------
+     RIGHT COLUMN — image with gradient fade
+     ---------------------------------------- */
+  #deal-{{ section.id }} .inv-deal__visual {
+    display: none;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #deal-{{ section.id }} .inv-deal__visual::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 40%;
+    background: linear-gradient(
+      to right,
+      {{ bg }} 0%,
+      rgba(15, 15, 15, 0) 100%
+    );
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  #deal-{{ section.id }} .inv-deal__image {
+    max-width: 100%;
+    max-height: 420px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* ----------------------------------------
+     DESKTOP (990px+) — two-column layout
+     ---------------------------------------- */
+  @media (min-width: 990px) {
+    #deal-{{ section.id }} .inv-deal__layout {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    #deal-{{ section.id }} .inv-deal__visual {
+      display: flex;
+    }
+
+    #deal-{{ section.id }}::before {
+      font-size: 120px;
+      top: -28px;
+    }
+  }
+
+  /* ----------------------------------------
+     MOBILE (<750px)
+     ---------------------------------------- */
+  @media (max-width: 749px) {
+    #deal-{{ section.id }} .inv-deal__container {
+      padding: 0 var(--inv-mobile-gutter);
+    }
+
+    #deal-{{ section.id }}::before {
+      font-size: 56px;
+      top: -8px;
+    }
+  }
+
+  /* ----------------------------------------
+     REDUCED MOTION
+     ---------------------------------------- */
+  @media (prefers-reduced-motion: reduce) {
+    #deal-{{ section.id }} .inv-deal__pulse {
+      animation: none;
+      opacity: 1;
+    }
+    #deal-{{ section.id }} .inv-deal__btn {
+      transition: none;
+    }
+  }
+</style>
+
+{%- if countdown_end != blank -%}
+<script>
+(function() {
+  var root = document.getElementById('deal-{{ section.id }}');
+  if (!root) return;
+  var cdEl = root.querySelector('[data-deal-countdown]');
+  if (!cdEl) return;
+  var endIso = cdEl.getAttribute('data-deal-countdown');
+  var endTime = new Date(endIso).getTime();
+  if (isNaN(endTime)) return;
+
+  var daysEl = cdEl.querySelector('[data-cd-days]');
+  var hoursEl = cdEl.querySelector('[data-cd-hours]');
+  var minsEl = cdEl.querySelector('[data-cd-mins]');
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function tick() {
+    var now = Date.now();
+    var diff = endTime - now;
+    if (diff <= 0) {
+      cdEl.setAttribute('hidden', '');
+      return false;
+    }
+    var days = Math.floor(diff / 86400000);
+    var hours = Math.floor((diff % 86400000) / 3600000);
+    var mins = Math.floor((diff % 3600000) / 60000);
+    if (daysEl) daysEl.textContent = pad(days);
+    if (hoursEl) hoursEl.textContent = pad(hours);
+    if (minsEl) minsEl.textContent = pad(mins);
+    cdEl.removeAttribute('hidden');
+    return true;
+  }
+
+  if (tick()) {
+    setInterval(tick, 60000);
+  }
+})();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Deal Feature",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow text",
+      "default": "Deal of the Week",
+      "info": "Shown with an animated pulse dot in front."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "FREE HEATED JACKET WORTH £79.99"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Buy 10x Abracs ABDD30020M Diamond Blades and choose a free Heated Jacket. While stocks last."
+    },
+    {
+      "type": "header",
+      "content": "Value callout"
+    },
+    {
+      "type": "text",
+      "id": "value_was",
+      "label": "Was price",
+      "default": "£79.99",
+      "info": "Crossed-out 'was' price"
+    },
+    {
+      "type": "text",
+      "id": "value_now",
+      "label": "Now / value label",
+      "default": "Free with purchase"
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "GET THIS DEAL"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Countdown"
+    },
+    {
+      "type": "text",
+      "id": "countdown_end",
+      "label": "Countdown end (ISO date)",
+      "info": "Format: 2026-12-31T23:59:00. Leave blank to hide. Hides automatically once the date is reached.",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Product image",
+      "info": "Right column. Left edge fades into the dark background. Hidden on mobile."
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colour",
+      "default": "#0f0f0f"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 64,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Deal Feature",
+      "settings": {
+        "eyebrow_text": "Deal of the Week",
+        "heading": "FREE HEATED JACKET WORTH £79.99",
+        "description": "Buy 10x Abracs ABDD30020M Diamond Blades and choose a free Heated Jacket. While stocks last.",
+        "value_was": "£79.99",
+        "value_now": "Free with purchase",
+        "button_text": "GET THIS DEAL",
+        "background_color": "#0f0f0f"
+      }
+    }
+  ]
+}
+{% endschema %}
