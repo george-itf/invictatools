@@ -46,6 +46,6 @@
   </div>
 </div>
 
-{{ 'component-free-delivery-bar.css' | asset_url | stylesheet_tag }}
+{%- comment -%} Styles merged into invicta-cart.css (loaded by every cart context that renders this snippet). {%- endcomment -%}
 
 <script src="{{ 'component-free-delivery-bar.js' | asset_url }}" defer></script>

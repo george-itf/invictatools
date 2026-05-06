@@ -32,17 +32,7 @@
        UTILITIES
        ======================================== */
 
-    /**
-     * Format money in GBP
-     * @param {number} cents - Price in pence
-     * @returns {string} Formatted price
-     */
-    function formatMoney(cents) {
-      if (typeof Shopify !== 'undefined' && typeof Shopify.formatMoney === 'function') {
-        return Shopify.formatMoney(cents);
-      }
-      return '\u00a3' + (cents / 100).toFixed(2);
-    }
+    const formatMoney = window.invictaUtils.formatMoney;
 
     /**
      * Get current VAT mode from localStorage
@@ -70,7 +60,7 @@
     const buyNowBtn = section.querySelector('[data-buy-now]');
     const variantInput = section.querySelector('[data-variant-id]');
     const qtyInput = section.querySelector('[data-qty-input]');
-    const priceWrapper = section.querySelector('[data-price-wrapper]');
+    const priceWrapper = section.querySelector(INVICTA_SELECTORS.priceWrapper);
     const lightbox = document.getElementById('inv-pdp-lightbox-' + sectionId);
     const lightboxImg = lightbox ? lightbox.querySelector('[data-lightbox-img]') : null;
     const chatBtn = section.querySelector('[data-open-chat]');
@@ -692,8 +682,8 @@
     function updatePrices(variant) {
       if (!priceWrapper) return;
 
-      const priceIncEl = priceWrapper.querySelector('[data-price-inc-value]');
-      const priceExEl = priceWrapper.querySelector('[data-price-ex-value]');
+      const priceIncEl = priceWrapper.querySelector(INVICTA_SELECTORS.priceIncValue);
+      const priceExEl = priceWrapper.querySelector(INVICTA_SELECTORS.priceExValue);
       const compareInc = priceWrapper.querySelector('[data-compare-inc]');
       const compareEx = priceWrapper.querySelector('[data-compare-ex]');
       const savingsWrap = priceWrapper.querySelector('[data-savings-wrap]');

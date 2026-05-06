@@ -77,7 +77,7 @@
 }
 
 .inv-pdp__breadcrumb-sep {
-  margin: 0 8px;
+  margin: 0 var(--inv-space-sm);
   color: var(--inv-grey-300);
 }
 
@@ -172,7 +172,7 @@
   border-radius: 0;
   background: var(--inv-bg-elevated);
   cursor: pointer;
-  padding: 4px;
+  padding: var(--inv-space-xs);
   transition: border-color 0.15s ease;
   box-sizing: border-box;
   overflow: hidden;
@@ -226,7 +226,7 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  padding: 16px;
+  padding: var(--inv-space-md);
   box-sizing: border-box;
   transition: transform 0.3s ease;
 }
@@ -251,7 +251,7 @@
   left: 12px;
   background: var(--inv-accent);
   color: var(--inv-bg-elevated);
-  padding: 6px 12px;
+  padding: 6px var(--inv-space-sm-plus);
   border-radius: 0;
   font-size: 11px;
   font-weight: 700;
@@ -266,7 +266,7 @@
   background: var(--inv-dark);
   color: var(--inv-bg-elevated);
   border: none;
-  padding: 8px 14px;
+  padding: var(--inv-space-sm) 14px;
   border-radius: 0;
   font-size: 12px;
   font-weight: 600;
@@ -294,14 +294,14 @@
   left: 12px;
   background: rgba(0, 0, 0, 0.65);
   color: var(--inv-bg-elevated);
-  padding: 4px 10px;
+  padding: var(--inv-space-xs) 10px;
   border-radius: var(--inv-radius-pill);
   font-size: 11px;
   font-weight: 600;
   z-index: 2;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--inv-space-xs);
 }
 .inv-pdp__gallery-counter svg {
   opacity: 0.8;
@@ -322,7 +322,7 @@
   gap: 6px;
   background: var(--inv-grey-100);
   border: 1px solid var(--inv-grey-200);
-  padding: 8px 14px;
+  padding: var(--inv-space-sm) 14px;
   border-radius: var(--inv-radius-pill);
   font-size: 13px;
   font-weight: 600;
@@ -351,7 +351,7 @@
   gap: 6px;
   background: var(--inv-bg-elevated);
   border: 1px solid var(--inv-grey-200);
-  padding: 8px 14px;
+  padding: var(--inv-space-sm) 14px;
   border-radius: var(--inv-radius-pill);
   font-size: 12px;
   color: var(--inv-grey-600);
@@ -378,13 +378,13 @@
   flex-wrap: wrap;
   gap: 10px 20px;
   align-items: center;
-  padding: 14px 32px;
+  padding: 14px var(--inv-space-xl);
   background: var(--inv-grey-50);
   border-bottom: 1px solid var(--inv-grey-200);
 }
 .inv-pdp__info-meta-item {
   display: inline-flex;
-  gap: 8px;
+  gap: var(--inv-space-sm);
   align-items: baseline;
   font-size: 13px;
   line-height: 1.4;
@@ -421,8 +421,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 22px 32px;
+  gap: var(--inv-space-md);
+  padding: 22px var(--inv-space-xl);
   background: var(--inv-bg-elevated);
   border: none;
   font-size: 14px;
@@ -461,7 +461,7 @@
 
 /* Accordion content */
 .inv-pdp__info-content {
-  padding: 18px 32px 24px;
+  padding: 18px var(--inv-space-xl) var(--inv-space-lg);
   font-size: 14px;
   line-height: 1.65;
   color: var(--inv-fg-secondary);
@@ -493,7 +493,7 @@
 .inv-pdp .inv-pdp__info-readmore {
   display: block;
   width: 100%;
-  padding: 14px 32px;
+  padding: 14px var(--inv-space-xl);
   background: var(--inv-bg-elevated);
   border: none;
   border-top: 1px solid var(--inv-grey-100);
@@ -543,7 +543,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--inv-space-sm-plus);
 }
 
 /* Hanging indent: pip sits in the content padding gutter so bullet text lines up with paragraph text at 32px from box edge */
@@ -595,7 +595,7 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: 16px 20px;
+  padding: var(--inv-space-md) 20px;
   background: var(--inv-grey-100);
   border-radius: 0;
   font-size: 15px;
@@ -649,7 +649,7 @@
    STOCK BANNER
    ============================================ */
 .inv-pdp__stock-banner {
-  padding: 12px 16px;
+  padding: var(--inv-space-sm-plus) var(--inv-space-md);
   font-size: 14px;
   font-weight: 600;
   display: flex;
@@ -660,7 +660,7 @@
 .inv-pdp__stock-banner-content {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--inv-space-xs);
   min-width: 0;
 }
 
@@ -690,7 +690,7 @@
   background: currentColor;
   border-radius: 50%;
   flex-shrink: 0;
-  margin-top: 4px;
+  margin-top: var(--inv-space-xs);
 }
 
 .inv-pdp__stock-banner--in-stock .inv-pdp__stock-dot {
@@ -711,16 +711,16 @@
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  margin-top: -12px;
+  margin-top: -var(--inv-space-sm-plus);
 }
 
 .inv-pdp__dealer-badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--inv-space-sm);
   background: var(--dealer-bg, #2d2d2d);
   color: var(--dealer-text, #fff);
-  padding: 8px 14px;
+  padding: var(--inv-space-sm) 14px;
   border-radius: 0;
   font-size: 13px;
   font-weight: 700;
@@ -742,7 +742,7 @@
    PRICE BLOCK — Inline dual-price layout
    ============================================ */
 .inv-pdp__price {
-  padding: 16px 0 var(--inv-space-md);
+  padding: var(--inv-space-md) 0 var(--inv-space-md);
   border-top: 1px solid var(--inv-grey-200);
   border-bottom: 1px solid var(--inv-grey-200);
 }
@@ -751,7 +751,7 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 10px 16px;
+  gap: 10px var(--inv-space-md);
   flex-wrap: wrap;
 }
 
@@ -764,7 +764,7 @@
 .inv-pdp__price-inline {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--inv-space-xs);
 }
 
 .inv-pdp__price-line {
@@ -812,7 +812,7 @@
   font-weight: 500;
   color: var(--inv-grey-400);
   text-decoration: line-through;
-  margin-right: 4px;
+  margin-right: var(--inv-space-xs);
 }
 
 .inv-pdp__price-was--secondary {
@@ -820,7 +820,7 @@
 }
 
 .inv-pdp__price-savings {
-  margin-top: 8px;
+  margin-top: var(--inv-space-sm);
 }
 
 .inv-pdp__price-save {
@@ -828,7 +828,7 @@
   align-items: center;
   background: var(--inv-error-light);
   color: var(--inv-accent);
-  padding: 6px 12px 6px 10px;
+  padding: 6px var(--inv-space-sm-plus) 6px 10px;
   border-left: 3px solid var(--inv-accent);
   border-radius: 0;
   font-size: 12px;
@@ -858,7 +858,7 @@
 
 .inv-pdp__variant-select {
   width: 100%;
-  padding: 12px 40px 12px 14px;
+  padding: var(--inv-space-sm-plus) 40px var(--inv-space-sm-plus) 14px;
   border: 2px solid var(--inv-grey-200);
   border-radius: 0;
   font-size: 14px;
@@ -916,7 +916,7 @@
   display: inline;
   color: var(--inv-success);
   font-weight: 700;
-  margin-right: 4px;
+  margin-right: var(--inv-space-xs);
 }
 
 .inv-pdp__delivery-text span {
@@ -1040,7 +1040,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--inv-space-sm);
   padding: 0 20px;
   white-space: nowrap;
   transition: background-color 0.15s ease;
@@ -1109,7 +1109,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--inv-space-sm);
   width: 100%;
   height: 48px;
   background: transparent;
@@ -1150,7 +1150,7 @@
 .inv-pdp__trust-strip {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px 16px;
+  gap: 10px var(--inv-space-md);
   padding: var(--inv-space-sm-plus) 0;
   border-top: 1px solid var(--inv-grey-200);
   border-bottom: 1px solid var(--inv-grey-200);
@@ -1225,7 +1225,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: var(--inv-space-sm);
 }
 
 .inv-pdp__trust-badge-icon {
@@ -1409,8 +1409,8 @@
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
-    padding: 8px 0;
-    gap: 8px;
+    padding: var(--inv-space-sm) 0;
+    gap: var(--inv-space-sm);
     max-height: 80px;
   }
 
@@ -1532,7 +1532,7 @@
   
   .inv-pdp__key-spec {
     font-size: 12px;
-    padding: 6px 12px;
+    padding: 6px var(--inv-space-sm-plus);
   }
   
   /* ========================================
@@ -1644,7 +1644,7 @@
   .inv-pdp__info-meta {
     flex-direction: column;
     gap: var(--inv-space-sm);
-    padding: 12px 20px;
+    padding: var(--inv-space-sm-plus) 20px;
   }
   .inv-pdp__info-meta-divider {
     display: none;
@@ -1653,7 +1653,7 @@
   .inv-pdp .inv-pdp__info-toggle {
     padding: 20px 20px;
     font-size: 13px;
-    gap: 12px;
+    gap: var(--inv-space-sm-plus);
   }
 
   .inv-pdp__info-content {
@@ -1666,7 +1666,7 @@
   }
 
   .inv-pdp__info-list {
-    gap: 16px;
+    gap: var(--inv-space-md);
   }
 
   .inv-pdp__info-list li {
@@ -1675,11 +1675,11 @@
 
   .inv-pdp__info-specs {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: var(--inv-space-sm-plus);
   }
 
   .inv-pdp__info-specs-item {
-    padding: 14px 16px;
+    padding: 14px var(--inv-space-md);
     font-size: 14px;
   }
   
@@ -1751,7 +1751,7 @@
 .inv-pdp__compat-heading {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--inv-space-sm);
   font-size: 15px;
   font-weight: 700;
   margin: 0 0 var(--inv-space-md) 0;
@@ -1770,7 +1770,7 @@
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding-bottom: 4px;
+  padding-bottom: var(--inv-space-xs);
 }
 
 .inv-pdp__compat-row::-webkit-scrollbar {
@@ -1817,7 +1817,7 @@
   color: var(--inv-fg-near-black);
   text-decoration: none;
   line-height: 1.3;
-  margin-bottom: 4px;
+  margin-bottom: var(--inv-space-xs);
 }
 
 .inv-pdp__compat-card-title:hover {
@@ -1828,7 +1828,7 @@
   font-size: 14px;
   font-weight: 700;
   color: var(--inv-fg-near-black);
-  margin-bottom: 4px;
+  margin-bottom: var(--inv-space-xs);
 }
 
 .inv-pdp__compat-card-stock {
@@ -1850,8 +1850,8 @@
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 8px 12px;
+  gap: var(--inv-space-xs);
+  padding: var(--inv-space-sm) var(--inv-space-sm-plus);
   background: var(--inv-accent);
   color: #fff;
   border: none;
@@ -1882,7 +1882,7 @@
   color: var(--inv-fg-dim, #666);
   background: var(--inv-bg-soft, #fafafa);
   border-radius: 6px;
-  padding: 8px 12px;
+  padding: var(--inv-space-sm) var(--inv-space-sm-plus);
   margin-bottom: var(--inv-space-md);
 }
 
@@ -1893,16 +1893,16 @@
 
 @media (max-width: 749px) {
   .inv-pdp__compat {
-    margin-left: calc(-1 * var(--inv-gutter, 16px));
-    margin-right: calc(-1 * var(--inv-gutter, 16px));
+    margin-left: calc(-1 * var(--inv-gutter, var(--inv-space-md)));
+    margin-right: calc(-1 * var(--inv-gutter, var(--inv-space-md)));
     border-radius: 0;
     border-left: none;
     border-right: none;
-    padding-left: var(--inv-gutter, 16px);
+    padding-left: var(--inv-gutter, var(--inv-space-md));
     padding-right: 0;
   }
   .inv-pdp__compat-row {
-    padding-right: var(--inv-gutter, 16px);
+    padding-right: var(--inv-gutter, var(--inv-space-md));
   }
   .inv-pdp__compat-card {
     min-width: 220px;

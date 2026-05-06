@@ -118,21 +118,7 @@
   var fallbackCollection = container.dataset.fallbackCollection || '';
   var moneyFormat = container.dataset.moneyFormat || '\u00a3{{amount}}';
   var vatRate = parseInt(container.dataset.vatRate || '20', 10);
-
-  function escapeHtml(str) {
-    var div = document.createElement('div');
-    div.appendChild(document.createTextNode(str || ''));
-    return div.innerHTML;
-  }
-
-  function formatMoney(pence) {
-    if (typeof Shopify !== 'undefined' && typeof Shopify.formatMoney === 'function') {
-      return Shopify.formatMoney(pence, moneyFormat);
-    }
-    return moneyFormat.replace('{{amount}}', (pence / 100).toFixed(2))
-                       .replace('{{amount_no_decimals}}', Math.round(pence / 100))
-                       .replace('{{amount_with_comma_separator}}', (pence / 100).toFixed(2).replace('.', ','));
-  }
+  var utils = window.invictaUtils;
 
   function calcExVat(pence) {
     if (window.invictaVat && typeof window.invictaVat.exFromInc === 'function') {
@@ -177,7 +163,7 @@
         }
       }
 
-      var safeTitle = escapeHtml(product.title);
+      var safeTitle = utils.escapeHtml(product.title);
       var card = document.createElement('a');
       card.href = product.url || '/products/' + product.handle;
       card.className = 'inv-cart-crosssell__item';
@@ -188,8 +174,8 @@
         '</div>' +
         '<div class="inv-cart-crosssell__item-info">' +
           '<span class="inv-cart-crosssell__item-title">' + safeTitle + '</span>' +
-          '<span class="inv-cart-crosssell__item-price" data-price-inc>' + formatMoney(price) + '</span>' +
-          '<span class="inv-cart-crosssell__item-price inv-vat--hidden" data-price-ex>' + formatMoney(exVat) + ' ex VAT</span>' +
+          '<span class="inv-cart-crosssell__item-price" data-price-inc>' + utils.formatMoney(price, moneyFormat) + '</span>' +
+          '<span class="inv-cart-crosssell__item-price inv-vat--hidden" data-price-ex>' + utils.formatMoney(exVat, moneyFormat) + ' ex VAT</span>' +
         '</div>' +
         '<button type="button" class="inv-cart-crosssell__add-btn" data-add-to-cart data-variant-id="' + variant.id + '" data-quantity="1" aria-label="Add ' + safeTitle + ' to cart">' +
           '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>' +

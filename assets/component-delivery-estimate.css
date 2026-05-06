@@ -16,7 +16,7 @@
   .inv-del-est__row {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--inv-space-sm);
     min-width: 0;
   }
   .inv-del-est__delivery {

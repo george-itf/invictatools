@@ -2676,3 +2676,139 @@ body.vat-mode-inc .invicta-vat-indicator::after {
 /* Account company/invoices moved to section-account.css */
 
 /* Shared trade features (VAT toggle, quick qty) moved to base.css */
+
+/* ============================================================
+   Extracted from base.css (deduplication pass)
+   These rules previously lived inside @media blocks in base.css.
+   They are functionally identical here because this stylesheet is
+   only loaded at the matching breakpoint.
+   ============================================================ */
+
+.grid__item.slider__slide--full-width {
+  width: 100%;
+  max-width: none;
+}
+.grid--peek.slider--mobile {
+  margin: 0;
+  width: 100%;
+}
+.grid--peek.slider--mobile .grid__item {
+  box-sizing: content-box;
+  margin: 0;
+}
+.grid--peek .grid__item {
+  min-width: 35%;
+}
+.grid--peek.slider .grid__item:first-of-type {
+  margin-left: 1.5rem;
+}
+.grid--peek.slider:after {
+  margin-left: calc(-1 * var(--grid-mobile-horizontal-spacing));
+}
+.grid--2-col-tablet-down .grid__item {
+  width: calc(50% - var(--grid-mobile-horizontal-spacing) / 2);
+}
+.slider--tablet.grid--peek.grid--2-col-tablet-down .grid__item,
+.grid--peek .grid__item {
+  width: calc(50% - var(--grid-mobile-horizontal-spacing) - 3rem);
+}
+
+slider-component.slider-component-full-width {
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+}
+
+.collection-list:not(.slider) {
+  padding-left: 0;
+  padding-right: 0;
+}
+.section-collection-list {
+  padding-left: 0;
+  padding-right: 0;
+}
+.section-collection-list .collection-list:not(.slider) {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.slider.collection-list--1-items {
+  padding-bottom: 0;
+}
+
+.collection-list-wrapper .title {
+  font-size: 1.6rem;
+}
+
+.collection-list .card__heading a {
+  font-size: 1rem;
+}
+
+.collection-list__item {
+  flex: 0 0 calc((100% - 20px) / 2);
+  max-width: calc((100% - 20px) / 2);
+}
+
+.collection-list-wrapper .page-width {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.small-hide {
+  display: none;
+}
+
+.inv-product__title {
+  font-size: 1.5rem;
+}
+
+.inv-price__current {
+  font-size: 1.75rem;
+}
+
+.inv-trust__item {
+  font-size: 0.9375rem;
+}
+
+.inv-delivery__row {
+  font-size: 0.875rem;
+}
+
+.inv-accordions__grid {
+  grid-template-columns: 1fr;
+}
+
+.inv-gallery__thumbs {
+  display: none;
+}
+
+
+/* Mobile: consistent 24px gap between every homepage section */
+#MainContent > .shopify-section + .shopify-section {
+  margin-top: var(--inv-mobile-section-gap, 24px);
+}
+
+/* First section after header — no top gap */
+.shopify-section-group-header-group + main .shopify-section:first-child,
+#MainContent > .shopify-section:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Flush-stack exceptions: hero → promos → image banners (visual continuation) */
+#MainContent > .shopify-section:has(.inv-hero-split) + .shopify-section,
+#MainContent > .shopify-section:has(.inv-promos) + .shopify-section,
+#MainContent > .shopify-section:has(.banner) + .shopify-section:has(.banner),
+#MainContent > .shopify-section:has(.image-banner) + .shopify-section:has(.image-banner) {
+  margin-top: 0;
+}
+
+/* Banner sections themselves — no bottom padding */
+.shopify-section:has(.banner),
+.shopify-section:has(.image-banner) {
+  padding-bottom: 0;
+}
+
+.banner,
+.image-banner {
+  margin-bottom: 0;
+}

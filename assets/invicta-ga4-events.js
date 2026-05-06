@@ -203,7 +203,7 @@
     if (!hasAnalyticsConsent()) return;
 
     /* Fetch current cart for checkout event data */
-    var cartUrl = ((window.routes && window.routes.cart_url) || '/cart') + '.js';
+    var cartUrl = INVICTA_ROUTES.cart;
     fetch(cartUrl, { headers: { 'Accept': 'application/json' } })
       .then(function(r) { return r.json(); })
       .then(function(cart) {

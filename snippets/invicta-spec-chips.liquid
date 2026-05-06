@@ -20,7 +20,7 @@
 -%}
 
 {%- if has_specs -%}
-  {{ 'invicta-spec-chips.css' | asset_url | stylesheet_tag }}
+  {%- comment -%} Styles merged into invicta-product-card.css (this snippet only renders inside that card). {%- endcomment -%}
   <div class="inv-specs">
     {%- if voltage != blank -%}
       <span class="inv-specs__chip">{{ voltage | escape }}V</span>

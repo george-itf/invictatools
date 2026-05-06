@@ -12,7 +12,7 @@
    ----------------------------------------------------------------------- */
 
 .inv-related {
-  padding: 48px 0;
+  padding: var(--inv-space-2xl) 0;
   border-top: 1px solid var(--inv-border-skeleton);
 }
 
@@ -27,7 +27,7 @@
    ----------------------------------------------------------------------- */
 
 .inv-related__header {
-  margin-bottom: 32px;
+  margin-bottom: var(--inv-space-xl);
   text-align: center;
 }
 
@@ -45,7 +45,7 @@
   width: 48px;
   height: 3px;
   background: var(--inv-accent, var(--inv-accent));
-  margin: 12px auto 0;
+  margin: var(--inv-space-sm-plus) auto 0;
   border-radius: 0;
 }
 
@@ -56,7 +56,7 @@
 .inv-related__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: var(--inv-space-md);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -73,7 +73,7 @@
 .inv-related__skeleton {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: var(--inv-space-md);
 }
 
 .inv-related__skeleton-card {
@@ -89,7 +89,7 @@
 }
 
 .inv-related__skeleton-body {
-  padding: 12px;
+  padding: var(--inv-space-sm-plus);
   background: var(--inv-grey-100);
 }
 
@@ -98,7 +98,7 @@
   background: linear-gradient(90deg, var(--inv-bg-skeleton-border) 25%, var(--inv-border-skeleton-dark) 50%, var(--inv-bg-skeleton-border) 75%);
   background-size: 200% 100%;
   animation: inv-related-shimmer 1.5s ease-in-out infinite;
-  margin-bottom: 8px;
+  margin-bottom: var(--inv-space-sm);
 }
 
 .inv-related__skeleton-line:last-child {
@@ -109,7 +109,7 @@
 .inv-related__skeleton-price {
   height: 20px;
   width: 40%;
-  margin-top: 12px;
+  margin-top: var(--inv-space-sm-plus);
   background: linear-gradient(90deg, var(--inv-bg-skeleton-border) 25%, var(--inv-border-skeleton-dark) 50%, var(--inv-bg-skeleton-border) 75%);
   background-size: 200% 100%;
   animation: inv-related-shimmer 1.5s ease-in-out infinite;
@@ -136,17 +136,17 @@
   .inv-related__grid,
   .inv-related__skeleton {
     grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    gap: var(--inv-space-sm-plus);
   }
 }
 
 @media (max-width: 749px) {
   .inv-related {
-    padding: 32px 0;
+    padding: var(--inv-space-xl) 0;
   }
 
   .inv-related__container {
-    padding: 0 16px;
+    padding: 0 var(--inv-space-md);
   }
 
   .inv-related__header {
@@ -159,7 +159,7 @@
 
   .inv-related__title::after {
     width: 36px;
-    margin-top: 8px;
+    margin-top: var(--inv-space-sm);
   }
 
   .inv-related__grid,

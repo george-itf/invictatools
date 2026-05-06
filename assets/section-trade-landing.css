@@ -26,7 +26,7 @@
 .trade-landing__container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 var(--inv-space-lg);
 }
 
 /* ============================================
@@ -35,7 +35,7 @@
 
 .tl-hero {
   background: linear-gradient(135deg, var(--tl-dark) 0%, #1f1f1f 100%);
-  padding: 48px 0 64px;
+  padding: var(--inv-space-2xl) 0 var(--inv-space-3xl);
   position: relative;
   overflow: hidden;
 }
@@ -43,7 +43,7 @@
 .tl-hero__inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 48px;
+  gap: var(--inv-space-2xl);
   align-items: center;
 }
 
@@ -55,7 +55,7 @@
 .tl-hero__eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--inv-space-sm);
   background: var(--tl-accent);
   color: var(--tl-white);
   padding: 6px 14px;
@@ -72,7 +72,7 @@
   font-weight: 800;
   color: var(--tl-white);
   line-height: 1.15;
-  margin: 0 0 16px;
+  margin: 0 0 var(--inv-space-md);
   letter-spacing: -0.02em;
 }
 
@@ -87,14 +87,14 @@
 .tl-hero__ctas {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 32px;
+  gap: var(--inv-space-sm-plus);
+  margin-bottom: var(--inv-space-xl);
 }
 
 .tl-hero__btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--inv-space-sm);
   padding: 14px 28px;
   font-size: 14px;
   font-weight: 700;
@@ -137,7 +137,7 @@
 .tl-hero__trust-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--inv-space-sm);
   color: rgba(255, 255, 255, 0.65);
   font-size: 13px;
   font-weight: 500;
@@ -174,12 +174,12 @@
 .tl-why__grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  gap: var(--inv-space-md);
 }
 
 .tl-why__item {
   text-align: center;
-  padding: 20px 12px;
+  padding: 20px var(--inv-space-sm-plus);
   background: var(--tl-light);
   border-radius: 8px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -193,7 +193,7 @@
 .tl-why__icon {
   width: 44px;
   height: 44px;
-  margin: 0 auto 12px;
+  margin: 0 auto var(--inv-space-sm-plus);
   background: var(--tl-dark);
   border-radius: 8px;
   display: flex;
@@ -238,7 +238,7 @@
   color: var(--tl-accent);
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  margin-bottom: 8px;
+  margin-bottom: var(--inv-space-sm);
 }
 
 .tl-section-header__heading {
@@ -252,7 +252,7 @@
 .tl-categories__grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  gap: var(--inv-space-md);
 }
 
 .tl-categories__item {
@@ -291,7 +291,7 @@
 }
 
 .tl-categories__name {
-  padding: 14px 12px;
+  padding: 14px var(--inv-space-sm-plus);
   font-size: 12px;
   font-weight: 700;
   color: var(--tl-dark);
@@ -307,7 +307,7 @@
 
 .tl-brands {
   background: var(--tl-white);
-  padding: 48px 0;
+  padding: var(--inv-space-2xl) 0;
   border-bottom: 1px solid var(--tl-border);
 }
 
@@ -316,7 +316,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: var(--inv-space-sm-plus);
 }
 
 /* Override brand pill wrapper to display inline */
@@ -348,14 +348,14 @@
 .tl-benefits__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: var(--inv-space-lg);
 }
 
 .tl-benefits__card {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  padding: 28px 24px;
+  padding: 28px var(--inv-space-lg);
   text-align: center;
 }
 
@@ -370,7 +370,7 @@
   font-size: 18px;
   font-weight: 800;
   border-radius: 8px;
-  margin-bottom: 16px;
+  margin-bottom: var(--inv-space-md);
 }
 
 .tl-benefits__title {
@@ -407,7 +407,7 @@
 
 .tl-trust__quote {
   background: var(--tl-white);
-  padding: 32px;
+  padding: var(--inv-space-xl);
   border-radius: 12px;
   position: relative;
   border-left: 4px solid var(--tl-accent);
@@ -429,7 +429,7 @@
   font-style: italic;
   color: var(--tl-text);
   line-height: 1.65;
-  margin: 0 0 16px;
+  margin: 0 0 var(--inv-space-md);
   position: relative;
   z-index: 1;
 }
@@ -450,7 +450,7 @@
 .tl-trust__badges {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--inv-space-md);
 }
 
 .tl-trust__badge {
@@ -505,7 +505,7 @@
 .tl-form-section__inner {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
-  gap: 48px;
+  gap: var(--inv-space-2xl);
   align-items: start;
 }
 
@@ -513,7 +513,7 @@
   font-size: clamp(24px, 3.5vw, 32px);
   font-weight: 800;
   color: var(--tl-dark);
-  margin: 0 0 12px;
+  margin: 0 0 var(--inv-space-sm-plus);
   line-height: 1.2;
 }
 
@@ -594,7 +594,7 @@
 
 .tl-form__input,
 .tl-form__select {
-  padding: 12px 14px;
+  padding: var(--inv-space-sm-plus) 14px;
   font-size: 14px;
   border: 1px solid var(--tl-border);
   border-radius: 6px;
@@ -633,7 +633,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--inv-space-sm);
 }
 
 .tl-form__submit:hover {
@@ -654,7 +654,7 @@
 
 .tl-final-cta {
   background: var(--tl-dark);
-  padding: 48px 0;
+  padding: var(--inv-space-2xl) 0;
   text-align: center;
 }
 
@@ -662,7 +662,7 @@
   font-size: clamp(22px, 3.5vw, 30px);
   font-weight: 800;
   color: var(--tl-white);
-  margin: 0 0 12px;
+  margin: 0 0 var(--inv-space-sm-plus);
   line-height: 1.2;
 }
 
@@ -677,8 +677,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
-  margin-bottom: 32px;
+  gap: var(--inv-space-sm-plus);
+  margin-bottom: var(--inv-space-xl);
 }
 
 .tl-final-cta__contact {
@@ -693,7 +693,7 @@
 .tl-final-cta__contact-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--inv-space-sm);
   color: rgba(255, 255, 255, 0.65);
   font-size: 13px;
   text-decoration: none;
@@ -717,7 +717,7 @@
 @media screen and (max-width: 989px) {
   .tl-hero__inner {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: var(--inv-space-xl);
   }
 
   .tl-hero__visual {
@@ -755,13 +755,13 @@
 
   .tl-form-section__inner {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: var(--inv-space-xl);
   }
 }
 
 @media (max-width: 749px) {
   .tl-hero {
-    padding: 36px 0 48px;
+    padding: 36px 0 var(--inv-space-2xl);
   }
 
   .tl-hero__ctas {
@@ -803,7 +803,7 @@
   }
 
   .tl-brands__strip {
-    gap: 8px;
+    gap: var(--inv-space-sm);
   }
 }
 

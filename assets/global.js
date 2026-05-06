@@ -180,15 +180,6 @@ class QuantityInput extends HTMLElement {
 
 if (!customElements.get('quantity-input')) customElements.define('quantity-input', QuantityInput);
 
-function debounce(fn, wait) {
-  let t;
-  return (...args) => {
-    clearTimeout(t);
-    t = setTimeout(() => fn.apply(this, args), wait);
-  };
-}
-
-
 function throttle(fn, delay) {
   let lastCall = 0;
   return function (...args) {

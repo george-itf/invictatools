@@ -85,7 +85,7 @@
    * @param {string} mode - 'inc' or 'ex'
    */
   function updateToggleButtons(mode) {
-    document.querySelectorAll('[data-vat-btn]').forEach(function(btn) {
+    document.querySelectorAll(INVICTA_SELECTORS.vatButton).forEach(function(btn) {
       const btnMode = btn.getAttribute('data-vat-btn');
 
       if (btnMode === 'inc' || btnMode === 'ex') {
@@ -109,7 +109,7 @@
    */
   function updatePriceDisplays(mode) {
     // Show/hide inc-VAT price elements
-    document.querySelectorAll('[data-price-inc]').forEach(function(el) {
+    document.querySelectorAll(INVICTA_SELECTORS.priceInc).forEach(function(el) {
       if (mode === 'inc') {
         el.classList.remove(HIDDEN_CLASS);
       } else {
@@ -118,7 +118,7 @@
     });
 
     // Show/hide ex-VAT price elements
-    document.querySelectorAll('[data-price-ex]').forEach(function(el) {
+    document.querySelectorAll(INVICTA_SELECTORS.priceEx).forEach(function(el) {
       if (mode === 'ex') {
         el.classList.remove(HIDDEN_CLASS);
       } else {
@@ -164,7 +164,7 @@
    * @param {Event} e - Click event
    */
   function handleToggleClick(e) {
-    const btn = e.target.closest('[data-vat-btn]');
+    const btn = e.target.closest(INVICTA_SELECTORS.vatButton);
     if (!btn) return;
 
     const btnMode = btn.getAttribute('data-vat-btn');

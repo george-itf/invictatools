@@ -1,4 +1,20 @@
-{{ 'section-contact-form.css' | asset_url | stylesheet_tag }}
+{%- comment -%} section-contact-form.css inlined here — small and section-specific. {%- endcomment -%}
+{%- stylesheet -%}
+  .contact img { max-width: 100%; }
+  .contact .form__message { align-items: flex-start; }
+  .contact .icon-success { margin-top: 0.2rem; }
+  .contact .field { margin-bottom: 1.5rem; }
+  .contact__button { margin-top: 3rem; }
+  @media screen and (min-width: 750px) {
+    .contact .field { margin-bottom: 2rem; }
+    .contact__button { margin-top: 4rem; }
+    .contact__fields {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-column-gap: 2rem;
+    }
+  }
+{%- endstylesheet -%}
 
 {%- style -%}
   .section-{{ section.id }}-padding {

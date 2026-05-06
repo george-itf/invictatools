@@ -37,17 +37,12 @@
   if (!kitData || typeof kitData !== 'object') return;
 
   var vatDivisor = 120;
-  var pdpEl = document.querySelector('.inv-pdp[data-vat-rate]');
+  var pdpEl = document.querySelector(INVICTA_SELECTORS.vatRateHost);
   if (pdpEl) {
     vatDivisor = 100 + (parseInt(pdpEl.dataset.vatRate, 10) || 20);
   }
 
-  function formatMoney(cents) {
-    if (typeof Shopify !== 'undefined' && typeof Shopify.formatMoney === 'function') {
-      return Shopify.formatMoney(cents);
-    }
-    return '\u00a3' + (cents / 100).toFixed(2);
-  }
+  var formatMoney = window.invictaUtils.formatMoney;
 
   function exFromInc(pence) {
     return Math.round(pence * 100 / vatDivisor);

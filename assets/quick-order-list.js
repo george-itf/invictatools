@@ -87,7 +87,7 @@ if (!customElements.get('quick-order-list')) {
         this.allInputsArray = Array.from(this.querySelectorAll('input[type="number"]'));
 
         this.querySelectorAll('quantity-input').forEach((qty) => {
-          const debouncedOnChange = debounce(this.onChange.bind(this), BulkAdd.ASYNC_REQUEST_DELAY, true);
+          const debouncedOnChange = window.invictaUtils.debounce(this.onChange.bind(this), BulkAdd.ASYNC_REQUEST_DELAY, true);
           qty.addEventListener('change', (event) => {
             this.hasPendingQuantityUpdate = true;
             debouncedOnChange(event);
@@ -351,7 +351,7 @@ if (!customElements.get('quick-order-list')) {
         this.updateMessage();
         this.setErrorMessage();
 
-        fetch(`${routes.cart_update_url}`, { ...fetchConfig(), ...{ body } })
+        fetch(INVICTA_ROUTES.cartUpdate, { ...fetchConfig(), ...{ body } })
           .then((response) => response.text())
           .then(async (state) => {
             const parsedState = JSON.parse(state);

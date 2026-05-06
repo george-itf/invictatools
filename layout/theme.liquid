@@ -102,6 +102,7 @@
       Example: <script src="https://cdn.example.com/lib.js" crossorigin="anonymous" integrity="sha384-..."></script>
     {%- endcomment -%}
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'invicta-utils.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
@@ -472,9 +473,7 @@
       {%- comment -%} CX v1.1: Defer cart CSS — drawer not visible until user interaction {%- endcomment -%}
       <link rel="stylesheet" href="{{ 'component-cart-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
       <link rel="stylesheet" href="{{ 'component-cart.css' | asset_url }}" media="print" onload="this.media='all'">
-      <link rel="stylesheet" href="{{ 'component-totals.css' | asset_url }}" media="print" onload="this.media='all'">
       <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
-      <link rel="stylesheet" href="{{ 'component-discounts.css' | asset_url }}" media="print" onload="this.media='all'">
     {%- endif -%}
 
     <!-- Print Styles (media="print" — zero render cost, only parsed when printing) -->
