@@ -2348,3 +2348,240 @@ button[name="checkout"] {
 /* Shared trade features (VAT toggle, quick qty, cart breakdown) moved to base.css */
 /* Cart quantity and responsive rules moved to component-cart.css */
 
+/* ============================================================
+   Extracted from base.css (deduplication pass)
+   These rules previously lived inside @media blocks in base.css.
+   They are functionally identical here because this stylesheet is
+   only loaded at the matching breakpoint.
+   ============================================================ */
+
+.page-width {
+  padding: 0 var(--inv-page-gutter-desktop, 3rem);
+}
+
+.header,
+.utility-bar__grid {
+  padding-left: 3.2rem;
+  padding-right: 3.2rem;
+}
+
+.page-width--narrow {
+  padding: 0 9rem;
+}
+
+.page-width-desktop {
+  padding: 0;
+}
+
+.section + .section {
+  margin-top: var(--spacing-sections-desktop);
+}
+
+.element-margin {
+  margin-top: calc(5rem + var(--page-width-margin));
+}
+
+.hxl {
+  font-size: calc(var(--font-heading-scale) * 6.2rem);
+}
+
+.h0 {
+  font-size: calc(var(--font-heading-scale) * 5.2rem);
+}
+
+h1, .h1 {
+  font-size: calc(var(--font-heading-scale) * 4rem);
+}
+
+h2, .h2 {
+  font-size: calc(var(--font-heading-scale) * 2.4rem);
+}
+
+h3, .h3 {
+  font-size: calc(var(--font-heading-scale) * 1.8rem);
+}
+
+h5, .h5 {
+  font-size: calc(var(--font-heading-scale) * 1.3rem);
+}
+
+.grid {
+  column-gap: var(--grid-desktop-horizontal-spacing);
+  row-gap: var(--grid-desktop-vertical-spacing);
+}
+
+.grid__item {
+  width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4);
+  max-width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
+}
+
+.grid--2-col .grid__item {
+  width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
+}
+
+.grid--3-col .grid__item {
+  width: calc(33.33% - var(--grid-desktop-horizontal-spacing) * 2 / 3);
+}
+
+.grid--4-col-tablet .grid__item {
+  width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4);
+}
+.grid--3-col-tablet .grid__item {
+  width: calc(33.33% - var(--grid-desktop-horizontal-spacing) * 2 / 3);
+}
+.grid--2-col-tablet .grid__item {
+  width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
+}
+
+
+slider-component.page-width-desktop,
+slider-component .page-width-desktop {
+  padding: 0;
+}
+
+.collection-list__item a:hover {
+  box-shadow: none;
+}
+
+.title-wrapper--self-padded-mobile {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* ============================================================
+   Extracted from base.css (sub-range deduplication)
+   These @media blocks were inside base.css but only apply within
+   the desktop range (>=750px), so they live here with their
+   original sub-range wrapper preserved.
+   ============================================================ */
+
+@media screen and (min-width: 990px) {
+  .header:not(.drawer-menu) {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+
+  .page-width--narrow {
+    max-width: 72.6rem;
+    padding: 0;
+  }
+
+  .page-width-desktop {
+    max-width: var(--page-width);
+    padding: 0 var(--inv-page-gutter-desktop, 3rem);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .grid--6-col-desktop .grid__item {
+    width: calc(16.66% - var(--grid-desktop-horizontal-spacing) * 5 / 6);
+    max-width: calc(16.66% - var(--grid-desktop-horizontal-spacing) * 5 / 6);
+  }
+  .grid--5-col-desktop .grid__item {
+    width: calc(20% - var(--grid-desktop-horizontal-spacing) * 4 / 5);
+    max-width: calc(20% - var(--grid-desktop-horizontal-spacing) * 4 / 5);
+  }
+  .grid--4-col-desktop .grid__item {
+    width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4);
+    max-width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4);
+  }
+  .grid--3-col-desktop .grid__item {
+    width: calc(33.33% - var(--grid-desktop-horizontal-spacing) * 2 / 3);
+    max-width: calc(33.33% - var(--grid-desktop-horizontal-spacing) * 2 / 3);
+  }
+  .grid--2-col-desktop .grid__item {
+    width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
+    max-width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
+  }
+  .grid--1-col-desktop {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .grid--1-col-desktop .grid__item {
+    width: 100%;
+    max-width: 100%;
+  }
+  .slider.slider--desktop .scroll-trigger.animate--slide-in {
+    animation: none;
+    opacity: 1;
+    transform: inherit;
+  }
+  .scroll-trigger:not(.scroll-trigger--offscreen) .slider--desktop {
+    animation: var(--animation-slide-in);
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .slider--tablet.grid--peek .grid__item {
+    width: calc(25% - var(--grid-desktop-horizontal-spacing) - 3rem);
+  }
+  .slider--tablet.grid--peek.grid--3-col-tablet .grid__item {
+    width: calc(33.33% - var(--grid-desktop-horizontal-spacing) - 3rem);
+  }
+  .slider--tablet.grid--peek.grid--2-col-tablet .grid__item,
+  .slider--tablet.grid--peek.grid--2-col-tablet-down .grid__item {
+    width: calc(50% - var(--grid-desktop-horizontal-spacing) - 3rem);
+  }
+  .slider--tablet.grid--peek .grid__item:first-of-type {
+    margin-left: 1.5rem;
+  }
+  .grid--2-col-tablet-down .grid__item {
+    width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  slider-component.page-width {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  slider-component.page-width,
+  slider-component.slider-component-desktop.page-width {
+    max-width: none;
+  }
+  slider-component .slider:not(.slider--everywhere):not(.slider--desktop) {
+    margin: 0;
+    padding: 0;
+    scroll-padding-left: 0;
+    scroll-snap-type: none;
+    overflow: visible;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .slider:not(.slider--everywhere):not(.slider--desktop) .slider__slide {
+    margin-right: 0;
+    scroll-snap-align: unset;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .slider.collection-list--1-items,
+  .slider.collection-list--2-items,
+  .slider.collection-list--3-items,
+  .slider.collection-list--4-items {
+    padding-bottom: 0;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .medium-hide {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .large-up-hide {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .title-wrapper--self-padded-tablet-down {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

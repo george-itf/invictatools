@@ -32,7 +32,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 12px 28px;
+    padding: var(--inv-space-sm-plus) 28px;
     font-size: 14px;
     font-weight: 600;
     text-decoration: none;

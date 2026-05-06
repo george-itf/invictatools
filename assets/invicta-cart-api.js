@@ -28,13 +28,8 @@
   /** @type {Set<string>} Variant IDs currently in-flight */
   const _inFlight = new Set();
 
-  /** @type {string[]} Canonical cart count selectors */
-  const CART_COUNT_SELECTORS = [
-    '.cart-count-bubble span[aria-hidden="true"]',
-    '.header__cart-count',
-    '[data-cart-count]',
-    '.cart-count'
-  ];
+  /** Canonical cart count selectors — defined in constants.js */
+  const CART_COUNT_SELECTORS = INVICTA_SELECTORS.cartCount;
 
   /**
    * Add item(s) to cart.
@@ -51,7 +46,7 @@
     }
     _inFlight.add(dedupKey);
 
-    const cartAddUrl = ((window.routes && window.routes.cart_add_url) || '/cart/add') + '.js';
+    const cartAddUrl = INVICTA_ROUTES.cartAdd;
     let fetchOptions;
 
     if (options.formData) {
@@ -132,7 +127,7 @@
    * @returns {Promise<void>}
    */
   function updateCartCount() {
-    const cartUrl = ((window.routes && window.routes.cart_url) || '/cart') + '.js';
+    const cartUrl = INVICTA_ROUTES.cart;
 
     if (_cartCountController) {
       _cartCountController.abort();
@@ -157,7 +152,7 @@
         const elements = document.querySelectorAll(selector);
         elements.forEach(function(el) {
           el.textContent = count;
-          const bubble = el.closest('.cart-count-bubble, [data-cart-bubble]');
+          const bubble = el.closest(INVICTA_SELECTORS.cartCountBubble);
           if (bubble) {
             bubble.style.display = count > 0 ? '' : 'none';
           }

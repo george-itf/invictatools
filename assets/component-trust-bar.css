@@ -48,7 +48,7 @@
   .inv-trust-bar__item {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--inv-space-sm);
     font-size: 13px;
     font-weight: 600;
     color: var(--inv-fg, #0f172a);
@@ -60,7 +60,7 @@
     font-size: 12px;
     font-weight: 500;
     color: var(--inv-fg-muted, #6b7280);
-    padding: 4px 6px;
+    padding: var(--inv-space-xs) 6px;
     gap: 5px;
   }
 
@@ -92,7 +92,7 @@
     }
     .inv-trust-bar--full .inv-trust-bar__item {
       font-size: 11px;
-      padding: 4px 6px;
+      padding: var(--inv-space-xs) 6px;
       gap: 5px;
     }
     .inv-trust-bar--full .inv-trust-bar__icon {
@@ -108,7 +108,7 @@
     }
     .inv-trust-bar--compact .inv-trust-bar__item {
       font-size: 10px;
-      padding: 2px 4px;
+      padding: 2px var(--inv-space-xs);
     }
     .inv-trust-bar--compact .inv-trust-bar__divider {
       display: none;

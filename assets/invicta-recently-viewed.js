@@ -159,7 +159,7 @@ const DEBUG = false;
       const price = parseFloat(product.price) || 0;
       const comparePrice = parseFloat(product.comparePrice) || 0;
       const onSale = comparePrice > price;
-      const priceFormatted = this.formatMoney(price * 100);
+      const priceFormatted = window.invictaUtils.formatMoney(price * 100, this.moneyFormat);
       const svgNS = 'http://www.w3.org/2000/svg';
 
       const anchor = document.createElement('a');
@@ -239,7 +239,7 @@ const DEBUG = false;
       if (onSale) {
         const compareSpan = document.createElement('span');
         compareSpan.className = 'inv-recent__card-price-compare';
-        compareSpan.textContent = this.formatMoney(comparePrice * 100);
+        compareSpan.textContent = window.invictaUtils.formatMoney(comparePrice * 100, this.moneyFormat);
         priceDiv.appendChild(compareSpan);
       }
 
@@ -257,19 +257,6 @@ const DEBUG = false;
       return src;
     }
 
-    formatMoney(cents) {
-      if (typeof Shopify !== 'undefined' && Shopify.formatMoney) {
-        return Shopify.formatMoney(cents, this.moneyFormat);
-      }
-
-      const amount = (cents / 100).toFixed(2);
-      return this.moneyFormat
-        .replace('{{amount}}', amount)
-        .replace('{{amount_no_decimals}}', Math.round(cents / 100))
-        .replace('{{amount_with_comma_separator}}', amount.replace('.', ','));
-    }
-
-    /* escapeHtml removed — no longer needed after DOM-construction refactor */
   }
 
   function init() {

@@ -34,7 +34,7 @@ class CartItems extends HTMLElement {
     this.lineItemStatusElement =
       document.getElementById('shopping-cart-line-item-status') || document.getElementById('CartDrawer-LineItemStatus');
 
-    const debouncedOnChange = debounce((event) => {
+    const debouncedOnChange = window.invictaUtils.debounce((event) => {
       this.onChange(event);
     }, ON_CHANGE_DEBOUNCE_TIMER);
 
@@ -105,7 +105,7 @@ class CartItems extends HTMLElement {
 
   onCartUpdate() {
     if (this.tagName === 'CART-DRAWER-ITEMS') {
-      return fetch(`${routes.cart_url}?section_id=cart-drawer`)
+      return fetch(`${INVICTA_ROUTES.cartBase}?section_id=cart-drawer`)
         .then((response) => response.text())
         .then((responseText) => {
           const html = parser.parseFromString(responseText, 'text/html');
@@ -122,7 +122,7 @@ class CartItems extends HTMLElement {
           DEBUG && console.error(e);
         });
     } else {
-      return fetch(`${routes.cart_url}?section_id=main-cart-items`)
+      return fetch(`${INVICTA_ROUTES.cartBase}?section_id=main-cart-items`)
         .then((response) => response.text())
         .then((responseText) => {
           const html = parser.parseFromString(responseText, 'text/html');
@@ -173,7 +173,7 @@ class CartItems extends HTMLElement {
     });
     const eventTarget = event.currentTarget instanceof CartRemoveButton ? 'clear' : 'change';
 
-    fetch(`${routes.cart_change_url}`, { ...fetchConfig(), ...{ body } })
+    fetch(INVICTA_ROUTES.cartChange, { ...fetchConfig(), ...{ body } })
       .then((response) => {
         return response.text().then((text) => ({ ok: response.ok, text }));
       })
@@ -327,9 +327,9 @@ if (!customElements.get('cart-note')) {
 
         this.addEventListener(
           'input',
-          debounce((event) => {
+          window.invictaUtils.debounce((event) => {
             const body = JSON.stringify({ note: event.target.value });
-            fetch(`${routes.cart_update_url}`, { ...fetchConfig(), ...{ body } })
+            fetch(INVICTA_ROUTES.cartUpdate, { ...fetchConfig(), ...{ body } })
               .then(() => CartPerformance.measureFromEvent('note-update:user-action', event));
           }, ON_CHANGE_DEBOUNCE_TIMER)
         );

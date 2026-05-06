@@ -105,7 +105,6 @@
       {{ cart.total_price | money }}
     </span>
   </div>
-  
-</div>
 
-{{ 'component-cart-breakdown.css' | asset_url | stylesheet_tag }}
+</div>
+{%- comment -%} Styles merged into invicta-cart.css, which is loaded by every cart context that renders this snippet. {%- endcomment -%}
