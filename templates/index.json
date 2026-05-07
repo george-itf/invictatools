@@ -244,11 +244,11 @@
           "settings": {
             "theme": "green",
             "custom_color": "",
-            "eyebrow": "MULTI-BUY",
-            "heading": "BUY 3, GET 1 FREE ON FC1 SEALANTS",
-            "sub": "Mix and match across the range",
+            "eyebrow": "NEW RANGE",
+            "heading": "EXCLUSIVE MAKITA CLOTHING",
+            "sub": "Browse and pre-order Makita's new range of workwear and leisurewear.",
             "cta_text": "Shop the range",
-            "link": "shopify://collections/silicone"
+            "link": "shopify://collections/makita-workwear"
           }
         }
       },
