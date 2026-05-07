@@ -213,6 +213,51 @@
         "padding_bottom": 32
       }
     },
+    "deal_strip": {
+      "type": "invicta-deal-strip",
+      "blocks": {
+        "deal_1": {
+          "type": "deal",
+          "settings": {
+            "theme": "red",
+            "eyebrow": "LIMITED TIME",
+            "heading": "SAVE UP TO 25% ON POWER TOOLS",
+            "sub": "Selected Makita & DeWalt lines",
+            "cta_text": "Shop deals",
+            "link": "shopify://collections/deals-and-sales"
+          }
+        },
+        "deal_2": {
+          "type": "deal",
+          "settings": {
+            "theme": "dark",
+            "eyebrow": "CLEARANCE",
+            "heading": "30% OFF DECKING SCREWS & FIXINGS",
+            "sub": "While stocks last",
+            "cta_text": "Shop now",
+            "link": "shopify://collections/fixings-fasteners"
+          }
+        },
+        "deal_3": {
+          "type": "deal",
+          "settings": {
+            "theme": "green",
+            "eyebrow": "MULTI-BUY",
+            "heading": "BUY 3, GET 1 FREE ON FC1 SEALANTS",
+            "sub": "Mix and match across the range",
+            "cta_text": "Shop the range",
+            "link": "shopify://collections/silicone"
+          }
+        }
+      },
+      "block_order": ["deal_1", "deal_2", "deal_3"],
+      "settings": {
+        "columns_desktop": 3,
+        "background_color": "#ffffff",
+        "padding_top": 8,
+        "padding_bottom": 32
+      }
+    },
     "invicta_deal_feature_3gXEtm": {
       "type": "invicta-deal-feature",
       "name": "Deal Feature",
@@ -610,6 +655,7 @@
     "hero_v3",
     "spotlight",
     "quick_cats",
+    "deal_strip",
     "invicta_deal_feature_3gXEtm",
     "invicta_homepage_products_UrjJbU",
     "invicta_product_wall_HVMQDY",
