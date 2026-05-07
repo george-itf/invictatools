@@ -148,34 +148,34 @@
 /* Deal banner — editable callout inside the hero */
 .inv-hero__deal {
   margin-top: var(--inv-space-lg);
-  padding: var(--inv-space-md) var(--inv-space-lg);
+  padding: var(--inv-space-lg) var(--inv-space-lg);
   background: rgba(255, 255, 255, 0.08);
-  border-left: 4px solid var(--inv-accent);
-  border-radius: 4px;
-  max-width: 820px;
+  border-left: 5px solid var(--inv-accent);
+  border-radius: 6px;
+  max-width: 960px;
 }
 
 .inv-hero__deal-eyebrow {
   display: inline-block;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  font-size: 0.8125rem;
-  color: var(--inv-accent);
-  background: #fff;
-  padding: 0.25rem 0.625rem;
+  font-size: 0.9375rem;
+  color: #fff;
+  background: var(--inv-accent);
+  padding: 0.375rem 0.875rem;
   border-radius: 999px;
-  margin-bottom: var(--inv-space-sm);
+  margin-bottom: var(--inv-space-md);
 }
 
 .inv-hero__deal-heading {
   margin: 0 0 var(--inv-space-md);
-  font-size: clamp(1.25rem, 2.4vw, 1.75rem);
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
+  font-size: clamp(1.875rem, 4.5vw, 3rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
   color: #fff;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.45);
 }
 
 .inv-hero__deal-steps {
@@ -184,50 +184,80 @@
   padding: 0;
   margin: 0;
   display: grid;
-  gap: var(--inv-space-sm);
+  gap: var(--inv-space-sm-plus);
 }
 
 .inv-hero__deal-steps li {
   counter-increment: deal-step;
   position: relative;
-  padding-left: 2.5rem;
-  font-size: 1rem;
+  padding-left: 2.875rem;
+  font-size: 1.0625rem;
   line-height: 1.45;
-  color: rgba(255, 255, 255, 0.95);
+  color: #fff;
   font-weight: 500;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
 }
 
 .inv-hero__deal-steps li::before {
   content: counter(deal-step);
   position: absolute;
   left: 0;
-  top: -1px;
+  top: -2px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2.125rem;
+  height: 2.125rem;
   border-radius: 50%;
   background: var(--inv-accent);
   color: #fff;
   font-weight: 800;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   line-height: 1;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
 }
 
 .inv-hero__deal-note {
   margin: var(--inv-space-md) 0 0;
-  font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.85);
   font-style: italic;
 }
 
+/* Featured variant — banner stands in for the collection title */
+.inv-hero__deal--featured {
+  margin-top: 0;
+  padding: var(--inv-space-lg);
+  background: rgba(255, 255, 255, 0.1);
+  max-width: 1080px;
+}
+
+.inv-hero__deal--featured .inv-hero__deal-heading {
+  font-size: clamp(2.25rem, 6vw, 3.75rem);
+  letter-spacing: -0.035em;
+}
+
+.inv-hero__deal--featured .inv-hero__deal-steps {
+  gap: var(--inv-space-md);
+}
+
+.inv-hero__deal--featured .inv-hero__deal-steps li {
+  font-size: 1.125rem;
+}
+
 @media (max-width: 640px) {
-  .inv-hero__deal {
-    padding: var(--inv-space-sm-plus) var(--inv-space-md);
+  .inv-hero__deal,
+  .inv-hero__deal--featured {
+    padding: var(--inv-space-md);
   }
   .inv-hero__deal-steps li {
-    padding-left: 2.25rem;
+    padding-left: 2.5rem;
+    font-size: 1rem;
+  }
+  .inv-hero__deal-steps li::before {
+    width: 1.875rem;
+    height: 1.875rem;
+    font-size: 0.9375rem;
   }
 }
 

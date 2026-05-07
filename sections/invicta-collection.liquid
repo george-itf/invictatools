@@ -104,8 +104,19 @@
         </ol>
       </nav>
 
+      {%- comment -%} Deal banner controls whether the collection title is needed at all {%- endcomment -%}
+      {%- assign deal_heading = section.settings.deal_heading -%}
+      {%- assign hide_title = section.settings.hide_title -%}
+      {%- if hide_title and deal_heading != blank -%}
+        {%- assign show_title = false -%}
+      {%- else -%}
+        {%- assign show_title = true -%}
+      {%- endif -%}
+
       {%- comment -%} Title {%- endcomment -%}
-      <h1 class="inv-hero__title">{{ collection.title | escape }}</h1>
+      {%- if show_title -%}
+        <h1 class="inv-hero__title">{{ collection.title | escape }}</h1>
+      {%- endif -%}
 
       {%- comment -%} Subheading / Collection description {%- endcomment -%}
       {%- assign hero_sub = section.settings.hero_subheading -%}
@@ -120,13 +131,16 @@
       {%- endif -%}
 
       {%- comment -%} Deal banner — editable callout, hidden when heading is blank {%- endcomment -%}
-      {%- assign deal_heading = section.settings.deal_heading -%}
       {%- if deal_heading != blank -%}
-        <div class="inv-hero__deal" role="region" aria-label="How this deal works">
+        <div class="inv-hero__deal{% unless show_title %} inv-hero__deal--featured{% endunless %}" role="region" aria-label="How this deal works">
           {%- if section.settings.deal_eyebrow != blank -%}
             <span class="inv-hero__deal-eyebrow">{{ section.settings.deal_eyebrow | escape }}</span>
           {%- endif -%}
-          <p class="inv-hero__deal-heading">{{ deal_heading | escape }}</p>
+          {%- if show_title -%}
+            <p class="inv-hero__deal-heading">{{ deal_heading | escape }}</p>
+          {%- else -%}
+            <h1 class="inv-hero__deal-heading">{{ deal_heading | escape }}</h1>
+          {%- endif -%}
           {%- if section.settings.deal_step_1 != blank or section.settings.deal_step_2 != blank or section.settings.deal_step_3 != blank -%}
             <ol class="inv-hero__deal-steps">
               {%- if section.settings.deal_step_1 != blank -%}<li>{{ section.settings.deal_step_1 | escape }}</li>{%- endif -%}
@@ -479,6 +493,13 @@
       "id": "deal_heading",
       "label": "Deal heading",
       "info": "Leave blank to hide the banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_title",
+      "label": "Hide collection title",
+      "info": "Replaces the page title with the deal heading. Only takes effect when a deal heading is set.",
+      "default": false
     },
     {
       "type": "text",
