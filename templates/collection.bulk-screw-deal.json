@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "invicta_collection_main": {
@@ -6,9 +15,9 @@
         "hero_subheading": "",
         "deal_eyebrow": "MIX & MATCH DEAL",
         "deal_heading": "Buy any 10 tubs, get 10 FREE",
-        "deal_step_1": "Pick any 10 tubs from the range below — mix brands and sizes however you like.",
-        "deal_step_2": "Add 10 more tubs to your basket — your second 10 are on us.",
-        "deal_step_3": "Discount applied automatically at checkout.",
+        "deal_step_1": "Pick any 10 tubs from the range below, mix and matchsizes however you like",
+        "deal_step_2": "Then add 10 more tubs to your basket — the second 10 are completely free",
+        "deal_step_3": "Discount applied automatically at checkout",
         "deal_note": "Offer applies to tubs shown on this page only. While stocks last.",
         "products_per_page": 24,
         "show_sort": true,
