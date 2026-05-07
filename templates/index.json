@@ -221,6 +221,7 @@
     },
     "invicta_homepage_products_UrjJbU": {
       "type": "invicta-homepage-products",
+      "disabled": true,
       "name": "Homepage Products",
       "settings": {
         "heading": "Best Sellers",
@@ -252,91 +253,77 @@
         "padding_bottom": 48
       }
     },
-    "invicta_brand_strip_V8j69P": {
-      "type": "invicta-brand-strip",
+    "invicta_product_wall_HVMQDY": {
+      "type": "invicta-product-wall",
       "blocks": {
-        "brand_eEKg88": {
+        "brand_hBnLdC": {
           "type": "brand",
           "settings": {
-            "brand_collection": "makita",
-            "brand_page": ""
+            "brand_name": "Makita",
+            "collection": "makita"
           }
         },
-        "brand_jphijk": {
+        "brand_Y9Y3Qq": {
           "type": "brand",
           "settings": {
-            "brand_collection": "dewalt",
-            "brand_page": ""
+            "brand_name": "DeWalt",
+            "collection": "dewalt"
           }
         },
-        "brand_eEahnT": {
+        "brand_6CVbxq": {
           "type": "brand",
           "settings": {
-            "brand_collection": "hikoki",
-            "brand_page": ""
+            "brand_name": "Hikoki",
+            "collection": "hikoki"
           }
         },
-        "brand_qB6W8X": {
+        "brand_M4Xert": {
           "type": "brand",
           "settings": {
-            "brand_collection": "brand-paslode",
-            "brand_page": ""
+            "brand_name": "Viper",
+            "collection": "viper"
           }
         },
-        "brand_VFXQPn": {
+        "brand_EWAVHe": {
           "type": "brand",
           "settings": {
-            "brand_collection": "stanley",
-            "brand_page": ""
+            "brand_name": "Premier Diamond",
+            "collection": "premier-diamond-products"
           }
         },
-        "brand_TtyTtR": {
+        "brand_y6nEX7": {
           "type": "brand",
           "settings": {
-            "brand_collection": "premier-diamond-products",
-            "brand_page": ""
+            "brand_name": "Lamello",
+            "collection": "lamello"
           }
         },
-        "brand_JYGex4": {
+        "brand_zdymT9": {
           "type": "brand",
           "settings": {
-            "brand_collection": "viper",
-            "brand_page": ""
-          }
-        },
-        "brand_jXqXtE": {
-          "type": "brand",
-          "settings": {
-            "brand_collection": "lamello",
-            "brand_page": ""
+            "brand_name": "Trend",
+            "collection": "brand-trend"
           }
         }
       },
       "block_order": [
-        "brand_eEKg88",
-        "brand_jphijk",
-        "brand_eEahnT",
-        "brand_qB6W8X",
-        "brand_VFXQPn",
-        "brand_TtyTtR",
-        "brand_JYGex4",
-        "brand_jXqXtE"
+        "brand_hBnLdC",
+        "brand_Y9Y3Qq",
+        "brand_6CVbxq",
+        "brand_M4Xert",
+        "brand_EWAVHe",
+        "brand_y6nEX7",
+        "brand_zdymT9"
       ],
-      "name": "Brand Pill Strip",
+      "name": "Invicta Product Wall",
       "settings": {
-        "heading": "",
-        "heading_size": 28,
-        "heading_color": "#111827",
-        "heading_spacing": 24,
-        "pill_height": 64,
-        "logo_height": 56,
-        "pill_padding": 16,
-        "pill_gap": 24,
-        "container_width": 1600,
-        "container_padding": 48,
-        "background_color": "#ffffff",
-        "padding_top": 48,
-        "padding_bottom": 48
+        "title": "Explore Our Brands",
+        "subtitle": "Click a brand to see their top products",
+        "show_view_all": true,
+        "max_products": 10,
+        "columns_desktop": 5,
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     },
     "trust_reviews": {
@@ -613,7 +600,7 @@
     "quick_cats",
     "invicta_deal_feature_3gXEtm",
     "invicta_homepage_products_UrjJbU",
-    "invicta_brand_strip_V8j69P",
+    "invicta_product_wall_HVMQDY",
     "trust_reviews",
     "recently_viewed",
     "invicta_newsletter_t9TTnj",
