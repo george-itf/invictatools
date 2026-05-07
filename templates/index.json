@@ -9,6 +9,26 @@
  */
 {
   "sections": {
+    "hero_v3": {
+      "type": "invicta-hero-v3",
+      "settings": {
+        "hero_mode": "brand",
+        "eyebrow_text": "Authorised UK Dealer · Est. 1996",
+        "heading": "PROFESSIONAL TOOLS AT GREAT PRICES",
+        "description": "Kent's leading tools and fixings supplier. Over 15,000 products from Makita, DeWalt, HiKOKI and more. Full manufacturer warranty on every item.",
+        "hero_image": "shopify://shop_images/makita-tool-set.jpg",
+        "button_text": "SEE DEALS & OFFERS",
+        "button_link": "shopify://collections/deals-and-sales",
+        "secondary_text": "BROWSE ALL PRODUCTS",
+        "secondary_link": "shopify://collections/all",
+        "price_label": "",
+        "price_text": "",
+        "price_subtext": "",
+        "background_color": "#0f0f0f",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "trust_strip": {
       "type": "invicta-trust-strip",
       "blocks": {
@@ -16,7 +36,7 @@
           "type": "usp",
           "settings": {
             "icon": "truck",
-            "title": "Free Next-Day Delivery",
+            "title": "Free Next Day Delivery",
             "subtitle": "On orders over £99"
           }
         },
@@ -52,9 +72,9 @@
         "usp_4"
       ],
       "settings": {
-        "background_color": "#1a1a1a",
-        "padding_top": 0,
-        "padding_bottom": 0
+        "background_color": "#f5f5f5",
+        "padding_top": 14,
+        "padding_bottom": 14
       }
     },
     "hero_v3": {
@@ -173,11 +193,22 @@
         "cat_6": {
           "type": "category",
           "settings": {
-            "title": "Power Tool Kits",
+            "title": "Tool Kits",
             "description": "",
             "collection": "power-tools-kits",
             "custom_link": "",
             "icon": "storage",
+            "show_count": true
+          }
+        },
+        "cat_7": {
+          "type": "category",
+          "settings": {
+            "title": "PPE",
+            "description": "",
+            "collection": "workwear-safety",
+            "custom_link": "",
+            "icon": "ppe",
             "show_count": true
           }
         }
@@ -188,15 +219,61 @@
         "cat_3",
         "cat_4",
         "cat_5",
-        "cat_6"
+        "cat_6",
+        "cat_7"
       ],
       "settings": {
         "heading": "Shop by Category",
-        "heading_link": "",
-        "heading_link_text": "View all categories",
-        "columns_desktop": 6,
-        "background_color": "#f5f5f5",
-        "padding_top": 32,
+        "heading_link": "shopify://collections",
+        "heading_link_text": "View All",
+        "columns_desktop": 7,
+        "background_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 32
+      }
+    },
+    "deal_strip": {
+      "type": "invicta-deal-strip",
+      "blocks": {
+        "deal_1": {
+          "type": "deal",
+          "settings": {
+            "theme": "red",
+            "eyebrow": "LIMITED TIME",
+            "heading": "SAVE UP TO 25% ON POWER TOOLS",
+            "sub": "Selected Makita & DeWalt lines",
+            "cta_text": "Shop deals",
+            "link": "shopify://collections/deals-and-sales"
+          }
+        },
+        "deal_2": {
+          "type": "deal",
+          "settings": {
+            "theme": "dark",
+            "eyebrow": "CLEARANCE",
+            "heading": "30% OFF DECKING SCREWS & FIXINGS",
+            "sub": "While stocks last",
+            "cta_text": "Shop now",
+            "link": "shopify://collections/fixings-fasteners"
+          }
+        },
+        "deal_3": {
+          "type": "deal",
+          "settings": {
+            "theme": "green",
+            "eyebrow": "MULTI-BUY",
+            "heading": "BUY 3, GET 1 FREE ON FC1 SEALANTS",
+            "sub": "Mix and match across the range",
+            "cta_text": "Shop the range",
+            "link": "shopify://collections/silicone"
+          }
+        }
+      },
+      "block_order": ["deal_1", "deal_2", "deal_3"],
+      "settings": {
+        "columns_desktop": 3,
+        "background_color": "#ffffff",
+        "padding_top": 8,
         "padding_bottom": 32
       }
     },
@@ -597,6 +674,7 @@
     "hero_v3",
     "spotlight",
     "quick_cats",
+    "deal_strip",
     "invicta_deal_feature_3gXEtm",
     "invicta_homepage_products_UrjJbU",
     "invicta_product_wall_HVMQDY",

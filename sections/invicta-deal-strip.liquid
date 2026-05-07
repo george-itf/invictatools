@@ -1,0 +1,350 @@
+{% comment %}
+  ============================================================================
+  INVICTA DEAL STRIP v1.0 — Three-card promotional row
+  ============================================================================
+  Block-based row of solid-colour deal cards. Each card carries an eyebrow,
+  heading, sub-line and arrow CTA, and links to a collection or page.
+
+  Card themes:
+    - red:   Invicta accent red (--inv-accent)
+    - dark:  near-black (--inv-dark-deep)
+    - green: success green (--inv-success)
+    - custom: pick your own background colour per block
+
+  Deliberately flat — no oversized faded percentage numbers, no gradients,
+  no images. Designed to sit immediately under the Quick Categories grid.
+
+  Trade 15.4.0 Compatible
+  ============================================================================
+{% endcomment %}
+
+{%- liquid
+  assign cols = section.settings.columns_desktop | default: 3
+  assign bg = section.settings.background_color | default: '#ffffff'
+  assign pad_top = section.settings.padding_top | default: 24
+  assign pad_bottom = section.settings.padding_bottom | default: 24
+-%}
+
+<section class="inv-deal-strip" id="deal-strip-{{ section.id }}">
+  <div class="inv-deal-strip__container">
+    {%- if section.blocks.size > 0 -%}
+      <div class="inv-deal-strip__grid">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign theme = block.settings.theme | default: 'red'
+            assign card_bg = ''
+            case theme
+              when 'red'
+                assign card_bg = 'var(--inv-accent)'
+              when 'dark'
+                assign card_bg = 'var(--inv-dark-deep)'
+              when 'green'
+                assign card_bg = 'var(--inv-success)'
+              when 'custom'
+                assign card_bg = block.settings.custom_color | default: '#1a1a1a'
+            endcase
+
+            assign eyebrow = block.settings.eyebrow
+            assign heading = block.settings.heading
+            assign sub = block.settings.sub
+            assign cta = block.settings.cta_text | default: 'Shop now'
+            assign link = block.settings.link | default: '#'
+          -%}
+
+          <a
+            href="{{ link }}"
+            class="inv-deal-strip__card inv-deal-strip__card--{{ theme }}"
+            style="background:{{ card_bg }};"
+            {{ block.shopify_attributes }}
+          >
+            {%- if eyebrow != blank -%}
+              <span class="inv-deal-strip__eyebrow">{{ eyebrow | escape }}</span>
+            {%- endif -%}
+
+            {%- if heading != blank -%}
+              <h3 class="inv-deal-strip__heading">{{ heading | escape }}</h3>
+            {%- endif -%}
+
+            {%- if sub != blank -%}
+              <p class="inv-deal-strip__sub">{{ sub | escape }}</p>
+            {%- endif -%}
+
+            <span class="inv-deal-strip__cta">
+              {{ cta | escape }}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #deal-strip-{{ section.id }} {
+    background: {{ bg }};
+    padding-top: {{ pad_top }}px;
+    padding-bottom: {{ pad_bottom }}px;
+  }
+
+  #deal-strip-{{ section.id }} .inv-deal-strip__container {
+    max-width: var(--inv-container, 1400px);
+    margin: 0 auto;
+    padding: 0 var(--inv-page-gutter, 1.5rem);
+  }
+
+  #deal-strip-{{ section.id }} .inv-deal-strip__grid {
+    display: grid;
+    grid-template-columns: repeat({{ cols }}, 1fr);
+    gap: 16px;
+  }
+
+  #deal-strip-{{ section.id }} .inv-deal-strip__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 28px 28px 24px;
+    color: var(--inv-bg-elevated);
+    text-decoration: none;
+    min-height: 168px;
+    transition: transform var(--inv-duration-normal) ease,
+                box-shadow var(--inv-duration-normal) ease,
+                filter var(--inv-duration-normal) ease;
+  }
+
+  #deal-strip-{{ section.id }} .inv-deal-strip__card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--inv-shadow-md, 0 4px 12px rgba(0,0,0,0.18));
+    filter: brightness(1.05);
+  }
+
+  #deal-strip-{{ section.id }} .inv-deal-strip__card:focus-visible {
+    outline: 2px solid var(--inv-bg-elevated);
+    outline-offset: 2px;
+  }
+
+  #deal-strip-{{ section.id }} .inv-deal-strip__eyebrow {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  #deal-strip-{{ section.id }} .inv-deal-strip__heading {
+    font-family: var(--inv-font-body);
+    font-size: clamp(20px, 1.6vw, 24px);
+    font-weight: 900;
+    line-height: 1.15;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+    margin: 0;
+    color: var(--inv-bg-elevated);
+    max-width: 90%;
+  }
+
+  #deal-strip-{{ section.id }} .inv-deal-strip__sub {
+    font-size: 13px;
+    line-height: 1.45;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  #deal-strip-{{ section.id }} .inv-deal-strip__cta {
+    margin-top: auto;
+    padding-top: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--inv-bg-elevated);
+  }
+
+  #deal-strip-{{ section.id }} .inv-deal-strip__cta svg {
+    transition: transform var(--inv-duration-normal) ease;
+  }
+
+  #deal-strip-{{ section.id }} .inv-deal-strip__card:hover .inv-deal-strip__cta svg {
+    transform: translateX(3px);
+  }
+
+  /* ----------------------------------------
+     RESPONSIVE
+     ---------------------------------------- */
+  @media (max-width: 989px) {
+    #deal-strip-{{ section.id }} .inv-deal-strip__grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    #deal-strip-{{ section.id }} .inv-deal-strip__card {
+      min-height: 140px;
+      padding: 22px 22px 20px;
+    }
+  }
+
+  @media (max-width: 749px) {
+    #deal-strip-{{ section.id }} .inv-deal-strip__container {
+      padding-left: var(--inv-mobile-gutter);
+      padding-right: var(--inv-mobile-gutter);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #deal-strip-{{ section.id }} .inv-deal-strip__card,
+    #deal-strip-{{ section.id }} .inv-deal-strip__cta svg {
+      transition: none;
+    }
+    #deal-strip-{{ section.id }} .inv-deal-strip__card:hover {
+      transform: none;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Deal Strip",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 6,
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns (desktop)",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "blocks": [
+    {
+      "type": "deal",
+      "name": "Deal card",
+      "settings": [
+        {
+          "type": "select",
+          "id": "theme",
+          "label": "Theme",
+          "default": "red",
+          "options": [
+            { "value": "red", "label": "Red (accent)" },
+            { "value": "dark", "label": "Dark" },
+            { "value": "green", "label": "Green" },
+            { "value": "custom", "label": "Custom colour" }
+          ]
+        },
+        {
+          "type": "color",
+          "id": "custom_color",
+          "label": "Custom background colour",
+          "info": "Used when Theme is set to Custom."
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "LIMITED TIME"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "SAVE UP TO 25% ON POWER TOOLS"
+        },
+        {
+          "type": "text",
+          "id": "sub",
+          "label": "Sub-line",
+          "default": "Selected Makita & DeWalt lines"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "CTA text",
+          "default": "Shop deals"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Card link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Deal Strip",
+      "blocks": [
+        {
+          "type": "deal",
+          "settings": {
+            "theme": "red",
+            "eyebrow": "LIMITED TIME",
+            "heading": "SAVE UP TO 25% ON POWER TOOLS",
+            "sub": "Selected Makita & DeWalt lines",
+            "cta_text": "Shop deals"
+          }
+        },
+        {
+          "type": "deal",
+          "settings": {
+            "theme": "dark",
+            "eyebrow": "CLEARANCE",
+            "heading": "30% OFF DECKING SCREWS & FIXINGS",
+            "sub": "While stocks last",
+            "cta_text": "Shop now"
+          }
+        },
+        {
+          "type": "deal",
+          "settings": {
+            "theme": "green",
+            "eyebrow": "MULTI-BUY",
+            "heading": "BUY 3, GET 1 FREE ON FC1 SEALANTS",
+            "sub": "Mix and match across the range",
+            "cta_text": "Shop the range"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

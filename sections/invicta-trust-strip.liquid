@@ -1,16 +1,15 @@
 {% comment %}
   ============================================================================
-  INVICTA TRUST STRIP v1.1 — Dark USP bar with red icons
+  INVICTA TRUST STRIP v2.0 — Light USP bar above hero
   ============================================================================
-  Dark background trust strip with red icons and 60% hairline dividers.
-  Designed for homepage use below the hero.
+  Light background USP strip with red SVG icons inside soft circular badges.
+  Sits between the header and the hero so trust signals appear above the fold.
 
-  Updates in v1.1:
-  - Background changed from red to dark (#1a1a1a)
-  - Icons are now red on transparent background
-  - Dividers use 60% height hairlines via ::after pseudo-elements
-  - Bottom border for section separation
-  - Configurable background colour
+  Updates in v2.0:
+  - Light background (#f5f5f5 default) for above-hero placement
+  - Icon now sits inside a soft circular badge (light grey, 36px)
+  - Dark titles + muted subtitles (legible on light bg)
+  - Dividers desaturated to subtle hairlines
 
   Trade 15.4.0 Compatible
   Usage: Add via theme editor or templates/index.json
@@ -95,16 +94,16 @@
      ============================================================================ */
 
   #trust-strip-{{ section.id }} {
-    background: {{ section.settings.background_color | default: '#1a1a1a' }};
-    padding-top: {{ section.settings.padding_top | default: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: {{ section.settings.background_color | default: '#f5f5f5' }};
+    padding-top: {{ section.settings.padding_top | default: 14 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 14 }}px;
+    border-bottom: 1px solid var(--inv-border-subtle);
   }
 
   #trust-strip-{{ section.id }} .inv-trust-strip__container {
     max-width: var(--inv-container, 1400px);
     margin: 0 auto;
-    padding: 0 var(--inv-space-xl);
+    padding: 0 var(--inv-page-gutter, 1.5rem);
   }
 
   #trust-strip-{{ section.id }} .inv-trust-strip__list {
@@ -121,30 +120,31 @@
     flex-direction: row;
     align-items: center;
     gap: var(--inv-space-sm-plus);
-    padding: 14px 20px;
+    padding: 10px 16px;
     position: relative;
   }
 
   /* Borders: bottom on mobile */
   #trust-strip-{{ section.id }} .inv-trust-strip__item:not(:last-child) {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    border-bottom: 1px solid var(--inv-border-subtle);
   }
 
-  /* --- Icon --- */
+  /* --- Icon (now in soft circular badge) --- */
   #trust-strip-{{ section.id }} .inv-trust-strip__icon {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: transparent;
+    background: var(--inv-bg-elevated);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    box-shadow: inset 0 0 0 1px var(--inv-border-subtle);
   }
 
   #trust-strip-{{ section.id }} .inv-trust-strip__icon svg {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     color: var(--inv-accent);
   }
 
@@ -158,13 +158,13 @@
   #trust-strip-{{ section.id }} .inv-trust-strip__title {
     font-size: 13px;
     font-weight: 700;
-    color: var(--inv-bg-elevated);
+    color: var(--inv-fg);
     line-height: 1.2;
   }
 
   #trust-strip-{{ section.id }} .inv-trust-strip__subtitle {
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--inv-fg-muted);
     line-height: 1.3;
   }
 
@@ -183,7 +183,7 @@
     /* Bottom borders for first row */
     #trust-strip-{{ section.id }} .inv-trust-strip__item:nth-child(1),
     #trust-strip-{{ section.id }} .inv-trust-strip__item:nth-child(2) {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid var(--inv-border-subtle);
     }
   }
 
@@ -201,11 +201,12 @@
       border-bottom: none;
     }
 
-    /* 60% height hairline dividers via ::after */
     #trust-strip-{{ section.id }} .inv-trust-strip__item {
       position: relative;
+      padding: 6px 24px;
     }
 
+    /* 60% height hairline dividers via ::after */
     #trust-strip-{{ section.id }} .inv-trust-strip__item:not(:last-child)::after {
       content: '';
       position: absolute;
@@ -213,7 +214,7 @@
       top: 20%;
       height: 60%;
       width: 1px;
-      background: rgba(255, 255, 255, 0.08);
+      background: var(--inv-border-subtle);
     }
   }
 
@@ -237,7 +238,7 @@
       "type": "color",
       "id": "background_color",
       "label": "Background colour",
-      "default": "#1a1a1a"
+      "default": "#f5f5f5"
     },
     {
       "type": "header",
@@ -248,20 +249,20 @@
       "id": "padding_top",
       "min": 0,
       "max": 60,
-      "step": 4,
+      "step": 2,
       "unit": "px",
       "label": "Top padding",
-      "default": 0
+      "default": 14
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
       "max": 60,
-      "step": 4,
+      "step": 2,
       "unit": "px",
       "label": "Bottom padding",
-      "default": 0
+      "default": 14
     }
   ],
   "blocks": [

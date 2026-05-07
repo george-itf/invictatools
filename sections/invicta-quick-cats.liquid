@@ -1,10 +1,17 @@
 {% comment %}
   ============================================================================
-  INVICTA QUICK CATEGORIES v3.0.1 — Editorial nav grid
+  INVICTA QUICK CATEGORIES v4.0 — Vertical nav grid
   ============================================================================
-  4x2 grid of category cards with horizontal layout: icon left, title +
-  description right, arrow on the right edge. Section header with optional
-  "view all" link sits above the grid.
+  Single-row grid of vertical category cards: circular icon at the top,
+  title in the middle, optional product count beneath. Section header
+  carries the heading on the left and an optional "view all" link on the
+  right. Designed for above-the-fold homepage placement.
+
+  v4.0 changes:
+  - Card body switched from horizontal (icon-left) to vertical stack
+  - Icon now sits inside a soft white circular badge over a card-soft
+    background — accent recolours on hover
+  - Default desktop column count raised to 7 to fit the full category set
 
   Trade 15.4.0 Compatible
   ============================================================================
@@ -14,7 +21,7 @@
   assign bg_color = section.settings.background_color | default: '#ffffff'
   assign pad_top = section.settings.padding_top | default: 40
   assign pad_bottom = section.settings.padding_bottom | default: 40
-  assign cols_desktop = section.settings.columns_desktop | default: 4
+  assign cols_desktop = section.settings.columns_desktop | default: 7
   assign heading_text = section.settings.heading
   assign heading_link = section.settings.heading_link
   assign heading_link_text = section.settings.heading_link_text | default: 'View all categories'
@@ -81,23 +88,27 @@
 
   #shopify-section-{{ section.id }} .inv-quick-cats__card {
     position: relative;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: var(--inv-space-sm-plus);
+    justify-content: flex-start;
+    gap: 10px;
     background: var(--inv-bg);
     border: 1px solid var(--inv-border);
     border-radius: 0;
-    padding: var(--inv-space-md) var(--inv-space-md);
+    padding: 22px 12px 18px;
     text-decoration: none;
-    min-height: 76px;
+    min-height: 156px;
+    text-align: center;
     transition: border-color var(--inv-duration-normal) ease,
-                background-color var(--inv-duration-normal) ease;
+                background-color var(--inv-duration-normal) ease,
+                transform var(--inv-duration-normal) ease;
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__card:hover {
     border-color: var(--inv-accent);
     background: var(--inv-bg-elevated);
+    transform: translateY(-2px);
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__card:focus-visible {
@@ -107,44 +118,53 @@
 
   #shopify-section-{{ section.id }} .inv-quick-cats__icon {
     display: flex;
-    width: 44px;
-    height: 44px;
-    background: var(--inv-dark);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--inv-bg-elevated);
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    transition: background var(--inv-duration-normal) ease;
+    box-shadow: inset 0 0 0 1px var(--inv-border-subtle);
+    transition: background var(--inv-duration-normal) ease,
+                box-shadow var(--inv-duration-normal) ease;
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__icon {
     background: var(--inv-accent);
+    box-shadow: inset 0 0 0 1px var(--inv-accent);
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__icon svg {
-    width: 22px;
-    height: 22px;
-    color: var(--inv-bg-elevated);
+    width: 26px;
+    height: 26px;
+    color: var(--inv-fg);
     display: block;
+    transition: color var(--inv-duration-normal) ease;
+  }
+
+  #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__icon svg {
+    color: var(--inv-bg-elevated);
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__icon img {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     object-fit: contain;
     display: block;
-    filter: brightness(0) invert(1);
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__body {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
     min-width: 0;
+    align-items: center;
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__title {
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 800;
     color: var(--inv-fg);
     margin: 0;
     text-transform: uppercase;
@@ -163,27 +183,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-width: 100%;
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__count {
-    font-size: 10px;
+    font-size: 11px;
     color: var(--inv-fg-subtle);
     line-height: 1.3;
-    margin-top: 2px;
-  }
-
-  #shopify-section-{{ section.id }} .inv-quick-cats__arrow {
-    color: var(--inv-fg-subtle);
-    font-size: 18px;
-    line-height: 1;
-    flex-shrink: 0;
-    transition: color var(--inv-duration-normal) ease,
-                transform var(--inv-duration-normal) ease;
-  }
-
-  #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__arrow {
-    color: var(--inv-accent);
-    transform: translateX(2px);
+    margin-top: 0;
+    font-weight: 500;
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__empty {
@@ -192,9 +200,9 @@
     color: var(--inv-fg-muted);
   }
 
-  @media (max-width: 989px) {
+  @media (max-width: 1199px) {
     #shopify-section-{{ section.id }} .inv-quick-cats__grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 
@@ -210,20 +218,19 @@
     }
 
     #shopify-section-{{ section.id }} .inv-quick-cats__card {
-      gap: var(--inv-space-sm);
-      padding: var(--inv-space-sm-plus);
-      min-height: 68px;
+      padding: 16px 10px 14px;
+      min-height: 132px;
     }
 
     #shopify-section-{{ section.id }} .inv-quick-cats__icon {
-      width: 36px;
-      height: 36px;
+      width: 48px;
+      height: 48px;
     }
 
     #shopify-section-{{ section.id }} .inv-quick-cats__icon svg,
     #shopify-section-{{ section.id }} .inv-quick-cats__icon img {
-      width: 18px;
-      height: 18px;
+      width: 22px;
+      height: 22px;
     }
 
     #shopify-section-{{ section.id }} .inv-quick-cats__title { font-size: 12px; }
@@ -234,16 +241,13 @@
       align-items: flex-start;
       gap: var(--inv-space-sm);
     }
-
-    #shopify-section-{{ section.id }} .inv-quick-cats__arrow { display: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     #shopify-section-{{ section.id }} .inv-quick-cats__card,
     #shopify-section-{{ section.id }} .inv-quick-cats__icon,
-    #shopify-section-{{ section.id }} .inv-quick-cats__arrow,
     #shopify-section-{{ section.id }} .inv-quick-cats__view-all { transition: none; }
-    #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__arrow { transform: none; }
+    #shopify-section-{{ section.id }} .inv-quick-cats__card:hover { transform: none; }
   }
 </style>
 
@@ -309,7 +313,7 @@
           <a href="{{ cat_url }}" class="inv-quick-cats__card" {{ block.shopify_attributes }}>
             <div class="inv-quick-cats__icon">
               {%- if cat_custom_icon != blank -%}
-                <img src="{{ cat_custom_icon | image_url: width: 48 }}" alt="" width="24" height="24" loading="lazy">
+                <img src="{{ cat_custom_icon | image_url: width: 56 }}" alt="" width="28" height="28" loading="lazy">
               {%- else -%}
                 {%- case cat_icon -%}
                   {%- when 'drill' -%}
@@ -330,6 +334,9 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
                   {%- when 'workwear' -%}
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M16 3h-2a4 4 0 0 1-8 0H4l-2 5 4 1v12h12V9l4-1-2-5z"/></svg>
+                  {%- when 'ppe' -%}
+                    {%- comment -%} Hard hat — used for "PPE" category. {%- endcomment -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M3 17h18"/><path d="M5 17a7 7 0 0 1 14 0"/><path d="M9 10V6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4"/><path d="M3 17v2h18v-2"/></svg>
                   {%- when 'adhesive' -%}
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M9 2h6v6H9z"/><path d="M8 8h8l1 4-2 10H9L7 12z"/><circle cx="12" cy="15" r="2"/></svg>
                   {%- else -%}
@@ -344,11 +351,9 @@
                 <span class="inv-quick-cats__desc">{{ cat_desc | escape }}</span>
               {%- endif -%}
               {%- if inv_show_count and inv_product_count > 0 -%}
-                <span class="inv-quick-cats__count">{{ inv_product_count }}+ products</span>
+                <span class="inv-quick-cats__count">{{ inv_product_count }}+ items</span>
               {%- endif -%}
             </div>
-
-            <span class="inv-quick-cats__arrow" aria-hidden="true">&rarr;</span>
           </a>
 
         {%- endfor -%}
@@ -372,7 +377,7 @@
     { "type": "url", "id": "heading_link", "label": "View-all link", "info": "Optional. Right-aligned link in the header." },
     { "type": "text", "id": "heading_link_text", "label": "View-all link text", "default": "View all categories" },
     { "type": "header", "content": "Layout" },
-    { "type": "range", "id": "columns_desktop", "label": "Columns (Desktop)", "min": 3, "max": 8, "step": 1, "default": 4 },
+    { "type": "range", "id": "columns_desktop", "label": "Columns (Desktop)", "min": 3, "max": 8, "step": 1, "default": 7 },
     { "type": "color", "id": "background_color", "label": "Background Colour", "default": "#ffffff" },
     { "type": "range", "id": "padding_top", "label": "Padding Top", "min": 0, "max": 100, "step": 4, "default": 40, "unit": "px" },
     { "type": "range", "id": "padding_bottom", "label": "Padding Bottom", "min": 0, "max": 100, "step": 4, "default": 40, "unit": "px" }
@@ -400,7 +405,8 @@
             { "value": "storage", "label": "Storage" },
             { "value": "safety", "label": "Safety" },
             { "value": "outdoor", "label": "Outdoor" },
-            { "value": "workwear", "label": "Workwear / PPE" },
+            { "value": "workwear", "label": "Workwear" },
+            { "value": "ppe", "label": "PPE / Hard hat" },
             { "value": "adhesive", "label": "Adhesive / Sealant" }
           ]
         },

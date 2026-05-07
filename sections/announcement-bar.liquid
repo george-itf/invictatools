@@ -8,16 +8,16 @@
 </noscript>
 
 <style>
-/* Dark Grey Hybrid — announcement bar matches header #1a1a1a
-   Override Shopify's color scheme + gradient system with scoped !important rules.
-   This survives customizer saves since we don't touch header-group.json. */
+/* Invicta Red announcement bar — sits above the red main header to form
+   one continuous brand band. Override Shopify's color scheme + gradient
+   system with scoped !important rules so customizer saves cannot revert it. */
 .utility-bar.color-{{ section.settings.color_scheme }},
 .utility-bar.color-{{ section.settings.color_scheme }}.gradient {
-  background: var(--inv-dark-deep) !important;
+  background: var(--inv-accent) !important;
   background-image: none !important;
-  color: rgba(255, 255, 255, 0.6); /* TODO: token — no overlay alpha token exists */
+  color: var(--inv-bg-elevated);
   --color-foreground: 255, 255, 255;
-  --color-background: 26, 26, 26;
+  --color-background: 225, 29, 38;
 }
 
 .utility-bar.color-{{ section.settings.color_scheme }} strong,
