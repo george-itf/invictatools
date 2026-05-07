@@ -55,7 +55,7 @@
       "type": "header-invicta",
       "name": "Invicta Header",
       "settings": {
-        "menu": "main-menu"
+        "menu": "simple-menu"
       }
     },
     "invicta_simple_nav": {
