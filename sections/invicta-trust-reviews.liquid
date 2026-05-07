@@ -1,15 +1,20 @@
 {% comment %}
   ============================================
-  INVICTA TRUST & REVIEWS v7.0
+  INVICTA TRUST & REVIEWS v8.0
   ============================================
-  Rebuilt section. Sharp corners, red accent on white,
-  DM Sans, clean and structural.
+  Static review section — no carousel, no gradients.
 
   Layout:
   1. Hero row: heading + text left, rating badges right
   2. Stats row: full-width below hero grid, CTA pushed right
-  3. Branch strip: wide images with overlay text
-  4. Reviews: scrolling ticker on light background
+  3. Branch strip: wide images with solid label pills (no overlay gradient)
+  4. Reviews: static 4-card grid with "Read all reviews" CTA beneath
+
+  v8.0 changes:
+  - Replaced animated ticker with a static 4-up grid
+  - Removed mask-image / linear-gradient on the review block and branch overlay
+  - Swapped ★ Unicode glyphs for SVG stars (consistent rendering, no emoji risk)
+  - Dropped ticker duplication JS and Judge.me live-fetch
 
   Trade 15.4.0 Compatible
   ============================================
@@ -90,7 +95,13 @@
                   {%- endcase -%}
                 </span>
                 <span class="inv-tr5__rating-score">{{ block.settings.text | split: ' ' | first }}</span>
-                <span class="inv-tr5__rating-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                <span class="inv-tr5__rating-stars" aria-hidden="true">
+                  {%- for s in (1..5) -%}
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" focusable="false" aria-hidden="true">
+                      <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8 5.8 21.3l2.4-7.4L2 9.4h7.6z"/>
+                    </svg>
+                  {%- endfor -%}
+                </span>
                 <span class="inv-tr5__rating-name">{{ block.settings.platform | capitalize }}&nbsp;&rarr;</span>
               </a>
             {%- endfor -%}
@@ -179,7 +190,7 @@
     </div>
   {%- endif -%}
 
-  {%- comment -%} ═══ PART 3: Reviews — scrolling ticker on light background ═══ {%- endcomment -%}
+  {%- comment -%} ═══ PART 3: Reviews — static 4-card grid on light background ═══ {%- endcomment -%}
   {%- assign has_reviews = false -%}
   {%- for i in (1..10) -%}
     {%- assign enabled_key = 'review_' | append: i | append: '_enabled' -%}
@@ -192,18 +203,16 @@
   {%- if has_reviews -%}
     <div class="inv-tr5__reviews" aria-label="Customer reviews">
       <div class="inv-tr5__wrap">
-        <div class="inv-tr5__reviews-header">
-          {%- if section.settings.review_heading != blank -%}
+        {%- if section.settings.review_heading != blank -%}
+          <div class="inv-tr5__reviews-header">
             <span class="inv-tr5__reviews-label">{{ section.settings.review_heading }}</span>
-          {%- endif -%}
-          <a href="{{ section.settings.review_link | default: '#' }}" class="inv-tr5__reviews-link">
-            Read all reviews <span aria-hidden="true">&rarr;</span>
-          </a>
-        </div>
+          </div>
+        {%- endif -%}
 
-        <div class="inv-tr5__ticker" data-itr5-ticker>
-        <div class="inv-tr5__ticker-track" data-itr5-track>
+        <div class="inv-tr5__reviews-grid">
+          {%- assign rendered_reviews = 0 -%}
           {%- for i in (1..10) -%}
+            {%- if rendered_reviews >= 4 -%}{%- break -%}{%- endif -%}
             {%- assign enabled_key = 'review_' | append: i | append: '_enabled' -%}
             {%- assign text_key = 'review_' | append: i | append: '_text' -%}
             {%- assign author_key = 'review_' | append: i | append: '_author' -%}
@@ -214,7 +223,9 @@
               <div class="inv-tr5__review" aria-label="Review by {{ review_author }}">
                 <div class="inv-tr5__review-stars" aria-label="5 out of 5 stars">
                   {%- for s in (1..5) -%}
-                    <span class="inv-tr5__star--filled">&#9733;</span>
+                    <svg class="inv-tr5__star" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" focusable="false" aria-hidden="true">
+                      <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8 5.8 21.3l2.4-7.4L2 9.4h7.6z"/>
+                    </svg>
                   {%- endfor -%}
                 </div>
                 <p class="inv-tr5__review-text">&ldquo;{{ section.settings[text_key] }}&rdquo;</p>
@@ -242,11 +253,22 @@
                   </span>
                 </div>
               </div>
+              {%- assign rendered_reviews = rendered_reviews | plus: 1 -%}
             {%- endif -%}
           {%- endfor -%}
         </div>
+
+        {%- if section.settings.review_link != blank -%}
+          <div class="inv-tr5__reviews-cta">
+            <a href="{{ section.settings.review_link }}" class="inv-tr5__reviews-btn">
+              Read all reviews
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        {%- endif -%}
       </div>
-      </div>{%- comment -%} .inv-tr5__wrap {%- endcomment -%}
     </div>
   {%- endif -%}
 
@@ -254,9 +276,9 @@
 
 <style>
   /* ============================================
-     INVICTA TRUST & REVIEWS v7.0
+     INVICTA TRUST & REVIEWS v8.0
      Trade shop feel. Sharp corners, clean, structural.
-     Scrolling review ticker on light background.
+     Static review grid on light background.
      ============================================ */
 
   #inv-tr5-{{ section.id }} {
@@ -507,7 +529,7 @@
   .inv-tr5__branch-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 50%);
+    background: transparent;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
@@ -515,11 +537,14 @@
   }
 
   .inv-tr5__branch-name {
+    display: inline-block;
     font-size: 14px;
     font-weight: 800;
     color: #fff;
     text-transform: uppercase;
     letter-spacing: 0.06em;
+    background: var(--inv-dark-deep);
+    padding: 6px 14px;
   }
 
   .inv-tr5__branch-badge {
@@ -534,18 +559,14 @@
   }
 
   /* ----------------------------------------
-     PART 3: REVIEWS — scrolling ticker on light
+     PART 3: REVIEWS — static 4-card grid on light
      ---------------------------------------- */
   .inv-tr5__reviews {
     background: var(--itr5-reviews-bg);
     padding: 32px 0 {{ section.settings.padding_bottom | default: 48 }}px;
-    overflow: hidden;
   }
 
   .inv-tr5__reviews-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     margin-bottom: 24px;
   }
 
@@ -557,44 +578,11 @@
     letter-spacing: 0.1em;
   }
 
-  .inv-tr5__reviews-link {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--itr5-accent);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: gap 0.15s ease;
-  }
-
-  .inv-tr5__reviews-link:hover {
-    gap: 10px;
-  }
-
-  /* Ticker container */
-  .inv-tr5__ticker {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
-  }
-
-  .inv-tr5__ticker-track {
-    display: flex;
-    gap: 20px;
-    width: max-content;
-    animation: itr5-scroll 45s linear infinite;
-  }
-
-  .inv-tr5__ticker:hover .inv-tr5__ticker-track {
-    animation-play-state: paused;
-  }
-
-  @keyframes itr5-scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+  /* Static grid: four equal cards on desktop */
+  .inv-tr5__reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
   }
 
   /* Review cards */
@@ -607,18 +595,54 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    width: 340px;
-    min-width: 340px;
-    flex-shrink: 0;
   }
 
   .inv-tr5__review-stars {
-    font-size: 16px;
-    letter-spacing: 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
     line-height: 1;
+    color: #fbbf24;
   }
 
-  .inv-tr5__star--filled { color: #fbbf24; }
+  .inv-tr5__star {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  /* CTA below the grid */
+  .inv-tr5__reviews-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+  }
+
+  .inv-tr5__reviews-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 32px;
+    background: var(--itr5-accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    border-radius: 0;
+    transition: background 0.15s ease;
+  }
+
+  .inv-tr5__reviews-btn:hover { background: var(--itr5-accent-hover); }
+  .inv-tr5__reviews-btn:focus-visible { outline: 2px solid var(--itr5-accent); outline-offset: 2px; }
+
+  .inv-tr5__reviews-btn svg {
+    transition: transform 0.15s ease;
+  }
+
+  .inv-tr5__reviews-btn:hover svg {
+    transform: translateX(3px);
+  }
 
   .inv-tr5__review-text {
     font-size: 14px;
@@ -676,12 +700,20 @@
       min-width: 0;
       flex: 1 1 auto;
     }
+
+    .inv-tr5__reviews-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 749px) {
     .inv-tr5__branches-grid {
       grid-template-columns: 1fr;
       gap: 10px;
+    }
+
+    .inv-tr5__reviews-grid {
+      grid-template-columns: 1fr;
     }
 
     .inv-tr5__branch {
@@ -721,9 +753,12 @@
     }
 
     .inv-tr5__review {
-      width: 290px;
-      min-width: 290px;
       padding: 20px;
+    }
+
+    .inv-tr5__reviews-btn {
+      width: 100%;
+      justify-content: center;
     }
   }
 
@@ -738,16 +773,14 @@
     .inv-tr5__heading {
       font-size: 22px;
     }
-
-    .inv-tr5__review {
-      width: 260px;
-      min-width: 260px;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .inv-tr5__cta, .inv-tr5__rating, .inv-tr5__reviews-link { transition: none; }
-    .inv-tr5__ticker-track { animation: none; }
+    .inv-tr5__cta,
+    .inv-tr5__rating,
+    .inv-tr5__reviews-btn,
+    .inv-tr5__reviews-btn svg { transition: none; }
+    .inv-tr5__reviews-btn:hover svg { transform: none; }
   }
 </style>
 
@@ -815,116 +848,6 @@
     }, { threshold: 0.5 });
     obs.observe(statsWrap);
   }
-
-  /* =========================================
-     TICKER: duplicate track for seamless loop
-     ========================================= */
-  var ticker = section.querySelector('[data-itr5-ticker]');
-  var track = section.querySelector('[data-itr5-track]');
-  if (ticker && track) {
-    var cards = track.querySelectorAll('.inv-tr5__review');
-    if (cards.length > 0) {
-      /* Clone all cards and append for seamless loop */
-      var fragment = document.createDocumentFragment();
-      for (var c = 0; c < cards.length; c++) {
-        var clone = cards[c].cloneNode(true);
-        clone.setAttribute('aria-hidden', 'true');
-        fragment.appendChild(clone);
-      }
-      track.appendChild(fragment);
-    }
-  }
-
-  /* =========================================
-     JUDGE.ME REVIEW FETCH
-     ========================================= */
-  function getJudgeMeToken() {
-    if (window.jdgm && window.jdgm.publicToken) return window.jdgm.publicToken;
-    var scripts = document.querySelectorAll('script[src*="judge.me"]');
-    for (var i = 0; i < scripts.length; i++) {
-      var src = scripts[i].getAttribute('src') || '';
-      var tokenMatch = src.match(/api_token=([^&]+)/);
-      if (tokenMatch) return tokenMatch[1];
-    }
-    return null;
-  }
-
-  function getSourceIcon(source) {
-    if (!source) return '';
-    var s = source.toLowerCase();
-    if (s.indexOf('google') !== -1) {
-      return '<svg width="14" height="14" viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>';
-    }
-    if (s.indexOf('facebook') !== -1) {
-      return '<svg width="14" height="14" viewBox="0 0 24 24" fill="#1877F2" focusable="false" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>';
-    }
-    if (s.indexOf('trustpilot') !== -1) {
-      return '<svg width="14" height="14" viewBox="0 0 24 24" fill="#00b67a" focusable="false" aria-hidden="true"><path d="M12 0l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 0z"/></svg>';
-    }
-    return '';
-  }
-
-  function getSourceLabel(source) {
-    if (!source) return 'Review';
-    var s = source.toLowerCase();
-    if (s.indexOf('google') !== -1) return 'Google';
-    if (s.indexOf('facebook') !== -1) return 'Facebook';
-    if (s.indexOf('trustpilot') !== -1) return 'Trustpilot';
-    return source;
-  }
-
-  function renderStars(rating) {
-    var html = '';
-    for (var i = 1; i <= 5; i++) {
-      html += '<span class="inv-tr5__star--' + (i <= rating ? 'filled' : 'empty') + '">&#9733;</span>';
-    }
-    return html;
-  }
-
-  function buildReviewCard(review) {
-    var name = (review.reviewer && review.reviewer.name) ? review.reviewer.name : (review.author || 'Customer');
-    var rating = review.rating || 5;
-    var text = review.body || review.text || '';
-    var source = review.source || 'Judge.me';
-
-    return '<div class="inv-tr5__review" aria-hidden="true">' +
-      '<div class="inv-tr5__review-stars" aria-label="' + rating + ' out of 5 stars">' + renderStars(rating) + '</div>' +
-      '<p class="inv-tr5__review-text">&ldquo;' + text.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '&rdquo;</p>' +
-      '<div class="inv-tr5__review-footer">' +
-        '<span class="inv-tr5__review-author">' + name.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</span>' +
-        '<span class="inv-tr5__review-source">' + getSourceIcon(source) + ' ' + getSourceLabel(source) + '</span>' +
-      '</div>' +
-    '</div>';
-  }
-
-  function replaceTickerWithLiveReviews(reviews) {
-    var trackEl = section.querySelector('[data-itr5-track]');
-    if (!trackEl || reviews.length === 0) return;
-    var html = '';
-    var count = Math.min(reviews.length, 10);
-    for (var i = 0; i < count; i++) {
-      html += buildReviewCard(reviews[i]);
-    }
-    /* Duplicate for seamless loop */
-    trackEl.innerHTML = html + html;
-  }
-
-  function fetchJudgeMeReviews() {
-    var token = getJudgeMeToken();
-    if (!token) return;
-    var shopDomain = (window.Shopify && window.Shopify.shop) ? window.Shopify.shop : 'invictatools.co.uk';
-    var url = 'https://judge.me/api/v1/reviews?shop_domain=' + encodeURIComponent(shopDomain) +
-              '&api_token=' + encodeURIComponent(token) + '&per_page=15&sort_by=most_helpful';
-    fetch(url)
-      .then(function(res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
-      .then(function(data) {
-        var reviews = data.reviews || data.data || [];
-        if (reviews.length > 0) replaceTickerWithLiveReviews(reviews);
-      })
-      .catch(function() { /* keep hardcoded fallbacks */ });
-  }
-
-  fetchJudgeMeReviews();
 
   /* =========================================
      SHOPIFY EDITOR EVENTS
