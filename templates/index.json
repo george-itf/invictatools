@@ -79,6 +79,7 @@
     },
     "spotlight": {
       "type": "invicta-spotlight",
+      "disabled": true,
       "settings": {
         "primary_image": "shopify://shop_images/VIPER_SQUARE.svg",
         "primary_link": "shopify://collections/viper-1",
@@ -233,7 +234,7 @@
             "theme": "dark",
             "custom_color": "",
             "eyebrow": "SPECIAL OFFER",
-            "heading": "10 FREE TUBS OF SCREWS",
+            "heading": "GET 10 FREE TUBS OF SCREWS!",
             "sub": "Buy any 10 tubs from the following range  and get 10 free!",
             "cta_text": "Shop now",
             "link": "shopify://collections/bulk-screw-deal"
@@ -242,8 +243,8 @@
         "deal_3": {
           "type": "deal",
           "settings": {
-            "theme": "green",
-            "custom_color": "",
+            "theme": "custom",
+            "custom_color": "#3a98ae",
             "eyebrow": "NEW RANGE",
             "heading": "EXCLUSIVE MAKITA CLOTHING",
             "sub": "Browse and pre-order Makita's new range of workwear and leisurewear.",
