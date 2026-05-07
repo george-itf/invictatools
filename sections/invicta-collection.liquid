@@ -119,6 +119,27 @@
         </p>
       {%- endif -%}
 
+      {%- comment -%} Deal banner — editable callout, hidden when heading is blank {%- endcomment -%}
+      {%- assign deal_heading = section.settings.deal_heading -%}
+      {%- if deal_heading != blank -%}
+        <div class="inv-hero__deal" role="region" aria-label="How this deal works">
+          {%- if section.settings.deal_eyebrow != blank -%}
+            <span class="inv-hero__deal-eyebrow">{{ section.settings.deal_eyebrow | escape }}</span>
+          {%- endif -%}
+          <p class="inv-hero__deal-heading">{{ deal_heading | escape }}</p>
+          {%- if section.settings.deal_step_1 != blank or section.settings.deal_step_2 != blank or section.settings.deal_step_3 != blank -%}
+            <ol class="inv-hero__deal-steps">
+              {%- if section.settings.deal_step_1 != blank -%}<li>{{ section.settings.deal_step_1 | escape }}</li>{%- endif -%}
+              {%- if section.settings.deal_step_2 != blank -%}<li>{{ section.settings.deal_step_2 | escape }}</li>{%- endif -%}
+              {%- if section.settings.deal_step_3 != blank -%}<li>{{ section.settings.deal_step_3 | escape }}</li>{%- endif -%}
+            </ol>
+          {%- endif -%}
+          {%- if section.settings.deal_note != blank -%}
+            <p class="inv-hero__deal-note">{{ section.settings.deal_note | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
     </div>
   </section>
   
@@ -442,6 +463,43 @@
       "id": "hero_subheading",
       "label": "Subheading",
       "default": "Power tools, fixings and accessories for professionals."
+    },
+    {
+      "type": "header",
+      "content": "Deal Banner (optional)"
+    },
+    {
+      "type": "text",
+      "id": "deal_eyebrow",
+      "label": "Eyebrow text",
+      "info": "Small label pill above the deal heading"
+    },
+    {
+      "type": "text",
+      "id": "deal_heading",
+      "label": "Deal heading",
+      "info": "Leave blank to hide the banner"
+    },
+    {
+      "type": "text",
+      "id": "deal_step_1",
+      "label": "Step 1"
+    },
+    {
+      "type": "text",
+      "id": "deal_step_2",
+      "label": "Step 2"
+    },
+    {
+      "type": "text",
+      "id": "deal_step_3",
+      "label": "Step 3"
+    },
+    {
+      "type": "text",
+      "id": "deal_note",
+      "label": "Footnote",
+      "info": "Small print under the steps"
     },
     {
       "type": "header",
