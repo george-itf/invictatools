@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "invicta_collection_main": {
+      "type": "invicta-collection",
+      "settings": {
+        "hero_subheading": "",
+        "deal_eyebrow": "MIX & MATCH DEAL",
+        "deal_heading": "Buy any 10 tubs, get 10 FREE",
+        "deal_step_1": "Pick any 10 tubs from the range below — mix brands and sizes however you like.",
+        "deal_step_2": "Add 10 more tubs to your basket — your second 10 are on us.",
+        "deal_step_3": "Discount applied automatically at checkout.",
+        "deal_note": "Offer applies to tubs shown on this page only. While stocks last.",
+        "products_per_page": 24,
+        "show_sort": true,
+        "apply_text": "Apply Filters"
+      }
+    }
+  },
+  "order": [
+    "invicta_collection_main"
+  ]
+}
