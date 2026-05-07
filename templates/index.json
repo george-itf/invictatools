@@ -174,11 +174,22 @@
         "cat_6": {
           "type": "category",
           "settings": {
-            "title": "Power Tool Kits",
+            "title": "Tool Kits",
             "description": "",
             "collection": "power-tools-kits",
             "custom_link": "",
             "icon": "storage",
+            "show_count": true
+          }
+        },
+        "cat_7": {
+          "type": "category",
+          "settings": {
+            "title": "PPE",
+            "description": "",
+            "collection": "workwear-safety",
+            "custom_link": "",
+            "icon": "ppe",
             "show_count": true
           }
         }
@@ -189,15 +200,16 @@
         "cat_3",
         "cat_4",
         "cat_5",
-        "cat_6"
+        "cat_6",
+        "cat_7"
       ],
       "settings": {
         "heading": "Shop by Category",
-        "heading_link": "",
-        "heading_link_text": "View all categories",
-        "columns_desktop": 6,
-        "background_color": "#f5f5f5",
-        "padding_top": 32,
+        "heading_link": "shopify://collections",
+        "heading_link_text": "View All",
+        "columns_desktop": 7,
+        "background_color": "#ffffff",
+        "padding_top": 40,
         "padding_bottom": 32
       }
     },
