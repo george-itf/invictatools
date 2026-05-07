@@ -16,7 +16,7 @@
         "eyebrow_text": "Authorised UK Dealer · Est. 1996",
         "heading": "PROFESSIONAL TOOLS AT GREAT PRICES",
         "description": "Kent's leading tools & fixings supplier. Over 10,000+ products from major brands, backed by full manufacturer warranty and free next-day delivery*",
-        "hero_image": "shopify://shop_images/MAKDCJ205_A__82763.jpg",
+        "hero_image": "shopify://shop_images/makita-tool-set.jpg",
         "button_text": "SEE DEALS AND OFFERS",
         "button_link": "shopify://collections/deals-and-sales",
         "secondary_text": "ABOUT US",
@@ -79,6 +79,7 @@
     },
     "spotlight": {
       "type": "invicta-spotlight",
+      "disabled": true,
       "settings": {
         "primary_image": "shopify://shop_images/VIPER_SQUARE.svg",
         "primary_link": "shopify://collections/viper-1",
@@ -117,6 +118,7 @@
           "type": "category",
           "settings": {
             "title": "Cordless Drills",
+            "description": "",
             "collection": "drilling-driving",
             "custom_link": "",
             "icon": "drill",
@@ -128,6 +130,7 @@
           "type": "category",
           "settings": {
             "title": "Grinders",
+            "description": "",
             "collection": "grinding",
             "custom_link": "",
             "icon": "grinder",
@@ -139,6 +142,7 @@
           "type": "category",
           "settings": {
             "title": "Nailers",
+            "description": "",
             "collection": "nailing-fastening",
             "custom_link": "",
             "icon": "impact",
@@ -149,6 +153,7 @@
           "type": "category",
           "settings": {
             "title": "Batteries",
+            "description": "",
             "collection": "batteries-chargers",
             "custom_link": "",
             "icon": "battery",
@@ -159,6 +164,7 @@
           "type": "category",
           "settings": {
             "title": "Saws",
+            "description": "",
             "collection": "sawing-cutting",
             "custom_link": "",
             "icon": "saw",
@@ -169,6 +175,7 @@
           "type": "category",
           "settings": {
             "title": "Power Tool Kits",
+            "description": "",
             "collection": "power-tools-kits",
             "custom_link": "",
             "icon": "storage",
@@ -185,10 +192,31 @@
         "cat_6"
       ],
       "settings": {
+        "heading": "Shop by Category",
+        "heading_link": "",
+        "heading_link_text": "View all categories",
         "columns_desktop": 6,
         "background_color": "#f5f5f5",
         "padding_top": 32,
         "padding_bottom": 32
+      }
+    },
+    "invicta_deal_feature_3gXEtm": {
+      "type": "invicta-deal-feature",
+      "name": "Deal Feature",
+      "settings": {
+        "eyebrow_text": "Deal of the Week",
+        "heading": "FREE HEATED JACKET WORTH £79.99",
+        "description": "Buy 10x Abracs ABDD30020M Diamond Blades and choose a free Heated Jacket. While stocks last.",
+        "value_was": "£79.99",
+        "value_now": "Free with purchase",
+        "button_text": "GET THIS DEAL",
+        "button_link": "shopify://products/abracs-dynamo-diamond-blade-300-x-10-x-20mm",
+        "countdown_end": "2026-05-14T23:59:00",
+        "hero_image": "shopify://shop_images/MAKDCJ205_A__82763.jpg",
+        "background_color": "#0f0f0f",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "invicta_homepage_products_UrjJbU": {
@@ -583,6 +611,7 @@
     "trust_strip",
     "spotlight",
     "quick_cats",
+    "invicta_deal_feature_3gXEtm",
     "invicta_homepage_products_UrjJbU",
     "invicta_brand_strip_V8j69P",
     "trust_reviews",
