@@ -6,14 +6,6 @@
   description right, arrow on the right edge. Section header with optional
   "view all" link sits above the grid.
 
-  Updates in v3.0:
-  - Section header (heading + optional view-all link, inv-pw-header style)
-  - 4x2 desktop grid (configurable, default 4 columns)
-  - Horizontal cards: icon | (title + description) | arrow
-  - Optional description per block
-  - Hover: red border, red arrow, elevated background
-  - 2-column mobile fallback retains horizontal layout
-
   Trade 15.4.0 Compatible
   ============================================================================
 {% endcomment %}
@@ -29,13 +21,7 @@
 -%}
 
 <style>
-  /* ============================================================================
-     QUICK CATEGORIES v3.0 — EDITORIAL NAV GRID
-     ============================================================================ */
-
-  #shopify-section-{{ section.id }} {
-    display: block;
-  }
+  #shopify-section-{{ section.id }} { display: block; }
 
   #shopify-section-{{ section.id }} .inv-quick-cats {
     display: block;
@@ -50,7 +36,6 @@
     padding: 0 var(--inv-page-gutter, 1.5rem);
   }
 
-  /* --- Section header (matches inv-pw-header pattern) --- */
   #shopify-section-{{ section.id }} .inv-quick-cats__header {
     display: flex;
     align-items: flex-end;
@@ -86,18 +71,14 @@
     transition: gap var(--inv-duration-normal) ease;
   }
 
-  #shopify-section-{{ section.id }} .inv-quick-cats__view-all:hover {
-    gap: 10px;
-  }
+  #shopify-section-{{ section.id }} .inv-quick-cats__view-all:hover { gap: 10px; }
 
-  /* --- Grid --- */
   #shopify-section-{{ section.id }} .inv-quick-cats__grid {
     display: grid;
     grid-template-columns: repeat({{ cols_desktop }}, 1fr);
     gap: var(--inv-space-sm-plus);
   }
 
-  /* --- Card: horizontal layout, icon | text | arrow --- */
   #shopify-section-{{ section.id }} .inv-quick-cats__card {
     position: relative;
     display: grid;
@@ -124,7 +105,6 @@
     outline-offset: var(--inv-focus-ring-offset);
   }
 
-  /* --- Icon (square) --- */
   #shopify-section-{{ section.id }} .inv-quick-cats__icon {
     display: flex;
     width: 44px;
@@ -152,11 +132,9 @@
     height: 24px;
     object-fit: contain;
     display: block;
-    /* Force imported SVG icons to render white on dark icon tile */
     filter: brightness(0) invert(1);
   }
 
-  /* --- Body (title + description stacked) --- */
   #shopify-section-{{ section.id }} .inv-quick-cats__body {
     display: flex;
     flex-direction: column;
@@ -194,7 +172,6 @@
     margin-top: 2px;
   }
 
-  /* --- Arrow (right edge) --- */
   #shopify-section-{{ section.id }} .inv-quick-cats__arrow {
     color: var(--inv-fg-subtle);
     font-size: 18px;
@@ -209,25 +186,18 @@
     transform: translateX(2px);
   }
 
-  /* --- Empty state --- */
   #shopify-section-{{ section.id }} .inv-quick-cats__empty {
     text-align: center;
     padding: var(--inv-space-xl) 0;
     color: var(--inv-fg-muted);
   }
 
-  /* ----------------------------------------
-     TABLET (750-989px)
-     ---------------------------------------- */
   @media (max-width: 989px) {
     #shopify-section-{{ section.id }} .inv-quick-cats__grid {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
-  /* ----------------------------------------
-     MOBILE (<750px)
-     ---------------------------------------- */
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} .inv-quick-cats__container {
       padding-left: var(--inv-mobile-gutter);
@@ -256,13 +226,8 @@
       height: 18px;
     }
 
-    #shopify-section-{{ section.id }} .inv-quick-cats__title {
-      font-size: 12px;
-    }
-
-    #shopify-section-{{ section.id }} .inv-quick-cats__desc {
-      font-size: 10px;
-    }
+    #shopify-section-{{ section.id }} .inv-quick-cats__title { font-size: 12px; }
+    #shopify-section-{{ section.id }} .inv-quick-cats__desc { font-size: 10px; }
 
     #shopify-section-{{ section.id }} .inv-quick-cats__header {
       flex-direction: column;
@@ -270,25 +235,15 @@
       gap: var(--inv-space-sm);
     }
 
-    #shopify-section-{{ section.id }} .inv-quick-cats__arrow {
-      display: none;
-    }
+    #shopify-section-{{ section.id }} .inv-quick-cats__arrow { display: none; }
   }
 
-  /* ----------------------------------------
-     REDUCED MOTION
-     ---------------------------------------- */
   @media (prefers-reduced-motion: reduce) {
     #shopify-section-{{ section.id }} .inv-quick-cats__card,
     #shopify-section-{{ section.id }} .inv-quick-cats__icon,
     #shopify-section-{{ section.id }} .inv-quick-cats__arrow,
-    #shopify-section-{{ section.id }} .inv-quick-cats__view-all {
-      transition: none;
-    }
-
-    #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__arrow {
-      transform: none;
-    }
+    #shopify-section-{{ section.id }} .inv-quick-cats__view-all { transition: none; }
+    #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__arrow { transform: none; }
   }
 </style>
 
@@ -315,9 +270,6 @@
         {%- for block in section.blocks -%}
 
           {%- liquid
-            # ================================================================
-            # URL RESOLUTION
-            # ================================================================
             assign cat_url = '#'
             assign cat_collection_setting = block.settings.collection
             assign cat_custom_link = block.settings.custom_link
@@ -354,20 +306,10 @@
             endif
           -%}
 
-          <a
-            href="{{ cat_url }}"
-            class="inv-quick-cats__card"
-            {{ block.shopify_attributes }}
-          >
+          <a href="{{ cat_url }}" class="inv-quick-cats__card" {{ block.shopify_attributes }}>
             <div class="inv-quick-cats__icon">
               {%- if cat_custom_icon != blank -%}
-                <img
-                  src="{{ cat_custom_icon | image_url: width: 48 }}"
-                  alt=""
-                  width="24"
-                  height="24"
-                  loading="lazy"
-                >
+                <img src="{{ cat_custom_icon | image_url: width: 48 }}" alt="" width="24" height="24" loading="lazy">
               {%- else -%}
                 {%- case cat_icon -%}
                   {%- when 'drill' -%}
@@ -425,98 +367,25 @@
   "class": "section-quick-cats",
   "max_blocks": 8,
   "settings": [
-    {
-      "type": "header",
-      "content": "Header"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Shop by Category"
-    },
-    {
-      "type": "url",
-      "id": "heading_link",
-      "label": "View-all link",
-      "info": "Optional. Right-aligned link in the header."
-    },
-    {
-      "type": "text",
-      "id": "heading_link_text",
-      "label": "View-all link text",
-      "default": "View all categories"
-    },
-    {
-      "type": "header",
-      "content": "Layout"
-    },
-    {
-      "type": "range",
-      "id": "columns_desktop",
-      "label": "Columns (Desktop)",
-      "info": "Number of columns on desktop screens",
-      "min": 3,
-      "max": 8,
-      "step": 1,
-      "default": 4
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background Colour",
-      "default": "#ffffff"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "label": "Padding Top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "default": 40,
-      "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "label": "Padding Bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "default": 40,
-      "unit": "px"
-    }
+    { "type": "header", "content": "Header" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop by Category" },
+    { "type": "url", "id": "heading_link", "label": "View-all link", "info": "Optional. Right-aligned link in the header." },
+    { "type": "text", "id": "heading_link_text", "label": "View-all link text", "default": "View all categories" },
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "columns_desktop", "label": "Columns (Desktop)", "min": 3, "max": 8, "step": 1, "default": 4 },
+    { "type": "color", "id": "background_color", "label": "Background Colour", "default": "#ffffff" },
+    { "type": "range", "id": "padding_top", "label": "Padding Top", "min": 0, "max": 100, "step": 4, "default": 40, "unit": "px" },
+    { "type": "range", "id": "padding_bottom", "label": "Padding Bottom", "min": 0, "max": 100, "step": 4, "default": 40, "unit": "px" }
   ],
   "blocks": [
     {
       "type": "category",
       "name": "Category",
       "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Title",
-          "default": "Cordless Drills"
-        },
-        {
-          "type": "text",
-          "id": "description",
-          "label": "Description",
-          "info": "Short subtitle (e.g. 'Drills, grinders, saws'). Optional.",
-          "default": ""
-        },
-        {
-          "type": "collection",
-          "id": "collection",
-          "label": "Collection"
-        },
-        {
-          "type": "url",
-          "id": "custom_link",
-          "label": "Custom Link",
-          "info": "Used if no collection selected"
-        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Cordless Drills" },
+        { "type": "text", "id": "description", "label": "Description", "info": "Short subtitle (e.g. 'Drills, grinders, saws'). Optional." },
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "url", "id": "custom_link", "label": "Custom Link", "info": "Used if no collection selected" },
         {
           "type": "select",
           "id": "icon",
@@ -535,28 +404,15 @@
             { "value": "adhesive", "label": "Adhesive / Sealant" }
           ]
         },
-        {
-          "type": "image_picker",
-          "id": "custom_icon",
-          "label": "Custom Icon Image",
-          "info": "Overrides built-in icon. Will be inverted to white via filter."
-        },
-        {
-          "type": "checkbox",
-          "id": "show_count",
-          "label": "Show product count",
-          "default": false
-        }
+        { "type": "image_picker", "id": "custom_icon", "label": "Custom Icon Image", "info": "Overrides built-in icon. Will be inverted to white." },
+        { "type": "checkbox", "id": "show_count", "label": "Show product count", "default": false }
       ]
     }
   ],
   "presets": [
     {
       "name": "Quick Categories",
-      "settings": {
-        "heading": "Shop by Category",
-        "columns_desktop": 4
-      },
+      "settings": { "heading": "Shop by Category", "columns_desktop": 4 },
       "blocks": [
         { "type": "category", "settings": { "title": "Cordless Drills", "description": "Drills & impact drivers", "icon": "drill" } },
         { "type": "category", "settings": { "title": "Grinders", "description": "Angle, die, surface", "icon": "grinder" } },
