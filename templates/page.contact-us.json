@@ -6,10 +6,7 @@
         "eyebrow": "Get in touch",
         "title": "Contact us",
         "subtitle": "Drop us a message or stop by one of our Kent branches — we're always happy to help with quotes, product advice or trade-account enquiries.",
-        "show_breadcrumb": true,
-        "align": "left",
-        "max_width": 1200,
-        "accent_color": "#e11d26"
+        "max_width": 1200
       }
     },
     "contact": {
@@ -40,12 +37,7 @@
         "branch_canterbury"
       ],
       "settings": {
-        "heading": "Send us a message",
-        "subheading": "Questions, quotes, or product advice — drop us a line and we'll get back to you fast.",
-        "aside_heading": "Visit a branch",
-        "background_color": "#ffffff",
-        "padding_top": 8,
-        "padding_bottom": 72
+        "padding_top": 8
       }
     }
   },

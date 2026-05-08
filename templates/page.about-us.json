@@ -1,0 +1,29 @@
+{
+  "sections": {
+    "header": {
+      "type": "invicta-page-header",
+      "settings": {
+        "eyebrow": "Since 1996",
+        "subtitle": "Kent's leading tools and fixings supplier — proudly serving tradespeople and DIYers from our Canterbury and Ramsgate branches."
+      }
+    },
+    "content": {
+      "type": "invicta-page-content"
+    },
+    "help": {
+      "type": "invicta-help-cta",
+      "settings": {
+        "eyebrow": "Want a chat?",
+        "heading": "Drop in or get in touch",
+        "text": "Whether it's product advice, a quote, or a trade account — we're always happy to help.",
+        "cta_text": "Contact us",
+        "cta_link": "shopify://pages/contact-us"
+      }
+    }
+  },
+  "order": [
+    "header",
+    "content",
+    "help"
+  ]
+}
