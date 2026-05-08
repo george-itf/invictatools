@@ -51,18 +51,18 @@
         "brand_everbuild": {
           "type": "category",
           "settings": {
-            "collection": "everbuild",
+            "collection": "brand-everbuild",
             "title": "Everbuild",
-            "link": "/pages/everbuild",
+            "link": "",
             "image": "shopify://shop_images/everbuild.svg"
           }
         },
         "brand_evostik": {
           "type": "category",
           "settings": {
-            "collection": "evostik",
+            "collection": "evostick",
             "title": "Evo-Stik",
-            "link": "/pages/evo-stik",
+            "link": "",
             "image": "shopify://shop_images/evostik.svg"
           }
         },
@@ -71,7 +71,7 @@
           "settings": {
             "collection": "faithfull",
             "title": "Faithfull",
-            "link": "/pages/faithfull",
+            "link": "",
             "image": "shopify://shop_images/faithfull.svg"
           }
         },
@@ -80,7 +80,7 @@
           "settings": {
             "collection": "gorilla",
             "title": "Gorilla",
-            "link": "/pages/gorilla",
+            "link": "",
             "image": "shopify://shop_images/gorilla.svg"
           }
         },
@@ -89,16 +89,16 @@
           "settings": {
             "collection": "hikoki",
             "title": "HiKOKI",
-            "link": "/pages/hikoki",
+            "link": "",
             "image": "shopify://shop_images/hikoki.svg"
           }
         },
         "brand_irwin": {
           "type": "category",
           "settings": {
-            "collection": "irwin",
+            "collection": "brand-irwin",
             "title": "Irwin",
-            "link": "/pages/irwin",
+            "link": "",
             "image": "shopify://shop_images/irwin.svg"
           }
         },
@@ -107,7 +107,7 @@
           "settings": {
             "collection": "kamtec",
             "title": "Kamtec",
-            "link": "/pages/kamtec",
+            "link": "",
             "image": "shopify://shop_images/kamtec.svg"
           }
         },
@@ -116,7 +116,7 @@
           "settings": {
             "collection": "lamello",
             "title": "Lamello",
-            "link": "/pages/lamello",
+            "link": "",
             "image": "shopify://shop_images/lamello-sq.png"
           }
         },
