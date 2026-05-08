@@ -24,9 +24,34 @@
 {%- liquid
   assign align = section.settings.align | default: 'left'
   assign show_breadcrumb = section.settings.show_breadcrumb
-  assign bg = section.settings.background_color | default: '#f5f5f6'
   assign accent = section.settings.accent_color | default: '#e11d26'
-  assign max_width = section.settings.max_width | default: 760
+
+  # Detect contact pages so we can force the 2-column header look
+  # even when this store's Shopify settings cache is stuck on stale
+  # values for the contact templates (the .json template files
+  # carry an auto-generated banner indicating they're managed by
+  # Shopify's customizer, and pushed git changes to those files
+  # don't always take effect on this install — but the .liquid
+  # section file deploys reliably, so we anchor the override here).
+  assign is_contact = false
+  if template.suffix == 'contact' or template.suffix == 'contact-us'
+    assign is_contact = true
+  endif
+
+  if is_contact
+    assign bg = '#f5f5f6'
+    assign max_width = 1200
+    assign padding_top_value = 32
+    assign padding_bottom_value = 24
+  else
+    assign bg = section.settings.background_color | default: '#f5f5f6'
+    assign max_width = section.settings.max_width | default: 760
+    assign padding_top_value = section.settings.padding_top | default: 32
+    assign padding_bottom_value = section.settings.padding_bottom | default: 24
+  endif
+
+  assign right_html = section.settings.right_text
+
   assign title_text = section.settings.title
   if title_text == blank
     if request.page_type == 'policy' and policy.title != blank
@@ -37,9 +62,13 @@
   endif
 -%}
 
-<!-- INVICTA-DEBUG: invicta-page-header rendered. page_type={{ request.page_type }} | template.name={{ template.name }} | template.suffix={{ template.suffix }} -->
+{%- if right_html == blank and is_contact -%}
+  {%- capture right_html -%}<p><strong>Or call us</strong></p><p><a href="tel:01843210459">01843 210459</a> &middot; Ramsgate<br><a href="tel:01227458333">01227 458333</a> &middot; Canterbury</p><p>Mon&ndash;Fri 07:30&ndash;17:00<br>Sat 08:00&ndash;12:00</p>{%- endcapture -%}
+{%- endif -%}
+
+<!-- INVICTA-DEBUG: invicta-page-header rendered. page_type={{ request.page_type }} | template.name={{ template.name }} | template.suffix={{ template.suffix }} | is_contact={{ is_contact }} | right_html_blank={% if right_html == blank %}yes{% else %}no{% endif %} -->
 <section
-  class="inv-page-header inv-page-header--{{ align }}{% if section.settings.right_text != blank %} inv-page-header--split{% endif %}"
+  class="inv-page-header inv-page-header--{{ align }}{% if right_html != blank %} inv-page-header--split{% endif %}"
   id="page-header-{{ section.id }}"
   aria-label="{{ title_text | escape }}"
 >
@@ -66,9 +95,9 @@
       {%- endif -%}
     </div>
 
-    {%- if section.settings.right_text != blank -%}
+    {%- if right_html != blank -%}
       <aside class="inv-page-header__aside">
-        {{ section.settings.right_text }}
+        {{ right_html }}
       </aside>
     {%- endif -%}
   </div>
@@ -77,8 +106,8 @@
 <style>
   #page-header-{{ section.id }} {
     background: {{ bg }};
-    padding-top: {{ section.settings.padding_top | default: 32 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | default: 24 }}px;
+    padding-top: {{ padding_top_value }}px;
+    padding-bottom: {{ padding_bottom_value }}px;
     border-bottom: 3px solid {{ accent }};
   }
 
@@ -198,8 +227,8 @@
 
   @media (max-width: 749px) {
     #page-header-{{ section.id }} {
-      padding-top: {{ section.settings.padding_top | times: 0.75 | round | default: 24 }}px;
-      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round | default: 18 }}px;
+      padding-top: {{ padding_top_value | times: 0.75 | round }}px;
+      padding-bottom: {{ padding_bottom_value | times: 0.75 | round }}px;
     }
 
     #page-header-{{ section.id }} .inv-page-header__container {
