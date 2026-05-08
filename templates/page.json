@@ -1,14 +1,28 @@
 {
   "sections": {
-    "main": {
-      "type": "main-page",
+    "header": {
+      "type": "invicta-page-header",
       "settings": {
-        "padding_top": 28,
+        "show_breadcrumb": true,
+        "align": "left",
+        "background_color": "#ffffff",
+        "accent_color": "#e11d26",
+        "padding_top": 56,
         "padding_bottom": 28
+      }
+    },
+    "content": {
+      "type": "invicta-page-content",
+      "settings": {
+        "max_width": 760,
+        "background_color": "#ffffff",
+        "padding_top": 32,
+        "padding_bottom": 64
       }
     }
   },
   "order": [
-    "main"
+    "header",
+    "content"
   ]
 }

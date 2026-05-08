@@ -1,0 +1,237 @@
+{% comment %}
+  ============================================================================
+  INVICTA PAGE HEADER v1.0 — Branded title bar for info / policy pages
+  ============================================================================
+  Light section with a red accent rule above a Barlow Condensed display title,
+  plus optional eyebrow, subtitle and breadcrumb. Designed as a calm,
+  policy-friendly counterpart to the heavy hero used on the homepage.
+
+  Typically paired with `invicta-page-content` beneath it.
+
+  Trade 15.4.0 Compatible
+  ============================================================================
+{% endcomment %}
+
+{%- liquid
+  assign align = section.settings.align | default: 'left'
+  assign show_breadcrumb = section.settings.show_breadcrumb
+  assign bg = section.settings.background_color | default: '#ffffff'
+  assign accent = section.settings.accent_color | default: '#e11d26'
+  assign title_text = section.settings.title
+  if title_text == blank and page.title != blank
+    assign title_text = page.title
+  endif
+-%}
+
+<section
+  class="inv-page-header inv-page-header--{{ align }}"
+  id="page-header-{{ section.id }}"
+  aria-label="{{ title_text | escape }}"
+>
+  <div class="inv-page-header__container">
+    {%- if show_breadcrumb -%}
+      <nav class="inv-page-header__breadcrumb" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{{ title_text | escape }}</span>
+      </nav>
+    {%- endif -%}
+
+    <span class="inv-page-header__rule" aria-hidden="true"></span>
+
+    {%- if section.settings.eyebrow != blank -%}
+      <span class="inv-page-header__eyebrow">{{ section.settings.eyebrow | escape }}</span>
+    {%- endif -%}
+
+    {%- if title_text != blank -%}
+      <h1 class="inv-page-header__title">{{ title_text }}</h1>
+    {%- endif -%}
+
+    {%- if section.settings.subtitle != blank -%}
+      <p class="inv-page-header__subtitle">{{ section.settings.subtitle | escape }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #page-header-{{ section.id }} {
+    background: {{ bg }};
+    padding-top: {{ section.settings.padding_top | default: 56 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 28 }}px;
+    border-bottom: 1px solid var(--inv-border-subtle);
+  }
+
+  #page-header-{{ section.id }} .inv-page-header__container {
+    max-width: var(--inv-container-narrow, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--inv-page-gutter, 1.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #page-header-{{ section.id }}.inv-page-header--center .inv-page-header__container {
+    text-align: center;
+    align-items: center;
+  }
+
+  #page-header-{{ section.id }} .inv-page-header__breadcrumb {
+    font-size: 12px;
+    color: var(--inv-fg-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  #page-header-{{ section.id }} .inv-page-header__breadcrumb a {
+    color: var(--inv-fg-muted);
+    text-decoration: none;
+    transition: color var(--inv-duration-normal) ease;
+  }
+
+  #page-header-{{ section.id }} .inv-page-header__breadcrumb a:hover {
+    color: {{ accent }};
+  }
+
+  #page-header-{{ section.id }} .inv-page-header__breadcrumb span[aria-current] {
+    color: var(--inv-fg);
+  }
+
+  #page-header-{{ section.id }} .inv-page-header__rule {
+    display: block;
+    width: 56px;
+    height: 4px;
+    background: {{ accent }};
+    margin-top: 4px;
+  }
+
+  #page-header-{{ section.id }} .inv-page-header__eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    color: {{ accent }};
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    margin-top: 6px;
+  }
+
+  #page-header-{{ section.id }} .inv-page-header__title {
+    font-family: var(--inv-font-display);
+    font-size: clamp(34px, 4.2vw, 56px);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.5px;
+    color: var(--inv-fg);
+    text-transform: uppercase;
+    margin: 4px 0 0 0;
+  }
+
+  #page-header-{{ section.id }} .inv-page-header__subtitle {
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--inv-fg-muted);
+    max-width: 640px;
+    margin: 6px 0 0 0;
+  }
+
+  @media (max-width: 749px) {
+    #page-header-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | times: 0.7 | round | default: 40 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.7 | round | default: 20 }}px;
+    }
+
+    #page-header-{{ section.id }} .inv-page-header__container {
+      padding-left: var(--inv-mobile-gutter);
+      padding-right: var(--inv-mobile-gutter);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Page Header",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow (optional)",
+      "info": "Small uppercase label shown above the title."
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "info": "Leave blank to use the page title automatically."
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle (optional)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumb",
+      "label": "Show breadcrumb (Home / Page)",
+      "default": true
+    },
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "align",
+      "label": "Alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Centre" }
+      ]
+    },
+    { "type": "header", "content": "Style" },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent rule colour",
+      "default": "#e11d26"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 24,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Header",
+      "settings": {
+        "show_breadcrumb": true,
+        "align": "left"
+      }
+    }
+  ]
+}
+{% endschema %}
