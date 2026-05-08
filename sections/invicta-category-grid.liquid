@@ -77,14 +77,19 @@
                 endif
               endif
 
-              # Look up the brand colour for this card's collection.
-              # Empty when the brand isn't in the database.
+              # Resolve the card image-area background:
+              # 1. Per-block colour override (set in the editor)
+              # 2. Brand-database lookup if Use brand colour is enabled
+              # 3. Otherwise empty -> falls back to section image_bg via CSS
               assign card_brand_bg = ''
-              if section.settings.use_brand_colors and card_collection != blank
+              assign brand_lookup_key = ''
+              if block.settings.brand_color != blank
+                assign card_brand_bg = block.settings.brand_color
+              elsif section.settings.use_brand_colors and card_collection != blank
                 assign brand_lookup_key = card_collection.handle | default: card_title
               endif
             -%}
-            {%- if section.settings.use_brand_colors and brand_lookup_key != blank -%}
+            {%- if card_brand_bg == '' and brand_lookup_key != blank -%}
               {%- capture card_brand_bg -%}{%- render 'invicta-brand-pill', vendor: brand_lookup_key, type: 'color' -%}{%- endcapture -%}
               {%- assign card_brand_bg = card_brand_bg | strip -%}
             {%- endif -%}
@@ -645,6 +650,12 @@
           "id": "image",
           "label": "Image override",
           "info": "Leave blank to use collection image."
+        },
+        {
+          "type": "color",
+          "id": "brand_color",
+          "label": "Card colour",
+          "info": "Optional. Sets the image area background for this card. Wins over the auto brand-colour lookup."
         }
       ]
     }
