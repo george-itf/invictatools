@@ -35,6 +35,7 @@
     --inv-cat-card-hover-border: {{ section.settings.card_hover_border }};
     --inv-cat-title-color: {{ section.settings.title_color }};
     --inv-cat-heading-color: {{ section.settings.heading_color }};
+    --inv-cat-image-bg: {{ section.settings.image_bg }};
   "
 >
   <div class="inv-cat-grid__container page-width">
@@ -97,13 +98,11 @@
             <a
               href="{{ card_link | default: '#' }}"
               class="inv-cat-card"
+              {% if card_brand_bg != '' %}style="--inv-cat-image-bg: {{ card_brand_bg }};"{% endif %}
               {{ block.shopify_attributes }}
             >
               {%- comment -%} Image {%- endcomment -%}
-              <div
-                class="inv-cat-card__image"
-                {% if card_brand_bg != '' %}style="background-color: {{ card_brand_bg }};"{% endif %}
-              >
+              <div class="inv-cat-card__image">
                 {%- if card_image != blank -%}
                   {{ card_image | image_url: width: 800 | image_tag:
                     loading: 'lazy',
@@ -240,7 +239,10 @@
     position: relative;
     width: 100%;
     padding-bottom: var(--inv-cat-image-ratio);
-    background-color: {{ section.settings.image_bg }};
+    /* Resolves to the per-card brand colour (set on the card root) when
+       use_brand_colors / brand_color override is in play, otherwise to
+       the section's image_bg setting. */
+    background-color: var(--inv-cat-image-bg, #f8f8f8);
     overflow: hidden;
   }
   
