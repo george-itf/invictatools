@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "header": {
+      "type": "invicta-page-header"
+    },
+    "content": {
+      "type": "invicta-page-content"
+    },
+    "help": {
+      "type": "invicta-help-cta",
+      "settings": {
+        "cta_link": "shopify://pages/contact-us"
+      }
+    }
+  },
+  "order": [
+    "header",
+    "content",
+    "help"
+  ]
+}

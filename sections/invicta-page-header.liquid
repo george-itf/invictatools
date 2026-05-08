@@ -38,29 +38,37 @@
 -%}
 
 <section
-  class="inv-page-header inv-page-header--{{ align }}"
+  class="inv-page-header inv-page-header--{{ align }}{% if section.settings.right_text != blank %} inv-page-header--split{% endif %}"
   id="page-header-{{ section.id }}"
   aria-label="{{ title_text | escape }}"
 >
   <div class="inv-page-header__container">
-    {%- if show_breadcrumb -%}
-      <nav class="inv-page-header__breadcrumb" aria-label="Breadcrumb">
-        <a href="{{ routes.root_url }}">Home</a>
-        <span aria-hidden="true">/</span>
-        <span aria-current="page">{{ title_text | escape }}</span>
-      </nav>
-    {%- endif -%}
+    <div class="inv-page-header__main">
+      {%- if show_breadcrumb -%}
+        <nav class="inv-page-header__breadcrumb" aria-label="Breadcrumb">
+          <a href="{{ routes.root_url }}">Home</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">{{ title_text | escape }}</span>
+        </nav>
+      {%- endif -%}
 
-    {%- if section.settings.eyebrow != blank -%}
-      <span class="inv-page-header__eyebrow">{{ section.settings.eyebrow | escape }}</span>
-    {%- endif -%}
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="inv-page-header__eyebrow">{{ section.settings.eyebrow | escape }}</span>
+      {%- endif -%}
 
-    {%- if title_text != blank -%}
-      <h1 class="inv-page-header__title">{{ title_text }}</h1>
-    {%- endif -%}
+      {%- if title_text != blank -%}
+        <h1 class="inv-page-header__title">{{ title_text }}</h1>
+      {%- endif -%}
 
-    {%- if section.settings.subtitle != blank -%}
-      <p class="inv-page-header__subtitle">{{ section.settings.subtitle | escape }}</p>
+      {%- if section.settings.subtitle != blank -%}
+        <p class="inv-page-header__subtitle">{{ section.settings.subtitle | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.right_text != blank -%}
+      <aside class="inv-page-header__aside">
+        {{ section.settings.right_text }}
+      </aside>
     {%- endif -%}
   </div>
 </section>
@@ -81,6 +89,41 @@
     flex-direction: column;
     gap: 8px;
   }
+
+  /* Single-column main stack (default) */
+  #page-header-{{ section.id }} .inv-page-header__main {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Split layout: title block left, aside right (e.g. Contact phone summary) */
+  #page-header-{{ section.id }}.inv-page-header--split .inv-page-header__container {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 48px;
+    align-items: end;
+  }
+
+  #page-header-{{ section.id }} .inv-page-header__aside {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--inv-fg-secondary);
+    text-align: right;
+  }
+
+  #page-header-{{ section.id }} .inv-page-header__aside > * { margin: 0; }
+  #page-header-{{ section.id }} .inv-page-header__aside > * + * { margin-top: 6px; }
+
+  #page-header-{{ section.id }} .inv-page-header__aside p { font-size: 14px; }
+  #page-header-{{ section.id }} .inv-page-header__aside strong { color: var(--inv-fg); font-weight: 800; }
+  #page-header-{{ section.id }} .inv-page-header__aside a {
+    color: var(--inv-fg);
+    font-weight: 700;
+    text-decoration: none;
+    transition: color var(--inv-duration-normal) ease;
+  }
+  #page-header-{{ section.id }} .inv-page-header__aside a:hover { color: {{ accent }}; }
 
   #page-header-{{ section.id }}.inv-page-header--center .inv-page-header__container {
     text-align: center;
@@ -140,6 +183,18 @@
     margin: 4px 0 0 0;
   }
 
+  @media (max-width: 989px) {
+    #page-header-{{ section.id }}.inv-page-header--split .inv-page-header__container {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    #page-header-{{ section.id }} .inv-page-header__aside {
+      text-align: left;
+    }
+  }
+
   @media (max-width: 749px) {
     #page-header-{{ section.id }} {
       padding-top: {{ section.settings.padding_top | times: 0.75 | round | default: 24 }}px;
@@ -182,6 +237,12 @@
       "id": "show_breadcrumb",
       "label": "Show breadcrumb (Home / Page)",
       "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "right_text",
+      "label": "Right-side content (optional)",
+      "info": "If filled in, the header switches to a 2-column layout with this content on the right (e.g. quick contact info on the Contact page)."
     },
     { "type": "header", "content": "Layout" },
     {
