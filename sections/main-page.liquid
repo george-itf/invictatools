@@ -23,12 +23,27 @@
   }
 {%- endstyle -%}
 
+{%- liquid
+  # Fallback support for Shopify policy renderers that route through this
+  # legacy section instead of the policies template.
+  assign page_title_text = page.title
+  assign page_body_html = page.content
+  if request.page_type == 'policy'
+    if policy.title != blank
+      assign page_title_text = policy.title
+    endif
+    if policy.body != blank
+      assign page_body_html = policy.body
+    endif
+  endif
+-%}
+
 <div class="page-width page-width--narrow section-{{ section.id }}-padding">
   <h1 class="main-page-title page-title h0{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-    {{ page.title | escape }}
+    {{ page_title_text | escape }}
   </h1>
   <div class="rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-    {{ page.content }}
+    {{ page_body_html }}
   </div>
 </div>
 
