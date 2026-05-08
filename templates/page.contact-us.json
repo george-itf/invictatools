@@ -8,10 +8,8 @@
         "subtitle": "Drop us a message or stop by one of our Kent branches — we're always happy to help with quotes, product advice or trade-account enquiries.",
         "show_breadcrumb": true,
         "align": "left",
-        "background_color": "#ffffff",
-        "accent_color": "#e11d26",
-        "padding_top": 56,
-        "padding_bottom": 28
+        "max_width": 1200,
+        "accent_color": "#e11d26"
       }
     },
     "contact": {
