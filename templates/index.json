@@ -384,7 +384,7 @@
         "title": "Explore Our Brands",
         "subtitle": "Click a brand to see their top products",
         "show_view_all": true,
-        "max_products": 5,
+        "max_products": 10,
         "columns_desktop": 5,
         "padding_top": 40,
         "padding_bottom": 40
