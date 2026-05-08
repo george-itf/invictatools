@@ -9,26 +9,6 @@
  */
 {
   "sections": {
-    "hero_v3": {
-      "type": "invicta-hero-v3",
-      "settings": {
-        "hero_mode": "brand",
-        "eyebrow_text": "Authorised UK Dealer · Est. 1996",
-        "heading": "PROFESSIONAL TOOLS AT GREAT PRICES",
-        "description": "Kent's leading tools and fixings supplier. Over 15,000 products from Makita, DeWalt, HiKOKI and more. Full manufacturer warranty on every item.",
-        "hero_image": "shopify://shop_images/makita-tool-set.jpg",
-        "button_text": "SEE DEALS & OFFERS",
-        "button_link": "shopify://collections/deals-and-sales",
-        "secondary_text": "BROWSE ALL PRODUCTS",
-        "secondary_link": "shopify://collections/all",
-        "price_label": "",
-        "price_text": "",
-        "price_subtext": "",
-        "background_color": "#0f0f0f",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "trust_strip": {
       "type": "invicta-trust-strip",
       "blocks": {
@@ -77,12 +57,32 @@
         "padding_bottom": 14
       }
     },
+    "hero_v3": {
+      "type": "invicta-hero-v3",
+      "settings": {
+        "hero_mode": "brand",
+        "eyebrow_text": "Authorised UK Dealer · Est. 1996",
+        "heading": "PROFESSIONAL TOOLS AT GREAT PRICES",
+        "description": "Kent's leading tools & fixings supplier. Over 10,000+ products from major brands, backed by full manufacturer warranty and free next-day delivery*",
+        "hero_image": "shopify://shop_images/makita-tool-set.jpg",
+        "button_text": "SEE DEALS AND OFFERS",
+        "button_link": "shopify://collections/deals-and-sales",
+        "secondary_text": "ABOUT US",
+        "secondary_link": "shopify://pages/about-us",
+        "price_label": "",
+        "price_text": "",
+        "price_subtext": "",
+        "background_color": "#0f0f0f",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "spotlight": {
       "type": "invicta-spotlight",
       "disabled": true,
       "settings": {
         "primary_image": "shopify://shop_images/VIPER_SQUARE.svg",
-        "primary_link": "shopify://collections/viper-1",
+        "primary_link": "shopify://collections/viper",
         "primary_tag": "New Range",
         "primary_tag_style": "new",
         "primary_title": "Viper Fuel Cell Nails",
@@ -185,9 +185,9 @@
         "cat_7": {
           "type": "category",
           "settings": {
-            "title": "PPE",
+            "title": "Workwear",
             "description": "",
-            "collection": "workwear-safety",
+            "collection": "workwear-and-safety",
             "custom_link": "",
             "icon": "ppe",
             "show_count": true
@@ -220,6 +220,7 @@
           "type": "deal",
           "settings": {
             "theme": "red",
+            "custom_color": "",
             "eyebrow": "LIMITED TIME",
             "heading": "SAVE UP TO 25% ON POWER TOOLS",
             "sub": "Selected Makita & DeWalt lines",
@@ -231,26 +232,32 @@
           "type": "deal",
           "settings": {
             "theme": "dark",
-            "eyebrow": "CLEARANCE",
-            "heading": "30% OFF DECKING SCREWS & FIXINGS",
-            "sub": "While stocks last",
+            "custom_color": "",
+            "eyebrow": "SPECIAL OFFER",
+            "heading": "GET 10 FREE TUBS OF SCREWS!",
+            "sub": "Buy any 10 tubs from the following range  and get 10 free!",
             "cta_text": "Shop now",
-            "link": "shopify://collections/fixings-fasteners"
+            "link": "shopify://collections/bulk-screw-deal"
           }
         },
         "deal_3": {
           "type": "deal",
           "settings": {
-            "theme": "green",
-            "eyebrow": "MULTI-BUY",
-            "heading": "BUY 3, GET 1 FREE ON FC1 SEALANTS",
-            "sub": "Mix and match across the range",
+            "theme": "custom",
+            "custom_color": "#3a98ae",
+            "eyebrow": "NEW RANGE",
+            "heading": "EXCLUSIVE MAKITA CLOTHING",
+            "sub": "Browse and pre-order Makita's new range of workwear and leisurewear.",
             "cta_text": "Shop the range",
-            "link": "shopify://collections/silicone"
+            "link": "shopify://collections/makita-workwear"
           }
         }
       },
-      "block_order": ["deal_1", "deal_2", "deal_3"],
+      "block_order": [
+        "deal_1",
+        "deal_2",
+        "deal_3"
+      ],
       "settings": {
         "columns_desktop": 3,
         "background_color": "#ffffff",
