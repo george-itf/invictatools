@@ -1,0 +1,606 @@
+{% comment %}
+  ============================================================================
+  INVICTA CONTACT v1.0 — Contact form + branch cards
+  ============================================================================
+  Two-column section: branded contact form on the left, branch info cards
+  on the right (address / phone / hours, with optional photo per branch).
+  Replaces the previous contact-form section that suffered from overlapping
+  label / placeholder rendering and an off-brand cartoon banner above it.
+
+  Trade 15.4.0 Compatible
+  ============================================================================
+{% endcomment %}
+
+{%- liquid
+  assign form_id = 'ContactForm-' | append: section.id
+  assign heading = section.settings.heading
+  assign subheading = section.settings.subheading
+-%}
+
+<section class="inv-contact" id="contact-{{ section.id }}">
+  <div class="inv-contact__container">
+    <div class="inv-contact__grid">
+
+      {%- comment -%} ===== LEFT: form ===== {%- endcomment -%}
+      <div class="inv-contact__form-col">
+        {%- if heading != blank -%}
+          <h2 class="inv-contact__form-heading">{{ heading | escape }}</h2>
+        {%- endif -%}
+        {%- if subheading != blank -%}
+          <p class="inv-contact__form-sub">{{ subheading | escape }}</p>
+        {%- endif -%}
+
+        {% form 'contact', id: form_id, class: 'inv-contact__form' %}
+          {%- if form.posted_successfully? -%}
+            <div class="inv-contact__success" role="status">
+              <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              <div>
+                <strong>Thanks — message sent.</strong>
+                <span>We'll get back to you as soon as we can.</span>
+              </div>
+            </div>
+          {%- endif -%}
+
+          {%- if form.errors -%}
+            <div class="inv-contact__errors" role="alert">
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+
+          <div class="inv-contact__field-row">
+            <div class="inv-contact__field">
+              <label class="inv-contact__label" for="{{ form_id }}-name">Name</label>
+              <input
+                id="{{ form_id }}-name"
+                class="inv-contact__input"
+                type="text"
+                name="contact[{{ 'templates.contact.form.name' | t }}]"
+                value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                autocomplete="name"
+                placeholder="Your name"
+              >
+            </div>
+            <div class="inv-contact__field">
+              <label class="inv-contact__label" for="{{ form_id }}-email">Email <span class="inv-contact__required">*</span></label>
+              <input
+                id="{{ form_id }}-email"
+                class="inv-contact__input"
+                type="email"
+                name="contact[email]"
+                value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                autocomplete="email"
+                placeholder="you@example.com"
+                required
+              >
+            </div>
+          </div>
+
+          <div class="inv-contact__field">
+            <label class="inv-contact__label" for="{{ form_id }}-phone">Phone</label>
+            <input
+              id="{{ form_id }}-phone"
+              class="inv-contact__input"
+              type="tel"
+              name="contact[{{ 'templates.contact.form.phone' | t }}]"
+              value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+              autocomplete="tel"
+              placeholder="01843 210459"
+            >
+          </div>
+
+          <div class="inv-contact__field">
+            <label class="inv-contact__label" for="{{ form_id }}-message">Message</label>
+            <textarea
+              id="{{ form_id }}-message"
+              class="inv-contact__textarea"
+              name="contact[body]"
+              rows="6"
+              placeholder="What can we help you with?"
+            >{% if form.body %}{{ form.body }}{% endif %}</textarea>
+          </div>
+
+          <button type="submit" class="inv-contact__submit">
+            Send message
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        {% endform %}
+      </div>
+
+      {%- comment -%} ===== RIGHT: branch cards ===== {%- endcomment -%}
+      <aside class="inv-contact__branches">
+        {%- if section.settings.aside_heading != blank -%}
+          <h2 class="inv-contact__aside-heading">{{ section.settings.aside_heading | escape }}</h2>
+        {%- endif -%}
+
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'branch' -%}
+            <article class="inv-branch" {{ block.shopify_attributes }}>
+              {%- if block.settings.image != blank -%}
+                <div class="inv-branch__media">
+                  <img
+                    src="{{ block.settings.image | image_url: width: 720 }}"
+                    srcset="{{ block.settings.image | image_url: width: 480 }} 480w, {{ block.settings.image | image_url: width: 720 }} 720w"
+                    sizes="(max-width: 749px) 100vw, 360px"
+                    alt="{{ block.settings.name | escape }}"
+                    loading="lazy"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}"
+                  >
+                </div>
+              {%- endif -%}
+
+              <div class="inv-branch__body">
+                {%- if block.settings.name != blank -%}
+                  <h3 class="inv-branch__name">{{ block.settings.name | escape }}</h3>
+                {%- endif -%}
+
+                {%- if block.settings.address != blank -%}
+                  <p class="inv-branch__address">{{ block.settings.address }}</p>
+                {%- endif -%}
+
+                <ul class="inv-branch__meta" role="list">
+                  {%- if block.settings.phone != blank -%}
+                    <li class="inv-branch__meta-item">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                      <a href="tel:{{ block.settings.phone | replace: ' ', '' }}">{{ block.settings.phone | escape }}</a>
+                    </li>
+                  {%- endif -%}
+                  {%- if block.settings.email != blank -%}
+                    <li class="inv-branch__meta-item">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                      <a href="mailto:{{ block.settings.email | escape }}">{{ block.settings.email | escape }}</a>
+                    </li>
+                  {%- endif -%}
+                  {%- if block.settings.hours != blank -%}
+                    <li class="inv-branch__meta-item inv-branch__meta-item--hours">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                      <span>{{ block.settings.hours }}</span>
+                    </li>
+                  {%- endif -%}
+                </ul>
+
+                {%- if block.settings.map_link != blank -%}
+                  <a href="{{ block.settings.map_link }}" class="inv-branch__cta" target="_blank" rel="noopener noreferrer">
+                    Get directions
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+                {%- endif -%}
+              </div>
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  #contact-{{ section.id }} {
+    background: {{ section.settings.background_color | default: '#ffffff' }};
+    padding-top: {{ section.settings.padding_top | default: 32 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 72 }}px;
+  }
+
+  #contact-{{ section.id }} .inv-contact__container {
+    max-width: var(--inv-container-narrow, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--inv-page-gutter, 1.5rem);
+  }
+
+  #contact-{{ section.id }} .inv-contact__grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 48px;
+  }
+
+  /* ----- Form column ----- */
+  #contact-{{ section.id }} .inv-contact__form-heading {
+    font-family: var(--inv-font-body);
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--inv-fg);
+    margin: 0 0 8px;
+    text-transform: none;
+  }
+
+  #contact-{{ section.id }} .inv-contact__form-sub {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--inv-fg-muted);
+    margin: 0 0 24px;
+  }
+
+  #contact-{{ section.id }} .inv-contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #contact-{{ section.id }} .inv-contact__field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  #contact-{{ section.id }} .inv-contact__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  #contact-{{ section.id }} .inv-contact__label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--inv-fg);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  #contact-{{ section.id }} .inv-contact__required {
+    color: var(--inv-accent);
+    margin-left: 2px;
+  }
+
+  #contact-{{ section.id }} .inv-contact__input,
+  #contact-{{ section.id }} .inv-contact__textarea {
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--inv-bg-elevated);
+    border: 1px solid var(--inv-border);
+    border-radius: 0;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--inv-fg);
+    line-height: 1.4;
+    transition: border-color var(--inv-duration-normal) ease, box-shadow var(--inv-duration-normal) ease;
+  }
+
+  #contact-{{ section.id }} .inv-contact__textarea {
+    resize: vertical;
+    min-height: 140px;
+  }
+
+  #contact-{{ section.id }} .inv-contact__input::placeholder,
+  #contact-{{ section.id }} .inv-contact__textarea::placeholder {
+    color: var(--inv-fg-subtle);
+  }
+
+  #contact-{{ section.id }} .inv-contact__input:focus,
+  #contact-{{ section.id }} .inv-contact__textarea:focus {
+    outline: none;
+    border-color: var(--inv-accent);
+    box-shadow: 0 0 0 3px var(--inv-accent-ring);
+  }
+
+  #contact-{{ section.id }} .inv-contact__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    align-self: flex-start;
+    padding: 14px 28px;
+    background: var(--inv-accent);
+    color: var(--inv-bg-elevated);
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background var(--inv-duration-normal) ease;
+  }
+
+  #contact-{{ section.id }} .inv-contact__submit:hover {
+    background: var(--inv-accent-hover);
+  }
+
+  #contact-{{ section.id }} .inv-contact__submit:focus-visible {
+    outline: 2px solid var(--inv-accent);
+    outline-offset: 2px;
+  }
+
+  #contact-{{ section.id }} .inv-contact__submit svg {
+    transition: transform var(--inv-duration-normal) ease;
+  }
+
+  #contact-{{ section.id }} .inv-contact__submit:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* Form messages */
+  #contact-{{ section.id }} .inv-contact__success {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 18px;
+    background: var(--inv-success-light);
+    border-left: 4px solid var(--inv-success);
+    color: var(--inv-success-text);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  #contact-{{ section.id }} .inv-contact__success svg { color: var(--inv-success); flex-shrink: 0; }
+  #contact-{{ section.id }} .inv-contact__success strong { display: block; color: var(--inv-fg); }
+  #contact-{{ section.id }} .inv-contact__success span { color: var(--inv-fg-secondary); }
+
+  #contact-{{ section.id }} .inv-contact__errors {
+    padding: 14px 16px;
+    background: var(--inv-error-light);
+    border-left: 4px solid var(--inv-error);
+    color: var(--inv-error-dark);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  #contact-{{ section.id }} .inv-contact__errors ul {
+    margin: 0;
+    padding-left: 1.2em;
+  }
+
+  /* ----- Branch column ----- */
+  #contact-{{ section.id }} .inv-contact__branches {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  #contact-{{ section.id }} .inv-contact__aside-heading {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--inv-fg);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--inv-accent);
+  }
+
+  #contact-{{ section.id }} .inv-branch {
+    display: flex;
+    flex-direction: column;
+    background: var(--inv-bg-elevated);
+    border: 1px solid var(--inv-border);
+  }
+
+  #contact-{{ section.id }} .inv-branch__media {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
+  #contact-{{ section.id }} .inv-branch__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #contact-{{ section.id }} .inv-branch__body {
+    padding: 18px 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #contact-{{ section.id }} .inv-branch__name {
+    font-family: var(--inv-font-display);
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--inv-fg);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+    line-height: 1;
+  }
+
+  #contact-{{ section.id }} .inv-branch__address {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--inv-fg-secondary);
+    margin: 0;
+    white-space: pre-line;
+  }
+
+  #contact-{{ section.id }} .inv-branch__meta {
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+  }
+
+  #contact-{{ section.id }} .inv-branch__meta-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: var(--inv-fg-secondary);
+  }
+
+  #contact-{{ section.id }} .inv-branch__meta-item--hours {
+    align-items: flex-start;
+    white-space: pre-line;
+  }
+
+  #contact-{{ section.id }} .inv-branch__meta-item svg {
+    color: var(--inv-accent);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  #contact-{{ section.id }} .inv-branch__meta-item a {
+    color: var(--inv-fg);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color var(--inv-duration-normal) ease;
+  }
+
+  #contact-{{ section.id }} .inv-branch__meta-item a:hover {
+    color: var(--inv-accent);
+  }
+
+  #contact-{{ section.id }} .inv-branch__cta {
+    align-self: flex-start;
+    margin-top: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--inv-accent);
+    text-decoration: none;
+    transition: gap var(--inv-duration-normal) ease;
+  }
+
+  #contact-{{ section.id }} .inv-branch__cta:hover { gap: 10px; }
+
+  /* ----- Mobile ----- */
+  @media (max-width: 989px) {
+    #contact-{{ section.id }} .inv-contact__grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+
+  @media (max-width: 749px) {
+    #contact-{{ section.id }} .inv-contact__container {
+      padding-left: var(--inv-mobile-gutter);
+      padding-right: var(--inv-mobile-gutter);
+    }
+
+    #contact-{{ section.id }} .inv-contact__field-row {
+      grid-template-columns: 1fr;
+    }
+
+    #contact-{{ section.id }} .inv-contact__submit {
+      align-self: stretch;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Contact",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "header", "content": "Form" },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Form heading",
+      "default": "Send us a message"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Form subheading",
+      "default": "Questions, quotes, or product advice — drop us a line and we'll get back to you fast."
+    },
+    { "type": "header", "content": "Branch column" },
+    {
+      "type": "text",
+      "id": "aside_heading",
+      "label": "Aside heading",
+      "default": "Visit a branch"
+    },
+    { "type": "header", "content": "Style" },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 24,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    }
+  ],
+  "blocks": [
+    {
+      "type": "branch",
+      "name": "Branch",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Branch name", "default": "Ramsgate" },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "Address",
+          "info": "Use line breaks to separate address lines.",
+          "default": "Unit 74 Invicta Way\nThe Oaks Business Park\nRamsgate, CT12 5FS"
+        },
+        { "type": "text", "id": "phone", "label": "Phone", "default": "01843 210459" },
+        { "type": "text", "id": "email", "label": "Email" },
+        {
+          "type": "textarea",
+          "id": "hours",
+          "label": "Opening hours",
+          "info": "Use line breaks to separate days.",
+          "default": "Mon–Fri 07:30–17:00\nSat 08:00–12:00"
+        },
+        { "type": "url", "id": "map_link", "label": "Get directions link" },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Branch photo (optional)",
+          "info": "Landscape works best."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact",
+      "blocks": [
+        {
+          "type": "branch",
+          "settings": {
+            "name": "Ramsgate",
+            "address": "Unit 74 Invicta Way\nThe Oaks Business Park\nRamsgate, CT12 5FS",
+            "phone": "01843 210459",
+            "hours": "Mon–Fri 07:30–17:00\nSat 08:00–12:00"
+          }
+        },
+        {
+          "type": "branch",
+          "settings": {
+            "name": "Canterbury",
+            "address": "Unit 9 Cotton Road\nWincheap Industrial Estate\nCanterbury, CT1 3TB",
+            "phone": "01227 458333",
+            "hours": "Mon–Fri 07:30–17:00\nSat 08:00–12:00"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
