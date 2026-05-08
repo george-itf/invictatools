@@ -15,9 +15,9 @@
         "brand_bahco": {
           "type": "category",
           "settings": {
-            "collection": "bahco",
+            "collection": "brand-bahco",
             "title": "Bahco",
-            "link": "/pages/bahco",
+            "link": "",
             "image": "shopify://shop_images/bahco.svg"
           }
         },
@@ -26,25 +26,25 @@
           "settings": {
             "collection": "dewalt",
             "title": "DeWalt",
-            "link": "/pages/dewalt",
+            "link": "",
             "image": "shopify://shop_images/images_1.png"
           }
         },
         "brand_dormer": {
           "type": "category",
           "settings": {
-            "collection": "dormer",
+            "collection": "brand-dormer",
             "title": "Dormer Pramet",
-            "link": "/pages/dormer",
+            "link": "",
             "image": "shopify://shop_images/dormer.svg"
           }
         },
         "brand_einhell": {
           "type": "category",
           "settings": {
-            "collection": "einhell",
+            "collection": "brand-einhell",
             "title": "Einhell",
-            "link": "/pages/einhell",
+            "link": "",
             "image": "shopify://shop_images/einhell.svg"
           }
         },
@@ -161,8 +161,7 @@
           "settings": {
             "collection": "premier-diamond-products",
             "title": "Premier Diamond",
-            "link": "/pages/premier-diamond-products",
-            "image": ""
+            "link": "/pages/premier-diamond-products"
           }
         },
         "brand_siroflex": {
