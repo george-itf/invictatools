@@ -125,7 +125,7 @@
           "settings": {
             "collection": "makita",
             "title": "Makita",
-            "link": "/pages/makita",
+            "link": "",
             "image": "shopify://shop_images/makita_5c6ce50a-8652-4bfb-b5e5-71f846878208.png"
           }
         },
@@ -134,25 +134,25 @@
           "settings": {
             "collection": "metabo",
             "title": "Metabo",
-            "link": "/pages/metabo",
+            "link": "",
             "image": "shopify://shop_images/metabo.svg"
           }
         },
         "brand_milwaukee": {
           "type": "category",
           "settings": {
-            "collection": "milwaukee",
+            "collection": "brand-milwaukee",
             "title": "Milwaukee",
-            "link": "/pages/milwaukee",
+            "link": "",
             "image": "shopify://shop_images/milwaukee.svg"
           }
         },
         "brand_paslode": {
           "type": "category",
           "settings": {
-            "collection": "paslode",
+            "collection": "brand-paslode",
             "title": "Paslode",
-            "link": "/pages/paslode",
+            "link": "",
             "image": "shopify://shop_images/paslode.svg"
           }
         },
