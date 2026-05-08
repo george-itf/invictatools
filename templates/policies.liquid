@@ -2,12 +2,17 @@
   Custom template for the four Shopify policy pages
   (Shipping / Refund / Terms of Service / Privacy).
 
-  The .liquid form is used here instead of policies.json because some
-  Shopify policy renderers bypass JSON section templates. Both new
-  sections fall back to policy.title / policy.body when
-  request.page_type == 'policy', so this is enough to drive a fully
-  branded policy page off the merchant's existing admin content.
+  - invicta-page-header pulls the policy title automatically when
+    request.page_type == 'policy' (with breadcrumb back to Home).
+  - invicta-page-content auto-renders policy.body inside the new
+    typography shell when no editor blocks are configured.
+  - invicta-help-cta provides a consistent "next step" footer
+    pointing to Contact across every policy page.
+
+  The .liquid form is used here because some Shopify policy
+  renderers bypass JSON section templates.
 {% endcomment %}
 
 {% section 'invicta-page-header' %}
 {% section 'invicta-page-content' %}
+{% section 'invicta-help-cta' %}

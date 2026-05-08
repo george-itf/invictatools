@@ -173,6 +173,11 @@
     margin-top: 1.6em;
   }
 
+  /* The very first heading in an auto-rendered body shouldn't push down */
+  #page-content-{{ section.id }} .inv-page-content__rte > :first-child {
+    margin-top: 0;
+  }
+
   #page-content-{{ section.id }} .inv-page-content__rte h2 {
     font-size: clamp(24px, 3vw, 32px);
     font-weight: 900;
