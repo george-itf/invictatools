@@ -188,7 +188,7 @@
             "title": "Siroflex",
             "link": "",
             "image": "shopify://shop_images/siroflex.svg",
-            "brand_color": ""
+            "brand_color": "#ffffff"
           }
         },
         "brand_soudal": {
@@ -238,7 +238,7 @@
             "title": "Teng Tools",
             "link": "",
             "image": "shopify://shop_images/tengtools.svg",
-            "brand_color": ""
+            "brand_color": "#262626"
           }
         },
         "brand_viper": {
