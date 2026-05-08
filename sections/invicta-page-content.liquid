@@ -122,9 +122,17 @@
         {%- endcase -%}
       {%- endfor -%}
     {%- else -%}
-      {%- comment -%} Auto-render the page's body content (default Shopify pages benefit from the new typography). {%- endcomment -%}
+      {%- comment -%}
+        Auto-render the page or policy body content so default Shopify
+        pages and policies (refund / privacy / terms / shipping) inherit
+        the new typography without any merchant configuration.
+      {%- endcomment -%}
       <div class="inv-page-content__rte">
-        {{ page.content }}
+        {%- if request.page_type == 'policy' -%}
+          {{ policy.body }}
+        {%- else -%}
+          {{ page.content }}
+        {%- endif -%}
       </div>
     {%- endif -%}
   </div>

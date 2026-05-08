@@ -18,8 +18,12 @@
   assign bg = section.settings.background_color | default: '#ffffff'
   assign accent = section.settings.accent_color | default: '#e11d26'
   assign title_text = section.settings.title
-  if title_text == blank and page.title != blank
-    assign title_text = page.title
+  if title_text == blank
+    if request.page_type == 'policy' and policy.title != blank
+      assign title_text = policy.title
+    elsif page.title != blank
+      assign title_text = page.title
+    endif
   endif
 -%}
 

@@ -1,0 +1,58 @@
+{
+  "sections": {
+    "header": {
+      "type": "invicta-page-header",
+      "settings": {
+        "eyebrow": "Get in touch",
+        "title": "Contact us",
+        "subtitle": "Drop us a message or stop by one of our Kent branches — we're always happy to help with quotes, product advice or trade-account enquiries.",
+        "show_breadcrumb": true,
+        "align": "left",
+        "background_color": "#ffffff",
+        "accent_color": "#e11d26",
+        "padding_top": 56,
+        "padding_bottom": 28
+      }
+    },
+    "contact": {
+      "type": "invicta-contact",
+      "blocks": {
+        "branch_ramsgate": {
+          "type": "branch",
+          "settings": {
+            "name": "Ramsgate",
+            "address": "Unit 74 Invicta Way\nThe Oaks Business Park\nRamsgate, CT12 5FS",
+            "phone": "01843 210459",
+            "hours": "Mon–Fri 07:30–17:00\nSat 08:00–12:00",
+            "map_link": "https://maps.app.goo.gl/a7ok1FDJpcntc8r69"
+          }
+        },
+        "branch_canterbury": {
+          "type": "branch",
+          "settings": {
+            "name": "Canterbury",
+            "address": "Unit 9 Cotton Road\nWincheap Industrial Estate\nCanterbury, CT1 3TB",
+            "phone": "01227 458333",
+            "hours": "Mon–Fri 07:30–17:00\nSat 08:00–12:00"
+          }
+        }
+      },
+      "block_order": [
+        "branch_ramsgate",
+        "branch_canterbury"
+      ],
+      "settings": {
+        "heading": "Send us a message",
+        "subheading": "Questions, quotes, or product advice — drop us a line and we'll get back to you fast.",
+        "aside_heading": "Visit a branch",
+        "background_color": "#ffffff",
+        "padding_top": 8,
+        "padding_bottom": 72
+      }
+    }
+  },
+  "order": [
+    "header",
+    "contact"
+  ]
+}
