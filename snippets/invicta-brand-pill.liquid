@@ -131,6 +131,7 @@
   assign brand_bg = '#2d2d2d'
   assign brand_text = '#ffffff'
   assign brand_display = vendor_raw
+  assign brand_match_found = false
 
   # Build the search needle for this brand_key
   assign brand_needle = '"' | append: brand_key | append: '"'
@@ -146,6 +147,7 @@
       assign brand_bg = fields[1]
       assign brand_text = fields[2]
       assign brand_display = fields[3]
+      assign brand_match_found = true
       break
     endif
   endfor
@@ -177,7 +179,18 @@
   assign render_type = type | default: 'pill'
 -%}
 
-{%- if vendor_raw != blank -%}
+{%- if render_type == 'color' -%}
+  {%- comment -%}
+    LOOKUP-ONLY MODE: emit just the brand background colour as a string.
+    Returns empty when the brand_key isn't in the database, so callers
+    can fall back via the `default:` filter.
+    Use:
+      {% capture bg %}{% render 'invicta-brand-pill', vendor: 'dewalt', type: 'color' %}{% endcapture %}
+      {% assign bg = bg | strip %}
+  {%- endcomment -%}
+  {%- if brand_match_found -%}{{ brand_bg }}{%- endif -%}
+
+{%- elsif vendor_raw != blank -%}
 
   {%- if render_type == 'dot' -%}
     {%- comment -%} DOT MODE: Just a coloured circle for filter buttons {%- endcomment -%}

@@ -267,6 +267,7 @@
         "image_ratio": 75,
         "image_fit": "contain",
         "show_arrow": true,
+        "use_brand_colors": true,
         "padding_top": 48,
         "padding_bottom": 48,
         "heading_size": 36,
