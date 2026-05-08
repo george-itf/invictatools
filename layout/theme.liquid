@@ -346,9 +346,14 @@
       }
 
       body {
-        display: grid;
-        grid-template-rows: auto auto 1fr auto;
-        grid-template-columns: 100%;
+        /* Sticky footer pattern: flex column with <main> expanding to fill
+           any remaining viewport height. Replaces the previous CSS grid
+           layout (auto auto 1fr auto), whose 1fr row landed on the
+           header-group wrapper because of extra body children (ps-root,
+           skip-link, etc.) — that produced a tall red empty band beneath
+           the sticky header on short pages. */
+        display: flex;
+        flex-direction: column;
         min-height: 100%;
         margin: 0;
         font-size: 1.5rem;
@@ -357,6 +362,11 @@
         font-family: var(--font-body-family);
         font-style: var(--font-body-style);
         font-weight: var(--font-body-weight);
+      }
+
+      /* Main content area expands to push the footer to the viewport bottom */
+      body > main#MainContent {
+        flex: 1 0 auto;
       }
 
       @media screen and (min-width: 750px) {
