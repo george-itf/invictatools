@@ -167,19 +167,10 @@
         "brand_siroflex": {
           "type": "category",
           "settings": {
-            "collection": "siroflex",
+            "collection": "sireoflex",
             "title": "Siroflex",
-            "link": "/pages/siroflex",
+            "link": "",
             "image": "shopify://shop_images/siroflex.svg"
-          }
-        },
-        "brand_sitetuff": {
-          "type": "category",
-          "settings": {
-            "collection": "sitetuff",
-            "title": "SiteTuff",
-            "link": "/pages/sitetuff",
-            "image": "shopify://shop_images/sitetuff.svg"
           }
         },
         "brand_soudal": {
@@ -187,7 +178,7 @@
           "settings": {
             "collection": "soudal",
             "title": "Soudal",
-            "link": "/pages/soudal",
+            "link": "",
             "image": "shopify://shop_images/soudal.svg"
           }
         },
@@ -196,7 +187,7 @@
           "settings": {
             "collection": "spit",
             "title": "Spit",
-            "link": "/pages/spit",
+            "link": "",
             "image": "shopify://shop_images/spit.svg"
           }
         },
@@ -205,35 +196,26 @@
           "settings": {
             "collection": "stanley",
             "title": "Stanley",
-            "link": "/pages/stanley",
+            "link": "",
             "image": "shopify://shop_images/stanley.svg"
           }
         },
         "brand_starrett": {
           "type": "category",
           "settings": {
-            "collection": "starrett",
+            "collection": "brand-starrett",
             "title": "Starrett",
-            "link": "/pages/starrett",
+            "link": "",
             "image": "shopify://shop_images/starrett.svg"
           }
         },
         "brand_tengtools": {
           "type": "category",
           "settings": {
-            "collection": "tengtools",
+            "collection": "brand-teng",
             "title": "Teng Tools",
-            "link": "/pages/teng-tools",
+            "link": "",
             "image": "shopify://shop_images/tengtools.svg"
-          }
-        },
-        "brand_timco": {
-          "type": "category",
-          "settings": {
-            "collection": "timco",
-            "title": "Timco",
-            "link": "/pages/timco",
-            "image": "shopify://shop_images/timco.svg"
           }
         },
         "brand_viper": {
@@ -241,7 +223,7 @@
           "settings": {
             "collection": "viper",
             "title": "Viper",
-            "link": "/pages/viper",
+            "link": "",
             "image": "shopify://shop_images/viper.png"
           }
         }
@@ -265,13 +247,11 @@
         "brand_paslode",
         "brand_pdp",
         "brand_siroflex",
-        "brand_sitetuff",
         "brand_soudal",
         "brand_spit",
         "brand_stanley",
         "brand_starrett",
         "brand_tengtools",
-        "brand_timco",
         "brand_viper"
       ],
       "settings": {
