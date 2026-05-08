@@ -10,10 +10,12 @@
 {
   "sections": {
     "header": {
-      "type": "invicta-page-header"
+      "type": "invicta-page-header",
+      "settings": {}
     },
     "content": {
-      "type": "invicta-page-content"
+      "type": "invicta-page-content",
+      "settings": {}
     },
     "help": {
       "type": "invicta-help-cta",
