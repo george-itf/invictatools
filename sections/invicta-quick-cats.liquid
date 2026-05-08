@@ -125,14 +125,18 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    overflow: hidden;
     box-shadow: inset 0 0 0 1px var(--inv-border-subtle);
-    transition: background var(--inv-duration-normal) ease,
-                box-shadow var(--inv-duration-normal) ease;
+    transition: box-shadow var(--inv-duration-normal) ease;
+  }
+
+  /* Photo variant — collection image fills the circle */
+  #shopify-section-{{ section.id }} .inv-quick-cats__icon--photo {
+    background: var(--inv-bg-soft);
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__icon {
-    background: var(--inv-accent);
-    box-shadow: inset 0 0 0 1px var(--inv-accent);
+    box-shadow: inset 0 0 0 2px var(--inv-accent);
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__icon svg {
@@ -144,14 +148,22 @@
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__card:hover .inv-quick-cats__icon svg {
-    color: var(--inv-bg-elevated);
+    color: var(--inv-accent);
   }
 
+  /* Custom icon (SVG-style upload) — small, centred */
   #shopify-section-{{ section.id }} .inv-quick-cats__icon img {
     width: 28px;
     height: 28px;
     object-fit: contain;
     display: block;
+  }
+
+  /* Collection photo — fills the circular badge */
+  #shopify-section-{{ section.id }} .inv-quick-cats__icon img.inv-quick-cats__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   #shopify-section-{{ section.id }} .inv-quick-cats__body {
@@ -228,7 +240,7 @@
     }
 
     #shopify-section-{{ section.id }} .inv-quick-cats__icon svg,
-    #shopify-section-{{ section.id }} .inv-quick-cats__icon img {
+    #shopify-section-{{ section.id }} .inv-quick-cats__icon img:not(.inv-quick-cats__photo) {
       width: 22px;
       height: 22px;
     }
@@ -308,11 +320,23 @@
                 assign inv_product_count = lookup_collection.products_count
               endif
             endif
+
+            assign cat_image = blank
+            if cat_collection_setting.image != blank
+              assign cat_image = cat_collection_setting.image
+            elsif cat_collection_setting != blank and cat_collection_setting != ''
+              assign lookup_collection = collections[cat_collection_setting]
+              if lookup_collection.image != blank
+                assign cat_image = lookup_collection.image
+              endif
+            endif
           -%}
 
           <a href="{{ cat_url }}" class="inv-quick-cats__card" {{ block.shopify_attributes }}>
-            <div class="inv-quick-cats__icon">
-              {%- if cat_custom_icon != blank -%}
+            <div class="inv-quick-cats__icon{% if cat_image != blank %} inv-quick-cats__icon--photo{% endif %}">
+              {%- if cat_image != blank -%}
+                <img class="inv-quick-cats__photo" src="{{ cat_image | image_url: width: 128 }}" alt="" width="56" height="56" loading="lazy">
+              {%- elsif cat_custom_icon != blank -%}
                 <img src="{{ cat_custom_icon | image_url: width: 56 }}" alt="" width="28" height="28" loading="lazy">
               {%- else -%}
                 {%- case cat_icon -%}
