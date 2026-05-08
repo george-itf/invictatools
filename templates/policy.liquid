@@ -1,0 +1,11 @@
+{% comment %}
+  Singular-form fallback. Some Shopify versions look for
+  templates/policy.<format> instead of templates/policies.<format>
+  for the four shop policy pages (Shipping / Refund / Terms /
+  Privacy). Both are now provided.
+{% endcomment %}
+<!-- INVICTA-DEBUG: templates/policy.liquid rendered (singular form) -->
+
+{% section 'invicta-page-header' %}
+{% section 'invicta-page-content' %}
+{% section 'invicta-help-cta' %}
