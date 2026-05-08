@@ -549,7 +549,27 @@
       class="content-for-layout focus-none"
       tabindex="-1"
     >
-      {{ content_for_layout }}
+      {%- comment -%}
+        Layout-level interception for shop policy pages
+        (Shipping / Refund / Terms of Service / Privacy).
+
+        This Shopify install bypasses templates/policies.json,
+        templates/policies.liquid, templates/policy.json and
+        templates/policy.liquid for policy URLs — the rendering goes
+        straight through theme.liquid without ever touching the
+        templates folder. We intercept here and render the new info-
+        page sections directly. invicta-page-header pulls policy.title
+        and invicta-page-content pulls policy.body via their existing
+        page_type fallbacks.
+      {%- endcomment -%}
+      {%- if request.page_type == 'policy' -%}
+        <!-- INVICTA-DEBUG: theme.liquid intercepted policy render -->
+        {% section 'invicta-page-header' %}
+        {% section 'invicta-page-content' %}
+        {% section 'invicta-help-cta' %}
+      {%- else -%}
+        {{ content_for_layout }}
+      {%- endif -%}
     </main>
 
     {% sections 'footer-group' %}
