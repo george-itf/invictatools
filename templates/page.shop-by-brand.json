@@ -178,7 +178,7 @@
             "collection": "premier-diamond-products",
             "title": "Premier Diamond",
             "link": "/pages/premier-diamond-products",
-            "brand_color": ""
+            "brand_color": "#11438e"
           }
         },
         "brand_siroflex": {
@@ -218,7 +218,7 @@
             "title": "Stanley",
             "link": "",
             "image": "shopify://shop_images/stanley.svg",
-            "brand_color": ""
+            "brand_color": "#fbd504"
           }
         },
         "brand_starrett": {
@@ -248,7 +248,7 @@
             "title": "Viper",
             "link": "",
             "image": "shopify://shop_images/viper.png",
-            "brand_color": ""
+            "brand_color": "#3aaab9"
           }
         }
       },
