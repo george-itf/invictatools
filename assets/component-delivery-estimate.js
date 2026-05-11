@@ -8,7 +8,7 @@
     if (stockSource === 'supplier') return;
 
     const dayEl = el.querySelector('[data-inv-del-day]');
-    const countdownEl = el.querySelector('[data-inv-del-countdown]');
+    const countdownEls = el.querySelectorAll('[data-inv-del-countdown]');
     const orderTextEl = el.querySelector('[data-inv-del-order-text]');
     const forTextEl = el.querySelector('[data-inv-del-for-text]');
     if (!dayEl) return;
@@ -47,15 +47,18 @@
 
       dayEl.textContent = getDeliveryDay();
 
-      if (isWeekday && beforeCutoff && countdownEl) {
+      if (isWeekday && beforeCutoff && countdownEls.length) {
         const cutoff = new Date();
         cutoff.setHours(cutoffHour, 0, 0, 0);
         const diff = cutoff - now;
         const h = Math.floor(diff / 3600000);
         const m = Math.floor((diff % 3600000) / 60000);
         const s = Math.floor((diff % 60000) / 1000);
-        countdownEl.textContent = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-        countdownEl.style.display = 'inline';
+        const formatted = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+        countdownEls.forEach(function(c) {
+          c.textContent = formatted;
+          c.style.display = '';
+        });
         if (orderTextEl) orderTextEl.textContent = 'Order within ';
 
         /* CX v1.0: Add urgency classes when time is running low */
@@ -70,7 +73,7 @@
           el.classList.remove('inv-del-est--critical');
         }
       } else {
-        if (countdownEl) countdownEl.style.display = 'none';
+        countdownEls.forEach(function(c) { c.style.display = 'none'; });
         if (orderTextEl) orderTextEl.textContent = 'Order now';
         el.classList.remove('inv-del-est--urgent', 'inv-del-est--critical');
 

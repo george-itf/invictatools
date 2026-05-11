@@ -1,48 +1,181 @@
-/* Cart Recommendations — "Complete Your Order" section */
+/* ============================================================
+   Cart Recommendations — "Complete the Job"
+   Horizontal scrollable rail of compact product cards.
+   ============================================================ */
+
+.inv-cart-recs {
+  background: var(--inv-bg-elevated);
+}
+
+.inv-cart-recs__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--inv-space-md);
+  margin-bottom: var(--inv-space-md);
+}
 
 .inv-cart-recs__title {
-  font-family: var(--inv-font-heading);
-  font-size: var(--inv-text-2xl);
+  font-family: inherit;
+  font-size: var(--inv-text-md);
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: var(--inv-tracking-tight);
   color: var(--inv-fg);
-  margin: 0 0 var(--inv-space-lg);
-}
-
-.inv-cart-recs__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--inv-space-md);
-  list-style: none;
-  padding: 0;
   margin: 0;
+  text-transform: none;
 }
 
-@media screen and (max-width: 749px) {
-  .inv-cart-recs__grid {
-    grid-template-columns: repeat(2, 1fr);
+.inv-cart-recs__sub {
+  font-size: var(--inv-text-xs);
+  color: var(--inv-fg-muted);
+  letter-spacing: var(--inv-tracking-wide);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* Horizontal rail */
+.inv-cart-recs__rail {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 var(--inv-space-sm);
+  display: flex;
+  gap: var(--inv-gap-sm);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media screen and (min-width: 750px) {
+  .inv-cart-recs__rail {
+    scrollbar-width: none;
+  }
+  .inv-cart-recs__rail::-webkit-scrollbar {
+    display: none;
   }
 }
 
 .inv-cart-recs__item {
-  min-width: 0;
+  flex: 0 0 160px;
+  scroll-snap-align: start;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--inv-bg-elevated);
+  border: 1px solid var(--inv-border);
+  transition: border-color var(--inv-duration-moderate) var(--inv-ease-default),
+              box-shadow var(--inv-duration-moderate) var(--inv-ease-default),
+              transform var(--inv-duration-moderate) var(--inv-ease-default);
+}
+
+.inv-cart-recs__item:hover {
+  border-color: var(--inv-accent);
+  box-shadow: var(--inv-shadow-sm);
+  transform: translateY(-2px);
+}
+
+.inv-cart-recs__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--inv-space-sm);
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+  padding: var(--inv-space-sm-plus);
+}
+
+.inv-cart-recs__img {
+  width: 70px;
+  height: 70px;
+  background: var(--inv-bg-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.inv-cart-recs__img img {
+  max-width: 86%;
+  max-height: 86%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.inv-cart-recs__name {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: var(--inv-text-xs);
+  font-weight: 600;
+  line-height: var(--inv-leading-snug);
+  color: var(--inv-fg);
+  min-height: calc(var(--inv-text-xs) * var(--inv-leading-snug) * 2);
+  width: 100%;
+}
+
+.inv-cart-recs__price {
+  font-size: var(--inv-text-sm);
+  font-weight: 700;
+  color: var(--inv-fg);
+  line-height: 1.2;
+  margin-top: auto;
+}
+
+.inv-cart-recs__add-form {
+  position: absolute;
+  top: var(--inv-space-sm);
+  right: var(--inv-space-sm);
+  margin: 0;
+}
+
+.inv-cart-recs__add {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--inv-radius-pill);
+  border: 1.5px solid var(--inv-accent);
+  background: var(--inv-bg-elevated);
+  color: var(--inv-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color var(--inv-duration-moderate) var(--inv-ease-default),
+              color var(--inv-duration-moderate) var(--inv-ease-default),
+              transform var(--inv-duration-moderate) var(--inv-ease-default);
+}
+
+.inv-cart-recs__add:hover,
+.inv-cart-recs__add:focus-visible {
+  background: var(--inv-accent);
+  color: #fff;
+  outline: none;
+  transform: scale(1.06);
+}
+
+.inv-cart-recs__add svg {
+  width: 14px;
+  height: 14px;
 }
 
 /* Skeleton loading */
 .inv-cart-recs__skeleton {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--inv-space-md);
+  display: flex;
+  gap: var(--inv-gap-sm);
+  overflow: hidden;
 }
 
-@media screen and (max-width: 749px) {
-  .inv-cart-recs__skeleton {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.inv-cart-recs__skeleton-card {
+  flex: 0 0 160px;
+  border: 1px solid var(--inv-border);
+  padding: var(--inv-space-sm-plus);
 }
 
-.inv-cart-recs--loading .inv-cart-recs__grid {
+.inv-cart-recs--loading .inv-cart-recs__rail {
   display: none;
 }
 
@@ -50,24 +183,21 @@
   display: none;
 }
 
-.inv-cart-recs__skeleton-card {
-  border: 1px solid var(--inv-border);
-}
-
 .inv-cart-recs__skeleton-img {
-  aspect-ratio: 1;
-  background: var(--inv-bg);
+  width: 70px;
+  height: 70px;
+  background: var(--inv-bg-skeleton);
   animation: inv-cart-recs-pulse 1.5s ease-in-out infinite;
 }
 
 .inv-cart-recs__skeleton-body {
-  padding: var(--inv-space-sm) var(--inv-space-md);
+  padding: var(--inv-space-xs) 0 0;
 }
 
 .inv-cart-recs__skeleton-line {
-  height: 1.2rem;
-  background: var(--inv-bg);
-  margin-bottom: var(--inv-space-sm);
+  height: 10px;
+  background: var(--inv-bg-skeleton);
+  margin-bottom: var(--inv-space-xs);
   animation: inv-cart-recs-pulse 1.5s ease-in-out infinite;
 }
 
@@ -76,8 +206,8 @@
 }
 
 .inv-cart-recs__skeleton-line--price {
-  width: 40%;
-  height: 1.6rem;
+  width: 45%;
+  height: 14px;
 }
 
 @keyframes inv-cart-recs-pulse {
@@ -87,7 +217,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .inv-cart-recs__skeleton-img,
-  .inv-cart-recs__skeleton-line {
+  .inv-cart-recs__skeleton-line,
+  .inv-cart-recs__item,
+  .inv-cart-recs__add {
     animation: none;
+    transition: none;
   }
 }
