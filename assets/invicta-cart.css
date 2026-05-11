@@ -11,6 +11,12 @@
    FORCE LIGHT BACKGROUND ON CART PAGE
    ──────────────────────────────────────────────────────────── */
 
+/* Force the cart page onto a neutral light background regardless of which
+   color scheme the merchant picked in the editor. The base.css rule
+   `body, .color-scheme-X { background-color: rgb(var(--color-background)) }`
+   would otherwise apply the scheme's background to <cart-items>. */
+cart-items,
+cart-items.gradient,
 cart-items.gradient.gradient,
 cart-items.gradient.color-scheme-1,
 cart-items.gradient.color-scheme-2,
@@ -18,34 +24,42 @@ cart-items.gradient.color-scheme-3,
 cart-items.gradient.color-scheme-4,
 cart-items.gradient.color-scheme-5,
 cart-items.gradient[class*="color-"] {
+  display: block;
   background: var(--inv-bg);
+  background-color: var(--inv-bg);
+  color: var(--inv-fg);
   --color-background: 245, 245, 246;
   --color-foreground: 15, 23, 42;
   --gradient-background: var(--inv-bg);
-}
-
-cart-items {
-  display: block;
 }
 
 /* ────────────────────────────────────────────────────────────
    CART PAGE HEADER
    ──────────────────────────────────────────────────────────── */
 
-.inv-cart-header {
+/* Header is rendered as its own light panel so no parent color-scheme
+   cascade or theme-editor overlay can drop dark-on-dark text on top of it. */
+cart-items .inv-cart-header.inv-cart-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--inv-space-md);
-  padding: var(--inv-space-md) 0;
-  margin-bottom: var(--inv-space-md);
-  border-bottom: 1px solid var(--inv-border);
+  padding: var(--inv-space-md) var(--inv-space-lg);
+  margin: 0 0 var(--inv-space-lg);
+  background: var(--inv-bg-elevated);
+  background-color: var(--inv-bg-elevated);
+  border: 1px solid var(--inv-border);
+  border-radius: var(--inv-radius-card);
+  color: var(--inv-fg);
+  position: relative;
+  z-index: 1;
 }
 
 .inv-cart-header__left {
   display: flex;
   align-items: baseline;
   gap: var(--inv-space-sm);
+  min-width: 0;
 }
 
 cart-items .inv-cart-header__title.inv-cart-header__title {
@@ -53,11 +67,13 @@ cart-items .inv-cart-header__title.inv-cart-header__title {
   font-weight: 800;
   letter-spacing: var(--inv-tracking-tight);
   color: var(--inv-fg);
+  background: transparent;
   margin: 0;
   padding: 0;
   line-height: var(--inv-leading-tight);
   text-transform: none;
   opacity: 1;
+  white-space: nowrap;
 }
 
 cart-items .inv-cart-header__count.inv-cart-header__count {
@@ -66,6 +82,7 @@ cart-items .inv-cart-header__count.inv-cart-header__count {
   color: var(--inv-fg-muted);
   letter-spacing: var(--inv-tracking-normal);
   opacity: 1;
+  white-space: nowrap;
 }
 
 cart-items .inv-cart-header__continue.inv-cart-header__continue {
@@ -74,14 +91,15 @@ cart-items .inv-cart-header__continue.inv-cart-header__continue {
   gap: var(--inv-space-xs);
   font-size: var(--inv-text-sm);
   font-weight: 600;
-  color: var(--inv-fg-muted);
+  color: var(--inv-fg);
   text-decoration: none;
   padding: var(--inv-space-sm) var(--inv-space-sm-plus);
-  border: 1px solid var(--inv-border);
+  border: 1px solid var(--inv-border-dark);
   border-radius: var(--inv-radius-button);
   background: var(--inv-bg-elevated);
   transition: color var(--inv-duration-moderate) var(--inv-ease-default),
-              border-color var(--inv-duration-moderate) var(--inv-ease-default);
+              border-color var(--inv-duration-moderate) var(--inv-ease-default),
+              background-color var(--inv-duration-moderate) var(--inv-ease-default);
   white-space: nowrap;
   opacity: 1;
 }
@@ -89,6 +107,7 @@ cart-items .inv-cart-header__continue.inv-cart-header__continue {
 cart-items .inv-cart-header__continue.inv-cart-header__continue:hover {
   color: var(--inv-accent);
   border-color: var(--inv-accent);
+  background: var(--inv-accent-soft);
 }
 
 .inv-cart-header__continue svg {
@@ -106,9 +125,13 @@ cart-items .inv-cart-header__continue.inv-cart-header__continue:hover {
 
 .inv-cart-progress {
   background: var(--inv-bg-elevated);
+  background-color: var(--inv-bg-elevated);
+  color: var(--inv-fg);
   border-bottom: 1px solid var(--inv-border);
   padding: var(--inv-space-lg) var(--inv-page-gutter);
-  margin: 0 calc(var(--inv-page-gutter) * -1) var(--inv-space-lg);
+  margin: 0 calc(var(--inv-page-gutter) * -1) var(--inv-space-xl);
+  position: relative;
+  z-index: 1;
 }
 
 .inv-cart-progress__inner {
@@ -437,6 +460,10 @@ cart-items .inv-cart-line__options.inv-cart-line__options {
   gap: var(--inv-space-xs) var(--inv-space-sm);
   font-size: var(--inv-text-xs);
   color: var(--inv-fg-muted);
+}
+
+cart-items .inv-cart-line__options.inv-cart-line__options:empty {
+  display: none;
 }
 
 cart-items .inv-cart-line__options .product-option,
