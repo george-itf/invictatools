@@ -5,12 +5,17 @@
 {%- comment -%}
   Cart Footer — AJAX data source
   ===============================
-  This section is kept in the DOM so cart.js getSectionsToRender()
-  can find #main-cart-footer and update .js-contents via AJAX.
-  The visual layout is handled by the sidebar in main-cart-items.
-  On desktop this is visually hidden. On mobile it provides the
-  sticky bottom checkout bar.
+  Kept in DOM so getSectionsToRender() can find #main-cart-footer
+  and update .js-contents via AJAX. The desktop layout uses the
+  sticky sidebar in main-cart-items.liquid; this section provides
+  the mobile-only sticky bottom checkout bar.
 {%- endcomment -%}
+
+{%- liquid
+  assign vat_divisor = 100 | plus: settings.inv_vat_rate
+  assign vat_rounding = vat_divisor | divided_by: 2
+  assign total_ex_vat = cart.total_price | times: 100 | plus: vat_rounding | divided_by: vat_divisor
+-%}
 
 <div
   class="inv-cart-footer-source gradient color-{{ section.settings.color_scheme }}{% if cart == empty %} is-empty{% endif %}"
@@ -18,42 +23,41 @@
   data-id="{{ section.id }}"
 >
   <div class="js-contents">
-    <div class="page-width">
-      <div class="inv-cart-footer-mobile">
+    <div class="inv-cart-footer-mobile">
 
-        {%- comment -%} Mobile sticky bottom bar: total + checkout {%- endcomment -%}
-        <div class="inv-cart-footer-mobile__total">
-          <span class="inv-cart-footer-mobile__label">Total</span>
-          <span class="inv-cart-footer-mobile__price">{{ cart.total_price | money_with_currency }}</span>
-        </div>
-
-        <button
-          type="submit"
-          class="inv-cart-footer-mobile__checkout-btn"
-          name="checkout"
-          {% if cart == empty %}disabled{% endif %}
-          form="cart"
-        >
-          {{ 'sections.cart.checkout' | t }}
-        </button>
-
-        {%- comment -%} Hidden breakdown for AJAX update source {%- endcomment -%}
-        <div class="inv-cart-footer-mobile__breakdown" aria-hidden="true">
-          {%- if cart.cart_level_discount_applications.size > 0 -%}
-            <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
-              {%- for discount in cart.cart_level_discount_applications -%}
-                <li class="discounts__discount discounts__discount--position">
-                  {{- 'icon-discount.svg' | inline_asset_content -}}
-                  {{ discount.title | escape }}
-                  (-{{ discount.total_allocated_amount | money }})
-                </li>
-              {%- endfor -%}
-            </ul>
-          {%- endif -%}
-          {% render 'cart-breakdown', cart: cart %}
-        </div>
-
+      <div class="inv-cart-footer-mobile__total">
+        <span class="inv-cart-footer-mobile__label">Total</span>
+        <span class="inv-cart-footer-mobile__price">{{ cart.total_price | money }}</span>
+        <span class="inv-cart-footer-mobile__ex">{{ total_ex_vat | money }} ex VAT</span>
       </div>
+
+      <button
+        type="submit"
+        class="inv-cart-footer-mobile__checkout-btn"
+        name="checkout"
+        {% if cart == empty %}disabled{% endif %}
+        form="cart"
+      >
+        {{ 'sections.cart.checkout' | t }}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+
+      {%- comment -%} Hidden breakdown for AJAX update source {%- endcomment -%}
+      <div class="inv-cart-footer-mobile__breakdown" aria-hidden="true">
+        {%- if cart.cart_level_discount_applications.size > 0 -%}
+          <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+            {%- for discount in cart.cart_level_discount_applications -%}
+              <li class="discounts__discount discounts__discount--position">
+                {{- 'icon-discount.svg' | inline_asset_content -}}
+                {{ discount.title | escape }}
+                (-{{ discount.total_allocated_amount | money }})
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+        {% render 'cart-breakdown', cart: cart %}
+      </div>
+
     </div>
   </div>
 </div>
