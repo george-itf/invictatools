@@ -379,8 +379,14 @@
                           {%- if item.original_line_price != item.final_line_price -%}
                             <span class="inv-cart-line__price-was">{{ item.original_line_price | money }}</span>
                           {%- endif -%}
-                          <span class="inv-cart-line__price-primary">{{ item.final_line_price | money }}</span>
-                          <span class="inv-cart-line__price-secondary">{{ line_ex_vat | money }} ex VAT</span>
+                          <span class="inv-cart-line__price-inc">
+                            <span class="inv-cart-line__price-amount">{{ item.final_line_price | money }}</span>
+                            <span class="inv-cart-line__price-tag">inc VAT</span>
+                          </span>
+                          <span class="inv-cart-line__price-ex">
+                            <span class="inv-cart-line__price-amount">{{ line_ex_vat | money }}</span>
+                            <span class="inv-cart-line__price-tag">ex VAT</span>
+                          </span>
                         </div>
                       </div>
 
@@ -396,16 +402,17 @@
                   <div class="inv-cart-urgency" data-inv-delivery-estimate data-stock-source="invicta">
                     <div class="inv-cart-urgency__message">
                       <span class="inv-cart-urgency__dot" aria-hidden="true"></span>
-                      <span>
+                      <span class="inv-cart-urgency__text">
                         <span data-inv-del-order-text>{{ 'invicta.delivery.order_now' | t }}</span>
-                        <strong data-inv-del-countdown style="display:none"></strong>
+                        <span class="inv-cart-urgency__inline-time" data-inv-del-countdown style="display:none"></span>
                         <span data-inv-del-for-text>{{ 'invicta.delivery.for_delivery_on' | t }}</span>
                         <strong data-inv-del-day>Monday</strong>
                       </span>
                     </div>
-                    <span class="inv-cart-urgency__countdown" aria-hidden="true">
+                    <div class="inv-cart-urgency__countdown" aria-hidden="true">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    </span>
+                      <strong class="inv-cart-urgency__time" data-inv-del-countdown>--:--:--</strong>
+                    </div>
                   </div>
                   {{ 'component-delivery-estimate.css' | asset_url | stylesheet_tag }}
                   <script src="{{ 'component-delivery-estimate.js' | asset_url }}" defer></script>
@@ -419,11 +426,6 @@
                   <div class="inv-cart-summary__body">
 
                     {% render 'cart-breakdown', cart: cart %}
-
-                    <span class="inv-cart-summary__total-ex" aria-hidden="true">
-                      {%- assign sidebar_subtotal_ex = cart.total_price | times: 100 | plus: item_vat_rounding | divided_by: item_vat_divisor -%}
-                      {{ sidebar_subtotal_ex | money }} ex VAT
-                    </span>
 
                     <div class="inv-cart-summary__po">
                       <label class="inv-cart-summary__po-label" for="CartPoReference">
