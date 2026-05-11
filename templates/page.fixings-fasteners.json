@@ -17,7 +17,8 @@
           "settings": {
             "collection": "fixings-screws",
             "title": "",
-            "link": ""
+            "link": "",
+            "brand_color": ""
           }
         },
         "category_6yekAf": {
@@ -25,7 +26,8 @@
           "settings": {
             "collection": "fixings-bolts",
             "title": "",
-            "link": ""
+            "link": "",
+            "brand_color": ""
           }
         },
         "category_AMy8aD": {
@@ -33,7 +35,8 @@
           "settings": {
             "collection": "fixings-nuts-and-washers",
             "title": "",
-            "link": ""
+            "link": "",
+            "brand_color": ""
           }
         },
         "category_xRnpDG": {
@@ -41,7 +44,8 @@
           "settings": {
             "collection": "fixings-nails",
             "title": "",
-            "link": ""
+            "link": "",
+            "brand_color": ""
           }
         },
         "category_btFfxT": {
@@ -49,7 +53,8 @@
           "settings": {
             "collection": "fixings-staples-and-rivets",
             "title": "",
-            "link": ""
+            "link": "",
+            "brand_color": ""
           }
         },
         "category_m4KQDx": {
@@ -57,23 +62,8 @@
           "settings": {
             "collection": "fixings-anchors-and-fixings",
             "title": "",
-            "link": ""
-          }
-        },
-        "category_fdE989": {
-          "type": "category",
-          "settings": {
-            "collection": "fixings-structural-fixings",
-            "title": "",
-            "link": ""
-          }
-        },
-        "category_hXdiJN": {
-          "type": "category",
-          "settings": {
-            "collection": "fixings-door-and-gate-hardware",
-            "title": "",
-            "link": ""
+            "link": "",
+            "brand_color": ""
           }
         },
         "category_CTRLiQ": {
@@ -81,15 +71,8 @@
           "settings": {
             "collection": "fixings-clips",
             "title": "",
-            "link": ""
-          }
-        },
-        "category_zr8iqA": {
-          "type": "category",
-          "settings": {
-            "collection": "fixings-accessories",
-            "title": "",
-            "link": ""
+            "link": "",
+            "brand_color": ""
           }
         }
       },
@@ -100,10 +83,7 @@
         "category_xRnpDG",
         "category_btFfxT",
         "category_m4KQDx",
-        "category_fdE989",
-        "category_hXdiJN",
-        "category_CTRLiQ",
-        "category_zr8iqA"
+        "category_CTRLiQ"
       ],
       "settings": {
         "heading": "Fixings & Fasteners",
@@ -116,7 +96,9 @@
         "card_radius": 12,
         "card_padding": 16,
         "image_ratio": 75,
+        "image_fit": "cover",
         "show_arrow": true,
+        "use_brand_colors": false,
         "padding_top": 48,
         "padding_bottom": 48,
         "heading_size": 36,
