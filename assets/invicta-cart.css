@@ -56,10 +56,12 @@ cart-items .inv-cart-header.inv-cart-header {
 }
 
 .inv-cart-header__left {
-  display: flex;
+  display: inline-flex;
+  flex-wrap: nowrap;
   align-items: baseline;
   gap: var(--inv-space-sm);
   min-width: 0;
+  flex: 1 1 auto;
 }
 
 cart-items .inv-cart-header__title.inv-cart-header__title {
@@ -344,8 +346,8 @@ cart-items .inv-cart-header__continue.inv-cart-header__continue:hover {
 }
 
 .inv-cart-line__image {
-  max-width: 88%;
-  max-height: 88%;
+  max-width: 95%;
+  max-height: 95%;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -424,9 +426,11 @@ cart-items .inv-cart-line__title.inv-cart-line__title:hover {
 }
 
 .inv-cart-line__tag--delivery {
-  background: var(--inv-accent-soft);
-  color: var(--inv-accent);
-  border-color: var(--inv-accent-light);
+  /* Same tonal family as the urgency bar so the accent CTAs stay the
+     loudest red on the page. Uses warning tokens for a softer amber. */
+  background: var(--inv-warning-bg);
+  color: var(--inv-warning-text);
+  border-color: var(--inv-warning-border);
 }
 
 .inv-cart-line__tag--warranty {
@@ -957,11 +961,18 @@ cart-items .inv-cart-qty__input:focus {
   height: 100%;
   background: var(--inv-accent);
   transition: width var(--inv-duration-slow) var(--inv-ease-out-slow);
+  /* Always show a visible sliver so the bar reads as "early progress"
+     rather than "broken" when the cart is far from the threshold. */
+  min-width: 6%;
 }
 
 /* Total row */
 .inv-cart-grid__sidebar .invicta-cart-breakdown__row--total.invicta-cart-breakdown__row--total,
 .inv-cart-summary__body .invicta-cart-breakdown__row--total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--inv-space-md);
   border-top: 1px solid var(--inv-border);
   padding-top: var(--inv-space-md);
   margin-top: var(--inv-space-sm);
@@ -972,14 +983,17 @@ cart-items .inv-cart-qty__input:focus {
   font-size: var(--inv-text-sm);
   font-weight: 700;
   color: var(--inv-fg);
-  align-self: center;
+  letter-spacing: var(--inv-tracking-wide);
+  text-transform: uppercase;
+  align-self: baseline;
+  white-space: nowrap;
 }
 
 .invicta-cart-breakdown__value--stacked {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0;
+  gap: 2px;
   line-height: 1.1;
 }
 
@@ -1265,10 +1279,46 @@ html.inv-vat-ex .invicta-cart-breakdown__total-ex {
 .inv-cart-trust {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--inv-gap-sm);
+  gap: var(--inv-space-md);
   margin: 0;
   border: none;
   padding: 0;
+}
+
+/* Help / contact line that gives the sidebar a clean closing element. */
+.inv-cart-help {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--inv-space-sm);
+  padding: var(--inv-space-sm-plus) var(--inv-space-md);
+  background: var(--inv-bg-elevated);
+  border: 1px solid var(--inv-border);
+  font-size: var(--inv-text-xs);
+  color: var(--inv-fg-muted);
+  text-align: center;
+  text-decoration: none;
+  transition: border-color var(--inv-duration-moderate) var(--inv-ease-default),
+              color var(--inv-duration-moderate) var(--inv-ease-default);
+}
+
+.inv-cart-help svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--inv-fg-muted);
+}
+
+.inv-cart-help:hover,
+.inv-cart-help:focus-visible {
+  border-color: var(--inv-border-dark);
+  color: var(--inv-fg);
+  outline: none;
+}
+
+.inv-cart-help__phone {
+  color: var(--inv-fg);
+  font-weight: 700;
 }
 
 .inv-cart-grid__sidebar .inv-cart-trust__item.inv-cart-trust__item {
@@ -1333,9 +1383,11 @@ cart-items .inv-cart-info-strip strong {
   font-weight: 700;
 }
 
-/* Desktop: hide mobile-only info strip */
+/* Desktop: hide mobile-only info strip. Matches the specificity of the
+   default `cart-items .inv-cart-info-strip.inv-cart-info-strip` rule above
+   so the override actually wins. */
 @media screen and (min-width: 990px) {
-  .inv-cart-info-strip--mobile-only {
+  cart-items .inv-cart-info-strip.inv-cart-info-strip--mobile-only.inv-cart-info-strip--mobile-only {
     display: none;
   }
 }

@@ -271,33 +271,52 @@
 
   var productId = container.dataset.productId;
   var limit = container.dataset.limit || 6;
-  var sectionId = container.closest('.shopify-section').id.replace('shopify-section-', '');
+  var sectionEl = container.closest('.shopify-section');
+  var sectionId = sectionEl ? sectionEl.id.replace('shopify-section-', '') : '';
 
   if (!productId) {
-    container.remove();
+    if (sectionEl) sectionEl.remove(); else container.remove();
     return;
   }
 
-  var url = '/recommendations/products?section_id=' + sectionId +
-            '&product_id=' + productId +
-            '&limit=' + limit +
-            '&intent=complementary';
+  function removeEntireSection() {
+    if (sectionEl) sectionEl.remove(); else container.remove();
+  }
 
-  fetch(url)
-    .then(function(response) { return response.text(); })
-    .then(function(html) {
-      var temp = document.createElement('div');
-      temp.innerHTML = html;
-      var freshSection = temp.querySelector('[data-cart-recs]');
+  function buildUrl(intent) {
+    return '/recommendations/products?section_id=' + sectionId +
+           '&product_id=' + productId +
+           '&limit=' + limit +
+           '&intent=' + intent;
+  }
 
-      if (freshSection && freshSection.querySelector('.inv-cart-recs__item')) {
-        container.innerHTML = freshSection.innerHTML;
-        container.classList.remove('inv-cart-recs--loading');
-      } else {
-        container.remove();
-      }
+  function tryFetch(intent) {
+    return fetch(buildUrl(intent))
+      .then(function(response) { return response.text(); })
+      .then(function(html) {
+        var temp = document.createElement('div');
+        temp.innerHTML = html;
+        var freshSection = temp.querySelector('[data-cart-recs]');
+        if (freshSection && freshSection.querySelector('.inv-cart-recs__item')) {
+          container.innerHTML = freshSection.innerHTML;
+          container.classList.remove('inv-cart-recs--loading');
+          return true;
+        }
+        return false;
+      });
+  }
+
+  // Try complementary first; fall back to related so a single-item cart
+  // without explicit complementary rules still gets a useful rail.
+  tryFetch('complementary')
+    .then(function(ok) {
+      if (ok) return true;
+      return tryFetch('related');
+    })
+    .then(function(ok) {
+      if (!ok) removeEntireSection();
     })
     .catch(function() {
-      container.remove();
+      removeEntireSection();
     });
 })();
