@@ -136,22 +136,16 @@ const DEBUG = false;
       products.forEach(product => {
         this.container.appendChild(this.createCardNode(product));
       });
-
-      // Reveal the section now that content is ready (prevents CLS)
-      const section = document.querySelector('.inv-recent[data-section-id]');
-      if (section) {
-        section.classList.remove('inv-recent--loading');
-      }
     }
 
     showEmpty() {
       if (this.loadingEl) {
         this.loadingEl.classList.add('hidden');
       }
-      // Hide the entire section when empty to avoid wasting vertical space
+      // Hide the entire section when empty (below-fold; no CLS impact on initial viewport)
       const section = document.querySelector('.inv-recent[data-section-id]');
       if (section) {
-        section.style.display = 'none';
+        section.classList.add('inv-recent--hidden');
       }
     }
 

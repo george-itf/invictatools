@@ -26,8 +26,8 @@
   endif
 -%}
 
-<div 
-  class="inv-recent inv-recent--loading"
+<div
+  class="inv-recent"
   data-section-id="{{ section.id }}"
   data-logged-in="{{ is_logged_in }}"
   data-max-products="{{ section.settings.max_products }}"
@@ -111,16 +111,21 @@
      INVICTA RECENTLY VIEWED v3.0 — STYLES
      ============================================ */
 
-  /* Start hidden to prevent CLS — JS reveals when products are loaded */
-  .inv-recent--loading {
-    display: none;
-  }
-
+  /* CLS fix: reserve space with skeleton visible so the section never appears
+     suddenly. JS will replace skeleton with products or hide the section if
+     no history exists (below-fold, won't impact viewport CLS). */
   .inv-recent {
     background-color: var(--inv-recent-bg);
     padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
     border-top: 1px solid var(--inv-recent-card-border);
+    /* Reserve approximate height of populated section to prevent below-fold
+       layout shift if user scrolls before AJAX resolves. */
+    min-height: {{ section.settings.card_image_height | plus: 140 }}px;
+    content-visibility: auto;
+    contain-intrinsic-size: auto {{ section.settings.card_image_height | plus: 140 }}px;
   }
+
+  .inv-recent--hidden { display: none; }
   
   .inv-recent__container {
     max-width: var(--inv-container, 1400px);
