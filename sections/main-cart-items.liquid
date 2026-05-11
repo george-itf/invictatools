@@ -397,31 +397,18 @@
                               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                             </button>
                           </quantity-input>
-                          <div class="inv-cart-line__actions">
-                            <cart-remove-button
-                              id="Remove-{{ line_index }}"
-                              data-index="{{ line_index }}"
-                            >
-                              <button
-                                type="button"
-                                class="inv-cart-line__remove"
-                                aria-label="{{ 'sections.cart.remove_title' | t: title: item.title | escape }}"
-                              >
-                                Remove
-                              </button>
-                            </cart-remove-button>
-                            <span class="inv-cart-line__actions-sep" aria-hidden="true"></span>
+                          <cart-remove-button
+                            id="Remove-{{ line_index }}"
+                            data-index="{{ line_index }}"
+                          >
                             <button
                               type="button"
-                              class="inv-cart-line__save"
-                              data-save-for-later
-                              data-handle="{{ item.product.handle }}"
-                              data-variant-id="{{ item.variant.id }}"
-                              data-index="{{ line_index }}"
+                              class="inv-cart-line__remove"
+                              aria-label="{{ 'sections.cart.remove_title' | t: title: item.title | escape }}"
                             >
-                              Save for later
+                              Remove
                             </button>
-                          </div>
+                          </cart-remove-button>
                         </div>
 
                         <div class="inv-cart-line__price">
