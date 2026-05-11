@@ -14,7 +14,14 @@
 
 {% assign ss = section.settings %}
 
-{{ 'section-header-invicta.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+  Header CSS stays render-blocking (above-the-fold layout depends on it;
+  swapping to async caused FOUC + CLS in testing). A preload hint with
+  fetchpriority=high gets the browser to prioritise the fetch alongside
+  mobile.css / desktop.css.
+{%- endcomment -%}
+<link rel="preload" href="{{ 'section-header-invicta.css' | asset_url }}" as="style" fetchpriority="high">
+<link rel="stylesheet" href="{{ 'section-header-invicta.css' | asset_url }}">
 
 <header class="invicta-header" role="banner">
   <nav class="invicta-header__inner" aria-label="Main navigation">

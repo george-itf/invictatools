@@ -7,7 +7,13 @@
   ============================================================================
 {% endcomment %}
 
-{{ 'invicta-search.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+  Search CSS styles the visible header input (54px wrap, border, etc.),
+  so deferring it caused CLS. Preload with fetchpriority=high to keep
+  it on the high-priority queue alongside other above-fold CSS.
+{%- endcomment -%}
+<link rel="preload" href="{{ 'invicta-search.css' | asset_url }}" as="style" fetchpriority="high">
+<link rel="stylesheet" href="{{ 'invicta-search.css' | asset_url }}">
 
 <div class="inv-search-wrapper" data-inv-predictive-search>
   <form action="{{ routes.search_url }}" method="get" role="search" class="inv-search-form">
