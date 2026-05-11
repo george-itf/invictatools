@@ -634,13 +634,12 @@
         "friends2a_pdf_flipbook_flipbook_wrePXg": {
           "type": "shopify://apps/friends2a-pdf-flipbook/blocks/flipbook/019b657e-3a80-7aa1-b553-a71710f0cd3a",
           "settings": {
-            "front_cover": "shopify://shop_images/1_2f6010e5-369c-4627-b182-68a737766d41.png",
             "back_cover": "shopify://shop_images/6.png",
             "pdf_url": "https://cdn.shopify.com/s/files/1/0594/2296/5941/files/WEBSITE_PDF_FLYER.pdf?v=1778505281",
             "container_width": 70,
             "container_height": 600,
             "mobile_container_height": 400,
-            "content_zoom": 130,
+            "content_zoom": 100,
             "slide_duration": 0,
             "background_color": "#f5f5f5",
             "direction": "ltr",
