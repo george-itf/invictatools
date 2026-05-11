@@ -18,9 +18,27 @@
     assign vat_divisor = 100 | plus: settings.inv_vat_rate
     assign vat_rounding = vat_divisor | divided_by: 2
     assign heading = section.settings.heading | default: 'Complete the Job'
+
+    # Pick the product list: live recommendations first, otherwise fall back
+    # to a curated collection so the rail never collapses into an empty gap.
+    assign rec_products = recommendations.products
+    if rec_products.size == 0
+      assign fallback_col = section.settings.fallback_collection
+      if fallback_col == blank or fallback_col.products.size == 0
+        assign fallback_col = collections['featured-powertools']
+      endif
+      if fallback_col != blank and fallback_col.products.size > 0
+        assign rec_products = fallback_col.products
+      endif
+    endif
+
+    assign has_products = false
+    if rec_products.size > 0
+      assign has_products = true
+    endif
   -%}
 
-  <div class="inv-cart-recs inv-cart-recs--loading"
+  <div class="inv-cart-recs{% unless has_products %} inv-cart-recs--loading{% endunless %}"
        data-cart-recs
        data-product-id="{{ cart.items.first.product.id }}"
        data-limit="{{ section.settings.products_to_show | default: 6 }}">
@@ -44,10 +62,9 @@
         {%- endfor -%}
       </div>
 
-      {%- if recommendations.performed -%}
-        {%- if recommendations.products.size > 0 -%}
+      {%- if has_products -%}
           <ul class="inv-cart-recs__rail" role="list">
-            {%- for product in recommendations.products limit: section.settings.products_to_show -%}
+            {%- for product in rec_products limit: section.settings.products_to_show -%}
               {%- liquid
                 assign rec_variant = product.selected_or_first_available_variant
                 assign rec_price = rec_variant.price
@@ -82,7 +99,6 @@
               </li>
             {%- endfor -%}
           </ul>
-        {%- endif -%}
       {%- endif -%}
     </div>
   </div>
@@ -109,6 +125,12 @@
       "step": 1,
       "default": 6,
       "label": "Products to show"
+    },
+    {
+      "type": "collection",
+      "id": "fallback_collection",
+      "label": "Fallback collection",
+      "info": "Shown when Shopify has no complementary/related recommendations for the cart item."
     },
     {
       "type": "range",

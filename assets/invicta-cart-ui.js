@@ -280,6 +280,12 @@
   }
 
   function removeEntireSection() {
+    // If the server already rendered fallback content (curated collection),
+    // keep what's there instead of nuking the section.
+    if (container.querySelector('.inv-cart-recs__item')) {
+      container.classList.remove('inv-cart-recs--loading');
+      return;
+    }
     if (sectionEl) sectionEl.remove(); else container.remove();
   }
 
