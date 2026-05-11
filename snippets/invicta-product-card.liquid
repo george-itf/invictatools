@@ -123,9 +123,9 @@
     {%- comment -%} Image link {%- endcomment -%}
     <a href="{{ product_url }}" class="inv-card__img-link" aria-label="{{ product.title | escape }}">
       {%- if featured_image -%}
-        {%- assign img_200 = featured_image | image_url: width: 200 -%}
-        {%- assign img_400 = featured_image | image_url: width: 400 -%}
-        {%- assign img_600 = featured_image | image_url: width: 600 -%}
+        {%- assign img_200 = featured_image | image_url: width: 200, format: 'webp' -%}
+        {%- assign img_400 = featured_image | image_url: width: 400, format: 'webp' -%}
+        {%- assign img_600 = featured_image | image_url: width: 600, format: 'webp' -%}
         <img
           src="{{ img_400 }}"
           srcset="{{ img_200 }} 200w,
@@ -135,6 +135,7 @@
           alt="{{ featured_image.alt | escape | default: product.title }}"
           loading="{% if card_index != blank and card_index <= 4 %}eager{% else %}lazy{% endif %}"
           {% if card_index != blank and card_index <= 4 %}fetchpriority="high"{% endif %}
+          decoding="async"
           width="{{ featured_image.width | default: 400 }}"
           height="{{ featured_image.height | default: 400 }}"
           class="inv-card__img{% unless available %} inv-card__img--faded{% endunless %}"
