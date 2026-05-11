@@ -634,8 +634,7 @@
         "friends2a_pdf_flipbook_flipbook_wrePXg": {
           "type": "shopify://apps/friends2a-pdf-flipbook/blocks/flipbook/019b657e-3a80-7aa1-b553-a71710f0cd3a",
           "settings": {
-            "back_cover": "shopify://shop_images/6.png",
-            "pdf_url": "https://cdn.shopify.com/s/files/1/0594/2296/5941/files/WEBSITE_PDF_FLYER.pdf?v=1778505281",
+            "pdf_url": "https://cdn.shopify.com/s/files/1/0594/2296/5941/files/WEBSITE_PDF_FLYER_VERTICAL.pdf?v=1778507239",
             "container_width": 70,
             "container_height": 600,
             "mobile_container_height": 400,
