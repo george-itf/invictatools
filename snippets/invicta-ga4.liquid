@@ -1,12 +1,19 @@
 {% comment %}
   Invicta GA4 — Consent Mode v2
-  Loaded in <head>. Denied by default, granted on consent.
-  Listens for invicta:consent:updated custom event.
+
+  TBT optimisation: the gtag.js library (~80KB, ~250ms execution) was
+  the biggest single contributor to main-thread blocking on the homepage.
+  We now defer-load it after the main load event finishes (via
+  requestIdleCallback where available) so it stays off the critical path.
+
+  Consent defaults still run inline so any product/page events fired
+  before the library loads are queued in dataLayer and replayed when
+  gtag.js initialises.
 {% endcomment %}
 
 {%- if settings.inv_ga4_measurement_id != blank -%}
 <script>
-  /* Consent Mode v2 — deny everything by default */
+  /* Consent Mode v2 — deny everything by default. Lightweight inline. */
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('consent', 'default', {
@@ -18,10 +25,24 @@
   });
   gtag('js', new Date());
   gtag('config', '{{ settings.inv_ga4_measurement_id }}'{%- if settings.inv_ga4_debug -%}, { 'debug_mode': true }{%- endif -%});
-</script>
-<script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.inv_ga4_measurement_id }}"></script>
-<script>
-  /* Update consent when cookie banner decision is made */
+
+  /* If consent was already given (returning visitor), grant immediately
+     so the queued events fire with full storage when gtag.js arrives. */
+  try {
+    var ha = localStorage.getItem('invicta-consent-analytics') === '1';
+    var hm = localStorage.getItem('invicta-consent-marketing') === '1';
+    if (ha || hm) {
+      gtag('consent', 'update', {
+        'analytics_storage': ha ? 'granted' : 'denied',
+        'ad_storage': hm ? 'granted' : 'denied',
+        'ad_user_data': hm ? 'granted' : 'denied',
+        'ad_personalization': hm ? 'granted' : 'denied'
+      });
+    }
+  } catch (e) {}
+
+  /* Update consent when cookie banner decision is made (event may fire
+     before gtag.js loads — dataLayer.push queues it for replay). */
   document.addEventListener('invicta:consent:updated', function(e) {
     var d = e.detail || {};
     gtag('consent', 'update', {
@@ -32,18 +53,32 @@
     });
   });
 
-  /* If consent was already given (returning visitor), grant immediately */
-  (function() {
-    var hasAnalytics = localStorage.getItem('invicta-consent-analytics') === '1';
-    var hasMarketing = localStorage.getItem('invicta-consent-marketing') === '1';
-    if (hasAnalytics || hasMarketing) {
-      gtag('consent', 'update', {
-        'analytics_storage': hasAnalytics ? 'granted' : 'denied',
-        'ad_storage': hasMarketing ? 'granted' : 'denied',
-        'ad_user_data': hasMarketing ? 'granted' : 'denied',
-        'ad_personalization': hasMarketing ? 'granted' : 'denied'
-      });
+  /* Lazy-load gtag.js off the critical path. */
+  (function(){
+    var src = 'https://www.googletagmanager.com/gtag/js?id={{ settings.inv_ga4_measurement_id }}';
+    var loaded = false;
+    function load() {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = src;
+      document.head.appendChild(s);
+    }
+    function schedule() {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(load, { timeout: 4000 });
+      } else {
+        setTimeout(load, 2500);
+      }
+    }
+    if (document.readyState === 'complete') {
+      schedule();
+    } else {
+      window.addEventListener('load', schedule, { once: true });
     }
   })();
 </script>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 {%- endif -%}

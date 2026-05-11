@@ -646,7 +646,35 @@
   }
 </style>
 
-<script src="{{ 'invicta-recently-viewed.js' | asset_url }}" defer></script>
+<script>
+  /* TBT optimisation: only load the recently-viewed module when the
+     section is near the viewport. Section is below the fold on every
+     homepage, so deferring its 9KB JS off the critical path keeps it
+     out of the main-thread budget for FCP/LCP. */
+  (function() {
+    var section = document.querySelector('.inv-recent[data-section-id]');
+    if (!section) return;
+    var loaded = false;
+    function load() {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement('script');
+      s.src = {{ 'invicta-recently-viewed.js' | asset_url | json }};
+      s.defer = true;
+      document.head.appendChild(s);
+    }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) { load(); io.disconnect(); }
+        });
+      }, { rootMargin: '400px 0px' });
+      io.observe(section);
+    } else {
+      window.addEventListener('load', load, { once: true });
+    }
+  })();
+</script>
 
 {% schema %}
 {
