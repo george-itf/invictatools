@@ -173,6 +173,43 @@
       })();
     </script>
 
+    {%- comment -%} Save-for-later handler. Stores variant + handle in
+      localStorage and triggers the existing cart-remove-button so the
+      line is removed and the JS-contents AJAX path runs. {%- endcomment -%}
+    <script>
+      (function() {
+        'use strict';
+        var STORAGE_KEY = 'invicta_saved_for_later';
+
+        document.addEventListener('click', function(e) {
+          var btn = e.target.closest('[data-save-for-later]');
+          if (!btn) return;
+          e.preventDefault();
+          if (btn.dataset.busy === '1') return;
+          btn.dataset.busy = '1';
+
+          var handle = btn.dataset.handle;
+          var variantId = btn.dataset.variantId;
+
+          try {
+            var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            if (!Array.isArray(saved)) saved = [];
+            var exists = saved.some(function(s) { return String(s.variantId) === String(variantId); });
+            if (!exists) {
+              saved.push({ handle: handle, variantId: variantId, savedAt: Date.now() });
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+            }
+          } catch (err) { /* localStorage unavailable — proceed with removal */ }
+
+          var line = btn.closest('.inv-cart-line');
+          var removeBtn = line ? line.querySelector('cart-remove-button') : null;
+          if (removeBtn) {
+            removeBtn.click();
+          }
+        });
+      })();
+    </script>
+
     {%- comment -%} Info strip — visible on mobile, hidden on desktop (sidebar has it). CSS hides it when cart-items.is-empty. {%- endcomment -%}
     {%- if section.settings.show_free_shipping_bar -%}
       <div class="inv-cart-info-strip inv-cart-info-strip--mobile-only">
@@ -211,6 +248,26 @@
                         endif
                       endfor
 
+                      # Warranty fallbacks: metafield → brand default → blank
+                      if warranty_years == blank
+                        assign warranty_meta = item.product.metafields.invicta.warranty_years
+                        if warranty_meta != blank and warranty_meta != nil
+                          assign warranty_years = warranty_meta
+                        endif
+                      endif
+
+                      if warranty_years == blank
+                        assign vendor_lower = item.product.vendor | downcase | strip
+                        case vendor_lower
+                          when 'hikoki', 'makita', 'dewalt', 'milwaukee', 'metabo'
+                            assign warranty_years = '3'
+                          when 'bahco', 'irwin', 'stanley', 'starrett', 'faithfull'
+                            assign warranty_years = 'Lifetime'
+                          when 'paslode', 'einhell', 'tengtools'
+                            assign warranty_years = '2'
+                        endcase
+                      endif
+
                       assign line_index = item.index | plus: 1
 
                       assign item_price_for_vat = item.final_price | times: 100 | plus: item_vat_rounding
@@ -220,6 +277,8 @@
                       assign line_ex_vat = line_price_for_vat | divided_by: item_vat_divisor
 
                       assign sold_count_meta = item.product.metafields.invicta.sold_this_week
+                      # Social-proof fallback: when no metafield, render a quiet,
+                      # honest fallback rather than nothing.
                     -%}
 
                     <li class="inv-cart-line cart-item" id="CartItem-{{ line_index }}">
@@ -268,18 +327,24 @@
                             {%- if warranty_years != blank -%}
                               <li>
                                 <span class="inv-cart-line__tag inv-cart-line__tag--warranty">
-                                  {{ warranty_years }}-year warranty
+                                  {%- if warranty_years == 'Lifetime' -%}
+                                    Lifetime warranty
+                                  {%- else -%}
+                                    {{ warranty_years }}-year warranty
+                                  {%- endif -%}
                                 </span>
                               </li>
                             {%- endif -%}
                           </ul>
 
-                          {%- if sold_count_meta != blank and sold_count_meta != nil -%}
-                            <span class="inv-cart-line__social">
-                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                          <span class="inv-cart-line__social">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            {%- if sold_count_meta != blank and sold_count_meta != nil -%}
                               {{ sold_count_meta }} bought this week
-                            </span>
-                          {%- endif -%}
+                            {%- else -%}
+                              Trusted by UK trade buyers
+                            {%- endif -%}
+                          </span>
 
                           {%- if item.product.has_only_default_variant == false or item.properties.size != 0 or item.selling_plan_allocation != null -%}
                             <dl class="inv-cart-line__options">
@@ -360,18 +425,31 @@
                               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                             </button>
                           </quantity-input>
-                          <cart-remove-button
-                            id="Remove-{{ line_index }}"
-                            data-index="{{ line_index }}"
-                          >
+                          <div class="inv-cart-line__actions">
+                            <cart-remove-button
+                              id="Remove-{{ line_index }}"
+                              data-index="{{ line_index }}"
+                            >
+                              <button
+                                type="button"
+                                class="inv-cart-line__remove"
+                                aria-label="{{ 'sections.cart.remove_title' | t: title: item.title | escape }}"
+                              >
+                                Remove
+                              </button>
+                            </cart-remove-button>
+                            <span class="inv-cart-line__actions-sep" aria-hidden="true"></span>
                             <button
                               type="button"
-                              class="inv-cart-line__remove"
-                              aria-label="{{ 'sections.cart.remove_title' | t: title: item.title | escape }}"
+                              class="inv-cart-line__save"
+                              data-save-for-later
+                              data-handle="{{ item.product.handle }}"
+                              data-variant-id="{{ item.variant.id }}"
+                              data-index="{{ line_index }}"
                             >
-                              Remove
+                              Save for later
                             </button>
-                          </cart-remove-button>
+                          </div>
                         </div>
 
                         <div class="inv-cart-line__price">
@@ -428,7 +506,7 @@
 
                     <div class="inv-cart-summary__po">
                       <label class="inv-cart-summary__po-label" for="CartPoReference">
-                        PO / Reference Number
+                        <span class="inv-cart-summary__po-label-main">PO / Reference Number</span>
                         <span class="inv-cart-summary__po-optional">(optional)</span>
                       </label>
                       <cart-note>
