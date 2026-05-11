@@ -1509,6 +1509,20 @@
         "info": "Standard UK shipping rate used to display the savings amount on the cart when an order qualifies for free delivery."
       },
       {
+        "type": "text",
+        "id": "inv_support_phone",
+        "label": "Support phone number",
+        "default": "01843 210459",
+        "info": "Shown on the cart sidebar 'Need help?' line. Non-digits are stripped for the tel: link."
+      },
+      {
+        "type": "textarea",
+        "id": "inv_brand_warranty_map",
+        "label": "Brand warranty defaults",
+        "default": "hikoki:3\nmakita:3\ndewalt:3\nmilwaukee:3\nmetabo:3\nbahco:Lifetime\nirwin:Lifetime\nstanley:Lifetime\nstarrett:Lifetime\nfaithfull:Lifetime\npaslode:2\neinhell:2\ntengtools:2",
+        "info": "One brand per line, format `vendor:years`. Used when a product has no warranty tag or metafield. Use 'Lifetime' for lifetime guarantees."
+      },
+      {
         "type": "header",
         "content": "t:settings_schema.invicta_trade.settings.header__delivery.content"
       },
