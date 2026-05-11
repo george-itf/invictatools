@@ -260,7 +260,41 @@
 })();
 
 // =============================================================================
-// SECTION 3: Cart Recommendations
+// SECTION 3: Save-for-later (delegated; survives AJAX re-renders)
+// =============================================================================
+
+(function() {
+  'use strict';
+  var STORAGE_KEY = 'invicta_saved_for_later';
+
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('[data-save-for-later]');
+    if (!btn) return;
+    e.preventDefault();
+    if (btn.dataset.busy === '1') return;
+    btn.dataset.busy = '1';
+
+    var handle = btn.dataset.handle;
+    var variantId = btn.dataset.variantId;
+
+    try {
+      var saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      if (!Array.isArray(saved)) saved = [];
+      var exists = saved.some(function(s) { return String(s.variantId) === String(variantId); });
+      if (!exists) {
+        saved.push({ handle: handle, variantId: variantId, savedAt: Date.now() });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+      }
+    } catch (err) { /* localStorage unavailable — fall through to removal */ }
+
+    var line = btn.closest('.inv-cart-line');
+    var removeBtn = line ? line.querySelector('cart-remove-button') : null;
+    if (removeBtn) removeBtn.click();
+  });
+})();
+
+// =============================================================================
+// SECTION 4: Cart Recommendations
 // =============================================================================
 
 (function() {
