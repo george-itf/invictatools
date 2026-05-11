@@ -1498,6 +1498,17 @@
         "info": "t:settings_schema.invicta_trade.settings.inv_free_shipping_pence.info"
       },
       {
+        "type": "range",
+        "id": "inv_standard_shipping_pence",
+        "min": 0,
+        "max": 5000,
+        "step": 50,
+        "default": 499,
+        "unit": "p",
+        "label": "Standard shipping (pence)",
+        "info": "Standard UK shipping rate used to display the savings amount on the cart when an order qualifies for free delivery."
+      },
+      {
         "type": "header",
         "content": "t:settings_schema.invicta_trade.settings.header__delivery.content"
       },

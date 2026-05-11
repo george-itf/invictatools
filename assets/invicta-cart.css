@@ -1144,28 +1144,48 @@ html.inv-vat-ex .invicta-cart-breakdown__total-ex {
   width: 100%;
 }
 
+/* Shopify renders express checkout buttons inside #dynamic-checkout-cart.
+   Force a clean stacked layout regardless of how many gateways are enabled.
+   The 380px sidebar is too narrow for branded buttons to sit side-by-side
+   readably, so we stack them at every breakpoint. */
+.inv-cart-summary__express #dynamic-checkout-cart,
+.inv-cart-summary__express .dynamic-checkout__content {
+  width: 100%;
+}
+
 .inv-cart-summary__express #dynamic-checkout-cart ul {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: var(--inv-space-sm);
   padding: 0;
   margin: 0;
   list-style: none;
-}
-
-@media screen and (min-width: 990px) {
-  .inv-cart-summary__express #dynamic-checkout-cart ul:has(> :nth-child(2)) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .inv-cart-summary__express #dynamic-checkout-cart ul:has(> :nth-child(3)) {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  width: 100%;
 }
 
 .inv-cart-summary__express #dynamic-checkout-cart ul > li {
   margin: 0;
   width: 100%;
+  min-height: var(--inv-touch-target-min);
+}
+
+.inv-cart-summary__express .shopify-payment-button {
+  width: 100%;
+}
+
+/* Tablet single-column layout: sidebar drops below items and spans wide.
+   Allow up to two branded buttons per row at >=750px and <990px so the
+   space isn't wasted. */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .inv-cart-summary__express #dynamic-checkout-cart ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .inv-cart-summary__express #dynamic-checkout-cart ul > li {
+    flex: 1 1 calc(50% - var(--inv-space-sm));
+    min-width: 160px;
+  }
 }
 
 /* Cart note in sidebar */
@@ -1556,8 +1576,27 @@ cart-items .inv-cart-info-strip strong {
   margin-top: var(--inv-space-xs);
 }
 
-cart-items.is-empty .inv-cart-grid__sidebar,
-cart-items.is-empty .inv-cart-progress {
+/* Visibility swap between empty state and cart UI.
+   The empty hero is always in the DOM so it can appear immediately after
+   AJAX removes the last item (the JS toggles .is-empty on <cart-items>). */
+.inv-cart-empty {
+  display: none;
+}
+
+cart-items.is-empty .inv-cart-empty {
+  display: block;
+}
+
+cart-items.is-empty .inv-cart-progress,
+cart-items.is-empty .inv-cart-header,
+cart-items.is-empty .inv-cart-info-strip,
+cart-items.is-empty .cart__contents {
+  display: none;
+}
+
+/* Belt and braces: also hide the sidebar/grid pieces directly */
+cart-items.is-empty .inv-cart-grid,
+cart-items.is-empty .inv-cart-grid__sidebar {
   display: none;
 }
 

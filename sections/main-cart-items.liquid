@@ -69,29 +69,29 @@
       </a>
     </div>
 
-    {%- if cart == empty -%}
-      <div class="inv-cart-empty">
-        <div class="inv-cart-empty__hero">
-          <svg class="inv-cart-empty__icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="9" cy="21" r="1"/>
-            <circle cx="20" cy="21" r="1"/>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-          </svg>
-          <h1 class="inv-cart-empty__title">Your cart is empty</h1>
-          <p class="inv-cart-empty__text">Looks like you haven't added anything yet. Browse our range to find what you need.</p>
-          <a href="{{ routes.all_products_collection_url }}" class="inv-cart-empty__cta">
-            Continue Shopping
-          </a>
-        </div>
-
-        <div class="inv-cart-empty__recent" data-empty-recent style="display: none;">
-          <h2 class="inv-cart-empty__recent-title">Recently Viewed</h2>
-          <div class="inv-cart-empty__recent-grid" data-empty-recent-grid></div>
-        </div>
+    {%- comment -%} Empty hero — always in DOM, CSS reveals it when cart-items.is-empty {%- endcomment -%}
+    <div class="inv-cart-empty" data-cart-empty-hero>
+      <div class="inv-cart-empty__hero">
+        <svg class="inv-cart-empty__icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        <h1 class="inv-cart-empty__title">Your cart is empty</h1>
+        <p class="inv-cart-empty__text">Looks like you haven't added anything yet. Browse our range to find what you need.</p>
+        <a href="{{ routes.all_products_collection_url }}" class="inv-cart-empty__cta">
+          Continue Shopping
+        </a>
       </div>
 
-      <script>
-        (function() {
+      <div class="inv-cart-empty__recent" data-empty-recent style="display: none;">
+        <h2 class="inv-cart-empty__recent-title">Recently Viewed</h2>
+        <div class="inv-cart-empty__recent-grid" data-empty-recent-grid></div>
+      </div>
+    </div>
+
+    <script>
+      (function() {
           'use strict';
           var STORAGE_KEY = 'invicta_recently_viewed_v3';
           var container = document.querySelector('[data-empty-recent]');
@@ -170,12 +170,11 @@
               grid.appendChild(card);
             });
           }
-        })();
-      </script>
-    {%- endif -%}
+      })();
+    </script>
 
-    {%- comment -%} Info strip — visible on mobile, hidden on desktop (sidebar has it) {%- endcomment -%}
-    {%- if cart != empty and section.settings.show_free_shipping_bar -%}
+    {%- comment -%} Info strip — visible on mobile, hidden on desktop (sidebar has it). CSS hides it when cart-items.is-empty. {%- endcomment -%}
+    {%- if section.settings.show_free_shipping_bar -%}
       <div class="inv-cart-info-strip inv-cart-info-strip--mobile-only">
         {% render 'invicta-free-delivery-bar' %}
       </div>
