@@ -635,7 +635,7 @@
           "type": "shopify://apps/friends2a-pdf-flipbook/blocks/flipbook/019b657e-3a80-7aa1-b553-a71710f0cd3a",
           "settings": {
             "front_cover": "shopify://shop_images/1_2f6010e5-369c-4627-b182-68a737766d41.png",
-            "end_page": "shopify://shop_images/6.png",
+            "back_cover": "shopify://shop_images/6.png",
             "pdf_url": "https://cdn.shopify.com/s/files/1/0594/2296/5941/files/WEBSITE_PDF_FLYER_split_trimmed.pdf?v=1778507473",
             "container_width": 100,
             "container_height": 1000,
