@@ -455,35 +455,6 @@
         "benefit_check_color": "#10b981"
       }
     },
-    "17760661600088bbff": {
-      "type": "apps",
-      "blocks": {
-        "friends2a_pdf_flipbook_flipbook_wrePXg": {
-          "type": "shopify://apps/friends2a-pdf-flipbook/blocks/flipbook/019b657e-3a80-7aa1-b553-a71710f0cd3a",
-          "settings": {
-            "front_cover": "shopify://shop_images/1_2f6010e5-369c-4627-b182-68a737766d41.png",
-            "back_cover": "shopify://shop_images/6.png",
-            "pdf_url": "https://cdn.shopify.com/s/files/1/0594/2296/5941/files/WEBSITE_PDF_FLYER_split_trimmed.pdf?v=1778507473",
-            "container_width": 100,
-            "container_height": 1000,
-            "mobile_container_height": 400,
-            "content_zoom": 100,
-            "slide_duration": 0,
-            "background_color": "#f5f5f5",
-            "direction": "ltr",
-            "enable_download": true,
-            "mobile_viewport_width": 80
-          }
-        }
-      },
-      "block_order": [
-        "friends2a_pdf_flipbook_flipbook_wrePXg"
-      ],
-      "custom_css": [],
-      "settings": {
-        "include_margins": true
-      }
-    },
     "trust_reviews": {
       "type": "invicta-trust-reviews",
       "blocks": {
@@ -668,7 +639,6 @@
     "invicta_homepage_products_UrjJbU",
     "invicta_product_wall_HVMQDY",
     "recently_viewed",
-    "17760661600088bbff",
     "trust_reviews",
     "invicta_newsletter_t9TTnj"
   ]
