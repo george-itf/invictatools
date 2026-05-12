@@ -34,15 +34,15 @@
             "front_cover": "shopify://shop_images/1_2f6010e5-369c-4627-b182-68a737766d41.png",
             "back_cover": "shopify://shop_images/6.png",
             "pdf_url": "https://cdn.shopify.com/s/files/1/0594/2296/5941/files/WEBSITE_PDF_FLYER_split_trimmed.pdf?v=1778507473",
-            "container_width": 70,
-            "container_height": 600,
+            "container_width": 100,
+            "container_height": 1000,
             "mobile_container_height": 400,
-            "content_zoom": 130,
+            "content_zoom": 100,
             "slide_duration": 0,
             "background_color": "#f5f5f5",
             "direction": "ltr",
-            "enable_download": false,
-            "mobile_viewport_width": 80
+            "enable_download": true,
+            "mobile_viewport_width": 100
           }
         }
       },
