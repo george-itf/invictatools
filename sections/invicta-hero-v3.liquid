@@ -25,11 +25,16 @@
 -%}
 
 {%- if section.settings.hero_image != blank -%}
+  {%- comment -%}
+    LCP image preload. Mobile preload omitted on purpose: the visual column
+    is hidden on <990px so loading the image early on those viewports wastes
+    bandwidth and delays the real LCP element (the heading text).
+  {%- endcomment -%}
   <link rel="preload" as="image"
-    imagesrcset="{{ section.settings.hero_image | image_url: width: 340 }} 340w,
-                 {{ section.settings.hero_image | image_url: width: 500 }} 500w,
-                 {{ section.settings.hero_image | image_url: width: 680 }} 680w"
-    imagesizes="(max-width: 749px) 100vw, (max-width: 989px) 50vw, 380px"
+    imagesrcset="{{ section.settings.hero_image | image_url: width: 500, format: 'webp' }} 500w,
+                 {{ section.settings.hero_image | image_url: width: 680, format: 'webp' }} 680w"
+    imagesizes="(max-width: 989px) 0px, 380px"
+    media="(min-width: 990px)"
     fetchpriority="high">
 {%- endif -%}
 
@@ -78,16 +83,16 @@
     {%- if section.settings.hero_image != blank -%}
       <div class="inv-hero-v3__visual">
         <img
-          src="{{ section.settings.hero_image | image_url: width: 680 }}"
-          srcset="{{ section.settings.hero_image | image_url: width: 340 }} 340w,
-                  {{ section.settings.hero_image | image_url: width: 500 }} 500w,
-                  {{ section.settings.hero_image | image_url: width: 680 }} 680w"
-          sizes="(max-width: 749px) 100vw, (max-width: 989px) 50vw, 380px"
+          src="{{ section.settings.hero_image | image_url: width: 680, format: 'webp' }}"
+          srcset="{{ section.settings.hero_image | image_url: width: 500, format: 'webp' }} 500w,
+                  {{ section.settings.hero_image | image_url: width: 680, format: 'webp' }} 680w"
+          sizes="380px"
           alt="{{ section.settings.heading | escape }}"
           width="{{ section.settings.hero_image.width }}"
           height="{{ section.settings.hero_image.height }}"
           loading="eager"
           fetchpriority="high"
+          decoding="async"
           class="inv-hero-v3__image"
         >
         {%- if show_price -%}
@@ -145,10 +150,18 @@
     padding: 0 var(--inv-page-gutter, 1.5rem);
     display: grid;
     grid-template-columns: 1fr;
-    min-height: 380px;
+    /* CLS fix: reserve hero height across all viewports. Mobile uses a
+       smaller min-height because the right-column image is hidden there. */
+    min-height: 320px;
     align-items: center;
     position: relative;
     z-index: 1;
+  }
+
+  @media (min-width: 990px) {
+    #hero-v3-{{ section.id }} .inv-hero-v3__container {
+      min-height: 380px;
+    }
   }
 
   /* When no image: content takes full width */

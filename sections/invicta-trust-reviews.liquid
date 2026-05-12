@@ -144,12 +144,13 @@
           {%- if section.settings.image_1 != blank -%}
             <div class="inv-tr5__branch">
               <img
-                src="{{ section.settings.image_1 | image_url: width: 720 }}"
-                srcset="{{ section.settings.image_1 | image_url: width: 480 }} 480w,
-                        {{ section.settings.image_1 | image_url: width: 720 }} 720w"
+                src="{{ section.settings.image_1 | image_url: width: 720, format: 'webp' }}"
+                srcset="{{ section.settings.image_1 | image_url: width: 480, format: 'webp' }} 480w,
+                        {{ section.settings.image_1 | image_url: width: 720, format: 'webp' }} 720w"
                 sizes="(max-width: 680px) 100vw, 50vw"
                 alt="{{ section.settings.image_1.alt | default: section.settings.image_1_caption }}"
                 loading="lazy"
+                decoding="async"
                 width="{{ section.settings.image_1.width }}"
                 height="{{ section.settings.image_1.height }}"
                 class="inv-tr5__branch-img"
@@ -168,12 +169,13 @@
           {%- if section.settings.image_2 != blank -%}
             <div class="inv-tr5__branch">
               <img
-                src="{{ section.settings.image_2 | image_url: width: 720 }}"
-                srcset="{{ section.settings.image_2 | image_url: width: 480 }} 480w,
-                        {{ section.settings.image_2 | image_url: width: 720 }} 720w"
+                src="{{ section.settings.image_2 | image_url: width: 720, format: 'webp' }}"
+                srcset="{{ section.settings.image_2 | image_url: width: 480, format: 'webp' }} 480w,
+                        {{ section.settings.image_2 | image_url: width: 720, format: 'webp' }} 720w"
                 sizes="(max-width: 680px) 100vw, 50vw"
                 alt="{{ section.settings.image_2.alt | default: section.settings.image_2_caption }}"
                 loading="lazy"
+                decoding="async"
                 width="{{ section.settings.image_2.width }}"
                 height="{{ section.settings.image_2.height }}"
                 class="inv-tr5__branch-img"

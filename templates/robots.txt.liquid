@@ -1,24 +1,31 @@
 {%- comment -%}
   Invicta Tools — robots.txt
-  Preserves Shopify defaults and adds optional crawl control
-  for faceted filter URLs.
-{%- endcomment -%}
-{%- for group in robots.default_groups -%}
-  {%- for agent in group.user_agent -%}
-User-agent: {{ agent.value }}
-  {%- endfor -%}
-  {%- for rule in group.rules -%}
-{{ rule.directive }}: {{ rule.value }}
-  {%- endfor -%}
 
+  Renders Shopify's default groups (with proper newline separation) and
+  optionally appends a custom block that blocks faceted-filter and
+  sort-by URLs to reduce crawl waste.
+
+  Previous version stripped whitespace between adjacent loop iterations
+  (the `{%- ... -%}` controls were too aggressive) which concatenated
+  "User-agent" / rule lines onto one line. PageSpeed flagged 144 syntax
+  errors as a result. This rewrite mirrors Shopify's stock template so
+  every directive lands on its own line.
+{%- endcomment -%}
+{% for group in robots.default_groups %}
+{{- group.user_agent }}
+{%   for rule in group.rules -%}
+{{    rule }}
+{%   endfor -%}
+{%- if group.sitemap != blank %}
+{{ group.sitemap }}
+{%   endif %}
 {% endfor -%}
 
-{%- if settings.seo_robots_block_filter_params -%}
+{%- if settings.seo_robots_block_filter_params %}
 # Invicta SEO — block faceted filter and sort URLs to reduce crawl waste
 User-agent: *
 Disallow: /*?*filter.
 Disallow: /*&filter.
 Disallow: /*?*sort_by=
 Disallow: /*&sort_by=
-
-{%- endif -%}
+{% endif -%}
