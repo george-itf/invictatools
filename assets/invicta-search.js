@@ -649,9 +649,15 @@
 
       /* Ex-VAT price */
       const vat = window.invictaVat || { exFromInc: function(p) { return Math.round(p * 100 / 120); }, formatPounds: function(p) { return (p / 100).toFixed(2); } };
-      const priceExVatPence = vat.exFromInc(product.price);
+      /* /search/suggest.json returns `price` as a decimal string in major
+         units (e.g. "70.00"), unlike cart.js / variant JSON which use
+         integer pence. Normalise to pence so the pence-based VAT helpers
+         produce correctly scaled output. */
+      const priceMajor = parseFloat(product.price);
+      const priceInPence = Number.isFinite(priceMajor) ? Math.round(priceMajor * 100) : 0;
+      const priceExVatPence = vat.exFromInc(priceInPence);
       const priceExVat = vat.formatPounds(priceExVatPence);
-      const priceInc = (product.price / 100).toFixed(2);
+      const priceInc = vat.formatPounds(priceInPence);
 
       /* Build DOM */
       const anchor = document.createElement('a');
